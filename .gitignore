@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+frontend/dist/
+
+# macOS
+.DS_Store
+
+# Local env / secrets (EMA alerts watcher) — never publish to a web-accessible repo
+alerts/config.env
+alerts/state.json
+*.local
+
+# Editor / logs
+*.log
+
+# Python caches (EMA alerts watcher)
+__pycache__/
+*.pyc
+
+# Capacitor / iOS build artifacts
+frontend/ios/App/Pods/
+frontend/ios/App/App/public/
+frontend/ios/DerivedData/

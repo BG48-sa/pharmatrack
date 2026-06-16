@@ -1,0 +1,24 @@
+{
+  "name": "PharmaTrack: Drug Approvals",
+  "short_name": "PharmaTrack",
+  "description": "FDA and EMA drug approvals — including CDER's novel new-drug list — plus late-stage clinical trials.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

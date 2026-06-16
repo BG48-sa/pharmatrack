@@ -1,0 +1,4 @@
+{
+  "name": "PharmaTrack: Recent Drug Approvals",
+  "description": "A web application that lists recently approved pharmaceutical drugs, displaying their Marketing Authorization (MA) dates from the FDA and EMA in numerical order."
+}

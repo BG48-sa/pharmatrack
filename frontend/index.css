@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* App-level base styles (previously inline in index.html) */
+body {
+  background-color: #f8fafc; /* slate-50 */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent; /* remove tap highlight on iOS */
+  overscroll-behavior-y: none; /* prevent pull-to-refresh bounce */
+}
+
+/* Hide the page scrollbar for a cleaner native feel */
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Utility used by horizontally-scrolling filter chips */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

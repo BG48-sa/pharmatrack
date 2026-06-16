@@ -1,0 +1,468 @@
+{
+  "2026": [
+    {
+      "no": 20,
+      "brandName": "Cypsedo",
+      "genericName": "cipepofol",
+      "approvalDate": "2026-05-29",
+      "indication": "To induce general anesthesia in adults undergoing surgery"
+    },
+    {
+      "no": 19,
+      "brandName": "Xocova",
+      "genericName": "ensitrelvir",
+      "approvalDate": "2026-05-29",
+      "indication": "To use as post-exposure prophylaxis of coronavirus disease 2019 (COVID-19) following contact with an individual who has COVID-19"
+    },
+    {
+      "no": 18,
+      "brandName": "Zaynich",
+      "genericName": "cefepime and zidebactam",
+      "approvalDate": "2026-05-29",
+      "indication": "To treat complicated urinary tract infections, including pyelonephritis, caused by designated susceptible microorganisms"
+    },
+    {
+      "no": 17,
+      "brandName": "Decnupaz",
+      "genericName": "pivekimab sunirine-pvzy",
+      "approvalDate": "2026-05-27",
+      "indication": "To treat adults with blastic plasmacytoid dendritic cell neoplasm"
+    },
+    {
+      "no": 16,
+      "brandName": "Hepcludex",
+      "genericName": "bulevirtide-gmod",
+      "approvalDate": "2026-05-22",
+      "indication": "To treat chronic hepatitis delta virus infection in adults without cirrhosis or with compensated cirrhosis"
+    },
+    {
+      "no": 15,
+      "brandName": "Baxfendy",
+      "genericName": "baxdrostat",
+      "approvalDate": "2026-05-15",
+      "indication": "To treat hypertension in combination with other antihypertensive drugs"
+    },
+    {
+      "no": 14,
+      "brandName": "Beqalzi",
+      "genericName": "sonrotoclax",
+      "approvalDate": "2026-05-13",
+      "indication": "To treat adults with relapsed or refractory mantle cell lymphoma after at least two lines of systemic therapy, including a Bruton’s tyrosine kinase inhibitor"
+    },
+    {
+      "no": 13,
+      "brandName": "Veppanu",
+      "genericName": "vepdegestrant",
+      "approvalDate": "2026-05-01",
+      "indication": "To treat estrogen receptor-positive, human epidermal growth factor receptor 2-negative, ESR1-mutated advanced or metastatic breast cancer with disease progression following at least one line of endocrine therapy"
+    },
+    {
+      "no": 12,
+      "brandName": "Idvynso",
+      "genericName": "doravirine and islatravir",
+      "approvalDate": "2026-04-20",
+      "indication": "To treat HIV-1 infection (as a complete regimen) in adults to replace the current antiretroviral regimen in those who are virologically-suppressed on a stable antiretroviral regimen with no history of virologic treatment failure and no known substitutions associated with resistance to doravirine"
+    },
+    {
+      "no": 11,
+      "brandName": "Foundayo",
+      "genericName": "orforglipron",
+      "approvalDate": "2026-04-01",
+      "indication": "To reduce excess body weight and maintain weight reduction long term in adults with obesity or adults with overweight in the presence of at least one weight-related comorbid condition, in combination with a reduced-calorie diet and increased physical activity"
+    },
+    {
+      "no": 10,
+      "brandName": "Awiqli",
+      "genericName": "insulin icodec-abae",
+      "approvalDate": "2026-03-26",
+      "indication": "To improve glycemic control in adults with type 2 diabetes mellitus"
+    },
+    {
+      "no": 9,
+      "brandName": "Lifyorli",
+      "genericName": "relacorilant",
+      "approvalDate": "2026-03-25",
+      "indication": "To treat platinum-resistant epithelial ovarian, fallopian tube, or primary peritoneal cancer after one to three prior systemic treatment regimens, at least one of which included bevacizumab"
+    },
+    {
+      "no": 8,
+      "brandName": "Avlayah",
+      "genericName": "tividenofusp alfa-eknm",
+      "approvalDate": "2026-03-24",
+      "indication": "To treat certain individuals with Hunter syndrome (Mucopolysaccharidosis type II or MPS II)"
+    },
+    {
+      "no": 7,
+      "brandName": "Icotyde",
+      "genericName": "icotrokinra",
+      "approvalDate": "2026-03-17",
+      "indication": "To treat moderate-to-severe plaque psoriasis in patients 12 years and older who weigh at least 40 kg and who are candidates for systemic therapy or phototherapy"
+    },
+    {
+      "no": 6,
+      "brandName": "Lynavoy",
+      "genericName": "linerixibat",
+      "approvalDate": "2026-03-17",
+      "indication": "To treat cholestatic pruritus associated with primary biliary cholangitis"
+    },
+    {
+      "no": 5,
+      "brandName": "Yuviwel",
+      "genericName": "navepegritide",
+      "approvalDate": "2026-02-27",
+      "indication": "To increase linear growth in pediatric patients 2 years and older with achondroplasia with open epiphyses"
+    },
+    {
+      "no": 4,
+      "brandName": "Loargys",
+      "genericName": "pegzilarginase-nbln",
+      "approvalDate": "2026-02-23",
+      "indication": "To treat hyperarginemia in adults and pediatric patients two years and older with Arginase 1 Deficiency, in conjunction with dietary protein restriction"
+    },
+    {
+      "no": 3,
+      "brandName": "Bysanti",
+      "genericName": "milsaperidone",
+      "approvalDate": "2026-02-20",
+      "indication": "To treat schizophrenia and to treat manic or mixed episodes associated with bipolar I disorder"
+    },
+    {
+      "no": 2,
+      "brandName": "Adquey",
+      "genericName": "difamilast",
+      "approvalDate": "2026-02-12",
+      "indication": "To treat mild to moderate atopic dermatitis"
+    },
+    {
+      "no": 1,
+      "brandName": "Zycubo",
+      "genericName": "copper histidinate",
+      "approvalDate": "2026-01-12",
+      "indication": "To treat Menkes disease"
+    }
+  ],
+  "2025": [
+    {
+      "no": 46,
+      "brandName": "Nereus",
+      "genericName": "tradipitant",
+      "approvalDate": "2025-12-30",
+      "indication": "To treat vomiting associated with motion"
+    },
+    {
+      "no": 45,
+      "brandName": "Yartemlea",
+      "genericName": "narsoplimab-wuug",
+      "approvalDate": "2025-12-23",
+      "indication": "To treat hematopoietic stem cell transplant-associated thrombotic microangiopathy"
+    },
+    {
+      "no": 44,
+      "brandName": "Myqorzo",
+      "genericName": "aficamten",
+      "approvalDate": "2025-12-19",
+      "indication": "To treat symptomatic obstructive hypertrophic cardiomyopathy"
+    },
+    {
+      "no": 43,
+      "brandName": "Exdensur",
+      "genericName": "depemokimab-ulaa",
+      "approvalDate": "2025-12-16",
+      "indication": "To treat severe asthma characterized by an eosinophilic phenotype as an add-on maintenance therapy"
+    },
+    {
+      "no": 42,
+      "brandName": "Cardamyst",
+      "genericName": "etripamil",
+      "approvalDate": "2025-12-12",
+      "indication": "To treat episodes of paroxysmal supraventricular tachycardia"
+    },
+    {
+      "no": 41,
+      "brandName": "Nuzolvence",
+      "genericName": "zoliflodacin",
+      "approvalDate": "2025-12-12",
+      "indication": "To treat uncomplicated urogenital gonorrhea due to Neisseria gonorrhoeae"
+    },
+    {
+      "no": 40,
+      "brandName": "Lerochol",
+      "genericName": "lerodalcibep-liga",
+      "approvalDate": "2025-12-12",
+      "indication": "To reduce low-density lipoprotein cholesterol in adults with hypercholesterolemia, including heterozygous familial hypercholesterolemia, as an adjunct to diet and exercise"
+    },
+    {
+      "no": 39,
+      "brandName": "Voyxact",
+      "genericName": "sibeprenlimab-szsi",
+      "approvalDate": "2025-11-25",
+      "indication": "To reduce proteinuria in primary immunoglobulin A nephropathy in adults at risk for disease progression"
+    },
+    {
+      "no": 38,
+      "brandName": "Hyrnuo",
+      "genericName": "sevabertinib",
+      "approvalDate": "2025-11-19",
+      "indication": "To treat locally advanced or metastatic non-squamous non-small cell lung cancer with tumors that have activating HER2 tyrosine kinase domain activating mutations in patients who received a systemic therapy"
+    },
+    {
+      "no": 37,
+      "brandName": "Redemplo",
+      "genericName": "plozasiran",
+      "approvalDate": "2025-11-18",
+      "indication": "To reduce triglycerides in adults with familial chylomicronemia syndrome"
+    },
+    {
+      "no": 36,
+      "brandName": "Komzifti",
+      "genericName": "ziftomenib",
+      "approvalDate": "2025-11-13",
+      "indication": "To treat adults with relapsed or refractory acute myeloid leukemia with a susceptible nucleophosmin 1 mutation who have no satisfactory alternative treatment options"
+    },
+    {
+      "no": 35,
+      "brandName": "Kygevvi",
+      "genericName": "doxecitine and doxribtimine",
+      "approvalDate": "2025-11-03",
+      "indication": "To treat thymidine kinase 2 deficiency in patients who start to show symptoms when they are 12 years old or younger"
+    },
+    {
+      "no": 34,
+      "brandName": "Lynkuet",
+      "genericName": "elinzanetant",
+      "approvalDate": "2025-10-24",
+      "indication": "To treat moderate-to-severe vasomotor symptoms due to menopause"
+    },
+    {
+      "no": 33,
+      "brandName": "Jascayd",
+      "genericName": "nerandomilast",
+      "approvalDate": "2025-10-07",
+      "indication": "To treat idiopathic pulmonary fibrosis"
+    },
+    {
+      "no": 32,
+      "brandName": "Rhapsido",
+      "genericName": "remibrutinib",
+      "approvalDate": "2025-09-30",
+      "indication": "To treat chronic spontaneous urticaria in adults who remain symptomatic despite H1 antihistamine treatment"
+    },
+    {
+      "no": 31,
+      "brandName": "Palsonify",
+      "genericName": "paltusotine",
+      "approvalDate": "2025-09-25",
+      "indication": "To treat acromegaly in adults who had an inadequate response to surgery and/or for whom surgery is not an option"
+    },
+    {
+      "no": 30,
+      "brandName": "Inluriyo",
+      "genericName": "imlunestrant",
+      "approvalDate": "2025-09-25",
+      "indication": "To treat estrogen receptor-positive, human epidermal growth factor receptor 2-negative, estrogen receptor-1-mutated advanced or metastatic breast cancer with disease progression following at least one line of endocrine therapy"
+    },
+    {
+      "no": 29,
+      "brandName": "Forzinity",
+      "genericName": "elamipretide",
+      "approvalDate": "2025-09-19",
+      "indication": "To improve muscle strength in patients with Barth syndrome weighing at least 30 kg"
+    },
+    {
+      "no": 28,
+      "brandName": "Keytruda Qlex",
+      "genericName": "pembrolizumab and berahyaluronidase alfa-pmph",
+      "approvalDate": "2025-09-19",
+      "indication": "To treat adult and pediatric (12 years and older) solid tumor indications approved for the intravenous formulation of pembrolizumab"
+    },
+    {
+      "no": 27,
+      "brandName": "Wayrilz",
+      "genericName": "rilzabrutinib",
+      "approvalDate": "2025-08-29",
+      "indication": "To treat persistent or chronic immune thrombocytopenia that has not sufficiently responded to immunoglobulins, anti-D therapy, or corticosteroids"
+    },
+    {
+      "no": 26,
+      "brandName": "Dawnzera",
+      "genericName": "donidalorsen",
+      "approvalDate": "2025-08-21",
+      "indication": "To prevent attacks of hereditary angioedema"
+    },
+    {
+      "no": 25,
+      "brandName": "Brinsupri",
+      "genericName": "brensocatib",
+      "approvalDate": "2025-08-12",
+      "indication": "To treat non-cystic fibrosis bronchiectasis"
+    },
+    {
+      "no": 24,
+      "brandName": "Hernexeos",
+      "genericName": "zongertinib",
+      "approvalDate": "2025-08-08",
+      "indication": "To treat adults with unresectable or metastatic non-squamous non-small cell lung cancer whose tumors have HER2 tyrosine kinase domain activating mutations, as detected by an FDA-approved test, and who have received prior systemic therapy"
+    },
+    {
+      "no": 23,
+      "brandName": "Modeyso",
+      "genericName": "dordaviprone",
+      "approvalDate": "2025-08-06",
+      "indication": "To treat diffuse midline glioma harboring an H3 K27M mutation with progressive disease following prior therapy"
+    },
+    {
+      "no": 22,
+      "brandName": "Vizz",
+      "genericName": "aceclidine",
+      "approvalDate": "2025-07-31",
+      "indication": "To treat presbyopia"
+    },
+    {
+      "no": 21,
+      "brandName": "Sephience",
+      "genericName": "sepiapterin",
+      "approvalDate": "2025-07-28",
+      "indication": "To treat hyperphenylalaninemia in patients with sepiapterin-responsive phenylketonuria, in conjunction with a phenylalanine-restricted diet"
+    },
+    {
+      "no": 20,
+      "brandName": "Anzupgo",
+      "genericName": "delgocitinib",
+      "approvalDate": "2025-07-23",
+      "indication": "To treat moderate-to-severe chronic hand eczema when topical corticosteroids are not advisable or produce an inadequate response"
+    },
+    {
+      "no": 19,
+      "brandName": "Ekterly",
+      "genericName": "sebetralstat",
+      "approvalDate": "2025-07-03",
+      "indication": "To treat acute attacks of hereditary angioedema"
+    },
+    {
+      "no": 18,
+      "brandName": "Zegfrovy",
+      "genericName": "sunvozertinib",
+      "approvalDate": "2025-07-02",
+      "indication": "To treat locally advanced or metastatic non-small cell lung cancer with epidermal growth factor receptor exon 20 insertion mutations, as detected by an FDA-approved test, with disease progression on or after platinum-based chemotherapy"
+    },
+    {
+      "no": 17,
+      "brandName": "Lynozyfic",
+      "genericName": "linvoseltamab-gcpt",
+      "approvalDate": "2025-07-02",
+      "indication": "To treat relapsed or refractory multiple myeloma after at least four prior lines of therapy, including a proteasome inhibitor, an immunomodulatory agent, and an anti CD38 monoclonal antibody"
+    },
+    {
+      "no": 16,
+      "brandName": "Andembry",
+      "genericName": "garadacimab-gxii",
+      "approvalDate": "2025-06-16",
+      "indication": "To prevent attacks of hereditary angioedema"
+    },
+    {
+      "no": 15,
+      "brandName": "Ibtrozi",
+      "genericName": "taletrectinib",
+      "approvalDate": "2025-06-11",
+      "indication": "To treat locally advanced or metastatic ROS1-positive non-small cell lung cancer"
+    },
+    {
+      "no": 14,
+      "brandName": "Enflonsia",
+      "genericName": "clesrovimab-cfor",
+      "approvalDate": "2025-06-09",
+      "indication": "To prevent respiratory syncytial virus (RSV) lower respiratory tract disease in neonates and infants who are born during or entering their first RSV season"
+    },
+    {
+      "no": 13,
+      "brandName": "Tryptyr",
+      "genericName": "acoltremon",
+      "approvalDate": "2025-05-28",
+      "indication": "To treat the signs and symptoms of dry eye disease"
+    },
+    {
+      "no": 12,
+      "brandName": "Emrelis",
+      "genericName": "telisotuzumab vedotin-tllv",
+      "approvalDate": "2025-05-14",
+      "indication": "To treat locally advanced or metastatic, non-squamous non-small cell lung cancer (NSCLC) with high c-Met protein overexpression after prior systemic therapy"
+    },
+    {
+      "no": 11,
+      "brandName": "Avmapki Fakzynja Co-Pack",
+      "genericName": "avutometinib and defactinib",
+      "approvalDate": "2025-05-08",
+      "indication": "To treat KRAS-mutated recurrent low-grade serous ovarian cancer (LGSOC) after prior systemic therapy"
+    },
+    {
+      "no": 10,
+      "brandName": "Imaavy",
+      "genericName": "nipocalimab-aahu",
+      "approvalDate": "2025-04-29",
+      "indication": "To treat generalized myasthenia gravis"
+    },
+    {
+      "no": 9,
+      "brandName": "penpulimab-kcqx",
+      "genericName": "penpulimab-kcqx",
+      "approvalDate": "2025-04-23",
+      "indication": "In combination with either cisplatin or carboplatin and gemcitabine, to treat adults with recurrent or metastatic non-keratinizing nasopharyngeal carcinoma (NPC), or as a single agent while on or after platinum-based chemotherapy and at least one other prior line of therapy"
+    },
+    {
+      "no": 8,
+      "brandName": "Vanrafia",
+      "genericName": "atrasentan",
+      "approvalDate": "2025-04-02",
+      "indication": "To reduce proteinuria in adults with primary immunoglobulin A nephropathy at risk of rapid disease progression"
+    },
+    {
+      "no": 7,
+      "brandName": "Qfitlia",
+      "genericName": "fitusiran",
+      "approvalDate": "2025-03-28",
+      "indication": "To prevent or reduce the frequency of bleeding episodes in hemophilia A or B"
+    },
+    {
+      "no": 6,
+      "brandName": "Blujepa",
+      "genericName": "gepotidacin",
+      "approvalDate": "2025-03-25",
+      "indication": "To treat uncomplicated urinary tract infections"
+    },
+    {
+      "no": 5,
+      "brandName": "Romvimza",
+      "genericName": "vimseltinib",
+      "approvalDate": "2025-02-14",
+      "indication": "To treat symptomatic tenosynovial giant cell tumor for which surgical resection will potentially cause worsening functional limitation or severe morbidity"
+    },
+    {
+      "no": 4,
+      "brandName": "Gomekli",
+      "genericName": "mirdametinib",
+      "approvalDate": "2025-02-11",
+      "indication": "To treat neurofibromatosis type 1 who have symptomatic plexiform neurofibromas not amenable to complete resection"
+    },
+    {
+      "no": 3,
+      "brandName": "Journavx",
+      "genericName": "suzetrigine",
+      "approvalDate": "2025-01-30",
+      "indication": "To treat moderate to severe acute pain"
+    },
+    {
+      "no": 2,
+      "brandName": "Grafapex",
+      "genericName": "treosulfan",
+      "approvalDate": "2025-01-21",
+      "indication": "For use in combination with fludarabine as a preparative regimen for allogeneic hematopoietic stem cell transplantation for acute myeloid leukemia and myelodysplastic syndrome"
+    },
+    {
+      "no": 1,
+      "brandName": "Datroway",
+      "genericName": "datopotamab deruxtecan-dlnk",
+      "approvalDate": "2025-01-17",
+      "indication": "To treat unresectable or metastatic, HR-positive, HER2-negative breast cancer who have received prior endocrine-based therapy and chemotherapy for unresectable or metastatic disease"
+    }
+  ]
+}
