@@ -8,14 +8,15 @@ import PdufaList from './components/PdufaList';
 import TrialList from './components/TrialList';
 import NovelList from './components/NovelList';
 import EuropeView from './components/EuropeView';
+import CriticalList from './components/CriticalList';
 import DrugDetail from './components/DrugDetail';
 import Loader from './components/Loader';
 import SourceList from './components/SourceList';
 import SearchBar from './components/SearchBar';
 import InstallButton from './components/InstallButton';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2 } from 'lucide-react';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus } from 'lucide-react';
 
-type View = 'europe' | 'novel' | 'approvals' | 'pipeline';
+type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical';
 
 const LAST_VISIT_KEY = 'pt_last_visit';
 
@@ -38,6 +39,9 @@ export default function App() {
 
   // --- Novel approvals state (client-side filter over a bundled FDA snapshot) ---
   const [novelQuery, setNovelQuery] = useState<string>('');
+
+  // --- Critical medicines state (client-side filter over bundled EMA snapshot) ---
+  const [criticalQuery, setCriticalQuery] = useState<string>('');
 
   // --- Drug detail sheet (opened from any Novel/Approvals card) ---
   const [detail, setDetail] = useState<DrugDetailData | null>(null);
@@ -129,6 +133,7 @@ export default function App() {
     if (!query) return;
     if (view === 'europe') setEuropeQuery(query);
     else if (view === 'novel') setNovelQuery(query);
+    else if (view === 'critical') setCriticalQuery(query);
     else if (view === 'pipeline') handleTrialSearch(query);
     else handleDrugSearch(query);
   };
@@ -138,6 +143,8 @@ export default function App() {
       setEuropeQuery('');
     } else if (view === 'novel') {
       setNovelQuery('');
+    } else if (view === 'critical') {
+      setCriticalQuery('');
     } else if (view === 'pipeline') {
       setTrialSearched(false);
       setTrials([]);
@@ -156,7 +163,7 @@ export default function App() {
   const approvalsLoading = loading || searchLoading;
 
   const tabClass = (active: boolean) =>
-    `flex-1 flex items-center justify-center gap-1.5 py-1.5 text-sm font-semibold rounded-lg transition-colors ${
+    `flex-1 flex items-center justify-center gap-1 py-1.5 px-0.5 text-xs font-semibold rounded-lg transition-colors ${
       active ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'
     }`;
 
@@ -169,7 +176,7 @@ export default function App() {
               <Stethoscope size={20} />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-slate-900 leading-none tracking-tight">PharmaTrack</h1>
+              <h1 className="text-lg font-bold text-slate-900 leading-none tracking-tight">DrugRadar</h1>
               <div className="flex items-center mt-0.5">
                 <Database size={10} className="text-slate-400 mr-1" />
                 <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">FDA + EMA Data</p>
@@ -194,16 +201,19 @@ export default function App() {
         <div className="px-4 pt-1">
           <div className="flex bg-slate-100 rounded-xl p-1">
             <button className={tabClass(view === 'europe')} onClick={() => setView('europe')}>
-              <Globe2 size={15} /> Europe
+              <Globe2 size={14} /> Europe
+            </button>
+            <button className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
+              <ShieldPlus size={14} /> Critical
             </button>
             <button className={tabClass(view === 'novel')} onClick={() => setView('novel')}>
-              <Sparkles size={15} /> Novel
+              <Sparkles size={14} /> Novel
             </button>
             <button className={tabClass(view === 'approvals')} onClick={() => setView('approvals')}>
-              <Database size={15} /> US
+              <Database size={14} /> US
             </button>
             <button className={tabClass(view === 'pipeline')} onClick={() => setView('pipeline')}>
-              <FlaskConical size={15} /> Trials
+              <FlaskConical size={14} /> Trials
             </button>
           </div>
         </div>
@@ -222,6 +232,10 @@ export default function App() {
       <main className="flex-grow w-full max-w-md mx-auto sm:max-w-xl pt-4">
         {view === 'europe' ? (
           <EuropeView query={europeQuery} onSelect={setDetail} lastVisitISO={lastVisit} onSearchTrials={handleViewTrials} />
+        ) : view === 'critical' ? (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <CriticalList query={criticalQuery} onSearchTrials={handleViewTrials} />
+          </div>
         ) : view === 'novel' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <NovelList query={novelQuery} onSelect={setDetail} />
@@ -290,6 +304,22 @@ export default function App() {
           </div>
         )}
       </main>
+
+      <footer className="w-full max-w-md mx-auto sm:max-w-xl px-4 pt-5 pb-8 mt-2 border-t border-slate-200">
+        <p className="text-[11px] leading-relaxed text-slate-400">
+          <span className="font-semibold text-slate-500">For informational purposes only.</span>{' '}
+          DrugRadar aggregates public FDA, EMA, and ClinicalTrials.gov data, which may be
+          incomplete or delayed. It is not medical advice and is not a substitute for
+          professional medical judgment or official regulatory sources. Verify against the
+          primary source before relying on any entry.
+        </p>
+        <a
+          href="privacy.html"
+          className="inline-block mt-2 text-[11px] font-medium text-slate-400 underline decoration-slate-300 underline-offset-2"
+        >
+          Privacy &amp; full disclaimer
+        </a>
+      </footer>
 
       {detail && (
         <DrugDetail data={detail} onClose={() => setDetail(null)} onViewTrials={handleViewTrials} />
