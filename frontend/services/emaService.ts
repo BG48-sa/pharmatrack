@@ -17,7 +17,11 @@ import { EmaData, EmaMedicine, EmaPipelineItem, DrugDetailData, EmaFlags } from 
  * scripts/build-ema-data.py.
  */
 
-const data = emaDataRaw as unknown as EmaData;
+let data = emaDataRaw as unknown as EmaData;
+
+// Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
+// Falls back to the bundled import if never called.
+export const __setEmaData = (d: EmaData): void => { data = d; };
 
 export const emaGeneratedDate = (): string => data.generated;
 

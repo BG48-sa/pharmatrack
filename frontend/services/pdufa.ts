@@ -6,7 +6,12 @@ import pdufaRaw from '../pdufa.json';
  * The FDA does not publish PDUFA dates, so this is a hand-maintained list in
  * frontend/pdufa.json — not a live or official feed.
  */
-const allEntries = (pdufaRaw as { entries: PdufaEntry[] }).entries || [];
+let allEntries = (pdufaRaw as { entries: PdufaEntry[] }).entries || [];
+
+// Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
+export const __setPdufaData = (d: { entries?: PdufaEntry[] }): void => {
+  allEntries = d.entries || [];
+};
 
 const todayISO = (): string => new Date().toISOString().slice(0, 10);
 

@@ -21,14 +21,22 @@ const LABEL_API = 'https://api.fda.gov/drug/label.json';
 interface EmaRec { d: string; n: string; u: string; b: boolean }
 // ema-medicines.json is now { generated, byInn, authorised, pipeline }; the
 // FDA tabs enrich approvals from the INN index only.
-const emaData = (emaDataRaw as { byInn: Record<string, EmaRec> }).byInn;
+let emaData = (emaDataRaw as { byInn: Record<string, EmaRec> }).byInn;
+
+// Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
+export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec> }): void => {
+  emaData = d.byInn || {};
+};
 
 // CBER cell & gene therapy snapshot, keyed by BLA application number. These
 // products are absent from Drugs@FDA, which carries no approval date or pharm
 // class in the label endpoint — so we supply the official FDA approval date and
 // a descriptive class here. Regenerate with scripts/build-cgt-data.py.
 interface CgtRec { d: string; c: string }
-const cgtData = cgtDataRaw as Record<string, CgtRec>;
+let cgtData = cgtDataRaw as Record<string, CgtRec>;
+
+// Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
+export const __setCgtData = (d: Record<string, CgtRec>): void => { cgtData = d; };
 
 const OPENFDA_SOURCE: Source = {
   title: 'Drugs@FDA — U.S. Food & Drug Administration (openFDA)',

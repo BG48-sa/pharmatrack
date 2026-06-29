@@ -31,6 +31,24 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   const sameOrigin = url.origin === self.location.origin;
 
+  // Runtime data snapshots (/data/*.json): always network-first so the app never
+  // shows a snapshot older than what's published. Falls back to cache (then the
+  // app's bundled data) when offline.
+  if (url.pathname.includes('/data/') && url.pathname.endsWith('.json')) {
+    event.respondWith(
+      fetch(request)
+        .then((res) => {
+          if (res && res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
   if (sameOrigin) {
     // App shell + hashed build assets: stale-while-revalidate. Serve the cached
     // copy instantly, refresh it in the background. Falls back to cached

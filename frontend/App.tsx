@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaService';
 import { getUpcomingPdufa } from './services/pdufa';
+import { refreshLiveData } from './services/liveData';
 import { searchTrials, TrialRegion } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
@@ -64,7 +65,11 @@ export default function App() {
   const [trialAllPhases, setTrialAllPhases] = useState<boolean>(false);
   const [trialRegion, setTrialRegion] = useState<TrialRegion>('US');
 
-  const pdufa = useMemo(() => getUpcomingPdufa(), []);
+  // Bumped once the runtime data refresh lands, so views recompute over the
+  // fresher snapshots (bundled data renders first; this swaps in live data).
+  const [dataVersion, setDataVersion] = useState(0);
+
+  const pdufa = useMemo(() => getUpcomingPdufa(), [dataVersion]);
 
   const loadDefaultData = async () => {
     setLoading(true);
@@ -80,6 +85,22 @@ export default function App() {
 
   useEffect(() => {
     loadDefaultData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Pull the freshest published snapshots once at startup. Bundled data shows
+  // immediately; if live data arrives, bump dataVersion so every tab recomputes
+  // and re-enrich the FDA approvals with the fresher EMA dates.
+  useEffect(() => {
+    let cancelled = false;
+    refreshLiveData().then((updated) => {
+      if (cancelled || updated === 0) return;
+      setDataVersion((v) => v + 1);
+      if (!isSearchMode) loadDefaultData();
+    });
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -231,14 +252,14 @@ export default function App() {
 
       <main className="flex-grow w-full max-w-md mx-auto sm:max-w-xl pt-4">
         {view === 'europe' ? (
-          <EuropeView query={europeQuery} onSelect={setDetail} lastVisitISO={lastVisit} onSearchTrials={handleViewTrials} />
+          <EuropeView key={`eu-${dataVersion}`} query={europeQuery} onSelect={setDetail} lastVisitISO={lastVisit} onSearchTrials={handleViewTrials} />
         ) : view === 'critical' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <CriticalList query={criticalQuery} onSearchTrials={handleViewTrials} />
+            <CriticalList key={`crit-${dataVersion}`} query={criticalQuery} onSearchTrials={handleViewTrials} />
           </div>
         ) : view === 'novel' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <NovelList query={novelQuery} onSelect={setDetail} />
+            <NovelList key={`novel-${dataVersion}`} query={novelQuery} onSelect={setDetail} />
           </div>
         ) : view === 'approvals' ? (
           approvalsLoading ? (

@@ -16,7 +16,10 @@ import novelDataRaw from '../novel-approvals.json';
 const NOVEL_SOURCE_BASE =
   'https://www.fda.gov/drugs/novel-drug-approvals-fda/novel-drug-approvals-';
 
-const data = novelDataRaw as Record<string, NovelApproval[]>;
+let data = novelDataRaw as Record<string, NovelApproval[]>;
+
+// Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
+export const __setNovelData = (d: Record<string, NovelApproval[]>): void => { data = d; };
 
 /** Years available, newest first (e.g. ['2026', '2025']). */
 export const getNovelYears = (): string[] => Object.keys(data);
