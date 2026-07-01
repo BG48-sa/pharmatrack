@@ -11,11 +11,14 @@ import NovelList from './components/NovelList';
 import EuropeView from './components/EuropeView';
 import CriticalList from './components/CriticalList';
 import DrugDetail from './components/DrugDetail';
+import AlertsPanel from './components/AlertsPanel';
 import Loader from './components/Loader';
 import SourceList from './components/SourceList';
 import SearchBar from './components/SearchBar';
 import InstallButton from './components/InstallButton';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus } from 'lucide-react';
+import { getWatched, setWatched as persistWatched } from './services/watchlist';
+import { syncIndicationAlerts } from './services/notifications';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell } from 'lucide-react';
 
 type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical';
 
@@ -47,6 +50,26 @@ export default function App() {
   // --- Drug detail sheet (opened from any Novel/Approvals card) ---
   const [detail, setDetail] = useState<DrugDetailData | null>(null);
 
+  // --- Decision alerts: watched indications drive on-device reminders ---
+  const [alertsOpen, setAlertsOpen] = useState<boolean>(false);
+  const [watched, setWatched] = useState<string[]>([]);
+
+  // Load the saved watchlist once, then schedule its reminders.
+  useEffect(() => {
+    getWatched().then((w) => {
+      setWatched(w);
+      syncIndicationAlerts(w);
+    });
+  }, []);
+
+  // Persist + reschedule whenever the user edits the watchlist.
+  const updateWatched = (next: string[]) => {
+    persistWatched(next).then((clean) => {
+      setWatched(clean);
+      syncIndicationAlerts(clean);
+    });
+  };
+
   // --- Approvals state ---
   const [defaultData, setDefaultData] = useState<DrugDataResponse | null>(null);
   const [searchData, setSearchData] = useState<DrugDataResponse | null>(null);
@@ -70,6 +93,13 @@ export default function App() {
   const [dataVersion, setDataVersion] = useState(0);
 
   const pdufa = useMemo(() => getUpcomingPdufa(), [dataVersion]);
+
+  // When fresher EMA data lands, reschedule reminders — the pipeline may now
+  // include new drugs in a watched indication.
+  useEffect(() => {
+    if (dataVersion > 0 && watched.length) syncIndicationAlerts(watched);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataVersion]);
 
   const loadDefaultData = async () => {
     setLoading(true);
@@ -205,6 +235,16 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center space-x-1">
+            <button
+              onClick={() => setAlertsOpen(true)}
+              className="relative p-2 text-slate-500 hover:text-indigo-600 active:bg-slate-100 rounded-full transition-colors"
+              aria-label="Decision alerts"
+            >
+              <Bell size={20} />
+              {watched.length > 0 && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-600 rounded-full ring-2 ring-white" />
+              )}
+            </button>
             <InstallButton />
             {view === 'approvals' && !approvalsLoading && !error && !isSearchMode && (
               <button
@@ -224,9 +264,6 @@ export default function App() {
             <button className={tabClass(view === 'europe')} onClick={() => setView('europe')}>
               <Globe2 size={14} /> Europe
             </button>
-            <button className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
-              <ShieldPlus size={14} /> Critical
-            </button>
             <button className={tabClass(view === 'novel')} onClick={() => setView('novel')}>
               <Sparkles size={14} /> Novel
             </button>
@@ -235,6 +272,9 @@ export default function App() {
             </button>
             <button className={tabClass(view === 'pipeline')} onClick={() => setView('pipeline')}>
               <FlaskConical size={14} /> Trials
+            </button>
+            <button className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
+              <ShieldPlus size={14} /> Critical
             </button>
           </div>
         </div>
@@ -252,7 +292,15 @@ export default function App() {
 
       <main className="flex-grow w-full max-w-md mx-auto sm:max-w-xl pt-4">
         {view === 'europe' ? (
-          <EuropeView key={`eu-${dataVersion}`} query={europeQuery} onSelect={setDetail} lastVisitISO={lastVisit} onSearchTrials={handleViewTrials} />
+          <EuropeView
+            key={`eu-${dataVersion}`}
+            query={europeQuery}
+            onSelect={setDetail}
+            lastVisitISO={lastVisit}
+            onSearchTrials={handleViewTrials}
+            watchedTerms={watched}
+            onWatchIndication={(t) => updateWatched([...watched, t])}
+          />
         ) : view === 'critical' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <CriticalList key={`crit-${dataVersion}`} query={criticalQuery} onSearchTrials={handleViewTrials} />
@@ -330,9 +378,12 @@ export default function App() {
         <p className="text-[11px] leading-relaxed text-slate-400">
           <span className="font-semibold text-slate-500">For informational purposes only.</span>{' '}
           DrugRadar aggregates public FDA, EMA, and ClinicalTrials.gov data, which may be
-          incomplete or delayed. It is not medical advice and is not a substitute for
-          professional medical judgment or official regulatory sources. Verify against the
-          primary source before relying on any entry.
+          incomplete or delayed; estimated decision dates, auto-parsed indication details,
+          and on-device reminders are approximate and may be inaccurate. It is not medical
+          advice and is not a substitute for professional medical judgment or official
+          regulatory sources. Authorisation does not imply national reimbursement or
+          availability. Verify against the primary source (SmPC / label) before relying on
+          any entry. Provided “as is”, without warranty; use at your own risk.
         </p>
         <a
           href="privacy.html"
@@ -344,6 +395,15 @@ export default function App() {
 
       {detail && (
         <DrugDetail data={detail} onClose={() => setDetail(null)} onViewTrials={handleViewTrials} />
+      )}
+
+      {alertsOpen && (
+        <AlertsPanel
+          watched={watched}
+          onChange={updateWatched}
+          onSelect={setDetail}
+          onClose={() => setAlertsOpen(false)}
+        />
       )}
     </div>
   );

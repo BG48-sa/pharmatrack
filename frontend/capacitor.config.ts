@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.berndgansbacher.pharmatrack',
-  appName: 'PharmaTrack',
+  appName: 'DrugRadar',
   webDir: 'dist',
   ios: {
     // openFDA is served over HTTPS; no localhost backend is required.

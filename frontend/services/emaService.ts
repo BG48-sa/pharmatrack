@@ -73,11 +73,26 @@ export const queryTerms = (q: string): string[] => {
   return core.length ? core : all; // if the user typed only filler, keep it
 };
 
+// Lay term -> EMA/MeSH equivalents. The EMA catalogue uses MeSH wording
+// ("Breast Neoplasms", "Carcinoma, Non-Small-Cell Lung"), so a clinician typing
+// "breast cancer" would otherwise miss everything. Values are already in the
+// normalise() form. A query term matches if IT or any synonym is present.
+const SYNONYMS: Record<string, string[]> = {
+  cancer: ['neoplasm', 'neoplasms', 'carcinoma', 'carcinomas', 'tumor'],
+  carcinoma: ['cancer', 'neoplasm', 'neoplasms'],
+  neoplasm: ['cancer', 'carcinoma'],
+  tumor: ['neoplasm', 'neoplasms', 'cancer'], // 'tumour' -> 'tumor' via normalise
+  oncology: ['neoplasm', 'neoplasms', 'cancer', 'carcinoma'],
+};
+
+const hasTerm = (hay: string, term: string): boolean =>
+  hay.includes(term) || (SYNONYMS[term]?.some((s) => hay.includes(s)) ?? false);
+
 // Free-text match across name, INN, substance, therapeutic area, indication, ATC.
 const matchesQuery = (m: EmaMedicine | EmaPipelineItem, q: string): boolean => {
   if (!q) return true;
   const hay = normalise(`${m.n} ${m.inn} ${m.sub} ${m.area} ${m.ind} ${m.atc}`);
-  return queryTerms(q).every((term) => hay.includes(term));
+  return queryTerms(q).every((term) => hasTerm(hay, term));
 };
 
 /** Most recently authorised EU medicines, newest first. */

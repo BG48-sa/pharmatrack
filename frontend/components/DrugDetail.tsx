@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { DrugDetailData } from '../types';
 import EmaBadges from './EmaBadges';
-import { X, Activity, Pill, Building2, Calendar, Globe, FlaskConical, ExternalLink, Sparkles, Hourglass, MapPin, Stethoscope } from 'lucide-react';
+import IndicationFacets from './IndicationFacets';
+import AccessStatus from './AccessStatus';
+import { X, Activity, Pill, Building2, Calendar, Globe, FlaskConical, ExternalLink, Sparkles, Hourglass, Stethoscope } from 'lucide-react';
 
 interface DrugDetailProps {
   data: DrugDetailData;
@@ -19,14 +21,6 @@ const formatPretty = (val?: string): string => {
 
 const drugsAtFdaUrl = (brand: string): string =>
   `https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=BasicSearch.process&searchTerm=${encodeURIComponent(brand)}`;
-
-// National-access lookups for the user's countries — central EU MA does not by
-// itself mean a medicine is reimbursed/available nationally (AIFA in Italy,
-// G-BA/AMNOG in Germany decide that). These are pre-filled search links.
-const aifaUrl = (term: string): string =>
-  `https://www.google.com/search?q=${encodeURIComponent(`AIFA ${term}`)}`;
-const gbaUrl = (term: string): string =>
-  `https://www.google.com/search?q=${encodeURIComponent(`G-BA Nutzenbewertung ${term}`)}`;
 
 const Row: React.FC<{ icon: React.ReactNode; label: string; children: React.ReactNode }> = ({ icon, label, children }) => (
   <div className="flex items-start text-sm text-slate-700">
@@ -103,6 +97,9 @@ const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials }) 
           </div>
         )}
 
+        {/* Structured facets parsed from the approved indication text. */}
+        <IndicationFacets indication={data.indication} />
+
         <div className="space-y-3.5">
           {data.indication && <Row icon={<Activity size={18} />} label="Indication">{data.indication}</Row>}
           {data.therapeuticArea && (
@@ -159,30 +156,8 @@ const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials }) 
           )}
         </div>
 
-        {/* National access — central EU authorisation ≠ national reimbursement. */}
-        <div className="mt-4 pt-4 border-t border-slate-100">
-          <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-2 flex items-center">
-            <MapPin size={12} className="mr-1" /> National access
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            <a
-              href={aifaUrl(data.brandName)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-50 active:bg-slate-100 rounded-lg py-2.5"
-            >
-              🇮🇹 Italy · AIFA <ExternalLink size={11} className="ml-1.5" />
-            </a>
-            <a
-              href={gbaUrl(data.genericName !== '—' ? data.genericName : data.brandName)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-50 active:bg-slate-100 rounded-lg py-2.5"
-            >
-              🇩🇪 Germany · G-BA <ExternalLink size={11} className="ml-1.5" />
-            </a>
-          </div>
-        </div>
+        {/* Access-status ladder: regulatory ≠ reimbursed ≠ available. */}
+        <AccessStatus data={data} />
       </div>
     </div>
   );

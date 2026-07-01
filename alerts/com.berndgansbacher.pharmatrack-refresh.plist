@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd job: refresh DrugRadar's bundled snapshot data once a week and, if
+  anything changed, redeploy the PWA. Runs Mondays at 07:30.
+
+  Install:
+    cp alerts/com.berndgansbacher.pharmatrack-refresh.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.berndgansbacher.pharmatrack-refresh.plist
+
+  Run it once immediately to test:
+    launchctl start com.berndgansbacher.pharmatrack-refresh
+
+  Watch the log:
+    tail -f /Users/berndgansbacher/Downloads/pharmatrack_-recent-drug-approvals/alerts/refresh.log
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.berndgansbacher.pharmatrack-refresh.plist
+
+  Notes:
+    - The job needs you to be logged in (it pushes to git and redeploys).
+    - refresh-data.sh picks the python.org 3.11 framework python by default (it
+      has openpyxl). Override with the PT_PYTHON env var if yours differs.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.berndgansbacher.pharmatrack-refresh</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/berndgansbacher/Downloads/pharmatrack_-recent-drug-approvals/refresh-data.sh</string>
+  </array>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>1</integer>
+    <key>Hour</key><integer>7</integer>
+    <key>Minute</key><integer>30</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/berndgansbacher/Downloads/pharmatrack_-recent-drug-approvals/alerts/refresh.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/berndgansbacher/Downloads/pharmatrack_-recent-drug-approvals/alerts/refresh.log</string>
+</dict>
+</plist>

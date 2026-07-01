@@ -21,6 +21,7 @@ import { __setNovelData } from './novelApprovals';
 import { __setCriticalData } from './criticalMedicines';
 import { __setPdufaData } from './pdufa';
 import { __setFdaEmaData, __setCgtData } from './fdaService';
+import { storeGet, storeSet } from './storage';
 
 // Absolute URL so the native app (a different origin) reaches the live data.
 // GitHub Pages serves these with `Access-Control-Allow-Origin: *`.
@@ -28,17 +29,42 @@ const REMOTE_BASE = 'https://bg48-sa.github.io/pharmatrack/data/';
 const TIMEOUT_MS = 5000;
 
 const fetchJson = async (file: string): Promise<any | null> => {
+  const url = REMOTE_BASE + file;
+  // 1) Network first, but with a revalidating cache mode ('no-cache') so the
+  //    response is written to the on-device HTTP cache for offline reuse below.
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
-    const res = await fetch(REMOTE_BASE + file, { signal: ctrl.signal, cache: 'no-store' });
+    const res = await fetch(url, { signal: ctrl.signal, cache: 'no-cache' });
     clearTimeout(timer);
-    if (!res.ok) return null;
-    return await res.json();
+    if (res.ok) return await res.json();
   } catch {
-    return null; // offline / blocked / timeout -> keep the bundled fallback
+    /* offline / blocked / timeout -> try the cached copy below */
   }
+  // 2) Offline: serve the last successfully-fetched copy from the HTTP cache,
+  //    which is fresher than the build-time bundle. If nothing is cached the
+  //    caller keeps the bundled snapshot, so the app always has data.
+  try {
+    const res = await fetch(url, { cache: 'force-cache' });
+    if (res.ok) return await res.json();
+  } catch {
+    /* nothing cached -> bundled fallback */
+  }
+  return null;
 };
+
+// --- Data freshness status (for the Alerts panel's offline indicator) ---
+const LAST_REFRESH_KEY = 'dr_last_refresh';
+let lastRefreshISO: string | null = null;
+
+/** ISO timestamp of the last refresh that updated at least one snapshot. */
+export const getLastRefresh = (): string | null => lastRefreshISO;
+
+// Load any persisted timestamp up front so the UI can show it before/without a
+// fresh refresh (e.g. when launched offline).
+storeGet(LAST_REFRESH_KEY).then((v) => {
+  if (v && !lastRefreshISO) lastRefreshISO = v;
+});
 
 let done = false;
 /** True once a refresh attempt has completed (whether or not anything updated). */
@@ -66,6 +92,10 @@ export const refreshLiveData = async (): Promise<number> => {
   if (cgt) { __setCgtData(cgt); updated++; }
 
   done = true;
+  if (updated > 0) {
+    lastRefreshISO = new Date().toISOString();
+    storeSet(LAST_REFRESH_KEY, lastRefreshISO);
+  }
   if (import.meta.env.DEV) {
     console.log(`[liveData] refreshed ${updated}/5 snapshots from ${REMOTE_BASE}`);
   }
