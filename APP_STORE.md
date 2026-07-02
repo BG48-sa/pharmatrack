@@ -77,10 +77,12 @@ https://bg48-sa.github.io/pharmatrack/privacy.html
 **Marketing URL** (optional) — same as Support URL or leave blank.
 
 **Category**
-- Primary: **Medical** (most accurate) — note: Medical apps get extra review
-  scrutiny; keep the description framed as an information tracker, not advice.
-  Alternative if you prefer a lighter review: **Reference**.
-- Secondary: Reference (or Medical, whichever you didn't pick as primary).
+- Primary: **Reference** — deliberate for the 4.2.2 resubmission: Medical as
+  primary invites extra review scrutiny, which a drug-information tracker from
+  an individual developer account does not need for its first approval. The app
+  presents factual public regulatory data (no dosing/treatment guidance), so
+  Reference is accurate. Revisit after approval if desired.
+- Secondary: **Medical**.
 
 **Price:** Free (no In-App Purchases) → no Paid Apps agreement, no tax/banking forms.
 
@@ -140,3 +142,92 @@ In Xcode:
 
 Tip: reserve the name in step 7.1 first, before anyone else takes "DrugRadar".
 ```
+
+---
+
+## 8. Resubmission after the 4.2.2 rejection (July 2026)
+
+Context: version 1.0 **build 1** was rejected on 1 Jul 2026 under Guideline
+4.2.2 (Minimum Functionality), reviewed on an **iPad Air 11-inch (M3)**
+(Submission ID 66820f6d-aca8-4d0d-a51b-0c7ae75d2100). That build predated all
+native functionality. Builds since then add: indication watchlist, on-device
+decision notifications, offline mode, per-drug private notes, a native
+regulatory glossary (tappable badges), an iPad two-pane master–detail layout,
+side-by-side comparison, and the system share sheet.
+
+**Checklist for this resubmission:**
+- [ ] Category set to **Reference (primary) / Medical (secondary)** — see §1.
+- [ ] Screenshots retaken showing the NATIVE features (alerts panel with
+      followed indications, notes on a drug, comparison view, glossary) — not
+      just browsing lists. Include **iPad screenshots** (the review device was
+      an iPad): 13" iPad Pro size (2064×2752), showing the two-pane layout.
+- [ ] App Privacy remains **Data Not Collected** (notes/watchlist stay on-device).
+- [ ] Paste the reviewer reply (below) into the App Store Connect message
+      thread WITH the new build attached — never on the rejected binary alone.
+- [ ] Paste the walkthrough (below) into the **App Review Notes** field.
+
+### Reply to App Review (paste into the rejection message thread)
+
+> Hello App Review Team,
+>
+> Thank you for reviewing my first submission and for the feedback under
+> Guideline 4.2.2. I understood the concern: the reviewed build (1.0, build 1)
+> could indeed read as a content browser.
+>
+> Rather than appeal, I have substantially rebuilt the app around native,
+> on-device functionality. The new build you are reviewing adds:
+>
+> 1. **Watchlist with local notifications** — follow a medical indication
+>    (e.g. “multiple myeloma”) and receive on-device reminders before the
+>    estimated EU decision date on any matching medicine. Scheduled entirely
+>    on the device with iOS local notifications; no server involved.
+> 2. **Private notes on any medicine** — free-text notes stored on-device
+>    (iOS UserDefaults via Capacitor Preferences), autosaved, never uploaded.
+> 3. **Native glossary** — every regulatory badge (PRIME, ATMP, Orphan,
+>    Conditional, 351(k), CHMP…) is tappable and opens a built-in, native
+>    explanation screen written for clinicians — not a web link.
+> 4. **iPad-adaptive layout** — on iPad the app presents a two-pane
+>    master–detail interface designed for the larger canvas.
+> 5. **Side-by-side comparison** — select any two medicines and compare
+>    regulatory status, dates, indication facets and company.
+> 6. **Offline mode** — bundled and cached datasets keep the app fully
+>    functional with no network connection.
+> 7. **System share sheet** — share a structured medicine summary.
+>
+> The app is not a web wrapper: the entire interface is bundled in the binary,
+> and the only external links are citations to official EMA/FDA source pages.
+>
+> I have also set the primary category to Reference (secondary: Medical), as
+> the app presents factual public regulatory information rather than medical
+> guidance.
+>
+> Detailed steps to reach each feature are in the App Review Notes. Thank you
+> for your time — I am happy to provide anything further.
+>
+> Kind regards,
+> Univ. Prof. Dr. med. Bernd Gansbacher
+
+### App Review Notes (paste into the “Notes” field of the submission)
+
+> This app is not a web wrapper — all UI is bundled in the binary. Please test
+> the native functionality:
+>
+> • WATCHLIST + LOCAL NOTIFICATIONS: tap the bell icon (top right) → “Enable
+>   notifications” → add “Multiple myeloma”. The app schedules on-device
+>   reminders ahead of estimated EU decision dates; upcoming decisions are
+>   listed in the same panel. Also reachable via Europe tab → search a disease
+>   → “Follow … for EU decision alerts”.
+> • PRIVATE NOTES: open any medicine → scroll to “My notes” → type. The note
+>   autosaves to device storage (visible after force-quitting and reopening).
+> • GLOSSARY: tap the book icon (top right), or tap any badge on a medicine
+>   (e.g. ORPHAN, PRIME, ATMP) to open its native explanation screen.
+> • iPAD TWO-PANE LAYOUT: on iPad, the list and the medicine detail render
+>   side-by-side (master–detail), in both portrait and landscape.
+> • COMPARE: open a medicine → “Compare” → open a second medicine → “Compare”
+>   → tap the Compare button in the bottom tray for a side-by-side view.
+> • OFFLINE: enable Airplane Mode and relaunch — all tabs keep working from
+>   bundled/cached data.
+> • SHARE: open a medicine → “Share” → the iOS share sheet opens with a
+>   structured summary.
+>
+> No account is needed; the app collects no data (all user state is on-device).

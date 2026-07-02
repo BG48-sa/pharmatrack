@@ -10,15 +10,19 @@ import TrialList from './components/TrialList';
 import NovelList from './components/NovelList';
 import EuropeView from './components/EuropeView';
 import CriticalList from './components/CriticalList';
-import DrugDetail from './components/DrugDetail';
+import DrugDetail, { DrugDetailContent } from './components/DrugDetail';
 import AlertsPanel from './components/AlertsPanel';
+import GlossaryModal from './components/GlossaryModal';
+import ComparePanel from './components/ComparePanel';
 import Loader from './components/Loader';
 import SourceList from './components/SourceList';
 import SearchBar from './components/SearchBar';
 import InstallButton from './components/InstallButton';
 import { getWatched, setWatched as persistWatched } from './services/watchlist';
 import { syncIndicationAlerts } from './services/notifications';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell } from 'lucide-react';
+import { drugKey } from './services/notes';
+import { useMediaQuery } from './services/useMediaQuery';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X } from 'lucide-react';
 
 type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical';
 
@@ -53,6 +57,33 @@ export default function App() {
   // --- Decision alerts: watched indications drive on-device reminders ---
   const [alertsOpen, setAlertsOpen] = useState<boolean>(false);
   const [watched, setWatched] = useState<string[]>([]);
+
+  // --- Glossary (opened from the header or from a tapped badge) ---
+  const [glossaryId, setGlossaryId] = useState<string | undefined>(undefined);
+  const [glossaryOpen, setGlossaryOpen] = useState<boolean>(false);
+  const openGlossary = (id?: string) => {
+    setGlossaryId(id);
+    setGlossaryOpen(true);
+  };
+
+  // --- Compare tray: up to two drugs, side-by-side ---
+  const [compare, setCompare] = useState<DrugDetailData[]>([]);
+  const [compareOpen, setCompareOpen] = useState<boolean>(false);
+  const inCompare = (d: DrugDetailData) => compare.some((x) => drugKey(x) === drugKey(d));
+  const toggleCompare = (d: DrugDetailData) => {
+    const k = drugKey(d);
+    setCompare((prev) => {
+      if (prev.some((x) => drugKey(x) === k)) return prev.filter((x) => drugKey(x) !== k);
+      if (prev.length >= 2) return [prev[1], d]; // keep the most recent, drop the oldest
+      return [...prev, d];
+    });
+  };
+  const removeFromCompare = (k: string) =>
+    setCompare((prev) => prev.filter((x) => drugKey(x) !== k));
+
+  // iPad / wide-screen: show the detail in a persistent right pane instead of a
+  // modal. 800px matches the `pad:` Tailwind breakpoint (iPad portrait = 820pt).
+  const isWide = useMediaQuery('(min-width: 800px)');
 
   // Load the saved watchlist once, then schedule its reminders.
   useEffect(() => {
@@ -221,6 +252,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col pb-[env(safe-area-inset-bottom)]">
       <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 sticky top-0 z-20 pt-[env(safe-area-inset-top)]">
+        <div className="mx-auto w-full max-w-5xl">
         <div className="px-4 h-14 flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <div className="bg-blue-600 p-1.5 rounded-lg text-white shadow-sm">
@@ -235,6 +267,13 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center space-x-1">
+            <button
+              onClick={() => openGlossary()}
+              className="p-2 text-slate-500 hover:text-blue-600 active:bg-slate-100 rounded-full transition-colors"
+              aria-label="Glossary of regulatory terms"
+            >
+              <BookOpen size={20} />
+            </button>
             <button
               onClick={() => setAlertsOpen(true)}
               className="relative p-2 text-slate-500 hover:text-indigo-600 active:bg-slate-100 rounded-full transition-colors"
@@ -288,9 +327,12 @@ export default function App() {
             isLoading={view === 'pipeline' ? trialLoading : view === 'approvals' ? searchLoading : false}
           />
         </div>
+        </div>
       </header>
 
-      <main className="flex-grow w-full max-w-md mx-auto sm:max-w-xl pt-4">
+      <main className="flex-grow w-full">
+        <div className="mx-auto w-full max-w-5xl pad:px-4 pad:pt-4 pad:flex pad:gap-6 pad:items-start">
+          <div className="w-full max-w-md mx-auto sm:max-w-xl pad:max-w-none pad:mx-0 pad:flex-1 pad:min-w-0 pt-4 pad:pt-0">
         {view === 'europe' ? (
           <EuropeView
             key={`eu-${dataVersion}`}
@@ -372,9 +414,37 @@ export default function App() {
           )}
           </div>
         )}
+          </div>
+
+          {/* Wide screens (iPad landscape / desktop): persistent detail pane. */}
+          {isWide && (
+            <aside className="hidden pad:block w-[360px] xl:w-[380px] shrink-0 sticky top-[11.5rem] max-h-[calc(100vh-12.5rem)] overflow-y-auto pb-6">
+              {detail ? (
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 relative">
+                  <button
+                    onClick={() => setDetail(null)}
+                    className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 bg-slate-50 rounded-full z-10"
+                    aria-label="Close detail"
+                  >
+                    <X size={18} />
+                  </button>
+                  <DrugDetailContent
+                    data={detail}
+                    onViewTrials={handleViewTrials}
+                    onOpenGlossary={openGlossary}
+                    onToggleCompare={toggleCompare}
+                    inCompare={inCompare(detail)}
+                  />
+                </div>
+              ) : (
+                <DetailPlaceholder />
+              )}
+            </aside>
+          )}
+        </div>
       </main>
 
-      <footer className="w-full max-w-md mx-auto sm:max-w-xl px-4 pt-5 pb-8 mt-2 border-t border-slate-200">
+      <footer className="w-full max-w-md mx-auto sm:max-w-xl pad:max-w-5xl px-4 pt-5 pb-8 mt-2 border-t border-slate-200">
         <p className="text-[11px] leading-relaxed text-slate-400">
           <span className="font-semibold text-slate-500">For informational purposes only.</span>{' '}
           DrugRadar aggregates public FDA, EMA, and ClinicalTrials.gov data, which may be
@@ -393,8 +463,47 @@ export default function App() {
         </a>
       </footer>
 
+      {/* Compare tray — appears once at least one drug is selected for comparison. */}
+      {compare.length > 0 && (
+        <div className="fixed bottom-0 inset-x-0 z-40 px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 bg-gradient-to-t from-slate-900/10 to-transparent pointer-events-none">
+          <div className="mx-auto w-full max-w-xl bg-white border border-slate-200 shadow-lg rounded-2xl p-2.5 flex items-center gap-2 pointer-events-auto">
+            <GitCompare size={18} className="text-emerald-600 shrink-0 ml-1" />
+            <div className="flex-1 min-w-0 flex gap-1.5">
+              {compare.map((d) => (
+                <span
+                  key={drugKey(d)}
+                  className="inline-flex items-center gap-1 bg-slate-100 rounded-lg px-2 py-1 text-xs font-semibold text-slate-700 min-w-0"
+                >
+                  <span className="truncate max-w-[7rem]">{d.brandName}</span>
+                  <button onClick={() => removeFromCompare(drugKey(d))} aria-label={`Remove ${d.brandName}`}>
+                    <X size={12} className="text-slate-400 hover:text-red-500" />
+                  </button>
+                </span>
+              ))}
+              {compare.length === 1 && (
+                <span className="inline-flex items-center text-xs text-slate-400 px-1">Pick one more…</span>
+              )}
+            </div>
+            <button
+              onClick={() => setCompareOpen(true)}
+              disabled={compare.length < 2}
+              className="shrink-0 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 disabled:bg-slate-200 disabled:text-slate-400 transition-colors"
+            >
+              Compare
+            </button>
+          </div>
+        </div>
+      )}
+
       {detail && (
-        <DrugDetail data={detail} onClose={() => setDetail(null)} onViewTrials={handleViewTrials} />
+        <DrugDetail
+          data={detail}
+          onClose={() => setDetail(null)}
+          onViewTrials={handleViewTrials}
+          onOpenGlossary={openGlossary}
+          onToggleCompare={toggleCompare}
+          inCompare={inCompare(detail)}
+        />
       )}
 
       {alertsOpen && (
@@ -404,6 +513,14 @@ export default function App() {
           onSelect={setDetail}
           onClose={() => setAlertsOpen(false)}
         />
+      )}
+
+      {glossaryOpen && (
+        <GlossaryModal initialId={glossaryId} onClose={() => setGlossaryOpen(false)} />
+      )}
+
+      {compareOpen && compare.length >= 2 && (
+        <ComparePanel items={compare} onClose={() => setCompareOpen(false)} onRemove={removeFromCompare} />
       )}
     </div>
   );
@@ -480,6 +597,19 @@ const TrialEmpty: React.FC<{
     </div>
   );
 };
+
+// Empty state for the wide-screen detail pane before a drug is chosen.
+const DetailPlaceholder: React.FC = () => (
+  <div className="bg-white/60 rounded-2xl border border-dashed border-slate-200 p-8 text-center">
+    <div className="bg-slate-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+      <Pill className="text-slate-300 w-7 h-7" />
+    </div>
+    <p className="text-sm font-semibold text-slate-500">Select a medicine</p>
+    <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+      Tap any entry to see its regulatory status, indication facts, your notes, and comparison options here.
+    </p>
+  </div>
+);
 
 const ErrorBox: React.FC<{ message: string; onRetry: () => void }> = ({ message, onRetry }) => (
   <div className="mx-4 mt-8 bg-red-50 border border-red-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-4">

@@ -15,19 +15,37 @@ const DEFS: Array<{ key: keyof EmaFlags; label: string; cls: string }> = [
   { key: 'gen', label: 'Generic', cls: 'bg-slate-100 text-slate-600 border-slate-200' },
 ];
 
-const EmaBadges: React.FC<{ flags: EmaFlags; className?: string }> = ({ flags, className }) => {
+// When `onSelect` is given (e.g. in the detail sheet), each badge becomes a
+// button that opens its glossary entry — the EmaFlags key doubles as the
+// glossary id. Without it (e.g. inside a card that is itself a button), badges
+// render as plain, non-interactive pills.
+const EmaBadges: React.FC<{
+  flags: EmaFlags;
+  className?: string;
+  onSelect?: (glossaryId: string) => void;
+}> = ({ flags, className, onSelect }) => {
   const active = DEFS.filter((d) => flags[d.key]);
   if (active.length === 0) return null;
+  const base = 'inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border';
   return (
     <div className={`flex flex-wrap gap-1 ${className ?? ''}`}>
-      {active.map((d) => (
-        <span
-          key={d.key}
-          className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${d.cls}`}
-        >
-          {d.label}
-        </span>
-      ))}
+      {active.map((d) =>
+        onSelect ? (
+          <button
+            key={d.key}
+            type="button"
+            onClick={() => onSelect(d.key)}
+            className={`${base} ${d.cls} active:opacity-70`}
+            aria-label={`What is ${d.label}?`}
+          >
+            {d.label}
+          </button>
+        ) : (
+          <span key={d.key} className={`${base} ${d.cls}`}>
+            {d.label}
+          </span>
+        )
+      )}
     </div>
   );
 };

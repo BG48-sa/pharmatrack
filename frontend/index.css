@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Custom breakpoint for the two-pane (master/detail) layout. 800px so an
+   iPad Air 11" in portrait (820pt logical width) qualifies — the standard lg
+   (1024px) would only cover landscape. */
+@theme {
+  --breakpoint-pad: 800px;
+}
+
 /* App-level base styles (previously inline in index.html) */
 body {
   background-color: #f8fafc; /* slate-50 */
