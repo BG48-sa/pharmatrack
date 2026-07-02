@@ -52,7 +52,9 @@ const shareText = (d: DrugDetailData): string => {
   if (d.company) lines.push(`Company: ${d.company}`);
   if (d.indication) lines.push(`Indication: ${d.indication}`);
   if (d.emaUrl) lines.push(d.emaUrl);
-  lines.push('— via DrugRadar (public EMA/FDA data; verify against the SmPC/label)');
+  lines.push(
+    '— via DrugRadar. Public EMA/FDA data; informational only, not medical advice. Dates may be estimates — verify against the SmPC / EPAR or FDA label.'
+  );
   return lines.join('\n');
 };
 

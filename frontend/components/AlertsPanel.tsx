@@ -283,6 +283,14 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
             </div>
           )}
 
+          {/* The reminder pipeline is estimate-based end-to-end — say so here,
+              where the user turns it on, not only in the buried footer. */}
+          <p className="text-[10px] text-slate-400 leading-snug">
+            Decision dates are estimates (≈67 days after the CHMP opinion) and may change or
+            not occur; reminders are best-effort, may be delayed or missed, and are not
+            official notifications from any authority. Not medical advice.
+          </p>
+
           {/* Data freshness / offline status */}
           <div className="flex items-center gap-1.5 text-[11px] text-slate-400 pt-1">
             {offline ? (

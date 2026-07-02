@@ -39,6 +39,10 @@ const EntryDetail: React.FC<{ entry: GlossaryEntry; onBack?: () => void }> = ({ 
         {entry.sourceLabel || 'Learn more'} <ExternalLink size={12} className="ml-1" />
       </a>
     )}
+    <p className="text-[10px] text-slate-400 mt-4 leading-snug">
+      Simplified summary for orientation only — not legal, regulatory, or medical advice.
+      The linked official source is authoritative.
+    </p>
   </div>
 );
 

@@ -449,7 +449,9 @@ export default function App() {
           <span className="font-semibold text-slate-500">For informational purposes only.</span>{' '}
           DrugRadar aggregates public FDA, EMA, and ClinicalTrials.gov data, which may be
           incomplete or delayed; estimated decision dates, auto-parsed indication details,
-          and on-device reminders are approximate and may be inaccurate. It is not medical
+          and on-device reminders are approximate and may be inaccurate. Glossary entries,
+          the comparison view, and shared summaries are simplified aids derived from the
+          same data and carry the same limitations. It is not medical
           advice and is not a substitute for professional medical judgment or official
           regulatory sources. Authorisation does not imply national reimbursement or
           availability. Verify against the primary source (SmPC / label) before relying on

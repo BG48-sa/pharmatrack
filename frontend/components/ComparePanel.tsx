@@ -165,8 +165,10 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove }) => {
           </div>
 
           <p className="text-[10px] text-slate-400 mt-4 leading-snug">
-            “At a glance” facets are auto-parsed from the approved indication and may be incomplete —
-            verify against the SmPC / label. EU authorisation does not imply national reimbursement or availability.
+            For informational purposes only — not medical advice and not a basis for treatment
+            decisions. “At a glance” facets are auto-parsed from the approved indication and may be
+            incomplete or wrong — verify every entry against the SmPC / EPAR or FDA label.
+            EU authorisation does not imply national reimbursement or availability.
           </p>
         </div>
       </div>
