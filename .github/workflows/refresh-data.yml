@@ -1,0 +1,101 @@
+name: Refresh EMA data & deploy
+
+# Cloud replacement for the laptop launchd job. Keeps the EU approvals list and
+# the "Expected" pipeline (pending CHMP opinions = upcoming EU marketing
+# authorisations) current whether or not any Mac is on. US approvals are queried
+# live by the app, so they need nothing here. The full-text label corpus
+# (SmPC/USPI) is refreshed separately/on-demand, not by this job.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'      # Mondays 06:00 UTC
+  workflow_dispatch: {}       # allow manual runs
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --quiet openpyxl
+
+      # --- Rebuild the EMA snapshot (approvals + expected pipeline) + CGT -------
+      - name: Refresh EMA + CGT data
+        run: |
+          set -euo pipefail
+          curl -fsSL -A "Mozilla/5.0" -o /tmp/ema.xlsx \
+            "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx"
+          test -s /tmp/ema.xlsx
+          python frontend/scripts/build-ema-data.py /tmp/ema.xlsx frontend/ema-medicines.json
+          python frontend/scripts/build-cgt-data.py frontend/cgt-products.json
+
+      # --- Revert files whose CONTENT is unchanged (key order may differ) ------
+      - name: Drop pure-reformatting changes
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          for f in ["frontend/ema-medicines.json", "frontend/cgt-products.json"]:
+              try:
+                  head = subprocess.run(["git", "show", "HEAD:" + f],
+                                        capture_output=True, text=True, check=True).stdout
+                  same = json.loads(head) == json.load(open(f))
+              except Exception:
+                  same = False           # can't compare -> let git diff decide
+              if same:
+                  subprocess.run(["git", "checkout", "--", f], check=True)
+                  print("unchanged:", f)
+              else:
+                  print("CHANGED  :", f)
+          PY
+
+      - name: Detect change
+        id: chk
+        run: |
+          if git diff --quiet -- frontend/ema-medicines.json frontend/cgt-products.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"; echo "No data changes — nothing to publish."
+          else
+            echo "changed=true"  >> "$GITHUB_OUTPUT"; git --no-pager diff --stat -- frontend/ema-medicines.json frontend/cgt-products.json
+          fi
+
+      # --- Commit refreshed source data to main -------------------------------
+      - name: Commit refreshed data
+        if: steps.chk.outputs.changed == 'true'
+        run: |
+          git config user.name  'DrugRadar Refresh Bot'
+          git config user.email 'bernd.gansbacher@gmail.com'
+          git add frontend/ema-medicines.json frontend/cgt-products.json
+          git commit -m "Refresh bundled EMA data $(date -u +%F) [skip ci]"
+          git push
+
+      # --- Build + publish to GitHub Pages so the installed app pulls it -------
+      - uses: actions/setup-node@v4
+        if: steps.chk.outputs.changed == 'true'
+        with:
+          node-version: '20'
+      - name: Build + deploy to gh-pages
+        if: steps.chk.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          npm install --prefix frontend --no-audit --no-fund
+          GH_PAGES=true npm run build
+          cd frontend/dist
+          touch .nojekyll
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name='DrugRadar Refresh Bot' -c user.email='bernd.gansbacher@gmail.com' \
+              commit -q -m "Deploy $(date -u '+%F %H:%M') UTC"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
