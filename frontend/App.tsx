@@ -90,18 +90,41 @@ export default function App() {
       .then((idx) => idx?.drugs && setUspiIndex(idx.drugs))
       .catch(() => {});
   }, []);
-  const compareSlugs = compare.map(smpcSlug);
   const hasEuLabel = (s: string) => !!(s && smpcIndex[s]);
   const hasUsLabel = (s: string) => !!(s && uspiIndex[s]);
   const labelAvailable = (s: string, src: 'eu' | 'us') => (src === 'eu' ? hasEuLabel(s) : hasUsLabel(s));
-  // Full-label comparison of the two tray drugs — available once both have a
-  // label in at least one jurisdiction (each column can then toggle EU/US).
+  // Reverse index: active substance (INN) -> a bundled label slug, preferring a
+  // slug that has BOTH an EU SmPC and a US label (so the EU/US toggle works).
+  // Lets any drug be matched to its label by substance, regardless of which tab
+  // it came from (US/Novel-tab drugs carry no EPAR URL to derive a slug from).
+  const innToSlug = useMemo(() => {
+    const idx: Record<string, string> = {};
+    const consider = (slug: string, inn: unknown, both: boolean) => {
+      const key = String(inn || '').toLowerCase().trim();
+      if (key && (!idx[key] || both)) idx[key] = slug;
+    };
+    for (const [slug, info] of Object.entries(smpcIndex)) consider(slug, (info as { inn?: string }).inn, !!uspiIndex[slug]);
+    for (const [slug, info] of Object.entries(uspiIndex)) if (!smpcIndex[slug]) consider(slug, (info as { inn?: string }).inn, false);
+    return idx;
+  }, [smpcIndex, uspiIndex]);
+  // Best label slug for a drug: the EPAR-derived slug if it maps to a bundled
+  // label, else matched by active substance (handles salts, e.g. "ponatinib
+  // hydrochloride" → ponatinib).
+  const labelSlug = (d: DrugDetailData): string => {
+    const s = smpcSlug(d);
+    if (s && (smpcIndex[s] || uspiIndex[s])) return s;
+    const gn = (d.genericName || '').toLowerCase().trim();
+    return innToSlug[gn] || innToSlug[gn.split(/[\s,]/)[0]] || '';
+  };
+  // Full-label comparison of the two tray drugs — available once both resolve to
+  // a bundled label in at least one jurisdiction (each column can then toggle EU/US).
+  const compareSlugs = compare.map(labelSlug);
   const labelReady = compare.length === 2 && compareSlugs.every((s) => hasEuLabel(s) || hasUsLabel(s));
   const trayColumns: LabelColumn[] = compareSlugs.map((s) => ({ slug: s, source: hasEuLabel(s) ? 'eu' : 'us' }));
   // Same-molecule EU-vs-US comparison, opened from a medicine's detail.
   const [euUsSlug, setEuUsSlug] = useState<string | null>(null);
   const euUsAvailable = (d: DrugDetailData) => {
-    const s = smpcSlug(d);
+    const s = labelSlug(d);
     return !!(s && smpcIndex[s] && uspiIndex[s]);
   };
   const inCompare = (d: DrugDetailData) => compare.some((x) => drugKey(x) === drugKey(d));
@@ -479,7 +502,7 @@ export default function App() {
                     onOpenGlossary={openGlossary}
                     onToggleCompare={toggleCompare}
                     inCompare={inCompare(detail)}
-                    onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(smpcSlug(detail)) : undefined}
+                    onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(labelSlug(detail)) : undefined}
                   />
                 </div>
               ) : (
@@ -543,22 +566,34 @@ export default function App() {
                 <span className="inline-flex items-center text-xs text-slate-400 px-1">Pick one more…</span>
               )}
             </div>
-            {labelReady && (
+            {labelReady ? (
+              <>
+                {/* Regulatory snapshot is now secondary; the full-label
+                    comparison is the prominent primary action. */}
+                <button
+                  onClick={() => setCompareOpen(true)}
+                  className="shrink-0 px-3 py-2 rounded-xl text-sm font-semibold bg-white text-slate-600 border border-slate-200 active:bg-slate-50 transition-colors"
+                  aria-label="Regulatory overview"
+                >
+                  Overview
+                </button>
+                <button
+                  onClick={() => setSmpcOpen(true)}
+                  className="shrink-0 inline-flex items-center gap-1 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 transition-colors"
+                  aria-label="Compare full labels"
+                >
+                  <FileText size={15} /> Compare labels
+                </button>
+              </>
+            ) : (
               <button
-                onClick={() => setSmpcOpen(true)}
-                className="shrink-0 inline-flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-semibold bg-sky-50 text-sky-700 border border-sky-200 active:bg-sky-100 transition-colors"
-                aria-label="Compare full labels"
+                onClick={() => setCompareOpen(true)}
+                disabled={compare.length < 2}
+                className="shrink-0 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 disabled:bg-slate-200 disabled:text-slate-400 transition-colors"
               >
-                <FileText size={15} /> Full labels
+                Compare
               </button>
             )}
-            <button
-              onClick={() => setCompareOpen(true)}
-              disabled={compare.length < 2}
-              className="shrink-0 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 disabled:bg-slate-200 disabled:text-slate-400 transition-colors"
-            >
-              Compare
-            </button>
           </div>
         </div>
       )}
@@ -571,7 +606,7 @@ export default function App() {
           onOpenGlossary={openGlossary}
           onToggleCompare={toggleCompare}
           inCompare={inCompare(detail)}
-          onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(smpcSlug(detail)) : undefined}
+          onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(labelSlug(detail)) : undefined}
         />
       )}
 
