@@ -26,3 +26,9 @@ __pycache__/
 frontend/ios/App/Pods/
 frontend/ios/App/App/public/
 frontend/ios/DerivedData/
+
+# SmPC raw-text download cache (regenerable)
+frontend/scripts/smpc/.cache/
+
+# USPI openFDA response cache (regenerable)
+frontend/scripts/uspi/.cache/

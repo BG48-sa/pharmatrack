@@ -29,3 +29,32 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Sanitized FDA label tables (US Prescribing Information) rendered inline in the
+   label comparison. Attribute-free markup, styled here. */
+.uspi-table table {
+  border-collapse: collapse;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #334155;
+  min-width: max-content;
+}
+.uspi-table caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  color: #475569;
+  padding: 2px 0 4px;
+}
+.uspi-table th,
+.uspi-table td {
+  border: 1px solid #e2e8f0;
+  padding: 3px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+.uspi-table th {
+  background: #f8fafc;
+  font-weight: 600;
+}

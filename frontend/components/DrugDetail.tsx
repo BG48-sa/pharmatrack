@@ -7,7 +7,7 @@ import AccessStatus from './AccessStatus';
 import DrugNotes from './DrugNotes';
 import {
   X, Activity, Pill, Building2, Calendar, Globe, FlaskConical, ExternalLink,
-  Sparkles, Hourglass, Stethoscope, GitCompare, Check, Share,
+  Sparkles, Hourglass, Stethoscope, GitCompare, Check, Share, FileText,
 } from 'lucide-react';
 
 interface DrugDetailProps {
@@ -17,6 +17,7 @@ interface DrugDetailProps {
   onOpenGlossary: (glossaryId?: string) => void;
   onToggleCompare?: (data: DrugDetailData) => void;
   inCompare?: boolean;
+  onCompareEuUs?: () => void;
 }
 
 const formatPretty = (val?: string): string => {
@@ -78,7 +79,8 @@ export const DrugDetailContent: React.FC<{
   onOpenGlossary: (glossaryId?: string) => void;
   onToggleCompare?: (data: DrugDetailData) => void;
   inCompare?: boolean;
-}> = ({ data, onViewTrials, onOpenGlossary, onToggleCompare, inCompare }) => {
+  onCompareEuUs?: () => void;
+}> = ({ data, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs }) => {
   const trialQuery = data.genericName && data.genericName !== '—' ? data.genericName : data.brandName;
   const hasEma = !!data.emaApprovalDate && /^\d/.test(data.emaApprovalDate);
   const badgeId = badgeGlossaryId(data.badge);
@@ -165,6 +167,15 @@ export const DrugDetailContent: React.FC<{
         <FlaskConical size={18} /> See Phase 3 trials
       </button>
 
+      {onCompareEuUs && (
+        <button
+          onClick={onCompareEuUs}
+          className="w-full mt-3 py-3.5 bg-sky-50 text-sky-700 font-semibold rounded-xl border border-sky-200 active:bg-sky-100 transition-colors flex items-center justify-center gap-2"
+        >
+          <FileText size={18} /> Compare EU &amp; US label
+        </button>
+      )}
+
       <div className="flex gap-2 mt-3">
         {onToggleCompare && (
           <button
@@ -225,7 +236,7 @@ export const DrugDetailContent: React.FC<{
 };
 
 /** Phone/compact modal wrapper around the shared content. */
-const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, onOpenGlossary, onToggleCompare, inCompare }) => {
+const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs }) => {
   // Close on Escape; lock background scroll while open.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -260,6 +271,7 @@ const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, on
           onOpenGlossary={onOpenGlossary}
           onToggleCompare={onToggleCompare}
           inCompare={inCompare}
+          onCompareEuUs={onCompareEuUs}
         />
       </div>
     </div>

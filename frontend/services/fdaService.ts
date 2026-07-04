@@ -50,6 +50,23 @@ const LABEL_SOURCE: Source = {
   title: 'FDA Structured Product Labeling (openFDA drug labels)',
   uri: 'https://open.fda.gov/apis/drug/label/',
 };
+// FDA Oncology Center of Excellence — the authoritative running feed of
+// oncology / hematologic-malignancy approval notifications. Surfaced when the
+// result set is oncology-related.
+const FDA_ONCOLOGY_SOURCE: Source = {
+  title: 'FDA Oncology Center of Excellence — cancer & hematologic-malignancy approval notifications',
+  uri: 'https://www.fda.gov/drugs/resources-information-approved-drugs/oncology-cancerhematologic-malignancies-approval-notifications#updates',
+};
+
+const ONC_RE = /neoplasm|carcinoma|\bcancer\b|\btumou?r\b|oncolog|antineoplastic|leukaemi|leukemi|lymphoma|myeloma|melanoma|sarcoma|glioma|malignan/i;
+const isOncology = (d: Drug): boolean => ONC_RE.test(`${d.indication || ''} ${d.drugClass || ''}`);
+
+// FDA's list of first-time generic (ANDA) approvals — the authoritative US
+// generics register, complementing the EU Community Register.
+const FDA_FIRST_GENERIC_SOURCE: Source = {
+  title: 'FDA First Generic Drug Approvals — U.S. Food & Drug Administration',
+  uri: 'https://www.fda.gov/drugs/drug-and-biologic-approval-and-ind-activity-reports/first-generic-drug-approvals',
+};
 
 // FDA records are ALL-CAPS; render them more readably.
 const titleCase = (s?: string): string => {
@@ -224,6 +241,8 @@ const buildSources = (drugs: Drug[], usedLabelApi = false): Source[] => {
   if (drugs.some((d) => d.emaApprovalDate && d.emaApprovalDate !== 'Not in EMA')) {
     sources.push(EMA_SOURCE);
   }
+  if (drugs.some(isOncology)) sources.push(FDA_ONCOLOGY_SOURCE);
+  sources.push(FDA_FIRST_GENERIC_SOURCE);
   return sources;
 };
 
@@ -367,6 +386,9 @@ export const fetchRecentDrugApprovals = async (): Promise<DrugDataResponse> => {
 const is351kQuery = (q: string): boolean =>
   /351\s*\(?k\)?|biosimilar/i.test(q);
 
+// The "Generic" US chip: ANDA applications are the US generic-drug approvals.
+const isGenericQuery = (q: string): boolean => /^generics?$/i.test(q.trim());
+
 /** Search by brand, generic/ingredient, sponsor, class — or list 351(k) biosimilars. */
 export const searchDrugDatabase = async (query: string): Promise<DrugDataResponse> => {
   const q = query.trim();
@@ -378,6 +400,9 @@ export const searchDrugDatabase = async (query: string): Promise<DrugDataRespons
       // All FDA-approved 351(k) biosimilars (pending applications are not
       // published by the FDA, so only approved biosimilars are available).
       search = 'submissions.submission_class_code:BIOSIMILAR AND submissions.submission_status:AP';
+    } else if (isGenericQuery(q)) {
+      // US generic-drug approvals = ANDA applications, most recently approved first.
+      search = 'application_number:ANDA* AND submissions.submission_status:AP';
     } else {
       const fields = [
         'openfda.brand_name',
@@ -395,7 +420,7 @@ export const searchDrugDatabase = async (query: string): Promise<DrugDataRespons
     // Drugs@FDA covers CDER products; CBER cell & gene therapies and some other
     // biologics (Casgevy, CAR-T, etc.) only appear in the SPL label endpoint.
     // Fall back to it so these still surface in search.
-    if (!is351kQuery(q)) {
+    if (!is351kQuery(q) && !isGenericQuery(q)) {
       const labelDrugs = await searchLabels(q);
       return { drugs: labelDrugs, sources: buildSources(labelDrugs, true) };
     }

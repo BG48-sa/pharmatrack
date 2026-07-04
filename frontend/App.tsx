@@ -13,6 +13,8 @@ import CriticalList from './components/CriticalList';
 import DrugDetail, { DrugDetailContent } from './components/DrugDetail';
 import AlertsPanel from './components/AlertsPanel';
 import GlossaryModal from './components/GlossaryModal';
+import LabelComparePanel, { LabelColumn } from './components/LabelComparePanel';
+import DisclaimerGate from './components/DisclaimerGate';
 import ComparePanel from './components/ComparePanel';
 import Loader from './components/Loader';
 import SourceList from './components/SourceList';
@@ -22,7 +24,10 @@ import { getWatched, setWatched as persistWatched } from './services/watchlist';
 import { syncIndicationAlerts } from './services/notifications';
 import { drugKey } from './services/notes';
 import { useMediaQuery } from './services/useMediaQuery';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X } from 'lucide-react';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink } from 'lucide-react';
+
+// EMA product slug behind a compared drug (only EU-tab medicines carry emaUrl).
+const smpcSlug = (d: DrugDetailData): string => (d.emaUrl || '').split('/EPAR/')[1]?.trim() || '';
 
 type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical';
 
@@ -69,6 +74,36 @@ export default function App() {
   // --- Compare tray: up to two drugs, side-by-side ---
   const [compare, setCompare] = useState<DrugDetailData[]>([]);
   const [compareOpen, setCompareOpen] = useState<boolean>(false);
+
+  // --- Full-text label comparison (SmPC / USPI) ---
+  const [smpcOpen, setSmpcOpen] = useState<boolean>(false);
+  // Manifests of medicines with extracted EU SmPC / US label data (slug -> present).
+  const [smpcIndex, setSmpcIndex] = useState<Record<string, unknown>>({});
+  const [uspiIndex, setUspiIndex] = useState<Record<string, unknown>>({});
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/smpc-index.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((idx) => idx?.drugs && setSmpcIndex(idx.drugs))
+      .catch(() => {});
+    fetch(`${import.meta.env.BASE_URL}data/uspi-index.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((idx) => idx?.drugs && setUspiIndex(idx.drugs))
+      .catch(() => {});
+  }, []);
+  const compareSlugs = compare.map(smpcSlug);
+  const hasEuLabel = (s: string) => !!(s && smpcIndex[s]);
+  const hasUsLabel = (s: string) => !!(s && uspiIndex[s]);
+  const labelAvailable = (s: string, src: 'eu' | 'us') => (src === 'eu' ? hasEuLabel(s) : hasUsLabel(s));
+  // Full-label comparison of the two tray drugs — available once both have a
+  // label in at least one jurisdiction (each column can then toggle EU/US).
+  const labelReady = compare.length === 2 && compareSlugs.every((s) => hasEuLabel(s) || hasUsLabel(s));
+  const trayColumns: LabelColumn[] = compareSlugs.map((s) => ({ slug: s, source: hasEuLabel(s) ? 'eu' : 'us' }));
+  // Same-molecule EU-vs-US comparison, opened from a medicine's detail.
+  const [euUsSlug, setEuUsSlug] = useState<string | null>(null);
+  const euUsAvailable = (d: DrugDetailData) => {
+    const s = smpcSlug(d);
+    return !!(s && smpcIndex[s] && uspiIndex[s]);
+  };
   const inCompare = (d: DrugDetailData) => compare.some((x) => drugKey(x) === drugKey(d));
   const toggleCompare = (d: DrugDetailData) => {
     const k = drugKey(d);
@@ -251,6 +286,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col pb-[env(safe-area-inset-bottom)]">
+      <DisclaimerGate />
       <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 sticky top-0 z-20 pt-[env(safe-area-inset-top)]">
         <div className="mx-auto w-full max-w-5xl">
         <div className="px-4 h-14 flex items-center justify-between">
@@ -368,6 +404,15 @@ export default function App() {
                     ? `Found ${activeData.drugs.length} approved drug(s) matching "${currentQuery}".`
                     : 'Recent FDA approvals with a classified drug class, live from openFDA with EMA authorisation dates. The very latest approvals can take weeks to appear here — see the Novel tab for the complete new-drug list. Search by drug, ingredient, company, disease/indication, or class — or tap 351(k) Biosimilars.'}
                 </p>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-[11px] text-slate-500">
+                  <span className="font-semibold text-slate-600">Official generics registers:</span>
+                  <a href="https://www.fda.gov/drugs/drug-and-biologic-approval-and-ind-activity-reports/first-generic-drug-approvals" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-blue-600 active:text-blue-800 font-medium">
+                    FDA First Generic Approvals <ExternalLink size={11} className="shrink-0" />
+                  </a>
+                  <a href="https://ec.europa.eu/health/documents/community-register/html/index_en.htm" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-blue-600 active:text-blue-800 font-medium">
+                    EU Community Register <ExternalLink size={11} className="shrink-0" />
+                  </a>
+                </div>
               </div>
               <DrugList drugs={activeData.drugs} onSelect={setDetail} />
               {activeData.drugs.length > 0 && <SourceList sources={activeData.sources} />}
@@ -434,6 +479,7 @@ export default function App() {
                     onOpenGlossary={openGlossary}
                     onToggleCompare={toggleCompare}
                     inCompare={inCompare(detail)}
+                    onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(smpcSlug(detail)) : undefined}
                   />
                 </div>
               ) : (
@@ -446,16 +492,27 @@ export default function App() {
 
       <footer className="w-full max-w-md mx-auto sm:max-w-xl pad:max-w-5xl px-4 pt-5 pb-8 mt-2 border-t border-slate-200">
         <p className="text-[11px] leading-relaxed text-slate-400">
-          <span className="font-semibold text-slate-500">For informational purposes only.</span>{' '}
-          DrugRadar aggregates public FDA, EMA, and ClinicalTrials.gov data, which may be
-          incomplete or delayed; estimated decision dates, auto-parsed indication details,
-          and on-device reminders are approximate and may be inaccurate. Glossary entries,
-          the comparison view, and shared summaries are simplified aids derived from the
-          same data and carry the same limitations. It is not medical
-          advice and is not a substitute for professional medical judgment or official
-          regulatory sources. Authorisation does not imply national reimbursement or
-          availability. Verify against the primary source (SmPC / label) before relying on
-          any entry. Provided “as is”, without warranty; use at your own risk.
+          <span className="font-semibold text-slate-500">For informational purposes only — not medical advice.</span>{' '}
+          DrugRadar is an independent project and is <span className="font-medium text-slate-500">not affiliated with, endorsed by, or verified by</span> the
+          FDA, the EMA, or the U.S. National Library of Medicine. It aggregates public
+          regulatory data (FDA, EMA, ClinicalTrials.gov) that may be incomplete, delayed,
+          or inaccurate; estimated decision dates, auto-parsed indication details, and
+          on-device reminders are approximate. Glossary entries, comparison views, and
+          shared summaries are simplified, machine-generated aids. Full-text label sections
+          are automatically extracted, abbreviated snapshots that may be truncated, contain
+          extraction errors, or be out of date — the live linked EMA SmPC / FDA label is the
+          only authoritative version. The EU SmPC and the US Prescribing Information are
+          distinct legal documents that apply only in their own jurisdiction and are
+          <span className="font-medium text-slate-500"> not interchangeable</span>.
+          DrugRadar is <span className="font-medium text-slate-500">not a clinical decision-support tool</span> and
+          is not a substitute for professional medical judgment or the official product
+          information. Do not use it to diagnose, treat, prescribe, or make any dosing or
+          clinical decision; always verify against the current official label first.
+          Authorisation does not imply availability or reimbursement. Provided
+          <span className="font-medium text-slate-500"> “as is”, without warranty of any kind</span>; to the maximum
+          extent permitted by law the developer accepts no liability for any loss, injury,
+          or damage arising from its use. You use it entirely at your own risk and remain
+          solely responsible for all clinical decisions.
         </p>
         <a
           href="privacy.html"
@@ -486,6 +543,15 @@ export default function App() {
                 <span className="inline-flex items-center text-xs text-slate-400 px-1">Pick one more…</span>
               )}
             </div>
+            {labelReady && (
+              <button
+                onClick={() => setSmpcOpen(true)}
+                className="shrink-0 inline-flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-semibold bg-sky-50 text-sky-700 border border-sky-200 active:bg-sky-100 transition-colors"
+                aria-label="Compare full labels"
+              >
+                <FileText size={15} /> Full labels
+              </button>
+            )}
             <button
               onClick={() => setCompareOpen(true)}
               disabled={compare.length < 2}
@@ -505,6 +571,7 @@ export default function App() {
           onOpenGlossary={openGlossary}
           onToggleCompare={toggleCompare}
           inCompare={inCompare(detail)}
+          onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(smpcSlug(detail)) : undefined}
         />
       )}
 
@@ -519,6 +586,23 @@ export default function App() {
 
       {glossaryOpen && (
         <GlossaryModal initialId={glossaryId} onClose={() => setGlossaryOpen(false)} />
+      )}
+      {smpcOpen && labelReady && (
+        <LabelComparePanel
+          columns={trayColumns}
+          available={labelAvailable}
+          onClose={() => setSmpcOpen(false)}
+        />
+      )}
+      {euUsSlug && (
+        <LabelComparePanel
+          columns={[
+            { slug: euUsSlug, source: 'eu' },
+            { slug: euUsSlug, source: 'us' },
+          ] as LabelColumn[]}
+          available={labelAvailable}
+          onClose={() => setEuUsSlug(null)}
+        />
       )}
 
       {compareOpen && compare.length >= 2 && (

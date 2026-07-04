@@ -26,6 +26,18 @@
     <!-- Register Service Worker for PWA Installability -->
     <script>
       if ('serviceWorker' in navigator) {
+        // When a new service worker takes control (an app update activated),
+        // reload once so the user immediately gets the new build instead of a
+        // stale cached UI. Guarded so it never loops and never fires on the very
+        // first install (when there is no prior controller).
+        let refreshing = false;
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (refreshing) return;
+            refreshing = true;
+            window.location.reload();
+          });
+        }
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js').then(
             (registration) => {

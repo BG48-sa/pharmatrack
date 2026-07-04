@@ -16,11 +16,16 @@ interface Chip {
 
 const CHIPS: Record<SearchBarProps['mode'], Chip[]> = {
   europe: [
-    { label: 'Oncology', query: 'neoplasm', primary: true },
-    { label: 'Gene therapy', query: 'gene' },
-    { label: 'CAR-T', query: 'cabtagene' },
-    { label: "Alzheimer's", query: 'alzheimer' },
-    { label: 'Multiple sclerosis', query: 'sclerosis' },
+    { label: 'Cancer', query: 'cancer', primary: true },
+    { label: 'Hematology', query: 'hematology' },
+    { label: 'Cardiovascular', query: 'cardiovascular' },
+    { label: 'Respiratory', query: 'respiratory' },
+    { label: 'Metabolic', query: 'metabolic' },
+    { label: 'Infectious', query: 'infectious' },
+    { label: 'Autoimmune', query: 'autoimmune' },
+    { label: 'Degenerative', query: 'degenerative' },
+    { label: 'Ophthalmology', query: 'ophthalmology' },
+    { label: 'Genetic', query: 'genetic' },
   ],
   novel: [
     { label: 'Oncology', query: 'cancer', primary: true },
@@ -30,6 +35,7 @@ const CHIPS: Record<SearchBarProps['mode'], Chip[]> = {
   ],
   approvals: [
     { label: '351(k) Biosimilars', query: 'biosimilar', primary: true },
+    { label: 'Generic', query: 'generic' },
     { label: 'Oncology', query: 'Antineoplastic' },
     { label: 'Antibodies', query: 'Monoclonal Antibody' },
     { label: 'Semaglutide', query: 'Semaglutide' },

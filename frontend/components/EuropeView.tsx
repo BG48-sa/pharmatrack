@@ -12,7 +12,7 @@ import {
 import { EmaMedicine, EmaPipelineItem, DrugDetailData } from '../types';
 import EmaBadges from './EmaBadges';
 import {
-  CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing,
+  CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink,
 } from 'lucide-react';
 
 interface Props {
@@ -35,6 +35,13 @@ const FILTERS: Array<{ key: EmaFilter; label: string }> = [
   { key: 'atmp', label: 'Advanced therapy' },
   { key: 'orphan', label: 'Orphan' },
   { key: 'prime', label: 'PRIME' },
+  { key: 'gen', label: 'Generic' },
+];
+
+// Official generic-medicine registers (cited when the Generic filter is active).
+const GENERIC_REGISTERS = [
+  { label: 'EU Community Register', uri: 'https://ec.europa.eu/health/documents/community-register/html/index_en.htm' },
+  { label: 'FDA First Generic Approvals', uri: 'https://www.fda.gov/drugs/drug-and-biologic-approval-and-ind-activity-reports/first-generic-drug-approvals' },
 ];
 
 const fmt = (iso?: string): string => {
@@ -167,10 +174,29 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
           >
             {f.key === 'atmp' && <Sparkles size={12} />}
             {f.key === 'prime' && <Star size={12} />}
+            {f.key === 'gen' && <Pill size={12} />}
             {f.label}
           </button>
         ))}
       </div>
+
+      {/* When filtering to generics, cite the official generic-medicine registers. */}
+      {filter === 'gen' && (
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-3 text-[11px] text-slate-500">
+          <span className="font-semibold text-slate-600">Official generics registers:</span>
+          {GENERIC_REGISTERS.map((r) => (
+            <a
+              key={r.uri}
+              href={r.uri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-600 active:text-blue-800 font-medium"
+            >
+              {r.label} <ExternalLink size={11} className="shrink-0" />
+            </a>
+          ))}
+        </div>
+      )}
 
       {/* Follow this indication for on-device EU decision reminders. */}
       {q && onWatchIndication && (

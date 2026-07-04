@@ -35,13 +35,14 @@ export const estimatedDecisionDate = (opinionISO: string): string => {
   return d.toISOString().slice(0, 10);
 };
 
-export type EmaFilter = 'all' | 'atmp' | 'orphan' | 'prime';
+export type EmaFilter = 'all' | 'atmp' | 'orphan' | 'prime' | 'gen';
 
 const matchesFilter = (m: EmaFlags, f: EmaFilter): boolean => {
   switch (f) {
     case 'atmp': return m.atmp;
     case 'orphan': return m.orphan;
     case 'prime': return m.prime;
+    case 'gen': return m.gen;
     default: return true;
   }
 };
@@ -82,7 +83,20 @@ const SYNONYMS: Record<string, string[]> = {
   carcinoma: ['cancer', 'neoplasm', 'neoplasms'],
   neoplasm: ['cancer', 'carcinoma'],
   tumor: ['neoplasm', 'neoplasms', 'cancer'], // 'tumour' -> 'tumor' via normalise
-  oncology: ['neoplasm', 'neoplasms', 'cancer', 'carcinoma'],
+  // Broad therapeutic-area chips (Europe tab). Each expands a single category
+  // word to the MeSH/EMA disease terms that actually appear in the catalogue,
+  // so tapping e.g. "Hematology" surfaces leukaemia/lymphoma/anaemia records
+  // even though none of them literally says "hematology".
+  cancer: ['neoplasm', 'neoplasms', 'carcinoma', 'carcinomas', 'tumor', 'melanoma', 'sarcoma', 'lymphoma', 'leukemia', 'myeloma', 'oncology'],
+  hematology: ['leukemia', 'lymphoma', 'myeloma', 'anemia', 'hemophilia', 'thrombocyt', 'myelodysplastic', 'myelofibrosis', 'hematopoietic', 'sickle cell', 'neutropenia', 'coagulation', 'thalassemia', 'polycythemia'],
+  cardiovascular: ['hypertension', 'myocardial', 'heart failure', 'cardiac', 'coronary', 'atrial fibrillation', 'thromboembolism', 'thrombosis', 'arrhythmia', 'angina', 'dyslipid', 'cholesterol', 'stroke', 'venous', 'embolism', 'hyperlipid'],
+  respiratory: ['asthma', 'copd', 'pulmonary', 'chronic obstructive', 'respiratory', 'cystic fibrosis', 'bronchi', 'pneumon'],
+  metabolic: ['diabetes', 'metabolism', 'lipoprotein', 'phenylketonuria', 'gaucher', 'fabry', 'pompe', 'mucopolysaccharid', 'hyperlipid', 'cholesterol', 'obesity', 'hyperuricemia', 'amyloidosis', 'porphyria', 'hypophosphat'],
+  infectious: ['infection', 'hiv', 'hepatitis', 'viral', 'bacterial', 'antibiotic', 'antiviral', 'influenza', 'tuberculosis', 'sepsis', 'fungal', 'malaria', 'covid'],
+  autoimmune: ['rheumatoid', 'psoriasis', 'psoriatic', 'crohn', 'colitis', 'lupus', 'sclerosis', 'spondylitis', 'vasculitis', 'myasthenia'],
+  degenerative: ['degeneration', 'parkinson', 'alzheimer', 'neurodegenerat', 'sclerosis', 'dementia', 'huntington', 'muscular atrophy'],
+  ophthalmology: ['macular', 'retina', 'retinopathy', 'glaucoma', 'ocular', 'uveitis', 'keratitis', 'dry eye', 'neovascular', 'ophthalm'],
+  genetic: ['inborn', 'hereditary', 'muscular atrophy', 'hemophilia', 'cystic fibrosis', 'duchenne', 'congenital', 'gene therap', 'spinal muscular'],
 };
 
 const hasTerm = (hay: string, term: string): boolean =>

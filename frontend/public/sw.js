@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pharmatrack-cache-v2';
+const CACHE_NAME = 'pharmatrack-cache-v3';
 
 // App shell — cached on install so the UI loads offline. Hashed build assets
 // (JS/CSS) are cached at runtime by the same-origin handler below, since their
@@ -50,9 +50,30 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (sameOrigin) {
-    // App shell + hashed build assets: stale-while-revalidate. Serve the cached
-    // copy instantly, refresh it in the background. Falls back to cached
-    // index.html for navigations when fully offline (SPA shell).
+    const isHTMLShell =
+      request.mode === 'navigate' ||
+      url.pathname === '/' ||
+      url.pathname.endsWith('/') ||
+      url.pathname.endsWith('.html');
+
+    if (isHTMLShell) {
+      // The HTML shell is network-first: a new deploy references freshly-hashed
+      // JS/CSS, so serving stale HTML would pin the old UI for a whole session.
+      // Fresh HTML → latest assets → new UI immediately. Cached index.html is
+      // the offline fallback.
+      event.respondWith(
+        fetch(request)
+          .then((res) => {
+            if (res && res.ok) caches.open(CACHE_NAME).then((cache) => cache.put(request, res.clone()));
+            return res;
+          })
+          .catch(() => caches.match(request).then((r) => r || caches.match('./index.html')))
+      );
+      return;
+    }
+
+    // Hashed build assets (content-hashed filenames are immutable per build):
+    // stale-while-revalidate — instant from cache, refreshed in the background.
     event.respondWith(
       caches.open(CACHE_NAME).then(async (cache) => {
         const cached = await cache.match(request);
@@ -61,7 +82,7 @@ self.addEventListener('fetch', (event) => {
             if (res && res.ok) cache.put(request, res.clone());
             return res;
           })
-          .catch(() => cached || (request.mode === 'navigate' ? cache.match('./index.html') : undefined));
+          .catch(() => cached);
         return cached || network;
       })
     );
