@@ -52,7 +52,10 @@ async function loadDoc(col: LabelColumn): Promise<LabelDoc | null> {
 // EU side); such runs render monospace so alignment survives.
 const isTabularLine = (l: string): boolean => (l.match(/ {2,}/g) || []).length >= 2;
 
-const renderText = (text: string): React.ReactNode[] => {
+const renderText = (raw: string): React.ReactNode[] => {
+  // U+F0B7 is a Symbol-font bullet from the source PDFs with no glyph in normal
+  // fonts (renders as a tofu box) — map it to a real bullet.
+  const text = raw.replace(//g, '•');
   const segs: { table: boolean; lines: string[] }[] = [];
   for (const line of text.split('\n')) {
     const table = isTabularLine(line);

@@ -51,6 +51,7 @@ const HEADING = /^[ \t]*(\d\.\d+)[ \t.]+([A-Z][^\n]{3,80})$/gm;
 
 const stripNoise = (raw) =>
   raw
+    .replace(//g, '•') // Symbol-font bullet (no glyph in normal fonts) → real bullet
     .replace(/\f/g, '\n')
     .replace(/^[ \t]*\d+\/\d+[ \t]*$/gm, '')
     .replace(/^[ \t]*Page \d+.*$/gim, '')
