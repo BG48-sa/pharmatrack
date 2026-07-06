@@ -22,6 +22,8 @@ import SearchBar from './components/SearchBar';
 import InstallButton from './components/InstallButton';
 import { getWatched, setWatched as persistWatched } from './services/watchlist';
 import { syncIndicationAlerts } from './services/notifications';
+import { consumeSpotlightOpen } from './services/spotlight';
+import { recentApprovals, approvalToDetail } from './services/emaService';
 import { drugKey } from './services/notes';
 import { useMediaQuery } from './services/useMediaQuery';
 import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink } from 'lucide-react';
@@ -149,6 +151,25 @@ export default function App() {
       setWatched(w);
       syncIndicationAlerts(w);
     });
+  }, []);
+
+  // Spotlight deep link: the native side leaves the tapped drug's name in a
+  // Preferences key (see services/spotlight.ts). Check it on mount (cold
+  // launch) and whenever the app returns to the foreground (warm resume),
+  // and open the matching EU medicine's detail sheet.
+  useEffect(() => {
+    const check = () =>
+      consumeSpotlightOpen().then((name) => {
+        if (!name) return;
+        const hits = recentApprovals(name, 'all', 5);
+        const m =
+          hits.find((x) => x.n.toLowerCase() === name.toLowerCase()) || hits[0];
+        if (m) setDetail(approvalToDetail(m));
+      });
+    check();
+    const onVisible = () => document.visibilityState === 'visible' && check();
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
   }, []);
 
   // Persist + reschedule whenever the user edits the watchlist.

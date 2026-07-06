@@ -17,6 +17,7 @@
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
 		E2F727AC6A8E014EEE182589 /* DrugRadarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4CBD466EF45EA36570D1F /* DrugRadarWidget.swift */; };
+		E947611FDB0206060720F2D5 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */; };
 		EC2F308AF008F9476533F094 /* DrugRadarWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F1D63B9CBE2882DFF588B8BF /* DrugRadarWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 		6BD4CBD466EF45EA36570D1F /* DrugRadarWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DrugRadarWidget.swift; sourceTree = "<group>"; };
+		78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpotlightIndexer.swift; sourceTree = "<group>"; };
 		958DCC722DB07C7200EA8C5F /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		ADDAF21168B6E87F5A547E21 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9245153B6A65B276B32ABD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -134,6 +136,7 @@
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
 				BEB13C091E271775FF2CFE66 /* App.entitlements */,
+				78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
+				E947611FDB0206060720F2D5 /* SpotlightIndexer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

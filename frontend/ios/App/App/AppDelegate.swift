@@ -1,6 +1,7 @@
 import UIKit
 import Capacitor
 import WidgetKit
+import CoreSpotlight
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         mirrorWidgetSnapshot()
+        SpotlightIndexer.indexIfNeeded()
         return true
     }
 
@@ -63,6 +65,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        // A Spotlight result was tapped: hand the drug name to the web app via
+        // a Preferences key it checks on mount and on foreground (visibilitychange).
+        if userActivity.activityType == CSSearchableItemActionType,
+           let id = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String,
+           id.hasPrefix(SpotlightIndexer.idPrefix) {
+            let name = String(id.dropFirst(SpotlightIndexer.idPrefix.count))
+            let payload = ["name": name, "ts": ISO8601DateFormatter().string(from: Date())]
+            if let json = try? JSONSerialization.data(withJSONObject: payload),
+               let str = String(data: json, encoding: .utf8) {
+                UserDefaults.standard.set(str, forKey: "CapacitorStorage.dr_spotlight_open")
+            }
+            return true
+        }
         // Called when the app was launched with an activity, including Universal Links.
         // Feel free to add additional processing here, but if you want the App API to support
         // tracking app url opens, make sure to keep this call
