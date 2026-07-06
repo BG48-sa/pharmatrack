@@ -45,11 +45,15 @@ enum SpotlightIndexer {
                 })
                 attrs.keywords = keywords
 
-                items.append(CSSearchableItem(
+                let item = CSSearchableItem(
                     uniqueIdentifier: idPrefix + name,
                     domainIdentifier: domain,
                     attributeSet: attrs
-                ))
+                )
+                // Items expire after ~30 days by default, and we only reindex
+                // when the bundled data changes (app updates) — keep them alive.
+                item.expirationDate = Date(timeIntervalSinceNow: 365 * 24 * 3600)
+                items.append(item)
             }
 
             let index = CSSearchableIndex.default()
