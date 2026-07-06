@@ -519,8 +519,10 @@ export default function App() {
           DrugRadar is an independent project and is <span className="font-medium text-slate-500">not affiliated with, endorsed by, or verified by</span> the
           FDA, the EMA, or the U.S. National Library of Medicine. It aggregates public
           regulatory data (FDA, EMA, ClinicalTrials.gov) that may be incomplete, delayed,
-          or inaccurate; estimated decision dates, auto-parsed indication details, and
-          on-device reminders are approximate. Glossary entries, comparison views, and
+          or inaccurate; estimated decision dates, auto-parsed indication details,
+          on-device reminders, and exported calendar events are approximate — a calendar
+          entry created from the app carries an estimated date that may change or never
+          occur. Glossary entries, comparison views, and
           shared summaries are simplified, machine-generated aids. Full-text label sections
           are automatically extracted, abbreviated snapshots that may be truncated, contain
           extraction errors, or be out of date — the live linked EMA SmPC / FDA label is the

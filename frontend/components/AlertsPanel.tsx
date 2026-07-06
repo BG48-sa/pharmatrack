@@ -8,8 +8,9 @@ import {
   PermState,
 } from '../services/notifications';
 import { getLastRefresh } from '../services/liveData';
+import { exportToCalendar, DecisionEvent } from '../services/calendar';
 import {
-  BellRing, X, Plus, Trash2, CalendarClock, WifiOff, Info, Check, Search,
+  BellRing, X, Plus, Trash2, CalendarClock, CalendarPlus, WifiOff, Info, Check, Search,
 } from 'lucide-react';
 
 interface Props {
@@ -80,21 +81,30 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
     if (ok) onChange([...watched]); // re-schedule now that we're allowed
   };
 
-  // Pending EU decisions across all watched indications, de-duped, soonest first.
+  // Pending EU decisions across all watched indications, de-duped, soonest
+  // first. Each row remembers the watched term that matched it, so a calendar
+  // export can say which followed indication the event belongs to.
   const rows = useMemo(() => {
     const seen = new Set<string>();
-    const out: EmaPipelineItem[] = [];
+    const out: { m: EmaPipelineItem; term: string }[] = [];
     for (const term of watched) {
       for (const m of pipeline(term, 'all')) {
         if (seen.has(m.n)) continue;
         seen.add(m.n);
-        out.push(m);
+        out.push({ m, term });
       }
     }
     return out.sort((a, b) =>
-      estimatedDecisionDate(a.op) < estimatedDecisionDate(b.op) ? -1 : 1
+      estimatedDecisionDate(a.m.op) < estimatedDecisionDate(b.m.op) ? -1 : 1
     );
   }, [watched]);
+
+  const toEvent = ({ m, term }: { m: EmaPipelineItem; term: string }): DecisionEvent => ({
+    drug: m.n,
+    inn: m.inn || m.sub || undefined,
+    indication: term,
+    date: estimatedDecisionDate(m.op),
+  });
 
   const countFor = (term: string): number => pipeline(term, 'all').length;
 
@@ -240,21 +250,40 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
           {/* Upcoming decisions across watched indications */}
           {rows.length > 0 && (
             <div>
-              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                Upcoming EU decisions
-              </h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  Upcoming EU decisions
+                </h3>
+                {rows.length > 1 && (
+                  <button
+                    onClick={() => exportToCalendar(rows.map(toEvent))}
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-600 active:text-indigo-800"
+                  >
+                    <CalendarPlus size={13} /> Add all to Calendar
+                  </button>
+                )}
+              </div>
               <div className="space-y-2">
-                {rows.map((m) => {
+                {rows.map((row) => {
+                  const { m } = row;
                   const decision = estimatedDecisionDate(m.op);
                   const days = daysFromToday(decision);
                   return (
-                    <button
+                    <div
                       key={`${m.n}-${m.op}`}
+                      role="button"
+                      tabIndex={0}
                       onClick={() => {
                         onSelect(pipelineToDetail(m));
                         onClose();
                       }}
-                      className="w-full text-left flex justify-between items-center gap-3 bg-white border border-slate-200 rounded-xl px-3 py-2.5 active:bg-slate-50"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          onSelect(pipelineToDetail(m));
+                          onClose();
+                        }
+                      }}
+                      className="w-full text-left flex justify-between items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-2.5 active:bg-slate-50 cursor-pointer"
                     >
                       <div className="min-w-0">
                         <div className="font-semibold text-slate-800 text-sm truncate">{m.n}</div>
@@ -269,7 +298,18 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
                           </div>
                         )}
                       </div>
-                    </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          exportToCalendar([toEvent(row)]);
+                        }}
+                        className="p-2 text-slate-400 hover:text-indigo-600 active:bg-slate-100 rounded-full shrink-0"
+                        aria-label={`Add ${m.n} decision date to calendar`}
+                        title="Add to Calendar"
+                      >
+                        <CalendarPlus size={16} />
+                      </button>
+                    </div>
                   );
                 })}
               </div>
