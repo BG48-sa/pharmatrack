@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { Search, X, Loader2, FileText, Activity, Pill } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Search, X, Loader2, FileText, Activity, Pill, Bookmark } from 'lucide-react';
+import {
+  SavedSearch,
+  getSavedSearches,
+  addSavedSearch,
+  removeSavedSearch,
+} from '../services/savedSearches';
 
 interface SearchBarProps {
   onSearch: (val: string) => void;
@@ -57,6 +63,22 @@ const CHIPS: Record<SearchBarProps['mode'], Chip[]> = {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onClear, isLoading, mode }) => {
   const [localValue, setLocalValue] = useState('');
+  const [saved, setSaved] = useState<SavedSearch[]>([]);
+
+  useEffect(() => {
+    getSavedSearches().then(setSaved);
+  }, []);
+
+  const savedHere = saved.filter((s) => s.tab === mode);
+  const isSaved = (q: string) =>
+    savedHere.some((s) => s.q.toLowerCase() === q.trim().toLowerCase());
+
+  const toggleSave = () => {
+    const q = localValue.trim();
+    if (!q) return;
+    const entry = { q, tab: mode };
+    (isSaved(q) ? removeSavedSearch(entry) : addSavedSearch(entry)).then(setSaved);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,12 +129,53 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onClear, isLoading, mod
           {isLoading ? (
             <Loader2 className="h-5 w-5 text-blue-500 animate-spin mr-1" />
           ) : localValue ? (
-            <button type="button" onClick={handleClear} className="p-1 text-slate-400 hover:text-slate-600" aria-label="Clear search">
-              <X className="h-5 w-5 bg-slate-200 rounded-full p-0.5 text-slate-500" />
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={toggleSave}
+                className={`p-1 ${isSaved(localValue) ? 'text-indigo-600' : 'text-slate-400 hover:text-indigo-600'}`}
+                aria-label={isSaved(localValue) ? 'Remove saved search' : 'Save search'}
+                title={isSaved(localValue) ? 'Remove saved search' : 'Save search'}
+              >
+                <Bookmark className="h-5 w-5" fill={isSaved(localValue) ? 'currentColor' : 'none'} />
+              </button>
+              <button type="button" onClick={handleClear} className="p-1 text-slate-400 hover:text-slate-600" aria-label="Clear search">
+                <X className="h-5 w-5 bg-slate-200 rounded-full p-0.5 text-slate-500" />
+              </button>
+            </>
           ) : null}
         </div>
       </form>
+
+      {/* Saved searches for this tab */}
+      {savedHere.length > 0 && (
+        <div className="flex space-x-2 overflow-x-auto pb-1 hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          {savedHere.map((s) => (
+            <div
+              key={s.q}
+              role="button"
+              tabIndex={0}
+              onClick={() => handleQuickSearch(s.q)}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleQuickSearch(s.q)}
+              className="flex-shrink-0 inline-flex items-center pl-3 pr-1.5 py-1 rounded-lg text-xs font-semibold border bg-white text-indigo-700 border-indigo-200 active:bg-indigo-50 cursor-pointer"
+            >
+              <Bookmark size={12} className="mr-1.5" fill="currentColor" />
+              <span className="max-w-[10rem] truncate">{s.q}</span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeSavedSearch(s).then(setSaved);
+                }}
+                className="ml-1 p-0.5 text-indigo-300 hover:text-indigo-600"
+                aria-label={`Delete saved search ${s.q}`}
+              >
+                <X size={13} />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Quick Filters / Chips */}
       <div className="flex space-x-2 overflow-x-auto pb-1 hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
