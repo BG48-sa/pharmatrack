@@ -15,6 +15,7 @@ import AlertsPanel from './components/AlertsPanel';
 import GlossaryModal from './components/GlossaryModal';
 import LabelComparePanel, { LabelColumn } from './components/LabelComparePanel';
 import DisclaimerGate from './components/DisclaimerGate';
+import WelcomeGuide from './components/WelcomeGuide';
 import ComparePanel from './components/ComparePanel';
 import Loader from './components/Loader';
 import SourceList from './components/SourceList';
@@ -24,9 +25,10 @@ import { getWatched, setWatched as persistWatched } from './services/watchlist';
 import { syncIndicationAlerts } from './services/notifications';
 import { consumeSpotlightOpen } from './services/spotlight';
 import { recentApprovals, approvalToDetail } from './services/emaService';
+import { storeGet, storeSet } from './services/storage';
 import { drugKey } from './services/notes';
 import { useMediaQuery } from './services/useMediaQuery';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink } from 'lucide-react';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle } from 'lucide-react';
 
 // EMA product slug behind a compared drug (only EU-tab medicines carry emaUrl).
 const smpcSlug = (d: DrugDetailData): string => (d.emaUrl || '').split('/EPAR/')[1]?.trim() || '';
@@ -34,6 +36,10 @@ const smpcSlug = (d: DrugDetailData): string => (d.emaUrl || '').split('/EPAR/')
 type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical';
 
 const LAST_VISIT_KEY = 'pt_last_visit';
+
+// Bump GUIDE_VERSION to re-show the feature guide after a major release.
+const GUIDE_KEY = 'dr_welcome_seen';
+const GUIDE_VERSION = '2026-07-06';
 
 export default function App() {
   const [view, setView] = useState<View>('europe');
@@ -63,6 +69,20 @@ export default function App() {
 
   // --- Decision alerts: watched indications drive on-device reminders ---
   const [alertsOpen, setAlertsOpen] = useState<boolean>(false);
+
+  // First-run feature guide: auto-shown once (it renders below the disclaimer
+  // gate, so on a fresh install accepting the disclaimer reveals it), then
+  // reopenable from the header help button.
+  const [guideOpen, setGuideOpen] = useState<boolean>(false);
+  useEffect(() => {
+    storeGet(GUIDE_KEY).then((v) => {
+      if (v !== GUIDE_VERSION) setGuideOpen(true);
+    });
+  }, []);
+  const closeGuide = () => {
+    storeSet(GUIDE_KEY, GUIDE_VERSION);
+    setGuideOpen(false);
+  };
   const [watched, setWatched] = useState<string[]>([]);
 
   // --- Glossary (opened from the header or from a tapped badge) ---
@@ -347,6 +367,13 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center space-x-1">
+            <button
+              onClick={() => setGuideOpen(true)}
+              className="p-2 text-slate-500 hover:text-blue-600 active:bg-slate-100 rounded-full transition-colors"
+              aria-label="What you can do here"
+            >
+              <HelpCircle size={20} />
+            </button>
             <button
               onClick={() => openGlossary()}
               className="p-2 text-slate-500 hover:text-blue-600 active:bg-slate-100 rounded-full transition-colors"
@@ -644,6 +671,20 @@ export default function App() {
 
       {glossaryOpen && (
         <GlossaryModal initialId={glossaryId} onClose={() => setGlossaryOpen(false)} />
+      )}
+
+      {guideOpen && (
+        <WelcomeGuide
+          onClose={closeGuide}
+          onOpenAlerts={() => {
+            closeGuide();
+            setAlertsOpen(true);
+          }}
+          onOpenGlossary={() => {
+            closeGuide();
+            setGlossaryOpen(true);
+          }}
+        />
       )}
       {smpcOpen && labelReady && (
         <LabelComparePanel
