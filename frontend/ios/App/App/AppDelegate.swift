@@ -1,24 +1,47 @@
 import UIKit
 import Capacitor
+import WidgetKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    // Widget bridge: Capacitor Preferences writes to UserDefaults.standard with a
+    // "CapacitorStorage." prefix, which app extensions cannot read. The web app
+    // maintains a JSON snapshot of upcoming EU decisions for followed indications
+    // under the Preferences key `dr_widget_snapshot`; we mirror it into the shared
+    // App Group here so the DrugRadarWidget extension can render it. The snapshot
+    // can only change while the app is in use, so mirroring on launch and on
+    // resign-active/background covers every update.
+    private let appGroupId = "group.com.berndgansbacher.pharmatrack"
+
+    private func mirrorWidgetSnapshot() {
+        guard let group = UserDefaults(suiteName: appGroupId) else { return }
+        let snapshot = UserDefaults.standard.string(forKey: "CapacitorStorage.dr_widget_snapshot")
+        if group.string(forKey: "widget_snapshot") == snapshot { return }
+        group.set(snapshot, forKey: "widget_snapshot")
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        mirrorWidgetSnapshot()
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        mirrorWidgetSnapshot()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        mirrorWidgetSnapshot()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

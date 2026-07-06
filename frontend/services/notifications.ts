@@ -15,6 +15,7 @@ import { Capacitor } from '@capacitor/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { pipeline, estimatedDecisionDate } from './emaService';
 import { storeGet, storeSet } from './storage';
+import { syncWidgetSnapshot } from './widget';
 
 const SCHEDULED_IDS_KEY = 'dr_scheduled_ids';
 const REMINDER_HOUR = 9; // local time on the reminder day
@@ -107,6 +108,9 @@ export const computeUpcoming = (terms: string[]): UpcomingDecision[] => {
  */
 export const syncIndicationAlerts = async (terms: string[]): Promise<number> => {
   if (!notificationsSupported()) return 0;
+  // Keep the home-screen widget's snapshot in step with the watchlist —
+  // independent of notification permission, which may be denied.
+  void syncWidgetSnapshot(terms);
   try {
     // Cancel what we scheduled last time so counts/dates stay in sync.
     const prevRaw = await storeGet(SCHEDULED_IDS_KEY);
