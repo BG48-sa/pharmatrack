@@ -55,7 +55,7 @@ export interface EmaMedicine extends EmaFlags {
   op?: string;      // CHMP opinion date, if recorded
 }
 
-// A medicine with a positive CHMP opinion but no MA yet — the European
+// A medicine with a CHMP opinion adopted but no MA yet — the European
 // Commission decision (≈67 days after opinion) is imminent. This is the
 // "marketing authorisation expected" feed.
 export interface EmaPipelineItem extends EmaFlags {
@@ -95,7 +95,7 @@ export interface DrugDetailData {
   therapeuticArea?: string;
   emaFlags?: EmaFlags;
   expectedDecision?: string; // estimated EC decision date for a pending opinion
-  opinionDate?: string;      // CHMP positive-opinion date for a pending item
+  opinionDate?: string;      // CHMP opinion date for a pending item
 }
 
 // Curated, user-maintained PDUFA watchlist (sponsor/analyst-disclosed target

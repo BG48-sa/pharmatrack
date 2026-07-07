@@ -47,7 +47,7 @@ const shareText = (d: DrugDetailData): string => {
   const lines = [
     `${d.brandName}${d.genericName && d.genericName !== '—' ? ` (${d.genericName})` : ''}`,
   ];
-  if (d.expectedDecision) lines.push(`EU decision expected ~${d.expectedDecision} (CHMP positive opinion)`);
+  if (d.expectedDecision) lines.push(`EU decision expected ~${d.expectedDecision} (European Commission decision pending)`);
   else if (d.emaApprovalDate && /^\d/.test(d.emaApprovalDate)) lines.push(`EU marketing authorisation: ${d.emaApprovalDate}`);
   if (d.approvalDate && /^\d/.test(d.approvalDate)) lines.push(`FDA approval: ${d.approvalDate}`);
   if (d.company) lines.push(`Company: ${d.company}`);
@@ -115,7 +115,7 @@ export const DrugDetailContent: React.FC<{
         </div>
       </div>
 
-      {/* Expected EU marketing authorisation (pending CHMP positive opinion). */}
+      {/* Expected EU marketing authorisation (EC decision pending after CHMP opinion). */}
       {data.expectedDecision && (
         <div className="mb-4 bg-indigo-50 border border-indigo-200 rounded-2xl p-4">
           <p className="text-[10px] uppercase tracking-wider text-indigo-500 font-semibold mb-1 flex items-center">
@@ -124,7 +124,8 @@ export const DrugDetailContent: React.FC<{
           <p className="text-lg font-bold text-indigo-800 leading-none">{formatPretty(data.expectedDecision)}</p>
           <p className="text-[11px] text-indigo-600 mt-1.5 leading-snug">
             Estimated European Commission decision, ≈67 days after the CHMP
-            positive opinion{data.opinionDate ? ` of ${formatPretty(data.opinionDate)}` : ''}.
+            opinion{data.opinionDate ? ` of ${formatPretty(data.opinionDate)}` : ''}. The
+            decision has not been made yet — the date and outcome may change.
           </p>
         </div>
       )}

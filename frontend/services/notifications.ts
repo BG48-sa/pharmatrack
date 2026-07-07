@@ -2,7 +2,7 @@
  * Indication-based local notifications.
  *
  * For each watched indication (e.g. "multiple myeloma"), we find EMA pipeline
- * medicines — those with a positive CHMP opinion whose European Commission
+ * medicines — those with a CHMP opinion adopted whose European Commission
  * decision is estimated ~67 days later — and schedule an on-device reminder a
  * few days before that estimated decision. This is genuinely native: the
  * notification is generated and delivered on the device, with no server.

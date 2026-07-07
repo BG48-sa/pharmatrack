@@ -21,12 +21,12 @@ export interface GlossaryEntry {
 export const GLOSSARY: GlossaryEntry[] = [
   {
     id: 'chmp',
-    term: 'CHMP positive opinion',
+    term: 'CHMP opinion',
     abbr: 'CHMP',
     body:
-      'The Committee for Medicinal Products for Human Use is the EMA scientific committee that assesses centrally-authorised medicines. A positive opinion is its recommendation to approve — the last scientific step before the legally-binding European Commission decision.',
+      'The Committee for Medicinal Products for Human Use is the EMA scientific committee that assesses centrally-authorised medicines. Its opinion is a scientific recommendation — the last step before the legally-binding European Commission decision.',
     soWhat:
-      'A positive opinion is not yet a marketing authorisation. The EC normally issues the binding decision about 67 days later — that estimate drives the “Expected” list and decision reminders.',
+      'An opinion is not yet a marketing authorisation, and the final outcome is not decided until the EC acts. The EC normally issues the binding decision about 67 days later — that estimate drives the “Expected” list and decision reminders.',
     sourceLabel: 'EMA — CHMP',
     sourceUrl: 'https://www.ema.europa.eu/en/committees/committee-medicinal-products-human-use-chmp',
   },
@@ -35,7 +35,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: 'European Commission decision',
     abbr: 'EC decision',
     body:
-      'The legally-binding act that grants an EU-wide marketing authorisation, adopted by the European Commission after a CHMP positive opinion. Only after this decision may the medicine be marketed in the EU.',
+      'The legally-binding act that grants an EU-wide marketing authorisation, adopted by the European Commission after a CHMP opinion. Only after this decision may the medicine be marketed in the EU.',
     soWhat:
       'DrugRadar estimates this date as the CHMP opinion date + ~67 days. It is an estimate, not an official calendar entry — verify against the EMA medicine page.',
     sourceLabel: 'EMA — authorisation of medicines',

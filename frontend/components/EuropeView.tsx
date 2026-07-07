@@ -106,7 +106,7 @@ const ExpectedCard: React.FC<{ m: EmaPipelineItem; onClick: () => void }> = ({ m
           <div className="flex items-center flex-wrap gap-2">
             <h3 className="font-bold text-slate-900 text-base leading-tight">{m.n}</h3>
             <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-bold uppercase tracking-wider">
-              {m.reexam ? 'Re-exam' : 'CHMP +'}
+              {m.reexam ? 'Re-exam' : 'EC pending'}
             </span>
           </div>
           <p className="text-sm text-slate-500 font-medium mt-0.5 truncate">{m.inn || m.sub}</p>
@@ -251,9 +251,9 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
           <div className="flex items-start text-[11px] text-slate-600 leading-relaxed mb-3 bg-indigo-50 border border-indigo-200 rounded-lg p-2">
             <Info size={13} className="mr-1.5 mt-0.5 text-indigo-500 shrink-0" />
             <span>
-              Medicines with a <strong>positive CHMP opinion</strong> but no marketing
-              authorisation yet. The European Commission normally decides within
-              ~67 days of the opinion — the estimated date is shown on each card.
+              Medicines <strong>awaiting the European Commission decision</strong> on
+              marketing authorisation, which normally follows within ~67 days of the
+              CHMP opinion — the estimated date is shown on each card.
             </span>
           </div>
           {expected.length === 0 ? (
@@ -293,10 +293,10 @@ const SmartEmpty: React.FC<{
 }> = ({ query, kind, otherCount, filterHidingCount, onClearFilter, onShowOther, onSearchTrials }) => {
   const q = query.trim();
   const headline = !q
-    ? kind === 'approved' ? 'No authorised medicines.' : 'No pending opinions.'
+    ? kind === 'approved' ? 'No authorised medicines.' : 'No pending EU decisions.'
     : kind === 'approved'
       ? `No EU-authorised medicine matches “${q}”.`
-      : `No pending CHMP opinion matches “${q}”.`;
+      : `No pending EU decision matches “${q}”.`;
   const sub = q
     ? 'This searches the official EMA catalogue — an empty result usually means no centrally authorised EU medicine carries this indication yet.'
     : undefined;
@@ -320,7 +320,7 @@ const SmartEmpty: React.FC<{
         {otherCount > 0 && (
           <button onClick={onShowOther} className={`${btn} bg-indigo-100 text-indigo-700 active:bg-indigo-200`}>
             {kind === 'approved'
-              ? `${otherCount} expected (pending CHMP opinion) →`
+              ? `${otherCount} expected (EC decision pending) →`
               : `${otherCount} already authorised →`}
           </button>
         )}

@@ -9,8 +9,8 @@ import { EmaData, EmaMedicine, EmaPipelineItem, DrugDetailData, EmaFlags } from 
  * the two questions an EMA committee member cares about most:
  *
  *   • What has just been authorised in the EU?  -> recentApprovals()
- *   • What marketing authorisation is expected?  -> pipeline() (positive CHMP
- *     opinion adopted, European Commission decision pending ≈67 days out)
+ *   • What marketing authorisation is expected?  -> pipeline() (CHMP opinion
+ *     adopted, European Commission decision pending ≈67 days out)
  *
  * Search spans drug name, INN/substance, therapeutic area, indication and ATC
  * code, so "by disease" and "by drug" both work. Regenerate the snapshot with
@@ -25,7 +25,7 @@ export const __setEmaData = (d: EmaData): void => { data = d; };
 
 export const emaGeneratedDate = (): string => data.generated;
 
-// CHMP positive opinion -> European Commission decision is ~67 days by law.
+// CHMP opinion -> European Commission decision is ~67 days by law.
 const EC_DECISION_LAG_DAYS = 67;
 
 export const estimatedDecisionDate = (opinionISO: string): string => {
@@ -119,7 +119,7 @@ export const recentApprovals = (
     .filter((m) => matchesFilter(m, filter) && matchesQuery(m, query))
     .slice(0, limit);
 
-/** Medicines with a positive CHMP opinion awaiting the EC decision. */
+/** Medicines with a CHMP opinion adopted, awaiting the EC decision. */
 export const pipeline = (query = '', filter: EmaFilter = 'all'): EmaPipelineItem[] =>
   data.pipeline.filter((m) => matchesFilter(m, filter) && matchesQuery(m, query));
 
@@ -159,7 +159,7 @@ export const pipelineToDetail = (m: EmaPipelineItem): DrugDetailData => ({
   company: m.holder || undefined,
   emaApprovalDate: 'MA expected',
   emaUrl: m.url || undefined,
-  badge: m.reexam ? 'CHMP opinion — re-examination' : 'CHMP positive opinion',
+  badge: m.reexam ? 'CHMP opinion — re-examination' : 'CHMP opinion — EC decision pending',
   therapeuticArea: m.area || undefined,
   emaFlags: flagsOf(m),
   opinionDate: m.op,

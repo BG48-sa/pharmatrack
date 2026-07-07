@@ -6,7 +6,7 @@ the previous run's state, and reports two things an EMA committee member cares
 about most:
 
   • New EU marketing authorisations  (a medicine became "Authorised")
-  • New CHMP positive opinions        (a medicine entered "Opinion" status —
+  • New CHMP opinions                 (a medicine entered "Opinion" status —
                                        European Commission decision ≈67 days out)
 
 Delivery:
@@ -232,7 +232,7 @@ def render_html(generated, new_auth, new_pipe, baseline=False, counts=(0, 0)):
                 f'with a pending CHMP opinion. You\'ll be alerted when new ones appear.</p>')
     else:
         body = (section("🆕 New EU marketing authorisations", new_auth, "auth")
-                + section("⏳ New CHMP positive opinions — MA expected", new_pipe, "pipe"))
+                + section("⏳ New CHMP opinions — MA expected", new_pipe, "pipe"))
         if not body:
             body = '<p style="color:#64748b;font-size:14px">No new authorisations or opinions since the last check.</p>'
     return head + body + '<div style="color:#94a3b8;font-size:11px;margin-top:20px">Source: EMA medicine data. Verify before acting.</div></div>'
@@ -248,7 +248,7 @@ def render_text(generated, new_auth, new_pipe):
                 lines.append(f"      {it['area']}")
         lines.append("")
     if new_pipe:
-        lines.append(f"NEW CHMP POSITIVE OPINIONS — MA EXPECTED ({len(new_pipe)})")
+        lines.append(f"NEW CHMP OPINIONS — MA EXPECTED ({len(new_pipe)})")
         for it in new_pipe:
             lines.append(f"  • {it['name']} ({it['inn']}) — opinion {it['opinion']}, "
                          f"est. EC ~{est_decision(it['opinion'])} — {flag_str(it) or '—'}")
