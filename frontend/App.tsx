@@ -25,10 +25,10 @@ import { getWatched, setWatched as persistWatched } from './services/watchlist';
 import { syncIndicationAlerts } from './services/notifications';
 import { consumeSpotlightOpen } from './services/spotlight';
 import { recentApprovals, approvalToDetail } from './services/emaService';
-import { storeGet, storeSet } from './services/storage';
 import { drugKey } from './services/notes';
+import { storeGet, storeSet } from './services/storage';
 import { useMediaQuery } from './services/useMediaQuery';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle } from 'lucide-react';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle, ArrowLeft } from 'lucide-react';
 
 // EMA product slug behind a compared drug (only EU-tab medicines carry emaUrl).
 const smpcSlug = (d: DrugDetailData): string => (d.emaUrl || '').split('/EPAR/')[1]?.trim() || '';
@@ -39,7 +39,7 @@ const LAST_VISIT_KEY = 'pt_last_visit';
 
 // Bump GUIDE_VERSION to re-show the feature guide after a major release.
 const GUIDE_KEY = 'dr_welcome_seen';
-const GUIDE_VERSION = '2026-07-06';
+const GUIDE_VERSION = '2026-07-09';
 
 export default function App() {
   const [view, setView] = useState<View>('europe');
@@ -70,9 +70,9 @@ export default function App() {
   // --- Decision alerts: watched indications drive on-device reminders ---
   const [alertsOpen, setAlertsOpen] = useState<boolean>(false);
 
-  // First-run feature guide: auto-shown once (it renders below the disclaimer
-  // gate, so on a fresh install accepting the disclaimer reveals it), then
-  // reopenable from the header help button.
+  // Feature guide: auto-shown on first install and again after each version
+  // bump (it renders below the disclaimer gate, so accepting the disclaimer
+  // reveals it), and reopenable any time from the header help button.
   const [guideOpen, setGuideOpen] = useState<boolean>(false);
   useEffect(() => {
     storeGet(GUIDE_KEY).then((v) => {
@@ -217,12 +217,24 @@ export default function App() {
   const [trialSearched, setTrialSearched] = useState<boolean>(false);
   const [trialAllPhases, setTrialAllPhases] = useState<boolean>(false);
   const [trialRegion, setTrialRegion] = useState<TrialRegion>('US');
+  // When we jump into the Trials tab from a drug's detail sheet, remember that
+  // drug so we can offer a one-tap way back instead of stranding the user.
+  const [trialOrigin, setTrialOrigin] = useState<DrugDetailData | null>(null);
 
   // Bumped once the runtime data refresh lands, so views recompute over the
   // fresher snapshots (bundled data renders first; this swaps in live data).
   const [dataVersion, setDataVersion] = useState(0);
 
   const pdufa = useMemo(() => getUpcomingPdufa(), [dataVersion]);
+
+  // Switching top-level tabs should always land you at the top of the new view.
+  // Without this, jumping from a drug (scrolled far down a list) into the Trials
+  // tab left the page stranded mid-scroll with no obvious way back up.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // Drop the "back to drug" breadcrumb once we leave the Trials tab.
+    if (view !== 'pipeline') setTrialOrigin(null);
+  }, [view]);
 
   // When fresher EMA data lands, reschedule reminders — the pipeline may now
   // include new drugs in a watched indication.
@@ -305,6 +317,7 @@ export default function App() {
 
   // Cross-link from a drug detail sheet into the Pipeline tab, pre-searched.
   const handleViewTrials = (query: string) => {
+    setTrialOrigin(detail);
     setDetail(null);
     setView('pipeline');
     handleTrialSearch(query);
@@ -492,6 +505,14 @@ export default function App() {
         ) : (
           /* Pipeline view */
           <div>
+            {trialOrigin && (
+              <button
+                onClick={() => setDetail(trialOrigin)}
+                className="mx-4 mb-3 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 active:text-blue-800"
+              >
+                <ArrowLeft size={16} /> Back to {trialOrigin.brandName}
+              </button>
+            )}
             <RegionToggle region={trialRegion} onChange={handleRegionChange} />
             {trialLoading ? (
             <div className="mt-20">

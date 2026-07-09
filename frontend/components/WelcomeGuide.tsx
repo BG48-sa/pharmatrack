@@ -85,7 +85,8 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             decision dates. <strong>Trials</strong> — live ClinicalTrials.gov searches.{' '}
             <strong>Critical</strong> — the EU critical-medicines list. Tap a therapeutic-area
             chip for a one-tap search, and filter the EU list by Advanced therapy, Orphan, PRIME,
-            or Generic.
+            or Generic. US data is queried live from the FDA; the EU dataset refreshes once a
+            week, so newly approved drugs appear within about a week.
           </Section>
 
           <Section

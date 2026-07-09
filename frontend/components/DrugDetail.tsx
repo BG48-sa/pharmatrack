@@ -242,11 +242,26 @@ const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, on
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    // Position-fix scroll lock. On iOS (WKWebView) `overflow:hidden` on <body>
+    // does NOT stop the page scrolling behind the sheet — the background drifts
+    // and the page can jump when the sheet closes. Pinning the body at its
+    // current offset and restoring scroll on close eliminates that jank.
+    const body = document.body;
+    const scrollY = window.scrollY;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+    };
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prev;
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.width = prev.width;
+      window.scrollTo(0, scrollY);
     };
   }, [onClose]);
 
@@ -256,7 +271,7 @@ const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, on
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-t-3xl sm:rounded-3xl p-6 w-full sm:max-w-md max-h-[88vh] overflow-y-auto shadow-2xl relative animate-in slide-in-from-bottom-4 duration-300 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]"
+        className="bg-white rounded-t-3xl sm:rounded-3xl p-6 w-full sm:max-w-md max-h-[88vh] overflow-y-auto overscroll-contain shadow-2xl relative animate-in slide-in-from-bottom-4 duration-300 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]"
         onClick={(e) => e.stopPropagation()}
       >
         <button

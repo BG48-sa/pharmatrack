@@ -119,6 +119,13 @@ for i, row in enumerate(rows):
 
     ma_date = fmt_date(row[C_MA_DATE])
     op_date = fmt_date(row[C_OPINION_DATE])
+    # Some authorised medicines leave the "Marketing authorisation date" column
+    # empty but carry a "European Commission decision date" — the EC decision IS
+    # the act that grants the centralised MA, so it's the correct authorisation
+    # date to show. Without this fallback these drugs (e.g. Lyvdelzi/seladelpar,
+    # Zurzuvae/zuranolone, Jeraygo/aprocitentan) vanish from the app entirely.
+    if not ma_date:
+        ma_date = fmt_date(row[C_EC_DATE])
 
     base = {
         "n": clean(row[C_NAME]),

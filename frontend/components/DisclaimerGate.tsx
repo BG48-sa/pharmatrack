@@ -2,18 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { ShieldAlert, ExternalLink } from 'lucide-react';
 import { storeGet, storeSet } from '../services/storage';
 
-// One-time, blocking disclaimer the user must accept before using the app.
-// Acceptance is stored on-device, stamped with VERSION — bump VERSION whenever
-// the disclaimer materially changes to require re-acceptance.
+// Blocking disclaimer the user must accept before using the app. Acceptance
+// expires: it is re-required every 30 days, and immediately whenever VERSION
+// changes (bump it when the disclaimer text materially changes). Stored as
+// "<version>|<ISO timestamp>".
 const KEY = 'dr_disclaimer_accepted';
 const VERSION = '2026-07-04';
+const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+
+const isFresh = (stored: string | null): boolean => {
+  if (!stored) return false;
+  const [version, ts] = stored.split('|');
+  if (version !== VERSION || !ts) return false;
+  const age = Date.now() - new Date(ts).getTime();
+  return Number.isFinite(age) && age >= 0 && age < MAX_AGE_MS;
+};
 
 const DisclaimerGate: React.FC = () => {
-  // null = still checking; true = accepted this version; false = must accept.
+  // null = still checking; true = accepted recently; false = must accept.
   const [accepted, setAccepted] = useState<boolean | null>(null);
 
   useEffect(() => {
-    storeGet(KEY).then((v) => setAccepted(v === VERSION)).catch(() => setAccepted(false));
+    storeGet(KEY).then((v) => setAccepted(isFresh(v))).catch(() => setAccepted(false));
   }, []);
 
   useEffect(() => {
@@ -27,7 +37,10 @@ const DisclaimerGate: React.FC = () => {
   // the brief async check so first-run users never reach the app first).
   if (accepted === true) return null;
 
-  const accept = () => { storeSet(KEY, VERSION); setAccepted(true); };
+  const accept = () => {
+    storeSet(KEY, `${VERSION}|${new Date().toISOString()}`);
+    setAccepted(true);
+  };
 
   const Bullet: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <li className="flex gap-2">
