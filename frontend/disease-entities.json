@@ -2,6 +2,20 @@
   "generated": "2026-07-11",
   "entities": [
     {
+      "id": "sclc",
+      "name": "Small cell lung cancer (SCLC)",
+      "short": "SCLC",
+      "syn": ["sclc", "small cell lung cancer", "small-cell lung cancer", "small cell lung carcinoma", "small cell carcinoma of the lung", "small cell carcinoma lung"],
+      "cls": "SCLC systemic therapy",
+      "drugs": [
+        { "b": "Hycamtin", "g": "Topotecan", "co": "Novartis" },
+        { "b": "Zepzelca", "g": "Lurbinectedin", "co": "Jazz Pharmaceuticals" },
+        { "b": "Tecentriq", "g": "Atezolizumab", "co": "Genentech / Roche" },
+        { "b": "Imfinzi", "g": "Durvalumab", "co": "AstraZeneca" },
+        { "b": "Imdelltra", "g": "Tarlatamab", "co": "Amgen" }
+      ]
+    },
+    {
       "id": "cml",
       "name": "Chronic myeloid leukemia (CML)",
       "short": "CML",
