@@ -514,6 +514,7 @@ export default function App() {
             onSearchTrials={handleViewTrials}
             watchedTerms={watched}
             onWatchIndication={(t) => updateWatched([...watched, t])}
+            onCompareDisease={handleCompareDisease}
           />
         ) : view === 'critical' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">

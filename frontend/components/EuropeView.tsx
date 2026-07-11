@@ -11,8 +11,9 @@ import {
 } from '../services/emaService';
 import { EmaMedicine, EmaPipelineItem, DrugDetailData } from '../types';
 import EmaBadges from './EmaBadges';
+import { findDisease, DiseaseEntity } from '../services/diseaseEntities';
 import {
-  CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink,
+  CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink, GitCompare,
 } from 'lucide-react';
 
 interface Props {
@@ -26,6 +27,8 @@ interface Props {
   watchedTerms?: string[];
   /** Follow the current indication query for on-device decision reminders. */
   onWatchIndication?: (term: string) => void;
+  /** Open the side-by-side comparison for a curated disease drug class. */
+  onCompareDisease?: (e: DiseaseEntity) => void;
 }
 
 type SubView = 'approved' | 'expected';
@@ -130,12 +133,14 @@ const ExpectedCard: React.FC<{ m: EmaPipelineItem; onClick: () => void }> = ({ m
   );
 };
 
-const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTrials, watchedTerms, onWatchIndication }) => {
+const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTrials, watchedTerms, onWatchIndication, onCompareDisease }) => {
   const [sub, setSub] = useState<SubView>('approved');
   const [filter, setFilter] = useState<EmaFilter>('all');
 
   const q = query.trim();
   const isWatched = !!q && !!watchedTerms?.some((w) => w.toLowerCase() === q.toLowerCase());
+  // Curated disease-class match (e.g. "CML" -> its TKIs) for the compare card.
+  const disease = onCompareDisease ? findDisease(q) : undefined;
 
   const approved = useMemo(() => recentApprovals(query, filter), [query, filter]);
   const expected = useMemo(() => pipeline(query, filter), [query, filter]);
@@ -179,6 +184,37 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
           </button>
         ))}
       </div>
+
+      {/* Curated disease drug-class comparison (e.g. "CML" -> its six TKIs). */}
+      {disease && onCompareDisease && (
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 mb-3">
+          <div className="flex items-start gap-3">
+            <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700 shrink-0">
+              <GitCompare size={20} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="font-bold text-slate-900 leading-tight">{disease.name}</h3>
+              <p className="text-[13px] text-slate-600 mt-0.5">{disease.cls}</p>
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {disease.drugs.map((d) => (
+                  <span
+                    key={d.b}
+                    className="inline-flex items-center px-2 py-0.5 rounded-lg bg-white border border-emerald-200 text-[11px] font-semibold text-slate-700"
+                  >
+                    {d.b}
+                  </span>
+                ))}
+              </div>
+              <button
+                onClick={() => onCompareDisease(disease)}
+                className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 transition-colors"
+              >
+                <GitCompare size={15} /> Compare all {disease.drugs.length} side by side
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* When filtering to generics, cite the official generic-medicine registers. */}
       {filter === 'gen' && (
