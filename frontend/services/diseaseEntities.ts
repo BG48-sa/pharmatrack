@@ -61,17 +61,42 @@ export const __setDiseaseData = (d: { entities?: DiseaseEntity[] }): void => {
   if (d.entities) entities = d.entities;
 };
 
+const tokenize = (s: string): string[] => s.toLowerCase().split(/[^a-z0-9+]+/).filter(Boolean);
+
+// Two tokens match when identical, or (for tokens of >=4 chars) when one is a
+// prefix of the other — so "doac"~"doacs" and "macula"~"macular" match, but a
+// tiny token like "ra" only ever matches "ra" exactly (never inside a longer
+// word such as "degeneRAtion"). This is what makes the matching whole-word.
+const tokenMatch = (a: string, b: string): boolean =>
+  a === b || (a.length >= 4 && b.length >= 4 && (a.startsWith(b) || b.startsWith(a)));
+
+// True when `needle`'s tokens occur as a contiguous run inside `hay`'s tokens.
+const tokenSeqIn = (hay: string[], needle: string[]): boolean => {
+  if (!needle.length || needle.length > hay.length) return false;
+  for (let i = 0; i + needle.length <= hay.length; i++) {
+    if (needle.every((t, j) => tokenMatch(hay[i + j], t))) return true;
+  }
+  return false;
+};
+
 /**
  * Match a search query to a curated disease entity. Matches on the display name
- * or any synonym, requiring a whole-token overlap so a short query can't match
- * by accident. Returns the first (most specific) match, or undefined.
+ * or any synonym, requiring a whole-token overlap (see tokenMatch) so a short
+ * query — or a short synonym like "ra" — can't match mid-word by accident.
+ * Returns the first (most specific) match, or undefined.
  */
 export const findDisease = (query: string): DiseaseEntity | undefined => {
   const s = query.toLowerCase().trim();
   if (s.length < 3) return undefined;
+  const sTok = tokenize(s);
   return entities.find((e) => {
-    if (e.name.toLowerCase().includes(s)) return true;
-    return e.syn.some((syn) => syn === s || syn.includes(s) || s.includes(syn));
+    // Query appears as a whole-token run inside the display name.
+    if (tokenSeqIn(tokenize(e.name), sTok)) return true;
+    // …or the query and a synonym contain one another (either direction).
+    return e.syn.some((syn) => {
+      const synTok = tokenize(syn);
+      return tokenSeqIn(synTok, sTok) || tokenSeqIn(sTok, synTok);
+    });
   });
 };
 
