@@ -116,7 +116,12 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available }) => 
   const crossJurisdiction = sameMolecule && cols[0].source !== cols[1].source;
   // Hide rows with no content in ANY present column's jurisdiction.
   const rows = ROWS.filter((r) => cols.some((c) => r.keys[c.source]));
-  const gridCols = `9rem ${cols.map(() => '1fr').join(' ')}`;
+  // With more than two columns (a whole drug class), give each a readable min
+  // width and let the aligned grid scroll horizontally instead of squishing.
+  const many = cols.length > 2;
+  const colTmpl = many ? 'minmax(13rem, 1fr)' : '1fr';
+  const gridCols = `9rem ${cols.map(() => colTmpl).join(' ')}`;
+  const minWidth = many ? `${9 + cols.length * 13}rem` : undefined;
 
   return (
     <div className="fixed inset-0 z-[70] flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-0 sm:p-4" onClick={onClose}>
@@ -139,6 +144,8 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available }) => 
           )}
           {bothLoaded && (
             <>
+              <div className="overflow-x-auto -mx-1 px-1">
+              <div style={{ minWidth }}>
               <div className="grid gap-3 items-end" style={{ gridTemplateColumns: gridCols }}>
                 <div className="text-[10px] text-slate-400 self-end pb-1">Tap EU / US to switch each label</div>
                 {docs!.map((d, i) => (
@@ -192,6 +199,8 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available }) => 
                     {cols[i].source === 'us' ? 'Full US label (DailyMed)' : 'Live SmPC (EMA)'} <ExternalLink size={11} className="ml-1 shrink-0" />
                   </a>
                 ))}
+              </div>
+              </div>
               </div>
 
               <p className="text-[10px] text-slate-400 mt-5 leading-snug">

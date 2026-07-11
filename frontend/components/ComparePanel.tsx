@@ -14,10 +14,10 @@ interface Props {
   items: DrugDetailData[];
   onClose: () => void;
   onRemove: (key: string) => void;
-  /** Whether a drug has a bundled full-text label (SmPC or USPI). */
-  hasLabel?: (d: DrugDetailData) => boolean;
-  /** Open the full-text label viewer for one drug. */
-  onViewLabel?: (d: DrugDetailData) => void;
+  /** How many of the compared drugs have a bundled full-text label. */
+  labelCount?: number;
+  /** Open the full-text labels (SmPC / USPI) of ALL compared drugs side by side. */
+  onCompareLabels?: () => void;
 }
 
 const fmt = (val?: string): string => {
@@ -76,7 +76,7 @@ const CompareRow: React.FC<{
   </div>
 );
 
-const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, hasLabel, onViewLabel }) => {
+const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, labelCount = 0, onCompareLabels }) => {
   // Dynamic N-column grid: a fixed label column + one min-8.5rem cell per drug.
   // The inner wrapper is given an explicit min-width so more than ~3 drugs
   // overflow and scroll horizontally as a single aligned unit.
@@ -124,6 +124,14 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, hasLabel, onV
         </div>
 
         <div className="px-5 py-4 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]">
+          {onCompareLabels && labelCount > 0 && (
+            <button
+              onClick={onCompareLabels}
+              className="mb-3 w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-sky-600 text-white active:bg-sky-700 transition-colors"
+            >
+              <FileText size={16} /> Compare full labels ({labelCount})
+            </button>
+          )}
           <div className="overflow-x-auto -mx-1 px-1">
             <div style={{ minWidth }}>
               {/* Drug name header cells */}
@@ -140,14 +148,6 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, hasLabel, onV
                     </button>
                     <div className="font-bold text-slate-900 text-sm leading-tight pr-4">{d.brandName}</div>
                     <div className="text-[11px] text-slate-500 font-medium truncate">{d.genericName}</div>
-                    {onViewLabel && hasLabel?.(d) && (
-                      <button
-                        onClick={() => onViewLabel(d)}
-                        className="mt-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white border border-emerald-200 text-[10px] font-semibold text-emerald-700 active:bg-emerald-50"
-                      >
-                        <FileText size={11} /> Full label
-                      </button>
-                    )}
                   </div>
                 ))}
               </div>

@@ -150,22 +150,25 @@ export default function App() {
     const s = labelSlug(d);
     return !!(s && smpcIndex[s] && uspiIndex[s]);
   };
-  // Full-text label (SmPC / USPI) for one drug, opened from the compare panel so
-  // a truncated indication can be read in full. Shows whichever jurisdictions
-  // are bundled (EU + US side by side when both exist).
+  // Full-text labels (SmPC / USPI) opened from the compare panel so truncated
+  // indications can be read in full — ALL compared drugs side by side, one column
+  // per drug (default EU where bundled, else US; each column toggles EU/US).
   const [labelViewCols, setLabelViewCols] = useState<LabelColumn[] | null>(null);
   const drugHasLabel = (d: DrugDetailData): boolean => {
     const s = labelSlug(d);
     return !!(s && (hasEuLabel(s) || hasUsLabel(s)));
   };
-  const viewDrugLabel = (d: DrugDetailData) => {
-    const s = labelSlug(d);
-    if (!s) return;
+  const viewCompareLabels = () => {
     const cols: LabelColumn[] = [];
-    if (hasEuLabel(s)) cols.push({ slug: s, source: 'eu' });
-    if (hasUsLabel(s)) cols.push({ slug: s, source: 'us' });
+    for (const d of compare) {
+      const s = labelSlug(d);
+      if (!s) continue;
+      if (hasEuLabel(s)) cols.push({ slug: s, source: 'eu' });
+      else if (hasUsLabel(s)) cols.push({ slug: s, source: 'us' });
+    }
     if (cols.length) setLabelViewCols(cols);
   };
+  const compareLabelCount = compare.filter(drugHasLabel).length;
   // Up to 8 drugs compare side-by-side (a full drug class, e.g. CML's 6 TKIs).
   const MAX_COMPARE = 8;
   const inCompare = (d: DrugDetailData) => compare.some((x) => drugKey(x) === drugKey(d));
@@ -830,8 +833,8 @@ export default function App() {
           items={compare}
           onClose={() => setCompareOpen(false)}
           onRemove={removeFromCompare}
-          hasLabel={drugHasLabel}
-          onViewLabel={viewDrugLabel}
+          labelCount={compareLabelCount}
+          onCompareLabels={viewCompareLabels}
         />
       )}
       {labelViewCols && (
