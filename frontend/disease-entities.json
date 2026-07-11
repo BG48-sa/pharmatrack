@@ -65,24 +65,40 @@
       "name": "Chronic lymphocytic leukemia (CLL)",
       "short": "CLL",
       "syn": ["cll", "chronic lymphocytic leukemia", "chronic lymphocytic leukaemia", "sll", "small lymphocytic lymphoma"],
-      "cls": "Bruton tyrosine kinase (BTK) inhibitor",
+      "cls": "CLL targeted therapy",
       "drugs": [
         { "b": "Imbruvica", "g": "Ibrutinib", "co": "AbbVie / Janssen" },
         { "b": "Calquence", "g": "Acalabrutinib", "co": "AstraZeneca" },
         { "b": "Brukinsa", "g": "Zanubrutinib", "co": "BeiGene" },
-        { "b": "Jaypirca", "g": "Pirtobrutinib", "co": "Eli Lilly" }
+        { "b": "Jaypirca", "g": "Pirtobrutinib", "co": "Eli Lilly" },
+        { "b": "Venclyxto", "g": "Venetoclax", "co": "AbbVie" },
+        { "b": "Gazyva", "g": "Obinutuzumab", "co": "Roche" },
+        { "b": "MabThera", "g": "Rituximab", "co": "Roche" },
+        { "b": "Zydelig", "g": "Idelalisib", "co": "Gilead" }
       ]
     },
     {
       "id": "mm-pi",
       "name": "Multiple myeloma",
-      "short": "Myeloma (PI)",
-      "syn": ["multiple myeloma", "myeloma", "plasma cell myeloma"],
-      "cls": "Proteasome inhibitor",
+      "short": "Myeloma",
+      "syn": ["multiple myeloma", "myeloma", "plasma cell myeloma", "mm"],
+      "cls": "Multiple myeloma targeted therapy",
       "drugs": [
         { "b": "Velcade", "g": "Bortezomib", "co": "Takeda / Janssen" },
         { "b": "Kyprolis", "g": "Carfilzomib", "co": "Amgen" },
-        { "b": "Ninlaro", "g": "Ixazomib", "co": "Takeda" }
+        { "b": "Ninlaro", "g": "Ixazomib", "co": "Takeda" },
+        { "b": "Revlimid", "g": "Lenalidomide", "co": "Bristol-Myers Squibb" },
+        { "b": "Imnovid", "g": "Pomalidomide", "co": "Bristol-Myers Squibb" },
+        { "b": "Darzalex", "g": "Daratumumab", "co": "Janssen" },
+        { "b": "Sarclisa", "g": "Isatuximab", "co": "Sanofi" },
+        { "b": "Empliciti", "g": "Elotuzumab", "co": "Bristol-Myers Squibb" },
+        { "b": "Tecvayli", "g": "Teclistamab", "co": "Janssen" },
+        { "b": "Elrexfio", "g": "Elranatamab", "co": "Pfizer" },
+        { "b": "Talvey", "g": "Talquetamab", "co": "Janssen" },
+        { "b": "Abecma", "g": "Idecabtagene vicleucel", "co": "Bristol-Myers Squibb / 2seventy" },
+        { "b": "Carvykti", "g": "Ciltacabtagene autoleucel", "co": "Janssen / Legend" },
+        { "b": "Nexpovio", "g": "Selinexor", "co": "Menarini / Karyopharm" },
+        { "b": "Blenrep", "g": "Belantamab mafodotin", "co": "GSK" }
       ]
     },
     {
@@ -100,13 +116,23 @@
     {
       "id": "ra-jak",
       "name": "Rheumatoid arthritis",
-      "short": "RA (JAK)",
-      "syn": ["rheumatoid arthritis", "ra jak", "rheumatoid"],
-      "cls": "Janus kinase (JAK) inhibitor",
+      "short": "RA",
+      "syn": ["rheumatoid arthritis", "ra jak", "rheumatoid", "ra"],
+      "cls": "Rheumatoid arthritis targeted / biologic therapy",
       "drugs": [
         { "b": "Xeljanz", "g": "Tofacitinib", "co": "Pfizer" },
         { "b": "Olumiant", "g": "Baricitinib", "co": "Eli Lilly" },
-        { "b": "Rinvoq", "g": "Upadacitinib", "co": "AbbVie" }
+        { "b": "Rinvoq", "g": "Upadacitinib", "co": "AbbVie" },
+        { "b": "Jyseleca", "g": "Filgotinib", "co": "Galapagos" },
+        { "b": "Humira", "g": "Adalimumab", "co": "AbbVie" },
+        { "b": "Enbrel", "g": "Etanercept", "co": "Amgen / Pfizer" },
+        { "b": "Remicade", "g": "Infliximab", "co": "Janssen" },
+        { "b": "Simponi", "g": "Golimumab", "co": "Janssen" },
+        { "b": "Cimzia", "g": "Certolizumab pegol", "co": "UCB" },
+        { "b": "RoActemra", "g": "Tocilizumab", "co": "Roche" },
+        { "b": "Kevzara", "g": "Sarilumab", "co": "Sanofi / Regeneron" },
+        { "b": "Orencia", "g": "Abatacept", "co": "Bristol-Myers Squibb" },
+        { "b": "MabThera", "g": "Rituximab", "co": "Roche" }
       ]
     },
     {
