@@ -150,6 +150,22 @@ export default function App() {
     const s = labelSlug(d);
     return !!(s && smpcIndex[s] && uspiIndex[s]);
   };
+  // Full-text label (SmPC / USPI) for one drug, opened from the compare panel so
+  // a truncated indication can be read in full. Shows whichever jurisdictions
+  // are bundled (EU + US side by side when both exist).
+  const [labelViewCols, setLabelViewCols] = useState<LabelColumn[] | null>(null);
+  const drugHasLabel = (d: DrugDetailData): boolean => {
+    const s = labelSlug(d);
+    return !!(s && (hasEuLabel(s) || hasUsLabel(s)));
+  };
+  const viewDrugLabel = (d: DrugDetailData) => {
+    const s = labelSlug(d);
+    if (!s) return;
+    const cols: LabelColumn[] = [];
+    if (hasEuLabel(s)) cols.push({ slug: s, source: 'eu' });
+    if (hasUsLabel(s)) cols.push({ slug: s, source: 'us' });
+    if (cols.length) setLabelViewCols(cols);
+  };
   // Up to 8 drugs compare side-by-side (a full drug class, e.g. CML's 6 TKIs).
   const MAX_COMPARE = 8;
   const inCompare = (d: DrugDetailData) => compare.some((x) => drugKey(x) === drugKey(d));
@@ -810,7 +826,20 @@ export default function App() {
       )}
 
       {compareOpen && compare.length >= 2 && (
-        <ComparePanel items={compare} onClose={() => setCompareOpen(false)} onRemove={removeFromCompare} />
+        <ComparePanel
+          items={compare}
+          onClose={() => setCompareOpen(false)}
+          onRemove={removeFromCompare}
+          hasLabel={drugHasLabel}
+          onViewLabel={viewDrugLabel}
+        />
+      )}
+      {labelViewCols && (
+        <LabelComparePanel
+          columns={labelViewCols}
+          available={labelAvailable}
+          onClose={() => setLabelViewCols(null)}
+        />
       )}
     </div>
   );

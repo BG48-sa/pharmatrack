@@ -2,17 +2,22 @@ import React, { useEffect } from 'react';
 import { DrugDetailData } from '../types';
 import { parseIndication } from '../services/indicationParser';
 import { drugKey } from '../services/notes';
-import { GitCompare, X } from 'lucide-react';
+import { GitCompare, X, FileText } from 'lucide-react';
 
 /**
- * Side-by-side comparison of two drugs. Reads the same normalised DrugDetailData
- * the detail sheet uses, so any two cards from any tab can be compared on
- * regulatory status, dates, indication facets and company.
+ * Side-by-side comparison of two-to-many drugs. Reads the same normalised
+ * DrugDetailData the detail sheet uses, so any drugs from any tab compare on
+ * regulatory status, dates, indication facets and company. The indication row
+ * is a short snapshot; `onViewLabel` opens the full SmPC / USPI for one drug.
  */
 interface Props {
   items: DrugDetailData[];
   onClose: () => void;
   onRemove: (key: string) => void;
+  /** Whether a drug has a bundled full-text label (SmPC or USPI). */
+  hasLabel?: (d: DrugDetailData) => boolean;
+  /** Open the full-text label viewer for one drug. */
+  onViewLabel?: (d: DrugDetailData) => void;
 }
 
 const fmt = (val?: string): string => {
@@ -71,7 +76,7 @@ const CompareRow: React.FC<{
   </div>
 );
 
-const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove }) => {
+const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, hasLabel, onViewLabel }) => {
   // Dynamic N-column grid: a fixed label column + one min-8.5rem cell per drug.
   // The inner wrapper is given an explicit min-width so more than ~3 drugs
   // overflow and scroll horizontally as a single aligned unit.
@@ -135,6 +140,14 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove }) => {
                     </button>
                     <div className="font-bold text-slate-900 text-sm leading-tight pr-4">{d.brandName}</div>
                     <div className="text-[11px] text-slate-500 font-medium truncate">{d.genericName}</div>
+                    {onViewLabel && hasLabel?.(d) && (
+                      <button
+                        onClick={() => onViewLabel(d)}
+                        className="mt-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white border border-emerald-200 text-[10px] font-semibold text-emerald-700 active:bg-emerald-50"
+                      >
+                        <FileText size={11} /> Full label
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
