@@ -54,6 +54,7 @@ PRODUCTS = [
     ("BLA125773", "2024-02-16", "Autologous tumor-infiltrating lymphocyte (TIL) therapy"),  # Amtagvi
     ("BLA125758", "2024-03-18", "Lentiviral ex-vivo gene therapy"),                   # Lenmeldy
     ("BLA125813", "2024-11-08", "CD19-directed CAR-T cell therapy"),                  # Aucatzyl
+    ("BLA125846", "2025-12-09", "Lentiviral ex-vivo gene therapy (WAS)"),             # Waskyra
 ]
 
 data = {bla: {"d": d, "c": c} for bla, d, c in PRODUCTS}

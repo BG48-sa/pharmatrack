@@ -1,0 +1,112 @@
+{
+  "generated": "2026-07-11",
+  "entities": [
+    {
+      "id": "cml",
+      "name": "Chronic myeloid leukemia (CML)",
+      "short": "CML",
+      "syn": ["cml", "chronic myeloid leukemia", "chronic myelogenous leukemia", "ph+ cml", "bcr-abl"],
+      "cls": "BCR-ABL1 tyrosine kinase inhibitor (TKI)",
+      "drugs": [
+        { "b": "Gleevec", "g": "Imatinib", "co": "Novartis" },
+        { "b": "Sprycel", "g": "Dasatinib", "co": "Bristol-Myers Squibb" },
+        { "b": "Tasigna", "g": "Nilotinib", "co": "Novartis" },
+        { "b": "Bosulif", "g": "Bosutinib", "co": "Pfizer" },
+        { "b": "Iclusig", "g": "Ponatinib", "co": "Takeda" },
+        { "b": "Scemblix", "g": "Asciminib", "co": "Novartis" }
+      ]
+    },
+    {
+      "id": "egfr-nsclc",
+      "name": "EGFR-mutant non-small cell lung cancer",
+      "short": "EGFR+ NSCLC",
+      "syn": ["egfr nsclc", "egfr-mutant nsclc", "egfr mutation lung", "egfr positive lung cancer", "egfr lung"],
+      "cls": "EGFR tyrosine kinase inhibitor (TKI)",
+      "drugs": [
+        { "b": "Tarceva", "g": "Erlotinib", "co": "Genentech / Astellas" },
+        { "b": "Iressa", "g": "Gefitinib", "co": "AstraZeneca" },
+        { "b": "Gilotrif", "g": "Afatinib", "co": "Boehringer Ingelheim" },
+        { "b": "Vizimpro", "g": "Dacomitinib", "co": "Pfizer" },
+        { "b": "Tagrisso", "g": "Osimertinib", "co": "AstraZeneca" }
+      ]
+    },
+    {
+      "id": "her2-breast",
+      "name": "HER2-positive breast cancer",
+      "short": "HER2+ breast",
+      "syn": ["her2 breast cancer", "her2-positive breast cancer", "her2 positive breast", "her2 breast"],
+      "cls": "HER2-targeted therapy",
+      "drugs": [
+        { "b": "Herceptin", "g": "Trastuzumab", "co": "Genentech / Roche" },
+        { "b": "Perjeta", "g": "Pertuzumab", "co": "Genentech / Roche" },
+        { "b": "Kadcyla", "g": "Trastuzumab emtansine", "co": "Genentech / Roche" },
+        { "b": "Enhertu", "g": "Trastuzumab deruxtecan", "co": "Daiichi Sankyo / AstraZeneca" },
+        { "b": "Tykerb", "g": "Lapatinib", "co": "Novartis" },
+        { "b": "Nerlynx", "g": "Neratinib", "co": "Puma Biotechnology" },
+        { "b": "Tukysa", "g": "Tucatinib", "co": "Seagen / Pfizer" }
+      ]
+    },
+    {
+      "id": "cll-btk",
+      "name": "Chronic lymphocytic leukemia (CLL)",
+      "short": "CLL",
+      "syn": ["cll", "chronic lymphocytic leukemia", "chronic lymphocytic leukaemia", "sll", "small lymphocytic lymphoma"],
+      "cls": "Bruton tyrosine kinase (BTK) inhibitor",
+      "drugs": [
+        { "b": "Imbruvica", "g": "Ibrutinib", "co": "AbbVie / Janssen" },
+        { "b": "Calquence", "g": "Acalabrutinib", "co": "AstraZeneca" },
+        { "b": "Brukinsa", "g": "Zanubrutinib", "co": "BeiGene" },
+        { "b": "Jaypirca", "g": "Pirtobrutinib", "co": "Eli Lilly" }
+      ]
+    },
+    {
+      "id": "mm-pi",
+      "name": "Multiple myeloma",
+      "short": "Myeloma (PI)",
+      "syn": ["multiple myeloma", "myeloma", "plasma cell myeloma"],
+      "cls": "Proteasome inhibitor",
+      "drugs": [
+        { "b": "Velcade", "g": "Bortezomib", "co": "Takeda / Janssen" },
+        { "b": "Kyprolis", "g": "Carfilzomib", "co": "Amgen" },
+        { "b": "Ninlaro", "g": "Ixazomib", "co": "Takeda" }
+      ]
+    },
+    {
+      "id": "ph-all",
+      "name": "Philadelphia-positive acute lymphoblastic leukemia",
+      "short": "Ph+ ALL",
+      "syn": ["ph+ all", "philadelphia positive all", "ph positive acute lymphoblastic leukemia", "philadelphia chromosome all"],
+      "cls": "BCR-ABL1 tyrosine kinase inhibitor (TKI)",
+      "drugs": [
+        { "b": "Gleevec", "g": "Imatinib", "co": "Novartis" },
+        { "b": "Sprycel", "g": "Dasatinib", "co": "Bristol-Myers Squibb" },
+        { "b": "Iclusig", "g": "Ponatinib", "co": "Takeda" }
+      ]
+    },
+    {
+      "id": "ra-jak",
+      "name": "Rheumatoid arthritis",
+      "short": "RA (JAK)",
+      "syn": ["rheumatoid arthritis", "ra jak", "rheumatoid"],
+      "cls": "Janus kinase (JAK) inhibitor",
+      "drugs": [
+        { "b": "Xeljanz", "g": "Tofacitinib", "co": "Pfizer" },
+        { "b": "Olumiant", "g": "Baricitinib", "co": "Eli Lilly" },
+        { "b": "Rinvoq", "g": "Upadacitinib", "co": "AbbVie" }
+      ]
+    },
+    {
+      "id": "doac-af",
+      "name": "Atrial fibrillation / venous thromboembolism (anticoagulation)",
+      "short": "DOACs",
+      "syn": ["doac", "noac", "atrial fibrillation", "anticoagulant", "anticoagulation", "novel oral anticoagulant", "direct oral anticoagulant"],
+      "cls": "Direct oral anticoagulant (DOAC)",
+      "drugs": [
+        { "b": "Pradaxa", "g": "Dabigatran etexilate", "co": "Boehringer Ingelheim" },
+        { "b": "Xarelto", "g": "Rivaroxaban", "co": "Bayer / Janssen" },
+        { "b": "Eliquis", "g": "Apixaban", "co": "Bristol-Myers Squibb / Pfizer" },
+        { "b": "Lixiana", "g": "Edoxaban", "co": "Daiichi Sankyo" }
+      ]
+    }
+  ]
+}

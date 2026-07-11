@@ -21,6 +21,7 @@ import { __setNovelData } from './novelApprovals';
 import { __setCriticalData } from './criticalMedicines';
 import { __setPdufaData } from './pdufa';
 import { __setFdaEmaData, __setCgtData } from './fdaService';
+import { __setDiseaseData } from './diseaseEntities';
 import { storeGet, storeSet } from './storage';
 
 // Absolute URL so the native app (a different origin) reaches the live data.
@@ -76,12 +77,13 @@ export const liveDataAttempted = (): boolean => done;
  * bundled copy). Never throws.
  */
 export const refreshLiveData = async (): Promise<number> => {
-  const [ema, novel, critical, pdufa, cgt] = await Promise.all([
+  const [ema, novel, critical, pdufa, cgt, disease] = await Promise.all([
     fetchJson('ema-medicines.json'),
     fetchJson('novel-approvals.json'),
     fetchJson('critical-medicines.json'),
     fetchJson('pdufa.json'),
     fetchJson('cgt-products.json'),
+    fetchJson('disease-entities.json'),
   ]);
 
   let updated = 0;
@@ -90,6 +92,7 @@ export const refreshLiveData = async (): Promise<number> => {
   if (critical) { __setCriticalData(critical); updated++; }
   if (pdufa) { __setPdufaData(pdufa); updated++; }
   if (cgt) { __setCgtData(cgt); updated++; }
+  if (disease) { __setDiseaseData(disease); updated++; }
 
   done = true;
   if (updated > 0) {
@@ -97,7 +100,7 @@ export const refreshLiveData = async (): Promise<number> => {
     storeSet(LAST_REFRESH_KEY, lastRefreshISO);
   }
   if (import.meta.env.DEV) {
-    console.log(`[liveData] refreshed ${updated}/5 snapshots from ${REMOTE_BASE}`);
+    console.log(`[liveData] refreshed ${updated}/6 snapshots from ${REMOTE_BASE}`);
   }
   return updated;
 };

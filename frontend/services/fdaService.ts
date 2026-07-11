@@ -107,6 +107,13 @@ const lookupEma = (names: (string | undefined)[]): EmaRec | undefined => {
   return undefined;
 };
 
+// Public EMA-by-substance lookup (date + EPAR url) for offline enrichment of the
+// curated disease catalog. Returns the earliest central MA record for an INN.
+export const lookupEmaRec = (name: string): { d: string; u: string } | undefined => {
+  const r = lookupEma([name]);
+  return r ? { d: r.d, u: r.u } : undefined;
+};
+
 interface FdaSubmission {
   submission_type?: string;
   submission_status?: string;

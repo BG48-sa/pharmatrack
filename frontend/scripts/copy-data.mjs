@@ -22,6 +22,7 @@ const FILES = [
   'pdufa.json',
   'critical-medicines.json',
   'cgt-products.json',
+  'disease-entities.json',
 ];
 
 mkdirSync(outDir, { recursive: true });

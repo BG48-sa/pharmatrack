@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaService';
+import { findDisease, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
 import { getUpcomingPdufa } from './services/pdufa';
 import { refreshLiveData } from './services/liveData';
 import { searchTrials, TrialRegion } from './services/clinicalTrials';
@@ -149,17 +150,64 @@ export default function App() {
     const s = labelSlug(d);
     return !!(s && smpcIndex[s] && uspiIndex[s]);
   };
+  // Up to 8 drugs compare side-by-side (a full drug class, e.g. CML's 6 TKIs).
+  const MAX_COMPARE = 8;
   const inCompare = (d: DrugDetailData) => compare.some((x) => drugKey(x) === drugKey(d));
   const toggleCompare = (d: DrugDetailData) => {
     const k = drugKey(d);
     setCompare((prev) => {
       if (prev.some((x) => drugKey(x) === k)) return prev.filter((x) => drugKey(x) !== k);
-      if (prev.length >= 2) return [prev[1], d]; // keep the most recent, drop the oldest
+      if (prev.length >= MAX_COMPARE) return [...prev.slice(1), d]; // drop the oldest
       return [...prev, d];
     });
   };
   const removeFromCompare = (k: string) =>
     setCompare((prev) => prev.filter((x) => drugKey(x) !== k));
+
+  // --- Disease-entity comparison: type a disease (e.g. "CML"), compare its
+  // whole drug class at once. The catalog match is enriched offline with EU
+  // dates; opening the panel then fills the US (FDA) column live from openFDA.
+  // (`diseaseMatch` is computed further down, once search state is in scope.) ---
+
+  // Strictly fill the FDA date/indication for each catalogued drug from openFDA,
+  // matching only on an exact brand or generic name so a fuzzy hit can never put
+  // the wrong approval date on a drug. Failures (offline) keep the EU-only stub.
+  const enrichDiseaseFda = async (stubs: DrugDetailData[]): Promise<DrugDetailData[]> =>
+    Promise.all(
+      stubs.map(async (s) => {
+        try {
+          const res = await searchDrugDatabase(s.brandName);
+          const norm = (x?: string) => (x || '').toLowerCase().trim();
+          const hit = res.drugs.find(
+            (p) => norm(p.brandName) === norm(s.brandName) || norm(p.genericName) === norm(s.genericName),
+          );
+          if (!hit) return s;
+          return {
+            ...s,
+            approvalDate: /^\d/.test(hit.fdaApprovalDate) ? hit.fdaApprovalDate : s.approvalDate,
+            indication: hit.indication || s.indication,
+            company: s.company === '—' ? hit.company || s.company : s.company,
+          };
+        } catch {
+          return s; // offline / API error -> keep the offline stub
+        }
+      }),
+    );
+
+  const handleCompareDisease = (e: DiseaseEntity) => {
+    const stubs = buildDiseaseComparison(e);
+    setCompare(stubs);
+    setCompareOpen(true);
+    // Progressive: render immediately from the offline stubs, then upgrade with
+    // live FDA data as it arrives (keyed by brand+generic, so state updates align).
+    enrichDiseaseFda(stubs).then((enriched) =>
+      setCompare((prev) =>
+        prev.length === enriched.length && prev.every((p, i) => drugKey(p) === drugKey(enriched[i]))
+          ? enriched
+          : prev,
+      ),
+    );
+  };
 
   // iPad / wide-screen: show the detail in a persistent right pane instead of a
   // modal. 800px matches the `pad:` Tailwind breakpoint (iPad portrait = 820pt).
@@ -356,6 +404,10 @@ export default function App() {
   const activeData = isSearchMode ? searchData : defaultData;
   const approvalsLoading = loading || searchLoading;
 
+  // Curated disease-class match for the current search (e.g. "CML" -> 6 TKIs).
+  const diseaseMatch: DiseaseEntity | undefined =
+    isSearchMode && view === 'approvals' ? findDisease(currentQuery) : undefined;
+
   const tabClass = (active: boolean) =>
     `flex-1 flex items-center justify-center gap-1 py-1.5 px-0.5 text-xs font-semibold rounded-lg transition-colors ${
       active ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'
@@ -498,6 +550,37 @@ export default function App() {
                   </a>
                 </div>
               </div>
+              {diseaseMatch && (
+                <div className="px-4 mb-4">
+                  <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700 shrink-0">
+                        <GitCompare size={20} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-bold text-slate-900 leading-tight">{diseaseMatch.name}</h3>
+                        <p className="text-[13px] text-slate-600 mt-0.5">{diseaseMatch.cls}</p>
+                        <div className="flex flex-wrap gap-1.5 mt-2">
+                          {diseaseMatch.drugs.map((d) => (
+                            <span
+                              key={d.b}
+                              className="inline-flex items-center px-2 py-0.5 rounded-lg bg-white border border-emerald-200 text-[11px] font-semibold text-slate-700"
+                            >
+                              {d.b}
+                            </span>
+                          ))}
+                        </div>
+                        <button
+                          onClick={() => handleCompareDisease(diseaseMatch)}
+                          className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 transition-colors"
+                        >
+                          <GitCompare size={15} /> Compare all {diseaseMatch.drugs.length} side by side
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <DrugList drugs={activeData.drugs} onSelect={setDetail} />
               {activeData.drugs.length > 0 && <SourceList sources={activeData.sources} />}
             </div>
@@ -621,7 +704,7 @@ export default function App() {
         <div className="fixed bottom-0 inset-x-0 z-40 px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 bg-gradient-to-t from-slate-900/10 to-transparent pointer-events-none">
           <div className="mx-auto w-full max-w-xl bg-white border border-slate-200 shadow-lg rounded-2xl p-2.5 flex items-center gap-2 pointer-events-auto">
             <GitCompare size={18} className="text-emerald-600 shrink-0 ml-1" />
-            <div className="flex-1 min-w-0 flex gap-1.5">
+            <div className="flex-1 min-w-0 flex flex-wrap gap-1.5">
               {compare.map((d) => (
                 <span
                   key={drugKey(d)}
