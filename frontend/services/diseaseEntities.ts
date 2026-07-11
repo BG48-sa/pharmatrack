@@ -28,6 +28,22 @@ export interface DiseaseDrug {
   b: string; // brand
   g: string; // generic / INN
   co?: string; // company
+  // Optional offline overrides for the US column. openFDA keys its approval date
+  // and label to the FIRST product with a given INN, so a newer brand that shares
+  // its molecule with an older product inherits the wrong US date/indication
+  // (alemtuzumab: Lemtrada[MS 2014] gets Campath[B-CLL 2001]; ofatumumab:
+  // Kesimpta[MS 2020] gets Arzerra[CLL 2009]). When set, these win and the live
+  // openFDA enrichment must not overwrite them (see enrichDiseaseFda in App.tsx).
+  fda?: string; // correct US (FDA) approval date, ISO yyyy-mm-dd
+  ind?: string; // correct US indication text
+  // Optional offline overrides for the EU column, for the same reason on the EMA
+  // side: `lookupEmaRec` matches by INN and returns the EARLIEST central MA for
+  // that molecule, which can be a different product than the one being compared
+  // (cabozantinib: Cabometyx[RCC 2016] resolves to Cometriq[thyroid 2014];
+  // cladribine: Mavenclad[MS 2017] resolves to Litak[oncology]). When set, these
+  // win over the byInn lookup in buildDiseaseComparison.
+  emad?: string; // correct EU (EMA) marketing-authorisation date, ISO yyyy-mm-dd
+  emau?: string; // correct EPAR URL (also used to resolve the EU full-label view)
 }
 export interface DiseaseEntity {
   id: string;
@@ -71,12 +87,12 @@ export const buildDiseaseComparison = (e: DiseaseEntity): DrugDetailData[] =>
     return {
       brandName: d.b,
       genericName: d.g,
-      approvalDate: 'N/A',
-      indication: '',
+      approvalDate: d.fda || 'N/A',
+      indication: d.ind || '',
       drugClass: e.cls,
       company: d.co || '—',
-      emaApprovalDate: ema ? ema.d : 'Not in EMA',
-      emaUrl: ema?.u || undefined,
+      emaApprovalDate: d.emad || (ema ? ema.d : 'Not in EMA'),
+      emaUrl: d.emau || ema?.u || undefined,
       badge: e.short || undefined,
     };
   });

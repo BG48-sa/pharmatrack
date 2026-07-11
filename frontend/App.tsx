@@ -197,14 +197,27 @@ export default function App() {
         try {
           const res = await searchDrugDatabase(s.brandName);
           const norm = (x?: string) => (x || '').toLowerCase().trim();
-          const hit = res.drugs.find(
-            (p) => norm(p.brandName) === norm(s.brandName) || norm(p.genericName) === norm(s.genericName),
-          );
+          // Prefer an exact BRAND match; only fall back to the generic when no
+          // brand record exists. Several drugs share an INN with an older product
+          // (alemtuzumab: Lemtrada[MS] vs Campath[B-CLL]; ofatumumab: Kesimpta[MS]
+          // vs Arzerra[CLL]), so a generic-first match would stamp the wrong
+          // approval date and indication onto the catalogued brand.
+          const hit =
+            res.drugs.find((p) => norm(p.brandName) === norm(s.brandName)) ||
+            res.drugs.find((p) => norm(p.genericName) === norm(s.genericName));
           if (!hit) return s;
+          // A curated US date/indication (DiseaseDrug.fda/.ind) is authoritative
+          // for drugs whose openFDA record is INN-conflated — never overwrite it.
+          const curatedDate = /^\d/.test(s.approvalDate);
+          const curatedInd = !!s.indication;
           return {
             ...s,
-            approvalDate: /^\d/.test(hit.fdaApprovalDate) ? hit.fdaApprovalDate : s.approvalDate,
-            indication: hit.indication || s.indication,
+            approvalDate: curatedDate
+              ? s.approvalDate
+              : /^\d/.test(hit.fdaApprovalDate)
+              ? hit.fdaApprovalDate
+              : s.approvalDate,
+            indication: curatedInd ? s.indication : hit.indication || s.indication,
             company: s.company === '—' ? hit.company || s.company : s.company,
           };
         } catch {
