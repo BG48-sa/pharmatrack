@@ -2,6 +2,265 @@
   "generated": "2026-07-12",
   "entities": [
     {
+      "id": "pbc",
+      "name": "Primary biliary cholangitis (PBC)",
+      "short": "PBC",
+      "syn": [
+        "primary biliary cholangitis",
+        "pbc",
+        "primary biliary cirrhosis"
+      ],
+      "cls": "PPAR agonist for PBC",
+      "tgt": [
+        "PPAR",
+        "PPAR-delta",
+        "FXR"
+      ],
+      "drugs": [
+        {
+          "b": "Iqirvo",
+          "g": "elafibranor",
+          "co": "Ipsen"
+        },
+        {
+          "b": "Lyvdelzi",
+          "g": "seladelpar",
+          "co": "Gilead",
+          "emad": "2025-12-05",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/lyvdelzi"
+        }
+      ]
+    },
+    {
+      "id": "csu",
+      "name": "Chronic spontaneous urticaria (CSU)",
+      "short": "CSU",
+      "syn": [
+        "chronic spontaneous urticaria",
+        "csu",
+        "chronic urticaria",
+        "urticaria",
+        "hives"
+      ],
+      "cls": "Biologic / targeted therapy for chronic urticaria",
+      "tgt": [
+        "IgE",
+        "BTK",
+        "IL-4",
+        "IL-13",
+        "IL13"
+      ],
+      "drugs": [
+        {
+          "b": "Xolair",
+          "g": "omalizumab",
+          "co": "Novartis / Genentech"
+        },
+        {
+          "b": "Rhapsido",
+          "g": "remibrutinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Dupixent",
+          "g": "dupilumab",
+          "co": "Sanofi / Regeneron"
+        }
+      ]
+    },
+    {
+      "id": "alopecia-areata",
+      "name": "Alopecia areata",
+      "short": "Alopecia areata",
+      "syn": [
+        "alopecia areata",
+        "alopecia",
+        "hair loss"
+      ],
+      "cls": "JAK inhibitor for alopecia areata",
+      "tgt": [
+        "JAK",
+        "JAK1",
+        "JAK3",
+        "TEC"
+      ],
+      "drugs": [
+        {
+          "b": "Olumiant",
+          "g": "baricitinib",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Litfulo",
+          "g": "ritlecitinib",
+          "co": "Pfizer"
+        }
+      ]
+    },
+    {
+      "id": "hs",
+      "name": "Hidradenitis suppurativa (HS)",
+      "short": "Hidradenitis suppurativa",
+      "syn": [
+        "hidradenitis suppurativa",
+        "hidradenitis",
+        "acne inversa"
+      ],
+      "cls": "Biologic for hidradenitis suppurativa",
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "TNF"
+      ],
+      "drugs": [
+        {
+          "b": "Cosentyx",
+          "g": "secukinumab",
+          "co": "Novartis"
+        },
+        {
+          "b": "Bimzelx",
+          "g": "bimekizumab",
+          "co": "UCB"
+        },
+        {
+          "b": "Humira",
+          "g": "adalimumab",
+          "co": "AbbVie"
+        }
+      ]
+    },
+    {
+      "id": "waldenstrom",
+      "name": "Waldenström macroglobulinaemia (WM)",
+      "short": "Waldenström",
+      "syn": [
+        "waldenstrom macroglobulinaemia",
+        "waldenstrom macroglobulinemia",
+        "waldenstrom",
+        "lymphoplasmacytic lymphoma"
+      ],
+      "cls": "BTK inhibitor for Waldenström",
+      "tgt": [
+        "BTK",
+        "MYD88"
+      ],
+      "drugs": [
+        {
+          "b": "Imbruvica",
+          "g": "ibrutinib",
+          "co": "Janssen / AbbVie"
+        },
+        {
+          "b": "Brukinsa",
+          "g": "zanubrutinib",
+          "co": "BeiGene"
+        },
+        {
+          "b": "Calquence",
+          "g": "acalabrutinib",
+          "co": "AstraZeneca"
+        }
+      ]
+    },
+    {
+      "id": "mzl",
+      "name": "Marginal zone lymphoma (MZL)",
+      "short": "MZL",
+      "syn": [
+        "marginal zone lymphoma",
+        "mzl",
+        "malt lymphoma"
+      ],
+      "cls": "Targeted / T-cell-engaging therapy for MZL",
+      "tgt": [
+        "BTK",
+        "CD20",
+        "CD3",
+        "bispecific"
+      ],
+      "drugs": [
+        {
+          "b": "Brukinsa",
+          "g": "zanubrutinib",
+          "co": "BeiGene"
+        },
+        {
+          "b": "Imbruvica",
+          "g": "ibrutinib",
+          "co": "Janssen / AbbVie"
+        },
+        {
+          "b": "Lunsumio",
+          "g": "mosunetuzumab",
+          "co": "Roche"
+        }
+      ]
+    },
+    {
+      "id": "polycythemia-vera",
+      "name": "Polycythaemia vera (PV)",
+      "short": "Polycythaemia vera",
+      "syn": [
+        "polycythaemia vera",
+        "polycythemia vera",
+        "polycythaemia",
+        "polycythemia"
+      ],
+      "cls": "Interferon / JAK inhibitor for polycythaemia vera",
+      "tgt": [
+        "JAK",
+        "JAK2",
+        "interferon"
+      ],
+      "drugs": [
+        {
+          "b": "Besremi",
+          "g": "ropeginterferon alfa-2b",
+          "co": "PharmaEssentia"
+        },
+        {
+          "b": "Jakavi",
+          "g": "ruxolitinib",
+          "co": "Novartis"
+        }
+      ]
+    },
+    {
+      "id": "myelofibrosis",
+      "name": "Myelofibrosis",
+      "short": "Myelofibrosis",
+      "syn": [
+        "myelofibrosis",
+        "primary myelofibrosis",
+        "mpn"
+      ],
+      "cls": "JAK inhibitor for myelofibrosis",
+      "tgt": [
+        "JAK",
+        "JAK2",
+        "JAK1",
+        "ACVR1"
+      ],
+      "drugs": [
+        {
+          "b": "Jakavi",
+          "g": "ruxolitinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Inrebic",
+          "g": "fedratinib",
+          "co": "Bristol Myers Squibb"
+        },
+        {
+          "b": "Omjjara",
+          "g": "momelotinib",
+          "co": "GSK"
+        }
+      ]
+    },
+    {
       "id": "attr-amyloidosis",
       "name": "Transthyretin amyloidosis (ATTR)",
       "short": "ATTR amyloidosis",
