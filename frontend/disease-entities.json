@@ -2,6 +2,425 @@
   "generated": "2026-07-12",
   "entities": [
     {
+      "id": "ipf",
+      "name": "Idiopathic pulmonary fibrosis (IPF)",
+      "short": "IPF",
+      "syn": [
+        "idiopathic pulmonary fibrosis",
+        "ipf",
+        "pulmonary fibrosis",
+        "lung fibrosis"
+      ],
+      "cls": "Antifibrotic therapy",
+      "drugs": [
+        {
+          "b": "Ofev",
+          "g": "nintedanib",
+          "co": "Boehringer Ingelheim",
+          "emad": "2015-01-14",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/ofev"
+        },
+        {
+          "b": "Esbriet",
+          "g": "pirfenidone",
+          "co": "Roche / Genentech"
+        }
+      ]
+    },
+    {
+      "id": "pah",
+      "name": "Pulmonary arterial hypertension (PAH)",
+      "short": "PAH",
+      "syn": [
+        "pulmonary arterial hypertension",
+        "pah",
+        "pulmonary hypertension"
+      ],
+      "cls": "PAH-targeted therapy",
+      "drugs": [
+        {
+          "b": "Winrevair",
+          "g": "sotatercept",
+          "co": "Merck / MSD"
+        },
+        {
+          "b": "Opsumit",
+          "g": "macitentan",
+          "co": "Janssen / Actelion"
+        },
+        {
+          "b": "Uptravi",
+          "g": "selexipag",
+          "co": "Janssen / Actelion"
+        },
+        {
+          "b": "Adempas",
+          "g": "riociguat",
+          "co": "Bayer / MSD"
+        },
+        {
+          "b": "Volibris",
+          "g": "ambrisentan",
+          "co": "GSK"
+        },
+        {
+          "b": "Revatio",
+          "g": "sildenafil",
+          "co": "Pfizer",
+          "emad": "2005-10-28",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/revatio"
+        }
+      ]
+    },
+    {
+      "id": "hepc",
+      "name": "Chronic hepatitis C",
+      "short": "Hepatitis C",
+      "syn": [
+        "hepatitis c",
+        "chronic hepatitis c",
+        "hcv",
+        "hep c",
+        "hepatitis c virus"
+      ],
+      "cls": "Direct-acting antiviral (DAA)",
+      "drugs": [
+        {
+          "b": "Epclusa",
+          "g": "sofosbuvir / velpatasvir",
+          "co": "Gilead",
+          "emad": "2016-07-06",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/epclusa"
+        },
+        {
+          "b": "Maviret",
+          "g": "glecaprevir / pibrentasvir",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Vosevi",
+          "g": "sofosbuvir / velpatasvir / voxilaprevir",
+          "co": "Gilead",
+          "emad": "2017-07-26",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/vosevi"
+        },
+        {
+          "b": "Zepatier",
+          "g": "elbasvir / grazoprevir",
+          "co": "MSD"
+        },
+        {
+          "b": "Harvoni",
+          "g": "ledipasvir / sofosbuvir",
+          "co": "Gilead"
+        }
+      ]
+    },
+    {
+      "id": "ckd",
+      "name": "Chronic kidney disease / diabetic kidney disease",
+      "short": "CKD / DKD",
+      "syn": [
+        "chronic kidney disease",
+        "ckd",
+        "diabetic kidney disease",
+        "diabetic nephropathy",
+        "diabetic kidney",
+        "kidney disease"
+      ],
+      "cls": "Kidney-protective therapy",
+      "drugs": [
+        {
+          "b": "Kerendia",
+          "g": "finerenone",
+          "co": "Bayer"
+        },
+        {
+          "b": "Forxiga",
+          "g": "dapagliflozin",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Jardiance",
+          "g": "empagliflozin",
+          "co": "Boehringer Ingelheim / Eli Lilly"
+        }
+      ]
+    },
+    {
+      "id": "igan",
+      "name": "IgA nephropathy (IgAN)",
+      "short": "IgA nephropathy",
+      "syn": [
+        "iga nephropathy",
+        "igan",
+        "berger disease",
+        "iga nephritis"
+      ],
+      "cls": "Targeted therapy for IgA nephropathy",
+      "drugs": [
+        {
+          "b": "Filspari",
+          "g": "sparsentan",
+          "co": "CSL Vifor / Travere"
+        },
+        {
+          "b": "Kinpeygo",
+          "g": "budesonide",
+          "co": "STADA / Calliditas",
+          "emad": "2022-07-15",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/kinpeygo"
+        },
+        {
+          "b": "Fabhalta",
+          "g": "iptacopan",
+          "co": "Novartis"
+        }
+      ]
+    },
+    {
+      "id": "alzheimer",
+      "name": "Alzheimer disease (amyloid-targeting therapy)",
+      "short": "Alzheimer",
+      "syn": [
+        "alzheimer",
+        "alzheimer disease",
+        "alzheimers",
+        "amyloid"
+      ],
+      "cls": "Anti-amyloid monoclonal antibody",
+      "drugs": [
+        {
+          "b": "Leqembi",
+          "g": "lecanemab",
+          "co": "Eisai / Biogen"
+        },
+        {
+          "b": "Kisunla",
+          "g": "donanemab",
+          "co": "Eli Lilly"
+        }
+      ]
+    },
+    {
+      "id": "hiv",
+      "name": "HIV infection (antiretroviral therapy)",
+      "short": "HIV",
+      "syn": [
+        "hiv",
+        "human immunodeficiency virus",
+        "antiretroviral",
+        "hiv infection",
+        "aids"
+      ],
+      "cls": "Antiretroviral regimen",
+      "drugs": [
+        {
+          "b": "Biktarvy",
+          "g": "bictegravir / emtricitabine / tenofovir alafenamide",
+          "co": "Gilead"
+        },
+        {
+          "b": "Dovato",
+          "g": "dolutegravir / lamivudine",
+          "co": "ViiV Healthcare",
+          "emad": "2019-07-01",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/dovato"
+        },
+        {
+          "b": "Triumeq",
+          "g": "abacavir / dolutegravir / lamivudine",
+          "co": "ViiV Healthcare",
+          "emad": "2014-08-31",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/triumeq"
+        },
+        {
+          "b": "Vocabria",
+          "g": "cabotegravir",
+          "co": "ViiV Healthcare"
+        },
+        {
+          "b": "Sunlenca",
+          "g": "lenacapavir",
+          "co": "Gilead"
+        }
+      ]
+    },
+    {
+      "id": "itp",
+      "name": "Immune thrombocytopenia (ITP)",
+      "short": "ITP",
+      "syn": [
+        "immune thrombocytopenia",
+        "itp",
+        "immune thrombocytopenic purpura",
+        "idiopathic thrombocytopenic purpura"
+      ],
+      "cls": "TPO-receptor agonist / targeted ITP therapy",
+      "drugs": [
+        {
+          "b": "Revolade",
+          "g": "eltrombopag",
+          "co": "Novartis"
+        },
+        {
+          "b": "Nplate",
+          "g": "romiplostim",
+          "co": "Amgen"
+        },
+        {
+          "b": "Doptelet",
+          "g": "avatrombopag",
+          "co": "Sobi / Swedish Orphan"
+        },
+        {
+          "b": "Tavlesse",
+          "g": "fostamatinib",
+          "co": "Grifols / Rigel"
+        }
+      ]
+    },
+    {
+      "id": "pmr-gca",
+      "name": "Polymyalgia rheumatica & giant-cell arteritis",
+      "short": "PMR / GCA",
+      "syn": [
+        "polymyalgia rheumatica",
+        "pmr",
+        "giant cell arteritis",
+        "gca",
+        "giant-cell arteritis",
+        "temporal arteritis"
+      ],
+      "cls": "IL-6 receptor inhibitor",
+      "drugs": [
+        {
+          "b": "RoActemra",
+          "g": "tocilizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Kevzara",
+          "g": "sarilumab",
+          "co": "Sanofi / Regeneron"
+        }
+      ]
+    },
+    {
+      "id": "anca",
+      "name": "ANCA-associated vasculitis",
+      "short": "ANCA vasculitis",
+      "syn": [
+        "anca-associated vasculitis",
+        "anca vasculitis",
+        "gpa",
+        "mpa",
+        "granulomatosis with polyangiitis",
+        "microscopic polyangiitis",
+        "egpa"
+      ],
+      "cls": "Targeted therapy for ANCA-associated vasculitis",
+      "drugs": [
+        {
+          "b": "Tavneos",
+          "g": "avacopan",
+          "co": "CSL Vifor / Amgen"
+        },
+        {
+          "b": "MabThera",
+          "g": "rituximab",
+          "co": "Roche"
+        },
+        {
+          "b": "Nucala",
+          "g": "mepolizumab",
+          "co": "GSK"
+        }
+      ]
+    },
+    {
+      "id": "colorectal",
+      "name": "Metastatic colorectal cancer",
+      "short": "Colorectal cancer",
+      "syn": [
+        "colorectal cancer",
+        "colorectal carcinoma",
+        "mcrc",
+        "bowel cancer",
+        "colon cancer",
+        "rectal cancer"
+      ],
+      "cls": "Targeted therapy for metastatic colorectal cancer",
+      "drugs": [
+        {
+          "b": "Erbitux",
+          "g": "cetuximab",
+          "co": "Merck KGaA"
+        },
+        {
+          "b": "Vectibix",
+          "g": "panitumumab",
+          "co": "Amgen"
+        },
+        {
+          "b": "Braftovi",
+          "g": "encorafenib",
+          "co": "Pierre Fabre / Pfizer"
+        },
+        {
+          "b": "Lonsurf",
+          "g": "trifluridine / tipiracil",
+          "co": "Servier / Taiho"
+        },
+        {
+          "b": "Fruzaqla",
+          "g": "fruquintinib",
+          "co": "Takeda / HUTCHMED"
+        }
+      ]
+    },
+    {
+      "id": "hcc",
+      "name": "Hepatocellular carcinoma (HCC)",
+      "short": "HCC",
+      "syn": [
+        "hepatocellular carcinoma",
+        "hcc",
+        "liver cancer",
+        "hepatic carcinoma"
+      ],
+      "cls": "Systemic therapy for hepatocellular carcinoma",
+      "drugs": [
+        {
+          "b": "Tecentriq",
+          "g": "atezolizumab",
+          "co": "Roche / Genentech"
+        },
+        {
+          "b": "Lenvima",
+          "g": "lenvatinib",
+          "co": "Eisai / MSD"
+        },
+        {
+          "b": "Nexavar",
+          "g": "sorafenib",
+          "co": "Bayer"
+        },
+        {
+          "b": "Cabometyx",
+          "g": "cabozantinib",
+          "co": "Ipsen / Exelixis",
+          "emad": "2016-09-09",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/cabometyx"
+        },
+        {
+          "b": "Imjudo",
+          "g": "tremelimumab",
+          "co": "AstraZeneca"
+        }
+      ]
+    },
+    {
       "id": "type2-diabetes",
       "name": "Type 2 diabetes mellitus",
       "short": "Type 2 diabetes",
