@@ -2,6 +2,212 @@
   "generated": "2026-07-12",
   "entities": [
     {
+      "id": "mcrpc",
+      "name": "mCRPC — PARP inhibitor & radioligand",
+      "short": "mCRPC",
+      "syn": [
+        "mcrpc",
+        "crpc",
+        "castration-resistant",
+        "castration resistant",
+        "metastatic castration-resistant"
+      ],
+      "cls": "PARP inhibitor & radioligand therapy for mCRPC",
+      "drugs": [
+        {
+          "b": "Pluvicto",
+          "g": "lutetium (177Lu) vipivotide tetraxetan",
+          "co": "Novartis"
+        },
+        {
+          "b": "Lynparza",
+          "g": "olaparib",
+          "co": "AstraZeneca / MSD"
+        },
+        {
+          "b": "Talzenna",
+          "g": "talazoparib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Akeega",
+          "g": "niraparib / abiraterone",
+          "co": "Janssen",
+          "emad": "2023-04-19",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/akeega"
+        }
+      ]
+    },
+    {
+      "id": "cervical",
+      "name": "Cervical cancer",
+      "short": "Cervical cancer",
+      "syn": [
+        "cervical cancer",
+        "cervical carcinoma",
+        "cancer of the cervix"
+      ],
+      "cls": "Immunotherapy / targeted therapy for cervical cancer",
+      "drugs": [
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Tivdak",
+          "g": "tisotumab vedotin",
+          "co": "Pfizer / Genmab"
+        },
+        {
+          "b": "Jemperli",
+          "g": "dostarlimab",
+          "co": "GSK"
+        }
+      ]
+    },
+    {
+      "id": "sma",
+      "name": "Spinal muscular atrophy (SMA)",
+      "short": "SMA",
+      "syn": [
+        "spinal muscular atrophy",
+        "sma"
+      ],
+      "cls": "Disease-modifying therapy for SMA",
+      "drugs": [
+        {
+          "b": "Spinraza",
+          "g": "nusinersen",
+          "co": "Biogen"
+        },
+        {
+          "b": "Evrysdi",
+          "g": "risdiplam",
+          "co": "Roche"
+        },
+        {
+          "b": "Zolgensma",
+          "g": "onasemnogene abeparvovec",
+          "co": "Novartis"
+        }
+      ]
+    },
+    {
+      "id": "nsclc-io",
+      "name": "NSCLC immunotherapy (PD-1 / PD-L1)",
+      "short": "NSCLC immunotherapy",
+      "syn": [
+        "nsclc immunotherapy",
+        "lung cancer immunotherapy",
+        "immunotherapy lung cancer",
+        "checkpoint inhibitor lung"
+      ],
+      "cls": "PD-1 / PD-L1 checkpoint inhibitor for NSCLC",
+      "drugs": [
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Opdivo",
+          "g": "nivolumab",
+          "co": "Bristol Myers Squibb"
+        },
+        {
+          "b": "Tecentriq",
+          "g": "atezolizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Imfinzi",
+          "g": "durvalumab",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Libtayo",
+          "g": "cemiplimab",
+          "co": "Regeneron / Sanofi"
+        }
+      ]
+    },
+    {
+      "id": "thyroid",
+      "name": "Thyroid cancer",
+      "short": "Thyroid cancer",
+      "syn": [
+        "thyroid cancer",
+        "thyroid carcinoma",
+        "medullary thyroid",
+        "differentiated thyroid",
+        "anaplastic thyroid"
+      ],
+      "cls": "Targeted therapy for thyroid cancer",
+      "drugs": [
+        {
+          "b": "Lenvima",
+          "g": "lenvatinib",
+          "co": "Eisai / MSD"
+        },
+        {
+          "b": "Nexavar",
+          "g": "sorafenib",
+          "co": "Bayer"
+        },
+        {
+          "b": "Retsevmo",
+          "g": "selpercatinib",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Cometriq",
+          "g": "cabozantinib",
+          "co": "Ipsen / Exelixis"
+        }
+      ]
+    },
+    {
+      "id": "biliary",
+      "name": "Biliary tract cancer / cholangiocarcinoma",
+      "short": "Biliary tract cancer",
+      "syn": [
+        "biliary tract cancer",
+        "cholangiocarcinoma",
+        "bile duct cancer",
+        "gallbladder cancer",
+        "biliary cancer"
+      ],
+      "cls": "Targeted / immunotherapy for biliary tract cancer",
+      "drugs": [
+        {
+          "b": "Pemazyre",
+          "g": "pemigatinib",
+          "co": "Incyte"
+        },
+        {
+          "b": "Lytgobi",
+          "g": "futibatinib",
+          "co": "Taiho"
+        },
+        {
+          "b": "Tibsovo",
+          "g": "ivosidenib",
+          "co": "Servier"
+        },
+        {
+          "b": "Imjudo",
+          "g": "tremelimumab",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Imfinzi",
+          "g": "durvalumab",
+          "co": "AstraZeneca"
+        }
+      ]
+    },
+    {
       "id": "cystic-fibrosis",
       "name": "Cystic fibrosis (CFTR modulator)",
       "short": "Cystic fibrosis",
