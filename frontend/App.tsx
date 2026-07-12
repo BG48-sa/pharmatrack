@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaService';
-import { findDisease, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
+import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
 import { getUpcomingPdufa } from './services/pdufa';
 import { refreshLiveData } from './services/liveData';
 import { searchTrials, TrialRegion } from './services/clinicalTrials';
@@ -436,9 +436,11 @@ export default function App() {
   const activeData = isSearchMode ? searchData : defaultData;
   const approvalsLoading = loading || searchLoading;
 
-  // Curated disease-class match for the current search (e.g. "CML" -> 6 TKIs).
-  const diseaseMatch: DiseaseEntity | undefined =
-    isSearchMode && view === 'approvals' ? findDisease(currentQuery) : undefined;
+  // Curated disease-class matches for the current search. One for a disease name
+  // (e.g. "CML" -> 6 TKIs); several when a molecular target (e.g. "PD-1") spans
+  // multiple classes.
+  const diseaseMatches: DiseaseEntity[] =
+    isSearchMode && view === 'approvals' ? findDiseases(currentQuery) : [];
 
   const tabClass = (active: boolean) =>
     `flex-1 flex items-center justify-center gap-1 py-1.5 px-0.5 text-xs font-semibold rounded-lg transition-colors ${
@@ -583,35 +585,42 @@ export default function App() {
                   </a>
                 </div>
               </div>
-              {diseaseMatch && (
-                <div className="px-4 mb-4">
-                  <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700 shrink-0">
-                        <GitCompare size={20} />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-bold text-slate-900 leading-tight">{diseaseMatch.name}</h3>
-                        <p className="text-[13px] text-slate-600 mt-0.5">{diseaseMatch.cls}</p>
-                        <div className="flex flex-wrap gap-1.5 mt-2">
-                          {diseaseMatch.drugs.map((d) => (
-                            <span
-                              key={d.b}
-                              className="inline-flex items-center px-2 py-0.5 rounded-lg bg-white border border-emerald-200 text-[11px] font-semibold text-slate-700"
-                            >
-                              {d.b}
-                            </span>
-                          ))}
+              {diseaseMatches.length > 0 && (
+                <div className="px-4 mb-4 space-y-3">
+                  {diseaseMatches.length > 1 && (
+                    <p className="text-[13px] font-semibold text-emerald-800">
+                      {diseaseMatches.length} drug classes match “{currentQuery}”
+                    </p>
+                  )}
+                  {diseaseMatches.map((diseaseMatch) => (
+                    <div key={diseaseMatch.id} className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700 shrink-0">
+                          <GitCompare size={20} />
                         </div>
-                        <button
-                          onClick={() => handleCompareDisease(diseaseMatch)}
-                          className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 transition-colors"
-                        >
-                          <GitCompare size={15} /> Compare all {diseaseMatch.drugs.length} side by side
-                        </button>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-bold text-slate-900 leading-tight">{diseaseMatch.name}</h3>
+                          <p className="text-[13px] text-slate-600 mt-0.5">{diseaseMatch.cls}</p>
+                          <div className="flex flex-wrap gap-1.5 mt-2">
+                            {diseaseMatch.drugs.map((d) => (
+                              <span
+                                key={d.b}
+                                className="inline-flex items-center px-2 py-0.5 rounded-lg bg-white border border-emerald-200 text-[11px] font-semibold text-slate-700"
+                              >
+                                {d.b}
+                              </span>
+                            ))}
+                          </div>
+                          <button
+                            onClick={() => handleCompareDisease(diseaseMatch)}
+                            className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 transition-colors"
+                          >
+                            <GitCompare size={15} /> Compare all {diseaseMatch.drugs.length} side by side
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               )}
               <DrugList drugs={activeData.drugs} onSelect={setDetail} />

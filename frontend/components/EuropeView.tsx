@@ -11,7 +11,7 @@ import {
 } from '../services/emaService';
 import { EmaMedicine, EmaPipelineItem, DrugDetailData } from '../types';
 import EmaBadges from './EmaBadges';
-import { findDisease, DiseaseEntity } from '../services/diseaseEntities';
+import { findDiseases, DiseaseEntity } from '../services/diseaseEntities';
 import {
   CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink, GitCompare,
 } from 'lucide-react';
@@ -139,8 +139,9 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
 
   const q = query.trim();
   const isWatched = !!q && !!watchedTerms?.some((w) => w.toLowerCase() === q.toLowerCase());
-  // Curated disease-class match (e.g. "CML" -> its TKIs) for the compare card.
-  const disease = onCompareDisease ? findDisease(q) : undefined;
+  // Curated disease-class matches for the compare card(s). A disease name yields
+  // one; a molecular target (e.g. "PD-1", "CD20") can yield several classes.
+  const diseases = onCompareDisease ? findDiseases(q) : [];
 
   const approved = useMemo(() => recentApprovals(query, filter), [query, filter]);
   const expected = useMemo(() => pipeline(query, filter), [query, filter]);
@@ -185,9 +186,16 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
         ))}
       </div>
 
-      {/* Curated disease drug-class comparison (e.g. "CML" -> its six TKIs). */}
-      {disease && onCompareDisease && (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 mb-3">
+      {/* Curated disease drug-class comparison(s). One card for a disease name
+          (e.g. "CML" -> its six TKIs); several when a molecular target such as
+          "PD-1" or "CD20" spans multiple classes. */}
+      {diseases.length > 1 && (
+        <p className="text-[13px] font-semibold text-emerald-800 mb-2">
+          {diseases.length} drug classes match “{q}”
+        </p>
+      )}
+      {onCompareDisease && diseases.map((disease) => (
+        <div key={disease.id} className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 mb-3">
           <div className="flex items-start gap-3">
             <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700 shrink-0">
               <GitCompare size={20} />
@@ -214,7 +222,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             </div>
           </div>
         </div>
-      )}
+      ))}
 
       {/* When filtering to generics, cite the official generic-medicine registers. */}
       {filter === 'gen' && (

@@ -51,6 +51,10 @@ export interface DiseaseEntity {
   short?: string;
   syn: string[];
   cls: string;
+  /** Molecular targets / pathways this class acts on (e.g. "EGFR", "PD-1",
+   * "BCR-ABL", "PARP"), used so a target query surfaces the class. A single
+   * target (PD-1, VEGFR, CD20…) can match several diseases — see findDiseases. */
+  tgt?: string[];
   drugs: DiseaseDrug[];
 }
 
@@ -85,20 +89,43 @@ const tokenSeqIn = (hay: string[], needle: string[]): boolean => {
  * query — or a short synonym like "ra" — can't match mid-word by accident.
  * Returns the first (most specific) match, or undefined.
  */
-export const findDisease = (query: string): DiseaseEntity | undefined => {
-  const s = query.toLowerCase().trim();
-  if (s.length < 3) return undefined;
-  const sTok = tokenize(s);
-  return entities.find((e) => {
-    // Query appears as a whole-token run inside the display name.
-    if (tokenSeqIn(tokenize(e.name), sTok)) return true;
-    // …or the query and a synonym contain one another (either direction).
-    return e.syn.some((syn) => {
-      const synTok = tokenize(syn);
-      return tokenSeqIn(synTok, sTok) || tokenSeqIn(sTok, synTok);
-    });
+const matchesDisease = (e: DiseaseEntity, sTok: string[]): boolean => {
+  // Query appears as a whole-token run inside the display name.
+  if (tokenSeqIn(tokenize(e.name), sTok)) return true;
+  // …or the query and a synonym contain one another (either direction).
+  if (e.syn.some((syn) => {
+    const synTok = tokenize(syn);
+    return tokenSeqIn(synTok, sTok) || tokenSeqIn(sTok, synTok);
+  })) return true;
+  // …or the query names a molecular target this class acts on (e.g. "EGFR",
+  // "PD-1", "PARP", "BTK"), so the app is searchable by target, not just disease.
+  return !!e.tgt?.some((t) => {
+    const tTok = tokenize(t);
+    return tokenSeqIn(tTok, sTok) || tokenSeqIn(sTok, tTok);
   });
 };
+
+/**
+ * All curated disease classes matching a query — by disease name, synonym, or
+ * molecular target. A target like "PD-1", "VEGFR" or "CD20" legitimately spans
+ * several diseases, so this returns every match (capped) in catalog order; the
+ * UI renders one compare card each. Returns [] for queries under 3 chars.
+ */
+export const findDiseases = (query: string, limit = 8): DiseaseEntity[] => {
+  const s = query.toLowerCase().trim();
+  if (s.length < 3) return [];
+  const sTok = tokenize(s);
+  return entities.filter((e) => matchesDisease(e, sTok)).slice(0, limit);
+};
+
+/**
+ * Match a search query to a curated disease entity. Matches on the display name,
+ * a synonym, or a molecular target (see matchesDisease). Returns the first (most
+ * specific) match, or undefined. For all matches (e.g. a target spanning several
+ * diseases) use findDiseases.
+ */
+export const findDisease = (query: string): DiseaseEntity | undefined =>
+  findDiseases(query, 1)[0];
 
 /**
  * Build the comparison rows for a disease: one normalised DrugDetailData per

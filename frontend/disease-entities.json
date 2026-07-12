@@ -2,6 +2,264 @@
   "generated": "2026-07-12",
   "entities": [
     {
+      "id": "attr-amyloidosis",
+      "name": "Transthyretin amyloidosis (ATTR)",
+      "short": "ATTR amyloidosis",
+      "syn": [
+        "transthyretin amyloidosis",
+        "attr",
+        "attr-cm",
+        "attr amyloidosis",
+        "hattr",
+        "attrv",
+        "transthyretin",
+        "cardiac amyloidosis",
+        "amyloid polyneuropathy"
+      ],
+      "cls": "Transthyretin stabiliser / silencer",
+      "tgt": [
+        "transthyretin",
+        "TTR",
+        "amyloid"
+      ],
+      "drugs": [
+        {
+          "b": "Vyndaqel",
+          "g": "tafamidis",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Onpattro",
+          "g": "patisiran",
+          "co": "Alnylam"
+        },
+        {
+          "b": "Amvuttra",
+          "g": "vutrisiran",
+          "co": "Alnylam"
+        },
+        {
+          "b": "Wainzua",
+          "g": "eplontersen",
+          "co": "AstraZeneca / Ionis"
+        },
+        {
+          "b": "Beyonttra",
+          "g": "acoramidis",
+          "co": "BridgeBio / Bayer"
+        }
+      ]
+    },
+    {
+      "id": "hae",
+      "name": "Hereditary angioedema (HAE)",
+      "short": "HAE",
+      "syn": [
+        "hereditary angioedema",
+        "hae",
+        "angioedema",
+        "c1 inhibitor deficiency"
+      ],
+      "cls": "HAE prophylaxis / on-demand therapy",
+      "tgt": [
+        "kallikrein",
+        "bradykinin",
+        "C1 esterase",
+        "factor XIIa",
+        "B2 receptor"
+      ],
+      "drugs": [
+        {
+          "b": "Takhzyro",
+          "g": "lanadelumab",
+          "co": "Takeda"
+        },
+        {
+          "b": "Orladeyo",
+          "g": "berotralstat",
+          "co": "BioCryst"
+        },
+        {
+          "b": "Firazyr",
+          "g": "icatibant",
+          "co": "Takeda"
+        },
+        {
+          "b": "Andembry",
+          "g": "garadacimab",
+          "co": "CSL Behring"
+        }
+      ]
+    },
+    {
+      "id": "cidp",
+      "name": "Chronic inflammatory demyelinating polyneuropathy (CIDP)",
+      "short": "CIDP",
+      "syn": [
+        "chronic inflammatory demyelinating polyneuropathy",
+        "cidp",
+        "demyelinating polyneuropathy"
+      ],
+      "cls": "FcRn inhibitor / immunoglobulin for CIDP",
+      "tgt": [
+        "FcRn",
+        "immunoglobulin"
+      ],
+      "drugs": [
+        {
+          "b": "Vyvgart",
+          "g": "efgartigimod",
+          "co": "argenx"
+        },
+        {
+          "b": "Privigen",
+          "g": "human normal immunoglobulin",
+          "co": "CSL Behring",
+          "emad": "2008-04-24",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/privigen"
+        },
+        {
+          "b": "Hizentra",
+          "g": "human normal immunoglobulin",
+          "co": "CSL Behring",
+          "emad": "2011-04-14",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/hizentra"
+        }
+      ]
+    },
+    {
+      "id": "masld",
+      "name": "MASLD / MASH (metabolic fatty liver)",
+      "short": "MASLD / MASH",
+      "syn": [
+        "masld",
+        "mash",
+        "nash",
+        "nafld",
+        "metabolic fatty liver",
+        "fatty liver",
+        "steatohepatitis",
+        "steatotic liver disease",
+        "non-alcoholic steatohepatitis"
+      ],
+      "cls": "Therapy for metabolic steatohepatitis",
+      "tgt": [
+        "THR-beta",
+        "thyroid hormone receptor",
+        "GLP-1",
+        "GLP1"
+      ],
+      "drugs": [
+        {
+          "b": "Rezdiffra",
+          "g": "resmetirom",
+          "co": "Madrigal"
+        },
+        {
+          "b": "Wegovy",
+          "g": "semaglutide",
+          "co": "Novo Nordisk",
+          "emad": "2022-01-06",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/wegovy"
+        }
+      ]
+    },
+    {
+      "id": "menopause-vms",
+      "name": "Menopausal vasomotor symptoms (hot flushes)",
+      "short": "Menopause VMS",
+      "syn": [
+        "menopausal vasomotor symptoms",
+        "vasomotor symptoms",
+        "hot flushes",
+        "hot flashes",
+        "menopause",
+        "vms"
+      ],
+      "cls": "Neurokinin-3 receptor antagonist",
+      "tgt": [
+        "NK3",
+        "neurokinin",
+        "NK-3"
+      ],
+      "drugs": [
+        {
+          "b": "Veoza",
+          "g": "fezolinetant",
+          "co": "Astellas"
+        },
+        {
+          "b": "Lynkuet",
+          "g": "elinzanetant",
+          "co": "Bayer"
+        }
+      ]
+    },
+    {
+      "id": "narcolepsy",
+      "name": "Narcolepsy",
+      "short": "Narcolepsy",
+      "syn": [
+        "narcolepsy",
+        "cataplexy",
+        "excessive daytime sleepiness",
+        "eds"
+      ],
+      "cls": "Wake-promoting / anticataplectic therapy",
+      "tgt": [
+        "histamine",
+        "H3",
+        "orexin",
+        "GABA"
+      ],
+      "drugs": [
+        {
+          "b": "Wakix",
+          "g": "pitolisant",
+          "co": "Bioprojet"
+        },
+        {
+          "b": "Xyrem",
+          "g": "sodium oxybate",
+          "co": "UCB / Jazz"
+        },
+        {
+          "b": "Sunosi",
+          "g": "solriamfetol",
+          "co": "Axsome"
+        }
+      ]
+    },
+    {
+      "id": "duchenne",
+      "name": "Duchenne muscular dystrophy (DMD)",
+      "short": "Duchenne",
+      "syn": [
+        "duchenne muscular dystrophy",
+        "duchenne",
+        "dmd",
+        "muscular dystrophy"
+      ],
+      "cls": "Therapy for Duchenne muscular dystrophy",
+      "tgt": [
+        "dystrophin",
+        "HDAC",
+        "corticosteroid"
+      ],
+      "drugs": [
+        {
+          "b": "Agamree",
+          "g": "vamorolone",
+          "co": "Santhera"
+        },
+        {
+          "b": "Duvyzat",
+          "g": "givinostat",
+          "co": "Italfarmaco"
+        }
+      ]
+    },
+    {
       "id": "mcrpc",
       "name": "mCRPC — PARP inhibitor & radioligand",
       "short": "mCRPC",
@@ -36,6 +294,11 @@
           "emad": "2023-04-19",
           "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/akeega"
         }
+      ],
+      "tgt": [
+        "PARP",
+        "PSMA",
+        "radioligand"
       ]
     },
     {
@@ -64,6 +327,12 @@
           "g": "dostarlimab",
           "co": "GSK"
         }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "tissue factor",
+        "TF"
       ]
     },
     {
@@ -91,6 +360,11 @@
           "g": "onasemnogene abeparvovec",
           "co": "Novartis"
         }
+      ],
+      "tgt": [
+        "SMN",
+        "SMN1",
+        "SMN2"
       ]
     },
     {
@@ -130,6 +404,13 @@
           "g": "cemiplimab",
           "co": "Regeneron / Sanofi"
         }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "PD-L1",
+        "PDL1",
+        "checkpoint"
       ]
     },
     {
@@ -165,6 +446,12 @@
           "g": "cabozantinib",
           "co": "Ipsen / Exelixis"
         }
+      ],
+      "tgt": [
+        "RET",
+        "VEGFR",
+        "multikinase",
+        "BRAF"
       ]
     },
     {
@@ -205,6 +492,13 @@
           "g": "durvalumab",
           "co": "AstraZeneca"
         }
+      ],
+      "tgt": [
+        "FGFR",
+        "IDH1",
+        "IDH",
+        "PD-L1",
+        "PDL1"
       ]
     },
     {
@@ -239,6 +533,9 @@
           "g": "ivacaftor",
           "co": "Vertex"
         }
+      ],
+      "tgt": [
+        "CFTR"
       ]
     },
     {
@@ -287,6 +584,16 @@
           "g": "nivolumab",
           "co": "Bristol Myers Squibb"
         }
+      ],
+      "tgt": [
+        "HER2",
+        "PD-1",
+        "PD1",
+        "PD-L1",
+        "PDL1",
+        "VEGFR",
+        "claudin",
+        "CLDN18.2"
       ]
     },
     {
@@ -327,6 +634,17 @@
           "g": "pembrolizumab",
           "co": "MSD"
         }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "PD-L1",
+        "PDL1",
+        "FGFR",
+        "nectin-4",
+        "nectin",
+        "TROP-2",
+        "TROP2"
       ]
     },
     {
@@ -356,6 +674,14 @@
           "g": "lenvatinib",
           "co": "Eisai / MSD"
         }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "VEGFR",
+        "dMMR",
+        "MMR",
+        "MSI"
       ]
     },
     {
@@ -399,6 +725,13 @@
           "g": "crovalimab",
           "co": "Roche"
         }
+      ],
+      "tgt": [
+        "complement",
+        "C5",
+        "C3",
+        "factor B",
+        "factor D"
       ]
     },
     {
@@ -429,6 +762,11 @@
           "g": "marstacimab",
           "co": "Pfizer"
         }
+      ],
+      "tgt": [
+        "factor VIII",
+        "FVIII",
+        "TFPI"
       ]
     },
     {
@@ -467,6 +805,14 @@
           "emad": "2020-12-09",
           "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/trixeo-aerosphere"
         }
+      ],
+      "tgt": [
+        "IL-4",
+        "IL-13",
+        "IL13",
+        "LABA",
+        "LAMA",
+        "ICS"
       ]
     },
     {
@@ -498,6 +844,12 @@
           "emad": "2019-09-19",
           "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/inbrija"
         }
+      ],
+      "tgt": [
+        "COMT",
+        "MAO-B",
+        "MAOB",
+        "dopamine"
       ]
     },
     {
@@ -524,6 +876,12 @@
           "g": "pirfenidone",
           "co": "Roche / Genentech"
         }
+      ],
+      "tgt": [
+        "PDGFR",
+        "FGFR",
+        "VEGFR",
+        "antifibrotic"
       ]
     },
     {
@@ -569,6 +927,14 @@
           "emad": "2005-10-28",
           "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/revatio"
         }
+      ],
+      "tgt": [
+        "endothelin",
+        "ERA",
+        "PDE5",
+        "prostacyclin",
+        "sGC",
+        "activin"
       ]
     },
     {
@@ -613,6 +979,13 @@
           "g": "ledipasvir / sofosbuvir",
           "co": "Gilead"
         }
+      ],
+      "tgt": [
+        "NS5A",
+        "NS5B",
+        "NS3",
+        "protease",
+        "polymerase"
       ]
     },
     {
@@ -644,6 +1017,11 @@
           "g": "empagliflozin",
           "co": "Boehringer Ingelheim / Eli Lilly"
         }
+      ],
+      "tgt": [
+        "SGLT2",
+        "mineralocorticoid",
+        "MR"
       ]
     },
     {
@@ -675,6 +1053,12 @@
           "g": "iptacopan",
           "co": "Novartis"
         }
+      ],
+      "tgt": [
+        "endothelin",
+        "APRIL",
+        "factor B",
+        "complement"
       ]
     },
     {
@@ -684,8 +1068,7 @@
       "syn": [
         "alzheimer",
         "alzheimer disease",
-        "alzheimers",
-        "amyloid"
+        "alzheimers"
       ],
       "cls": "Anti-amyloid monoclonal antibody",
       "drugs": [
@@ -699,6 +1082,10 @@
           "g": "donanemab",
           "co": "Eli Lilly"
         }
+      ],
+      "tgt": [
+        "amyloid beta",
+        "abeta"
       ]
     },
     {
@@ -743,6 +1130,15 @@
           "g": "lenacapavir",
           "co": "Gilead"
         }
+      ],
+      "tgt": [
+        "integrase",
+        "INSTI",
+        "capsid",
+        "reverse transcriptase",
+        "protease",
+        "NRTI",
+        "NNRTI"
       ]
     },
     {
@@ -777,6 +1173,11 @@
           "g": "fostamatinib",
           "co": "Grifols / Rigel"
         }
+      ],
+      "tgt": [
+        "TPO",
+        "thrombopoietin",
+        "SYK"
       ]
     },
     {
@@ -803,6 +1204,11 @@
           "g": "sarilumab",
           "co": "Sanofi / Regeneron"
         }
+      ],
+      "tgt": [
+        "IL-6",
+        "IL6",
+        "IL-6R"
       ]
     },
     {
@@ -835,6 +1241,13 @@
           "g": "mepolizumab",
           "co": "GSK"
         }
+      ],
+      "tgt": [
+        "C5a",
+        "C5aR",
+        "CD20",
+        "IL-5",
+        "IL5"
       ]
     },
     {
@@ -876,6 +1289,13 @@
           "g": "fruquintinib",
           "co": "Takeda / HUTCHMED"
         }
+      ],
+      "tgt": [
+        "EGFR",
+        "BRAF",
+        "VEGFR",
+        "MEK",
+        "HER2"
       ]
     },
     {
@@ -917,6 +1337,15 @@
           "g": "tremelimumab",
           "co": "AstraZeneca"
         }
+      ],
+      "tgt": [
+        "VEGF",
+        "VEGFR",
+        "PD-L1",
+        "PDL1",
+        "CTLA-4",
+        "CTLA4",
+        "multikinase"
       ]
     },
     {
@@ -976,6 +1405,14 @@
           "g": "canagliflozin",
           "co": "Johnson & Johnson"
         }
+      ],
+      "tgt": [
+        "GLP-1",
+        "GLP1",
+        "GIP",
+        "SGLT2",
+        "incretin",
+        "DPP-4"
       ]
     },
     {
@@ -1026,6 +1463,12 @@
           "g": "orlistat",
           "co": "Roche"
         }
+      ],
+      "tgt": [
+        "GLP-1",
+        "GLP1",
+        "GIP",
+        "MC4R"
       ]
     },
     {
@@ -1071,6 +1514,12 @@
           "g": "evinacumab",
           "co": "Ultragenyx / Regeneron"
         }
+      ],
+      "tgt": [
+        "PCSK9",
+        "ANGPTL3",
+        "ATP citrate lyase",
+        "LDL"
       ]
     },
     {
@@ -1113,6 +1562,13 @@
           "g": "ivabradine",
           "co": "Servier"
         }
+      ],
+      "tgt": [
+        "neprilysin",
+        "ARNI",
+        "SGLT2",
+        "sGC",
+        "If channel"
       ]
     },
     {
@@ -1138,6 +1594,10 @@
           "g": "aficamten",
           "co": "Cytokinetics"
         }
+      ],
+      "tgt": [
+        "myosin",
+        "cardiac myosin"
       ]
     },
     {
@@ -1173,6 +1633,12 @@
           "g": "abaloparatide",
           "co": "Theramex"
         }
+      ],
+      "tgt": [
+        "RANKL",
+        "sclerostin",
+        "PTH",
+        "PTH1R"
       ]
     },
     {
@@ -1214,6 +1680,12 @@
           "g": "Tarlatamab",
           "co": "Amgen"
         }
+      ],
+      "tgt": [
+        "DLL3",
+        "PD-L1",
+        "PDL1",
+        "topoisomerase"
       ]
     },
     {
@@ -1259,6 +1731,13 @@
           "g": "Asciminib",
           "co": "Novartis"
         }
+      ],
+      "tgt": [
+        "BCR-ABL",
+        "BCRABL",
+        "ABL1",
+        "ABL",
+        "TKI"
       ]
     },
     {
@@ -1299,6 +1778,9 @@
           "g": "Osimertinib",
           "co": "AstraZeneca"
         }
+      ],
+      "tgt": [
+        "EGFR"
       ]
     },
     {
@@ -1348,6 +1830,11 @@
           "g": "Tucatinib",
           "co": "Seagen / Pfizer"
         }
+      ],
+      "tgt": [
+        "HER2",
+        "ERBB2",
+        "neu"
       ]
     },
     {
@@ -1403,6 +1890,13 @@
           "g": "Idelalisib",
           "co": "Gilead"
         }
+      ],
+      "tgt": [
+        "BTK",
+        "BCL-2",
+        "BCL2",
+        "CD20",
+        "PI3K"
       ]
     },
     {
@@ -1492,6 +1986,13 @@
           "g": "Belantamab mafodotin",
           "co": "GSK"
         }
+      ],
+      "tgt": [
+        "proteasome",
+        "CD38",
+        "BCMA",
+        "SLAMF7",
+        "XPO1"
       ]
     },
     {
@@ -1521,6 +2022,12 @@
           "g": "Ponatinib",
           "co": "Takeda"
         }
+      ],
+      "tgt": [
+        "BCR-ABL",
+        "BCRABL",
+        "ABL1",
+        "ABL"
       ]
     },
     {
@@ -1600,6 +2107,15 @@
           "g": "Rituximab",
           "co": "Roche"
         }
+      ],
+      "tgt": [
+        "JAK",
+        "TNF",
+        "IL-6",
+        "IL6",
+        "CD20",
+        "CTLA-4",
+        "CTLA4"
       ]
     },
     {
@@ -1637,6 +2153,12 @@
           "g": "Edoxaban",
           "co": "Daiichi Sankyo"
         }
+      ],
+      "tgt": [
+        "factor Xa",
+        "FXa",
+        "thrombin",
+        "factor IIa"
       ]
     },
     {
@@ -1741,6 +2263,12 @@
           "g": "Interferon beta-1a",
           "co": "Biogen"
         }
+      ],
+      "tgt": [
+        "CD20",
+        "S1P",
+        "integrin",
+        "CD52"
       ]
     },
     {
@@ -1776,6 +2304,12 @@
           "g": "faricimab",
           "co": "Roche / Genentech"
         }
+      ],
+      "tgt": [
+        "VEGF",
+        "VEGF-A",
+        "Ang-2",
+        "angiopoietin"
       ]
     },
     {
@@ -1820,6 +2354,15 @@
           "g": "gemtuzumab ozogamicin",
           "co": "Pfizer"
         }
+      ],
+      "tgt": [
+        "FLT3",
+        "IDH1",
+        "IDH2",
+        "IDH",
+        "BCL-2",
+        "BCL2",
+        "menin"
       ]
     },
     {
@@ -1849,6 +2392,11 @@
           "g": "abemaciclib",
           "co": "Eli Lilly"
         }
+      ],
+      "tgt": [
+        "CDK4/6",
+        "CDK4",
+        "CDK6"
       ]
     },
     {
@@ -1888,6 +2436,9 @@
           "g": "lorlatinib",
           "co": "Pfizer"
         }
+      ],
+      "tgt": [
+        "ALK"
       ]
     },
     {
@@ -1917,6 +2468,10 @@
           "g": "repotrectinib",
           "co": "Bristol-Myers Squibb"
         }
+      ],
+      "tgt": [
+        "ROS1",
+        "ROS"
       ]
     },
     {
@@ -1941,6 +2496,9 @@
           "g": "pralsetinib",
           "co": "Roche / Blueprint"
         }
+      ],
+      "tgt": [
+        "RET"
       ]
     },
     {
@@ -1965,6 +2523,10 @@
           "g": "tepotinib",
           "co": "Merck KGaA"
         }
+      ],
+      "tgt": [
+        "MET",
+        "cMET"
       ]
     },
     {
@@ -1989,6 +2551,10 @@
           "g": "adagrasib",
           "co": "Bristol-Myers Squibb"
         }
+      ],
+      "tgt": [
+        "KRAS",
+        "G12C"
       ]
     },
     {
@@ -2035,6 +2601,13 @@
           "g": "tivozanib",
           "co": "EUSA / Recordati"
         }
+      ],
+      "tgt": [
+        "VEGFR",
+        "VEGF",
+        "mTOR",
+        "PD-1",
+        "PD1"
       ]
     },
     {
@@ -2069,6 +2642,11 @@
           "g": "darolutamide",
           "co": "Bayer"
         }
+      ],
+      "tgt": [
+        "androgen receptor",
+        "AR",
+        "CYP17"
       ]
     },
     {
@@ -2112,6 +2690,10 @@
           "g": "binimetinib",
           "co": "Pierre Fabre"
         }
+      ],
+      "tgt": [
+        "BRAF",
+        "MEK"
       ]
     },
     {
@@ -2140,6 +2722,9 @@
           "g": "rucaparib",
           "co": "pharma& / Clovis"
         }
+      ],
+      "tgt": [
+        "PARP"
       ]
     },
     {
@@ -2184,6 +2769,9 @@
           "g": "rimegepant",
           "co": "Pfizer"
         }
+      ],
+      "tgt": [
+        "CGRP"
       ]
     },
     {
@@ -2222,6 +2810,11 @@
           "g": "zilucoplan",
           "co": "UCB"
         }
+      ],
+      "tgt": [
+        "C5",
+        "complement",
+        "FcRn"
       ]
     },
     {
@@ -2255,6 +2848,14 @@
           "g": "satralizumab",
           "co": "Roche"
         }
+      ],
+      "tgt": [
+        "C5",
+        "complement",
+        "IL-6",
+        "IL6",
+        "CD19",
+        "CD20"
       ]
     },
     {
@@ -2278,6 +2879,12 @@
           "g": "anifrolumab",
           "co": "AstraZeneca"
         }
+      ],
+      "tgt": [
+        "BLyS",
+        "BAFF",
+        "interferon",
+        "IFNAR"
       ]
     },
     {
@@ -2330,6 +2937,15 @@
           "g": "etrasimod",
           "co": "Pfizer"
         }
+      ],
+      "tgt": [
+        "TNF",
+        "IL-23",
+        "IL23",
+        "IL-12",
+        "integrin",
+        "JAK",
+        "S1P"
       ]
     },
     {
@@ -2363,6 +2979,14 @@
           "g": "upadacitinib",
           "co": "AbbVie"
         }
+      ],
+      "tgt": [
+        "TNF",
+        "IL-23",
+        "IL23",
+        "IL-12",
+        "integrin",
+        "JAK"
       ]
     },
     {
@@ -2415,6 +3039,12 @@
           "g": "deucravacitinib",
           "co": "Bristol-Myers Squibb"
         }
+      ],
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "IL-23",
+        "IL23"
       ]
     },
     {
@@ -2458,6 +3088,13 @@
           "g": "baricitinib",
           "co": "Eli Lilly"
         }
+      ],
+      "tgt": [
+        "IL-4",
+        "IL-13",
+        "IL13",
+        "JAK",
+        "IL-31"
       ]
     },
     {
@@ -2501,6 +3138,15 @@
           "g": "tezepelumab",
           "co": "AstraZeneca / Amgen"
         }
+      ],
+      "tgt": [
+        "IgE",
+        "IL-5",
+        "IL5",
+        "IL-4",
+        "IL-13",
+        "IL13",
+        "TSLP"
       ]
     },
     {
@@ -2538,6 +3184,14 @@
           "g": "risankizumab",
           "co": "AbbVie"
         }
+      ],
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "IL-23",
+        "IL23",
+        "TNF",
+        "JAK"
       ]
     },
     {
@@ -2567,6 +3221,12 @@
           "g": "bimekizumab",
           "co": "UCB"
         }
+      ],
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "TNF",
+        "JAK"
       ]
     },
     {
@@ -2621,6 +3281,13 @@
           "g": "lisocabtagene maraleucel",
           "co": "Bristol-Myers Squibb"
         }
+      ],
+      "tgt": [
+        "CD20",
+        "CD19",
+        "CD79b",
+        "CD3",
+        "bispecific"
       ]
     },
     {
@@ -2653,6 +3320,12 @@
           "g": "epcoritamab",
           "co": "AbbVie / Genmab"
         }
+      ],
+      "tgt": [
+        "CD20",
+        "CD3",
+        "EZH2",
+        "bispecific"
       ]
     }
   ]
