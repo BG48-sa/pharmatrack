@@ -2,6 +2,299 @@
   "generated": "2026-07-12",
   "entities": [
     {
+      "id": "cystic-fibrosis",
+      "name": "Cystic fibrosis (CFTR modulator)",
+      "short": "Cystic fibrosis",
+      "syn": [
+        "cystic fibrosis",
+        "cf",
+        "cftr",
+        "cftr modulator"
+      ],
+      "cls": "CFTR modulator",
+      "drugs": [
+        {
+          "b": "Kaftrio",
+          "g": "elexacaftor / tezacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Symkevi",
+          "g": "tezacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Orkambi",
+          "g": "lumacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Kalydeco",
+          "g": "ivacaftor",
+          "co": "Vertex"
+        }
+      ]
+    },
+    {
+      "id": "gastric",
+      "name": "Gastric / gastro-oesophageal cancer",
+      "short": "Gastric cancer",
+      "syn": [
+        "gastric cancer",
+        "stomach cancer",
+        "gastro-oesophageal cancer",
+        "gastroesophageal cancer",
+        "gej cancer",
+        "gastric carcinoma",
+        "oesophageal cancer",
+        "esophageal cancer"
+      ],
+      "cls": "Targeted / immunotherapy for gastric & GEJ cancer",
+      "drugs": [
+        {
+          "b": "Herceptin",
+          "g": "trastuzumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Enhertu",
+          "g": "trastuzumab deruxtecan",
+          "co": "AstraZeneca / Daiichi Sankyo"
+        },
+        {
+          "b": "Cyramza",
+          "g": "ramucirumab",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Vyloy",
+          "g": "zolbetuximab",
+          "co": "Astellas"
+        },
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Opdivo",
+          "g": "nivolumab",
+          "co": "Bristol Myers Squibb"
+        }
+      ]
+    },
+    {
+      "id": "bladder",
+      "name": "Urothelial / bladder cancer",
+      "short": "Bladder cancer",
+      "syn": [
+        "bladder cancer",
+        "urothelial cancer",
+        "urothelial carcinoma",
+        "bladder carcinoma",
+        "urinary tract cancer"
+      ],
+      "cls": "Targeted / immunotherapy for urothelial cancer",
+      "drugs": [
+        {
+          "b": "Padcev",
+          "g": "enfortumab vedotin",
+          "co": "Astellas / Pfizer"
+        },
+        {
+          "b": "Balversa",
+          "g": "erdafitinib",
+          "co": "Janssen"
+        },
+        {
+          "b": "Bavencio",
+          "g": "avelumab",
+          "co": "Merck KGaA / Pfizer"
+        },
+        {
+          "b": "Trodelvy",
+          "g": "sacituzumab govitecan",
+          "co": "Gilead"
+        },
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        }
+      ]
+    },
+    {
+      "id": "endometrial",
+      "name": "Endometrial cancer",
+      "short": "Endometrial cancer",
+      "syn": [
+        "endometrial cancer",
+        "uterine cancer",
+        "endometrial carcinoma",
+        "womb cancer"
+      ],
+      "cls": "Immunotherapy for endometrial cancer",
+      "drugs": [
+        {
+          "b": "Jemperli",
+          "g": "dostarlimab",
+          "co": "GSK"
+        },
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Lenvima",
+          "g": "lenvatinib",
+          "co": "Eisai / MSD"
+        }
+      ]
+    },
+    {
+      "id": "pnh",
+      "name": "Paroxysmal nocturnal haemoglobinuria (PNH)",
+      "short": "PNH",
+      "syn": [
+        "paroxysmal nocturnal haemoglobinuria",
+        "paroxysmal nocturnal hemoglobinuria",
+        "pnh"
+      ],
+      "cls": "Complement inhibitor",
+      "drugs": [
+        {
+          "b": "Soliris",
+          "g": "eculizumab",
+          "co": "AstraZeneca / Alexion"
+        },
+        {
+          "b": "Ultomiris",
+          "g": "ravulizumab",
+          "co": "AstraZeneca / Alexion"
+        },
+        {
+          "b": "Fabhalta",
+          "g": "iptacopan",
+          "co": "Novartis"
+        },
+        {
+          "b": "Aspaveli",
+          "g": "pegcetacoplan",
+          "co": "Sobi / Apellis"
+        },
+        {
+          "b": "Voydeya",
+          "g": "danicopan",
+          "co": "AstraZeneca / Alexion"
+        },
+        {
+          "b": "Piasky",
+          "g": "crovalimab",
+          "co": "Roche"
+        }
+      ]
+    },
+    {
+      "id": "hemophilia-a",
+      "name": "Haemophilia A",
+      "short": "Haemophilia A",
+      "syn": [
+        "haemophilia a",
+        "hemophilia a",
+        "haemophilia",
+        "hemophilia",
+        "factor viii deficiency"
+      ],
+      "cls": "Non-factor / prophylactic haemophilia A therapy",
+      "drugs": [
+        {
+          "b": "Hemlibra",
+          "g": "emicizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Altuvoct",
+          "g": "efanesoctocog alfa",
+          "co": "Sobi / Sanofi"
+        },
+        {
+          "b": "Hympavzi",
+          "g": "marstacimab",
+          "co": "Pfizer"
+        }
+      ]
+    },
+    {
+      "id": "copd",
+      "name": "COPD (maintenance & add-on)",
+      "short": "COPD",
+      "syn": [
+        "copd",
+        "chronic obstructive pulmonary disease",
+        "emphysema",
+        "chronic bronchitis"
+      ],
+      "cls": "COPD maintenance / add-on therapy",
+      "drugs": [
+        {
+          "b": "Dupixent",
+          "g": "dupilumab",
+          "co": "Sanofi / Regeneron"
+        },
+        {
+          "b": "Trelegy Ellipta",
+          "g": "fluticasone furoate / umeclidinium / vilanterol",
+          "co": "GSK",
+          "emad": "2017-11-15",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/trelegy-ellipta"
+        },
+        {
+          "b": "Trimbow",
+          "g": "beclometasone / formoterol / glycopyrronium",
+          "co": "Chiesi"
+        },
+        {
+          "b": "Trixeo Aerosphere",
+          "g": "formoterol / glycopyrronium / budesonide",
+          "co": "AstraZeneca",
+          "emad": "2020-12-09",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/trixeo-aerosphere"
+        }
+      ]
+    },
+    {
+      "id": "parkinson",
+      "name": "Parkinson disease (adjunct therapy)",
+      "short": "Parkinson",
+      "syn": [
+        "parkinson",
+        "parkinson disease",
+        "parkinsons",
+        "parkinsonism"
+      ],
+      "cls": "Adjunct therapy for Parkinson disease",
+      "drugs": [
+        {
+          "b": "Ongentys",
+          "g": "opicapone",
+          "co": "Bial"
+        },
+        {
+          "b": "Xadago",
+          "g": "safinamide",
+          "co": "Zambon"
+        },
+        {
+          "b": "Inbrija",
+          "g": "levodopa",
+          "co": "Acorda",
+          "emad": "2019-09-19",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/inbrija"
+        }
+      ]
+    },
+    {
       "id": "ipf",
       "name": "Idiopathic pulmonary fibrosis (IPF)",
       "short": "IPF",
