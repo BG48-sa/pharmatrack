@@ -1935,7 +1935,7 @@
           "co": "AstraZeneca"
         },
         {
-          "b": "Imdelltra",
+          "b": "Imdylltra",
           "g": "Tarlatamab",
           "co": "Amgen"
         }
@@ -1961,7 +1961,7 @@
       "cls": "BCR-ABL1 tyrosine kinase inhibitor (TKI)",
       "drugs": [
         {
-          "b": "Gleevec",
+          "b": "Glivec",
           "g": "Imatinib",
           "co": "Novartis"
         },
@@ -2023,7 +2023,7 @@
           "co": "AstraZeneca"
         },
         {
-          "b": "Gilotrif",
+          "b": "Giotrif",
           "g": "Afatinib",
           "co": "Boehringer Ingelheim"
         },
@@ -2075,7 +2075,7 @@
           "co": "Daiichi Sankyo / AstraZeneca"
         },
         {
-          "b": "Tykerb",
+          "b": "Tyverb",
           "g": "Lapatinib",
           "co": "Novartis"
         },
@@ -2135,7 +2135,7 @@
           "co": "AbbVie"
         },
         {
-          "b": "Gazyva",
+          "b": "Gazyvaro",
           "g": "Obinutuzumab",
           "co": "Roche"
         },
@@ -2267,7 +2267,7 @@
       "cls": "BCR-ABL1 tyrosine kinase inhibitor (TKI)",
       "drugs": [
         {
-          "b": "Gleevec",
+          "b": "Glivec",
           "g": "Imatinib",
           "co": "Novartis"
         },
@@ -3511,7 +3511,7 @@
           "co": "Roche"
         },
         {
-          "b": "Epkinly",
+          "b": "Tepkinly",
           "g": "epcoritamab",
           "co": "AbbVie / Genmab"
         },
@@ -3560,7 +3560,7 @@
       "cls": "Targeted / T-cell-engaging therapy for follicular lymphoma",
       "drugs": [
         {
-          "b": "Gazyva",
+          "b": "Gazyvaro",
           "g": "obinutuzumab",
           "co": "Roche"
         },
@@ -3575,7 +3575,7 @@
           "co": "Roche"
         },
         {
-          "b": "Epkinly",
+          "b": "Tepkinly",
           "g": "epcoritamab",
           "co": "AbbVie / Genmab"
         }
