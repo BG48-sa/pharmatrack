@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaService';
 import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
+import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
 import { getUpcomingPdufa } from './services/pdufa';
 import { refreshLiveData } from './services/liveData';
 import { searchTrials, TrialRegion } from './services/clinicalTrials';
@@ -11,6 +12,7 @@ import TrialList from './components/TrialList';
 import NovelList from './components/NovelList';
 import EuropeView from './components/EuropeView';
 import CriticalList from './components/CriticalList';
+import BiomarkerList from './components/BiomarkerList';
 import DrugDetail, { DrugDetailContent } from './components/DrugDetail';
 import AlertsPanel from './components/AlertsPanel';
 import GlossaryModal from './components/GlossaryModal';
@@ -29,18 +31,18 @@ import { recentApprovals, approvalToDetail } from './services/emaService';
 import { drugKey } from './services/notes';
 import { storeGet, storeSet } from './services/storage';
 import { useMediaQuery } from './services/useMediaQuery';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle, ArrowLeft } from 'lucide-react';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle, ArrowLeft, Dna } from 'lucide-react';
 
 // EMA product slug behind a compared drug (only EU-tab medicines carry emaUrl).
 const smpcSlug = (d: DrugDetailData): string => (d.emaUrl || '').split('/EPAR/')[1]?.trim() || '';
 
-type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical';
+type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical' | 'biomarker';
 
 const LAST_VISIT_KEY = 'pt_last_visit';
 
 // Bump GUIDE_VERSION to re-show the feature guide after a major release.
 const GUIDE_KEY = 'dr_welcome_seen';
-const GUIDE_VERSION = '2026-07-09';
+const GUIDE_VERSION = '2026-07-13';
 
 export default function App() {
   const [view, setView] = useState<View>('europe');
@@ -64,6 +66,9 @@ export default function App() {
 
   // --- Critical medicines state (client-side filter over bundled EMA snapshot) ---
   const [criticalQuery, setCriticalQuery] = useState<string>('');
+
+  // --- Biomarkers & companion diagnostics state (client-side filter, bundled) ---
+  const [biomarkerQuery, setBiomarkerQuery] = useState<string>('');
 
   // --- Drug detail sheet (opened from any Novel/Approvals card) ---
   const [detail, setDetail] = useState<DrugDetailData | null>(null);
@@ -241,6 +246,20 @@ export default function App() {
     );
   };
 
+  // Same progressive compare, seeded from a biomarker's EU-authorised drugs.
+  const handleCompareBiomarker = (m: Biomarker) => {
+    const stubs = buildBiomarkerComparison(m);
+    setCompare(stubs);
+    setCompareOpen(true);
+    enrichDiseaseFda(stubs).then((enriched) =>
+      setCompare((prev) =>
+        prev.length === enriched.length && prev.every((p, i) => drugKey(p) === drugKey(enriched[i]))
+          ? enriched
+          : prev,
+      ),
+    );
+  };
+
   // iPad / wide-screen: show the detail in a persistent right pane instead of a
   // modal. 800px matches the `pad:` Tailwind breakpoint (iPad portrait = 820pt).
   const isWide = useMediaQuery('(min-width: 800px)');
@@ -408,6 +427,7 @@ export default function App() {
     if (view === 'europe') setEuropeQuery(query);
     else if (view === 'novel') setNovelQuery(query);
     else if (view === 'critical') setCriticalQuery(query);
+    else if (view === 'biomarker') setBiomarkerQuery(query);
     else if (view === 'pipeline') handleTrialSearch(query);
     else handleDrugSearch(query);
   };
@@ -419,6 +439,8 @@ export default function App() {
       setNovelQuery('');
     } else if (view === 'critical') {
       setCriticalQuery('');
+    } else if (view === 'biomarker') {
+      setBiomarkerQuery('');
     } else if (view === 'pipeline') {
       setTrialSearched(false);
       setTrials([]);
@@ -442,8 +464,11 @@ export default function App() {
   const diseaseMatches: DiseaseEntity[] =
     isSearchMode && view === 'approvals' ? findDiseases(currentQuery) : [];
 
+  // flex-1 keeps the tabs stretched edge-to-edge on wide screens; min-w-fit +
+  // whitespace-nowrap stops the label ever truncating, so on a phone the sixth
+  // tab pushes the row wide enough to scroll horizontally instead of clipping.
   const tabClass = (active: boolean) =>
-    `flex-1 flex items-center justify-center gap-1 py-1.5 px-0.5 text-xs font-semibold rounded-lg transition-colors ${
+    `flex-1 min-w-fit whitespace-nowrap flex items-center justify-center gap-1 py-1.5 px-2 text-xs font-semibold rounded-lg transition-colors ${
       active ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'
     }`;
 
@@ -505,7 +530,7 @@ export default function App() {
 
         {/* Segmented control: Europe | Novel | Approvals | Pipeline */}
         <div className="px-4 pt-1">
-          <div className="flex bg-slate-100 rounded-xl p-1">
+          <div className="flex gap-0.5 bg-slate-100 rounded-xl p-1 overflow-x-auto hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
             <button className={tabClass(view === 'europe')} onClick={() => setView('europe')}>
               <Globe2 size={14} /> Europe
             </button>
@@ -517,6 +542,9 @@ export default function App() {
             </button>
             <button className={tabClass(view === 'pipeline')} onClick={() => setView('pipeline')}>
               <FlaskConical size={14} /> Trials
+            </button>
+            <button className={tabClass(view === 'biomarker')} onClick={() => setView('biomarker')}>
+              <Dna size={14} /> Biomarkers
             </button>
             <button className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
               <ShieldPlus size={14} /> Critical
@@ -553,6 +581,10 @@ export default function App() {
         ) : view === 'critical' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <CriticalList key={`crit-${dataVersion}`} query={criticalQuery} onSearchTrials={handleViewTrials} />
+          </div>
+        ) : view === 'biomarker' ? (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <BiomarkerList key={`bm-${dataVersion}`} query={biomarkerQuery} onCompare={handleCompareBiomarker} />
           </div>
         ) : view === 'novel' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">

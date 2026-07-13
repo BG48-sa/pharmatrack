@@ -11,7 +11,7 @@ interface SearchBarProps {
   onSearch: (val: string) => void;
   onClear: () => void;
   isLoading: boolean;
-  mode: 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical';
+  mode: 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical' | 'biomarker';
 }
 
 interface Chip {
@@ -59,6 +59,14 @@ const CHIPS: Record<SearchBarProps['mode'], Chip[]> = {
     { label: 'Insulin', query: 'insulin' },
     { label: 'Injectable', query: 'intravenous' },
   ],
+  biomarker: [
+    { label: 'EGFR', query: 'EGFR', primary: true },
+    { label: 'PD-L1', query: 'PD-L1' },
+    { label: 'HER2', query: 'HER2' },
+    { label: 'BRCA', query: 'BRCA' },
+    { label: 'BRAF', query: 'BRAF' },
+    { label: 'ALK', query: 'ALK' },
+  ],
 };
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onClear, isLoading, mode }) => {
@@ -104,6 +112,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onClear, isLoading, mod
       ? 'Filter novel approvals — drug, ingredient, use…'
       : mode === 'critical'
       ? 'Search critical medicines — substance, ATC, route…'
+      : mode === 'biomarker'
+      ? 'Search biomarker, gene, or drug — EGFR, PD-L1, olaparib…'
       : 'Search drug, ingredient, company, class…';
 
   return (

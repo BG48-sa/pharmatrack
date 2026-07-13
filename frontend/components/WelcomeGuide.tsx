@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {
   X, Search, Bell, Pill, GitCompare, BookOpen, WifiOff, Compass,
-  Bookmark, CalendarPlus, StickyNote, Share2, LayoutGrid,
+  Bookmark, CalendarPlus, StickyNote, Share2, LayoutGrid, Dna,
 } from 'lucide-react';
 
 // First-run feature guide. Auto-shown once (key dr_welcome_seen in App.tsx),
@@ -77,16 +77,17 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
           <Section
             icon={<Search size={18} />}
             tint="bg-blue-50 text-blue-600"
-            title="Browse & search five registers"
+            title="Browse & search six registers"
           >
             <strong>Europe</strong> — every centrally authorised EU medicine plus the pipeline of
             drugs awaiting an EU decision. <strong>Novel</strong> — recent first-in-class FDA
             approvals. <strong>US</strong> — the full FDA approvals database and upcoming PDUFA
             decision dates. <strong>Trials</strong> — live ClinicalTrials.gov searches.{' '}
-            <strong>Critical</strong> — the EU critical-medicines list. Tap a therapeutic-area
-            chip for a one-tap search, and filter the EU list by Advanced therapy, Orphan, PRIME,
-            or Generic. US data is queried live from the FDA; the EU dataset refreshes once a
-            week, so newly approved drugs appear within about a week.
+            <strong>Biomarkers</strong> — an EU-centered biomarker &amp; companion-diagnostic
+            index. <strong>Critical</strong> — the EU critical-medicines list. Tap a
+            therapeutic-area chip for a one-tap search, and filter the EU list by Advanced therapy,
+            Orphan, PRIME, or Generic. US data is queried live from the FDA; the EU dataset
+            refreshes once a week, so newly approved drugs appear within about a week.
           </Section>
 
           <Section
@@ -128,6 +129,20 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             section by section (indications, posology, warnings, adverse reactions…). For the same
             molecule you can flip a column between the EU and US label — US-only sections like the
             Boxed Warning are called out.
+          </Section>
+
+          <Section
+            icon={<Dna size={18} />}
+            tint="bg-violet-50 text-violet-600"
+            title="Search by molecular target or biomarker"
+          >
+            In the <strong>US</strong> tab, type a disease <em>or</em> a molecular target —{' '}
+            <em>EGFR, PD-1, CD20, PARP, BTK</em> — to pull up the whole drug class side by side.
+            The <strong>Biomarkers</strong> tab is a Europe-centered index of actionable
+            biomarkers and <strong>companion diagnostics</strong>: each entry shows the EU
+            validated test (per the SmPC, under the IVD Regulation) and the EU-authorised
+            medicines its result unlocks — ready to compare down to the full label. Search it by
+            biomarker, gene, alteration, or drug name.
           </Section>
 
           <Section
