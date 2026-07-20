@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Keep this app out of search engines (Google, Bing, etc.). The link still works for anyone you share it with. -->
+    <meta name="robots" content="noindex, nofollow">
+    <!-- iOS specific viewport settings to prevent scaling and handle the notch/dynamic island -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- PWA Manifest and Theme Color -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- iOS Standalone App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="DrugRadar">
+    <link rel="apple-touch-icon" href="./icon.png">
+    
+    <title>DrugRadar - Drug Approvals</title>
+  <script type="module" crossorigin src="/pharmatrack/assets/index-Cfh5nxp3.js"></script>
+  <link rel="stylesheet" crossorigin href="/pharmatrack/assets/index-DePwI-dL.css">
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Register Service Worker for PWA Installability -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        // When a new service worker takes control (an app update activated),
+        // reload once so the user immediately gets the new build instead of a
+        // stale cached UI. Guarded so it never loops and never fires on the very
+        // first install (when there is no prior controller).
+        let refreshing = false;
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (refreshing) return;
+            refreshing = true;
+            window.location.reload();
+          });
+        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').then(
+            (registration) => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            },
+            (err) => {
+              console.log('ServiceWorker registration failed: ', err);
+            }
+          );
+        });
+      }
+    </script>
+</body>
+</html>

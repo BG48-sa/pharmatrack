@@ -1,0 +1,55 @@
+{
+  "_comment": "Curated PDUFA watchlist. These are sponsor/analyst-disclosed FDA target action dates, NOT an official FDA feed — the FDA does not publish PDUFA dates. Add/edit/remove entries here; the app shows upcoming ones (pdufaDate >= today) sorted soonest-first. Verify each via its 'source' before relying on it.",
+  "entries": [
+    {
+      "brandName": "MK-6240",
+      "genericName": "florquinitau (investigational)",
+      "company": "Lantheus Holdings",
+      "indication": "Alzheimer's disease — tau PET imaging agent",
+      "pdufaDate": "2026-08-13",
+      "type": "NDA",
+      "note": "PET imaging agent targeting tau protein.",
+      "source": "https://www.marketbeat.com/fda-calendar/upcoming/"
+    },
+    {
+      "brandName": "Keytruda Qlex",
+      "genericName": "pembrolizumab (subcutaneous)",
+      "company": "Merck",
+      "indication": "Solid tumors — subcutaneous formulation",
+      "pdufaDate": "2026-08-17",
+      "type": "BLA",
+      "note": "Priority review.",
+      "source": "https://www.marketbeat.com/fda-calendar/upcoming/"
+    },
+    {
+      "brandName": "Molbreevi",
+      "genericName": "molgramostim nebuliser solution",
+      "company": "Savara",
+      "indication": "Autoimmune pulmonary alveolar proteinosis (aPAP)",
+      "pdufaDate": "2026-08-22",
+      "type": "BLA",
+      "note": "Priority review.",
+      "source": "https://www.marketbeat.com/fda-calendar/upcoming/"
+    },
+    {
+      "brandName": "Ziihera",
+      "genericName": "zanidatamab",
+      "company": "Jazz Pharmaceuticals",
+      "indication": "HER2-positive metastatic biliary tract cancer",
+      "pdufaDate": "2026-08-25",
+      "type": "sBLA",
+      "note": "HER2-positive metastatic/unresectable cases.",
+      "source": "https://www.marketbeat.com/fda-calendar/upcoming/"
+    },
+    {
+      "brandName": "BIC/LEN",
+      "genericName": "bictegravir/lenacapavir",
+      "company": "Gilead Sciences",
+      "indication": "HIV-1 infection",
+      "pdufaDate": "2026-08-27",
+      "type": "NDA",
+      "note": "Priority review designation.",
+      "source": "https://www.marketbeat.com/fda-calendar/upcoming/"
+    }
+  ]
+}

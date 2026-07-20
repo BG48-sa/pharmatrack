@@ -1,0 +1,437 @@
+{
+  "generated": "2026-07-13",
+  "biomarkers": [
+    {
+      "id": "egfr-activating",
+      "name": "EGFR activating mutation",
+      "gene": "EGFR",
+      "alt": "exon 19 deletion / L858R",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "syn": ["egfr", "egfr mutation", "exon 19 deletion", "l858r", "egfr activating"],
+      "assays": ["cobas EGFR Mutation Test v2", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Tagrisso", "g": "osimertinib", "co": "AstraZeneca" },
+        { "b": "Giotrif", "g": "afatinib", "co": "Boehringer Ingelheim" },
+        { "b": "Iressa", "g": "gefitinib", "co": "AstraZeneca" },
+        { "b": "Tarceva", "g": "erlotinib", "co": "Roche" },
+        { "b": "Vizimpro", "g": "dacomitinib", "co": "Pfizer" }
+      ]
+    },
+    {
+      "id": "egfr-t790m",
+      "name": "EGFR T790M resistance mutation",
+      "gene": "EGFR",
+      "alt": "T790M",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "NSCLC — resistance to earlier EGFR TKI",
+      "syn": ["t790m", "egfr t790m", "egfr resistance"],
+      "assays": ["cobas EGFR Mutation Test v2"],
+      "drugs": [
+        { "b": "Tagrisso", "g": "osimertinib", "co": "AstraZeneca" }
+      ]
+    },
+    {
+      "id": "egfr-exon20",
+      "name": "EGFR exon 20 insertion",
+      "gene": "EGFR",
+      "alt": "exon 20 insertion",
+      "type": "mutation",
+      "method": "NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "syn": ["exon 20", "egfr exon 20", "exon 20 insertion"],
+      "assays": ["Guardant360 CDx", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Rybrevant", "g": "amivantamab", "co": "Janssen" }
+      ]
+    },
+    {
+      "id": "alk",
+      "name": "ALK rearrangement",
+      "gene": "ALK",
+      "alt": "gene fusion / rearrangement",
+      "type": "fusion",
+      "method": "IHC / FISH / NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "syn": ["alk", "alk positive", "alk rearrangement", "alk fusion"],
+      "assays": ["VENTANA ALK (D5F3) CDx", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Alecensa", "g": "alectinib", "co": "Roche" },
+        { "b": "Alunbrig", "g": "brigatinib", "co": "Takeda" },
+        { "b": "Lorviqua", "g": "lorlatinib", "co": "Pfizer" },
+        { "b": "Xalkori", "g": "crizotinib", "co": "Pfizer" },
+        { "b": "Zykadia", "g": "ceritinib", "co": "Novartis" }
+      ]
+    },
+    {
+      "id": "ros1",
+      "name": "ROS1 rearrangement",
+      "gene": "ROS1",
+      "alt": "gene fusion / rearrangement",
+      "type": "fusion",
+      "method": "FISH / NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "syn": ["ros1", "ros1 positive", "ros1 fusion", "ros1 rearrangement"],
+      "assays": ["FoundationOne CDx"],
+      "drugs": [
+        { "b": "Rozlytrek", "g": "entrectinib", "co": "Roche" },
+        { "b": "Xalkori", "g": "crizotinib", "co": "Pfizer" },
+        { "b": "Augtyro", "g": "repotrectinib", "co": "Bristol Myers Squibb" }
+      ]
+    },
+    {
+      "id": "braf-v600",
+      "name": "BRAF V600 mutation",
+      "gene": "BRAF",
+      "alt": "V600E / V600K",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "Melanoma, NSCLC, colorectal, anaplastic thyroid",
+      "syn": ["braf", "braf v600", "v600e", "v600k", "braf mutation"],
+      "assays": ["cobas BRAF V600 Mutation Test", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Tafinlar", "g": "dabrafenib", "co": "Novartis" },
+        { "b": "Mekinist", "g": "trametinib", "co": "Novartis" },
+        { "b": "Braftovi", "g": "encorafenib", "co": "Pierre Fabre" },
+        { "b": "Mektovi", "g": "binimetinib", "co": "Pierre Fabre" },
+        { "b": "Zelboraf", "g": "vemurafenib", "co": "Roche" },
+        { "b": "Cotellic", "g": "cobimetinib", "co": "Roche" }
+      ]
+    },
+    {
+      "id": "kras-g12c",
+      "name": "KRAS G12C mutation",
+      "gene": "KRAS",
+      "alt": "G12C",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "NSCLC, colorectal",
+      "syn": ["kras", "kras g12c", "g12c", "kras mutation"],
+      "assays": ["therascreen KRAS RGQ", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Lumykras", "g": "sotorasib", "co": "Amgen" },
+        { "b": "Krazati", "g": "adagrasib", "co": "Bristol Myers Squibb" }
+      ]
+    },
+    {
+      "id": "her2-amplified",
+      "name": "HER2 (ERBB2) overexpression / amplification",
+      "gene": "ERBB2 (HER2)",
+      "alt": "IHC 3+ or ISH amplified",
+      "type": "expression",
+      "method": "IHC / ISH",
+      "group": "solid",
+      "context": "Breast, gastric / GEJ",
+      "syn": ["her2", "her2 positive", "erbb2", "her2 amplified", "her2 overexpression"],
+      "assays": ["HercepTest", "PATHWAY anti-HER2 (4B5)", "PathVysion HER-2 DNA"],
+      "drugs": [
+        { "b": "Herceptin", "g": "trastuzumab", "co": "Roche" },
+        { "b": "Perjeta", "g": "pertuzumab", "co": "Roche" },
+        { "b": "Kadcyla", "g": "trastuzumab emtansine", "co": "Roche" },
+        { "b": "Enhertu", "g": "trastuzumab deruxtecan", "co": "AstraZeneca / Daiichi Sankyo" },
+        { "b": "Tyverb", "g": "lapatinib", "co": "Novartis" },
+        { "b": "Tukysa", "g": "tucatinib", "co": "Pfizer" },
+        { "b": "Nerlynx", "g": "neratinib", "co": "Pierre Fabre" }
+      ]
+    },
+    {
+      "id": "her2-low",
+      "name": "HER2-low expression",
+      "gene": "ERBB2 (HER2)",
+      "alt": "IHC 1+ or IHC 2+/ISH-negative",
+      "type": "expression",
+      "method": "IHC",
+      "group": "solid",
+      "context": "Breast cancer",
+      "syn": ["her2 low", "her2-low", "her2 ihc 1+"],
+      "assays": ["VENTANA HER2 (4B5)"],
+      "drugs": [
+        { "b": "Enhertu", "g": "trastuzumab deruxtecan", "co": "AstraZeneca / Daiichi Sankyo" }
+      ]
+    },
+    {
+      "id": "pd-l1",
+      "name": "PD-L1 expression",
+      "gene": "CD274 (PD-L1)",
+      "alt": "TPS / CPS by IHC",
+      "type": "expression",
+      "method": "IHC",
+      "group": "solid",
+      "context": "NSCLC, urothelial, breast, head & neck, others",
+      "syn": ["pd-l1", "pdl1", "pd l1", "pd-l1 expression", "tps", "cps"],
+      "assays": ["PD-L1 IHC 22C3 pharmDx", "VENTANA PD-L1 (SP263)", "VENTANA PD-L1 (SP142)"],
+      "drugs": [
+        { "b": "Keytruda", "g": "pembrolizumab", "co": "MSD" },
+        { "b": "Tecentriq", "g": "atezolizumab", "co": "Roche" },
+        { "b": "Opdivo", "g": "nivolumab", "co": "Bristol Myers Squibb" },
+        { "b": "Imfinzi", "g": "durvalumab", "co": "AstraZeneca" },
+        { "b": "Libtayo", "g": "cemiplimab", "co": "Regeneron / Sanofi" }
+      ]
+    },
+    {
+      "id": "msi-dmmr",
+      "name": "MSI-H / mismatch-repair deficiency",
+      "gene": "MLH1 / MSH2 / MSH6 / PMS2",
+      "alt": "microsatellite instability-high / dMMR",
+      "type": "signature",
+      "method": "IHC (MMR) / PCR / NGS",
+      "group": "solid",
+      "context": "Tumour-agnostic (CRC, endometrial, others)",
+      "syn": ["msi", "msi-h", "msi high", "dmmr", "mismatch repair", "microsatellite instability"],
+      "assays": ["IHC (MMR proteins)", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Keytruda", "g": "pembrolizumab", "co": "MSD" },
+        { "b": "Jemperli", "g": "dostarlimab", "co": "GSK" },
+        { "b": "Opdivo", "g": "nivolumab", "co": "Bristol Myers Squibb" }
+      ]
+    },
+    {
+      "id": "ntrk",
+      "name": "NTRK gene fusion",
+      "gene": "NTRK1 / NTRK2 / NTRK3",
+      "alt": "gene fusion",
+      "type": "fusion",
+      "method": "IHC (screen) / NGS",
+      "group": "solid",
+      "context": "Tumour-agnostic (solid tumours)",
+      "syn": ["ntrk", "trk", "ntrk fusion", "trk fusion"],
+      "assays": ["FoundationOne CDx"],
+      "drugs": [
+        { "b": "Vitrakvi", "g": "larotrectinib", "co": "Bayer" },
+        { "b": "Rozlytrek", "g": "entrectinib", "co": "Roche" }
+      ]
+    },
+    {
+      "id": "ret",
+      "name": "RET fusion / mutation",
+      "gene": "RET",
+      "alt": "fusion (NSCLC) / mutation (MTC)",
+      "type": "fusion",
+      "method": "NGS / FISH",
+      "group": "solid",
+      "context": "NSCLC, medullary & other thyroid cancer",
+      "syn": ["ret", "ret fusion", "ret mutation", "ret positive"],
+      "assays": ["FoundationOne CDx", "Oncomine Dx Target Test"],
+      "drugs": [
+        { "b": "Retsevmo", "g": "selpercatinib", "co": "Eli Lilly" }
+      ]
+    },
+    {
+      "id": "met-ex14",
+      "name": "MET exon 14 skipping",
+      "gene": "MET",
+      "alt": "exon 14 skipping alteration",
+      "type": "mutation",
+      "method": "RNA-based NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "syn": ["met", "met exon 14", "metex14", "met skipping"],
+      "assays": ["FoundationOne CDx", "Guardant360 CDx"],
+      "drugs": [
+        { "b": "Tabrecta", "g": "capmatinib", "co": "Novartis" },
+        { "b": "Tepmetko", "g": "tepotinib", "co": "Merck KGaA" }
+      ]
+    },
+    {
+      "id": "brca",
+      "name": "BRCA1 / BRCA2 mutation",
+      "gene": "BRCA1 / BRCA2",
+      "alt": "germline or somatic pathogenic variant",
+      "type": "mutation",
+      "method": "NGS (germline & somatic)",
+      "group": "solid",
+      "context": "Ovarian, breast, prostate, pancreatic",
+      "syn": ["brca", "brca1", "brca2", "brca mutation", "brca positive"],
+      "assays": ["BRACAnalysis CDx", "FoundationOne CDx", "FoundationFocus CDxBRCA"],
+      "drugs": [
+        { "b": "Lynparza", "g": "olaparib", "co": "AstraZeneca" },
+        { "b": "Zejula", "g": "niraparib", "co": "GSK" },
+        { "b": "Rubraca", "g": "rucaparib", "co": "pharma& / Clovis" },
+        { "b": "Talzenna", "g": "talazoparib", "co": "Pfizer" }
+      ]
+    },
+    {
+      "id": "hrd",
+      "name": "Homologous recombination deficiency (HRD)",
+      "gene": "HRD signature (incl. BRCA)",
+      "alt": "genomic instability / LOH",
+      "type": "signature",
+      "method": "NGS (genomic instability)",
+      "group": "solid",
+      "context": "Ovarian cancer (maintenance)",
+      "syn": ["hrd", "homologous recombination", "genomic instability", "hrd positive"],
+      "assays": ["Myriad myChoice CDx", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Lynparza", "g": "olaparib", "co": "AstraZeneca" },
+        { "b": "Zejula", "g": "niraparib", "co": "GSK" }
+      ]
+    },
+    {
+      "id": "fgfr",
+      "name": "FGFR2 / FGFR3 alteration",
+      "gene": "FGFR2 / FGFR3",
+      "alt": "fusion or activating mutation",
+      "type": "fusion",
+      "method": "NGS",
+      "group": "solid",
+      "context": "Cholangiocarcinoma (FGFR2), urothelial carcinoma (FGFR3)",
+      "syn": ["fgfr", "fgfr2", "fgfr3", "fgfr fusion", "fgfr alteration"],
+      "assays": ["therascreen FGFR RGQ", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Pemazyre", "g": "pemigatinib", "co": "Incyte" },
+        { "b": "Lytgobi", "g": "futibatinib", "co": "Taiho" },
+        { "b": "Balversa", "g": "erdafitinib", "co": "Janssen" }
+      ]
+    },
+    {
+      "id": "pik3ca",
+      "name": "PIK3CA mutation",
+      "gene": "PIK3CA",
+      "alt": "activating mutation",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "HR+/HER2- breast cancer",
+      "syn": ["pik3ca", "pik3ca mutation", "pi3k"],
+      "assays": ["therascreen PIK3CA RGQ"],
+      "drugs": [
+        { "b": "Piqray", "g": "alpelisib", "co": "Novartis" }
+      ]
+    },
+    {
+      "id": "esr1",
+      "name": "ESR1 mutation",
+      "gene": "ESR1",
+      "alt": "activating mutation",
+      "type": "mutation",
+      "method": "NGS (ctDNA)",
+      "group": "solid",
+      "context": "HR+/HER2- breast cancer (after endocrine therapy)",
+      "syn": ["esr1", "esr1 mutation", "estrogen receptor mutation"],
+      "assays": ["Guardant360 CDx"],
+      "drugs": [
+        { "b": "Orserdu", "g": "elacestrant", "co": "Menarini / Stemline" }
+      ]
+    },
+    {
+      "id": "kit-pdgfra",
+      "name": "KIT / PDGFRA mutation",
+      "gene": "KIT / PDGFRA",
+      "alt": "activating mutation",
+      "type": "mutation",
+      "method": "NGS / Sanger",
+      "group": "solid",
+      "context": "Gastrointestinal stromal tumour (GIST)",
+      "syn": ["kit", "cd117", "pdgfra", "gist mutation"],
+      "assays": ["NGS / Sanger sequencing"],
+      "drugs": [
+        { "b": "Glivec", "g": "imatinib", "co": "Novartis" },
+        { "b": "Ayvakyt", "g": "avapritinib", "co": "Blueprint / CStone" }
+      ]
+    },
+    {
+      "id": "tmb-high",
+      "name": "Tumour mutational burden — high",
+      "gene": "TMB signature",
+      "alt": "≥10 mut/Mb",
+      "type": "signature",
+      "method": "NGS",
+      "group": "solid",
+      "context": "Tumour-agnostic (solid tumours)",
+      "syn": ["tmb", "tmb-h", "tumour mutational burden", "tumor mutational burden", "tmb high"],
+      "assays": ["FoundationOne CDx"],
+      "drugs": [
+        { "b": "Keytruda", "g": "pembrolizumab", "co": "MSD" }
+      ]
+    },
+    {
+      "id": "idh1",
+      "name": "IDH1 mutation",
+      "gene": "IDH1",
+      "alt": "R132 mutation",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "heme",
+      "context": "AML, cholangiocarcinoma",
+      "syn": ["idh1", "idh1 mutation", "idh"],
+      "assays": ["Abbott RealTime IDH1", "FoundationOne CDx"],
+      "drugs": [
+        { "b": "Tibsovo", "g": "ivosidenib", "co": "Servier" }
+      ]
+    },
+    {
+      "id": "flt3",
+      "name": "FLT3 mutation",
+      "gene": "FLT3",
+      "alt": "ITD or TKD mutation",
+      "type": "mutation",
+      "method": "PCR (fragment analysis)",
+      "group": "heme",
+      "context": "Acute myeloid leukaemia",
+      "syn": ["flt3", "flt3 itd", "flt3 tkd", "flt3 mutation"],
+      "assays": ["LeukoStrat CDx FLT3 Mutation Assay"],
+      "drugs": [
+        { "b": "Rydapt", "g": "midostaurin", "co": "Novartis" },
+        { "b": "Xospata", "g": "gilteritinib", "co": "Astellas" },
+        { "b": "Vanflyta", "g": "quizartinib", "co": "Daiichi Sankyo" }
+      ]
+    },
+    {
+      "id": "cftr",
+      "name": "CFTR mutation (genotype-directed)",
+      "gene": "CFTR",
+      "alt": "F508del and other responsive mutations",
+      "type": "mutation",
+      "method": "CFTR genotyping",
+      "group": "nononc",
+      "context": "Cystic fibrosis",
+      "syn": ["cftr", "f508del", "cystic fibrosis mutation", "cftr mutation"],
+      "assays": ["CFTR genotyping panel"],
+      "drugs": [
+        { "b": "Kaftrio", "g": "elexacaftor / tezacaftor / ivacaftor", "co": "Vertex" },
+        { "b": "Kalydeco", "g": "ivacaftor", "co": "Vertex" },
+        { "b": "Symkevi", "g": "tezacaftor / ivacaftor", "co": "Vertex" },
+        { "b": "Orkambi", "g": "lumacaftor / ivacaftor", "co": "Vertex" }
+      ]
+    },
+    {
+      "id": "hla-b5701",
+      "name": "HLA-B*57:01 (safety screen)",
+      "gene": "HLA-B*57:01",
+      "alt": "allele present → do not use abacavir",
+      "type": "hla",
+      "method": "HLA genotyping (required before use)",
+      "group": "nononc",
+      "context": "HIV — abacavir hypersensitivity screening",
+      "syn": ["hla-b*57:01", "hla b5701", "abacavir hypersensitivity", "hla b 5701"],
+      "assays": ["HLA-B*57:01 genotyping"],
+      "drugs": [
+        { "b": "Ziagen", "g": "abacavir", "co": "ViiV Healthcare" }
+      ]
+    },
+    {
+      "id": "g6pd",
+      "name": "G6PD deficiency (safety screen)",
+      "gene": "G6PD",
+      "alt": "deficiency → haemolysis risk",
+      "type": "enzyme",
+      "method": "Enzyme activity assay (required before use)",
+      "group": "nononc",
+      "context": "Screen before rasburicase, dapsone, others",
+      "syn": ["g6pd", "g6pd deficiency", "glucose-6-phosphate dehydrogenase"],
+      "assays": ["G6PD enzyme activity assay"],
+      "drugs": [
+        { "b": "Fasturtec", "g": "rasburicase", "co": "Sanofi" }
+      ]
+    }
+  ]
+}
