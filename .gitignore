@@ -36,3 +36,6 @@ frontend/scripts/uspi/.cache/
 # local Xcode build products
 frontend/ios/App/build_sim/
 frontend/ios/App/build_store/
+
+# Xcode simulator build scratch dir
+frontend/ios/App/build_sim_shot/

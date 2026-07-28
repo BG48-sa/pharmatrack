@@ -130,6 +130,17 @@ export const GLOSSARY: GlossaryEntry[] = [
     sourceUrl: 'https://www.ema.europa.eu/en/human-regulatory-overview/generic-and-hybrid-medicines',
   },
   {
+    id: 'dev',
+    term: 'Drug–device combination',
+    abbr: 'Drug+Device',
+    body:
+      'A medicine supplied with an integral device that administers or delivers it — an ocular or subcutaneous implant, an inhaler, a pre-filled pen or similar. In the EU the combination is authorised as a medicinal product, while the device component must meet the relevant device requirements (MDR Article 117).',
+    soWhat:
+      'The device is part of the product: handling, training and switching considerations differ from a plain vial or tablet, and device performance is part of the benefit–risk assessment.',
+    sourceLabel: 'EMA — medical devices overview',
+    sourceUrl: 'https://www.ema.europa.eu/en/human-regulatory-overview/medical-devices',
+  },
+  {
     id: 'pdufa',
     term: 'PDUFA date',
     abbr: 'PDUFA',

@@ -78,6 +78,38 @@ def yes(v):
     return str(v or "").strip().lower() == "yes"
 
 
+# --- Drug-device combination flag (dev) --------------------------------------
+# The EMA report has no pharmaceutical-form column, so the flag is inferred:
+#   1. device-platform tokens inside the product name (inhaler families,
+#      pre-filled pen suffixes) — covers most inhaled combos automatically;
+#   2. a curated list of centrally authorised products whose device component
+#      is integral (implants, delivery systems, on-body injectors).
+# Deliberately conservative: only flag what is confidently a combination.
+DEVICE_NAME_TOKENS = (
+    # inhaler platforms (appear as the second word of the product name)
+    "breezhaler", "ellipta", "respimat", "turbohaler", "turbuhaler",
+    "spiromax", "genuair", "nexthaler", "diskus", "accuhaler", "aerosphere",
+    "digihaler", "handihaler", "airmaster", "forspiro", "elpenhaler",
+    # injector / pen platforms occasionally part of the EU trade name
+    "solostar", "flextouch", "flexpen", "innolet", "kwikpen",
+)
+# Centrally authorised products whose device component is integral but whose
+# name carries no platform token. Extend as new combos clear CHMP.
+DEVICE_BRANDS = {
+    "susvimo",   # ranibizumab ocular delivery system (refillable implant)
+    "ozurdex",   # dexamethasone intravitreal implant
+    "sixmo",     # buprenorphine subcutaneous implant
+}
+
+
+def is_device_combo(name):
+    n = str(name or "").lower()
+    words = n.replace("®", " ").split()
+    if any(tok in words for tok in DEVICE_NAME_TOKENS):
+        return True
+    return bool(words) and words[0] in DEVICE_BRANDS
+
+
 def clean(v):
     return str(v or "").strip()
 
@@ -143,6 +175,7 @@ for i, row in enumerate(rows):
         "acc": yes(row[C_ACCELERATED]),
         "bio": yes(row[C_BIOSIMILAR]),
         "gen": yes(row[C_GENERIC]),
+        "dev": is_device_combo(row[C_NAME]),
         "holder": clean(row[C_HOLDER]),
     }
 
@@ -176,5 +209,7 @@ print(
     f"generated {generated} | authorised {len(authorised)} | "
     f"pipeline {len(pipeline)} | inn keys {len(by_inn)} | "
     f"ATMP {sum(1 for r in authorised if r['atmp'])} authorised + "
-    f"{sum(1 for r in pipeline if r['atmp'])} pending"
+    f"{sum(1 for r in pipeline if r['atmp'])} pending | "
+    f"drug+device {sum(1 for r in authorised if r['dev'])} authorised + "
+    f"{sum(1 for r in pipeline if r['dev'])} pending"
 )

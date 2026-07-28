@@ -13,6 +13,7 @@ import NovelList from './components/NovelList';
 import EuropeView from './components/EuropeView';
 import CriticalList from './components/CriticalList';
 import BiomarkerList from './components/BiomarkerList';
+import DeviceList from './components/DeviceList';
 import DrugDetail, { DrugDetailContent } from './components/DrugDetail';
 import AlertsPanel from './components/AlertsPanel';
 import GlossaryModal from './components/GlossaryModal';
@@ -31,18 +32,18 @@ import { recentApprovals, approvalToDetail } from './services/emaService';
 import { drugKey } from './services/notes';
 import { storeGet, storeSet } from './services/storage';
 import { useMediaQuery } from './services/useMediaQuery';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle, ArrowLeft, Dna } from 'lucide-react';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle, ArrowLeft, Dna, Cpu } from 'lucide-react';
 
 // EMA product slug behind a compared drug (only EU-tab medicines carry emaUrl).
 const smpcSlug = (d: DrugDetailData): string => (d.emaUrl || '').split('/EPAR/')[1]?.trim() || '';
 
-type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical' | 'biomarker';
+type View = 'europe' | 'novel' | 'approvals' | 'pipeline' | 'critical' | 'biomarker' | 'devices';
 
 const LAST_VISIT_KEY = 'pt_last_visit';
 
 // Bump GUIDE_VERSION to re-show the feature guide after a major release.
 const GUIDE_KEY = 'dr_welcome_seen';
-const GUIDE_VERSION = '2026-07-13';
+const GUIDE_VERSION = '2026-07-28';
 
 export default function App() {
   const [view, setView] = useState<View>('europe');
@@ -69,6 +70,9 @@ export default function App() {
 
   // --- Biomarkers & companion diagnostics state (client-side filter, bundled) ---
   const [biomarkerQuery, setBiomarkerQuery] = useState<string>('');
+
+  // --- US medical devices state (live openFDA queries inside DeviceList) ---
+  const [deviceQuery, setDeviceQuery] = useState<string>('');
 
   // --- Drug detail sheet (opened from any Novel/Approvals card) ---
   const [detail, setDetail] = useState<DrugDetailData | null>(null);
@@ -428,6 +432,7 @@ export default function App() {
     else if (view === 'novel') setNovelQuery(query);
     else if (view === 'critical') setCriticalQuery(query);
     else if (view === 'biomarker') setBiomarkerQuery(query);
+    else if (view === 'devices') setDeviceQuery(query);
     else if (view === 'pipeline') handleTrialSearch(query);
     else handleDrugSearch(query);
   };
@@ -441,6 +446,8 @@ export default function App() {
       setCriticalQuery('');
     } else if (view === 'biomarker') {
       setBiomarkerQuery('');
+    } else if (view === 'devices') {
+      setDeviceQuery('');
     } else if (view === 'pipeline') {
       setTrialSearched(false);
       setTrials([]);
@@ -546,6 +553,9 @@ export default function App() {
             <button className={tabClass(view === 'biomarker')} onClick={() => setView('biomarker')}>
               <Dna size={14} /> Biomarkers
             </button>
+            <button className={tabClass(view === 'devices')} onClick={() => setView('devices')}>
+              <Cpu size={14} /> Devices
+            </button>
             <button className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
               <ShieldPlus size={14} /> Critical
             </button>
@@ -585,6 +595,10 @@ export default function App() {
         ) : view === 'biomarker' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <BiomarkerList key={`bm-${dataVersion}`} query={biomarkerQuery} onCompare={handleCompareBiomarker} />
+          </div>
+        ) : view === 'devices' ? (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <DeviceList query={deviceQuery} />
           </div>
         ) : view === 'novel' ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">

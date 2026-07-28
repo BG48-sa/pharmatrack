@@ -271,11 +271,12 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             <SmartEmpty
               query={query}
               kind="approved"
-              otherCount={expected.length}
+              other={expected}
               filterHidingCount={filter !== 'all' ? approvedUnfiltered.length : 0}
               onClearFilter={() => setFilter('all')}
               onShowOther={() => setSub('expected')}
               onSearchTrials={onSearchTrials}
+              onSelect={onSelect}
             />
           ) : (
             <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -304,11 +305,12 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             <SmartEmpty
               query={query}
               kind="expected"
-              otherCount={approved.length}
+              other={approved}
               filterHidingCount={filter !== 'all' ? expectedUnfiltered.length : 0}
               onClearFilter={() => setFilter('all')}
               onShowOther={() => setSub('approved')}
               onSearchTrials={onSearchTrials}
+              onSelect={onSelect}
             />
           ) : (
             <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -326,45 +328,108 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
 // An empty result is a signal, not a dead-end. When a disease has no EU match
 // we say so plainly, then route the user to whatever *might* help: the other
 // EMA list (pending opinions / authorised), a hidden filter, or clinical trials.
+//
+// The most common — and most misleading — case is searching the Approved list
+// for a medicine that has just cleared CHMP: the press coverage says "EMA
+// recommends approval", but the EU marketing authorisation only exists once the
+// Commission decides. Rather than report a bare "no match" we name the medicine,
+// give its opinion date and the estimated EC decision, and show the card itself.
 const SmartEmpty: React.FC<{
   query: string;
   kind: 'approved' | 'expected';
-  otherCount: number;
+  /** Matches for the same query in the OTHER list — the actual records, so we can name them. */
+  other: Array<EmaMedicine | EmaPipelineItem>;
   filterHidingCount: number;
   onClearFilter: () => void;
   onShowOther: () => void;
   onSearchTrials: (q: string) => void;
-}> = ({ query, kind, otherCount, filterHidingCount, onClearFilter, onShowOther, onSearchTrials }) => {
+  onSelect: (d: DrugDetailData) => void;
+}> = ({ query, kind, other, filterHidingCount, onClearFilter, onShowOther, onSearchTrials, onSelect }) => {
   const q = query.trim();
+  const otherCount = other.length;
+  // Searching Approved, but the query DOES match one or more pending opinions.
+  const pendingHit = kind === 'approved' && otherCount > 0;
+  const pending = pendingHit ? (other as EmaPipelineItem[]) : [];
+  const first = pending[0];
+
   const headline = !q
     ? kind === 'approved' ? 'No authorised medicines.' : 'No pending EU decisions.'
-    : kind === 'approved'
-      ? `No EU-authorised medicine matches “${q}”.`
-      : `No pending EU decision matches “${q}”.`;
-  const sub = q
-    ? 'This searches the official EMA catalogue — an empty result usually means no centrally authorised EU medicine carries this indication yet.'
-    : undefined;
+    : pendingHit
+      ? `Not authorised in the EU yet — but a decision is pending.`
+      : kind === 'approved'
+        ? `No EU-authorised medicine matches “${q}”.`
+        : `No pending EU decision matches “${q}”.`;
 
   const btn = 'w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors';
 
-  return (
-    <div className="text-center py-10 px-6">
-      <div className="bg-slate-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3">
-        <CalendarClock className="text-slate-400 w-7 h-7" />
-      </div>
-      <p className="text-slate-700 text-sm font-semibold">{headline}</p>
-      {sub && <p className="text-slate-500 text-xs mt-1.5 leading-relaxed max-w-xs mx-auto">{sub}</p>}
+  // The named explanation for the "just got a CHMP opinion" case.
+  const explain = pendingHit ? (
+    pending.length === 1 ? (
+      <>
+        <strong>{first.n}</strong>
+        {first.inn ? ` (${first.inn})` : ''} received a <strong>positive CHMP opinion</strong> on{' '}
+        {fmt(first.op)}. That is a recommendation, not an authorisation — the European
+        Commission decision that actually grants the EU marketing authorisation is
+        expected around <strong>{fmt(estimatedDecisionDate(first.op))}</strong>.
+      </>
+    ) : (
+      <>
+        {pending.length} medicines matching “{q}” hold a <strong>positive CHMP opinion</strong> and
+        are awaiting the European Commission decision that grants the EU marketing
+        authorisation. A CHMP opinion is a recommendation, not an authorisation.
+      </>
+    )
+  ) : q ? (
+    <>
+      This searches the official EMA catalogue — an empty result usually means no
+      centrally authorised EU medicine carries this indication yet.
+    </>
+  ) : null;
 
-      <div className="mt-5 space-y-2 max-w-xs mx-auto">
+  return (
+    <div className={pendingHit ? 'py-4' : 'text-center py-10 px-6'}>
+      <div className={pendingHit ? 'text-center' : ''}>
+        <div
+          className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 ${
+            pendingHit ? 'bg-indigo-100' : 'bg-slate-100'
+          }`}
+        >
+          {pendingHit ? (
+            <Hourglass className="text-indigo-600 w-7 h-7" />
+          ) : (
+            <CalendarClock className="text-slate-400 w-7 h-7" />
+          )}
+        </div>
+        <p className="text-slate-700 text-sm font-semibold">{headline}</p>
+        {explain && (
+          <p className={`text-slate-600 text-xs mt-1.5 leading-relaxed mx-auto ${pendingHit ? 'max-w-sm' : 'max-w-xs text-slate-500'}`}>
+            {explain}
+          </p>
+        )}
+      </div>
+
+      {/* Show the pending medicine(s) themselves — tappable, same card as the
+          Expected tab, so the answer is here rather than one navigation away. */}
+      {pendingHit && (
+        <div className="space-y-3 mt-4">
+          {pending.slice(0, 3).map((m) => (
+            <ExpectedCard key={`${m.n}-${m.op}`} m={m} onClick={() => onSelect(pipelineToDetail(m))} />
+          ))}
+        </div>
+      )}
+
+      <div className={`mt-5 space-y-2 mx-auto ${pendingHit ? 'max-w-sm' : 'max-w-xs'}`}>
         {filterHidingCount > 0 && (
           <button onClick={onClearFilter} className={`${btn} bg-amber-100 text-amber-800 active:bg-amber-200`}>
             Clear filter — {filterHidingCount} hidden match{filterHidingCount === 1 ? '' : 'es'}
           </button>
         )}
-        {otherCount > 0 && (
+        {otherCount > (pendingHit ? 3 : 0) && (
           <button onClick={onShowOther} className={`${btn} bg-indigo-100 text-indigo-700 active:bg-indigo-200`}>
             {kind === 'approved'
-              ? `${otherCount} expected (EC decision pending) →`
+              ? pendingHit
+                ? `See all ${otherCount} pending EU decisions →`
+                : `${otherCount} expected (EC decision pending) →`
               : `${otherCount} already authorised →`}
           </button>
         )}

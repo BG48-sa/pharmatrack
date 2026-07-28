@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {
   X, Search, Bell, Pill, GitCompare, BookOpen, WifiOff, Compass,
-  Bookmark, CalendarPlus, StickyNote, Share2, LayoutGrid, Dna,
+  Bookmark, CalendarPlus, StickyNote, Share2, LayoutGrid, Dna, Cpu,
 } from 'lucide-react';
 
 // First-run feature guide. Auto-shown once (key dr_welcome_seen in App.tsx),
@@ -77,14 +77,15 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
           <Section
             icon={<Search size={18} />}
             tint="bg-blue-50 text-blue-600"
-            title="Browse & search six registers"
+            title="Browse & search seven registers"
           >
             <strong>Europe</strong> — every centrally authorised EU medicine plus the pipeline of
             drugs awaiting an EU decision. <strong>Novel</strong> — recent first-in-class FDA
             approvals. <strong>US</strong> — the full FDA approvals database and upcoming PDUFA
             decision dates. <strong>Trials</strong> — live ClinicalTrials.gov searches.{' '}
             <strong>Biomarkers</strong> — an EU-centered biomarker &amp; companion-diagnostic
-            index. <strong>Critical</strong> — the EU critical-medicines list. Tap a
+            index. <strong>Devices</strong> — US medical-device approvals, clearances and recalls.{' '}
+            <strong>Critical</strong> — the EU critical-medicines list. Tap a
             therapeutic-area chip for a one-tap search, and filter the EU list by Advanced therapy,
             Orphan, PRIME, or Generic. US data is queried live from the FDA; the EU dataset
             refreshes once a week, so newly approved drugs appear within about a week.
@@ -143,6 +144,20 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             validated test (per the SmPC, under the IVD Regulation) and the EU-authorised
             medicines its result unlocks — ready to compare down to the full label. Search it by
             biomarker, gene, alteration, or drug name.
+          </Section>
+
+          <Section
+            icon={<Cpu size={18} />}
+            tint="bg-cyan-50 text-cyan-600"
+            title="Medical devices"
+          >
+            The new <strong>Devices</strong> tab tracks US device market entries live from
+            openFDA: original <strong>PMA approvals</strong> (high-risk devices — the device
+            equivalent of a new-drug approval), <strong>510(k) clearances &amp; De Novo
+            grants</strong>, and recent <strong>recalls</strong>. EU medicines with an integral
+            device — implants, inhalers, pre-filled pens — carry a{' '}
+            <strong>Drug+Device</strong> badge on the Europe tab. An EU device feed follows
+            once EUDAMED&rsquo;s public data matures.
           </Section>
 
           <Section

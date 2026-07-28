@@ -39,6 +39,7 @@ export interface EmaFlags {
   acc: boolean;      // Accelerated assessment
   bio: boolean;      // Biosimilar
   gen: boolean;      // Generic
+  dev?: boolean;     // Drug-device combination (integral implant / inhaler / pen)
 }
 
 // One authorised EU medicine from the bundled EMA snapshot (ema-medicines.json).

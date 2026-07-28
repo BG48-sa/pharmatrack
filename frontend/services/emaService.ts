@@ -133,7 +133,7 @@ export const splitAreas = (area: string): string[] =>
 
 const flagsOf = (m: EmaFlags): EmaFlags => ({
   atmp: m.atmp, orphan: m.orphan, prime: m.prime, cond: m.cond,
-  exc: m.exc, acc: m.acc, bio: m.bio, gen: m.gen,
+  exc: m.exc, acc: m.acc, bio: m.bio, gen: m.gen, dev: m.dev,
 });
 
 /** Map an authorised EU medicine into the shared DrugDetail sheet shape. */

@@ -13,6 +13,7 @@ const DEFS: Array<{ key: keyof EmaFlags; label: string; cls: string }> = [
   { key: 'exc', label: 'Except. circ.', cls: 'bg-slate-100 text-slate-700 border-slate-200' },
   { key: 'bio', label: 'Biosimilar', cls: 'bg-teal-100 text-teal-800 border-teal-200' },
   { key: 'gen', label: 'Generic', cls: 'bg-slate-100 text-slate-600 border-slate-200' },
+  { key: 'dev', label: 'Drug+Device', cls: 'bg-cyan-100 text-cyan-800 border-cyan-200' },
 ];
 
 // When `onSelect` is given (e.g. in the detail sheet), each badge becomes a
