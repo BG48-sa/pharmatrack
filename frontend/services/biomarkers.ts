@@ -18,7 +18,8 @@
  *
  * SHAPE (biomarkers.json)
  *   { generated, biomarkers: [ { id, name, gene, alt, type, method, group,
- *     context, syn[], assays[], drugs:[{b,g,co}] } ] }
+ *     context, desc, ref, syn[], assays[], drugs:[{b,g,co}] } ] }
+ *   desc = plain-language clinical explanation; ref = curated look-it-up URL.
  *   group = solid | heme | nononc.  b=brand, g=generic/INN, co=company.
  *
  * To add a biomarker: append an entry with its EU-authorised member drugs and
@@ -47,6 +48,10 @@ export interface Biomarker {
   group: BiomarkerGroup;
   /** Tumour type / clinical setting. */
   context: string;
+  /** Plain-language clinical explanation: what the alteration is and what it predicts. */
+  desc?: string;
+  /** Curated "look it up" reference URL (OncoKB gene page, CFTR2, PubMed…). */
+  ref?: string;
   syn: string[];
   /** Example CE-IVD validated assays (illustrative, not the requirement). */
   assays: string[];
@@ -96,6 +101,27 @@ const matches = (m: Biomarker, sTok: string[]): boolean => {
   return m.drugs.some((d) =>
     tokenSeqIn(tokenize(d.b), sTok) || tokenSeqIn(tokenize(d.g), sTok),
   );
+};
+
+/**
+ * Best external link for a member drug: its EMA EPAR page when the INN resolves
+ * in the bundled EMA data (all current catalog drugs do), else an EMA medicine
+ * search on the brand name so a newly added drug still opens something useful.
+ */
+export const drugLink = (d: BiomarkerDrug): string => {
+  const ema = lookupEmaRec(d.g) || lookupEmaRec(d.g.split(/[\s/,]/)[0]);
+  if (ema) return ema.u;
+  return `https://www.ema.europa.eu/en/search?search_api_fulltext=${encodeURIComponent(d.b)}`;
+};
+
+/** Short label for a biomarker's "look it up" reference, derived from its host. */
+export const refLabel = (url: string): string => {
+  if (/oncokb\.org/i.test(url)) return 'OncoKB';
+  if (/cftr2\.org/i.test(url)) return 'CFTR2';
+  if (/pubmed/i.test(url)) return 'PubMed';
+  if (/clinpgx|cpicpgx|pharmgkb/i.test(url)) return 'CPIC';
+  if (/ema\.europa/i.test(url)) return 'EMA';
+  return 'Reference';
 };
 
 /** The full catalog in display order (used to browse the tab). */

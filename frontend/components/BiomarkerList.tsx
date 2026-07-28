@@ -3,11 +3,13 @@ import {
   allBiomarkers,
   findBiomarkers,
   buildBiomarkerComparison,
+  drugLink,
+  refLabel,
   BIOMARKER_GROUPS,
   Biomarker,
   BiomarkerGroup,
 } from '../services/biomarkers';
-import { Dna, FlaskConical, GitCompare, Search as SearchIcon } from 'lucide-react';
+import { Dna, FlaskConical, GitCompare, Search as SearchIcon, ExternalLink, BookOpen } from 'lucide-react';
 
 interface Props {
   query: string;
@@ -48,6 +50,24 @@ const BiomarkerCard: React.FC<{ m: Biomarker; onCompare: () => void }> = ({ m, o
           </div>
           <p className="text-[12px] text-slate-600 mt-1.5">{m.context}</p>
 
+          {/* Plain-language explanation of what the alteration is and what it predicts. */}
+          {m.desc && (
+            <p className="text-[13px] text-slate-700 leading-relaxed mt-2">{m.desc}</p>
+          )}
+
+          {/* Curated external "look it up" reference (OncoKB / CFTR2 / PubMed…). */}
+          {m.ref && (
+            <a
+              href={m.ref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1.5 text-[12px] font-semibold text-violet-700 active:text-violet-900"
+            >
+              <BookOpen size={13} /> Look it up on {refLabel(m.ref)}
+              <ExternalLink size={11} className="text-violet-400" />
+            </a>
+          )}
+
           {/* EU test framing: method first (per SmPC), example CE-IVD assays after. */}
           <div className="mt-2.5 rounded-xl bg-violet-50/70 border border-violet-100 p-2.5">
             <div className="flex items-center gap-1.5 text-[11px] font-bold text-violet-800 uppercase tracking-wide">
@@ -59,20 +79,24 @@ const BiomarkerCard: React.FC<{ m: Biomarker; onCompare: () => void }> = ({ m, o
             </p>
           </div>
 
-          {/* Drugs the biomarker result unlocks (EU brand names). */}
+          {/* Drugs the biomarker result unlocks (EU brand names) — each links to its EMA EPAR. */}
           <div className="mt-2.5">
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-              Unlocks ({m.drugs.length})
+              Unlocks ({m.drugs.length}) · tap for EU label
             </div>
             <div className="flex flex-wrap gap-1.5">
               {m.drugs.map((d) => (
-                <span
+                <a
                   key={d.b}
-                  title={d.g}
-                  className="inline-flex items-center px-2 py-0.5 rounded-lg bg-white border border-violet-200 text-[11px] font-semibold text-slate-700"
+                  href={drugLink(d)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`${d.g} — open EMA EPAR`}
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white border border-violet-200 text-[11px] font-semibold text-violet-700 active:bg-violet-50"
                 >
                   {d.b}
-                </span>
+                  <ExternalLink size={10} className="text-violet-400" />
+                </a>
               ))}
             </div>
           </div>
