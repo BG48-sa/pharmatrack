@@ -1,6 +1,6 @@
 {
-  "name": "DrugRadar: Drug Approvals",
-  "short_name": "DrugRadar",
+  "name": "DrugRadar Web: Drug Approvals",
+  "short_name": "DrugRadar Web",
   "description": "FDA and EMA drug approvals — including CDER's novel new-drug list — plus late-stage clinical trials.",
   "start_url": "./",
   "display": "standalone",
