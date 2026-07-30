@@ -104,7 +104,7 @@ fi
 
 # Commit the regenerated snapshots to main so source matches what we publish.
 git add -- "${DATA_FILES[@]}"
-git -c user.name='Bernd Gansbacher' -c user.email='bernd.gansbacher@gmail.com' \
+git -c user.name='Bernd Gansbacher' -c user.email='202773581+BG48-sa@users.noreply.github.com' \
     commit -q -m "Refresh bundled data $(date '+%Y-%m-%d')"
 git push -q origin HEAD && log "Pushed data commit to origin" || log "WARN: push to origin failed (deploy continues)"
 

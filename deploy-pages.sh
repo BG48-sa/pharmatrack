@@ -26,7 +26,7 @@ cp -R "$DIST"/. "$TMP"/
   cd "$TMP"
   git init -q -b gh-pages
   git add -A
-  git -c user.name='Bernd Gansbacher' -c user.email='bernd.gansbacher@gmail.com' \
+  git -c user.name='Bernd Gansbacher' -c user.email='202773581+BG48-sa@users.noreply.github.com' \
       commit -q -m "Deploy $(date '+%Y-%m-%d %H:%M')"
   git push -q -f "$REMOTE" gh-pages
 )
