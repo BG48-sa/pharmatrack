@@ -1,5 +1,4 @@
 import { NovelApproval } from '../types';
-import novelDataRaw from '../novel-approvals.json';
 
 /**
  * CDER Novel Drug Approvals service.
@@ -16,7 +15,8 @@ import novelDataRaw from '../novel-approvals.json';
 const NOVEL_SOURCE_BASE =
   'https://www.fda.gov/drugs/novel-drug-approvals-fda/novel-drug-approvals-';
 
-let data = novelDataRaw as Record<string, NovelApproval[]>;
+// Starts empty; services/liveData.ts loads the shipped snapshot at startup.
+let data: Record<string, NovelApproval[]> = {};
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
 export const __setNovelData = (d: Record<string, NovelApproval[]>): void => { data = d; };

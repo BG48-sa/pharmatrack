@@ -1,4 +1,3 @@
-import emaDataRaw from '../ema-medicines.json';
 import { EmaData, EmaMedicine, EmaPipelineItem, DrugDetailData, EmaFlags } from '../types';
 
 /**
@@ -17,10 +16,11 @@ import { EmaData, EmaMedicine, EmaPipelineItem, DrugDetailData, EmaFlags } from 
  * scripts/build-ema-data.py.
  */
 
-let data = emaDataRaw as unknown as EmaData;
+// Starts empty; services/liveData.ts loads the shipped snapshot (public/data/)
+// at startup and swaps it in, then overrides with the live copy when online.
+let data: EmaData = { generated: '', byInn: {}, authorised: [], pipeline: [] };
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
-// Falls back to the bundled import if never called.
 export const __setEmaData = (d: EmaData): void => { data = d; };
 
 export const emaGeneratedDate = (): string => data.generated;

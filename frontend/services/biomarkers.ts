@@ -25,7 +25,6 @@
  * To add a biomarker: append an entry with its EU-authorised member drugs and
  * re-run nothing — it is pure data, bundled and also published for live refresh.
  */
-import biomarkerRaw from '../biomarkers.json';
 import { lookupEmaRec } from './fdaService';
 import { DrugDetailData } from '../types';
 
@@ -58,7 +57,8 @@ export interface Biomarker {
   drugs: BiomarkerDrug[];
 }
 
-let biomarkers = (biomarkerRaw as { biomarkers: Biomarker[] }).biomarkers;
+// Starts empty; services/liveData.ts loads the shipped snapshot at startup.
+let biomarkers: Biomarker[] = [];
 
 /** Swap in the freshest catalog fetched at runtime (see services/liveData.ts). */
 export const __setBiomarkerData = (d: { biomarkers?: Biomarker[] }): void => {

@@ -19,6 +19,8 @@ interface Props {
   onClose: () => void;
   /** Whether a given medicine has a label in a given jurisdiction (enables the EU/US toggle). */
   available?: (slug: string, source: Src) => boolean;
+  /** When each label corpus was extracted (ISO dates), so offline/cached text is honest about its age. */
+  corpusDates?: { eu?: string; us?: string };
 }
 
 const REMOTE = 'https://bg48-sa.github.io/pharmatrack/data/';
@@ -91,7 +93,12 @@ const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded:
   );
 };
 
-const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available }) => {
+const fmtCorpusDate = (iso: string): string => {
+  const d = new Date(iso);
+  return isNaN(d.getTime()) ? iso : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+};
+
+const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpusDates }) => {
   // Columns are internal state so each can be toggled between EU / US in place.
   const [cols, setCols] = useState<LabelColumn[]>(columns);
   const [docs, setDocs] = useState<(LabelDoc | null)[] | null>(null);
@@ -124,7 +131,7 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available }) => 
   const minWidth = many ? `${9 + cols.length * 13}rem` : undefined;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-0 sm:p-4" onClick={onClose}>
+    <div role="dialog" aria-modal="true" aria-label="Label comparison" className="fixed inset-0 z-[70] flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-0 sm:p-4" onClick={onClose}>
       <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-5xl max-h-[92vh] overflow-y-auto shadow-2xl relative animate-in slide-in-from-bottom-4 duration-300" onClick={(e) => e.stopPropagation()}>
         <div className="sticky top-0 bg-white/90 backdrop-blur-xl px-5 pt-6 pb-3 border-b border-slate-100 z-10">
           <button onClick={onClose} className="absolute top-5 right-4 p-2 text-slate-400 hover:text-slate-600 bg-slate-50 rounded-full" aria-label="Close"><X size={18} /></button>
@@ -133,6 +140,16 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available }) => 
             <div>
               <h2 className="text-xl font-bold text-slate-900 leading-tight">{crossJurisdiction ? 'EU vs US label' : 'Label comparison'}</h2>
               <p className="text-sm text-slate-500 mt-0.5">{crossJurisdiction ? 'Same medicine — EU SmPC vs US Prescribing Information' : 'Full label sections, side by side'}</p>
+              {corpusDates && (corpusDates.eu || corpusDates.us) && (
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  Label text extracted{' '}
+                  {[
+                    cols.some((c) => c.source === 'eu') && corpusDates.eu ? `EU ${fmtCorpusDate(corpusDates.eu)}` : null,
+                    cols.some((c) => c.source === 'us') && corpusDates.us ? `US ${fmtCorpusDate(corpusDates.us)}` : null,
+                  ].filter(Boolean).join(' · ')}{' '}
+                  — verify against the linked official label.
+                </p>
+              )}
             </div>
           </div>
         </div>

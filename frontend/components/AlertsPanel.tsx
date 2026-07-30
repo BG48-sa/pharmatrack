@@ -112,7 +112,7 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
   const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
 
   return (
-    <div
+    <div role="dialog" aria-modal="true" aria-label="Decision alerts"
       className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-0 sm:p-4"
       onClick={onClose}
     >

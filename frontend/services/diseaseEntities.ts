@@ -20,7 +20,6 @@
  * To add a disease: append an entity with its canonical class members and re-run
  * nothing — it is pure data, bundled and also published for the live refresh.
  */
-import diseaseRaw from '../disease-entities.json';
 import { lookupEmaRec } from './fdaService';
 import { DrugDetailData } from '../types';
 
@@ -58,7 +57,8 @@ export interface DiseaseEntity {
   drugs: DiseaseDrug[];
 }
 
-let entities = (diseaseRaw as { entities: DiseaseEntity[] }).entities;
+// Starts empty; services/liveData.ts loads the shipped snapshot at startup.
+let entities: DiseaseEntity[] = [];
 
 /** Swap in the freshest catalog fetched at runtime (see services/liveData.ts). */
 export const __setDiseaseData = (d: { entities?: DiseaseEntity[] }): void => {

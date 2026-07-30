@@ -2,7 +2,6 @@
 // the European Medicines Agency considers critical for EU health systems
 // (continuity of supply matters most; a shortage would cause serious harm).
 // Source spreadsheet shipped by EMA; parsed into critical-medicines.json at build.
-import raw from '../critical-medicines.json';
 
 export interface CriticalMedicine {
   /** ATC level-5 code, e.g. "A02BC05". */
@@ -28,7 +27,8 @@ interface CriticalData {
   medicines: CriticalMedicine[];
 }
 
-let data = raw as CriticalData;
+// Starts empty; services/liveData.ts loads the shipped snapshot at startup.
+let data: CriticalData = { version: '', ref: '', generated: '', source: '', count: 0, medicines: [] };
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
 export const __setCriticalData = (d: CriticalData): void => { data = d; };

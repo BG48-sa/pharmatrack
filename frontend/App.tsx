@@ -3,7 +3,7 @@ import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaServ
 import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
 import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
 import { getUpcomingPdufa } from './services/pdufa';
-import { refreshLiveData } from './services/liveData';
+import { primeBundledData, refreshLiveData, getLastRefresh } from './services/liveData';
 import { searchTrials, TrialRegion } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
@@ -32,7 +32,7 @@ import { recentApprovals, approvalToDetail } from './services/emaService';
 import { drugKey } from './services/notes';
 import { storeGet, storeSet } from './services/storage';
 import { useMediaQuery } from './services/useMediaQuery';
-import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle, ArrowLeft, Dna, Cpu } from 'lucide-react';
+import { Stethoscope, AlertCircle, RefreshCw, Database, FlaskConical, Sparkles, Globe2, ShieldPlus, Bell, BookOpen, GitCompare, Pill, X, FileText, ExternalLink, HelpCircle, ArrowLeft, Dna, Cpu, WifiOff } from 'lucide-react';
 
 // EMA product slug behind a compared drug (only EU-tab medicines carry emaUrl).
 const smpcSlug = (d: DrugDetailData): string => (d.emaUrl || '').split('/EPAR/')[1]?.trim() || '';
@@ -112,14 +112,23 @@ export default function App() {
   // Manifests of medicines with extracted EU SmPC / US label data (slug -> present).
   const [smpcIndex, setSmpcIndex] = useState<Record<string, unknown>>({});
   const [uspiIndex, setUspiIndex] = useState<Record<string, unknown>>({});
+  // When each label corpus was extracted from EMA / openFDA (index `generated`
+  // stamps) — shown in the label compare view so cached text is honest about age.
+  const [corpusDates, setCorpusDates] = useState<{ eu?: string; us?: string }>({});
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/smpc-index.json`)
       .then((r) => (r.ok ? r.json() : null))
-      .then((idx) => idx?.drugs && setSmpcIndex(idx.drugs))
+      .then((idx) => {
+        if (idx?.drugs) setSmpcIndex(idx.drugs);
+        if (idx?.generated && idx.generated !== 'dev') setCorpusDates((d) => ({ ...d, eu: idx.generated }));
+      })
       .catch(() => {});
     fetch(`${import.meta.env.BASE_URL}data/uspi-index.json`)
       .then((r) => (r.ok ? r.json() : null))
-      .then((idx) => idx?.drugs && setUspiIndex(idx.drugs))
+      .then((idx) => {
+        if (idx?.drugs) setUspiIndex(idx.drugs);
+        if (idx?.generated && idx.generated !== 'dev') setCorpusDates((d) => ({ ...d, us: idx.generated }));
+      })
       .catch(() => {});
   }, []);
   const hasEuLabel = (s: string) => !!(s && smpcIndex[s]);
@@ -328,6 +337,22 @@ export default function App() {
   // fresher snapshots (bundled data renders first; this swaps in live data).
   const [dataVersion, setDataVersion] = useState(0);
 
+  // Offline honesty: when the network is gone the app keeps working from cached
+  // data, but must say so — and say how old that data is (see banner below).
+  const [offline, setOffline] = useState<boolean>(
+    typeof navigator !== 'undefined' && navigator.onLine === false
+  );
+  useEffect(() => {
+    const goOnline = () => setOffline(false);
+    const goOffline = () => setOffline(true);
+    window.addEventListener('online', goOnline);
+    window.addEventListener('offline', goOffline);
+    return () => {
+      window.removeEventListener('online', goOnline);
+      window.removeEventListener('offline', goOffline);
+    };
+  }, []);
+
   const pdufa = useMemo(() => getUpcomingPdufa(), [dataVersion]);
 
   // Switching top-level tabs should always land you at the top of the new view.
@@ -358,12 +383,23 @@ export default function App() {
     }
   };
 
+  // The snapshots ship as static files (public/data/), not inside the JS
+  // bundle. Load the shipped copies first so every tab has data (and the FDA
+  // fetch can enrich with EMA dates), then loadDefaultData.
   useEffect(() => {
-    loadDefaultData();
+    let cancelled = false;
+    primeBundledData().then((applied) => {
+      if (cancelled) return;
+      if (applied > 0) setDataVersion((v) => v + 1);
+      loadDefaultData();
+    });
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Pull the freshest published snapshots once at startup. Bundled data shows
+  // Pull the freshest published snapshots once at startup. Shipped data shows
   // immediately; if live data arrives, bump dataVersion so every tab recomputes
   // and re-enrich the FDA approvals with the fresher EMA dates.
   useEffect(() => {
@@ -483,6 +519,23 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col pb-[env(safe-area-inset-bottom)]">
       <DisclaimerGate />
       <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 sticky top-0 z-20 pt-[env(safe-area-inset-top)]">
+        {offline && (
+          <div role="status" className="bg-amber-50 border-b border-amber-200 px-4 py-1.5 flex items-center justify-center gap-1.5 text-[11px] font-medium text-amber-800">
+            <WifiOff size={12} aria-hidden="true" />
+            <span>
+              Offline — showing saved data
+              {(() => {
+                const iso = getLastRefresh();
+                if (!iso) return ' from this build’s shipped snapshots';
+                const d = new Date(iso);
+                return isNaN(d.getTime())
+                  ? ''
+                  : ` from your last sync on ${d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+              })()}
+              . Always verify against the official label before prescribing.
+            </span>
+          </div>
+        )}
         <div className="mx-auto w-full max-w-5xl">
         <div className="px-4 h-14 flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
@@ -537,27 +590,27 @@ export default function App() {
 
         {/* Segmented control: Europe | Novel | Approvals | Pipeline */}
         <div className="px-4 pt-1">
-          <div className="flex gap-0.5 bg-slate-100 rounded-xl p-1 overflow-x-auto hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
-            <button className={tabClass(view === 'europe')} onClick={() => setView('europe')}>
-              <Globe2 size={14} /> Europe
+          <div role="tablist" aria-label="Data views" className="flex gap-0.5 bg-slate-100 rounded-xl p-1 overflow-x-auto hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
+            <button role="tab" aria-selected={view === 'europe'} className={tabClass(view === 'europe')} onClick={() => setView('europe')}>
+              <Globe2 size={14} aria-hidden="true" /> Europe
             </button>
-            <button className={tabClass(view === 'novel')} onClick={() => setView('novel')}>
-              <Sparkles size={14} /> Novel
+            <button role="tab" aria-selected={view === 'novel'} className={tabClass(view === 'novel')} onClick={() => setView('novel')}>
+              <Sparkles size={14} aria-hidden="true" /> Novel
             </button>
-            <button className={tabClass(view === 'approvals')} onClick={() => setView('approvals')}>
-              <Database size={14} /> US
+            <button role="tab" aria-selected={view === 'approvals'} className={tabClass(view === 'approvals')} onClick={() => setView('approvals')}>
+              <Database size={14} aria-hidden="true" /> US
             </button>
-            <button className={tabClass(view === 'pipeline')} onClick={() => setView('pipeline')}>
-              <FlaskConical size={14} /> Trials
+            <button role="tab" aria-selected={view === 'pipeline'} className={tabClass(view === 'pipeline')} onClick={() => setView('pipeline')}>
+              <FlaskConical size={14} aria-hidden="true" /> Trials
             </button>
-            <button className={tabClass(view === 'biomarker')} onClick={() => setView('biomarker')}>
-              <Dna size={14} /> Biomarkers
+            <button role="tab" aria-selected={view === 'biomarker'} className={tabClass(view === 'biomarker')} onClick={() => setView('biomarker')}>
+              <Dna size={14} aria-hidden="true" /> Biomarkers
             </button>
-            <button className={tabClass(view === 'devices')} onClick={() => setView('devices')}>
-              <Cpu size={14} /> Devices
+            <button role="tab" aria-selected={view === 'devices'} className={tabClass(view === 'devices')} onClick={() => setView('devices')}>
+              <Cpu size={14} aria-hidden="true" /> Devices
             </button>
-            <button className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
-              <ShieldPlus size={14} /> Critical
+            <button role="tab" aria-selected={view === 'critical'} className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
+              <ShieldPlus size={14} aria-hidden="true" /> Critical
             </button>
           </div>
         </div>
@@ -882,6 +935,7 @@ export default function App() {
         <LabelComparePanel
           columns={trayColumns}
           available={labelAvailable}
+          corpusDates={corpusDates}
           onClose={() => setSmpcOpen(false)}
         />
       )}
@@ -892,6 +946,7 @@ export default function App() {
             { slug: euUsSlug, source: 'us' },
           ] as LabelColumn[]}
           available={labelAvailable}
+          corpusDates={corpusDates}
           onClose={() => setEuUsSlug(null)}
         />
       )}
@@ -909,6 +964,7 @@ export default function App() {
         <LabelComparePanel
           columns={labelViewCols}
           available={labelAvailable}
+          corpusDates={corpusDates}
           onClose={() => setLabelViewCols(null)}
         />
       )}

@@ -73,7 +73,7 @@ const GlossaryModal: React.FC<Props> = ({ initialId, onClose }) => {
     : GLOSSARY;
 
   return (
-    <div
+    <div role="dialog" aria-modal="true" aria-label="Glossary of regulatory terms"
       className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-0 sm:p-4"
       onClick={onClose}
     >

@@ -13,7 +13,7 @@
 //   node scripts/uspi/extract-all.mjs 200        cap NEW lookups to 200
 //   REPARSE=1 node scripts/uspi/extract-all.mjs  re-parse cached responses only
 //   FORCE=1 ...                                   ignore cache
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -26,6 +26,16 @@ const CACHE = join(here, '.cache');
 
 const slugOf = (m) => ((m.url || '').split('/EPAR/')[1]?.trim() || '').replace(/-previously-.*$/, '');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Data stamp = when openFDA was last actually read (newest fetch in the cache),
+// NOT the parse time — a REPARSE run must not make old data look fresh.
+const cacheStamp = (dir, ext) => {
+  let latest = 0;
+  if (existsSync(dir))
+    for (const f of readdirSync(dir))
+      if (f.endsWith(ext)) latest = Math.max(latest, statSync(join(dir, f)).mtimeMs);
+  return latest ? new Date(latest).toISOString().slice(0, 10) : null;
+};
 
 // section key -> openFDA text field(s, first present wins) + optional table field
 const FIELDS = {
@@ -97,7 +107,7 @@ async function run() {
     seen.add(s); return true;
   });
 
-  const index = { generated: process.env.STAMP || 'dev', source: 'openFDA drug label (US Prescribing Information)', drugs: {} };
+  const index = { generated: 'dev', source: 'openFDA drug label (US Prescribing Information)', drugs: {} };
   let done = 0, ok = 0, fetched = 0, miss = 0, consecutiveFail = 0, cooldowns = 0;
 
   for (const m of drugs) {
@@ -142,6 +152,7 @@ async function run() {
   }
 
   index.count = Object.keys(index.drugs).length;
+  index.generated = process.env.STAMP || cacheStamp(CACHE, '.json') || index.generated;
   writeFileSync(INDEX, JSON.stringify(index));
   console.log(`\nDONE. US labels matched:${ok} newLookups:${fetched} noUSlabel:${miss}`);
   console.log(`Manifest: ${index.count} drugs → uspi-index.json ; per-drug JSON → uspi-data/`);

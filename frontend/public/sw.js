@@ -1,15 +1,31 @@
-const CACHE_NAME = 'pharmatrack-cache-v3';
+const CACHE_NAME = 'pharmatrack-cache-v4';
 
 // App shell — cached on install so the UI loads offline. Hashed build assets
 // (JS/CSS) are cached at runtime by the same-origin handler below, since their
 // filenames change every build and can't be hardcoded here.
 const APP_SHELL = ['./', './index.html', './manifest.json', './icon.png'];
 
+// Data snapshots ship as static files (they are NOT inlined in the JS bundle),
+// so they must be precached for the tabs to have data offline. The label
+// corpora (data/smpc/, data/uspi/ — ~2,700 files) are runtime-cached instead:
+// any label the user has opened stays available offline.
+const DATA_SNAPSHOTS = [
+  './data/ema-medicines.json',
+  './data/novel-approvals.json',
+  './data/critical-medicines.json',
+  './data/pdufa.json',
+  './data/cgt-products.json',
+  './data/disease-entities.json',
+  './data/biomarkers.json',
+  './data/smpc-index.json',
+  './data/uspi-index.json',
+];
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE_NAME)
-      .then((cache) => cache.addAll(APP_SHELL))
+      .then((cache) => cache.addAll([...APP_SHELL, ...DATA_SNAPSHOTS]))
       .then(() => self.skipWaiting())
   );
 });

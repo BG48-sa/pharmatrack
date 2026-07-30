@@ -1,12 +1,12 @@
 import { PdufaEntry } from '../types';
-import pdufaRaw from '../pdufa.json';
 
 /**
  * Curated PDUFA watchlist (sponsor/analyst-disclosed FDA target action dates).
  * The FDA does not publish PDUFA dates, so this is a hand-maintained list in
  * frontend/pdufa.json — not a live or official feed.
+ * Starts empty; services/liveData.ts loads the shipped snapshot at startup.
  */
-let allEntries = (pdufaRaw as { entries: PdufaEntry[] }).entries || [];
+let allEntries: PdufaEntry[] = [];
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
 export const __setPdufaData = (d: { entries?: PdufaEntry[] }): void => {

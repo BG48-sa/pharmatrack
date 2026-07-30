@@ -61,7 +61,7 @@ const InstallButton: React.FC = () => {
 
       {/* iOS Installation Instructions Modal */}
       {showIOSPrompt && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-4">
+        <div role="dialog" aria-modal="true" aria-label="Install the app" className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-4">
           <div className="bg-white rounded-3xl p-6 w-full max-w-sm shadow-2xl relative animate-in slide-in-from-bottom-4 duration-300">
             <button
               onClick={() => setShowIOSPrompt(false)}

@@ -98,7 +98,8 @@ const CriticalList: React.FC<Props> = ({ query, onSearchTrials }) => {
         <span>
           The EMA <strong>Union list of critical medicines</strong> — {criticalCount()} active
           substances whose continued supply is essential for EU health systems. Version{' '}
-          {criticalVersion()}, {fmt(criticalGeneratedDate())}.
+          {criticalVersion()}, published by EMA {fmt(criticalGeneratedDate())} — the latest
+          official version (EMA revises this list about once a year).
         </span>
       </div>
 

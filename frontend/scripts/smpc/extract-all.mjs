@@ -13,7 +13,7 @@
 //   node scripts/smpc/extract-all.mjs 50         cap NEW downloads to 50 (parsing still runs on all cached)
 //   REPARSE=1 node scripts/smpc/extract-all.mjs  re-parse every cached drug (after changing caps/reflow), no new fetch
 //   FORCE=1 node scripts/smpc/extract-all.mjs    ignore cache, re-download everything
-import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -30,6 +30,16 @@ const PI = (slug) =>
 // product-information URL does not use — strip it.
 const slugOf = (m) => ((m.url || '').split('/EPAR/')[1]?.trim() || '').replace(/-previously-.*$/, '');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Data stamp = when EMA was last actually read (newest fetch in the cache), NOT
+// the parse time — a REPARSE run must not make old data look fresh.
+const cacheStamp = (dir, ext) => {
+  let latest = 0;
+  if (existsSync(dir))
+    for (const f of readdirSync(dir))
+      if (f.endsWith(ext)) latest = Math.max(latest, statSync(join(dir, f)).mtimeMs);
+  return latest ? new Date(latest).toISOString().slice(0, 10) : null;
+};
 
 const TARGETS = {
   '4.1': 'Therapeutic indications',
@@ -141,7 +151,7 @@ async function run() {
     seen.add(s); return true;
   });
 
-  const index = { generated: process.env.STAMP || 'dev', source: 'EMA product-information (Annex I, SmPC)', drugs: {}, failed: [] };
+  const index = { generated: 'dev', source: 'EMA product-information (Annex I, SmPC)', drugs: {}, failed: [] };
   let done = 0, ok = 0, fetched = 0, notfound = 0, fail = 0;
   const CONC = 1; // single-threaded: EMA's burst limit is low, so pace one-at-a-time
   const queue = [...drugs];
@@ -187,6 +197,7 @@ async function run() {
   await Promise.all(Array.from({ length: CONC }, (_, i) => worker(i)));
 
   index.count = Object.keys(index.drugs).length;
+  index.generated = process.env.STAMP || cacheStamp(CACHE, '.txt') || index.generated;
   writeFileSync(INDEX, JSON.stringify(index));
   console.log(`\nDONE. parsed:${ok} newDownloads:${fetched} 404:${notfound} failed:${fail}`);
   console.log(`Manifest: ${index.count} drugs → smpc-index.json ; per-drug JSON → smpc-data/`);

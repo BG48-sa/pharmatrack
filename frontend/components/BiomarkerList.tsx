@@ -166,7 +166,7 @@ const BiomarkerList: React.FC<Props> = ({ query, onCompare }) => {
       </div>
 
       {results.length === 0 ? (
-        <div className="text-center py-10 px-6">
+        <div role="status" aria-live="polite" className="text-center py-10 px-6">
           <div className="bg-slate-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3">
             <SearchIcon className="text-slate-400 w-7 h-7" />
           </div>
@@ -184,6 +184,8 @@ const BiomarkerList: React.FC<Props> = ({ query, onCompare }) => {
         </div>
       ) : (
         <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Announce result counts to screen readers as the search changes. */}
+          <p className="sr-only" role="status" aria-live="polite">{results.length} biomarkers shown</p>
           {grouped.map(({ key, label, items }) => (
             <div key={key}>
               <div className="inline-flex items-center px-2.5 py-1 rounded-lg border border-violet-200 bg-violet-50 text-violet-700 text-[11px] font-bold uppercase tracking-wide mb-2">

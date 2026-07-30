@@ -156,6 +156,12 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
 
   return (
     <div className="px-4">
+      {/* Announce result counts to screen readers as the search/filter changes. */}
+      <p className="sr-only" role="status" aria-live="polite">
+        {sub === 'approved'
+          ? `${approved.length} approved EU medicines shown`
+          : `${expected.length} expected EU medicines shown`}
+      </p>
       {/* Approved | Expected */}
       <div className="flex bg-slate-100 rounded-xl p-1 mb-3">
         <button className={subTab(sub === 'approved')} onClick={() => setSub('approved')}>

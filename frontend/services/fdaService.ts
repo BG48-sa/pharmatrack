@@ -1,6 +1,4 @@
 import { Drug, DrugDataResponse, Source } from '../types';
-import emaDataRaw from '../ema-medicines.json';
-import cgtDataRaw from '../cgt-products.json';
 
 /**
  * openFDA + EMA data service.
@@ -19,9 +17,10 @@ const DRUGSFDA_API = 'https://api.fda.gov/drug/drugsfda.json';
 const LABEL_API = 'https://api.fda.gov/drug/label.json';
 
 interface EmaRec { d: string; n: string; u: string; b: boolean }
-// ema-medicines.json is now { generated, byInn, authorised, pipeline }; the
-// FDA tabs enrich approvals from the INN index only.
-let emaData = (emaDataRaw as { byInn: Record<string, EmaRec> }).byInn;
+// ema-medicines.json is { generated, byInn, authorised, pipeline }; the FDA
+// tabs enrich approvals from the INN index only. Starts empty; liveData.ts
+// loads the shipped snapshot at startup.
+let emaData: Record<string, EmaRec> = {};
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
 export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec> }): void => {
@@ -33,7 +32,7 @@ export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec> }): void => 
 // class in the label endpoint — so we supply the official FDA approval date and
 // a descriptive class here. Regenerate with scripts/build-cgt-data.py.
 interface CgtRec { d: string; c: string }
-let cgtData = cgtDataRaw as Record<string, CgtRec>;
+let cgtData: Record<string, CgtRec> = {};
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
 export const __setCgtData = (d: Record<string, CgtRec>): void => { cgtData = d; };

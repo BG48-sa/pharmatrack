@@ -46,7 +46,7 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
   }, [onClose]);
 
   return (
-    <div
+    <div role="dialog" aria-modal="true" aria-label="What you can do here"
       className="fixed inset-0 z-[90] flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-0 sm:p-4"
       onClick={onClose}
     >

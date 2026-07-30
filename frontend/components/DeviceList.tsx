@@ -219,7 +219,7 @@ const DeviceList: React.FC<Props> = ({ query }) => {
           <p className="text-slate-500 text-xs mt-1.5">{error}</p>
         </div>
       ) : items.length === 0 ? (
-        <div className="text-center py-10 px-6">
+        <div role="status" aria-live="polite" className="text-center py-10 px-6">
           <p className="text-slate-700 text-sm font-semibold">
             {query ? `No ${sub === 'recalls' ? 'recalls' : sub === 'pma' ? 'PMA approvals' : 'clearances'} match “${query}”.` : 'Nothing in this window.'}
           </p>
@@ -230,6 +230,8 @@ const DeviceList: React.FC<Props> = ({ query }) => {
         </div>
       ) : (
         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Announce result counts to screen readers as the search changes. */}
+          <p className="sr-only" role="status" aria-live="polite">{items.length} device records shown</p>
           {items}
         </div>
       )}

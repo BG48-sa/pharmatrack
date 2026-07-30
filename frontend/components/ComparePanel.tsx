@@ -94,7 +94,7 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, labelCount = 
   }, [onClose]);
 
   return (
-    <div
+    <div role="dialog" aria-modal="true" aria-label="Drug comparison"
       className="fixed inset-0 z-[60] flex items-end justify-center bg-slate-900/40 backdrop-blur-sm sm:items-center p-0 sm:p-4"
       onClick={onClose}
     >

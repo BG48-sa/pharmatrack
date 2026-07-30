@@ -2,19 +2,22 @@
  * Runtime data source.
  *
  * The Europe / Novel / Critical / PDUFA tabs and the EMA-enrichment of the FDA
- * tab are driven by JSON snapshots that are *bundled* into the build. In the
- * native (App Store) app those bundles are frozen until a new build is reviewed
- * and released, so the weekly data refresh never reaches native users.
+ * tab are driven by JSON snapshots that ship WITH the build as static files in
+ * public/data/ (emitted by the `copy-data` build step) — they are no longer
+ * inlined into the JS bundle, which keeps the first script payload small.
  *
- * This module fixes that: at startup it fetches the freshest published copy of
- * each snapshot from the live site and swaps it into the services. If the fetch
- * fails (offline, first launch, site down) the bundled copy is kept, so the app
- * always works. Only DATA (JSON) is fetched here — never code — which keeps it
- * within Apple's App Store guidelines.
+ * Two tiers, applied in order:
+ *   1. primeBundledData() — fetch the local shipped copies (same-origin /data/,
+ *      part of dist/ and of the native app bundle), so the app always has data,
+ *      even offline on first launch.
+ *   2. refreshLiveData() — fetch the freshest published copies from the live
+ *      site and swap them in. In the native (App Store) app the shipped files
+ *      are frozen until a new build is reviewed, so this is what keeps native
+ *      users current. Only DATA (JSON) is fetched here — never code — which
+ *      keeps it within Apple's App Store guidelines.
  *
- * The published copies live at <REMOTE_BASE>/<file>; they are emitted by the
- * `copy-data` build step (package.json) into public/data/ and deployed with the
- * PWA, and refreshed weekly by refresh-data.sh.
+ * The published copies live at <REMOTE_BASE>/<file>, deployed with the PWA and
+ * refreshed weekly by refresh-data.sh.
  */
 import { __setEmaData } from './emaService';
 import { __setNovelData } from './novelApprovals';
@@ -28,7 +31,19 @@ import { storeGet, storeSet } from './storage';
 // Absolute URL so the native app (a different origin) reaches the live data.
 // GitHub Pages serves these with `Access-Control-Allow-Origin: *`.
 const REMOTE_BASE = 'https://bg48-sa.github.io/pharmatrack/data/';
+// Shipped copies: same-origin static files (dist/data/, in the native bundle).
+const LOCAL_BASE = `${import.meta.env.BASE_URL}data/`;
 const TIMEOUT_MS = 5000;
+
+const localJson = async (file: string): Promise<any | null> => {
+  try {
+    const res = await fetch(LOCAL_BASE + file);
+    if (res.ok) return await res.json();
+  } catch {
+    /* shipped snapshot missing — services keep their empty initial state */
+  }
+  return null;
+};
 
 const fetchJson = async (file: string): Promise<any | null> => {
   const url = REMOTE_BASE + file;
@@ -72,30 +87,44 @@ let done = false;
 /** True once a refresh attempt has completed (whether or not anything updated). */
 export const liveDataAttempted = (): boolean => done;
 
+// One entry per snapshot: file name + the setter(s) that apply it.
+const SNAPSHOTS: Array<[string, (d: any) => void]> = [
+  ['ema-medicines.json', (d) => { __setEmaData(d); __setFdaEmaData(d); }],
+  ['novel-approvals.json', __setNovelData],
+  ['critical-medicines.json', __setCriticalData],
+  ['pdufa.json', __setPdufaData],
+  ['cgt-products.json', __setCgtData],
+  ['disease-entities.json', __setDiseaseData],
+  ['biomarkers.json', __setBiomarkerData],
+];
+
+// Fetch all snapshots in parallel via `get` and apply each one that succeeds.
+const applySnapshots = async (get: (file: string) => Promise<any | null>): Promise<number> => {
+  const results = await Promise.all(SNAPSHOTS.map(([file]) => get(file)));
+  let updated = 0;
+  results.forEach((d, i) => { if (d) { SNAPSHOTS[i][1](d); updated++; } });
+  return updated;
+};
+
+let primed: Promise<number> | null = null;
+
 /**
- * Fetch all snapshots in parallel and apply each one that succeeds. Resolves to
- * the number of snapshots that were refreshed (0 = everything fell back to the
- * bundled copy). Never throws.
+ * Load the snapshots shipped with the build (public/data/) into the services.
+ * Single-flight: safe to call from several places; the work runs once. Resolves
+ * to the number of snapshots applied. Never throws.
+ */
+export const primeBundledData = (): Promise<number> => (primed ??= applySnapshots(localJson));
+
+/**
+ * Fetch all snapshots in parallel from the live site and apply each one that
+ * succeeds. Resolves to the number of snapshots that were refreshed (0 =
+ * everything kept the shipped copy). Never throws.
  */
 export const refreshLiveData = async (): Promise<number> => {
-  const [ema, novel, critical, pdufa, cgt, disease, biomarker] = await Promise.all([
-    fetchJson('ema-medicines.json'),
-    fetchJson('novel-approvals.json'),
-    fetchJson('critical-medicines.json'),
-    fetchJson('pdufa.json'),
-    fetchJson('cgt-products.json'),
-    fetchJson('disease-entities.json'),
-    fetchJson('biomarkers.json'),
-  ]);
-
-  let updated = 0;
-  if (ema) { __setEmaData(ema); __setFdaEmaData(ema); updated++; }
-  if (novel) { __setNovelData(novel); updated++; }
-  if (critical) { __setCriticalData(critical); updated++; }
-  if (pdufa) { __setPdufaData(pdufa); updated++; }
-  if (cgt) { __setCgtData(cgt); updated++; }
-  if (disease) { __setDiseaseData(disease); updated++; }
-  if (biomarker) { __setBiomarkerData(biomarker); updated++; }
+  // The shipped copies must be in place first, so a slow local read can never
+  // overwrite a fresher live snapshot afterwards.
+  await primeBundledData();
+  const updated = await applySnapshots(fetchJson);
 
   done = true;
   if (updated > 0) {

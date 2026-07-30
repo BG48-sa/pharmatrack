@@ -16,9 +16,9 @@ const statusColor = (status: string): string => {
 const TrialList: React.FC<TrialListProps> = ({ trials }) => {
   if (trials.length === 0) {
     return (
-      <div className="text-center py-16 px-4">
+      <div role="status" aria-live="polite" className="text-center py-16 px-4">
         <div className="bg-slate-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-          <FlaskConical className="text-slate-400 w-8 h-8" />
+          <FlaskConical aria-hidden="true" className="text-slate-400 w-8 h-8" />
         </div>
         <h3 className="text-lg font-semibold text-slate-700 mb-1">No late-stage trials found</h3>
         <p className="text-slate-500 text-sm">Try a drug name or a disease (e.g. "psoriasis").</p>
@@ -28,6 +28,8 @@ const TrialList: React.FC<TrialListProps> = ({ trials }) => {
 
   return (
     <div className="space-y-4 px-4 pb-6">
+      {/* Announce result counts to screen readers as the search changes. */}
+      <p className="sr-only" role="status" aria-live="polite">{trials.length} trials shown</p>
       {trials.map((t) => (
         <a
           key={t.nctId}
