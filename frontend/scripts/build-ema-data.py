@@ -30,7 +30,7 @@ Usage:
   curl -sL -A "Mozilla/5.0" -o /tmp/ema.xlsx <url-above>
   python3 scripts/build-ema-data.py /tmp/ema.xlsx ema-medicines.json
 """
-import json, sys, datetime
+import html, json, sys, datetime
 import openpyxl
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else "/tmp/ema.xlsx"
@@ -110,12 +110,19 @@ def is_device_combo(name):
     return bool(words) and words[0] in DEVICE_BRANDS
 
 
+def detext(v):
+    # EMA spreadsheet cells carry HTML remnants (&nbsp;, &lt;, &gt;, …). Decode
+    # them and turn the non-breaking spaces they leave behind into plain spaces,
+    # so the app never renders a literal "&nbsp;".
+    return html.unescape(str(v or "")).replace("\xa0", " ")
+
+
 def clean(v):
-    return str(v or "").strip()
+    return detext(v).strip()
 
 
 def trunc(v, n=320):
-    t = " ".join(str(v or "").split())
+    t = " ".join(detext(v).split())
     return (t[:n].rsplit(" ", 1)[0] + "…") if len(t) > n else t
 
 
