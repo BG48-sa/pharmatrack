@@ -4,13 +4,15 @@ Recent drug-approvals tracker. **React + Vite + TypeScript** frontend, **Capacit
 iOS wrapper, plus a Python alerts service. Data from openFDA / EMA sources.
 
 ## Location & layout
-- Canonical source: `~/Downloads/pharmatrack_-recent-drug-approvals` (this folder).
-  Git repo, remote `github.com/BG48-sa/pharmatrack`.
+- Canonical source: `~/Downloads/Wissenschaft & KI/pharmatrack_-recent-drug-approvals`
+  (this folder). Git repo, remote `github.com/BG48-sa/pharmatrack`.
 - The `~/Desktop/Claude BG apps/Pharmatracker` folder is **not source** — it's only an
   alias to the built `PharmaTrack.app`. Don't edit code there.
 - `frontend/` — the Vite app (`App.tsx`, `components/`, `services/`, data JSON like
-  `ema-medicines.json`, `novel-approvals.json`, `pdufa.json`; `capacitor.config.ts`,
-  `ios/` for the Capacitor iOS project).
+  `ema-medicines.json`, `novel-approvals.json`, `pdufa.json`, `announcements.json`
+  (FDA press-release mirror bridging the ~weekly openFDA lag; rebuilt by
+  `scripts/build-announcements.py`, daily via the refresh-data GitHub Action);
+  `capacitor.config.ts`, `ios/` for the Capacitor iOS project).
 - `alerts/` — Python alert poller (`ema_alerts.py`) run via a launchd plist.
 
 ## Running

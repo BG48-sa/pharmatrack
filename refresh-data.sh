@@ -63,11 +63,17 @@ fi
 log "Rebuilding cgt-products.json"
 "$PY" "$SCRIPTS/build-cgt-data.py" "$FE/cgt-products.json"
 
+# --- 3b. FDA announcements: press-release mirror feeds (Google News/Drugs.com)
+log "Rebuilding announcements.json"
+"$PY" "$SCRIPTS/build-announcements.py" "$FE/announcements.json" \
+  || log "WARN: announcements rebuild failed — keeping the existing file"
+
 # --- 4. Deploy only if a data file actually changed --------------------------
 DATA_FILES=(
   "$FE/ema-medicines.json"
   "$FE/novel-approvals.json"
   "$FE/cgt-products.json"
+  "$FE/announcements.json"
 )
 
 # The builders pretty-print, but some committed files are hand-compacted. Revert

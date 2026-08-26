@@ -8,6 +8,7 @@ import { searchTrials, TrialRegion } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
 import PdufaList from './components/PdufaList';
+import { AnnouncementBanner, AnnouncementHint } from './components/AnnouncementList';
 import TrialList from './components/TrialList';
 import NovelList from './components/NovelList';
 import EuropeView from './components/EuropeView';
@@ -666,6 +667,7 @@ export default function App() {
             <ErrorBox message={error} onRetry={isSearchMode ? () => handleDrugSearch(currentQuery) : loadDefaultData} />
           ) : activeData ? (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {!isSearchMode && <AnnouncementBanner />}
               {!isSearchMode && pdufa.length > 0 && <PdufaList entries={pdufa} />}
               <div className="px-4 mb-4">
                 <h2 className="text-xl font-bold text-slate-800">{isSearchMode ? 'Search Results' : 'Recent Approvals'}</h2>
@@ -721,6 +723,9 @@ export default function App() {
                     </div>
                   ))}
                 </div>
+              )}
+              {isSearchMode && activeData.drugs.length === 0 && (
+                <AnnouncementHint query={currentQuery} />
               )}
               <DrugList drugs={activeData.drugs} onSelect={setDetail} />
               {activeData.drugs.length > 0 && <SourceList sources={activeData.sources} />}

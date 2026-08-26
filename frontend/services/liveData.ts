@@ -26,6 +26,7 @@ import { __setPdufaData } from './pdufa';
 import { __setFdaEmaData, __setCgtData } from './fdaService';
 import { __setDiseaseData } from './diseaseEntities';
 import { __setBiomarkerData } from './biomarkers';
+import { __setAnnouncementsData } from './announcements';
 import { storeGet, storeSet } from './storage';
 
 // Absolute URL so the native app (a different origin) reaches the live data.
@@ -96,6 +97,7 @@ const SNAPSHOTS: Array<[string, (d: any) => void]> = [
   ['cgt-products.json', __setCgtData],
   ['disease-entities.json', __setDiseaseData],
   ['biomarkers.json', __setBiomarkerData],
+  ['announcements.json', __setAnnouncementsData],
 ];
 
 // Fetch all snapshots in parallel via `get` and apply each one that succeeds.
@@ -132,7 +134,7 @@ export const refreshLiveData = async (): Promise<number> => {
     storeSet(LAST_REFRESH_KEY, lastRefreshISO);
   }
   if (import.meta.env.DEV) {
-    console.log(`[liveData] refreshed ${updated}/7 snapshots from ${REMOTE_BASE}`);
+    console.log(`[liveData] refreshed ${updated}/${SNAPSHOTS.length} snapshots from ${REMOTE_BASE}`);
   }
   return updated;
 };
