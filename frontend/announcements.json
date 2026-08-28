@@ -1,6 +1,23 @@
 {
-  "generated": "2026-08-27",
+  "generated": "2026-08-28",
   "items": [
+    {
+      "title": "FDA Approves First Oral Drug Indicated to Treat Dermatomyositis in Adults",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxONmpFckoxR3QxX1BFeFZ4TlMzeUJFQURZRTVzSm05ZDRvNlhnZlRwaWRuNmlXY2dVSWVrZDdSbTl0eDZ5M0NGTmpROVFyN3NwamxuVzctS3lKMUZKd1Bvazh0SnpoUGhQcno4S01mdWdhdm1jWE9fYWxiY0d4bjdBTGdzemx6SVVROXJaZzNkZjZUelFZRkxXMm55aU9LVnJ1NXQ3M3Z6dlhSbk0wN1NUekZueUxFbkFqbkNZ?oc=5",
+      "date": "2026-08-27",
+      "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Lisraya (brepocitinib) for the Treatment of Adults with Dermatomyositis",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-lisraya-brepocitinib-adults-dermatomyositis-6867.html",
+      "date": "2026-08-27",
+      "source": "Drugs.com",
+      "names": [
+        "brepocitinib",
+        "lisraya"
+      ]
+    },
     {
       "title": "FDA Approves First in Class Targeted Therapy for Metastatic Pancreatic Cancer",
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOS0Flb3MyNXhDT1RfNGktQ2hSYlFnSGhuTktYWjVlTDF2OHpIOUhSZzlWMmN3SFozajl2c0hndl9lOTgxbHIxRG83M09YdlNfWXpuLTZpYWhjNVpiME5lSWRTRjRybExReG5iVXpyaHlJdnp6YTVISnhzWXRQREpjV0RqZkhTUUlEcWJNbHZFbzROelg0T2hnT1ZhMHJCTXpOMWJPdkJNLUdJckRWZ3NIUlRuZlRKTnU3dl9DZmxGMA?oc=5",
@@ -26,6 +43,13 @@
         "daraxonrasib",
         "rasonque"
       ]
+    },
+    {
+      "title": "U.S. FDA Approves ViiV Healthcare’s Tivicay PD for HIV Treatment in Pediatric Patients Weighing at Least 2 kg",
+      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-viiv-healthcare-s-tivicay-pd-hiv-pediatric-patients-weighing-least-2-kg-6866.html",
+      "date": "2026-08-26",
+      "source": "Drugs.com",
+      "names": []
     },
     {
       "title": "FDA Approves Drug to Treat HIV Infection in Newborns",
@@ -58,6 +82,13 @@
       "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSW9PZ2hocXRwVHhTOFNsUXpWdGtnYkpvZ2R6LS1yTjdMOFg1dkNFdVFiMnprbjd3bHRKTlZlVU93Rlh6cVN5bVl0cFJoWk9mTWxqV0xNeUFKeVF0MDI2WGhKdnBLRmVQMk9PaXI5NWhFdHdUd09hb3BmU1NwMXowcnB6UmNRMDRqekFFWUNablNFMkJpUHlOV3R0Qm9KZEdZeUl0c2hGSlZEQQ?oc=5",
       "date": "2026-08-25",
       "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "BeOne Medicines Announces U.S FDA Approval for Tevimbra-Based Regimen for First-Line HER2+ GEA",
+      "url": "https://www.drugs.com/newdrugs/beone-medicines-announces-u-s-fda-approval-tevimbra-based-regimen-first-line-her2-gea-6864.html",
+      "date": "2026-08-25",
+      "source": "Drugs.com",
       "names": []
     },
     {
@@ -197,43 +228,6 @@
       "date": "2026-08-05",
       "source": "FDA",
       "names": []
-    },
-    {
-      "title": "FDA Approves mFLUSIVA (influenza vaccine, mRNA) for the Prevention of Seasonal Influenza",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-mflusiva-influenza-vaccine-mrna-prevention-seasonal-influenza-6855.html",
-      "date": "2026-08-05",
-      "source": "Drugs.com",
-      "names": [
-        "flusiva"
-      ]
-    },
-    {
-      "title": "FDA Approves Mucinex 12HR Cold & Fever Multi-Symptom (dextromethorphan, guaifenesin and naproxen) for Cold & Flu Symptoms",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-mucinex-12hr-cold-fever-multi-symptom-dextromethorphan-guaifenesin-naproxen-cold-flu-6853.html",
-      "date": "2026-08-05",
-      "source": "Drugs.com",
-      "names": [
-        "multi-symptom"
-      ]
-    },
-    {
-      "title": "FDA Approves Orzeyful (oveporexton) to Treat the Underlying Cause of Narcolepsy Type 1",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-orzeyful-oveporexton-underlying-cause-narcolepsy-type-1-6854.html",
-      "date": "2026-08-05",
-      "source": "Drugs.com",
-      "names": [
-        "orzeyful",
-        "oveporexton"
-      ]
-    },
-    {
-      "title": "FDA approves lutetium Lu 177 vipivotide tetraxetan with androgen recep",
-      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQUXNkcE8xVkVyTnJaOWtwcFJHaFIwOWFsME1SZmFncEp5a1FDMWRXTG5uc042OE9JOXFqNHk1VTk4WU10RGJIbC1HVXptMnVqMGpWQ0QtMmhobnd4bVl2NHplc2djOUQtbHk1MV9PRlhROGxtZ0dmb09YZ0QwcjRxTmRaNjRRb283dGl6aEJQZVlOaVIydUpReXZYR0JHWGdnVDh5T1hNbFR0YTRXUkl1X2NsZW04cDRHRUdwREh6cFNyTVo3STUxRUs4bmNDYUpyckowV2RnM1V5MGFHM1F4Rkk1cHA0a3QwTFBuN3RR?oc=5",
-      "date": "2026-08-03",
-      "source": "FDA",
-      "names": [
-        "vipivotide"
-      ]
     }
   ]
 }
