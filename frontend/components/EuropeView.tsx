@@ -388,7 +388,9 @@ const SmartEmpty: React.FC<{
   ) : q ? (
     <>
       This searches the official EMA catalogue — an empty result usually means no
-      centrally authorised EU medicine carries this indication yet.
+      centrally authorised EU medicine carries this indication yet. Older medicines
+      approved nationally (e.g. by AIFA in Italy or BfArM in Germany) are not in the
+      EMA catalogue — check your national medicines register.
     </>
   ) : null;
 
