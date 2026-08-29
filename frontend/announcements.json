@@ -1,11 +1,70 @@
 {
-  "generated": "2026-08-28",
+  "generated": "2026-08-29",
   "items": [
+    {
+      "title": "FDA Approves First Drug of Its Kind for Polycythemia Vera, a Rare Blood Disorder",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPakFaRU1pWWMwckRRMi1KRXl2MXVXdEQ4OG9jN0N1VEpVNGNRNDJkdTdHd2FzUTNRNEpyVUgwcnRTZUxDM1hjMGVuQ1Z1NEliM1dtMllsMWRQZ0I4Qy1GN0xJekFESG9VNG82a0FlRXFrTF9qb2RZRlBiakFpZFFSMzZja2h4X0g2REhIVkJNbVIzVWZDOGhrRWJaU0RxcWE2Y2MyX1JTb1NBU09yZFdwcXBhbXpqaUh1d25faEdkZw?oc=5",
+      "date": "2026-08-28",
+      "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Stelara for Pediatric Ulcerative Colitis",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQUWZBV0UwZGwwcVEwVFpvSEVxSElrWlY5YlE0TVE1OGN6dm1Md19GcW95WmxhTTV5Y0RTdDZHQTRqbDJHYWpEaWlSdmJNTlU4UVp2VHZ2aUZNeDd0bEFmQ1VRTDhNMVVVMi1ZZUczTThES2dVekktcy1MMU53SDFjMVNXWW5ESi1tT012anh5c25IMGxCTkZIOUx2UVVaUzQy?oc=5",
+      "date": "2026-08-28",
+      "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Mimrylo (rusfertide) for the Treatment of Polycythemia Vera",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-mimrylo-rusfertide-polycythemia-vera-6872.html",
+      "date": "2026-08-28",
+      "source": "Drugs.com",
+      "names": [
+        "mimrylo",
+        "rusfertide"
+      ]
+    },
+    {
+      "title": "FDA Approves Bixlenvo (bictegravir and lenacapavir) for the Treatment of HIV in Adults Who Are Virologically Suppressed",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-bixlenvo-bictegravir-lenacapavir-hiv-adults-virologically-suppressed-6868.html",
+      "date": "2026-08-28",
+      "source": "Drugs.com",
+      "names": [
+        "bictegravir",
+        "bixlenvo",
+        "lenacapavir"
+      ]
+    },
+    {
+      "title": "FDA Approves Lilly's Mounjaro (tirzepatide) to Reduce Cardiovascular Risk in Adults with Type 2 Diabetes",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-lilly-s-mounjaro-tirzepatide-reduce-cardiovascular-risk-adults-type-2-diabetes-6870.html",
+      "date": "2026-08-28",
+      "source": "Drugs.com",
+      "names": [
+        "mounjaro",
+        "tirzepatide"
+      ]
+    },
     {
       "title": "FDA Approves First Oral Drug Indicated to Treat Dermatomyositis in Adults",
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxONmpFckoxR3QxX1BFeFZ4TlMzeUJFQURZRTVzSm05ZDRvNlhnZlRwaWRuNmlXY2dVSWVrZDdSbTl0eDZ5M0NGTmpROVFyN3NwamxuVzctS3lKMUZKd1Bvazh0SnpoUGhQcno4S01mdWdhdm1jWE9fYWxiY0d4bjdBTGdzemx6SVVROXJaZzNkZjZUelFZRkxXMm55aU9LVnJ1NXQ3M3Z6dlhSbk0wN1NUekZueUxFbkFqbkNZ?oc=5",
       "date": "2026-08-27",
       "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "Moderna Receives U.S. FDA Approval for Updated 2026-2027 Spikevax and mNEXSPIKE COVID-19 Vaccines",
+      "url": "https://www.drugs.com/newdrugs/moderna-receives-u-s-fda-approval-updated-2026-2027-spikevax-mnexspike-covid-19-vaccines-6871.html",
+      "date": "2026-08-27",
+      "source": "Drugs.com",
+      "names": []
+    },
+    {
+      "title": "Pfizer and BioNTech Receive U.S. FDA Approval for XFG-Adapted Comirnaty COVID-19 Vaccine",
+      "url": "https://www.drugs.com/newdrugs/pfizer-biontech-receive-u-s-fda-approval-xfg-adapted-comirnaty-covid-19-vaccine-6869.html",
+      "date": "2026-08-27",
+      "source": "Drugs.com",
       "names": []
     },
     {
@@ -160,74 +219,6 @@
         "lerochol",
         "lerodalcibep-liga"
       ]
-    },
-    {
-      "title": "FDA Approves Tauklarify (florquinitau F 18 injection), an F18-Labeled Tau PET Imaging Agent for Alzheimer’s Disease",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-tauklarify-florquinitau-f-18-f18-labeled-tau-pet-imaging-agent-alzheimer-s-6858.html",
-      "date": "2026-08-14",
-      "source": "Drugs.com",
-      "names": [
-        "tauklarify"
-      ]
-    },
-    {
-      "title": "FDA grants accelerated approval to iberdomide with daratumumab and hya",
-      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOWDFObzlwTTV2MTZZcG9NeE80RElBLXlvZVNhRnlOaVpOU2t1YnhwRVZVdWpaS3Z3WE9fbC1yTGJwaWU5QXp3eUZoQk5WSEhjV09hS3BycmdqWEh4RlRuT1kwNUdoSjdnYk9iRE1MQi1WeDJoeWpOOWlRcjNPUUx5d0pZdEtqNTF6M3VDMXluQ0pMV0RLOVNnMzhDR2dWQ0xMRW5Ca2FFOElhb1V3b3VzLXQ1ZWtoYnJHNXNKQ3E2ZzhmVXhHcTFHSGVMbUc5WWpWRVItQWU3WkdIaGdBMFNnNUVfWm5lbkl6cTRIeHAtMA?oc=5",
-      "date": "2026-08-13",
-      "source": "FDA",
-      "names": [
-        "daratumumab"
-      ]
-    },
-    {
-      "title": "FDA Grants Accelerated Approval to Zenbexus (iberdomide) in Combination with Daratumumab and Hyaluronidase-fihj and Dexamethasone for the Treatment of Multiple Myeloma",
-      "url": "https://www.drugs.com/newdrugs/fda-grants-accelerated-approval-zenbexus-iberdomide-combination-daratumumab-hyaluronidase-fihj-6857.html",
-      "date": "2026-08-13",
-      "source": "Drugs.com",
-      "names": [
-        "daratumumab",
-        "iberdomide",
-        "zenbexus"
-      ]
-    },
-    {
-      "title": "FDA Approves New Engineered Viral Immunotherapy for Patients with Treatment-Resistant Advanced Melanoma",
-      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNMkYzY1RMNnY4LXQwUVRIa3B5RTRvN0F1LW0xNUNkejg2QUlDbzZ1cGFTOVRRekdTQ1NrY3VzbzIwSktjbElYSG1TcEtQbE9ScUdXcHhKVXdjdUZMb0o0XzNPalJZb3B5djNFZjVOODl4V3U0RGZSWVl0X2ptbnM2bUFlbUEwOTFqTG5mZHFia1Rmakd5ZmpsM2F3dHR2eEhybHVaRmJkTjJES1NnNkhGMXlTNXVOV28zNzJ0aEpQWmtJTFRQTHZkRmY0Q1Z5VFJWYk1ZZWluTUtlYzBTbjJF?oc=5",
-      "date": "2026-08-06",
-      "source": "FDA",
-      "names": []
-    },
-    {
-      "title": "FDA grants accelerated approval to vusolimogene oderparepvec-wtpg in combination with nivolumab for melanoma",
-      "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNVk93ZXRoM0ctTmhEQUpFTGhJY09IVXNVWE95b2JoWHB5cV9pTkRHY1R5VjN2bVYzWnNLSXF3NVdXZndvZmE3NmVvbFJBWGVNT0ltdWdkdzlwYnZoSG9iRDc4b2poeDBTdmc1TGVZcjh1R2hJcmVTb1NXQVpjeTdMWnJDMGswSFJRb2F2RVZpUHdZRkFjTWlrX0dBRFhMc09pOTJYbEhMSXZKRmlYUUZaOEIwRFVJUThFdlgtdUZLb1d6U3k3MXlZRjQxTzB5Vzh5TjFnNDhpdXpQazlYZjcyZnVRc1RpajNTSzB2Qw?oc=5",
-      "date": "2026-08-06",
-      "source": "FDA",
-      "names": [
-        "nivolumab",
-        "oderparepvec",
-        "oderparepvec-wtpg",
-        "vusolimogene"
-      ]
-    },
-    {
-      "title": "FDA Grants Accelerated Approval to Tudriqev (vusolimogene oderparepvec-wtpg) in Combination with Nivolumab for Unresectable Advanced Cutaneous Melanoma",
-      "url": "https://www.drugs.com/newdrugs/fda-grants-accelerated-approval-tudriqev-vusolimogene-oderparepvec-wtpg-combination-nivolumab-6856.html",
-      "date": "2026-08-06",
-      "source": "Drugs.com",
-      "names": [
-        "nivolumab",
-        "oderparepvec",
-        "oderparepvec-wtpg",
-        "tudriqev",
-        "vusolimogene"
-      ]
-    },
-    {
-      "title": "FDA Approves First Drug to Treat the Full Range of Narcolepsy Type 1 Symptoms",
-      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQVHBHZE1RSUR5eUliN1Vva20ybVEtYkhGM1B6SlJsaHRNWmdwTndvcWlYbW5BU1I3MnVhQzVzRTRITmpDMjdkWEw2cm1Wekxna19kNkRzYWNiNndkYWFJR2w0aFFaOWo4QjJjR3Q4RmFPclRfUndNdWpJRlBuRkhRdHBNTUMyYVBRYks1dU4tcjlwNG1Zbm5FWGZsc3A4UHVDZ1drTXlSWmFONDdlRk03UzVTbWZLVU8tMDVZ?oc=5",
-      "date": "2026-08-05",
-      "source": "FDA",
-      "names": []
     }
   ]
 }
