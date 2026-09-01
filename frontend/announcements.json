@@ -1,12 +1,21 @@
 {
-  "generated": "2026-08-31",
+  "generated": "2026-09-01",
   "items": [
     {
       "title": "FDA Approves Treatment for Essential Thrombocythemia",
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOTGxJbk9YUW9pMDFBR1NvcUlqSW0yLVZoZkpyenA0eEp6ckhHbXR3dU44a1RIMk93cU56QW5BQmFqXzBmb0UtcEVkNjRLRmxaRVdxVldPbUlRNGtlemVBU2w0U2wtVEdhNEJsMTFOUnFYbmpBS1ZselJJOXpiZ19SRHNLX2s3WWVJandFbW9pVFJtTG1qXzctUmJEc0k5UQ?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNcURwakRyQ1NpLXpaeDEtd25vNVlxc3JyVmc5bmJlMGt3ZmlSV19rTXBYV2tFcHdaazFPN0ZuME9mbU94SVZvTFgxdzAwLS1taFJ3WllUaFhTTlRDejlkX0lUWkRveUR4SEFTMFYwTlV3RUdfcjhTelBVeU9mSDBiaVpibUJiOUhaMGhjVFgtTHZCMUZYNEtKODNhcGZsbDA?oc=5",
       "date": "2026-08-31",
       "source": "FDA",
       "names": []
+    },
+    {
+      "title": "FDA Approves PharmaEssentia’s BESREMi (ropeginterferon alfa-2b-njft) for Adults with Essential Thrombocythemia",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-pharmaessentia-s-besremi-ropeginterferon-alfa-2b-njft-adults-essential-thrombocythemia-6874.html",
+      "date": "2026-08-31",
+      "source": "Drugs.com",
+      "names": [
+        "besremi"
+      ]
     },
     {
       "title": "FDA Approves First Drug of Its Kind for Polycythemia Vera, a Rare Blood Disorder",
@@ -125,18 +134,6 @@
       "names": []
     },
     {
-      "title": "FDA approves zanidatamab-hrii and tislelizumab-jsgr for HER2-positive",
-      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQbm5KYzlKSzRvQ1VPbmY1MXNuMEdfMlBZMW5oYS1sS3pJSHhIQi1oZkdVR0hhSVFuUk1nOThiR2NLV0dQb0l3MVVzWXFVeXhEUUhWbUxrRnhoRW1yUVQzeW9tbm56Rjc5bV9VTW5VTmJvVk5ndm00VHAzUFE1WUk1eE5uOUxRWG1aNWlMNldZUUJ3RjBUNlgwSk1ScUFYLWRSZVlPSTBuRlByRk90OFdzQTZ5cUx3cFF3djVxUXBXemR0ZXNSd3ZLMnlLdUlneFNycUpnZ0YtOTdlcWhqMFBZQm9zZncybHc2MGVMMzA0Q0Y0THZp?oc=5",
-      "date": "2026-08-25",
-      "source": "FDA",
-      "names": [
-        "tislelizumab",
-        "tislelizumab-jsgr",
-        "zanidatamab",
-        "zanidatamab-hrii"
-      ]
-    },
-    {
       "title": "FDA Approves Eugenol Sedative for Field Use in Freshwater Finfish",
       "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNNWdLa1pDTlBsaDBCSXlWM0JxS21ROXZrd3hVeFRrbURsRFJYbXZJM0R5cFA3ZkptcVhCeW5Kc2stTEREakhvOWxWSVo4WndwWk9EeUJkNndvZ293OGx6VHlPTW52bm1HS3J5OG5HYzUxVno2SU1QOExaR0J2Q2xrdmNjemVwcjBzYktnZlcwWWU1ZWZNaHRJVENnY3Z2UWVYa19QS0ZWR1VER3ZB?oc=5",
       "date": "2026-08-25",
@@ -149,6 +146,18 @@
       "date": "2026-08-25",
       "source": "FDA",
       "names": []
+    },
+    {
+      "title": "FDA approves zanidatamab-hrii and tislelizumab-jsgr for HER2-positive",
+      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQbm5KYzlKSzRvQ1VPbmY1MXNuMEdfMlBZMW5oYS1sS3pJSHhIQi1oZkdVR0hhSVFuUk1nOThiR2NLV0dQb0l3MVVzWXFVeXhEUUhWbUxrRnhoRW1yUVQzeW9tbm56Rjc5bV9VTW5VTmJvVk5ndm00VHAzUFE1WUk1eE5uOUxRWG1aNWlMNldZUUJ3RjBUNlgwSk1ScUFYLWRSZVlPSTBuRlByRk90OFdzQTZ5cUx3cFF3djVxUXBXemR0ZXNSd3ZLMnlLdUlneFNycUpnZ0YtOTdlcWhqMFBZQm9zZncybHc2MGVMMzA0Q0Y0THZp?oc=5",
+      "date": "2026-08-25",
+      "source": "FDA",
+      "names": [
+        "tislelizumab",
+        "tislelizumab-jsgr",
+        "zanidatamab",
+        "zanidatamab-hrii"
+      ]
     },
     {
       "title": "BeOne Medicines Announces U.S FDA Approval for Tevimbra-Based Regimen for First-Line HER2+ GEA",
@@ -204,17 +213,6 @@
         "brecaparvovec-opnr",
         "genglycos",
         "pariglasgene"
-      ]
-    },
-    {
-      "title": "FDA Approves Pasatru (garetosmab-grts) for the Treatment of Fibrodysplasia Ossificans Progressiva",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-pasatru-garetosmab-grts-fibrodysplasia-ossificans-progressiva-6860.html",
-      "date": "2026-08-19",
-      "source": "Drugs.com",
-      "names": [
-        "garetosmab",
-        "garetosmab-grts",
-        "pasatru"
       ]
     }
   ]
