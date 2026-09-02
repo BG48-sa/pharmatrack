@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-01",
+  "generated": "2026-09-02",
   "items": [
     {
       "title": "FDA Approves Treatment for Essential Thrombocythemia",
@@ -94,13 +94,6 @@
       ]
     },
     {
-      "title": "FDA Approves First in Class Targeted Therapy for Metastatic Pancreatic Cancer",
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOS0Flb3MyNXhDT1RfNGktQ2hSYlFnSGhuTktYWjVlTDF2OHpIOUhSZzlWMmN3SFozajl2c0hndl9lOTgxbHIxRG83M09YdlNfWXpuLTZpYWhjNVpiME5lSWRTRjRybExReG5iVXpyaHlJdnp6YTVISnhzWXRQREpjV0RqZkhTUUlEcWJNbHZFbzROelg0T2hnT1ZhMHJCTXpOMWJPdkJNLUdJckRWZ3NIUlRuZlRKTnU3dl9DZmxGMA?oc=5",
-      "date": "2026-08-26",
-      "source": "FDA",
-      "names": []
-    },
-    {
       "title": "FDA approves daraxonrasib for metastatic pancreatic adenocarcinoma",
       "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOTkxOWVBUSTVNNUpOdDVnTnBvN1JDQVBqN3BlVFFvY012bXdfSTZMZGxyclpOaDctTGRnMVl3SXFVa3l3b0RXV2tmc0NTSndRbUJYSEZNdnFQZmM0SERyalAtZmxLTWtvX0V6clBORWhIVS1PZTBqUG9LYW11ZHJBaTV1aTY1TmkyNURONXVqQ0g1bVNKOFhvd2lmdlpCdS1FV09TSFNWOTNRVzJNN1pfX3hnelg1MENoQzRMZjRZcUhxN3c?oc=5",
       "date": "2026-08-26",
@@ -108,6 +101,13 @@
       "names": [
         "daraxonrasib"
       ]
+    },
+    {
+      "title": "FDA Approves First in Class Targeted Therapy for Metastatic Pancreatic Cancer",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOS0Flb3MyNXhDT1RfNGktQ2hSYlFnSGhuTktYWjVlTDF2OHpIOUhSZzlWMmN3SFozajl2c0hndl9lOTgxbHIxRG83M09YdlNfWXpuLTZpYWhjNVpiME5lSWRTRjRybExReG5iVXpyaHlJdnp6YTVISnhzWXRQREpjV0RqZkhTUUlEcWJNbHZFbzROelg0T2hnT1ZhMHJCTXpOMWJPdkJNLUdJckRWZ3NIUlRuZlRKTnU3dl9DZmxGMA?oc=5",
+      "date": "2026-08-26",
+      "source": "FDA",
+      "names": []
     },
     {
       "title": "FDA Approves Rasonque (daraxonrasib), the First Broad RAS-Targeted Medicine in Metastatic Pancreatic Cancer",
