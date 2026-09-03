@@ -47,6 +47,10 @@
     "d": "2022-12-16",
     "c": "Adenoviral vector gene therapy"
   },
+  "BLA125738": {
+    "d": "2023-04-17",
+    "c": "Expanded allogeneic cord-blood cell therapy"
+  },
   "BLA125774": {
     "d": "2023-05-19",
     "c": "HSV-1 vector gene therapy"
@@ -54,6 +58,10 @@
   "BLA125781": {
     "d": "2023-06-22",
     "c": "AAVrh74 gene therapy (microdystrophin)"
+  },
+  "BLA125734": {
+    "d": "2023-06-28",
+    "c": "Allogeneic pancreatic islet cell therapy"
   },
   "BLA125788": {
     "d": "2023-12-08",
@@ -71,12 +79,40 @@
     "d": "2024-03-18",
     "c": "Lentiviral ex-vivo gene therapy"
   },
+  "BLA125789": {
+    "d": "2024-08-01",
+    "c": "MAGE-A4-directed TCR T-cell therapy"
+  },
   "BLA125813": {
     "d": "2024-11-08",
     "c": "CD19-directed CAR-T cell therapy"
   },
+  "BLA125722": {
+    "d": "2024-11-13",
+    "c": "AAV2 gene therapy (AADC, intraputaminal)"
+  },
+  "BLA125706": {
+    "d": "2024-12-18",
+    "c": "Allogeneic mesenchymal stromal cell (MSC) therapy"
+  },
+  "BLA125798": {
+    "d": "2025-03-05",
+    "c": "Encapsulated cell therapy (CNTF-secreting)"
+  },
+  "BLA125807": {
+    "d": "2025-04-28",
+    "c": "Retroviral COL7A1 gene-corrected keratinocyte sheets"
+  },
+  "BLA125832": {
+    "d": "2025-08-14",
+    "c": "Adenoviral vector immunotherapy (HPV 6/11)"
+  },
   "BLA125846": {
     "d": "2025-12-09",
     "c": "Lentiviral ex-vivo gene therapy (WAS)"
+  },
+  "BLA125868": {
+    "d": "2026-06-30",
+    "c": "Allogeneic Treg-cell-engineered transplant graft therapy"
   }
 }
