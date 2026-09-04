@@ -1,6 +1,23 @@
 {
-  "generated": "2026-09-02",
+  "generated": "2026-09-04",
   "items": [
+    {
+      "title": "FDA Approves First Drug to Treat Alexander Disease",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZjNLeEx4RlpobjdPMnAzdWdGRzVPeGVnOXpNU0IzX2ptYzhUMjg3RjVhcXh3SHZKWm11cXJzQnlTc0hSaHVrbEZrQmJNQVkxald4Q1BkTFZuZ0R4U1o1bTBrTnZ6c3J5NEY0MHRUS1dUMTlXUXVNQTV5b3JnWEUzdkRGaEZpY1ExOENxR2tnVHhrb080Vm1LcVBUemZQSFJO?oc=5",
+      "date": "2026-09-03",
+      "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Zanvastro (zilganersen) to Treat Alexander Disease",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-zanvastro-zilganersen-alexander-6876.html",
+      "date": "2026-09-03",
+      "source": "Drugs.com",
+      "names": [
+        "zanvastro",
+        "zilganersen"
+      ]
+    },
     {
       "title": "FDA Approves Treatment for Essential Thrombocythemia",
       "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNcURwakRyQ1NpLXpaeDEtd25vNVlxc3JyVmc5bmJlMGt3ZmlSV19rTXBYV2tFcHdaazFPN0ZuME9mbU94SVZvTFgxdzAwLS1taFJ3WllUaFhTTlRDejlkX0lUWkRveUR4SEFTMFYwTlV3RUdfcjhTelBVeU9mSDBiaVpibUJiOUhaMGhjVFgtTHZCMUZYNEtKODNhcGZsbDA?oc=5",
@@ -195,25 +212,6 @@
       "date": "2026-08-19",
       "source": "FDA",
       "names": []
-    },
-    {
-      "title": "FDA Approves Second Treatment for Fibrodysplasia Ossificans Progressiva",
-      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNMzJDdHUzcFE0cEt4MDloZ3A3X3VOUnZjZ2pGb09DOVFQcXFpWnhpX2hGTDRsRHpqMW0tYUdSWmtoUnUxak9VaUItcjk4TU1LX0hCblRVQXVrRVNaQ0F1dDAyeTF0eWpVTXN0R08zVjBPcnA3cjV4dzMtMThiaFJRWUkwU2pKOUxta1dtcF9maWVfYmRIOGlQX0RCM3NiUlo4VjRVdWtHdWhScC1odHhaZGNxMGpsYjRQ?oc=5",
-      "date": "2026-08-19",
-      "source": "FDA",
-      "names": []
-    },
-    {
-      "title": "FDA Grants Accelerated Approval for Genglycos (pariglasgene brecaparvovec-opnr) Gene Therapy for the Treatment of Glycogen Storage Disease Type Ia",
-      "url": "https://www.drugs.com/newdrugs/fda-grants-accelerated-approval-genglycos-pariglasgene-brecaparvovec-opnr-gene-therapy-glycogen-6861.html",
-      "date": "2026-08-19",
-      "source": "Drugs.com",
-      "names": [
-        "brecaparvovec",
-        "brecaparvovec-opnr",
-        "genglycos",
-        "pariglasgene"
-      ]
     }
   ]
 }
