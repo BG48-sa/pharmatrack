@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaService';
 import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
 import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
@@ -107,6 +107,15 @@ export default function App() {
   // --- Compare tray: up to two drugs, side-by-side ---
   const [compare, setCompare] = useState<DrugDetailData[]>([]);
   const [compareOpen, setCompareOpen] = useState<boolean>(false);
+  // True while the tray holds a whole class seeded by "Compare all" (disease or
+  // biomarker). Such a tray belongs to the query that produced it, so the next
+  // search clears it; a hand-picked tray survives searches (cross-search compare).
+  const compareAutoRef = useRef<boolean>(false);
+  const clearCompare = () => {
+    compareAutoRef.current = false;
+    setCompare([]);
+    setCompareOpen(false);
+  };
 
   // --- Full-text label comparison (SmPC / USPI) ---
   const [smpcOpen, setSmpcOpen] = useState<boolean>(false);
@@ -193,6 +202,7 @@ export default function App() {
   const inCompare = (d: DrugDetailData) => compare.some((x) => drugKey(x) === drugKey(d));
   const toggleCompare = (d: DrugDetailData) => {
     const k = drugKey(d);
+    compareAutoRef.current = false;
     setCompare((prev) => {
       if (prev.some((x) => drugKey(x) === k)) return prev.filter((x) => drugKey(x) !== k);
       if (prev.length >= MAX_COMPARE) return [...prev.slice(1), d]; // drop the oldest
@@ -247,6 +257,7 @@ export default function App() {
 
   const handleCompareDisease = (e: DiseaseEntity) => {
     const stubs = buildDiseaseComparison(e);
+    compareAutoRef.current = true;
     setCompare(stubs);
     setCompareOpen(true);
     // Progressive: render immediately from the offline stubs, then upgrade with
@@ -263,6 +274,7 @@ export default function App() {
   // Same progressive compare, seeded from a biomarker's EU-authorised drugs.
   const handleCompareBiomarker = (m: Biomarker) => {
     const stubs = buildBiomarkerComparison(m);
+    compareAutoRef.current = true;
     setCompare(stubs);
     setCompareOpen(true);
     enrichDiseaseFda(stubs).then((enriched) =>
@@ -273,6 +285,13 @@ export default function App() {
       ),
     );
   };
+
+  // A new search (or clearing the box) drops a "Compare all" tray: the 15
+  // myeloma drugs must not linger under an unrelated query like "carvicor".
+  useEffect(() => {
+    if (compareAutoRef.current) clearCompare();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [europeQuery, biomarkerQuery]);
 
   // iPad / wide-screen: show the detail in a persistent right pane instead of a
   // modal. 800px matches the `pad:` Tailwind breakpoint (iPad portrait = 820pt).
@@ -894,6 +913,14 @@ export default function App() {
                 Compare
               </button>
             )}
+            <button
+              onClick={clearCompare}
+              className="shrink-0 p-2 rounded-xl text-slate-400 hover:text-red-500 active:bg-slate-100 transition-colors"
+              aria-label="Clear comparison"
+              title="Clear comparison"
+            >
+              <X size={16} />
+            </button>
           </div>
         </div>
       )}
