@@ -1,0 +1,963 @@
+{
+  "generated": "2026-07-13",
+  "biomarkers": [
+    {
+      "id": "egfr-activating",
+      "name": "EGFR activating mutation",
+      "gene": "EGFR",
+      "alt": "exon 19 deletion / L858R",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "desc": "Activating mutations in the EGFR tyrosine-kinase domain — usually exon 19 deletions or the exon 21 L858R substitution — drive constitutive growth signalling in about 10–15% of Western (and up to ~40% of East-Asian) NSCLC adenocarcinomas. They predict sensitivity to EGFR tyrosine-kinase inhibitors; osimertinib is the preferred first-line option.",
+      "ref": "https://www.oncokb.org/gene/EGFR",
+      "syn": [
+        "egfr",
+        "egfr mutation",
+        "exon 19 deletion",
+        "l858r",
+        "egfr activating"
+      ],
+      "assays": [
+        "cobas EGFR Mutation Test v2",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Tagrisso",
+          "g": "osimertinib",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Giotrif",
+          "g": "afatinib",
+          "co": "Boehringer Ingelheim"
+        },
+        {
+          "b": "Iressa",
+          "g": "gefitinib",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Tarceva",
+          "g": "erlotinib",
+          "co": "Roche"
+        },
+        {
+          "b": "Vizimpro",
+          "g": "dacomitinib",
+          "co": "Pfizer"
+        }
+      ]
+    },
+    {
+      "id": "egfr-t790m",
+      "name": "EGFR T790M resistance mutation",
+      "gene": "EGFR",
+      "alt": "T790M",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "NSCLC — resistance to earlier EGFR TKI",
+      "desc": "The EGFR T790M ‘gatekeeper’ substitution is the commonest mechanism of acquired resistance to first- and second-generation EGFR TKIs, arising in about half of patients who progress. It stays sensitive to the third-generation TKI osimertinib, so it is tested (ideally on ctDNA) at progression.",
+      "ref": "https://www.oncokb.org/gene/EGFR",
+      "syn": [
+        "t790m",
+        "egfr t790m",
+        "egfr resistance"
+      ],
+      "assays": [
+        "cobas EGFR Mutation Test v2"
+      ],
+      "drugs": [
+        {
+          "b": "Tagrisso",
+          "g": "osimertinib",
+          "co": "AstraZeneca"
+        }
+      ]
+    },
+    {
+      "id": "egfr-exon20",
+      "name": "EGFR exon 20 insertion",
+      "gene": "EGFR",
+      "alt": "exon 20 insertion",
+      "type": "mutation",
+      "method": "NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "desc": "In-frame insertions in EGFR exon 20 are a distinct subgroup (~2–3% of EGFR-mutant NSCLC) that are largely insensitive to classic EGFR TKIs. They require dedicated agents such as amivantamab.",
+      "ref": "https://www.oncokb.org/gene/EGFR",
+      "syn": [
+        "exon 20",
+        "egfr exon 20",
+        "exon 20 insertion"
+      ],
+      "assays": [
+        "Guardant360 CDx",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Rybrevant",
+          "g": "amivantamab",
+          "co": "Janssen"
+        }
+      ]
+    },
+    {
+      "id": "alk",
+      "name": "ALK rearrangement",
+      "gene": "ALK",
+      "alt": "gene fusion / rearrangement",
+      "type": "fusion",
+      "method": "IHC / FISH / NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "desc": "Rearrangements fusing ALK to a partner gene (commonly EML4) produce a constitutively active kinase in ~3–5% of NSCLC, typically in younger, never/light smokers. They confer marked sensitivity to ALK inhibitors such as alectinib, brigatinib, and lorlatinib.",
+      "ref": "https://www.oncokb.org/gene/ALK",
+      "syn": [
+        "alk",
+        "alk positive",
+        "alk rearrangement",
+        "alk fusion"
+      ],
+      "assays": [
+        "VENTANA ALK (D5F3) CDx",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Alecensa",
+          "g": "alectinib",
+          "co": "Roche"
+        },
+        {
+          "b": "Alunbrig",
+          "g": "brigatinib",
+          "co": "Takeda"
+        },
+        {
+          "b": "Lorviqua",
+          "g": "lorlatinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Xalkori",
+          "g": "crizotinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Zykadia",
+          "g": "ceritinib",
+          "co": "Novartis"
+        }
+      ]
+    },
+    {
+      "id": "ros1",
+      "name": "ROS1 rearrangement",
+      "gene": "ROS1",
+      "alt": "gene fusion / rearrangement",
+      "type": "fusion",
+      "method": "FISH / NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "desc": "ROS1 gene fusions occur in ~1–2% of NSCLC and define a targetable oncogenic driver that overlaps clinically with ALK-positive disease. Tumours respond to ROS1-active TKIs such as crizotinib and entrectinib.",
+      "ref": "https://www.oncokb.org/gene/ROS1",
+      "syn": [
+        "ros1",
+        "ros1 positive",
+        "ros1 fusion",
+        "ros1 rearrangement"
+      ],
+      "assays": [
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Rozlytrek",
+          "g": "entrectinib",
+          "co": "Roche"
+        },
+        {
+          "b": "Xalkori",
+          "g": "crizotinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Augtyro",
+          "g": "repotrectinib",
+          "co": "Bristol Myers Squibb"
+        }
+      ]
+    },
+    {
+      "id": "braf-v600",
+      "name": "BRAF V600 mutation",
+      "gene": "BRAF",
+      "alt": "V600E / V600K",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "Melanoma, NSCLC, colorectal, anaplastic thyroid",
+      "desc": "The BRAF V600E/K substitution constitutively activates MAPK signalling across melanoma, NSCLC, colorectal, and anaplastic thyroid cancer. It predicts benefit from combined BRAF + MEK inhibition (in colorectal cancer, together with an anti-EGFR antibody).",
+      "ref": "https://www.oncokb.org/gene/BRAF",
+      "syn": [
+        "braf",
+        "braf v600",
+        "v600e",
+        "v600k",
+        "braf mutation"
+      ],
+      "assays": [
+        "cobas BRAF V600 Mutation Test",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Tafinlar",
+          "g": "dabrafenib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Mekinist",
+          "g": "trametinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Braftovi",
+          "g": "encorafenib",
+          "co": "Pierre Fabre"
+        },
+        {
+          "b": "Mektovi",
+          "g": "binimetinib",
+          "co": "Pierre Fabre"
+        },
+        {
+          "b": "Zelboraf",
+          "g": "vemurafenib",
+          "co": "Roche"
+        },
+        {
+          "b": "Cotellic",
+          "g": "cobimetinib",
+          "co": "Roche"
+        }
+      ]
+    },
+    {
+      "id": "kras-g12c",
+      "name": "KRAS G12C mutation",
+      "gene": "KRAS",
+      "alt": "G12C",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "NSCLC, colorectal",
+      "desc": "KRAS was long considered ‘undruggable’; the G12C variant — ~13% of lung adenocarcinoma and ~3% of colorectal cancer — creates a covalent-binding pocket now exploited by selective inhibitors (sotorasib, adagrasib) after prior therapy.",
+      "ref": "https://www.oncokb.org/gene/KRAS",
+      "syn": [
+        "kras",
+        "kras g12c",
+        "g12c",
+        "kras mutation"
+      ],
+      "assays": [
+        "therascreen KRAS RGQ",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Lumykras",
+          "g": "sotorasib",
+          "co": "Amgen"
+        },
+        {
+          "b": "Krazati",
+          "g": "adagrasib",
+          "co": "Bristol Myers Squibb"
+        }
+      ]
+    },
+    {
+      "id": "her2-amplified",
+      "name": "HER2 (ERBB2) overexpression / amplification",
+      "gene": "ERBB2 (HER2)",
+      "alt": "IHC 3+ or ISH amplified",
+      "type": "expression",
+      "method": "IHC / ISH",
+      "group": "solid",
+      "context": "Breast, gastric / GEJ",
+      "desc": "ERBB2 (HER2) amplification/overexpression (IHC 3+ or ISH-amplified) drives ~15–20% of breast and a subset of gastric/GEJ cancers, and predicts benefit from HER2-directed antibodies, TKIs, and antibody–drug conjugates.",
+      "ref": "https://www.oncokb.org/gene/ERBB2",
+      "syn": [
+        "her2",
+        "her2 positive",
+        "erbb2",
+        "her2 amplified",
+        "her2 overexpression"
+      ],
+      "assays": [
+        "HercepTest",
+        "PATHWAY anti-HER2 (4B5)",
+        "PathVysion HER-2 DNA"
+      ],
+      "drugs": [
+        {
+          "b": "Herceptin",
+          "g": "trastuzumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Perjeta",
+          "g": "pertuzumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Kadcyla",
+          "g": "trastuzumab emtansine",
+          "co": "Roche"
+        },
+        {
+          "b": "Enhertu",
+          "g": "trastuzumab deruxtecan",
+          "co": "AstraZeneca / Daiichi Sankyo"
+        },
+        {
+          "b": "Tyverb",
+          "g": "lapatinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Tukysa",
+          "g": "tucatinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Nerlynx",
+          "g": "neratinib",
+          "co": "Pierre Fabre"
+        }
+      ]
+    },
+    {
+      "id": "her2-low",
+      "name": "HER2-low expression",
+      "gene": "ERBB2 (HER2)",
+      "alt": "IHC 1+ or IHC 2+/ISH-negative",
+      "type": "expression",
+      "method": "IHC",
+      "group": "solid",
+      "context": "Breast cancer",
+      "desc": "HER2-low (IHC 1+, or 2+ with a negative ISH) is not classic HER2-positive disease, but identifies breast tumours that still respond to the antibody–drug conjugate trastuzumab deruxtecan — redefining a population previously called ‘HER2-negative’.",
+      "ref": "https://www.oncokb.org/gene/ERBB2",
+      "syn": [
+        "her2 low",
+        "her2-low",
+        "her2 ihc 1+"
+      ],
+      "assays": [
+        "VENTANA HER2 (4B5)"
+      ],
+      "drugs": [
+        {
+          "b": "Enhertu",
+          "g": "trastuzumab deruxtecan",
+          "co": "AstraZeneca / Daiichi Sankyo"
+        }
+      ]
+    },
+    {
+      "id": "pd-l1",
+      "name": "PD-L1 expression",
+      "gene": "CD274 (PD-L1)",
+      "alt": "TPS / CPS by IHC",
+      "type": "expression",
+      "method": "IHC",
+      "group": "solid",
+      "context": "NSCLC, urothelial, breast, head & neck, others",
+      "desc": "PD-L1 immunohistochemistry (reported as TPS, CPS, or IC depending on tumour and assay) estimates the likelihood of benefit from PD-1/PD-L1 checkpoint inhibitors. Thresholds are drug- and indication-specific, so the scoring algorithm matters as much as the percentage.",
+      "ref": "https://www.oncokb.org/gene/CD274",
+      "syn": [
+        "pd-l1",
+        "pdl1",
+        "pd l1",
+        "pd-l1 expression",
+        "tps",
+        "cps"
+      ],
+      "assays": [
+        "PD-L1 IHC 22C3 pharmDx",
+        "VENTANA PD-L1 (SP263)",
+        "VENTANA PD-L1 (SP142)"
+      ],
+      "drugs": [
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Tecentriq",
+          "g": "atezolizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Opdivo",
+          "g": "nivolumab",
+          "co": "Bristol Myers Squibb"
+        },
+        {
+          "b": "Imfinzi",
+          "g": "durvalumab",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Libtayo",
+          "g": "cemiplimab",
+          "co": "Regeneron / Sanofi"
+        }
+      ]
+    },
+    {
+      "id": "msi-dmmr",
+      "name": "MSI-H / mismatch-repair deficiency",
+      "gene": "MLH1 / MSH2 / MSH6 / PMS2",
+      "alt": "microsatellite instability-high / dMMR",
+      "type": "signature",
+      "method": "IHC (MMR) / PCR / NGS",
+      "group": "solid",
+      "context": "Tumour-agnostic (CRC, endometrial, others)",
+      "desc": "High microsatellite instability / mismatch-repair deficiency reflects loss of MLH1, MSH2, MSH6, or PMS2 and a hypermutated, highly immunogenic tumour. It is a tumour-agnostic predictor of checkpoint-inhibitor response and, in early colorectal/endometrial cancer, also carries prognostic and Lynch-syndrome implications.",
+      "ref": "https://pubmed.ncbi.nlm.nih.gov/?term=MSI-H+mismatch+repair+deficiency+immunotherapy",
+      "syn": [
+        "msi",
+        "msi-h",
+        "msi high",
+        "dmmr",
+        "mismatch repair",
+        "microsatellite instability"
+      ],
+      "assays": [
+        "IHC (MMR proteins)",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Jemperli",
+          "g": "dostarlimab",
+          "co": "GSK"
+        },
+        {
+          "b": "Opdivo",
+          "g": "nivolumab",
+          "co": "Bristol Myers Squibb"
+        }
+      ]
+    },
+    {
+      "id": "ntrk",
+      "name": "NTRK gene fusion",
+      "gene": "NTRK1 / NTRK2 / NTRK3",
+      "alt": "gene fusion",
+      "type": "fusion",
+      "method": "IHC (screen) / NGS",
+      "group": "solid",
+      "context": "Tumour-agnostic (solid tumours)",
+      "desc": "Fusions involving NTRK1/2/3 are rare but tumour-agnostic oncogenic drivers found across many solid tumours. They confer high response rates to the TRK inhibitors larotrectinib and entrectinib.",
+      "ref": "https://www.oncokb.org/gene/NTRK1",
+      "syn": [
+        "ntrk",
+        "trk",
+        "ntrk fusion",
+        "trk fusion"
+      ],
+      "assays": [
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Vitrakvi",
+          "g": "larotrectinib",
+          "co": "Bayer"
+        },
+        {
+          "b": "Rozlytrek",
+          "g": "entrectinib",
+          "co": "Roche"
+        }
+      ]
+    },
+    {
+      "id": "ret",
+      "name": "RET fusion / mutation",
+      "gene": "RET",
+      "alt": "fusion (NSCLC) / mutation (MTC)",
+      "type": "fusion",
+      "method": "NGS / FISH",
+      "group": "solid",
+      "context": "NSCLC, medullary & other thyroid cancer",
+      "desc": "Activating RET fusions (lung, papillary thyroid) or point mutations (medullary thyroid) drive tumour growth and are targeted by the selective RET inhibitors selpercatinib and pralsetinib, which are more effective and better tolerated than older multikinase drugs.",
+      "ref": "https://www.oncokb.org/gene/RET",
+      "syn": [
+        "ret",
+        "ret fusion",
+        "ret mutation",
+        "ret positive"
+      ],
+      "assays": [
+        "FoundationOne CDx",
+        "Oncomine Dx Target Test"
+      ],
+      "drugs": [
+        {
+          "b": "Retsevmo",
+          "g": "selpercatinib",
+          "co": "Eli Lilly"
+        }
+      ]
+    },
+    {
+      "id": "met-ex14",
+      "name": "MET exon 14 skipping",
+      "gene": "MET",
+      "alt": "exon 14 skipping alteration",
+      "type": "mutation",
+      "method": "RNA-based NGS",
+      "group": "solid",
+      "context": "Non-small cell lung cancer",
+      "desc": "Mutations that cause skipping of MET exon 14 stabilise the MET receptor and occur in ~3–4% of NSCLC, often in older patients. They predict response to MET inhibitors such as capmatinib and tepotinib.",
+      "ref": "https://www.oncokb.org/gene/MET",
+      "syn": [
+        "met",
+        "met exon 14",
+        "metex14",
+        "met skipping"
+      ],
+      "assays": [
+        "FoundationOne CDx",
+        "Guardant360 CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Tabrecta",
+          "g": "capmatinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Tepmetko",
+          "g": "tepotinib",
+          "co": "Merck KGaA"
+        }
+      ]
+    },
+    {
+      "id": "brca",
+      "name": "BRCA1 / BRCA2 mutation",
+      "gene": "BRCA1 / BRCA2",
+      "alt": "germline or somatic pathogenic variant",
+      "type": "mutation",
+      "method": "NGS (germline & somatic)",
+      "group": "solid",
+      "context": "Ovarian, breast, prostate, pancreatic",
+      "desc": "Germline or somatic loss-of-function mutations in BRCA1/BRCA2 impair homologous-recombination DNA repair, raising cancer risk (ovarian, breast, prostate, pancreatic) and creating synthetic-lethal sensitivity to PARP inhibitors. A germline finding also carries major familial and screening implications.",
+      "ref": "https://www.oncokb.org/gene/BRCA1",
+      "syn": [
+        "brca",
+        "brca1",
+        "brca2",
+        "brca mutation",
+        "brca positive"
+      ],
+      "assays": [
+        "BRACAnalysis CDx",
+        "FoundationOne CDx",
+        "FoundationFocus CDxBRCA"
+      ],
+      "drugs": [
+        {
+          "b": "Lynparza",
+          "g": "olaparib",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Zejula",
+          "g": "niraparib",
+          "co": "GSK"
+        },
+        {
+          "b": "Rubraca",
+          "g": "rucaparib",
+          "co": "pharma& / Clovis"
+        },
+        {
+          "b": "Talzenna",
+          "g": "talazoparib",
+          "co": "Pfizer"
+        }
+      ]
+    },
+    {
+      "id": "hrd",
+      "name": "Homologous recombination deficiency (HRD)",
+      "gene": "HRD signature (incl. BRCA)",
+      "alt": "genomic instability / LOH",
+      "type": "signature",
+      "method": "NGS (genomic instability)",
+      "group": "solid",
+      "context": "Ovarian cancer (maintenance)",
+      "desc": "Homologous-recombination deficiency captures BRCA-mutant plus ‘BRCA-like’ tumours with impaired DNA repair, measured by genomic-scar / LOH scores. HRD-positive ovarian cancer derives the greatest maintenance benefit from PARP inhibitors.",
+      "ref": "https://pubmed.ncbi.nlm.nih.gov/?term=homologous+recombination+deficiency+PARP+inhibitor+ovarian",
+      "syn": [
+        "hrd",
+        "homologous recombination",
+        "genomic instability",
+        "hrd positive"
+      ],
+      "assays": [
+        "Myriad myChoice CDx",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Lynparza",
+          "g": "olaparib",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Zejula",
+          "g": "niraparib",
+          "co": "GSK"
+        }
+      ]
+    },
+    {
+      "id": "fgfr",
+      "name": "FGFR2 / FGFR3 alteration",
+      "gene": "FGFR2 / FGFR3",
+      "alt": "fusion or activating mutation",
+      "type": "fusion",
+      "method": "NGS",
+      "group": "solid",
+      "context": "Cholangiocarcinoma (FGFR2), urothelial carcinoma (FGFR3)",
+      "desc": "FGFR2 fusions in cholangiocarcinoma and FGFR3 mutations/fusions in urothelial carcinoma activate fibroblast-growth-factor-receptor signalling and predict response to FGFR inhibitors such as pemigatinib and erdafitinib.",
+      "ref": "https://www.oncokb.org/gene/FGFR2",
+      "syn": [
+        "fgfr",
+        "fgfr2",
+        "fgfr3",
+        "fgfr fusion",
+        "fgfr alteration"
+      ],
+      "assays": [
+        "therascreen FGFR RGQ",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Pemazyre",
+          "g": "pemigatinib",
+          "co": "Incyte"
+        },
+        {
+          "b": "Lytgobi",
+          "g": "futibatinib",
+          "co": "Taiho"
+        },
+        {
+          "b": "Balversa",
+          "g": "erdafitinib",
+          "co": "Janssen"
+        }
+      ]
+    },
+    {
+      "id": "pik3ca",
+      "name": "PIK3CA mutation",
+      "gene": "PIK3CA",
+      "alt": "activating mutation",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "solid",
+      "context": "HR+/HER2- breast cancer",
+      "desc": "Activating PIK3CA mutations occur in ~40% of HR+/HER2- breast cancers and switch on the PI3K/AKT pathway. They identify patients who benefit from the α-selective PI3K inhibitor alpelisib added to endocrine therapy.",
+      "ref": "https://www.oncokb.org/gene/PIK3CA",
+      "syn": [
+        "pik3ca",
+        "pik3ca mutation",
+        "pi3k"
+      ],
+      "assays": [
+        "therascreen PIK3CA RGQ"
+      ],
+      "drugs": [
+        {
+          "b": "Piqray",
+          "g": "alpelisib",
+          "co": "Novartis"
+        }
+      ]
+    },
+    {
+      "id": "esr1",
+      "name": "ESR1 mutation",
+      "gene": "ESR1",
+      "alt": "activating mutation",
+      "type": "mutation",
+      "method": "NGS (ctDNA)",
+      "group": "solid",
+      "context": "HR+/HER2- breast cancer (after endocrine therapy)",
+      "desc": "ESR1 mutations are acquired under aromatase-inhibitor pressure and cause ligand-independent oestrogen-receptor activation — a common driver of endocrine resistance in metastatic HR+ breast cancer. Detected on ctDNA, they select for the oral SERD elacestrant.",
+      "ref": "https://www.oncokb.org/gene/ESR1",
+      "syn": [
+        "esr1",
+        "esr1 mutation",
+        "estrogen receptor mutation"
+      ],
+      "assays": [
+        "Guardant360 CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Orserdu",
+          "g": "elacestrant",
+          "co": "Menarini / Stemline"
+        }
+      ]
+    },
+    {
+      "id": "kit-pdgfra",
+      "name": "KIT / PDGFRA mutation",
+      "gene": "KIT / PDGFRA",
+      "alt": "activating mutation",
+      "type": "mutation",
+      "method": "NGS / Sanger",
+      "group": "solid",
+      "context": "Gastrointestinal stromal tumour (GIST)",
+      "desc": "Mutually exclusive activating mutations in KIT or PDGFRA drive most gastrointestinal stromal tumours; the specific exon determines TKI sensitivity (e.g. imatinib response versus the PDGFRA D842V-directed avapritinib).",
+      "ref": "https://www.oncokb.org/gene/KIT",
+      "syn": [
+        "kit",
+        "cd117",
+        "pdgfra",
+        "gist mutation"
+      ],
+      "assays": [
+        "NGS / Sanger sequencing"
+      ],
+      "drugs": [
+        {
+          "b": "Glivec",
+          "g": "imatinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Ayvakyt",
+          "g": "avapritinib",
+          "co": "Blueprint / CStone"
+        }
+      ]
+    },
+    {
+      "id": "tmb-high",
+      "name": "Tumour mutational burden — high",
+      "gene": "TMB signature",
+      "alt": "≥10 mut/Mb",
+      "type": "signature",
+      "method": "NGS",
+      "group": "solid",
+      "context": "Tumour-agnostic (solid tumours)",
+      "desc": "A high tumour mutational burden (commonly ≥10 mutations/Mb) generates more neoantigens and, tumour-agnostically, predicts greater benefit from PD-1 blockade. Values depend on the assay and panel, so cut-offs are not directly interchangeable.",
+      "ref": "https://pubmed.ncbi.nlm.nih.gov/?term=tumor+mutational+burden+high+pembrolizumab",
+      "syn": [
+        "tmb",
+        "tmb-h",
+        "tumour mutational burden",
+        "tumor mutational burden",
+        "tmb high"
+      ],
+      "assays": [
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        }
+      ]
+    },
+    {
+      "id": "idh1",
+      "name": "IDH1 mutation",
+      "gene": "IDH1",
+      "alt": "R132 mutation",
+      "type": "mutation",
+      "method": "PCR / NGS",
+      "group": "heme",
+      "context": "AML, cholangiocarcinoma",
+      "desc": "Neomorphic IDH1 mutations produce the oncometabolite 2-hydroxyglutarate, reprogramming epigenetics in AML and cholangiocarcinoma. They are targeted by IDH1 inhibitors such as ivosidenib.",
+      "ref": "https://www.oncokb.org/gene/IDH1",
+      "syn": [
+        "idh1",
+        "idh1 mutation",
+        "idh"
+      ],
+      "assays": [
+        "Abbott RealTime IDH1",
+        "FoundationOne CDx"
+      ],
+      "drugs": [
+        {
+          "b": "Tibsovo",
+          "g": "ivosidenib",
+          "co": "Servier"
+        }
+      ]
+    },
+    {
+      "id": "flt3",
+      "name": "FLT3 mutation",
+      "gene": "FLT3",
+      "alt": "ITD or TKD mutation",
+      "type": "mutation",
+      "method": "PCR (fragment analysis)",
+      "group": "heme",
+      "context": "Acute myeloid leukaemia",
+      "desc": "FLT3 internal-tandem-duplication (ITD) and tyrosine-kinase-domain mutations are among the commonest drivers in AML and, for ITD, carry an adverse prognosis. They predict benefit from adding FLT3 inhibitors (midostaurin, gilteritinib) to therapy.",
+      "ref": "https://www.oncokb.org/gene/FLT3",
+      "syn": [
+        "flt3",
+        "flt3 itd",
+        "flt3 tkd",
+        "flt3 mutation"
+      ],
+      "assays": [
+        "LeukoStrat CDx FLT3 Mutation Assay"
+      ],
+      "drugs": [
+        {
+          "b": "Rydapt",
+          "g": "midostaurin",
+          "co": "Novartis"
+        },
+        {
+          "b": "Xospata",
+          "g": "gilteritinib",
+          "co": "Astellas"
+        },
+        {
+          "b": "Vanflyta",
+          "g": "quizartinib",
+          "co": "Daiichi Sankyo"
+        }
+      ]
+    },
+    {
+      "id": "cftr",
+      "name": "CFTR mutation (genotype-directed)",
+      "gene": "CFTR",
+      "alt": "F508del and other responsive mutations",
+      "type": "mutation",
+      "method": "CFTR genotyping",
+      "group": "nononc",
+      "context": "Cystic fibrosis",
+      "desc": "Cystic fibrosis is caused by CFTR mutations, and modulator therapy is genotype-directed: the specific variants (e.g. F508del, gating mutations) determine which corrector/potentiator combination is indicated and reimbursed.",
+      "ref": "https://cftr2.org/",
+      "syn": [
+        "cftr",
+        "f508del",
+        "cystic fibrosis mutation",
+        "cftr mutation"
+      ],
+      "assays": [
+        "CFTR genotyping panel"
+      ],
+      "drugs": [
+        {
+          "b": "Kaftrio",
+          "g": "elexacaftor / tezacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Kalydeco",
+          "g": "ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Symkevi",
+          "g": "tezacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Orkambi",
+          "g": "lumacaftor / ivacaftor",
+          "co": "Vertex"
+        }
+      ]
+    },
+    {
+      "id": "hla-b5701",
+      "name": "HLA-B*57:01 (safety screen)",
+      "gene": "HLA-B*57:01",
+      "alt": "allele present → do not use abacavir",
+      "type": "hla",
+      "method": "HLA genotyping (required before use)",
+      "group": "nononc",
+      "context": "HIV — abacavir hypersensitivity screening",
+      "desc": "Carriage of the HLA-B*57:01 allele strongly predicts abacavir hypersensitivity. Screening before prescribing is mandatory, and when positive abacavir must be avoided — a pharmacogenomic safety test, not an efficacy marker.",
+      "ref": "https://pubmed.ncbi.nlm.nih.gov/?term=HLA-B*5701+abacavir+hypersensitivity+screening",
+      "syn": [
+        "hla-b*57:01",
+        "hla b5701",
+        "abacavir hypersensitivity",
+        "hla b 5701"
+      ],
+      "assays": [
+        "HLA-B*57:01 genotyping"
+      ],
+      "drugs": [
+        {
+          "b": "Ziagen",
+          "g": "abacavir",
+          "co": "ViiV Healthcare"
+        }
+      ]
+    },
+    {
+      "id": "g6pd",
+      "name": "G6PD deficiency (safety screen)",
+      "gene": "G6PD",
+      "alt": "deficiency → haemolysis risk",
+      "type": "enzyme",
+      "method": "Enzyme activity assay (required before use)",
+      "group": "nononc",
+      "context": "Screen before rasburicase, dapsone, others",
+      "desc": "Glucose-6-phosphate-dehydrogenase deficiency predisposes to oxidative haemolysis. Screening is advised before drugs that impose oxidative stress (rasburicase, dapsone, primaquine), which are contraindicated or used with caution in deficient patients.",
+      "ref": "https://pubmed.ncbi.nlm.nih.gov/?term=G6PD+deficiency+rasburicase+dapsone+haemolysis",
+      "syn": [
+        "g6pd",
+        "g6pd deficiency",
+        "glucose-6-phosphate dehydrogenase"
+      ],
+      "assays": [
+        "G6PD enzyme activity assay"
+      ],
+      "drugs": [
+        {
+          "b": "Fasturtec",
+          "g": "rasburicase",
+          "co": "Sanofi"
+        }
+      ]
+    }
+  ]
+}
