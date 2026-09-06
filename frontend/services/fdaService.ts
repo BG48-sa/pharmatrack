@@ -31,7 +31,10 @@ export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec> }): void => 
 // products are absent from Drugs@FDA, which carries no approval date or pharm
 // class in the label endpoint — so we supply the official FDA approval date and
 // a descriptive class here. Regenerate with scripts/build-cgt-data.py.
-interface CgtRec { d: string; c: string }
+// n/g/m/i (brand, generic, manufacturer, indication) let the US tab list a
+// product even when openFDA carries no label record for it yet (new approvals,
+// cord-blood units, withdrawn products such as Roctavian or Beqvez).
+interface CgtRec { d: string; c: string; n?: string; g?: string; m?: string; i?: string }
 let cgtData: Record<string, CgtRec> = {};
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
@@ -44,6 +47,10 @@ const OPENFDA_SOURCE: Source = {
 const EMA_SOURCE: Source = {
   title: 'European Medicines Agency — medicine data (EPAR)',
   uri: 'https://www.ema.europa.eu/en/medicines/download-medicine-data',
+};
+const CBER_SOURCE: Source = {
+  title: 'FDA CBER — Approved Cellular and Gene Therapy Products',
+  uri: 'https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/approved-cellular-and-gene-therapy-products',
 };
 const LABEL_SOURCE: Source = {
   title: 'FDA Structured Product Labeling (openFDA drug labels)',
@@ -240,10 +247,11 @@ const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)
   }
 };
 
-const buildSources = (drugs: Drug[], usedLabelApi = false): Source[] => {
+const buildSources = (drugs: Drug[], usedLabelApi = false, usedCber = false): Source[] => {
   if (!drugs.length) return [];
   const sources = [OPENFDA_SOURCE];
   if (usedLabelApi) sources.push(LABEL_SOURCE);
+  if (usedCber) sources.push(CBER_SOURCE);
   if (drugs.some((d) => d.emaApprovalDate && d.emaApprovalDate !== 'Not in EMA')) {
     sources.push(EMA_SOURCE);
   }
@@ -389,6 +397,55 @@ export const fetchRecentDrugApprovals = async (): Promise<DrugDataResponse> => {
   }
 };
 
+// --- CBER snapshot search -----------------------------------------------------
+// The curated cell & gene therapy list (cgt-products.json) is searched directly,
+// so a product surfaces even when neither Drugs@FDA nor the label endpoint has
+// a record for it. Matches brand, generic, manufacturer, class and indication.
+const norm = (t: string): string =>
+  t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+const cgtToDrug = (bla: string, r: CgtRec, id: number): Drug => {
+  const ema = lookupEma([r.g]);
+  return {
+    id,
+    brandName: r.n || bla,
+    genericName: r.g || '—',
+    indication: r.i || '',
+    drugClass: r.c,
+    company: r.m || '—',
+    fdaApprovalDate: r.d,
+    emaApprovalDate: ema ? ema.d : 'Not in EMA',
+    emaUrl: ema?.u || undefined,
+  };
+};
+
+const searchCgtSnapshot = (query: string): Drug[] => {
+  const q = norm(query.trim());
+  if (q.length < 3) return [];
+  const terms = q.split(/\s+/).filter(Boolean);
+  const hits = Object.entries(cgtData)
+    .filter(([bla, r]) => {
+      if (!r.n) return false; // legacy snapshot without names
+      const hay = norm(`${r.n} ${r.g || ''} ${r.m || ''} ${r.c} ${r.i || ''} ${bla}`);
+      return terms.every((t) => hay.includes(t));
+    })
+    .sort((a, b) => b[1].d.localeCompare(a[1].d)); // newest approval first
+  return hits.map(([bla, r], i) => cgtToDrug(bla, r, i + 1));
+};
+
+// Append snapshot products that the API results don't already contain
+// (same brand or same generic name), renumbering ids so keys stay unique.
+const mergeCgt = (drugs: Drug[], query: string): { drugs: Drug[]; added: boolean } => {
+  const extra = searchCgtSnapshot(query);
+  if (!extra.length) return { drugs, added: false };
+  const seen = new Set<string>();
+  drugs.forEach((d) => { seen.add(norm(d.brandName)); seen.add(norm(d.genericName)); });
+  const fresh = extra.filter((d) => !seen.has(norm(d.brandName)) && !seen.has(norm(d.genericName)));
+  if (!fresh.length) return { drugs, added: false };
+  const merged = [...drugs, ...fresh].map((d, i) => ({ ...d, id: i + 1 }));
+  return { drugs: merged, added: true };
+};
+
 const is351kQuery = (q: string): boolean =>
   /351\s*\(?k\)?|biosimilar/i.test(q);
 
@@ -420,15 +477,22 @@ export const searchDrugDatabase = async (query: string): Promise<DrugDataRespons
       const orClause = fields.map((f) => `${f}:"${q}"`).join(' ');
       search = `(${orClause}) AND submissions.submission_status:AP`;
     }
+    const special = is351kQuery(q) || isGenericQuery(q);
     const drugs = await requestDrugs(search, 'submissions.submission_status_date:desc');
-    if (drugs.length > 0) return { drugs, sources: buildSources(drugs) };
+    if (drugs.length > 0) {
+      if (special) return { drugs, sources: buildSources(drugs) };
+      const m = mergeCgt(drugs, q);
+      return { drugs: m.drugs, sources: buildSources(m.drugs, false, m.added) };
+    }
 
     // Drugs@FDA covers CDER products; CBER cell & gene therapies and some other
     // biologics (Casgevy, CAR-T, etc.) only appear in the SPL label endpoint.
-    // Fall back to it so these still surface in search.
-    if (!is351kQuery(q) && !isGenericQuery(q)) {
+    // Fall back to it, then top up from the curated CBER snapshot so products
+    // without any openFDA record still surface.
+    if (!special) {
       const labelDrugs = await searchLabels(q);
-      return { drugs: labelDrugs, sources: buildSources(labelDrugs, true) };
+      const m = mergeCgt(labelDrugs, q);
+      return { drugs: m.drugs, sources: buildSources(m.drugs, labelDrugs.length > 0, m.added) };
     }
     return { drugs, sources: buildSources(drugs) };
   } catch (error) {
