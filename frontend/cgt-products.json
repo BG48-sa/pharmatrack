@@ -1,4 +1,24 @@
 {
+  "BLA125197": {
+    "d": "2010-04-29",
+    "c": "Autologous cellular immunotherapy (prostate cancer)"
+  },
+  "BLA125348": {
+    "d": "2011-06-21",
+    "c": "Autologous cultured fibroblast therapy"
+  },
+  "BLA125400": {
+    "d": "2012-03-09",
+    "c": "Allogeneic cellularized scaffold (keratinocytes/fibroblasts)"
+  },
+  "BLA125518": {
+    "d": "2015-10-27",
+    "c": "Oncolytic HSV-1 gene therapy"
+  },
+  "BLA125603": {
+    "d": "2016-12-13",
+    "c": "Autologous cultured chondrocyte implant"
+  },
   "BLA125646": {
     "d": "2017-08-30",
     "c": "CD19-directed CAR-T cell therapy"
@@ -26,6 +46,14 @@
   "BLA125736": {
     "d": "2021-03-26",
     "c": "BCMA-directed CAR-T cell therapy"
+  },
+  "BLA125730": {
+    "d": "2021-06-15",
+    "c": "Allogeneic cultured skin substitute (keratinocytes/fibroblasts)"
+  },
+  "BLA125685": {
+    "d": "2021-10-08",
+    "c": "Allogeneic processed thymus tissue"
   },
   "BLA125746": {
     "d": "2022-02-28",
@@ -63,13 +91,17 @@
     "d": "2023-06-28",
     "c": "Allogeneic pancreatic islet cell therapy"
   },
-  "BLA125788": {
-    "d": "2023-12-08",
-    "c": "Lentiviral ex-vivo gene therapy"
+  "BLA125720": {
+    "d": "2023-06-29",
+    "c": "AAV5 gene therapy (Factor VIII)"
   },
   "BLA125787": {
     "d": "2023-12-08",
     "c": "CRISPR/Cas9 gene-edited cell therapy"
+  },
+  "BLA125788": {
+    "d": "2023-12-08",
+    "c": "Lentiviral ex-vivo gene therapy"
   },
   "BLA125773": {
     "d": "2024-02-16",
@@ -78,6 +110,10 @@
   "BLA125758": {
     "d": "2024-03-18",
     "c": "Lentiviral ex-vivo gene therapy"
+  },
+  "BLA125786": {
+    "d": "2024-04-25",
+    "c": "AAVRh74var gene therapy (Factor IX)"
   },
   "BLA125789": {
     "d": "2024-08-01",
@@ -95,6 +131,10 @@
     "d": "2024-12-18",
     "c": "Allogeneic mesenchymal stromal cell (MSC) therapy"
   },
+  "BLA125812": {
+    "d": "2024-12-19",
+    "c": "Acellular tissue-engineered vessel"
+  },
   "BLA125798": {
     "d": "2025-03-05",
     "c": "Encapsulated cell therapy (CNTF-secreting)"
@@ -107,12 +147,32 @@
     "d": "2025-08-14",
     "c": "Adenoviral vector immunotherapy (HPV 6/11)"
   },
+  "BLA125856": {
+    "d": "2025-11-24",
+    "c": "AAV9 gene therapy (SMN1, intrathecal)"
+  },
   "BLA125846": {
     "d": "2025-12-09",
     "c": "Lentiviral ex-vivo gene therapy (WAS)"
   },
+  "BLA125806": {
+    "d": "2026-03-26",
+    "c": "Lentiviral ex-vivo gene therapy (ITGB2 / LAD-I)"
+  },
+  "BLA125874": {
+    "d": "2026-04-23",
+    "c": "AAV gene therapy (OTOF, intracochlear)"
+  },
   "BLA125868": {
     "d": "2026-06-30",
     "c": "Allogeneic Treg-cell-engineered transplant graft therapy"
+  },
+  "BLA125827": {
+    "d": "2026-08-06",
+    "c": "Oncolytic HSV-1 gene therapy (melanoma)"
+  },
+  "BLA125858": {
+    "d": "2026-08-19",
+    "c": "AAV8 gene therapy (G6PC, GSDIa)"
   }
 }
