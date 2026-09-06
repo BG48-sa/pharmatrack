@@ -135,9 +135,14 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
   // US columns whose label belongs to a different product (same active substance).
   const substituteUs = (docs || []).map((d, i) => (d && cols[i].source === 'us' && d.match === 'substance' ? d : null));
   const anySubstitute = substituteUs.some(Boolean);
+  // The EU name of the medicine in column i: from the EU document of the same
+  // slug if one is shown, else a readable form of the slug (US docs carry the US brand).
   const euBrandFor = (i: number): string => {
+    const eu = docs?.find((d, j) => d && cols[j].slug === cols[i].slug && cols[j].source === 'eu');
+    if (eu?.brand) return eu.brand;
     const d = docs?.[i];
-    return d?.brand && d.brand !== d.usBrand ? d.brand : cols[i].slug;
+    if (d?.brand && d.brand !== d.usBrand) return d.brand;
+    return cols[i].slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
   };
   // Hide rows with no content in ANY present column's jurisdiction.
   const rows = ROWS.filter((r) => cols.some((c) => r.keys[c.source]));
