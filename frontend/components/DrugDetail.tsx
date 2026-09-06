@@ -137,6 +137,9 @@ export const DrugDetailContent: React.FC<{
             EU status
           </p>
           <p className="text-lg font-bold text-amber-900 leading-none">{data.statusNote.replace(/ (\d{4}-\d{2}-\d{2})$/, (_, d) => ' · ' + formatPretty(d))}</p>
+          {!/\d{4}-\d{2}-\d{2}$/.test(data.statusNote) && (
+            <p className="text-[11px] text-amber-800 mt-1">EMA records no date for this event.</p>
+          )}
           <p className="text-[11px] text-amber-800 mt-1.5 leading-snug">
             This medicine is not currently authorised in the EU. Status and date as
             recorded in the EMA medicine data{data.emaApprovalDate && /^\d/.test(data.emaApprovalDate) ? `; originally authorised ${formatPretty(data.emaApprovalDate)}` : ''}.

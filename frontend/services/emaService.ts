@@ -173,7 +173,7 @@ export const goneToDetail = (m: EmaGoneItem): DrugDetailData => ({
   therapeuticArea: m.area || undefined,
   emaFlags: flagsOf(m),
   opinionDate: m.op,
-  statusNote: `${m.st}${m.e ? ' ' + m.e : ''}`,
+  statusNote: `${m.st}${m.e ? (m.ex ? ' (last EC decision) ' : ' ') + m.e : ''}`,
 });
 
 /** Map a pending-opinion medicine into the shared DrugDetail sheet shape. */

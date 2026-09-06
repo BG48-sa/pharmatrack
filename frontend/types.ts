@@ -85,7 +85,8 @@ export interface EmaGoneItem extends EmaFlags {
   url: string;
   holder: string;
   st: string;        // EMA "Medicine status" (Withdrawn, Refused, Expired, …)
-  e: string;         // date of that event (YYYY-MM-DD), best available
+  e: string;         // date of that event (YYYY-MM-DD); '' when EMA records none
+  ex?: boolean;      // e is the latest EC decision date, not an explicit withdrawal date
   d?: string;        // original marketing-authorisation date, if it ever had one
   op?: string;       // CHMP opinion date, if recorded
 }

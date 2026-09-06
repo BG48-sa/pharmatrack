@@ -221,11 +221,29 @@ for i, row in enumerate(rows):
             ev = fmt_date(row[C_SUSPENDED_DATE]) or fmt_date(row[C_MA_ENDED_DATE])
         else:
             ev = fmt_date(row[C_MA_ENDED_DATE])
-        ev = ev or op_date or ma_date or ""
-        item = {**base, "st": status, "e": ev}
+        # EMA sometimes leaves the withdrawal column empty (e.g. Zalmoxis,
+        # Skysona). The latest European Commission decision date is then the
+        # best available signal for when the MA ended — but only if it is not
+        # before the authorisation itself. Never fall back to the CHMP opinion
+        # date: that always precedes the MA and would read as nonsense.
+        approx = False
+        # Guard against a recorded end date that precedes the authorisation
+        # (data-entry slips in the EMA table, e.g. Xevudy): treat as missing.
+        if ev and ma_date and ev < ma_date:
+            ev = ""
+        if not ev:
+            ec = fmt_date(row[C_EC_DATE])
+            if ec and (not ma_date or ec >= ma_date):
+                ev, approx = ec, True
+        item = {**base, "st": status, "e": ev or ""}
+        if approx:
+            item["ex"] = True
         # A refused application never had an MA; EMA sometimes stores the
         # refusal decision date in the MA-date column, so don't show it as one.
-        if ma_date and status != "Refused":
+        # A refused or withdrawn application never had an MA; EMA sometimes
+        # stores other decision dates in the MA-date column for these rows, so
+        # don't present them as an authorisation.
+        if ma_date and status not in ("Refused", "Application withdrawn", "Withdrawn from rolling review"):
             item["d"] = ma_date
         if op_date:
             item["op"] = op_date
@@ -233,7 +251,7 @@ for i, row in enumerate(rows):
 
 authorised.sort(key=lambda r: r["d"], reverse=True)
 pipeline.sort(key=lambda r: r["op"], reverse=True)
-gone.sort(key=lambda r: r["e"], reverse=True)
+gone.sort(key=lambda r: r["e"] or "", reverse=True)
 
 out = {
     "generated": generated,

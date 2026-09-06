@@ -157,8 +157,8 @@ const WithdrawnCard: React.FC<{ m: EmaGoneItem; onClick: () => void }> = ({ m, o
         <p className="text-sm text-slate-500 font-medium mt-0.5 truncate">{m.inn || m.sub}</p>
       </div>
       <div className="text-right shrink-0">
-        <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{/refused/i.test(m.st) ? 'Refused' : /application|rolling/i.test(m.st) ? 'Withdrawn by applicant' : 'MA ended'}</div>
-        <div className="text-sm font-bold text-slate-700 leading-none mt-0.5">{fmt(m.e)}</div>
+        <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{/refused/i.test(m.st) ? 'Refused' : /application|rolling/i.test(m.st) ? 'Withdrawn by applicant' : m.ex ? 'Last EC decision' : 'MA ended'}</div>
+        <div className="text-sm font-bold text-slate-700 leading-none mt-0.5">{m.e ? fmt(m.e) : 'date not recorded'}</div>
         {m.d && <div className="text-[11px] text-slate-400 font-semibold mt-1">authorised {fmt(m.d)}</div>}
       </div>
     </div>
@@ -184,6 +184,18 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
   const expected = useMemo(() => pipeline(query, filter), [query, filter]);
   const gone = useMemo(() => withdrawn(query, filter), [query, filter]);
   const goneUnfiltered = useMemo(() => withdrawn(query, 'all'), [query]);
+  // The query IS the name of a withdrawn/expired/refused product (e.g. "MACI"),
+  // while the approved list still has fuzzy hits (macitentan…). Say so on top,
+  // otherwise the real answer hides behind unrelated matches.
+  const eq = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+  const exactGone = useMemo(
+    () => goneUnfiltered.filter((m) => eq(m.n, query) || eq(m.n.replace(/\s*\(.*\)\s*$/, ''), query)),
+    [goneUnfiltered, query]
+  );
+  const exactLive = useMemo(
+    () => approved.some((m) => eq(m.n, query)) || expected.some((m) => eq(m.n, query)),
+    [approved, expected, query]
+  );
   // Cross-checks used to turn an empty result into guidance instead of a dead-end.
   const approvedUnfiltered = useMemo(() => recentApprovals(query, 'all'), [query]);
   const expectedUnfiltered = useMemo(() => pipeline(query, 'all'), [query]);
@@ -334,6 +346,16 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             />
           ) : (
             <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {sub === 'approved' && !exactLive && exactGone.length > 0 && (
+                <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3">
+                  <p className="text-[12px] text-amber-900 font-semibold mb-2 flex items-center gap-1.5">
+                    <Ban size={13} /> “{q}” is not currently authorised in the EU — it is listed under Withdrawn. Below are other medicines matching “{q}”.
+                  </p>
+                  {exactGone.slice(0, 2).map((m) => (
+                    <WithdrawnCard key={`x-${m.n}-${m.e}`} m={m} onClick={() => onSelect(goneToDetail(m))} />
+                  ))}
+                </div>
+              )}
               {approved.map((m) => (
                 <ApprovedCard
                   key={`${m.n}-${m.d}`}
@@ -482,8 +504,9 @@ const SmartEmpty: React.FC<{
   ) : goneHit ? (
     goneArr.length === 1 ? (
       <>
-        <strong>{g0.n}</strong>{g0.inn ? ` (${g0.inn})` : ''}: EU status{' '}
-        <strong>{g0.st.toLowerCase()}</strong>{g0.e ? ` on ${fmt(g0.e)}` : ''}
+        <strong>{g0.n}</strong>{g0.inn ? ` (${g0.inn.length > 60 ? g0.inn.slice(0, 57) + '…' : g0.inn})` : ''}: EU status{' '}
+        <strong>{g0.st.toLowerCase()}</strong>
+        {g0.e ? (g0.ex ? ` (last EC decision ${fmt(g0.e)})` : ` on ${fmt(g0.e)}`) : ' (EMA records no date)'}
         {g0.d ? `, originally authorised ${fmt(g0.d)}` : ''}. It is listed under Withdrawn.
       </>
     ) : (
