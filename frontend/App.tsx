@@ -180,6 +180,12 @@ export default function App() {
     // single substance ("ponatinib hydrochloride") may fall back to its first word.
     return innToSlug[gn] || (/\b(hydrochloride|mesylate|mesilate|sodium|potassium|acetate|sulfate|citrate|maleate|tartrate|phosphate|succinate|fumarate|besylate|hydrobromide)\b/.test(gn) ? innToSlug[gn.split(/[\s,]/)[0]] : '') || '';
   };
+  // Button text for the EU/US comparison: says so when the US column will be a
+  // different product of the same substance (used by both the modal and the side panel).
+  const euUsButtonLabelFor = (d: DrugDetailData): string | undefined => {
+    const m = euUsAvailable(d) ? usMatchFor(labelSlug(d)) : null;
+    return m && m.match === 'substance' ? `Compare with US label of ${m.brand} (same substance)` : undefined;
+  };
   // What the US column of the EU/US comparison will show for this medicine.
   const usMatchFor = (slug: string): { brand: string; match: 'brand' | 'substance' } | null => {
     const info = uspiIndex[slug] as { brand?: string; match?: 'brand' | 'substance' } | undefined;
@@ -877,6 +883,7 @@ export default function App() {
                     onToggleCompare={toggleCompare}
                     inCompare={inCompare(detail)}
                     onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(labelSlug(detail)) : undefined}
+                    euUsButtonLabel={euUsButtonLabelFor(detail)}
                   />
                 </div>
               ) : (
@@ -991,10 +998,7 @@ export default function App() {
           onToggleCompare={toggleCompare}
           inCompare={inCompare(detail)}
           onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(labelSlug(detail)) : undefined}
-          euUsButtonLabel={(() => {
-            const m = euUsAvailable(detail) ? usMatchFor(labelSlug(detail)) : null;
-            return m && m.match === 'substance' ? `Compare with US label of ${m.brand} (same substance)` : undefined;
-          })()}
+          euUsButtonLabel={euUsButtonLabelFor(detail)}
         />
       )}
 
