@@ -8,6 +8,8 @@ import {
 } from '../services/savedSearches';
 
 interface SearchBarProps {
+  /** The query the parent currently applies for this tab, so the box matches the results after a tab switch. */
+  value?: string;
   onSearch: (val: string) => void;
   onClear: () => void;
   isLoading: boolean;
@@ -77,8 +79,8 @@ const CHIPS: Record<SearchBarProps['mode'], Chip[]> = {
   ],
 };
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onClear, isLoading, mode }) => {
-  const [localValue, setLocalValue] = useState('');
+const SearchBar: React.FC<SearchBarProps> = ({ value, onSearch, onClear, isLoading, mode }) => {
+  const [localValue, setLocalValue] = useState(value ?? '');
   const [saved, setSaved] = useState<SavedSearch[]>([]);
 
   useEffect(() => {

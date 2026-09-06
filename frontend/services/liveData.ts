@@ -46,6 +46,10 @@ const localJson = async (file: string): Promise<any | null> => {
   return null;
 };
 
+// Number of snapshots that came from the network (not the HTTP cache) in the
+// current refresh — only those may move the 'last refresh' timestamp.
+let freshHits = 0;
+
 const fetchJson = async (file: string): Promise<any | null> => {
   const url = REMOTE_BASE + file;
   // 1) Network first, but with a revalidating cache mode ('no-cache') so the
@@ -55,7 +59,7 @@ const fetchJson = async (file: string): Promise<any | null> => {
     const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
     const res = await fetch(url, { signal: ctrl.signal, cache: 'no-cache' });
     clearTimeout(timer);
-    if (res.ok) return await res.json();
+    if (res.ok) { const j = await res.json(); freshHits++; return j; }
   } catch {
     /* offline / blocked / timeout -> try the cached copy below */
   }
@@ -126,10 +130,12 @@ export const refreshLiveData = async (): Promise<number> => {
   // The shipped copies must be in place first, so a slow local read can never
   // overwrite a fresher live snapshot afterwards.
   await primeBundledData();
+  freshHits = 0;
   const updated = await applySnapshots(fetchJson);
 
   done = true;
-  if (updated > 0) {
+  // A force-cache fallback (offline) must not pose as a fresh sync.
+  if (updated > 0 && freshHits > 0) {
     lastRefreshISO = new Date().toISOString();
     storeSet(LAST_REFRESH_KEY, lastRefreshISO);
   }

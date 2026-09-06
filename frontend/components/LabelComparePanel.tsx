@@ -12,7 +12,13 @@ import { X, FileText, ExternalLink, ChevronDown, Loader2 } from 'lucide-react';
 type Src = 'eu' | 'us';
 export interface LabelColumn { slug: string; source: Src }
 interface SectionData { title?: string; text?: string; tables?: string[]; missing?: boolean }
-interface LabelDoc { slug: string; brand: string; inn: string; usBrand?: string; url?: string; dailymed?: string; sections: Record<string, SectionData> }
+interface LabelDoc {
+  slug: string; brand: string; inn: string; usBrand?: string; url?: string; dailymed?: string; sections: Record<string, SectionData>;
+  // US labels only: which product openFDA supplied. 'brand' = the same product
+  // name exists in the US; 'substance' = a different US product with the same
+  // active substance (originator or another brand) — never presented as the same medicine.
+  usGeneric?: string; usRoute?: string; match?: 'brand' | 'substance';
+}
 
 interface Props {
   columns: LabelColumn[];
@@ -77,10 +83,15 @@ const renderText = (raw: string): React.ReactNode[] => {
   });
 };
 
-const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded: boolean }> = ({ section, absent, expanded }) => {
+const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded: boolean; sectionKey?: string | null }> = ({ section, absent, expanded, sectionKey }) => {
   if (absent) return <p className="text-[11px] italic text-slate-300">Not a section of this label.</p>;
   if (!section || section.missing || (!section.text && !section.tables?.length)) {
-    return <p className="text-[12px] italic text-slate-400">Not stated in this label.</p>;
+    // An empty extract is NOT evidence that the official label lacks the
+    // section — say what we know. Only the boxed warning is a genuine absence
+    // (most US labels have none).
+    return sectionKey === 'boxed_warning'
+      ? <p className="text-[12px] italic text-slate-400">No boxed warning in this US label.</p>
+      : <p className="text-[12px] italic text-slate-400">Section not available in this extract — open the official label via the source link below.</p>;
   }
   return (
     <div className="relative min-w-0" style={expanded ? undefined : { maxHeight: COLLAPSED_PX, overflow: 'hidden' }}>
@@ -121,6 +132,13 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
   const bothLoaded = docs && docs.every(Boolean);
   const sameMolecule = cols.length === 2 && cols[0].slug === cols[1].slug;
   const crossJurisdiction = sameMolecule && cols[0].source !== cols[1].source;
+  // US columns whose label belongs to a different product (same active substance).
+  const substituteUs = (docs || []).map((d, i) => (d && cols[i].source === 'us' && d.match === 'substance' ? d : null));
+  const anySubstitute = substituteUs.some(Boolean);
+  const euBrandFor = (i: number): string => {
+    const d = docs?.[i];
+    return d?.brand && d.brand !== d.usBrand ? d.brand : cols[i].slug;
+  };
   // Hide rows with no content in ANY present column's jurisdiction.
   const rows = ROWS.filter((r) => cols.some((c) => r.keys[c.source]));
   // With more than two columns (a whole drug class), give each a readable min
@@ -139,7 +157,13 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
             <div className="p-2.5 bg-sky-50 rounded-xl text-sky-600 shrink-0"><FileText size={22} /></div>
             <div>
               <h2 className="text-xl font-bold text-slate-900 leading-tight">{crossJurisdiction ? 'EU vs US label' : 'Label comparison'}</h2>
-              <p className="text-sm text-slate-500 mt-0.5">{crossJurisdiction ? 'Same medicine — EU SmPC vs US Prescribing Information' : 'Full label sections, side by side'}</p>
+              <p className="text-sm text-slate-500 mt-0.5">
+                {crossJurisdiction
+                  ? anySubstitute
+                    ? 'Same active substance, different US product — EU SmPC vs US Prescribing Information'
+                    : 'Same product — EU SmPC vs US Prescribing Information'
+                  : 'Key label sections, side by side'}
+              </p>
               {corpusDates && (corpusDates.eu || corpusDates.us) && (
                 <p className="text-[11px] text-slate-400 mt-0.5">
                   Label text extracted{' '}
@@ -159,6 +183,18 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
           {docs && !bothLoaded && (
             <p className="text-sm text-slate-500 py-10 text-center leading-relaxed">The full label isn’t available for one of these medicines yet. Coverage is being extended — please try again later.</p>
           )}
+          {bothLoaded && anySubstitute && (
+            <div className="mb-3 rounded-xl bg-amber-50 border border-amber-200 p-3 text-[12px] text-amber-900 leading-snug">
+              <p className="font-bold mb-1">The US column is a different product</p>
+              {substituteUs.map((d, i) => d && (
+                <p key={i}>
+                  No US label named <strong>{euBrandFor(i)}</strong> was found. Shown instead: <strong>{d.usBrand}</strong>
+                  {d.usGeneric ? ` (${d.usGeneric.toLowerCase()}${d.usRoute ? `, ${d.usRoute.toLowerCase()}` : ''})` : ''}, a US product with the same active substance.
+                  Strengths, formulation and approved indications can differ — read it as a reference for the substance, not as this medicine's US label.
+                </p>
+              ))}
+            </div>
+          )}
           {bothLoaded && (
             <>
               <div className="overflow-x-auto -mx-1 px-1">
@@ -168,6 +204,9 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                 {docs!.map((d, i) => (
                   <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 min-w-0">
                     <div className="font-bold text-slate-900 text-sm leading-tight truncate">{cols[i].source === 'us' ? (d!.usBrand || d!.brand) : d!.brand}</div>
+                    {cols[i].source === 'us' && d!.match === 'substance' && (
+                      <div className="text-[10px] font-bold text-amber-700 uppercase tracking-wide">different product · same substance</div>
+                    )}
                     <div className="text-[11px] text-slate-500 font-medium truncate">{d!.inn}</div>
                     <div className="mt-1.5 inline-flex rounded-md border border-slate-200 overflow-hidden">
                       {(['eu', 'us'] as Src[]).map((s) => {
@@ -199,12 +238,12 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                     {row.note && <div className="text-[10px] text-slate-400 mt-0.5">{row.note}</div>}
                     <button onClick={() => setExpanded((e) => ({ ...e, [row.label]: !e[row.label] }))} className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-sky-600 active:text-sky-800">
                       <ChevronDown size={13} className={`transition-transform ${expanded[row.label] ? 'rotate-180' : ''}`} />
-                      {expanded[row.label] ? 'Collapse' : 'Show full'}
+                      {expanded[row.label] ? 'Collapse' : 'Expand'}
                     </button>
                   </div>
                   {docs!.map((d, i) => {
                     const key = row.keys[cols[i].source];
-                    return <SectionCell key={i} absent={key === null} section={key ? d!.sections[key] : undefined} expanded={!!expanded[row.label]} />;
+                    return <SectionCell key={i} absent={key === null} sectionKey={key} section={key ? d!.sections[key] : undefined} expanded={!!expanded[row.label]} />;
                   })}
                 </div>
               ))}

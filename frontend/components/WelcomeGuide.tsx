@@ -123,13 +123,14 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
           <Section
             icon={<GitCompare size={18} />}
             tint="bg-sky-50 text-sky-600"
-            title="Compare drugs — down to the full label"
+            title="Compare drugs — down to the label sections"
           >
             Add two medicines to the compare tray for a side-by-side overview, or open the
-            <strong> full-text label comparison</strong>: EU SmPC and US Prescribing Information,
-            section by section (indications, posology, warnings, adverse reactions…). For the same
-            molecule you can flip a column between the EU and US label — US-only sections like the
-            Boxed Warning are called out.
+            <strong> label-section comparison</strong>: EU SmPC and US Prescribing Information,
+            section by section (indications, posology, warnings, adverse reactions…). A column can
+            flip between the EU and US label; when no US product of the same name exists, the app
+            says so and shows the US label of the same active substance instead. US-only sections
+            like the Boxed Warning are called out.
           </Section>
 
           <Section
@@ -140,9 +141,10 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             In the <strong>US</strong> tab, type a disease <em>or</em> a molecular target —{' '}
             <em>EGFR, PD-1, CD20, PARP, BTK</em> — to pull up the whole drug class side by side.
             The <strong>Biomarkers</strong> tab is a Europe-centered index of actionable
-            biomarkers and <strong>companion diagnostics</strong>: each entry shows the EU
-            validated test (per the SmPC, under the IVD Regulation) and the EU-authorised
-            medicines its result unlocks — ready to compare down to the full label. Search it by
+            biomarkers and <strong>companion diagnostics</strong>: each entry shows the test
+            method the SmPC requires (a validated test under the IVD Regulation), example
+            CE-marked assays for illustration, and the EU-authorised medicines whose indication
+            depends on that result — ready to compare down to the label sections. Search it by
             biomarker, gene, alteration, or drug name.
           </Section>
 
@@ -180,8 +182,9 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             tint="bg-slate-100 text-slate-600"
             title="Works offline"
           >
-            The full catalogue and label library are stored on the device — search, browse, and
-            compare complete labels with no connection, even in airplane mode.
+            The EU catalogue and the key label sections are stored on the device — search,
+            browse and compare them with no connection, even in airplane mode. Live US searches,
+            clinical trials and device data need a connection.
           </Section>
 
           <Section

@@ -18,6 +18,8 @@ interface DrugDetailProps {
   onToggleCompare?: (data: DrugDetailData) => void;
   inCompare?: boolean;
   onCompareEuUs?: () => void;
+  /** Button text for the EU/US comparison; tells the reader when the US label is a different product. */
+  euUsButtonLabel?: string;
 }
 
 const formatPretty = (val?: string): string => {
@@ -80,7 +82,7 @@ export const DrugDetailContent: React.FC<{
   onToggleCompare?: (data: DrugDetailData) => void;
   inCompare?: boolean;
   onCompareEuUs?: () => void;
-}> = ({ data, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs }) => {
+}> = ({ data, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs, euUsButtonLabel }) => {
   const trialQuery = data.genericName && data.genericName !== '—' ? data.genericName : data.brandName;
   const hasEma = !!data.emaApprovalDate && /^\d/.test(data.emaApprovalDate);
   const badgeId = badgeGlossaryId(data.badge);
@@ -190,7 +192,7 @@ export const DrugDetailContent: React.FC<{
           onClick={onCompareEuUs}
           className="w-full mt-3 py-3.5 bg-sky-50 text-sky-700 font-semibold rounded-xl border border-sky-200 active:bg-sky-100 transition-colors flex items-center justify-center gap-2"
         >
-          <FileText size={18} /> Compare EU &amp; US label
+          <FileText size={18} /> {euUsButtonLabel || 'Compare EU & US label'}
         </button>
       )}
 

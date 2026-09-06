@@ -71,18 +71,18 @@ const BiomarkerCard: React.FC<{ m: Biomarker; onCompare: () => void }> = ({ m, o
           {/* EU test framing: method first (per SmPC), example CE-IVD assays after. */}
           <div className="mt-2.5 rounded-xl bg-violet-50/70 border border-violet-100 p-2.5">
             <div className="flex items-center gap-1.5 text-[11px] font-bold text-violet-800 uppercase tracking-wide">
-              <FlaskConical size={12} /> Validated test (per SmPC)
+              <FlaskConical size={12} /> Test method required by the SmPC
             </div>
             <p className="text-[13px] font-semibold text-slate-800 mt-1">{m.method}</p>
             <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
-              e.g. {m.assays.join(' · ')}
+              Example CE-marked assays (illustrative, not an endorsement): {m.assays.join(' · ')}
             </p>
           </div>
 
           {/* Drugs the biomarker result unlocks (EU brand names) — each links to its EMA EPAR. */}
           <div className="mt-2.5">
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-              Unlocks ({m.drugs.length}) · tap for EU label
+              {m.type === 'hla' || m.type === 'enzyme' ? `Screen before prescribing (${m.drugs.length})` : `Indication depends on this result (${m.drugs.length})`} · tap for EU label
             </div>
             <div className="flex flex-wrap gap-1.5">
               {m.drugs.map((d) => (

@@ -161,11 +161,29 @@ export default function App() {
   // Best label slug for a drug: the EPAR-derived slug if it maps to a bundled
   // label, else matched by active substance (handles salts, e.g. "ponatinib
   // hydrochloride" → ponatinib).
+  // Brand -> slug (EU brand from the SmPC index, US brand from the label index), so a
+  // US-tab drug such as Rybelsus is not silently mapped to Ozempic's SmPC via the INN.
+  const brandToSlug = useMemo(() => {
+    const idx: Record<string, string> = {};
+    const put = (b: unknown, slug: string) => { const k = String(b || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); if (k && !idx[k]) idx[k] = slug; };
+    for (const [slug, info] of Object.entries(smpcIndex)) put((info as { brand?: string }).brand, slug);
+    for (const [slug, info] of Object.entries(uspiIndex)) put((info as { brand?: string }).brand, slug);
+    return idx;
+  }, [smpcIndex, uspiIndex]);
   const labelSlug = (d: DrugDetailData): string => {
     const s = smpcSlug(d);
     if (s && (smpcIndex[s] || uspiIndex[s])) return s;
+    const bn = (d.brandName || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    if (bn && brandToSlug[bn]) return brandToSlug[bn];
     const gn = (d.genericName || '').toLowerCase().trim();
-    return innToSlug[gn] || innToSlug[gn.split(/[\s,]/)[0]] || '';
+    // Multi-word INNs ("insulin glargine") must match whole; only a salt-bearing
+    // single substance ("ponatinib hydrochloride") may fall back to its first word.
+    return innToSlug[gn] || (/\b(hydrochloride|mesylate|mesilate|sodium|potassium|acetate|sulfate|citrate|maleate|tartrate|phosphate|succinate|fumarate|besylate|hydrobromide)\b/.test(gn) ? innToSlug[gn.split(/[\s,]/)[0]] : '') || '';
+  };
+  // What the US column of the EU/US comparison will show for this medicine.
+  const usMatchFor = (slug: string): { brand: string; match: 'brand' | 'substance' } | null => {
+    const info = uspiIndex[slug] as { brand?: string; match?: 'brand' | 'substance' } | undefined;
+    return info ? { brand: info.brand || '', match: info.match || 'brand' } : null;
   };
   // Full-label comparison of the two tray drugs — available once both resolve to
   // a bundled label in at least one jurisdiction (each column can then toggle EU/US).
@@ -319,7 +337,15 @@ export default function App() {
         if (m) setDetail(approvalToDetail(m));
       });
     check();
-    const onVisible = () => document.visibilityState === 'visible' && check();
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      check();
+      // Returning to the app after hours: pull fresh snapshots so reminders,
+      // the widget and every tab reflect today's decisions.
+      const last = getLastRefresh();
+      const stale = !last || Date.now() - new Date(last).getTime() > 6 * 3600 * 1000;
+      if (stale) refreshLiveData().then((updated) => { if (updated > 0) setDataVersion((v) => v + 1); });
+    };
     document.addEventListener('visibilitychange', onVisible);
     return () => document.removeEventListener('visibilitychange', onVisible);
   }, []);
@@ -435,18 +461,27 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Monotonic request ids: a slow, superseded response must never overwrite
+  // the result of a newer search (or of a clear).
+  const drugReq = useRef(0);
+  const trialReq = useRef(0);
+
   const handleDrugSearch = async (query: string) => {
+    const id = ++drugReq.current;
     setSearchLoading(true);
     setIsSearchMode(true);
     setCurrentQuery(query);
     setError(null);
     try {
-      setSearchData(await searchDrugDatabase(query));
+      const res = await searchDrugDatabase(query);
+      if (id !== drugReq.current) return;
+      setSearchData(res);
     } catch (err: any) {
+      if (id !== drugReq.current) return;
       setError(err.message || 'Search failed.');
       setSearchData(null);
     } finally {
-      setSearchLoading(false);
+      if (id === drugReq.current) setSearchLoading(false);
     }
   };
 
@@ -457,13 +492,17 @@ export default function App() {
     setTrialAllPhases(allPhases);
     setTrialRegion(region);
     setTrialError(null);
+    const id = ++trialReq.current;
     try {
-      setTrials(await searchTrials(query, allPhases, region));
+      const res = await searchTrials(query, allPhases, region);
+      if (id !== trialReq.current) return;
+      setTrials(res);
     } catch (err: any) {
+      if (id !== trialReq.current) return;
       setTrialError(err.message || 'Search failed.');
       setTrials([]);
     } finally {
-      setTrialLoading(false);
+      if (id === trialReq.current) setTrialLoading(false);
     }
   };
 
@@ -498,6 +537,11 @@ export default function App() {
 
   const handleClearSearch = () => {
     setDetail(null);
+    // Invalidate any in-flight search so its late response cannot repopulate the list.
+    drugReq.current++;
+    trialReq.current++;
+    setSearchLoading(false);
+    setTrialLoading(false);
     if (view === 'europe') {
       setEuropeQuery('');
     } else if (view === 'novel') {
@@ -615,25 +659,25 @@ export default function App() {
         {/* Segmented control: Europe | Novel | Approvals | Pipeline */}
         <div className="px-4 pt-1">
           <div role="tablist" aria-label="Data views" className="flex gap-0.5 bg-slate-100 rounded-xl p-1 overflow-x-auto hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
-            <button role="tab" aria-selected={view === 'europe'} className={tabClass(view === 'europe')} onClick={() => { setDetail(null); setView('europe'); }}>
+            <button role="tab" title="EU medicines: centrally authorised, expected and withdrawn (EMA)" aria-selected={view === 'europe'} className={tabClass(view === 'europe')} onClick={() => { setDetail(null); setView('europe'); }}>
               <Globe2 size={14} aria-hidden="true" /> Europe
             </button>
-            <button role="tab" aria-selected={view === 'novel'} className={tabClass(view === 'novel')} onClick={() => { setDetail(null); setView('novel'); }}>
+            <button role="tab" title="FDA's list of novel drug approvals by year" aria-selected={view === 'novel'} className={tabClass(view === 'novel')} onClick={() => { setDetail(null); setView('novel'); }}>
               <Sparkles size={14} aria-hidden="true" /> Novel
             </button>
-            <button role="tab" aria-selected={view === 'approvals'} className={tabClass(view === 'approvals')} onClick={() => { setDetail(null); setView('approvals'); }}>
+            <button role="tab" title="US approvals and labels, live from openFDA" aria-selected={view === 'approvals'} className={tabClass(view === 'approvals')} onClick={() => { setDetail(null); setView('approvals'); }}>
               <Database size={14} aria-hidden="true" /> US
             </button>
-            <button role="tab" aria-selected={view === 'pipeline'} className={tabClass(view === 'pipeline')} onClick={() => { setDetail(null); setView('pipeline'); }}>
+            <button role="tab" title="Phase 3 trials from ClinicalTrials.gov" aria-selected={view === 'pipeline'} className={tabClass(view === 'pipeline')} onClick={() => { setDetail(null); setView('pipeline'); }}>
               <FlaskConical size={14} aria-hidden="true" /> Trials
             </button>
-            <button role="tab" aria-selected={view === 'biomarker'} className={tabClass(view === 'biomarker')} onClick={() => { setDetail(null); setView('biomarker'); }}>
+            <button role="tab" title="Biomarkers and companion diagnostics (EU)" aria-selected={view === 'biomarker'} className={tabClass(view === 'biomarker')} onClick={() => { setDetail(null); setView('biomarker'); }}>
               <Dna size={14} aria-hidden="true" /> Biomarkers
             </button>
-            <button role="tab" aria-selected={view === 'devices'} className={tabClass(view === 'devices')} onClick={() => { setDetail(null); setView('devices'); }}>
+            <button role="tab" title="US device approvals, clearances and recalls (openFDA)" aria-selected={view === 'devices'} className={tabClass(view === 'devices')} onClick={() => { setDetail(null); setView('devices'); }}>
               <Cpu size={14} aria-hidden="true" /> Devices
             </button>
-            <button role="tab" aria-selected={view === 'critical'} className={tabClass(view === 'critical')} onClick={() => { setDetail(null); setView('critical'); }}>
+            <button role="tab" title="EU Union list of critical medicines" aria-selected={view === 'critical'} className={tabClass(view === 'critical')} onClick={() => { setDetail(null); setView('critical'); }}>
               <ShieldPlus size={14} aria-hidden="true" /> Critical
             </button>
           </div>
@@ -643,6 +687,15 @@ export default function App() {
           <SearchBar
             key={view}
             mode={view}
+            value={
+              view === 'europe' ? europeQuery
+              : view === 'novel' ? novelQuery
+              : view === 'critical' ? criticalQuery
+              : view === 'biomarker' ? biomarkerQuery
+              : view === 'devices' ? deviceQuery
+              : view === 'pipeline' ? (trialSearched ? trialQuery : '')
+              : (isSearchMode ? currentQuery : '')
+            }
             onSearch={handleSearch}
             onClear={handleClearSearch}
             isLoading={view === 'pipeline' ? trialLoading : view === 'approvals' ? searchLoading : false}
@@ -938,6 +991,10 @@ export default function App() {
           onToggleCompare={toggleCompare}
           inCompare={inCompare(detail)}
           onCompareEuUs={euUsAvailable(detail) ? () => setEuUsSlug(labelSlug(detail)) : undefined}
+          euUsButtonLabel={(() => {
+            const m = euUsAvailable(detail) ? usMatchFor(labelSlug(detail)) : null;
+            return m && m.match === 'substance' ? `Compare with US label of ${m.brand} (same substance)` : undefined;
+          })()}
         />
       )}
 

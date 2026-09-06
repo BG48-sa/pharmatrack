@@ -129,7 +129,7 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, labelCount = 
               onClick={onCompareLabels}
               className="mb-3 w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-sky-600 text-white active:bg-sky-700 transition-colors"
             >
-              <FileText size={16} /> Compare full labels ({labelCount})
+              <FileText size={16} /> Compare labels ({labelCount})
             </button>
           )}
           <div className="overflow-x-auto -mx-1 px-1">

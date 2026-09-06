@@ -79,7 +79,6 @@ export const queryTerms = (q: string): string[] => {
 // "breast cancer" would otherwise miss everything. Values are already in the
 // normalise() form. A query term matches if IT or any synonym is present.
 const SYNONYMS: Record<string, string[]> = {
-  cancer: ['neoplasm', 'neoplasms', 'carcinoma', 'carcinomas', 'tumor'],
   carcinoma: ['cancer', 'neoplasm', 'neoplasms'],
   neoplasm: ['cancer', 'carcinoma'],
   tumor: ['neoplasm', 'neoplasms', 'cancer'], // 'tumour' -> 'tumor' via normalise

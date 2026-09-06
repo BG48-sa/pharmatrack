@@ -56,7 +56,7 @@ const TARGETS = {
 // blow-ups. 5.1 is the exception: it is mostly trial-efficacy narrative, so it is
 // capped (mechanism of action, its useful part, sits at the top) with the full
 // text one tap away via the live SmPC link.
-const CAPS = { '4.1': 12000, '4.2': 40000, '4.3': 8000, '4.4': 40000, '4.8': 40000, '5.1': 8000, '5.2': 40000 };
+const CAPS = { '4.1': 12000, '4.2': 40000, '4.3': 8000, '4.4': 40000, '4.8': 80000, '5.1': 8000, '5.2': 40000 };
 const HEADING = /^[ \t]*(\d\.\d+)[ \t.]+([A-Z][^\n]{3,80})$/gm;
 
 const stripNoise = (raw) =>
