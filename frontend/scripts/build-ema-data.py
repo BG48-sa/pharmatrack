@@ -30,7 +30,7 @@ Usage:
   curl -sL -A "Mozilla/5.0" -o /tmp/ema.xlsx <url-above>
   python3 scripts/build-ema-data.py /tmp/ema.xlsx ema-medicines.json
 """
-import html, json, sys, datetime
+import html, json, re, sys, datetime
 import openpyxl
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else "/tmp/ema.xlsx"
@@ -151,6 +151,19 @@ generated = fmt_date(rows[0][3]) if len(rows) > 0 else None
 
 by_inn = {}
 authorised = []
+# EMA occasionally leaves the "Advanced therapy" flag empty on a product that
+# plainly is one (Itvisma, June 2026; Tacquell). The WHO INN stems are
+# unambiguous: "-cel" = cell therapy, "-vec" = gene-therapy vector. Any INN
+# containing such a token counts as an ATMP, so the Advanced-therapy filter
+# does not silently miss a CAT product.
+ATMP_STEM = re.compile(r"\b[a-z]+(cel|vec)\b", re.I)
+
+# Products whose INN carries no stem (descriptive names) but that are ATMPs.
+ATMP_NAMES = {"Tacquell"}   # autologous tumour-infiltrating lymphocytes (TIL)
+
+def looks_like_atmp(*fields):
+    return any(ATMP_STEM.search(clean(f) or "") for f in fields)
+
 pipeline = []
 # Medicines that are no longer (or never became) authorised: withdrawn, expired,
 # lapsed, revoked, suspended, refused, or application withdrawn. Shown on the
@@ -187,7 +200,8 @@ for i, row in enumerate(rows):
         "atc": clean(row[C_ATC]),
         "ind": trunc(row[C_INDICATION]),
         "url": clean(row[C_URL]),
-        "atmp": yes(row[C_ATMP]),
+        "atmp": yes(row[C_ATMP]) or looks_like_atmp(row[C_INN], row[C_SUBSTANCE])
+                or clean(row[C_NAME]) in ATMP_NAMES,
         "orphan": yes(row[C_ORPHAN]),
         "prime": yes(row[C_PRIME]),
         "cond": yes(row[C_CONDITIONAL]),
