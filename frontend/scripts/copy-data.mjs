@@ -43,7 +43,7 @@ const publishLabels = (srcDir, outSub, indexName) => {
   const drugs = {};
   for (const f of files) {
     copyFileSync(join(src, f), join(out, f));
-    try { const d = JSON.parse(readFileSync(join(src, f), 'utf8')); drugs[d.slug] = { brand: d.brand, inn: d.inn }; } catch { /* skip */ }
+    try { const d = JSON.parse(readFileSync(join(src, f), 'utf8')); drugs[d.slug] = { brand: d.brand, inn: d.inn, ...(d.match ? { match: d.match, usGeneric: d.usGeneric || null } : {}) }; } catch { /* skip */ }
   }
   const idxFile = join(root, indexName);
   const stamp = existsSync(idxFile) ? (JSON.parse(readFileSync(idxFile, 'utf8')).generated || 'dev') : 'dev';
