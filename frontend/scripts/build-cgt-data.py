@@ -37,12 +37,20 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else "cgt-products.json"
 PRODUCTS = [
     ("BLA125197", "2010-04-29", "Autologous cellular immunotherapy (prostate cancer)"),  # Provenge
     ("BLA125348", "2011-06-21", "Autologous cultured fibroblast therapy"),  # Laviv
+    ("BLA125397", "2011-11-10", "HPC, cord blood (allogeneic transplant)"),  # Hemacord (New York Blood Center)
     ("BLA125400", "2012-03-09", "Allogeneic cellularized scaffold (keratinocytes/fibroblasts)"),  # Gintuit
+    ("BLA125391", "2012-05-24", "HPC, cord blood (allogeneic transplant)"),  # HPC, Cord Blood (Clinimmune Labs)
+    ("BLA125407", "2012-10-04", "HPC, cord blood (allogeneic transplant)"),  # Ducord (Duke)
+    ("BLA125413", "2013-05-30", "HPC, cord blood (allogeneic transplant)"),  # Allocord (SSM Cardinal Glennon)
+    ("BLA125432", "2013-06-13", "HPC, cord blood (allogeneic transplant)"),  # HPC, Cord Blood (LifeSouth)
     ("BLA125518", "2015-10-27", "Oncolytic HSV-1 gene therapy"),  # Imlygic
+    ("BLA125585", "2016-01-28", "HPC, cord blood (allogeneic transplant)"),  # HPC, Cord Blood (Bloodworks)
+    ("BLA125594", "2016-09-01", "HPC, cord blood (allogeneic transplant)"),  # Clevecord (Cleveland Cord Blood Center)
     ("BLA125603", "2016-12-13", "Autologous cultured chondrocyte implant"),  # MACI
     ("BLA125646", "2017-08-30", "CD19-directed CAR-T cell therapy"),  # Kymriah
     ("BLA125643", "2017-10-18", "CD19-directed CAR-T cell therapy"),  # Yescarta
     ("BLA125610", "2017-12-19", "AAV2 gene therapy (RPE65)"),  # Luxturna
+    ("BLA125657", "2018-06-14", "HPC, cord blood (allogeneic transplant)"),  # HPC, Cord Blood (MD Anderson)
     ("BLA125694", "2019-05-24", "AAV9 gene therapy (SMN1)"),  # Zolgensma
     ("BLA125703", "2020-07-24", "CD19-directed CAR-T cell therapy"),  # Tecartus
     ("BLA125714", "2021-02-05", "CD19-directed CAR-T cell therapy"),  # Breyanzi
@@ -67,6 +75,7 @@ PRODUCTS = [
     ("BLA125789", "2024-08-01", "MAGE-A4-directed TCR T-cell therapy"),  # Tecelra
     ("BLA125813", "2024-11-08", "CD19-directed CAR-T cell therapy"),  # Aucatzyl
     ("BLA125722", "2024-11-13", "AAV2 gene therapy (AADC, intraputaminal)"),  # Kebilidi
+    ("BLA125764", "2024-11-20", "HPC, cord blood (allogeneic transplant)"),  # Regenecyte (StemCyte)
     ("BLA125706", "2024-12-18", "Allogeneic mesenchymal stromal cell (MSC) therapy"),  # Ryoncil
     ("BLA125812", "2024-12-19", "Acellular tissue-engineered vessel"),  # Symvess
     ("BLA125798", "2025-03-05", "Encapsulated cell therapy (CNTF-secreting)"),  # Encelto
