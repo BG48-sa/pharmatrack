@@ -484,6 +484,9 @@ export default function App() {
 
   const handleSearch = (query: string) => {
     if (!query) return;
+    // A new question closes the previous answer — otherwise the side panel on
+    // wide screens keeps showing the last drug next to unrelated results.
+    setDetail(null);
     if (view === 'europe') setEuropeQuery(query);
     else if (view === 'novel') setNovelQuery(query);
     else if (view === 'critical') setCriticalQuery(query);
@@ -494,6 +497,7 @@ export default function App() {
   };
 
   const handleClearSearch = () => {
+    setDetail(null);
     if (view === 'europe') {
       setEuropeQuery('');
     } else if (view === 'novel') {
@@ -611,25 +615,25 @@ export default function App() {
         {/* Segmented control: Europe | Novel | Approvals | Pipeline */}
         <div className="px-4 pt-1">
           <div role="tablist" aria-label="Data views" className="flex gap-0.5 bg-slate-100 rounded-xl p-1 overflow-x-auto hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
-            <button role="tab" aria-selected={view === 'europe'} className={tabClass(view === 'europe')} onClick={() => setView('europe')}>
+            <button role="tab" aria-selected={view === 'europe'} className={tabClass(view === 'europe')} onClick={() => { setDetail(null); setView('europe'); }}>
               <Globe2 size={14} aria-hidden="true" /> Europe
             </button>
-            <button role="tab" aria-selected={view === 'novel'} className={tabClass(view === 'novel')} onClick={() => setView('novel')}>
+            <button role="tab" aria-selected={view === 'novel'} className={tabClass(view === 'novel')} onClick={() => { setDetail(null); setView('novel'); }}>
               <Sparkles size={14} aria-hidden="true" /> Novel
             </button>
-            <button role="tab" aria-selected={view === 'approvals'} className={tabClass(view === 'approvals')} onClick={() => setView('approvals')}>
+            <button role="tab" aria-selected={view === 'approvals'} className={tabClass(view === 'approvals')} onClick={() => { setDetail(null); setView('approvals'); }}>
               <Database size={14} aria-hidden="true" /> US
             </button>
-            <button role="tab" aria-selected={view === 'pipeline'} className={tabClass(view === 'pipeline')} onClick={() => setView('pipeline')}>
+            <button role="tab" aria-selected={view === 'pipeline'} className={tabClass(view === 'pipeline')} onClick={() => { setDetail(null); setView('pipeline'); }}>
               <FlaskConical size={14} aria-hidden="true" /> Trials
             </button>
-            <button role="tab" aria-selected={view === 'biomarker'} className={tabClass(view === 'biomarker')} onClick={() => setView('biomarker')}>
+            <button role="tab" aria-selected={view === 'biomarker'} className={tabClass(view === 'biomarker')} onClick={() => { setDetail(null); setView('biomarker'); }}>
               <Dna size={14} aria-hidden="true" /> Biomarkers
             </button>
-            <button role="tab" aria-selected={view === 'devices'} className={tabClass(view === 'devices')} onClick={() => setView('devices')}>
+            <button role="tab" aria-selected={view === 'devices'} className={tabClass(view === 'devices')} onClick={() => { setDetail(null); setView('devices'); }}>
               <Cpu size={14} aria-hidden="true" /> Devices
             </button>
-            <button role="tab" aria-selected={view === 'critical'} className={tabClass(view === 'critical')} onClick={() => setView('critical')}>
+            <button role="tab" aria-selected={view === 'critical'} className={tabClass(view === 'critical')} onClick={() => { setDetail(null); setView('critical'); }}>
               <ShieldPlus size={14} aria-hidden="true" /> Critical
             </button>
           </div>

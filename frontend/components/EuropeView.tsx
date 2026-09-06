@@ -324,6 +324,8 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
               query={query}
               kind="approved"
               other={expected}
+              gone={goneUnfiltered}
+              onShowWithdrawn={() => setSub('withdrawn')}
               filterHidingCount={filter !== 'all' ? approvedUnfiltered.length : 0}
               onClearFilter={() => setFilter('all')}
               onShowOther={() => setSub('expected')}
@@ -358,6 +360,8 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
               query={query}
               kind="expected"
               other={approved}
+              gone={goneUnfiltered}
+              onShowWithdrawn={() => setSub('withdrawn')}
               filterHidingCount={filter !== 'all' ? expectedUnfiltered.length : 0}
               onClearFilter={() => setFilter('all')}
               onShowOther={() => setSub('approved')}
@@ -424,26 +428,37 @@ const SmartEmpty: React.FC<{
   kind: 'approved' | 'expected';
   /** Matches for the same query in the OTHER list — the actual records, so we can name them. */
   other: Array<EmaMedicine | EmaPipelineItem>;
+  /** Matches among medicines no longer (or never) authorised — named so the
+   *  answer to "why is Skysona not here?" is on this screen. */
+  gone?: EmaGoneItem[];
   filterHidingCount: number;
   onClearFilter: () => void;
   onShowOther: () => void;
+  onShowWithdrawn?: () => void;
   onSearchTrials: (q: string) => void;
   onSelect: (d: DrugDetailData) => void;
-}> = ({ query, kind, other, filterHidingCount, onClearFilter, onShowOther, onSearchTrials, onSelect }) => {
+}> = ({ query, kind, other, gone, filterHidingCount, onClearFilter, onShowOther, onShowWithdrawn, onSearchTrials, onSelect }) => {
   const q = query.trim();
   const otherCount = other.length;
+  const goneArr: EmaGoneItem[] = gone ?? [];
   // Searching Approved, but the query DOES match one or more pending opinions.
   const pendingHit = kind === 'approved' && otherCount > 0;
   const pending = pendingHit ? (other as EmaPipelineItem[]) : [];
   const first = pending[0];
+  // No authorised or pending match, but the name IS in the EMA record as a
+  // withdrawn / expired / refused product.
+  const goneHit = !!q && !pendingHit && goneArr.length > 0;
+  const g0 = goneArr[0];
 
   const headline = !q
     ? kind === 'approved' ? 'No authorised medicines.' : 'No pending EU decisions.'
     : pendingHit
       ? `Not authorised in the EU yet — but a decision is pending.`
-      : kind === 'approved'
-        ? `No EU-authorised medicine matches “${q}”.`
-        : `No pending EU decision matches “${q}”.`;
+      : goneHit
+        ? `Not currently authorised in the EU.`
+        : kind === 'approved'
+          ? `No EU-authorised medicine matches “${q}”.`
+          : `No pending EU decision matches “${q}”.`;
 
   const btn = 'w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors';
 
@@ -464,6 +479,19 @@ const SmartEmpty: React.FC<{
         authorisation. A CHMP opinion is a recommendation, not an authorisation.
       </>
     )
+  ) : goneHit ? (
+    goneArr.length === 1 ? (
+      <>
+        <strong>{g0.n}</strong>{g0.inn ? ` (${g0.inn})` : ''}: EU status{' '}
+        <strong>{g0.st.toLowerCase()}</strong>{g0.e ? ` on ${fmt(g0.e)}` : ''}
+        {g0.d ? `, originally authorised ${fmt(g0.d)}` : ''}. It is listed under Withdrawn.
+      </>
+    ) : (
+      <>
+        {goneArr.length} medicines matching “{q}” are recorded by EMA as withdrawn, expired,
+        refused or with the application withdrawn. They are listed under Withdrawn.
+      </>
+    )
   ) : q ? (
     <>
       This searches the official EMA catalogue — an empty result usually means no
@@ -474,15 +502,17 @@ const SmartEmpty: React.FC<{
   ) : null;
 
   return (
-    <div className={pendingHit ? 'py-4' : 'text-center py-10 px-6'}>
-      <div className={pendingHit ? 'text-center' : ''}>
+    <div className={pendingHit || goneHit ? 'py-4' : 'text-center py-10 px-6'}>
+      <div className={pendingHit || goneHit ? 'text-center' : ''}>
         <div
           className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 ${
-            pendingHit ? 'bg-indigo-100' : 'bg-slate-100'
+            pendingHit ? 'bg-indigo-100' : goneHit ? 'bg-amber-100' : 'bg-slate-100'
           }`}
         >
           {pendingHit ? (
             <Hourglass className="text-indigo-600 w-7 h-7" />
+          ) : goneHit ? (
+            <Ban className="text-amber-700 w-7 h-7" />
           ) : (
             <CalendarClock className="text-slate-400 w-7 h-7" />
           )}
@@ -504,11 +534,23 @@ const SmartEmpty: React.FC<{
           ))}
         </div>
       )}
+      {goneHit && (
+        <div className="space-y-3 mt-4">
+          {goneArr.slice(0, 3).map((m) => (
+            <WithdrawnCard key={`${m.n}-${m.e}-${m.st}`} m={m} onClick={() => onSelect(goneToDetail(m))} />
+          ))}
+        </div>
+      )}
 
-      <div className={`mt-5 space-y-2 mx-auto ${pendingHit ? 'max-w-sm' : 'max-w-xs'}`}>
+      <div className={`mt-5 space-y-2 mx-auto ${pendingHit || goneHit ? 'max-w-sm' : 'max-w-xs'}`}>
         {filterHidingCount > 0 && (
           <button onClick={onClearFilter} className={`${btn} bg-amber-100 text-amber-800 active:bg-amber-200`}>
             Clear filter — {filterHidingCount} hidden match{filterHidingCount === 1 ? '' : 'es'}
+          </button>
+        )}
+        {goneHit && goneArr.length > 3 && onShowWithdrawn && (
+          <button onClick={onShowWithdrawn} className={`${btn} bg-amber-100 text-amber-800 active:bg-amber-200`}>
+            See all {goneArr.length} withdrawn or refused →
           </button>
         )}
         {otherCount > (pendingHit ? 3 : 0) && (
