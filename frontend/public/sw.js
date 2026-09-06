@@ -52,7 +52,7 @@ self.addEventListener('fetch', (event) => {
   // app's bundled data) when offline.
   if (url.pathname.includes('/data/') && url.pathname.endsWith('.json')) {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'no-cache' }) /* revalidate with the server; never trust the 10-min HTTP cache for data */
         .then((res) => {
           if (res && res.ok) {
             const copy = res.clone();
