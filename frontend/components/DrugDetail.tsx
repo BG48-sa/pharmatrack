@@ -256,7 +256,7 @@ export const DrugDetailContent: React.FC<{
 };
 
 /** Phone/compact modal wrapper around the shared content. */
-const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs }) => {
+const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs, euUsButtonLabel }) => {
   // Close on Escape; lock background scroll while open.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -306,7 +306,7 @@ const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, on
           onOpenGlossary={onOpenGlossary}
           onToggleCompare={onToggleCompare}
           inCompare={inCompare}
-          onCompareEuUs={onCompareEuUs}
+          onCompareEuUs={onCompareEuUs} euUsButtonLabel={euUsButtonLabel}
         />
       </div>
     </div>
