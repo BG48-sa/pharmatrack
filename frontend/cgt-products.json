@@ -7,13 +7,41 @@
     "d": "2011-06-21",
     "c": "Autologous cultured fibroblast therapy"
   },
+  "BLA125397": {
+    "d": "2011-11-10",
+    "c": "HPC, cord blood (allogeneic transplant)"
+  },
   "BLA125400": {
     "d": "2012-03-09",
     "c": "Allogeneic cellularized scaffold (keratinocytes/fibroblasts)"
   },
+  "BLA125391": {
+    "d": "2012-05-24",
+    "c": "HPC, cord blood (allogeneic transplant)"
+  },
+  "BLA125407": {
+    "d": "2012-10-04",
+    "c": "HPC, cord blood (allogeneic transplant)"
+  },
+  "BLA125413": {
+    "d": "2013-05-30",
+    "c": "HPC, cord blood (allogeneic transplant)"
+  },
+  "BLA125432": {
+    "d": "2013-06-13",
+    "c": "HPC, cord blood (allogeneic transplant)"
+  },
   "BLA125518": {
     "d": "2015-10-27",
     "c": "Oncolytic HSV-1 gene therapy"
+  },
+  "BLA125585": {
+    "d": "2016-01-28",
+    "c": "HPC, cord blood (allogeneic transplant)"
+  },
+  "BLA125594": {
+    "d": "2016-09-01",
+    "c": "HPC, cord blood (allogeneic transplant)"
   },
   "BLA125603": {
     "d": "2016-12-13",
@@ -30,6 +58,10 @@
   "BLA125610": {
     "d": "2017-12-19",
     "c": "AAV2 gene therapy (RPE65)"
+  },
+  "BLA125657": {
+    "d": "2018-06-14",
+    "c": "HPC, cord blood (allogeneic transplant)"
   },
   "BLA125694": {
     "d": "2019-05-24",
@@ -126,6 +158,10 @@
   "BLA125722": {
     "d": "2024-11-13",
     "c": "AAV2 gene therapy (AADC, intraputaminal)"
+  },
+  "BLA125764": {
+    "d": "2024-11-20",
+    "c": "HPC, cord blood (allogeneic transplant)"
   },
   "BLA125706": {
     "d": "2024-12-18",
