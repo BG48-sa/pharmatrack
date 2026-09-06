@@ -56,7 +56,11 @@ C_PRIME = 24
 C_HOLDER = 25
 C_EC_DATE = 26
 C_OPINION_DATE = 29
+C_APP_WITHDRAWN_DATE = 30
 C_MA_DATE = 31
+C_REFUSAL_DATE = 32
+C_MA_ENDED_DATE = 33   # withdrawal / expiry / revocation / lapse of MA
+C_SUSPENDED_DATE = 34
 C_URL = 38
 
 
@@ -148,6 +152,15 @@ generated = fmt_date(rows[0][3]) if len(rows) > 0 else None
 by_inn = {}
 authorised = []
 pipeline = []
+# Medicines that are no longer (or never became) authorised: withdrawn, expired,
+# lapsed, revoked, suspended, refused, or application withdrawn. Shown on the
+# Europe tab's "Withdrawn" view so the history of a product (e.g. Beqvez,
+# Elevidys, Zynteglo) is one tap away instead of silently absent.
+GONE_STATUSES = {
+    "Withdrawn", "Expired", "Lapsed", "Revoked", "Suspended", "Refused",
+    "Application withdrawn", "Withdrawn from rolling review",
+}
+gone = []
 
 for i, row in enumerate(rows):
     if i <= 8:
@@ -199,14 +212,35 @@ for i, row in enumerate(rows):
         # single most useful "MA expected very soon" signal for an EU user.
         pipeline.append({**base, "op": op_date, "reexam": status != "Opinion"})
 
+    elif status in GONE_STATUSES:
+        if status == "Refused":
+            ev = fmt_date(row[C_REFUSAL_DATE])
+        elif status in ("Application withdrawn", "Withdrawn from rolling review"):
+            ev = fmt_date(row[C_APP_WITHDRAWN_DATE])
+        elif status == "Suspended":
+            ev = fmt_date(row[C_SUSPENDED_DATE]) or fmt_date(row[C_MA_ENDED_DATE])
+        else:
+            ev = fmt_date(row[C_MA_ENDED_DATE])
+        ev = ev or op_date or ma_date or ""
+        item = {**base, "st": status, "e": ev}
+        # A refused application never had an MA; EMA sometimes stores the
+        # refusal decision date in the MA-date column, so don't show it as one.
+        if ma_date and status != "Refused":
+            item["d"] = ma_date
+        if op_date:
+            item["op"] = op_date
+        gone.append(item)
+
 authorised.sort(key=lambda r: r["d"], reverse=True)
 pipeline.sort(key=lambda r: r["op"], reverse=True)
+gone.sort(key=lambda r: r["e"], reverse=True)
 
 out = {
     "generated": generated,
     "byInn": by_inn,
     "authorised": authorised,
     "pipeline": pipeline,
+    "gone": gone,
 }
 
 with open(OUT, "w") as f:
@@ -214,7 +248,7 @@ with open(OUT, "w") as f:
 
 print(
     f"generated {generated} | authorised {len(authorised)} | "
-    f"pipeline {len(pipeline)} | inn keys {len(by_inn)} | "
+    f"pipeline {len(pipeline)} | gone {len(gone)} | inn keys {len(by_inn)} | "
     f"ATMP {sum(1 for r in authorised if r['atmp'])} authorised + "
     f"{sum(1 for r in pipeline if r['atmp'])} pending | "
     f"drug+device {sum(1 for r in authorised if r['dev'])} authorised + "

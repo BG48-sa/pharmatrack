@@ -72,11 +72,30 @@ export interface EmaPipelineItem extends EmaFlags {
   reexam: boolean;   // opinion under re-examination
 }
 
+// A medicine that is no longer authorised in the EU, or never was: the MA was
+// withdrawn / expired / lapsed / revoked / suspended, the application was
+// refused, or the applicant withdrew it before an opinion.
+export interface EmaGoneItem extends EmaFlags {
+  n: string;
+  inn: string;
+  sub: string;
+  area: string;
+  atc: string;
+  ind: string;
+  url: string;
+  holder: string;
+  st: string;        // EMA "Medicine status" (Withdrawn, Refused, Expired, …)
+  e: string;         // date of that event (YYYY-MM-DD), best available
+  d?: string;        // original marketing-authorisation date, if it ever had one
+  op?: string;       // CHMP opinion date, if recorded
+}
+
 export interface EmaData {
   generated: string;
   byInn: Record<string, { d: string; n: string; u: string; b: boolean }>;
   authorised: EmaMedicine[];
   pipeline: EmaPipelineItem[];
+  gone?: EmaGoneItem[]; // absent in snapshots built before Sept 2026
 }
 
 // Normalized shape passed to the DrugDetail sheet, so a card from any tab
@@ -97,6 +116,7 @@ export interface DrugDetailData {
   emaFlags?: EmaFlags;
   expectedDecision?: string; // estimated EC decision date for a pending opinion
   opinionDate?: string;      // CHMP opinion date for a pending item
+  statusNote?: string;       // e.g. 'Withdrawn 2025-02-20' for a no-longer-authorised EU medicine
 }
 
 // Curated, user-maintained PDUFA watchlist (sponsor/analyst-disclosed target

@@ -130,6 +130,20 @@ export const DrugDetailContent: React.FC<{
         </div>
       )}
 
+      {/* No-longer-authorised EU medicine: say what happened and when, up front. */}
+      {data.statusNote && (
+        <div className="mb-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+          <p className="text-[10px] uppercase tracking-wider text-amber-700 font-semibold mb-1">
+            EU status
+          </p>
+          <p className="text-lg font-bold text-amber-900 leading-none">{data.statusNote.replace(/ (\d{4}-\d{2}-\d{2})$/, (_, d) => ' · ' + formatPretty(d))}</p>
+          <p className="text-[11px] text-amber-800 mt-1.5 leading-snug">
+            This medicine is not currently authorised in the EU. Status and date as
+            recorded in the EMA medicine data{data.emaApprovalDate && /^\d/.test(data.emaApprovalDate) ? `; originally authorised ${formatPretty(data.emaApprovalDate)}` : ''}.
+          </p>
+        </div>
+      )}
+
       {/* Structured facets parsed from the approved indication text. */}
       <IndicationFacets indication={data.indication} />
 

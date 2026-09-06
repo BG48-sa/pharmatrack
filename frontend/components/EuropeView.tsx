@@ -2,6 +2,9 @@ import React, { useMemo, useState } from 'react';
 import {
   recentApprovals,
   pipeline,
+  withdrawn,
+  withdrawnCount,
+  goneToDetail,
   emaGeneratedDate,
   estimatedDecisionDate,
   approvalToDetail,
@@ -9,11 +12,11 @@ import {
   splitAreas,
   EmaFilter,
 } from '../services/emaService';
-import { EmaMedicine, EmaPipelineItem, DrugDetailData } from '../types';
+import { EmaMedicine, EmaPipelineItem, EmaGoneItem, DrugDetailData } from '../types';
 import EmaBadges from './EmaBadges';
 import { findDiseases, DiseaseEntity } from '../services/diseaseEntities';
 import {
-  CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink, GitCompare,
+  CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink, GitCompare, Ban,
 } from 'lucide-react';
 
 interface Props {
@@ -31,7 +34,7 @@ interface Props {
   onCompareDisease?: (e: DiseaseEntity) => void;
 }
 
-type SubView = 'approved' | 'expected';
+type SubView = 'approved' | 'expected' | 'withdrawn';
 
 const FILTERS: Array<{ key: EmaFilter; label: string }> = [
   { key: 'all', label: 'All' },
@@ -133,6 +136,40 @@ const ExpectedCard: React.FC<{ m: EmaPipelineItem; onClick: () => void }> = ({ m
   );
 };
 
+// Colour the status pill by what happened: the applicant walked away (grey),
+// the regulator said no (red), or a former MA ended (amber).
+const statusTone = (st: string): string => {
+  if (/refused/i.test(st)) return 'bg-red-50 text-red-700 border-red-200';
+  if (/application|rolling review/i.test(st)) return 'bg-slate-100 text-slate-600 border-slate-200';
+  return 'bg-amber-50 text-amber-800 border-amber-200';
+};
+
+const WithdrawnCard: React.FC<{ m: EmaGoneItem; onClick: () => void }> = ({ m, onClick }) => (
+  <button onClick={onClick} className="w-full text-left bg-white rounded-2xl shadow-sm border border-slate-200 p-4 active:bg-slate-50 transition-colors">
+    <div className="flex justify-between items-start gap-3">
+      <div className="min-w-0">
+        <div className="flex items-center flex-wrap gap-2">
+          <h3 className="font-bold text-slate-900 text-base leading-tight">{m.n}</h3>
+          <span className={`inline-flex items-center px-1.5 py-0.5 rounded border text-[10px] font-bold uppercase tracking-wider ${statusTone(m.st)}`}>
+            {m.st}
+          </span>
+        </div>
+        <p className="text-sm text-slate-500 font-medium mt-0.5 truncate">{m.inn || m.sub}</p>
+      </div>
+      <div className="text-right shrink-0">
+        <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{/refused/i.test(m.st) ? 'Refused' : /application|rolling/i.test(m.st) ? 'Withdrawn by applicant' : 'MA ended'}</div>
+        <div className="text-sm font-bold text-slate-700 leading-none mt-0.5">{fmt(m.e)}</div>
+        {m.d && <div className="text-[11px] text-slate-400 font-semibold mt-1">authorised {fmt(m.d)}</div>}
+      </div>
+    </div>
+    <AreaTags area={m.area} />
+    <div className="flex items-center justify-between mt-2">
+      <EmaBadges flags={m} />
+      {m.holder && <span className="text-[11px] text-slate-400 shrink-0 ml-2 truncate max-w-[45%]">{m.holder}</span>}
+    </div>
+  </button>
+);
+
 const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTrials, watchedTerms, onWatchIndication, onCompareDisease }) => {
   const [sub, setSub] = useState<SubView>('approved');
   const [filter, setFilter] = useState<EmaFilter>('all');
@@ -145,6 +182,8 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
 
   const approved = useMemo(() => recentApprovals(query, filter), [query, filter]);
   const expected = useMemo(() => pipeline(query, filter), [query, filter]);
+  const gone = useMemo(() => withdrawn(query, filter), [query, filter]);
+  const goneUnfiltered = useMemo(() => withdrawn(query, 'all'), [query]);
   // Cross-checks used to turn an empty result into guidance instead of a dead-end.
   const approvedUnfiltered = useMemo(() => recentApprovals(query, 'all'), [query]);
   const expectedUnfiltered = useMemo(() => pipeline(query, 'all'), [query]);
@@ -160,7 +199,9 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
       <p className="sr-only" role="status" aria-live="polite">
         {sub === 'approved'
           ? `${approved.length} approved EU medicines shown`
-          : `${expected.length} expected EU medicines shown`}
+          : sub === 'expected'
+            ? `${expected.length} expected EU medicines shown`
+            : `${gone.length} withdrawn or refused EU medicines shown`}
       </p>
       {/* Approved | Expected */}
       <div className="flex bg-slate-100 rounded-xl p-1 mb-3">
@@ -170,6 +211,11 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
         <button className={subTab(sub === 'expected')} onClick={() => setSub('expected')}>
           <Hourglass size={15} /> Expected ({pipeline('', 'all').length})
         </button>
+        {withdrawnCount() > 0 && (
+          <button className={subTab(sub === 'withdrawn')} onClick={() => setSub('withdrawn')}>
+            <Ban size={15} /> Withdrawn
+          </button>
+        )}
       </div>
 
       {/* Filter chips — Advanced therapy is the CAT remit, surfaced first. */}
@@ -297,7 +343,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             </div>
           )}
         </>
-      ) : (
+      ) : sub === 'expected' ? (
         <>
           <div className="flex items-start text-[11px] text-slate-600 leading-relaxed mb-3 bg-indigo-50 border border-indigo-200 rounded-lg p-2">
             <Info size={13} className="mr-1.5 mt-0.5 text-indigo-500 shrink-0" />
@@ -322,6 +368,39 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
               {expected.map((m) => (
                 <ExpectedCard key={`${m.n}-${m.op}`} m={m} onClick={() => onSelect(pipelineToDetail(m))} />
+              ))}
+            </div>
+          )}
+        </>
+      ) : (
+        <>
+          <div className="flex items-start text-[11px] text-slate-600 leading-relaxed mb-3 bg-amber-50 border border-amber-200 rounded-lg p-2">
+            <Info size={13} className="mr-1.5 mt-0.5 text-amber-600 shrink-0" />
+            <span>
+              Medicines that are <strong>no longer authorised in the EU, or never were</strong>:
+              marketing authorisation withdrawn, expired, lapsed, revoked or suspended,
+              application refused, or withdrawn by the applicant. Most recent event first.
+              Source: EMA medicine data, snapshot {fmt(emaGeneratedDate())}.
+            </span>
+          </div>
+          {gone.length === 0 ? (
+            <div className="text-center py-10 text-slate-500 text-sm">
+              <Ban size={28} className="mx-auto mb-2 text-slate-300" />
+              {q ? (
+                <>
+                  No withdrawn or refused EU medicine matches “{q}”
+                  {filter !== 'all' && goneUnfiltered.length > 0 && (
+                    <> with this filter — <button className="text-blue-600 font-semibold" onClick={() => setFilter('all')}>show all {goneUnfiltered.length}</button></>
+                  )}.
+                </>
+              ) : (
+                'No withdrawn or refused EU medicines in this snapshot.'
+              )}
+            </div>
+          ) : (
+            <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {gone.map((m) => (
+                <WithdrawnCard key={`${m.n}-${m.e}-${m.st}`} m={m} onClick={() => onSelect(goneToDetail(m))} />
               ))}
             </div>
           )}

@@ -1,4 +1,4 @@
-import { EmaData, EmaMedicine, EmaPipelineItem, DrugDetailData, EmaFlags } from '../types';
+import { EmaData, EmaMedicine, EmaPipelineItem, EmaGoneItem, DrugDetailData, EmaFlags } from '../types';
 
 /**
  * European medicines service — the EU-first counterpart to fdaService.
@@ -18,7 +18,7 @@ import { EmaData, EmaMedicine, EmaPipelineItem, DrugDetailData, EmaFlags } from 
 
 // Starts empty; services/liveData.ts loads the shipped snapshot (public/data/)
 // at startup and swaps it in, then overrides with the live copy when online.
-let data: EmaData = { generated: '', byInn: {}, authorised: [], pipeline: [] };
+let data: EmaData = { generated: '', byInn: {}, authorised: [], pipeline: [], gone: [] };
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
 export const __setEmaData = (d: EmaData): void => { data = d; };
@@ -103,7 +103,7 @@ const hasTerm = (hay: string, term: string): boolean =>
   hay.includes(term) || (SYNONYMS[term]?.some((s) => hay.includes(s)) ?? false);
 
 // Free-text match across name, INN, substance, therapeutic area, indication, ATC.
-const matchesQuery = (m: EmaMedicine | EmaPipelineItem, q: string): boolean => {
+const matchesQuery = (m: EmaMedicine | EmaPipelineItem | EmaGoneItem, q: string): boolean => {
   if (!q) return true;
   const hay = normalise(`${m.n} ${m.inn} ${m.sub} ${m.area} ${m.ind} ${m.atc}`);
   return queryTerms(q).every((term) => hasTerm(hay, term));
@@ -122,6 +122,16 @@ export const recentApprovals = (
 /** Medicines with a CHMP opinion adopted, awaiting the EC decision. */
 export const pipeline = (query = '', filter: EmaFilter = 'all'): EmaPipelineItem[] =>
   data.pipeline.filter((m) => matchesFilter(m, filter) && matchesQuery(m, query));
+
+/** Medicines no longer authorised (or never authorised): withdrawn, expired,
+ *  lapsed, revoked, suspended, refused, application withdrawn. Newest event first. */
+export const withdrawn = (query = '', filter: EmaFilter = 'all', limit = 80): EmaGoneItem[] =>
+  (data.gone || [])
+    .filter((m) => matchesFilter(m, filter) && matchesQuery(m, query))
+    .slice(0, limit);
+
+/** Total number of no-longer-authorised medicines in the snapshot (unfiltered). */
+export const withdrawnCount = (): number => (data.gone || []).length;
 
 /** Count of medicines authorised strictly after the given ISO date (for "new since last visit"). */
 export const countSince = (sinceISO: string): number =>
@@ -148,6 +158,22 @@ export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
   badge: m.atmp ? 'Advanced therapy (ATMP)' : undefined,
   therapeuticArea: m.area || undefined,
   emaFlags: flagsOf(m),
+});
+
+/** Map a no-longer-authorised medicine into the shared DrugDetail sheet shape. */
+export const goneToDetail = (m: EmaGoneItem): DrugDetailData => ({
+  brandName: m.n,
+  genericName: m.inn || m.sub || '—',
+  approvalDate: 'N/A',
+  indication: m.ind || undefined,
+  company: m.holder || undefined,
+  emaApprovalDate: m.d || 'Never authorised',
+  emaUrl: m.url || undefined,
+  badge: `EU: ${m.st}`,
+  therapeuticArea: m.area || undefined,
+  emaFlags: flagsOf(m),
+  opinionDate: m.op,
+  statusNote: `${m.st}${m.e ? ' ' + m.e : ''}`,
 });
 
 /** Map a pending-opinion medicine into the shared DrugDetail sheet shape. */
