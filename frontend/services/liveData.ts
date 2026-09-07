@@ -46,34 +46,9 @@ const localJson = async (file: string): Promise<any | null> => {
   return null;
 };
 
-// Number of snapshots that came from the network (not the HTTP cache) in the
-// current refresh — only those may move the 'last refresh' timestamp.
+// Number of snapshots that came from the network (not a cache) in the current
+// refresh — only those may move the 'last refresh' timestamp.
 let freshHits = 0;
-
-const fetchJson = async (file: string): Promise<any | null> => {
-  const url = REMOTE_BASE + file;
-  // 1) Network first, but with a revalidating cache mode ('no-cache') so the
-  //    response is written to the on-device HTTP cache for offline reuse below.
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
-    const res = await fetch(url, { signal: ctrl.signal, cache: 'no-cache' });
-    clearTimeout(timer);
-    if (res.ok) { const j = await res.json(); freshHits++; return j; }
-  } catch {
-    /* offline / blocked / timeout -> try the cached copy below */
-  }
-  // 2) Offline: serve the last successfully-fetched copy from the HTTP cache,
-  //    which is fresher than the build-time bundle. If nothing is cached the
-  //    caller keeps the bundled snapshot, so the app always has data.
-  try {
-    const res = await fetch(url, { cache: 'force-cache' });
-    if (res.ok) return await res.json();
-  } catch {
-    /* nothing cached -> bundled fallback */
-  }
-  return null;
-};
 
 // --- Data freshness status (for the Alerts panel's offline indicator) ---
 const LAST_REFRESH_KEY = 'dr_last_refresh';
@@ -131,42 +106,79 @@ const sha256 = async (text: string): Promise<string> => {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
 };
 
-// Fetch the release manifest and every snapshot; apply them only if the whole
-// set is present and every file's hash matches the manifest. A partial or mixed
-// set (one file from a newer deploy, another from an older cache) is discarded
-// as a unit, so the app never combines data from two states of knowledge.
-const fetchRelease = async (): Promise<Record<string, any> | null> => {
-  const get = async (file: string, mode: RequestCache): Promise<string | null> => {
-    try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
-      const res = await fetch(REMOTE_BASE + file, { signal: ctrl.signal, cache: mode });
-      clearTimeout(timer);
-      if (!res.ok) return null;
-      const text = await res.text();
-      if (mode === 'no-cache') freshHits++;
-      return text;
-    } catch { return null; }
-  };
-  for (const mode of ['no-cache', 'force-cache'] as RequestCache[]) {
-    const manifestText = await get('release.json', mode);
-    if (!manifestText) continue;
-    let manifest: { files?: Record<string, string> };
-    try { manifest = JSON.parse(manifestText); } catch { continue; }
-    const want = manifest.files || {};
-    const texts = await Promise.all(SNAPSHOTS.map(([file]) => get(file, mode)));
-    const parsed: Record<string, any> = {};
-    let complete = true;
-    for (let i = 0; i < SNAPSHOTS.length; i++) {
-      const file = SNAPSHOTS[i][0];
-      const text = texts[i];
-      if (!text || !want[file] || (await sha256(text)) !== want[file]) { complete = false; break; }
-      try { parsed[file] = JSON.parse(text); } catch { complete = false; break; }
+// The last COMPLETE, hash-verified release is kept in its own cache so that a
+// failed or partial download never degrades the app to a mixed set: the app
+// either moves to the new release as a whole or stays on the last verified one.
+const RELEASE_CACHE = 'dr-verified-release';
+const RELEASE_KEY = 'dr_release';
+let releaseInfo: { id: string; generated: string } | null = null;
+/** Identity of the data release currently applied (id + ISO timestamp), if known. */
+export const getReleaseInfo = (): { id: string; generated: string } | null => releaseInfo;
+storeGet(RELEASE_KEY).then((v) => { if (v && !releaseInfo) { try { releaseInfo = JSON.parse(v); } catch { /* ignore */ } } });
+
+const fetchText = async (file: string): Promise<string | null> => {
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+    const res = await fetch(REMOTE_BASE + file, { signal: ctrl.signal, cache: 'no-cache' });
+    clearTimeout(timer);
+    if (!res.ok) return null;
+    const text = await res.text();
+    freshHits++;
+    return text;
+  } catch { return null; }
+};
+
+// Download manifest + every snapshot from the network and verify the set.
+const fetchVerifiedRelease = async (): Promise<{ manifest: any; texts: Record<string, string> } | null> => {
+  const manifestText = await fetchText('release.json');
+  if (!manifestText) return null;
+  let manifest: { id?: string; generated?: string; files?: Record<string, string> };
+  try { manifest = JSON.parse(manifestText); } catch { return null; }
+  const want = manifest.files || {};
+  const list = await Promise.all(SNAPSHOTS.map(([file]) => fetchText(file)));
+  const texts: Record<string, string> = {};
+  for (let i = 0; i < SNAPSHOTS.length; i++) {
+    const file = SNAPSHOTS[i][0];
+    const text = list[i];
+    if (!text || !want[file] || (await sha256(text)) !== want[file]) {
+      if (import.meta.env.DEV) console.warn(`[liveData] release rejected: ${file} missing or hash mismatch`);
+      return null;
     }
-    if (complete) return parsed;
-    if (import.meta.env.DEV) console.warn(`[liveData] incomplete or mismatched release (${mode}) — keeping current data`);
+    texts[file] = text;
   }
-  return null;
+  texts['release.json'] = manifestText;
+  return { manifest, texts };
+};
+
+const storeVerifiedRelease = async (texts: Record<string, string>): Promise<void> => {
+  try {
+    const cache = await caches.open(RELEASE_CACHE);
+    await Promise.all(Object.entries(texts).map(([file, text]) =>
+      cache.put(REMOTE_BASE + file, new Response(text, { headers: { 'Content-Type': 'application/json' } }))));
+  } catch { /* Cache Storage unavailable (private mode) — the release still applies for this session */ }
+};
+
+const loadStoredRelease = async (): Promise<Record<string, string> | null> => {
+  try {
+    const cache = await caches.open(RELEASE_CACHE);
+    const texts: Record<string, string> = {};
+    for (const [file] of SNAPSHOTS) {
+      const res = await cache.match(REMOTE_BASE + file);
+      if (!res) return null;
+      texts[file] = await res.text();
+    }
+    return texts;
+  } catch { return null; }
+};
+
+const applyTexts = (texts: Record<string, string>): number => {
+  const parsed: Record<string, any> = {};
+  for (const [file] of SNAPSHOTS) {
+    try { parsed[file] = JSON.parse(texts[file]); } catch { return 0; } // never apply a half-parsed set
+  }
+  SNAPSHOTS.forEach(([file, apply]) => apply(parsed[file]));
+  return SNAPSHOTS.length;
 };
 
 export const refreshLiveData = async (): Promise<number> => {
@@ -175,16 +187,22 @@ export const refreshLiveData = async (): Promise<number> => {
   await primeBundledData();
   freshHits = 0;
   let updated = 0;
-  const release = await fetchRelease();
+  const release = await fetchVerifiedRelease();
   if (release) {
-    SNAPSHOTS.forEach(([file, apply]) => { apply(release[file]); updated++; });
+    updated = applyTexts(release.texts);
+    if (updated) {
+      releaseInfo = { id: String(release.manifest.id || ''), generated: String(release.manifest.generated || '') };
+      storeSet(RELEASE_KEY, JSON.stringify(releaseInfo));
+      storeVerifiedRelease(release.texts);
+    }
   } else {
-    // No consistent release available (a deploy without a manifest, or offline
-    // with nothing cached): fall back to the per-file path so the app at least
-    // stays current file by file.
-    updated = await applySnapshots(fetchJson);
+    // Network unavailable or the published set failed verification: stay on the
+    // last complete verified release (from the release cache), otherwise on the
+    // shipped snapshots. No file is ever applied on its own.
+    const stored = await loadStoredRelease();
+    if (stored) applyTexts(stored);
+    freshHits = 0;
   }
-
   done = true;
   // A force-cache fallback (offline) must not pose as a fresh sync.
   if (updated > 0 && freshHits > 0) {

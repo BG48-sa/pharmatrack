@@ -134,6 +134,7 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-900 leading-tight">Decision alerts</h2>
+              <p className="text-[11px] text-slate-500 mt-0.5">Estimated-date reminders (CHMP opinion + 67 days) — not verified change alerts. New authorisations are marked NEW on the Europe tab until you open them.</p>
               <p className="text-sm text-slate-500 mt-0.5">Reminders for the conditions you follow</p>
             </div>
           </div>

@@ -56,6 +56,7 @@ export interface EmaMedicine extends EmaFlags {
   holder: string;   // marketing-authorisation holder
   d: string;        // marketing-authorisation date (YYYY-MM-DD)
   op?: string;      // CHMP opinion date, if recorded
+  fs?: string;      // date DrugRadar first imported this record (YYYY-MM-DD) — drives the NEW marker
   cls?: string;     // ATMP class (gene therapy / CAR-T / somatic-cell / tissue-engineered), reviewed or INN-stem based
   condFull?: string; // date a conditional MA was converted to a full MA (sourced override)
 }

@@ -122,10 +122,10 @@ export const syncIndicationAlerts = async (terms: string[]): Promise<number> => 
     const upcoming = computeUpcoming(terms);
     const notifications = upcoming.map((u) => ({
       id: hashId(`${u.term.toLowerCase()}::${u.drug}::${u.decisionISO}`),
-      title: 'EU decision expected',
-      body: `${u.drug}${u.inn ? ` (${u.inn})` : ''} — EU decision on ${u.term} expected around ${fmtDate(
+      title: 'Estimated EU decision date',
+      body: `${u.drug}${u.inn ? ` (${u.inn})` : ''} — EU decision on ${u.term} estimated around ${fmtDate(
         u.decisionISO
-      )}.`,
+      )} (DrugRadar estimate: CHMP opinion + 67 days). This is not a confirmed event — open the app to verify the outcome.`,
       schedule: { at: u.notifyAt, allowWhileIdle: true },
     }));
 

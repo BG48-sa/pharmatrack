@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { storeGet, storeSet } from '../services/storage';
 import {
   recentApprovals,
   pipeline,
@@ -173,6 +174,24 @@ const WithdrawnCard: React.FC<{ m: EmaGoneItem; onClick: () => void }> = ({ m, o
 const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTrials, watchedTerms, onWatchIndication, onCompareDisease }) => {
   const [sub, setSub] = useState<SubView>('approved');
   const [filter, setFilter] = useState<EmaFilter>('all');
+  // Unread tracking: a record is NEW while DrugRadar first imported it within
+  // the last 21 days (its `fs` date, not the regulatory date) and the user has
+  // not opened it yet. Opened keys persist on the device.
+  const SEEN_KEY = 'dr_seen_eu';
+  const [seen, setSeen] = useState<Set<string>>(new Set());
+  useEffect(() => { storeGet(SEEN_KEY).then((v) => { try { if (v) setSeen(new Set(JSON.parse(v))); } catch { /* ignore */ } }); }, []);
+  const recKey = (m: EmaMedicine) => `${m.n}|${m.d}`;
+  const isUnread = (m: EmaMedicine): boolean => {
+    const first = m.fs || m.d;
+    const ageDays = (Date.now() - new Date(first).getTime()) / 86_400_000;
+    return Number.isFinite(ageDays) && ageDays <= 21 && !seen.has(recKey(m));
+  };
+  const markSeen = (m: EmaMedicine) => {
+    const k = recKey(m);
+    if (seen.has(k)) return;
+    const next = new Set(seen); next.add(k); setSeen(next);
+    storeSet(SEEN_KEY, JSON.stringify([...next].slice(-2000)));
+  };
 
   const q = query.trim();
   const isWatched = !!q && !!watchedTerms?.some((w) => w.toLowerCase() === q.toLowerCase());
@@ -360,8 +379,8 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
                 <ApprovedCard
                   key={`${m.n}-${m.d}`}
                   m={m}
-                  isNew={!!lastVisitISO && m.d > lastVisitISO.slice(0, 10)}
-                  onClick={() => onSelect(approvalToDetail(m))}
+                  isNew={isUnread(m)}
+                  onClick={() => { markSeen(m); onSelect(approvalToDetail(m)); }}
                 />
               ))}
             </div>

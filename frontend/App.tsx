@@ -3,7 +3,7 @@ import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaServ
 import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
 import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
 import { getUpcomingPdufa } from './services/pdufa';
-import { primeBundledData, refreshLiveData, getLastRefresh } from './services/liveData';
+import { primeBundledData, refreshLiveData, getLastRefresh, getReleaseInfo } from './services/liveData';
 import { searchTrials, TrialRegion, lastTrialTotal } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
@@ -599,6 +599,8 @@ export default function App() {
             <span>
               Offline — showing saved data
               {(() => {
+                const rel = getReleaseInfo();
+                if (rel?.generated) { const rd = new Date(rel.generated); if (!isNaN(rd.getTime())) return ` — verified data release of ${rd.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`; }
                 const iso = getLastRefresh();
                 if (!iso) return ' from this build’s shipped snapshots';
                 const d = new Date(iso);

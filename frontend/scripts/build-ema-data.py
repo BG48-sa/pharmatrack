@@ -346,6 +346,29 @@ for k, rec in by_inn.items():
     n = len(inn_products.get(k, ()))
     if n > 1:
         rec["k"] = n
+# First-seen dates: the day DrugRadar first imported each record, kept across
+# daily rebuilds. "New since your last visit" uses this, not the regulatory
+# date, so a late import still shows as new. Records seen before this field
+# existed are floored to their own regulatory date.
+def _key(kind, r):
+    return f"{kind}|{r['n']}|{r.get('d') or r.get('op') or r.get('e') or ''}"
+prev_fs = {}
+try:
+    with open(OUT) as _f:
+        _prev = json.load(_f)
+    for kind, lst in (("a", _prev.get("authorised", [])), ("p", _prev.get("pipeline", [])), ("g", _prev.get("gone", []))):
+        for r in lst:
+            if r.get("fs"):
+                prev_fs[_key(kind, r)] = r["fs"]
+except Exception:
+    pass
+today = datetime.date.today().isoformat()
+for kind, lst in (("a", authorised), ("p", pipeline), ("g", gone)):
+    for r in lst:
+        k = _key(kind, r)
+        floor = r.get("d") or r.get("op") or r.get("e") or today
+        r["fs"] = prev_fs.get(k) or (today if prev_fs else floor)
+
 out = {
     "generated": generated,
     "byName": by_name,

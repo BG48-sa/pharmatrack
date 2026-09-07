@@ -152,7 +152,9 @@ const parseClause = (text: string): Facet[] => {
       : /^(<|less than|below)$/.test(opWord) ? '<'
       : /^(>|above|more than)$/.test(opWord) ? '>'
       : '';
-    add('Biomarker', `PD-L1 ${pdl1[1].toUpperCase()} ${op}${pdl1[3]}%`);
+    // CPS is a score (no unit); TPS/IC/TC are percentages — keep the notation the label uses.
+    const score = pdl1[1].toUpperCase();
+    add('Biomarker', `PD-L1 ${score} ${op}${pdl1[3]}${score === 'CPS' ? '' : '%'}`);
   } else if (has(/pd-?l1/)) add('Biomarker', 'PD-L1');
 
   if (has(/\bmsi-?h\b|microsatellite instability[\s-]?high|mismatch[\s-]repair[\s-]deficien|dmmr/)) add('Biomarker', 'MSI-H / dMMR');

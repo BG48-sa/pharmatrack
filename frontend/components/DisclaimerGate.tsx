@@ -3,19 +3,19 @@ import { ShieldAlert, ExternalLink } from 'lucide-react';
 import { storeGet, storeSet } from '../services/storage';
 
 // Blocking disclaimer the user must accept before using the app. Acceptance
-// expires: it is re-required every 30 days, and immediately whenever VERSION
+// expires only when VERSION
 // changes (bump it when the disclaimer text materially changes). Stored as
 // "<version>|<ISO timestamp>".
 const KEY = 'dr_disclaimer_accepted';
 const VERSION = '2026-07-04';
-const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 
 const isFresh = (stored: string | null): boolean => {
   if (!stored) return false;
   const [version, ts] = stored.split('|');
   if (version !== VERSION || !ts) return false;
-  const age = Date.now() - new Date(ts).getTime();
-  return Number.isFinite(age) && age >= 0 && age < MAX_AGE_MS;
+  // Accepted once per disclaimer version. (Re-acceptance every 30 days was
+  // dropped: it adds friction without adding assurance.)
+  return true;
 };
 
 const DisclaimerGate: React.FC = () => {
