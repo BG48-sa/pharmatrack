@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "items": [
     {
       "title": "FDA Grants Accelerated Approval to a New Breast Cancer Treatment",
@@ -16,6 +16,16 @@
       "names": []
     },
     {
+      "title": "FDA Grants Accelerated Approval to Etcamah (camizestrant) in Combination with a CDK4/6 Inhibitor for the Treatment of Advanced HR-Positive Breast Cancer",
+      "url": "https://www.drugs.com/newdrugs/fda-grants-accelerated-approval-etcamah-camizestrant-combination-cdk4-6-inhibitor-advanced-hr-6877.html",
+      "date": "2026-09-04",
+      "source": "Drugs.com",
+      "names": [
+        "camizestrant",
+        "etcamah"
+      ]
+    },
+    {
       "title": "FDA Approves First Drug to Treat Alexander Disease",
       "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZjNLeEx4RlpobjdPMnAzdWdGRzVPeGVnOXpNU0IzX2ptYzhUMjg3RjVhcXh3SHZKWm11cXJzQnlTc0hSaHVrbEZrQmJNQVkxald4Q1BkTFZuZ0R4U1o1bTBrTnZ6c3J5NEY0MHRUS1dUMTlXUXVNQTV5b3JnWEUzdkRGaEZpY1ExOENxR2tnVHhrb080Vm1LcVBUemZQSFJO?oc=5",
       "date": "2026-09-03",
@@ -23,7 +33,7 @@
       "names": []
     },
     {
-      "title": "FDA Approves Zanvastro (zilganersen) to Treat Alexander Disease",
+      "title": "FDA Approves Zanvastro (zilganersen) for the Treatment of Alexander Disease",
       "url": "https://www.drugs.com/newdrugs/fda-approves-zanvastro-zilganersen-alexander-6876.html",
       "date": "2026-09-03",
       "source": "Drugs.com",
@@ -196,18 +206,6 @@
       "date": "2026-08-25",
       "source": "Drugs.com",
       "names": []
-    },
-    {
-      "title": "U.S. FDA Approves Ziihera (zanidatamab-hrii) with and without Tislelizumab plus Chemotherapy in First-Line HER2+ Advanced Gastroesophageal Adenocarcinoma",
-      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-ziihera-zanidatamab-hrii-without-tislelizumab-plus-chemotherapy-first-line-her2-6863.html",
-      "date": "2026-08-25",
-      "source": "Drugs.com",
-      "names": [
-        "tislelizumab",
-        "zanidatamab",
-        "zanidatamab-hrii",
-        "ziihera"
-      ]
     }
   ]
 }
