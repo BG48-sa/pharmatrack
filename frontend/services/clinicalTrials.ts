@@ -47,6 +47,11 @@ const locationFilter = (region: TrialRegion): string =>
 // `allPhases` drops the Phase-3 filter so a disease/drug with no active
 // late-stage trial still surfaces its earlier-phase studies, rather than a
 // dead-end empty screen. The default stays Phase 3 (the "pipeline" signal).
+// Total number of studies matching the last search on ClinicalTrials.gov (the
+// list shows at most one page of 25). Null when the server did not report it.
+let lastTotal: number | null = null;
+export const lastTrialTotal = (): number | null => lastTotal;
+
 export const searchTrials = async (
   query: string,
   allPhases = false,
@@ -66,6 +71,7 @@ export const searchTrials = async (
     'filter.overallStatus': 'RECRUITING,ACTIVE_NOT_RECRUITING,ENROLLING_BY_INVITATION',
     'sort': '@relevance', // keep the term filter strict; re-sort by date below
     'pageSize': '25',
+    'countTotal': 'true', // so the UI can say how many matching studies were NOT shown
   });
 
   const res = await fetch(`${API}?${params.toString()}`, { headers: { Accept: 'application/json' } });
@@ -73,6 +79,7 @@ export const searchTrials = async (
 
   const json = await res.json();
   const studies: any[] = json.studies || [];
+  lastTotal = typeof json.totalCount === 'number' ? json.totalCount : null;
 
   const trials = studies.map((s): Trial => {
     const ps = s.protocolSection || {};

@@ -156,7 +156,14 @@ export const DrugDetailContent: React.FC<{
       <IndicationFacets indication={data.indication} />
 
       <div className="space-y-3.5">
-        {data.indication && <Row icon={<Activity size={18} />} label="Indication">{data.indication}</Row>}
+        {data.indication && (
+          <Row icon={<Activity size={18} />} label={data.indicationSource === 'summary' ? 'Indication (summary)' : 'Indication'}>
+            {data.indication}
+            {data.indicationSource === 'summary' && (
+              <span className="block text-[11px] text-amber-700 mt-1">Summarised by DrugRadar from the FDA approval; eligibility criteria (genotype, age, prior therapy, diagnostics) may be shortened — the full label is authoritative.</span>
+            )}
+          </Row>
+        )}
         {data.therapeuticArea && (
           <Row icon={<Stethoscope size={18} />} label="Therapeutic Area">
             {data.therapeuticArea.split(';').map((a) => a.trim()).filter(Boolean).join(' · ')}

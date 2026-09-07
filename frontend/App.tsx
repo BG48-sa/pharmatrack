@@ -4,7 +4,7 @@ import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/
 import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
 import { getUpcomingPdufa } from './services/pdufa';
 import { primeBundledData, refreshLiveData, getLastRefresh } from './services/liveData';
-import { searchTrials, TrialRegion } from './services/clinicalTrials';
+import { searchTrials, TrialRegion, lastTrialTotal } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
 import PdufaList from './components/PdufaList';
@@ -854,7 +854,11 @@ export default function App() {
                   Pipeline — {trialAllPhases ? 'All phases' : 'Phase 3'}
                 </h2>
                 <p className="text-slate-500 text-xs mt-1 leading-relaxed">
-                  Found {trials.length} active {trialAllPhases ? '' : 'late-stage '}trial(s) in {trialRegion === 'US' ? 'the USA' : 'Europe'} for "{trialQuery}". Source: ClinicalTrials.gov.
+                  {(() => { const total = lastTrialTotal(); return total && total > trials.length
+                    ? `Showing the first ${trials.length} of ${total} matching studies`
+                    : `Found ${trials.length} matching stud${trials.length === 1 ? 'y' : 'ies'}`; })()}
+                  {' '}— {trialAllPhases ? 'all phases' : 'Phase 3 only'}, recruiting / active / enrolling by invitation, {trialRegion === 'US' ? 'USA' : 'Europe'}, for "{trialQuery}".
+                  Completed, withdrawn and unregistered studies are not included: a selection, not the full development landscape. Source: ClinicalTrials.gov.
                 </p>
               </div>
               <TrialList trials={trials} />

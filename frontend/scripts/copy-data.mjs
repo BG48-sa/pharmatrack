@@ -50,5 +50,17 @@ const publishLabels = (srcDir, outSub, indexName) => {
   writeFileSync(join(outDir, indexName), JSON.stringify({ generated: stamp, count: files.length, drugs }));
   console.log(`[copy-data] published ${files.length} ${outSub.toUpperCase()} files + manifest`);
 };
+// Release manifest: the eight runtime snapshots are only ever applied TOGETHER
+// (services/liveData.ts checks every file's hash against this list), so a half-
+// updated set — new regulatory catalogue beside an old biomarker list — can not
+// be assembled from mixed CDN caches or partial downloads.
+{
+  const { createHash } = await import('node:crypto');
+  const files = {};
+  for (const f of FILES) files[f] = createHash('sha256').update(readFileSync(join(outDir, f))).digest('hex');
+  const generated = new Date().toISOString();
+  writeFileSync(join(outDir, 'release.json'), JSON.stringify({ id: generated.slice(0, 19).replace(/[-:T]/g, ''), generated, files }));
+  console.log(`[copy-data] release manifest for ${FILES.length} snapshots`);
+}
 publishLabels('smpc-data', 'smpc', 'smpc-index.json');
 publishLabels('uspi-data', 'uspi', 'uspi-index.json');

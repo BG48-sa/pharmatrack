@@ -1,5 +1,5 @@
 import React from 'react';
-import { parseIndication, Facet, FacetGroup } from '../services/indicationParser';
+import { parseIndicationGroups, Facet, FacetGroup } from '../services/indicationParser';
 import { Dna, Layers, Target, Combine, Users } from 'lucide-react';
 
 // Visual style + display order per facet group. Biomarker leads — it's usually
@@ -12,30 +12,48 @@ const GROUP: Record<FacetGroup, { order: number; cls: string; icon: React.ReactN
   Population: { order: 4, cls: 'bg-slate-100 text-slate-600 border-slate-200', icon: <Users size={11} /> },
 };
 
-const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => {
-  const facets: Facet[] = parseIndication(indication);
-  if (facets.length === 0) return null;
-
+const Pills: React.FC<{ facets: Facet[] }> = ({ facets }) => {
   const sorted = [...facets].sort((a, b) => GROUP[a.group].order - GROUP[b.group].order);
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {sorted.map((f) => (
+        <span key={`${f.group}-${f.label}`} className={`inline-flex items-center gap-1 px-2 py-1 rounded-md border text-[11px] font-semibold ${GROUP[f.group].cls}`}>
+          {GROUP[f.group].icon}
+          {f.label}
+        </span>
+      ))}
+    </div>
+  );
+};
+
+// One facet group per indication clause, so the population, setting, biomarker
+// and regimen of one indication are never mixed with those of another.
+const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => {
+  const groups = parseIndicationGroups(indication);
+  if (groups.length === 0) return null;
+  const multi = groups.length > 1;
 
   return (
     <div className="mb-4 bg-slate-50 rounded-2xl p-3.5 border border-slate-100">
       <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-2">
-        At a glance
+        At a glance{multi ? ` — ${groups.length} indications, kept separate` : ''}
       </p>
-      <div className="flex flex-wrap gap-1.5">
-        {sorted.map((f) => (
-          <span
-            key={`${f.group}-${f.label}`}
-            className={`inline-flex items-center gap-1 px-2 py-1 rounded-md border text-[11px] font-semibold ${GROUP[f.group].cls}`}
-          >
-            {GROUP[f.group].icon}
-            {f.label}
-          </span>
+      <div className="space-y-2.5">
+        {groups.map((g, i) => (
+          <div key={i}>
+            {multi && (
+              <p className="text-[11px] text-slate-500 leading-snug mb-1">
+                <span className="font-semibold text-slate-600">{i + 1}.</span>{' '}
+                {g.clause.length > 110 ? g.clause.slice(0, 107).replace(/\s+\S*$/, '') + '…' : g.clause}
+              </p>
+            )}
+            <Pills facets={g.facets} />
+          </div>
         ))}
       </div>
       <p className="text-[10px] text-slate-400 mt-2 leading-snug">
-        Auto-parsed from the approved indication — verify against the SmPC / label.
+        Keywords found in the approved indication text, shown per indication. Negations and thresholds are kept
+        as written; anything not listed here may still restrict eligibility — read the full indication below.
       </p>
     </div>
   );

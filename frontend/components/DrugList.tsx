@@ -12,6 +12,7 @@ const toDetail = (drug: Drug): DrugDetailData => ({
   genericName: drug.genericName,
   approvalDate: drug.fdaApprovalDate,
   indication: drug.indication,
+  indicationSource: drug.indicationSource,
   drugClass: drug.drugClass,
   company: drug.company,
   emaApprovalDate: drug.emaApprovalDate,

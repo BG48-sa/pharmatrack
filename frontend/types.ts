@@ -8,6 +8,8 @@ export interface Drug {
   emaApprovalDate: string;
   emaUrl?: string;
   company: string;
+  /** 'label' = text from the official label; 'summary' = DrugRadar's abbreviated summary (eligibility criteria may be shortened). */
+  indicationSource?: 'label' | 'summary';
   is351k?: boolean;
   applicationDate351k?: string;
 }
@@ -123,6 +125,7 @@ export interface DrugDetailData {
   expectedDecision?: string; // estimated EC decision date for a pending opinion
   opinionDate?: string;      // CHMP opinion date for a pending item
   statusNote?: string;       // e.g. 'Withdrawn 2025-02-20' for a no-longer-authorised EU medicine
+  indicationSource?: 'label' | 'summary';
 }
 
 // Curated, user-maintained PDUFA watchlist (sponsor/analyst-disclosed target

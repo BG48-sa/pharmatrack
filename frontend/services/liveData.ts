@@ -126,12 +126,64 @@ export const primeBundledData = (): Promise<number> => (primed ??= applySnapshot
  * succeeds. Resolves to the number of snapshots that were refreshed (0 =
  * everything kept the shipped copy). Never throws.
  */
+const sha256 = async (text: string): Promise<string> => {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+};
+
+// Fetch the release manifest and every snapshot; apply them only if the whole
+// set is present and every file's hash matches the manifest. A partial or mixed
+// set (one file from a newer deploy, another from an older cache) is discarded
+// as a unit, so the app never combines data from two states of knowledge.
+const fetchRelease = async (): Promise<Record<string, any> | null> => {
+  const get = async (file: string, mode: RequestCache): Promise<string | null> => {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+      const res = await fetch(REMOTE_BASE + file, { signal: ctrl.signal, cache: mode });
+      clearTimeout(timer);
+      if (!res.ok) return null;
+      const text = await res.text();
+      if (mode === 'no-cache') freshHits++;
+      return text;
+    } catch { return null; }
+  };
+  for (const mode of ['no-cache', 'force-cache'] as RequestCache[]) {
+    const manifestText = await get('release.json', mode);
+    if (!manifestText) continue;
+    let manifest: { files?: Record<string, string> };
+    try { manifest = JSON.parse(manifestText); } catch { continue; }
+    const want = manifest.files || {};
+    const texts = await Promise.all(SNAPSHOTS.map(([file]) => get(file, mode)));
+    const parsed: Record<string, any> = {};
+    let complete = true;
+    for (let i = 0; i < SNAPSHOTS.length; i++) {
+      const file = SNAPSHOTS[i][0];
+      const text = texts[i];
+      if (!text || !want[file] || (await sha256(text)) !== want[file]) { complete = false; break; }
+      try { parsed[file] = JSON.parse(text); } catch { complete = false; break; }
+    }
+    if (complete) return parsed;
+    if (import.meta.env.DEV) console.warn(`[liveData] incomplete or mismatched release (${mode}) — keeping current data`);
+  }
+  return null;
+};
+
 export const refreshLiveData = async (): Promise<number> => {
   // The shipped copies must be in place first, so a slow local read can never
   // overwrite a fresher live snapshot afterwards.
   await primeBundledData();
   freshHits = 0;
-  const updated = await applySnapshots(fetchJson);
+  let updated = 0;
+  const release = await fetchRelease();
+  if (release) {
+    SNAPSHOTS.forEach(([file, apply]) => { apply(release[file]); updated++; });
+  } else {
+    // No consistent release available (a deploy without a manifest, or offline
+    // with nothing cached): fall back to the per-file path so the app at least
+    // stays current file by file.
+    updated = await applySnapshots(fetchJson);
+  }
 
   done = true;
   // A force-cache fallback (offline) must not pose as a fresh sync.

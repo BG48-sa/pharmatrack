@@ -198,7 +198,10 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, labelCount = 
           <p className="text-[10px] text-slate-400 mt-4 leading-snug">
             For informational purposes only — not medical advice and not a basis for treatment
             decisions. “At a glance” facets are auto-parsed from the approved indication and may be
-            incomplete or wrong — verify every entry against the SmPC / EPAR or FDA label.
+            incomplete or wrong — verify every entry against the SmPC / EPAR or FDA label. The EU and US dates are each
+            product's FIRST authorisation in that jurisdiction, not the approval of any particular indication, biomarker,
+            line of therapy or population: later indication extensions carry their own dates, and the two jurisdictions
+            often approve different indications — use the label comparison for the indication-level view.
             EU authorisation does not imply national reimbursement or availability.
           </p>
         </div>

@@ -426,6 +426,7 @@ const cgtToDrug = (bla: string, r: CgtRec, id: number): Drug => {
     brandName: r.n || bla,
     genericName: r.g || '—',
     indication: r.i || '',
+    indicationSource: 'summary',
     drugClass: r.c,
     company: r.m || '—',
     fdaApprovalDate: r.d,
