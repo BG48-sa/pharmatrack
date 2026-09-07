@@ -184,7 +184,7 @@ async function run() {
       if (!Object.values(sections).some((s) => !s.missing && s.text)) { fail++; index.failed.push(slug); continue; }
       writeFileSync(join(OUT_DIR, `${slug}.json`), JSON.stringify({
         slug, brand: m.n, inn: m.inn, holder: m.holder, url: PI(slug), source: 'EMA product-information (Annex I, SmPC)',
-        retrieved: (() => { try { return new Date(statSync(cacheFile).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(), // when the PDF text was fetched from EMA
+        retrieved: (() => { try { return new Date(statSync(join(CACHE, `${slug}.txt`)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(), // when the PDF text was fetched from EMA
         sections,
       }));
       index.drugs[slug] = { brand: m.n, inn: m.inn };

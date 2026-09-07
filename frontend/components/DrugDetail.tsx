@@ -177,6 +177,9 @@ export const DrugDetailContent: React.FC<{
             </p>
             <p className={`text-sm font-bold ${hasEma ? 'text-slate-800' : 'text-slate-400'}`}>
               {hasEma ? formatPretty(data.emaApprovalDate) : data.emaApprovalDate || '—'}
+              {data.statusNote && /^Conditional MA converted/.test(data.statusNote) && (
+                <span className="block text-[11px] font-normal text-slate-500 mt-0.5">conditional at grant · converted to full MA {formatPretty(data.statusNote.replace(/^.* /, ''))}</span>
+              )}
             </p>
           </div>
         </div>
