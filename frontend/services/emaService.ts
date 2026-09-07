@@ -57,7 +57,7 @@ const normalise = (s: string): string =>
     .replace(/oe/g, 'e')      // coeliac->celiac, oedema->edema, oesophag->esophag, foetal->fetal
     .replace(/ae/g, 'e')      // anaemia->anemia, haem->hem, leukaemia->leukemia, paediatric->pediatric
     .replace(/our/g, 'or')    // tumour->tumor, colour->color
-    .replace(/\bcar[\s-]?t\b/g, 'cart')  // CAR-T / CAR T / CART -> one token
+    .replace(/\bcar[\s-]?t\b/g, 'chimericantigenreceptort')  // CAR-T / CAR T -> one distinctive token (plain 'cart' would match 'cartilage')
     .replace(/[^a-z0-9]+/g, ' ') // punctuation/hyphens -> space
     .trim();
 
