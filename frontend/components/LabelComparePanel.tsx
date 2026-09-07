@@ -18,6 +18,8 @@ interface LabelDoc {
   // name exists in the US; 'substance' = a different US product with the same
   // active substance (originator or another brand) — never presented as the same medicine.
   usGeneric?: string; usRoute?: string; match?: 'brand' | 'substance';
+  // Traceability per document: when the source text was retrieved, and (US) the label version date.
+  retrieved?: string; effective?: string;
 }
 
 interface Props {
@@ -90,7 +92,7 @@ const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded:
     // section — say what we know. Only the boxed warning is a genuine absence
     // (most US labels have none).
     return sectionKey === 'boxed_warning'
-      ? <p className="text-[12px] italic text-slate-400">No boxed warning in this US label.</p>
+      ? <p className="text-[12px] italic text-slate-400">No boxed warning in this extract (most US labels carry none — confirm in the official label).</p>
       : <p className="text-[12px] italic text-slate-400">Section not available in this extract — open the official label via the source link below.</p>;
   }
   return (
@@ -124,7 +126,12 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
   }, [onClose]);
 
   // (Re)load whenever the set of columns changes (initial mount or a toggle).
-  useEffect(() => { setDocs(null); Promise.all(cols.map(loadDoc)).then(setDocs); }, [cols]);
+  useEffect(() => {
+    let cancelled = false; // a quick EU/US toggle must not be overwritten by the earlier, slower load
+    setDocs(null);
+    Promise.all(cols.map(loadDoc)).then((d) => { if (!cancelled) setDocs(d); });
+    return () => { cancelled = true; };
+  }, [cols]);
 
   const setColSource = (i: number, source: Src) =>
     setCols((prev) => (prev[i].source === source ? prev : prev.map((c, j) => (j === i ? { ...c, source } : c))));
@@ -213,6 +220,13 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                       <div className="text-[10px] font-bold text-amber-700 uppercase tracking-wide">different product · same substance</div>
                     )}
                     <div className="text-[11px] text-slate-500 font-medium truncate">{d!.inn}</div>
+                    {(d!.retrieved || d!.effective) && (
+                      <div className="text-[10px] text-slate-400 mt-0.5">
+                        {cols[i].source === 'us'
+                          ? `${d!.effective ? `label version ${fmtCorpusDate(d!.effective)}` : ''}${d!.effective && d!.retrieved ? ' · ' : ''}${d!.retrieved ? `retrieved ${fmtCorpusDate(d!.retrieved)}` : ''}`
+                          : `SmPC text retrieved ${fmtCorpusDate(d!.retrieved || '')}`}
+                      </div>
+                    )}
                     <div className="mt-1.5 inline-flex rounded-md border border-slate-200 overflow-hidden">
                       {(['eu', 'us'] as Src[]).map((s) => {
                         const active = cols[i].source === s;

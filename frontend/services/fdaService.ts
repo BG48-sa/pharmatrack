@@ -16,15 +16,20 @@ import { Drug, DrugDataResponse, Source } from '../types';
 const DRUGSFDA_API = 'https://api.fda.gov/drug/drugsfda.json';
 const LABEL_API = 'https://api.fda.gov/drug/label.json';
 
-interface EmaRec { d: string; n: string; u: string; b: boolean }
+interface EmaRec { d: string; n: string; u: string; b: boolean; k?: number }
+// A lookup answer: `exact` = matched by product name; otherwise the INN matched
+// and `ambiguous` says several EU products share that substance (Itvisma vs
+// Zolgensma, biosimilars) — then no product-specific date may be shown.
 // ema-medicines.json is { generated, byInn, authorised, pipeline }; the FDA
 // tabs enrich approvals from the INN index only. Starts empty; liveData.ts
 // loads the shipped snapshot at startup.
 let emaData: Record<string, EmaRec> = {};
+let emaByName: Record<string, EmaRec> = {};
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
-export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec> }): void => {
+export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec>; byName?: Record<string, EmaRec> }): void => {
   emaData = d.byInn || {};
+  emaByName = d.byName || {};
 };
 
 // CBER cell & gene therapy snapshot, keyed by BLA application number. These
@@ -102,16 +107,26 @@ const cleanIndication = (raw?: string): string => {
 
 // Look up an EMA marketing-authorisation record by active ingredient / generic
 // name, trying the full normalized name and its first token (drops salt forms).
-const lookupEma = (names: (string | undefined)[]): EmaRec | undefined => {
+// Product identity first (brand names), substance second. A substance match
+// shared by several EU products is returned with `ambiguous` so callers show
+// 'same substance authorised' instead of another product's date and EPAR link.
+type EmaHit = EmaRec & { ambiguous?: boolean };
+const lookupEma = (names: (string | undefined)[], brands: (string | undefined)[] = []): EmaHit | undefined => {
+  for (const b of brands) {
+    const key = String(b || '').toLowerCase().trim();
+    if (key && emaByName[key]) return emaByName[key];
+  }
   for (const raw of names) {
     if (!raw) continue;
     const norm = raw.toLowerCase().trim();
-    if (emaData[norm]) return emaData[norm];
-    const first = norm.split(/[\s,;]+/)[0];
-    if (first && emaData[first]) return emaData[first];
+    const hit = emaData[norm] || (() => { const first = norm.split(/[\s,;]+/)[0]; return first ? emaData[first] : undefined; })();
+    if (hit) return hit.k && hit.k > 1 ? { ...hit, ambiguous: true } : hit;
   }
   return undefined;
 };
+// How an EMA hit is shown on a US-sourced card.
+const emaDateFor = (ema: EmaHit | undefined): string => (ema ? (ema.ambiguous ? `Same substance in EU (${ema.n}, ${ema.d})` : ema.d) : 'Not in EMA');
+const emaUrlFor = (ema: EmaHit | undefined): string | undefined => (ema && !ema.ambiguous ? ema.u || undefined : undefined);
 
 // Public EMA-by-substance lookup (date + EPAR url) for offline enrichment of the
 // curated disease catalog. Returns the earliest central MA record for an INN.
@@ -183,7 +198,7 @@ const mapResult = (r: FdaResult, id: number): { drug: Drug; appNo?: string } | n
     of.generic_name?.[0],
     of.substance_name?.[0],
     ingredientNames[0],
-  ]);
+  ], [product.brand_name, ...(of.brand_name || [])]);
 
   return {
     appNo: r.application_number,
@@ -195,8 +210,8 @@ const mapResult = (r: FdaResult, id: number): { drug: Drug; appNo?: string } | n
       drugClass: drugClass || undefined,
       company,
       fdaApprovalDate: formatDate(orig?.submission_status_date),
-      emaApprovalDate: ema ? ema.d : 'Not in EMA',
-      emaUrl: ema?.u || undefined,
+      emaApprovalDate: emaDateFor(ema),
+      emaUrl: emaUrlFor(ema),
       is351k,
       applicationDate351k: is351k ? formatDate(orig?.submission_status_date) : undefined,
     },
@@ -280,7 +295,7 @@ const mapLabelResult = (r: LabelResult, id: number): Drug | null => {
     titleCase(of.route?.[0]) ||
     undefined;
 
-  const ema = lookupEma([of.generic_name?.[0], of.substance_name?.[0]]);
+  const ema = lookupEma([of.generic_name?.[0], of.substance_name?.[0]], of.brand_name || []);
 
   return {
     id,
@@ -290,8 +305,8 @@ const mapLabelResult = (r: LabelResult, id: number): Drug | null => {
     drugClass,
     company: titleCase(of.manufacturer_name?.[0]) || '—',
     fdaApprovalDate: cgt ? cgt.d : 'N/A',
-    emaApprovalDate: ema ? ema.d : 'Not in EMA',
-    emaUrl: ema?.u || undefined,
+    emaApprovalDate: emaDateFor(ema),
+    emaUrl: emaUrlFor(ema),
   };
 };
 
@@ -405,7 +420,7 @@ const norm = (t: string): string =>
   t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 const cgtToDrug = (bla: string, r: CgtRec, id: number): Drug => {
-  const ema = lookupEma([r.g]);
+  const ema = lookupEma([r.g], [r.n]);
   return {
     id,
     brandName: r.n || bla,
@@ -414,8 +429,8 @@ const cgtToDrug = (bla: string, r: CgtRec, id: number): Drug => {
     drugClass: r.c,
     company: r.m || '—',
     fdaApprovalDate: r.d,
-    emaApprovalDate: ema ? ema.d : 'Not in EMA',
-    emaUrl: ema?.u || undefined,
+    emaApprovalDate: emaDateFor(ema),
+    emaUrl: emaUrlFor(ema),
   };
 };
 

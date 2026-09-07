@@ -54,6 +54,8 @@ export interface EmaMedicine extends EmaFlags {
   holder: string;   // marketing-authorisation holder
   d: string;        // marketing-authorisation date (YYYY-MM-DD)
   op?: string;      // CHMP opinion date, if recorded
+  cls?: string;     // ATMP class (gene therapy / CAR-T / somatic-cell / tissue-engineered), reviewed or INN-stem based
+  condFull?: string; // date a conditional MA was converted to a full MA (sourced override)
 }
 
 // A medicine with a CHMP opinion adopted but no MA yet — the European
@@ -70,6 +72,8 @@ export interface EmaPipelineItem extends EmaFlags {
   holder: string;
   op: string;        // CHMP opinion adopted date (YYYY-MM-DD)
   reexam: boolean;   // opinion under re-examination
+  outcome?: 'positive' | 'unknown'; // negative opinions are never listed here
+  cls?: string;
 }
 
 // A medicine that is no longer authorised in the EU, or never was: the MA was
@@ -93,7 +97,8 @@ export interface EmaGoneItem extends EmaFlags {
 
 export interface EmaData {
   generated: string;
-  byInn: Record<string, { d: string; n: string; u: string; b: boolean }>;
+  byName?: Record<string, { d: string; n: string; u: string; b: boolean }>;
+  byInn: Record<string, { d: string; n: string; u: string; b: boolean; k?: number }>; // k = number of EU products sharing the INN
   authorised: EmaMedicine[];
   pipeline: EmaPipelineItem[];
   gone?: EmaGoneItem[]; // absent in snapshots built before Sept 2026

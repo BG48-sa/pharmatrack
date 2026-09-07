@@ -45,7 +45,8 @@ const AccessStatus: React.FC<{ data: DrugDetailData }> = ({ data }) => {
   // EU regulatory status
   let eu: { s: State; d: string };
   if (data.expectedDecision) eu = { s: 'pending', d: `Decision expected ~${fmt(data.expectedDecision)}` };
-  else if (data.statusNote) eu = { s: 'no', d: data.statusNote.replace(/ (\d{4}-\d{2}-\d{2})$/, (_, d) => ` ${fmt(d)}`) };
+  else if (data.statusNote && !/^Conditional MA converted/.test(data.statusNote)) eu = { s: 'no', d: data.statusNote.replace(/ (\d{4}-\d{2}-\d{2})$/, (_, d) => ` ${fmt(d)}`) };
+  else if (data.emaApprovalDate && /^Same substance/.test(data.emaApprovalDate)) eu = { s: 'no', d: `${data.emaApprovalDate} — not this product` };
   else if (fmt(data.emaApprovalDate)) eu = { s: 'yes', d: `Authorised ${fmt(data.emaApprovalDate)}` };
   else if (data.emaApprovalDate === 'Not in EMA') eu = { s: 'no', d: 'Not centrally authorised' };
   else eu = { s: 'no', d: '—' };

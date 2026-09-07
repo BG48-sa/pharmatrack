@@ -112,17 +112,17 @@ const ExpectedCard: React.FC<{ m: EmaPipelineItem; onClick: () => void }> = ({ m
           <div className="flex items-center flex-wrap gap-2">
             <h3 className="font-bold text-slate-900 text-base leading-tight">{m.n}</h3>
             <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-bold uppercase tracking-wider">
-              {m.reexam ? 'Re-exam' : 'EC pending'}
+              {m.outcome === 'unknown' ? 'Opinion' : m.reexam ? 'Positive · re-exam' : 'Positive · EC pending'}
             </span>
           </div>
           <p className="text-sm text-slate-500 font-medium mt-0.5 truncate">{m.inn || m.sub}</p>
         </div>
         <div className="text-right shrink-0">
-          <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Est. EC decision</div>
-          <div className="text-sm font-bold text-indigo-700 leading-none mt-0.5">{fmt(decision)}</div>
+          <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{m.outcome === 'unknown' ? 'Opinion outcome' : 'Est. EC decision'}</div>
+          <div className="text-sm font-bold text-indigo-700 leading-none mt-0.5">{m.outcome === 'unknown' ? 'not recorded' : fmt(decision)}</div>
           {Number.isFinite(days) && (
             <div className="text-[11px] text-slate-400 font-semibold mt-1">
-              {days >= 0 ? `~${days} day${days === 1 ? '' : 's'}` : 'imminent'}
+              {days >= 0 ? `~${days} day${days === 1 ? '' : 's'}` : 'estimated date passed — verify outcome'}
             </div>
           )}
         </div>
@@ -139,7 +139,7 @@ const ExpectedCard: React.FC<{ m: EmaPipelineItem; onClick: () => void }> = ({ m
 // Colour the status pill by what happened: the applicant walked away (grey),
 // the regulator said no (red), or a former MA ended (amber).
 const statusTone = (st: string): string => {
-  if (/refused/i.test(st)) return 'bg-red-50 text-red-700 border-red-200';
+  if (/refused|negative/i.test(st)) return 'bg-red-50 text-red-700 border-red-200';
   if (/application|rolling review/i.test(st)) return 'bg-slate-100 text-slate-600 border-slate-200';
   return 'bg-amber-50 text-amber-800 border-amber-200';
 };
@@ -157,7 +157,7 @@ const WithdrawnCard: React.FC<{ m: EmaGoneItem; onClick: () => void }> = ({ m, o
         <p className="text-sm text-slate-500 font-medium mt-0.5 truncate">{m.inn || m.sub}</p>
       </div>
       <div className="text-right shrink-0">
-        <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{/refused/i.test(m.st) ? 'Refused' : /application|rolling/i.test(m.st) ? 'Withdrawn by applicant' : m.ex ? 'Last EC decision' : 'MA ended'}</div>
+        <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{/negative/i.test(m.st) ? 'CHMP opinion' : /refused/i.test(m.st) ? 'Refused' : /application|rolling/i.test(m.st) ? 'Withdrawn by applicant' : m.ex ? 'Last EC decision' : 'MA ended'}</div>
         <div className="text-sm font-bold text-slate-700 leading-none mt-0.5">{m.e ? fmt(m.e) : 'date not recorded'}</div>
         {m.d && <div className="text-[11px] text-slate-400 font-semibold mt-1">authorised {fmt(m.d)}</div>}
       </div>
@@ -372,9 +372,9 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
           <div className="flex items-start text-[11px] text-slate-600 leading-relaxed mb-3 bg-indigo-50 border border-indigo-200 rounded-lg p-2">
             <Info size={13} className="mr-1.5 mt-0.5 text-indigo-500 shrink-0" />
             <span>
-              Medicines <strong>awaiting the European Commission decision</strong> on
-              marketing authorisation, which normally follows within ~67 days of the
-              CHMP opinion — the estimated date is shown on each card.
+              Medicines with a <strong>positive CHMP opinion awaiting the European Commission decision</strong>.
+              The date shown is DrugRadar's estimate (opinion + 67 days, the legal period after EMA
+              transmits its recommendation) — not an official timetable. Negative opinions are listed under Withdrawn.
             </span>
           </div>
           {expected.length === 0 ? (
@@ -405,7 +405,9 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             <span>
               Medicines that are <strong>no longer authorised in the EU, or never were</strong>:
               marketing authorisation withdrawn, expired, lapsed, revoked or suspended,
-              application refused, or withdrawn by the applicant. Most recent event first.
+              application refused or withdrawn by the applicant, or a <strong>negative CHMP opinion</strong>
+              (a recommendation to refuse; the Commission decision may still be pending). Each card
+              names the event and its date. Most recent event first.
               Source: EMA medicine data, snapshot {fmt(emaGeneratedDate())}.
             </span>
           </div>

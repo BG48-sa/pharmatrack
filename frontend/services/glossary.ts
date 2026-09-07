@@ -46,7 +46,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: 'Advanced therapy medicinal product',
     abbr: 'ATMP',
     body:
-      'Medicines based on genes, tissues or cells: gene therapies, somatic-cell therapies and tissue-engineered products. In the EU they are assessed with input from the Committee for Advanced Therapies (CAT).',
+      'Medicines based on genes, tissues or cells: gene therapies, somatic-cell therapies and tissue-engineered products. In the EU the Committee for Advanced Therapies (CAT) assesses them and prepares the draft opinion, which the CHMP adopts as its final opinion.',
     soWhat:
       'ATMPs (including CAR-T and gene therapies) carry distinct manufacturing, administration and long-term follow-up requirements — the label is a flag that this is not a conventional small-molecule or antibody.',
     sourceLabel: 'EMA — advanced therapies',
@@ -79,7 +79,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: 'Conditional marketing authorisation',
     abbr: 'Conditional',
     body:
-      'An EU authorisation granted on less comprehensive data than normally required, when the benefit of immediate availability outweighs the risk of incomplete data. The holder must supply further confirmatory evidence post-authorisation.',
+      'An EU authorisation granted on less comprehensive data than normally required, when the benefit of immediate availability outweighs the risk of incomplete data. The holder must supply further confirmatory evidence post-authorisation. DrugRadar shows the flag as recorded at the time of grant in EMA\'s data; conversion to a full (standard) authorisation is noted in the detail sheet only where it has been verified.',
     soWhat:
       'Approval rests on preliminary (often surrogate-endpoint or single-arm) data with obligations still open — confirmatory trials may later confirm or withdraw the benefit.',
     sourceLabel: 'EMA — conditional MA',

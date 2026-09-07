@@ -265,6 +265,8 @@ async function run() {
       usRoute: of.route?.[0] || null,
       usApplication: of.application_number?.[0] || null,
       match, // 'brand' = same product name in the US; 'substance' = different US product, same active substance
+      effective: chosen.effective_time ? `${chosen.effective_time.slice(0, 4)}-${chosen.effective_time.slice(4, 6)}-${chosen.effective_time.slice(6, 8)}` : null, // label version date (openFDA effective_time)
+      retrieved: (() => { try { return new Date(statSync(cacheFile(slug)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(),
       url: `https://labels.fda.gov/`, splSetId: chosen.set_id || null,
       dailymed: chosen.set_id ? `https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=${chosen.set_id}` : 'https://www.accessdata.fda.gov/scripts/cder/daf/',
       source: 'openFDA drug label (US Prescribing Information)', sections,

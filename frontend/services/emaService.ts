@@ -57,6 +57,7 @@ const normalise = (s: string): string =>
     .replace(/oe/g, 'e')      // coeliac->celiac, oedema->edema, oesophag->esophag, foetal->fetal
     .replace(/ae/g, 'e')      // anaemia->anemia, haem->hem, leukaemia->leukemia, paediatric->pediatric
     .replace(/our/g, 'or')    // tumour->tumor, colour->color
+    .replace(/\bcar[\s-]?t\b/g, 'cart')  // CAR-T / CAR T / CART -> one token
     .replace(/[^a-z0-9]+/g, ' ') // punctuation/hyphens -> space
     .trim();
 
@@ -104,7 +105,9 @@ const hasTerm = (hay: string, term: string): boolean =>
 // Free-text match across name, INN, substance, therapeutic area, indication, ATC.
 const matchesQuery = (m: EmaMedicine | EmaPipelineItem | EmaGoneItem, q: string): boolean => {
   if (!q) return true;
-  const hay = normalise(`${m.n} ${m.inn} ${m.sub} ${m.area} ${m.ind} ${m.atc}`);
+  const cls = (m as { cls?: string }).cls || '';
+  // ATMPs are searchable by category: 'ATMP', 'advanced therapy', 'gene therapy', 'CAR-T', 'cell therapy', 'tissue engineered'…
+  const hay = normalise(`${m.n} ${m.inn} ${m.sub} ${m.area} ${m.ind} ${m.atc}${m.atmp ? ` advanced therapy medicinal product ATMP ${cls}` : ''}`);
   return queryTerms(q).every((term) => hasTerm(hay, term));
 };
 
@@ -154,9 +157,10 @@ export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
   company: m.holder || undefined,
   emaApprovalDate: m.d,
   emaUrl: m.url || undefined,
-  badge: m.atmp ? 'Advanced therapy (ATMP)' : undefined,
+  badge: m.atmp ? (m.cls ? `ATMP · ${m.cls}` : 'Advanced therapy (ATMP)') : undefined,
   therapeuticArea: m.area || undefined,
   emaFlags: flagsOf(m),
+  statusNote: m.condFull ? `Conditional MA converted to full MA ${m.condFull}` : undefined,
 });
 
 /** Map a no-longer-authorised medicine into the shared DrugDetail sheet shape. */
@@ -182,11 +186,13 @@ export const pipelineToDetail = (m: EmaPipelineItem): DrugDetailData => ({
   approvalDate: 'N/A',
   indication: m.ind || undefined,
   company: m.holder || undefined,
-  emaApprovalDate: 'MA expected',
+  emaApprovalDate: m.outcome === 'unknown' ? 'CHMP opinion adopted' : 'MA expected',
   emaUrl: m.url || undefined,
-  badge: m.reexam ? 'CHMP opinion — re-examination' : 'CHMP opinion — EC decision pending',
+  badge: m.outcome === 'unknown' ? 'CHMP opinion adopted — outcome not recorded' : m.reexam ? 'Positive CHMP opinion — re-examination' : 'Positive CHMP opinion — EC decision pending',
   therapeuticArea: m.area || undefined,
   emaFlags: flagsOf(m),
   opinionDate: m.op,
-  expectedDecision: estimatedDecisionDate(m.op),
+  // Only a POSITIVE opinion supports an expected authorisation; the date is an
+  // estimate (opinion + 67 days), not an official timetable.
+  expectedDecision: m.outcome === 'unknown' ? undefined : estimatedDecisionDate(m.op),
 });

@@ -4,6 +4,10 @@ import { EmaFlags } from '../types';
 // Compact regulatory-status pills, ordered by how much an EMA committee member
 // cares: ATMP (advanced therapy) first, then orphan / PRIME, then the MA-type
 // qualifiers. Only truthy flags render.
+const TITLES: Partial<Record<keyof EmaFlags, string>> = {
+  cond: 'Conditional marketing authorisation as granted (EMA data). Conversion to a full authorisation is shown in the detail sheet where known.',
+  atmp: 'Advanced therapy medicinal product — assessed by the Committee for Advanced Therapies (CAT), whose draft opinion the CHMP adopts.',
+};
 const DEFS: Array<{ key: keyof EmaFlags; label: string; cls: string }> = [
   { key: 'atmp', label: 'ATMP', cls: 'bg-violet-100 text-violet-800 border-violet-200' },
   { key: 'orphan', label: 'Orphan', cls: 'bg-amber-100 text-amber-800 border-amber-200' },
@@ -38,11 +42,12 @@ const EmaBadges: React.FC<{
             onClick={() => onSelect(d.key)}
             className={`${base} ${d.cls} active:opacity-70`}
             aria-label={`What is ${d.label}?`}
+            title={TITLES[d.key]}
           >
             {d.label}
           </button>
         ) : (
-          <span key={d.key} className={`${base} ${d.cls}`}>
+          <span key={d.key} className={`${base} ${d.cls}`} title={TITLES[d.key]}>
             {d.label}
           </span>
         )

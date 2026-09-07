@@ -161,9 +161,9 @@ const DeviceList: React.FC<Props> = ({ query }) => {
     setError(null);
     const run = async () => {
       try {
-        if (sub === 'pma') setPma(await pmaApprovals(query));
-        else if (sub === '510k') setK510(await clearances510k(query));
-        else setRecalls(await deviceRecalls(query));
+        if (sub === 'pma') { const r = await pmaApprovals(query); if (!cancelled) setPma(r); }
+        else if (sub === '510k') { const r = await clearances510k(query); if (!cancelled) setK510(r); }
+        else { const r = await deviceRecalls(query); if (!cancelled) setRecalls(r); }
       } catch (e: any) {
         if (!cancelled) setError(e.message || 'openFDA request failed.');
       } finally {
