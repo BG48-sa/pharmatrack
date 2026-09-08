@@ -123,7 +123,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onSearch, onClear, isLoadi
       : mode === 'critical'
       ? 'Search critical medicines — substance, ATC, route…'
       : mode === 'biomarker'
-      ? 'Search biomarker, gene, or drug — EGFR, PD-L1, olaparib…'
+      ? 'Search biomarker, gene, drug or FDA test — EGFR, PD-L1, olaparib, FoundationOne…'
       : mode === 'devices'
       ? 'Search devices — name, manufacturer, specialty…'
       : 'Search drug, ingredient, company, class…';

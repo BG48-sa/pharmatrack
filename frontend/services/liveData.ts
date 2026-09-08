@@ -26,6 +26,7 @@ import { __setPdufaData } from './pdufa';
 import { __setFdaEmaData, __setCgtData } from './fdaService';
 import { __setDiseaseData } from './diseaseEntities';
 import { __setBiomarkerData } from './biomarkers';
+import { __setCdxData } from './companionDx';
 import { __setAnnouncementsData } from './announcements';
 import { storeGet, storeSet } from './storage';
 
@@ -76,6 +77,7 @@ const SNAPSHOTS: Array<[string, (d: any) => void]> = [
   ['cgt-products.json', __setCgtData],
   ['disease-entities.json', __setDiseaseData],
   ['biomarkers.json', __setBiomarkerData],
+  ['fda-cdx.json', __setCdxData],
   ['announcements.json', __setAnnouncementsData],
 ];
 

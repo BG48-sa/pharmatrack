@@ -145,7 +145,10 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             method the SmPC requires (a validated test under the IVD Regulation), example
             CE-marked assays for illustration, and the EU-authorised medicines whose indication
             depends on that result — ready to compare down to the label sections. Search it by
-            biomarker, gene, alteration, or drug name.
+            biomarker, gene, alteration, or drug name. Switch to <strong>FDA companion diagnostics</strong>{' '}
+            for the US side: every device the FDA has authorised for a specific drug and indication,
+            with its test method, drug, indication and authorisation date — and each biomarker card
+            shows its matching US tests beside the EU test method.
           </Section>
 
           <Section

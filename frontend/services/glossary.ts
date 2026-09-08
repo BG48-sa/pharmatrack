@@ -130,6 +130,17 @@ export const GLOSSARY: GlossaryEntry[] = [
     sourceUrl: 'https://www.ema.europa.eu/en/human-regulatory-overview/generic-and-hybrid-medicines',
   },
   {
+    id: 'cdx',
+    term: 'Companion diagnostic',
+    abbr: 'CDx',
+    body:
+      'An in-vitro diagnostic (or imaging tool) whose result is essential for the safe and effective use of a specific medicine — typically whether the patient carries the biomarker the drug targets. In the US the FDA authorises named devices for specific drug and indication pairs (PMA, 510(k), De Novo or HDE) and publishes the list DrugRadar bundles. In the EU the IVD Regulation (2017/746) classes companion diagnostics as class C devices whose conformity assessment includes consultation of the medicines authority, and the SmPC asks for a validated test rather than one named kit.',
+    soWhat:
+      'The two frameworks answer different questions: the FDA list tells you which device was studied with which drug; the SmPC tells you a validated test is required and leaves the choice of CE-marked assay to the laboratory. On a biomarker card the EU test method and the FDA-authorised devices are shown side by side for that reason.',
+    sourceLabel: 'FDA — List of FDA-authorized companion diagnostic devices',
+    sourceUrl: 'https://www.fda.gov/medical-devices/in-vitro-diagnostics/list-fda-authorized-companion-diagnostic-devices-in-vitro-and-imaging-tools',
+  },
+  {
     id: 'dev',
     term: 'Drug–device combination',
     abbr: 'Drug+Device',

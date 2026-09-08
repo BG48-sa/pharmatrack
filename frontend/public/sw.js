@@ -17,6 +17,7 @@ const DATA_SNAPSHOTS = [
   './data/cgt-products.json',
   './data/disease-entities.json',
   './data/biomarkers.json',
+  './data/fda-cdx.json',
   './data/smpc-index.json',
   './data/uspi-index.json',
 ];

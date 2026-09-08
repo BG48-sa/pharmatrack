@@ -24,6 +24,7 @@ const FILES = [
   'cgt-products.json',
   'disease-entities.json',
   'biomarkers.json',
+  'fda-cdx.json',
   'announcements.json',
 ];
 
@@ -50,7 +51,7 @@ const publishLabels = (srcDir, outSub, indexName) => {
   writeFileSync(join(outDir, indexName), JSON.stringify({ generated: stamp, count: files.length, drugs }));
   console.log(`[copy-data] published ${files.length} ${outSub.toUpperCase()} files + manifest`);
 };
-// Release manifest: the eight runtime snapshots are only ever applied TOGETHER
+// Release manifest: the runtime snapshots (FILES) are only ever applied TOGETHER
 // (services/liveData.ts checks every file's hash against this list), so a half-
 // updated set — new regulatory catalogue beside an old biomarker list — can not
 // be assembled from mixed CDN caches or partial downloads.
