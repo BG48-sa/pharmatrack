@@ -272,12 +272,14 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
       {/* Curated disease drug-class comparison(s). One card for a disease name
           (e.g. "CML" -> its six TKIs); several when a molecular target such as
           "PD-1" or "CD20" spans multiple classes. */}
-      {diseases.length > 1 && (
+      {/* Drug-class comparison cards belong to the Approved view: they are built
+          from authorised medicines and would sit oddly above withdrawn ones. */}
+      {sub === 'approved' && diseases.length > 1 && (
         <p className="text-[13px] font-semibold text-emerald-800 mb-2">
           {diseases.length} drug classes match “{q}”
         </p>
       )}
-      {onCompareDisease && diseases.map((disease) => (
+      {sub === 'approved' && onCompareDisease && diseases.map((disease) => (
         <div key={disease.id} className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 mb-3">
           <div className="flex items-start gap-3">
             <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700 shrink-0">
@@ -326,7 +328,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
       )}
 
       {/* Follow this indication for on-device EU decision reminders. */}
-      {q && onWatchIndication && (
+      {q && onWatchIndication && sub !== 'withdrawn' && (
         isWatched ? (
           <div className="flex items-center gap-1.5 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2 mb-3">
             <BellRing size={13} className="shrink-0" /> Following “{q}” — you’ll be reminded of EU decisions.
