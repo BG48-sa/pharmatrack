@@ -96,6 +96,11 @@ const ApprovedCard: React.FC<{ m: EmaMedicine; isNew: boolean; onClick: () => vo
       <div className="text-right shrink-0">
         <div className="text-sm font-bold text-blue-700 leading-none">{fmt(m.d)}</div>
         <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mt-1">EU MA</div>
+        {m.ec === 'register' && (
+          <div className="text-[10px] text-blue-600 font-semibold mt-0.5" title="Commission decision date from the EU Union Register; EMA's product record still shows the CHMP opinion">
+            EC decision · Union Register
+          </div>
+        )}
       </div>
     </div>
     <AreaTags area={m.area} />
@@ -123,7 +128,9 @@ const ExpectedCard: React.FC<{ m: EmaPipelineItem; onClick: () => void }> = ({ m
           <div className="text-sm font-bold text-indigo-700 leading-none mt-0.5">{m.outcome === 'unknown' ? 'not recorded' : fmt(decision)}</div>
           {Number.isFinite(days) && (
             <div className="text-[11px] text-slate-400 font-semibold mt-1">
-              {days >= 0 ? `~${days} day${days === 1 ? '' : 's'}` : 'estimated date passed — verify outcome'}
+              {days >= 0
+                ? `~${days} day${days === 1 ? '' : 's'}`
+                : `${-days} day${days === -1 ? '' : 's'} past the estimate — still pending in EMA data of ${fmt(emaGeneratedDate())}`}
             </div>
           )}
         </div>
@@ -395,7 +402,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
             <span>
               Medicines with a <strong>positive CHMP opinion awaiting the European Commission decision</strong>.
               The date shown is DrugRadar's estimate (opinion + 67 days, the legal period after EMA
-              transmits its recommendation) — not an official timetable. Negative opinions are listed under Withdrawn.
+              transmits its recommendation) — not an official timetable. Negative opinions are listed under Withdrawn. Checked daily against the EU Union Register: a medicine the Commission has already authorised moves to Approved with its decision date, even before EMA updates its own record.
             </span>
           </div>
           {expected.length === 0 ? (

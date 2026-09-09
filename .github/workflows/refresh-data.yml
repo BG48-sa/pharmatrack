@@ -42,7 +42,13 @@ jobs:
           curl -fsSL -A "Mozilla/5.0" -o /tmp/ema.xlsx \
             "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx"
           test -s /tmp/ema.xlsx
-          python frontend/scripts/build-ema-data.py /tmp/ema.xlsx frontend/ema-medicines.json
+          # EU Union Register (Commission decisions of the last six months): lets a
+          # medicine the Commission has already authorised leave the "expected"
+          # list before EMA updates its own table. Optional — never fatal.
+          curl -fsSL -A "Mozilla/5.0" -o /tmp/newproc.htm \
+            "https://ec.europa.eu/health/documents/community-register/html/newproc.htm" \
+            || echo "WARN: Union Register unavailable — pending list not cross-checked"
+          python frontend/scripts/build-ema-data.py /tmp/ema.xlsx frontend/ema-medicines.json /tmp/newproc.htm
           python frontend/scripts/build-cgt-data.py frontend/cgt-products.json
           # FDA press-release announcements (bridges the openFDA data lag).
           # A feed hiccup must not kill the EMA refresh — keep the old file.

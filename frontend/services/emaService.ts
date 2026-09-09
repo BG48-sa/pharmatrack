@@ -161,6 +161,9 @@ export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
   therapeuticArea: m.area || undefined,
   emaFlags: flagsOf(m),
   statusNote: m.condFull ? `Conditional MA converted to full MA ${m.condFull}` : undefined,
+  sourceNote: m.ec === 'register'
+    ? 'Commission decision date from the EU Union Register — EMA\'s product record still shows the CHMP opinion'
+    : undefined,
 });
 
 /** Map a no-longer-authorised medicine into the shared DrugDetail sheet shape. */

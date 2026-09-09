@@ -59,6 +59,7 @@ export interface EmaMedicine extends EmaFlags {
   fs?: string;      // date DrugRadar first imported this record (YYYY-MM-DD) — drives the NEW marker
   cls?: string;     // ATMP class (gene therapy / CAR-T / somatic-cell / tissue-engineered), reviewed or INN-stem based
   condFull?: string; // date a conditional MA was converted to a full MA (sourced override)
+  ec?: 'register';  // MA date taken from the EU Union Register (Commission decision) because EMA's table still said 'Opinion'
 }
 
 // A medicine with a CHMP opinion adopted but no MA yet — the European
@@ -126,6 +127,7 @@ export interface DrugDetailData {
   expectedDecision?: string; // estimated EC decision date for a pending opinion
   opinionDate?: string;      // CHMP opinion date for a pending item
   statusNote?: string;       // e.g. 'Withdrawn 2025-02-20' for a no-longer-authorised EU medicine
+  sourceNote?: string;       // provenance of the EU date when it is not EMA's own record (Union Register)
   indicationSource?: 'label' | 'summary';
 }
 

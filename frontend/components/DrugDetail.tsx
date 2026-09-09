@@ -51,7 +51,7 @@ const shareText = (d: DrugDetailData): string => {
   ];
   if (d.statusNote && !/^Conditional MA converted/.test(d.statusNote)) lines.push(`EU status: ${d.statusNote}${d.emaApprovalDate && /^\d/.test(d.emaApprovalDate) ? ` (originally authorised ${d.emaApprovalDate})` : ''}`);
   else if (d.expectedDecision) lines.push(`EU decision expected ~${d.expectedDecision} (estimate: positive CHMP opinion + 67 days; European Commission decision pending)`);
-  else if (d.emaApprovalDate && /^\d/.test(d.emaApprovalDate)) lines.push(`EU marketing authorisation: ${d.emaApprovalDate}${d.statusNote ? ` (${d.statusNote})` : ''}`);
+  else if (d.emaApprovalDate && /^\d/.test(d.emaApprovalDate)) lines.push(`EU marketing authorisation: ${d.emaApprovalDate}${d.statusNote ? ` (${d.statusNote})` : ''}${d.sourceNote ? ` (${d.sourceNote})` : ''}`);
   else if (d.emaApprovalDate && /^Same substance/.test(d.emaApprovalDate)) lines.push(`EU: ${d.emaApprovalDate} — not this product`);
   if (d.badge) lines.push(`Type: ${d.badge}`);
   if (d.approvalDate && /^\d/.test(d.approvalDate)) lines.push(`FDA approval: ${d.approvalDate}`);
@@ -186,6 +186,9 @@ export const DrugDetailContent: React.FC<{
               {hasEma ? formatPretty(data.emaApprovalDate) : data.emaApprovalDate || '—'}
               {data.statusNote && /^Conditional MA converted/.test(data.statusNote) && (
                 <span className="block text-[11px] font-normal text-slate-500 mt-0.5">conditional at grant · converted to full MA {formatPretty(data.statusNote.replace(/^.* /, ''))}</span>
+              )}
+              {data.sourceNote && (
+                <span className="block text-[11px] font-normal text-slate-500 mt-0.5">{data.sourceNote}</span>
               )}
             </p>
           </div>

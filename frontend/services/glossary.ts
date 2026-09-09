@@ -37,7 +37,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     body:
       'The legally-binding act that grants an EU-wide marketing authorisation, adopted by the European Commission after a CHMP opinion. Only after this decision may the medicine be marketed in the EU.',
     soWhat:
-      'DrugRadar estimates this date as the CHMP opinion date + ~67 days. It is an estimate, not an official calendar entry — verify against the EMA medicine page.',
+      'DrugRadar estimates this date as the CHMP opinion date + ~67 days. It is an estimate, not an official calendar entry — verify against the EMA medicine page. Because EMA\'s own table can lag the Commission by weeks, DrugRadar also checks the EU Union Register of Commission decisions every day: a medicine already authorised there is shown as approved with the decision date, marked “EC decision · Union Register”.',
     sourceLabel: 'EMA — authorisation of medicines',
     sourceUrl: 'https://www.ema.europa.eu/en/about-us/what-we-do/authorisation-medicines',
   },

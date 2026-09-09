@@ -28,17 +28,29 @@ EmaMedicine / EmaPipelineItem fields:
 
 Usage:
   curl -sL -A "Mozilla/5.0" -o /tmp/ema.xlsx <url-above>
-  python3 scripts/build-ema-data.py /tmp/ema.xlsx ema-medicines.json
+  curl -sL -A "Mozilla/5.0" -o /tmp/newproc.htm \
+    https://ec.europa.eu/health/documents/community-register/html/newproc.htm
+  python3 scripts/build-ema-data.py /tmp/ema.xlsx ema-medicines.json /tmp/newproc.htm
+
+The third argument (or env EU_REGISTER) is optional: the EU Union Register page
+"Adopted Commission Decisions of the last six months". EMA's report can lag the
+European Commission by weeks (Onswik: Commission Decision of 20 Aug 2026, still
+"Opinion" in EMA's table on 9 Sep 2026). The page embeds its list as JSON with
+the EMA procedure number, so a pending medicine can be matched exactly; one
+that already has a "Centralised - Authorisation" decision is published as
+authorised with the decision date and flagged ec="register".
 """
-import html, json, re, sys, datetime
+import html, json, os, re, sys, datetime
 import openpyxl
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else "/tmp/ema.xlsx"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "ema-medicines.json"
+REGISTER = sys.argv[3] if len(sys.argv) > 3 else os.environ.get("EU_REGISTER", "")
 
 # 0-based column indices in the EMA report (header on row 8, data from row 9).
 C_CATEGORY = 0
 C_NAME = 1
+C_EMA_NUMBER = 2        # EMA product number, e.g. EMEA/H/C/006388
 C_STATUS = 3            # Authorised / Opinion / Withdrawn / Refused / ...
 C_OPINION_STATUS = 4    # Positive / Negative (outcome of the CHMP opinion)
 C_INN = 6
@@ -231,6 +243,44 @@ GONE_STATUSES = {
 }
 gone = []
 
+# Opinion dates EMA's table gets wrong — each with its source. Applied only
+# while the table still carries the wrong value, so an EMA correction wins.
+OPINION_DATE_FIX = {           # slug: (value in the table, corrected value)
+    # Zokovea: table says 23/06/2026; EMA's own product text and the CHMP
+    # meeting highlights of 20-23 July 2026 list it among the July opinions.
+    "zokovea": ("2026-06-23", "2026-07-23"),
+}
+
+
+def load_register(path):
+    """Union Register decisions: EMA procedure number -> {'d': decision date, 'id': page id}."""
+    reg = {}
+    if not path or not os.path.exists(path):
+        return reg
+    try:
+        text = open(path, encoding="utf-8", errors="replace").read()
+    except OSError:
+        return reg
+    for m in re.finditer(r'^\{"cat":.*\},?$', text, re.M):
+        try:
+            r = json.loads(m.group(0).rstrip(","))
+        except json.JSONDecodeError:
+            continue
+        dec = r.get("decision") or {}
+        if r.get("cat") != "ch" or not dec.get("ema_num"):
+            continue
+        if not str(dec.get("type", "")).strip().startswith("Centralised - Authorisation"):
+            continue
+        key = "/".join(str(dec["ema_num"]).split("/")[:4]).upper()   # EMEA/H/C/006388
+        d = fmt_date(dec.get("date"))
+        if d and (key not in reg or d < reg[key]["d"]):
+            reg[key] = {"d": d, "id": (r.get("name") or {}).get("id", "")}
+    return reg
+
+
+register = load_register(REGISTER)
+register_hits = []
+
 for i, row in enumerate(rows):
     if i <= 8:
         continue
@@ -269,6 +319,8 @@ for i, row in enumerate(rows):
         "holder": clean(row[C_HOLDER]),
     }
     slug_now = (clean(row[C_URL]).split("/EPAR/")[1] if "/EPAR/" in clean(row[C_URL]) else "").replace("-previously-", "").lower()
+    if slug_now in OPINION_DATE_FIX and op_date == OPINION_DATE_FIX[slug_now][0]:
+        op_date = OPINION_DATE_FIX[slug_now][1]
     if base["atmp"]:
         base["cls"] = atmp_class(slug_now, row[C_INN] or row[C_SUBSTANCE])
     if slug_now in COND_CONVERTED:
@@ -292,6 +344,20 @@ for i, row in enumerate(rows):
             # authorisation. Show it with the no-longer/never-authorised records.
             gone.append({**base, "st": "Negative CHMP opinion" + (" (re-examination)" if status != "Opinion" else ""), "e": op_date, "op": op_date})
         else:
+            # The Commission may already have granted the MA while EMA's table
+            # still says "Opinion" — the Union Register is the binding record.
+            ema_no = "/".join(clean(row[C_EMA_NUMBER]).split("/")[:4]).upper()
+            hit = register.get(ema_no) if outcome == "positive" else None
+            if hit and hit["d"] >= op_date:
+                authorised.append({**base, "d": hit["d"], "op": op_date, "ec": "register"})
+                register_hits.append(f"{base['n']} ({ema_no}) authorised {hit['d']}")
+                rec = {"d": hit["d"], "n": base["n"], "u": base["url"], "b": base["bio"]}
+                by_name[base["n"].lower()] = rec
+                for k in norm_keys(row[C_INN], row[C_SUBSTANCE]):
+                    inn_products.setdefault(k, set()).add(base["n"])
+                    if k not in by_inn or hit["d"] < by_inn[k]["d"]:
+                        by_inn[k] = rec
+                continue
             # Positive CHMP opinion adopted, MA not yet granted: EC decision is the
             # single most useful "MA expected very soon" signal for an EU user.
             # An unrecorded outcome stays unknown (no expected date is derived).
@@ -387,5 +453,8 @@ print(
     f"ATMP {sum(1 for r in authorised if r['atmp'])} authorised + "
     f"{sum(1 for r in pipeline if r['atmp'])} pending | "
     f"drug+device {sum(1 for r in authorised if r['dev'])} authorised + "
-    f"{sum(1 for r in pipeline if r['dev'])} pending"
+    f"{sum(1 for r in pipeline if r['dev'])} pending | "
+    f"Union Register: {len(register)} authorisation decisions"
+    + (f", applied to {len(register_hits)} pending: " + "; ".join(register_hits) if register_hits else
+       ("" if register else " (register not available — pending list unverified)"))
 )
