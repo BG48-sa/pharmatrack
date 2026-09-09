@@ -158,7 +158,13 @@ export const DrugDetailContent: React.FC<{
       <div className="space-y-3.5">
         {data.indication && (
           <Row icon={<Activity size={18} />} label={data.indicationSource === 'summary' ? 'Indication (summary)' : 'Indication'}>
-            {data.indication}
+            <span className="whitespace-pre-line">{data.indication}</span>
+            {data.indicationNote && (
+              <span className="block text-[11px] text-slate-500 mt-1">{data.indicationNote}</span>
+            )}
+            {data.indicationConflict && (
+              <span className="block text-[11px] text-amber-700 mt-1">{data.indicationConflict}</span>
+            )}
             {data.indicationSource === 'summary' && (
               <span className="block text-[11px] text-amber-700 mt-1">Summarised by DrugRadar from the FDA approval; eligibility criteria (genotype, age, prior therapy, diagnostics) may be shortened — the full label is authoritative.</span>
             )}

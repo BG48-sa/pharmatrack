@@ -56,8 +56,16 @@ const TARGETS = {
 // blow-ups. 5.1 is the exception: it is mostly trial-efficacy narrative, so it is
 // capped (mechanism of action, its useful part, sits at the top) with the full
 // text one tap away via the live SmPC link.
-const CAPS = { '4.1': 12000, '4.2': 40000, '4.3': 8000, '4.4': 40000, '4.8': 80000, '5.1': 40000, '5.2': 40000 };
+const CAPS = { '4.1': 20000, '4.2': 60000, '4.3': 8000, '4.4': 40000, '4.8': 80000, '5.1': 40000, '5.2': 40000 };
 const HEADING = /^[ \t]*(\d\.\d+)[ \t.]+([A-Z][^\n]{3,80})$/gm;
+// One Annex I can bundle several SmPCs (one per presentation: an intravenous
+// and a subcutaneous form, a tablet and granules, several vaccine doses …).
+// Their indications and posology differ, so for these two sections every
+// presentation's text is kept, each under the product name from its own
+// "1. NAME OF THE MEDICINAL PRODUCT" heading; identical texts appear once.
+const NAME_HEADING = /^[ \t]*1\.[ \t]+NAME OF THE MEDICINAL PRODUCT[ \t]*\n+[ \t]*([^\n]{3,160})/gm;
+const ALL_PRESENTATIONS = new Set(['4.1', '4.2']);
+const norm = (t) => t.toLowerCase().replace(/\s+/g, ' ').trim();
 
 const stripNoise = (raw) =>
   raw
@@ -96,18 +104,29 @@ function parseSections(txt) {
   let m; HEADING.lastIndex = 0;
   while ((m = HEADING.exec(text)) !== null)
     heads.push({ num: m[1], title: m[2].trim(), start: m.index, end: m.index + m[0].length });
+  const names = [];
+  let n; NAME_HEADING.lastIndex = 0;
+  while ((n = NAME_HEADING.exec(text)) !== null) names.push({ name: n[1].trim(), start: n.index });
+  const nameAt = (pos) => { let cur = null; for (const x of names) { if (x.start < pos) cur = x.name; else break; } return cur; };
   const sections = {};
   for (const [num, title] of Object.entries(TARGETS)) {
-    const idx = heads.findIndex(
-      (h) => h.num === num && h.title.toLowerCase().startsWith(title.slice(0, 8).toLowerCase())
-    );
-    if (idx === -1) { sections[num] = { title, text: '', missing: true }; continue; }
-    const s = heads[idx].end;
-    const e = idx + 1 < heads.length ? heads[idx + 1].start : text.length;
-    let body = reflow(text.slice(s, e));
+    const hits = heads
+      .map((h, i) => ({ h, i }))
+      .filter(({ h }) => h.num === num && h.title.toLowerCase().startsWith(title.slice(0, 8).toLowerCase()));
+    if (!hits.length) { sections[num] = { title, text: '', missing: true }; continue; }
+    const bodies = [];
+    for (const { h, i } of ALL_PRESENTATIONS.has(num) ? hits : hits.slice(0, 1)) {
+      const e = i + 1 < heads.length ? heads[i + 1].start : text.length;
+      const b = reflow(text.slice(h.end, e));
+      if (!b || bodies.some((x) => norm(x.text) === norm(b))) continue;
+      bodies.push({ text: b, name: nameAt(h.start) });
+    }
+    let body = bodies.length <= 1
+      ? (bodies[0]?.text || '')
+      : bodies.map((b) => `▸ ${b.name || 'Further presentation'}\n\n${b.text}`).join('\n\n');
     const cap = CAPS[num];
     if (body.length > cap) body = body.slice(0, cap).replace(/\s+\S*$/, '') + '\n\n[…section truncated — open the full SmPC via the source link above.]';
-    sections[num] = { title, text: body };
+    sections[num] = { title, text: body, ...(bodies.length > 1 ? { presentations: bodies.length } : {}) };
   }
   return sections;
 }
@@ -165,6 +184,10 @@ async function run() {
       const slug = slugOf(m);
       done++;
       const cached = existsSync(join(CACHE, `${slug}.txt`));
+      if (!cached && reparse) {                            // a re-parse only touches what is cached — never a fetch failure
+        if (existsSync(join(OUT_DIR, `${slug}.json`))) { index.drugs[slug] = { brand: m.n, inn: m.inn }; ok++; } // keep the file already on disk listed
+        continue;
+      }
       if (!cached && !reparse && fetched >= limit) continue; // download budget hit; parse only cached
       let t = reparse && !cached ? null : await rawText(slug, pdf);
       if (!cached && t && t !== '404') { fetched++; consecutiveFail = 0; }

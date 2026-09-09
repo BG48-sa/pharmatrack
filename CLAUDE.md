@@ -26,8 +26,10 @@ From repo root: `npm run dev` (frontend dev server), `npm run build`, `npm run i
   must "Open Anyway" in System Settings → Privacy & Security.
 
 ## Note
-The git remote URL has a hardcoded PAT — should be rotated and moved to a credential
-helper (do not commit or echo the token).
+The git remote URL no longer carries a token: pushes authenticate through the macOS
+keychain credential helper (`git config credential.helper` = osxkeychain; `gh auth
+status` shows the account). Any personal access token that was once embedded in the
+URL should be revoked at github.com → Settings → Developer settings → Tokens.
 
 ## Data release gates
 Every data release is validated before it is committed or deployed. The nightly
@@ -41,4 +43,7 @@ counts and source hashes. Run the same check locally before committing a manual 
 extraction: `python3 frontend/scripts/validate-release.py --published-ref origin/gh-pages`
 (fetch first: `git fetch --depth=1 origin +gh-pages:refs/remotes/origin/gh-pages`).
 The label extractors also refuse to overwrite a good per-drug file with a degraded one
-(`index.guarded` lists what was kept).
+(`index.guarded` lists what was kept). Gate G6 checks agreement across views: curated
+CBER rows must carry the age limits of the extracted US label, and EU records take their
+indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval date,
+`indT` = EMA-table age phrases when the two sources disagree) — the EMA table lags the SmPC.

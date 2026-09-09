@@ -42,6 +42,27 @@ authorised with the decision date and flagged ec="register".
 """
 import hashlib, html, json, os, re, sys, datetime
 import openpyxl
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from agephrases import age_thresholds, age_phrases
+
+SMPC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "smpc-data")
+
+
+def smpc_indication(slug):
+    """Section 4.1 of the SmPC extract for this EPAR slug (text, retrieval date), or None."""
+    path = os.path.join(SMPC_DIR, f"{slug}.json")
+    if not slug or not os.path.exists(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception:
+        return None
+    sec = (doc.get("sections") or {}).get("4.1") or {}
+    text = (sec.get("text") or "").strip() if isinstance(sec, dict) else ""
+    if not text or sec.get("missing"):
+        return None
+    return text, doc.get("retrieved")
 
 PARSER_VERSION = "ema-2026.09.09"   # bump when the mapping below changes
 EMA_XLSX_URL = "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx"
@@ -357,6 +378,24 @@ for i, row in enumerate(rows):
     if slug_now in COND_CONVERTED:
         base["cond"] = False
         base["condFull"] = COND_CONVERTED[slug_now]
+    # The SmPC (Annex I, section 4.1) is the authoritative wording of the
+    # indication; EMA's medicine table lags it or differs (Evkeeza, Rozlytrek,
+    # Daybu …). Where an extract exists the record carries the SmPC wording,
+    # its retrieval date, and — when EMA's table states other age limits — the
+    # table's phrases, so the detail sheet can say that the two sources differ.
+    hit = smpc_indication(slug_now)
+    if hit:
+        text41, retrieved = hit
+        table_text = base["ind"] or ""
+        t_ages, s_ages = age_thresholds(table_text), age_thresholds(text41)
+        base["ind"] = trunc(text41, 12000)
+        base["indSrc"] = "smpc"
+        if retrieved:
+            base["indRet"] = retrieved
+        # A contradiction is an age limit EMA's table states that the SmPC does
+        # not contain; a table that is merely less detailed is not flagged.
+        if t_ages and s_ages and not t_ages <= s_ages:
+            base["indT"] = age_phrases(table_text)
 
     if status == "Authorised" and ma_date:
         authorised.append({**base, "d": ma_date, "op": op_date})

@@ -25,6 +25,10 @@ GATES (each is recorded in the report; any FAIL exits 1)
   G5 label corpora (SmPC / USPI): no file vanishes beyond a small allowance, no
      required section is lost, no catastrophic text shrink, US pairing counts
      do not drop
+  G6 agreement across the app's views: every age limit in an extracted US label
+     appears in the curated CBER row for that product; EU indications are
+     sourced from the SmPC wherever an extract exists, and the share of records
+     where EMA's table disagrees with the SmPC on age limits stays small
 
 OUTPUT
   A JSON report (--report) listing every gate with its numbers, so a failure
@@ -41,6 +45,8 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FRONTEND = os.path.dirname(HERE)
+sys.path.insert(0, HERE)
+from agephrases import age_thresholds  # noqa: E402
 
 SNAPSHOTS = ['ema-medicines.json', 'novel-approvals.json', 'pdufa.json', 'critical-medicines.json',
              'cgt-products.json', 'disease-entities.json', 'biomarkers.json', 'fda-cdx.json', 'announcements.json']
@@ -209,6 +215,49 @@ def main():
             paired_p = match_p.get('brand', 0) + match_p.get('substance', 0)
             paired_c = match_c.get('brand', 0) + match_c.get('substance', 0)
             r.add('G5', 'US label pairing not dropping', paired_c >= paired_p - 5, f'brand {match_p.get("brand", 0)}→{match_c.get("brand", 0)}, substance {match_p.get("substance", 0)}→{match_c.get("substance", 0)}')
+
+    # ---- G6: agreement across views --------------------------------------------
+    cc = cand_json.get('cgt-products.json')
+    uspi_idx_path = os.path.join(cand, 'uspi-index.json')
+    if isinstance(cc, dict) and os.path.exists(uspi_idx_path):
+        try:
+            by_brand = {str(v.get('brand') or '').lower(): slug for slug, v in (load(uspi_idx_path).get('drugs') or {}).items()}
+        except Exception:  # noqa: BLE001
+            by_brand = {}
+        compared, bad = 0, []
+        for bla, row in cc.items():
+            slug = by_brand.get(str(row.get('n') or '').lower())
+            path = os.path.join(cand, 'uspi-data', f'{slug}.json') if slug else None
+            if not path or not os.path.exists(path):
+                continue
+            try:
+                sec = (load(path).get('sections') or {}).get('indications') or {}
+            except Exception:  # noqa: BLE001
+                continue
+            label_ages = age_thresholds(section_text(sec))
+            curated_ages = age_thresholds(row.get('i') or '')
+            if not label_ages or not curated_ages:
+                continue
+            compared += 1
+            if not label_ages <= curated_ages:
+                bad.append(f"{row.get('n')} label {sorted(label_ages)} vs curated {sorted(curated_ages)}")
+        r.add('G6', 'CBER curated rows carry the age limits of the US label', not bad, f'{compared} compared, {len(bad)} disagree: {"; ".join(bad[:5])}')
+    if ce:
+        auth = ce.get('authorised', [])
+        smpc_dir = os.path.join(cand, 'smpc-data')
+        slugs_with_extract = 0
+        for x in auth:
+            slug = (str(x.get('url') or '').split('/EPAR/')[1] if '/EPAR/' in str(x.get('url') or '') else '').replace('-previously-', '').lower()
+            slug = slug.split('-previously-')[0]
+            if slug and os.path.exists(os.path.join(smpc_dir, f'{slug}.json')):
+                slugs_with_extract += 1
+        from_smpc = sum(1 for x in auth if x.get('indSrc') == 'smpc')
+        disagree = [x.get('n') for x in auth if x.get('indT')]
+        r.add('G6', 'EU indications sourced from the SmPC where an extract exists', from_smpc >= 0.95 * slugs_with_extract, f'{from_smpc} of {slugs_with_extract} records with an extract')
+        r.add('G6', 'EMA table vs SmPC age-limit disagreements stay rare', len(disagree) <= max(10, 0.1 * max(1, from_smpc)), f'{len(disagree)} records: {", ".join(str(d) for d in disagree[:8])}')
+        if pe and any(x.get('indSrc') for x in pe.get('authorised', [])):
+            pub_from_smpc = sum(1 for x in pe.get('authorised', []) if x.get('indSrc') == 'smpc')
+            r.add('G6', 'SmPC-sourced indications not dropping', from_smpc >= pub_from_smpc - 20, f'{pub_from_smpc} → {from_smpc}')
 
     status = 'FAIL' if r.failed else 'pass'
     report = {'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'candidate': os.path.abspath(cand),

@@ -148,6 +148,11 @@ const flagsOf = (m: EmaFlags): EmaFlags => ({
   exc: m.exc, acc: m.acc, bio: m.bio, gen: m.gen, dev: m.dev,
 });
 
+const fmtDate = (iso: string): string => {
+  const d = new Date(iso);
+  return isNaN(d.getTime()) ? iso : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+};
+
 /** Map an authorised EU medicine into the shared DrugDetail sheet shape. */
 export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
   brandName: m.n,
@@ -163,6 +168,12 @@ export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
   statusNote: m.condFull ? `Conditional MA converted to full MA ${m.condFull}` : undefined,
   sourceNote: m.ec === 'register'
     ? 'Commission decision date from the EU Union Register — EMA\'s product record still shows the CHMP opinion'
+    : undefined,
+  indicationNote: m.indSrc === 'smpc'
+    ? `Wording of SmPC section 4.1${m.indRet ? `, text retrieved ${fmtDate(m.indRet)}` : ''}`
+    : `Wording of EMA\'s medicine table${data.generated ? ` of ${fmtDate(data.generated)}` : ''}`,
+  indicationConflict: m.indT?.length
+    ? `EMA\'s medicine table${data.generated ? ` of ${fmtDate(data.generated)}` : ''} states different age limits (“${m.indT.join('”, “')}”). The SmPC wording above is the authoritative text; check the current SmPC via the EMA link.`
     : undefined,
 });
 

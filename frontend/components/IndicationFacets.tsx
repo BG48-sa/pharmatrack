@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { parseIndicationGroups, Facet, FacetGroup } from '../services/indicationParser';
 import { Dna, Layers, Target, Combine, Users, AlertTriangle } from 'lucide-react';
 
@@ -30,10 +30,16 @@ const Pills: React.FC<{ facets: Facet[] }> = ({ facets }) => {
 // biomarker and regimen of one indication are never mixed with those of
 // another. A passage the parser cannot separate with confidence shows a
 // notice instead of badges — the full text below is the reference.
+// Labels that bundle several presentations can run to dozens of passages —
+// show the first few and let the reader expand the rest.
+const SHOW_FIRST = 6;
+
 const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => {
+  const [expanded, setExpanded] = useState(false);
   const groups = parseIndicationGroups(indication);
   if (groups.length === 0) return null;
   const multi = groups.length > 1;
+  const shown = expanded || groups.length <= SHOW_FIRST + 2 ? groups : groups.slice(0, SHOW_FIRST);
 
   return (
     <div className="mb-4 bg-slate-50 rounded-2xl p-3.5 border border-slate-100">
@@ -41,7 +47,7 @@ const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => 
         At a glance{multi ? ` — ${groups.length} indication passages` : ''}
       </p>
       <div className="space-y-2.5">
-        {groups.map((g, i) => (
+        {shown.map((g, i) => (
           <div key={i}>
             {multi && (
               <p className="text-[11px] text-slate-500 leading-snug mb-1">
@@ -59,6 +65,15 @@ const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => 
             )}
           </div>
         ))}
+        {shown.length < groups.length && (
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            className="text-[11px] font-semibold text-sky-600 active:text-sky-800"
+          >
+            Show all {groups.length} passages
+          </button>
+        )}
       </div>
       <p className="text-[10px] text-slate-400 mt-2 leading-snug">
         Keywords found in the approved indication text, grouped by passage — a reading aid, not a summary.

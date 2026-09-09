@@ -60,6 +60,9 @@ export interface EmaMedicine extends EmaFlags {
   cls?: string;     // ATMP class (gene therapy / CAR-T / somatic-cell / tissue-engineered), reviewed or INN-stem based
   condFull?: string; // date a conditional MA was converted to a full MA (sourced override)
   ec?: 'register';  // MA date taken from the EU Union Register (Commission decision) because EMA's table still said 'Opinion'
+  indSrc?: 'smpc';  // 'ind' is the SmPC section 4.1 wording (else EMA's medicine table)
+  indRet?: string;  // date the SmPC text was retrieved from EMA (YYYY-MM-DD)
+  indT?: string[];  // age phrases of EMA's table where it disagrees with the SmPC
 }
 
 // A medicine with a CHMP opinion adopted but no MA yet — the European
@@ -129,6 +132,8 @@ export interface DrugDetailData {
   statusNote?: string;       // e.g. 'Withdrawn 2025-02-20' for a no-longer-authorised EU medicine
   sourceNote?: string;       // provenance of the EU date when it is not EMA's own record (Union Register)
   indicationSource?: 'label' | 'summary';
+  indicationNote?: string;   // which document the indication wording comes from, with its date
+  indicationConflict?: string; // set when another official source words the age limits differently
 }
 
 // Curated, user-maintained PDUFA watchlist (sponsor/analyst-disclosed target

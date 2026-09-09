@@ -253,6 +253,9 @@ export const splitPassages = (text: string): Passage[] => {
       // the adjuvant treatment … (see section 5.1). the treatment of …").
       // Abbreviations such as "e.g." and "i.e." are excluded.
       .replace(/(?<!\b(?:e\.g|i\.e|etc|vs|approx|incl|excl|resp|cf|ca|no|min|max|fig|ref))([.:])\s+(?=[a-z])/g, '$1\n')
+      // A list item that follows a closing bracket without any marker
+      // ("… (see section 5.1) the treatment of metastatic …").
+      .replace(/\)\s+(?=the (?:(?:adjuvant|neoadjuvant|first[\s-]?line|second[\s-]?line|maintenance|symptomatic|long-term|short-term) )?(?:treatment|prevention|prophylaxis|management|reduction|relief) of\b)/g, ')\n')
       // Sentence boundaries ("… in adults. Keytruda as monotherapy …").
       .replace(/(?<=[a-z0-9)\]%]|[A-Z]{3,})\s?\.\s+(?=[A-Z•])/g, '.\n'),
   );
@@ -427,9 +430,23 @@ const parseClause = (text: string): Facet[] => {
 
 const EARLY_SETTINGS = ['Adjuvant', 'Neoadjuvant', 'Early-stage', 'Non-metastatic', 'Resectable'];
 
+// Indication statements ("X is indicated for", "an antibody indicated for") —
+// not "as indicated by elevated CRP" or "chemotherapy is not yet clinically
+// indicated", which are conditions inside one indication.
+const STATEMENT_RE = /\b(?:is|are)(?: also| only)? indicated\b|\bindicated (?:for|in|as|to)\b/gi;
+const countStatements = (s: string): number => {
+  const g = new RegExp(STATEMENT_RE.source, 'gi');
+  let n = 0;
+  let m: RegExpExecArray | null;
+  while ((m = g.exec(s))) {
+    if (!/\bnot(?: yet)?(?: clinically)?\s*$/i.test(s.slice(Math.max(0, m.index - 25), m.index))) n++;
+  }
+  return n;
+};
+
 /** Why a passage must not be summarised as one set of badges, or undefined. */
 const uncertainReason = (clause: string, facets: Facet[]): string | undefined => {
-  const statements = (clause.match(/\bindicated\b/gi) || []).length;
+  const statements = countStatements(clause);
   if (statements >= 2) return `it contains ${statements} "indicated" statements`;
   const settings = new Set(facets.filter((f) => f.group === 'Setting').map((f) => f.label));
   if (settings.has('Metastatic') && EARLY_SETTINGS.some((s) => settings.has(s)))
