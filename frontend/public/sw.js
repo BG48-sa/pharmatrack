@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pharmatrack-cache-v4';
+const CACHE_NAME = 'pharmatrack-cache-v5';
 
 // App shell — cached on install so the UI loads offline. Hashed build assets
 // (JS/CSS) are cached at runtime by the same-origin handler below, since their
@@ -78,8 +78,10 @@ self.addEventListener('fetch', (event) => {
       // JS/CSS, so serving stale HTML would pin the old UI for a whole session.
       // Fresh HTML → latest assets → new UI immediately. Cached index.html is
       // the offline fallback.
+      // `cache: 'no-cache'` revalidates with the server (ETag), so the browser's
+      // own 10-minute HTTP cache of index.html can't hand back the previous build.
       event.respondWith(
-        fetch(request)
+        fetch(request.url, { cache: 'no-cache', credentials: 'same-origin' })
           .then((res) => {
             if (res && res.ok) caches.open(CACHE_NAME).then((cache) => cache.put(request, res.clone()));
             return res;

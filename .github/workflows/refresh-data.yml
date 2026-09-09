@@ -134,7 +134,7 @@ jobs:
         run: |
           set -euo pipefail
           npm install --prefix frontend --no-audit --no-fund
-          GH_PAGES=true npm run build
+          GH_PAGES=true VITE_BUILD_COMMIT="$GITHUB_SHA" npm run build
           cd frontend/dist
           touch .nojekyll
           git init -q -b gh-pages

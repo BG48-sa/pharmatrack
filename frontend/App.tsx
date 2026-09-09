@@ -3,7 +3,7 @@ import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaServ
 import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
 import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
 import { getUpcomingPdufa } from './services/pdufa';
-import { primeBundledData, refreshLiveData, getLastRefresh, getReleaseInfo, loadLabelIndex } from './services/liveData';
+import { primeBundledData, refreshLiveData, getLastRefresh, getReleaseInfo, getReleaseManifest, loadLabelIndex } from './services/liveData';
 import { searchTrials, TrialRegion, lastTrialTotal } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
@@ -360,7 +360,7 @@ export default function App() {
       // the widget and every tab reflect today's decisions.
       const last = getLastRefresh();
       const stale = !last || Date.now() - new Date(last).getTime() > 6 * 3600 * 1000;
-      if (stale) refreshLiveData().then((updated) => { if (updated > 0) setDataVersion((v) => v + 1); });
+      if (stale) refreshLiveData().then((updated) => { checkForNewBuild(); if (updated > 0) setDataVersion((v) => v + 1); });
     };
     document.addEventListener('visibilitychange', onVisible);
     return () => document.removeEventListener('visibilitychange', onVisible);
@@ -398,6 +398,17 @@ export default function App() {
   // Bumped once the runtime data refresh lands, so views recompute over the
   // fresher snapshots (bundled data renders first; this swaps in live data).
   const [dataVersion, setDataVersion] = useState(0);
+
+  // A window kept open for days runs the build it was opened with. The release
+  // manifest names the pipeline commit that published the data; when it differs
+  // from this build's commit, a newer app is live — offer a reload (web only:
+  // local and native builds carry no build commit and never prompt).
+  const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
+  const checkForNewBuild = () => {
+    const build = import.meta.env.VITE_BUILD_COMMIT as string | undefined;
+    const live = getReleaseManifest()?.commit as string | undefined;
+    if (build && live && build !== live) setUpdateAvailable(true);
+  };
 
   // Offline honesty: when the network is gone the app keeps working from cached
   // data, but must say so — and say how old that data is (see banner below).
@@ -467,7 +478,9 @@ export default function App() {
   useEffect(() => {
     let cancelled = false;
     refreshLiveData().then((updated) => {
-      if (cancelled || updated === 0) return;
+      if (cancelled) return;
+      checkForNewBuild();
+      if (updated === 0) return;
       setDataVersion((v) => v + 1);
       loadIndexes(); // re-check the label indexes against the release just applied
       if (!isSearchMode) loadDefaultData();
@@ -604,6 +617,18 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col pb-[env(safe-area-inset-bottom)]">
       <DisclaimerGate />
       <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 sticky top-0 z-20 pt-[env(safe-area-inset-top)]">
+        {updateAvailable && !offline && (
+          <div role="status" className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 flex items-center justify-center gap-2 text-[11px] font-medium text-blue-800">
+            <span>A newer version of DrugRadar is available.</span>
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="px-2 py-0.5 rounded-md bg-blue-600 text-white text-[11px] font-semibold active:bg-blue-700"
+            >
+              Reload
+            </button>
+          </div>
+        )}
         {offline && (
           <div role="status" className="bg-amber-50 border-b border-amber-200 px-4 py-1.5 flex items-center justify-center gap-1.5 text-[11px] font-medium text-amber-800">
             <WifiOff size={12} aria-hidden="true" />
