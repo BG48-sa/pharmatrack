@@ -1,6 +1,6 @@
 import React from 'react';
 import { parseIndicationGroups, Facet, FacetGroup } from '../services/indicationParser';
-import { Dna, Layers, Target, Combine, Users } from 'lucide-react';
+import { Dna, Layers, Target, Combine, Users, AlertTriangle } from 'lucide-react';
 
 // Visual style + display order per facet group. Biomarker leads — it's usually
 // the field that decides whether a given patient is even eligible.
@@ -26,8 +26,10 @@ const Pills: React.FC<{ facets: Facet[] }> = ({ facets }) => {
   );
 };
 
-// One facet group per indication clause, so the population, setting, biomarker
-// and regimen of one indication are never mixed with those of another.
+// One facet group per indication passage, so the population, setting,
+// biomarker and regimen of one indication are never mixed with those of
+// another. A passage the parser cannot separate with confidence shows a
+// notice instead of badges — the full text below is the reference.
 const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => {
   const groups = parseIndicationGroups(indication);
   if (groups.length === 0) return null;
@@ -36,7 +38,7 @@ const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => 
   return (
     <div className="mb-4 bg-slate-50 rounded-2xl p-3.5 border border-slate-100">
       <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-2">
-        At a glance{multi ? ` — ${groups.length} indications, kept separate` : ''}
+        At a glance{multi ? ` — ${groups.length} indication passages` : ''}
       </p>
       <div className="space-y-2.5">
         {groups.map((g, i) => (
@@ -47,13 +49,21 @@ const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => 
                 {g.clause.length > 110 ? g.clause.slice(0, 107).replace(/\s+\S*$/, '') + '…' : g.clause}
               </p>
             )}
-            <Pills facets={g.facets} />
+            {g.uncertain ? (
+              <p className="inline-flex items-start gap-1.5 text-[11px] leading-snug text-amber-800 bg-amber-50 border border-amber-200 rounded-md px-2 py-1">
+                <AlertTriangle size={12} className="shrink-0 mt-0.5" aria-hidden="true" />
+                <span>No keywords shown: {g.uncertain}, so one set of badges could mix different indications. Read the full indication text below.</span>
+              </p>
+            ) : (
+              <Pills facets={g.facets} />
+            )}
           </div>
         ))}
       </div>
       <p className="text-[10px] text-slate-400 mt-2 leading-snug">
-        Keywords found in the approved indication text, shown per indication. Negations and thresholds are kept
-        as written; anything not listed here may still restrict eligibility — read the full indication below.
+        Keywords found in the approved indication text, grouped by passage — a reading aid, not a summary.
+        Negations and thresholds are kept as written; a passage that may hold more than one indication shows
+        no badges. Anything not listed here may still restrict eligibility — read the full indication below.
       </p>
     </div>
   );

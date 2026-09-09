@@ -259,6 +259,7 @@ def atmp_class(slug, inn):
 # with its source. Keep this list short and sourced.
 COND_CONVERTED = {           # conditional MA converted to a full MA (EMA overview page)
     "zolgensma": "2022-05-17",
+    "carvykti": "2024-04-19",   # conditional MA of 25 May 2022 switched to a standard MA (EMA medicine page)
 }
 MA_END_DATES = {             # withdrawal date missing in the table (EMA medicine page)
     "zalmoxis": "2019-10-09",

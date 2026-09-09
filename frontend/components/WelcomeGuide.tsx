@@ -3,6 +3,7 @@ import {
   X, Search, Bell, Pill, GitCompare, BookOpen, WifiOff, Compass,
   Bookmark, CalendarPlus, StickyNote, Share2, LayoutGrid, Dna, Cpu,
 } from 'lucide-react';
+import { Capacitor } from '@capacitor/core';
 
 // First-run feature guide. Auto-shown once (key dr_welcome_seen in App.tsx),
 // reopenable any time from the header help button. Sits BELOW the disclaimer
@@ -34,6 +35,8 @@ const Inline: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }) => {
+  // The home-screen widget and scheduled reminders exist only in the native app.
+  const native = Capacitor.isNativePlatform();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
@@ -80,15 +83,17 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             title="Browse & search seven registers"
           >
             <strong>Europe</strong> — every centrally authorised EU medicine plus the pipeline of
-            drugs awaiting an EU decision. <strong>Novel</strong> — recent first-in-class FDA
-            approvals. <strong>US</strong> — the full FDA approvals database and upcoming PDUFA
+            drugs awaiting an EU decision. <strong>Novel</strong> — FDA CDER&rsquo;s novel drug approvals (new molecular
+            entities and new biologics; first-in-class products are a subset). <strong>US</strong> — the full FDA approvals database and upcoming PDUFA
             decision dates. <strong>Trials</strong> — live ClinicalTrials.gov searches.{' '}
             <strong>Biomarkers</strong> — an EU-centered biomarker &amp; companion-diagnostic
             index. <strong>Devices</strong> — US medical-device approvals, clearances and recalls.{' '}
             <strong>Critical</strong> — the EU critical-medicines list. Tap a
             therapeutic-area chip for a one-tap search, and filter the EU list by Advanced therapy,
-            Orphan, PRIME, or Generic. US data is queried live from the FDA; the EU dataset
-            refreshes once a week, so newly approved drugs appear within about a week.
+            Orphan, PRIME, or Generic. US data is queried live from the FDA. The EU dataset is rebuilt every day from
+            EMA&rsquo;s published medicine table (which EMA itself updates about weekly) and
+            cross-checked against the EU Union Register of Commission decisions, so a new
+            authorisation appears within about a day of being published.
           </Section>
 
           <Section
@@ -96,9 +101,12 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             tint="bg-indigo-50 text-indigo-600"
             title="Follow indications, not just drugs"
           >
-            Follow a condition — e.g. <em>multiple myeloma</em> — and get an on-device reminder
-            before the EU is expected to decide on <em>any</em> drug for it, including ones that
-            enter the pipeline later.
+            Follow a condition — e.g. <em>multiple myeloma</em> — and {native
+              ? <>get an on-device reminder before the EU is expected to decide on <em>any</em> drug
+                for it, including ones that enter the pipeline later.</>
+              : <>see the estimated EU decision date (CHMP opinion + 67 days) for <em>any</em> drug
+                for it, including ones that enter the pipeline later. On-device reminders are
+                scheduled only by the iPhone, iPad and Mac app.</>}
             <button
               onClick={onOpenAlerts}
               className="block mt-1.5 text-[13px] font-semibold text-indigo-600 active:text-indigo-800"
@@ -185,20 +193,26 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             tint="bg-slate-100 text-slate-600"
             title="Works offline"
           >
-            The EU catalogue and the key label sections are stored on the device — search,
-            browse and compare them with no connection, even in airplane mode. Live US searches,
-            clinical trials and device data need a connection.
+            {native
+              ? <>The EU catalogue and the key label sections are stored on the device — search,
+                browse and compare them with no connection, even in airplane mode.</>
+              : <>The EU catalogue and the US cell &amp; gene therapy list are stored in the browser, so
+                you can search and browse them without a connection. Label texts stay available
+                offline only once you have opened them.</>}{' '}
+            Live US searches, clinical trials and device data need a connection.
           </Section>
 
-          <Section
-            icon={<LayoutGrid size={18} />}
-            tint="bg-cyan-50 text-cyan-600"
-            title="See what's next on your home screen"
-          >
-            Add the DrugRadar widget (long-press the home screen → Add Widget) to see the next
-            expected EU decisions for your followed indications at a glance, without opening the
-            app.
-          </Section>
+          {native && (
+            <Section
+              icon={<LayoutGrid size={18} />}
+              tint="bg-cyan-50 text-cyan-600"
+              title="See what's next on your home screen"
+            >
+              Add the DrugRadar widget (long-press the home screen → Add Widget) to see the next
+              expected EU decisions for your followed indications at a glance, without opening the
+              app.
+            </Section>
+          )}
 
           <Section
             icon={<CalendarPlus size={18} />}
@@ -221,14 +235,16 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             search bar — separately on each tab — and re-run with one tap.
           </Section>
 
-          <Section
-            icon={<Search size={18} />}
-            tint="bg-teal-50 text-teal-600"
-            title="Find drugs from your home screen"
-          >
-            Every EU medicine is indexed in the iOS system search: swipe down on the home screen,
-            type a drug or substance name, and jump straight to its detail page in DrugRadar.
-          </Section>
+          {native && (
+            <Section
+              icon={<Search size={18} />}
+              tint="bg-teal-50 text-teal-600"
+              title="Find drugs from your home screen"
+            >
+              Every EU medicine is indexed in the iOS system search: swipe down on the home screen,
+              type a drug or substance name, and jump straight to its detail page in DrugRadar.
+            </Section>
+          )}
 
           <p className="text-[10px] text-slate-400 leading-snug border-t border-slate-100 pt-3">
             DrugRadar is for informational purposes only — not medical advice and not a clinical

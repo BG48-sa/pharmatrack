@@ -79,7 +79,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: 'Conditional marketing authorisation',
     abbr: 'Conditional',
     body:
-      'An EU authorisation granted on less comprehensive data than normally required, when the benefit of immediate availability outweighs the risk of incomplete data. The holder must supply further confirmatory evidence post-authorisation. DrugRadar shows the flag as recorded at the time of grant in EMA\'s data; conversion to a full (standard) authorisation is noted in the detail sheet only where it has been verified.',
+      'An EU authorisation granted on less comprehensive data than normally required, when the benefit of immediate availability outweighs the risk of incomplete data. The holder must supply further confirmatory evidence post-authorisation. DrugRadar shows EMA\'s current flag: once a conditional authorisation has been converted to a standard one, EMA\'s table no longer marks it as conditional, and the detail sheet then notes the conversion date only where it has been verified against the EMA medicine page (e.g. Zolgensma, Carvykti).',
     soWhat:
       'Approval rests on preliminary (often surrogate-endpoint or single-arm) data with obligations still open — confirmatory trials may later confirm or withdraw the benefit.',
     sourceLabel: 'EMA — conditional MA',

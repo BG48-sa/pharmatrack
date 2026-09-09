@@ -636,7 +636,7 @@ export default function App() {
               Offline — showing saved data
               {(() => {
                 const rel = getReleaseInfo();
-                if (rel?.generated) { const rd = new Date(rel.generated); if (!isNaN(rd.getTime())) return ` — verified data release of ${rd.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`; }
+                if (rel?.generated) { const rd = new Date(rel.generated); if (!isNaN(rd.getTime())) return ` — data release of ${rd.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} (file integrity verified)`; }
                 const iso = getLastRefresh();
                 if (!iso) return ' from this build’s shipped snapshots';
                 const d = new Date(iso);

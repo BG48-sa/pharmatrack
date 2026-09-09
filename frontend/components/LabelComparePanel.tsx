@@ -259,7 +259,7 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                     )}
                     {d!.verified === true && (
                       <div className="text-[10px] text-emerald-700 mt-0.5" title="The file's SHA-256 matches the index of the data release the app has applied">
-                        verified · data release {integrity?.releaseDate ? fmtCorpusDate(integrity.releaseDate.slice(0, 10)) : integrity?.releaseId || ''}
+                        file integrity verified · data release {integrity?.releaseDate ? fmtCorpusDate(integrity.releaseDate.slice(0, 10)) : integrity?.releaseId || ''}
                       </div>
                     )}
                     {d!.verified === false && (
