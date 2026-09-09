@@ -22,6 +22,7 @@
  */
 import { lookupEmaRec } from './fdaService';
 import { DrugDetailData } from '../types';
+import { resolveTarget, actsOn, TargetClass } from './targetAgents';
 
 export interface DiseaseDrug {
   b: string; // brand
@@ -116,6 +117,41 @@ export const findDiseases = (query: string, limit = 8): DiseaseEntity[] => {
   if (s.length < 3) return [];
   const sTok = tokenize(s);
   return entities.filter((e) => matchesDisease(e, sTok)).slice(0, limit);
+};
+
+/** A disease class matched by a search, with what the query actually named. */
+export interface DiseaseMatch {
+  entity: DiseaseEntity;
+  /** Set when the query names a molecular target (e.g. "PD-L1"). */
+  target?: TargetClass;
+  /** Brands in the class that act on that target; undefined when the target is
+   * not in the agent table (then the class-level match stands, with a caveat). */
+  acting?: Set<string>;
+  /** The query matched only through the class's target list, not its name. */
+  viaTargetOnly: boolean;
+}
+
+/**
+ * Disease classes matching a query, annotated per drug. When the query names a
+ * target that the agent table knows, every drug is marked as acting on it or
+ * not, and a class in which no drug acts on the target is dropped — a "PD-L1"
+ * search must not present six VEGFR inhibitors as PD-L1 drugs.
+ */
+export const findDiseaseMatches = (query: string, limit = 8): DiseaseMatch[] => {
+  const s = query.toLowerCase().trim();
+  if (s.length < 3) return [];
+  const sTok = tokenize(s);
+  const target = resolveTarget(s);
+  const out: DiseaseMatch[] = [];
+  for (const e of entities) {
+    if (!matchesDisease(e, sTok)) continue;
+    const byName = tokenSeqIn(tokenize(e.name), sTok) || e.syn.some((syn) => { const t = tokenize(syn); return tokenSeqIn(t, sTok) || tokenSeqIn(sTok, t); });
+    if (!target) { out.push({ entity: e, viaTargetOnly: !byName }); continue; }
+    const acting = new Set(e.drugs.filter((d) => actsOn(d.g, target)).map((d) => d.b));
+    if (acting.size === 0) continue; // none of the class's drugs act on the searched target
+    out.push({ entity: e, target, acting, viaTargetOnly: !byName });
+  }
+  return out.slice(0, limit);
 };
 
 /**

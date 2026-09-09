@@ -15,7 +15,8 @@ import {
 } from '../services/emaService';
 import { EmaMedicine, EmaPipelineItem, EmaGoneItem, DrugDetailData } from '../types';
 import EmaBadges from './EmaBadges';
-import { findDiseases, DiseaseEntity } from '../services/diseaseEntities';
+import { findDiseaseMatches, DiseaseEntity } from '../services/diseaseEntities';
+import DiseaseClassCard from './DiseaseClassCard';
 import {
   CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink, GitCompare, Ban,
 } from 'lucide-react';
@@ -204,7 +205,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
   const isWatched = !!q && !!watchedTerms?.some((w) => w.toLowerCase() === q.toLowerCase());
   // Curated disease-class matches for the compare card(s). A disease name yields
   // one; a molecular target (e.g. "PD-1", "CD20") can yield several classes.
-  const diseases = onCompareDisease ? findDiseases(q) : [];
+  const diseases = onCompareDisease ? findDiseaseMatches(q) : [];
 
   const approved = useMemo(() => recentApprovals(query, filter), [query, filter]);
   const expected = useMemo(() => pipeline(query, filter), [query, filter]);
@@ -283,36 +284,14 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
           from authorised medicines and would sit oddly above withdrawn ones. */}
       {sub === 'approved' && diseases.length > 1 && (
         <p className="text-[13px] font-semibold text-emerald-800 mb-2">
-          {diseases.length} drug classes match “{q}”
+          {diseases[0]?.target
+            ? `${diseases.length} drug classes include ${diseases[0].target.label} agents`
+            : `${diseases.length} drug classes match “${q}”`}
         </p>
       )}
-      {sub === 'approved' && onCompareDisease && diseases.map((disease) => (
-        <div key={disease.id} className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 mb-3">
-          <div className="flex items-start gap-3">
-            <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700 shrink-0">
-              <GitCompare size={20} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="font-bold text-slate-900 leading-tight">{disease.name}</h3>
-              <p className="text-[13px] text-slate-600 mt-0.5">{disease.cls}</p>
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                {disease.drugs.map((d) => (
-                  <span
-                    key={d.b}
-                    className="inline-flex items-center px-2 py-0.5 rounded-lg bg-white border border-emerald-200 text-[11px] font-semibold text-slate-700"
-                  >
-                    {d.b}
-                  </span>
-                ))}
-              </div>
-              <button
-                onClick={() => onCompareDisease(disease)}
-                className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white active:bg-emerald-700 transition-colors"
-              >
-                <GitCompare size={15} /> Compare all {disease.drugs.length} side by side
-              </button>
-            </div>
-          </div>
+      {sub === 'approved' && onCompareDisease && diseases.map((m) => (
+        <div key={m.entity.id} className="mb-3">
+          <DiseaseClassCard match={m} query={q} onCompare={onCompareDisease} />
         </div>
       ))}
 
