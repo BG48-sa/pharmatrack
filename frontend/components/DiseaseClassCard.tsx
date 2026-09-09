@@ -32,7 +32,7 @@ const DiseaseClassCard: React.FC<Props> = ({ match, query, onCompare }) => {
           <h3 className="font-bold text-slate-900 leading-tight">{entity.name}</h3>
           <p className="text-[13px] text-slate-600 mt-0.5">{entity.cls}</p>
           <div className="flex flex-wrap gap-1.5 mt-2">
-            {entity.drugs.map((d) => {
+            {(targeted ? [...actingDrugs, ...others] : entity.drugs).map((d) => {
               const on = targeted && acting!.has(d.b);
               const cls = !targeted
                 ? 'bg-white border-emerald-200 text-slate-700'

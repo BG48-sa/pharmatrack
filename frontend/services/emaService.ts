@@ -108,7 +108,13 @@ const matchesQuery = (m: EmaMedicine | EmaPipelineItem | EmaGoneItem, q: string)
   const cls = (m as { cls?: string }).cls || '';
   // ATMPs are searchable by category: 'ATMP', 'advanced therapy', 'gene therapy', 'CAR-T', 'cell therapy', 'tissue engineered'…
   const hay = normalise(`${m.n} ${m.inn} ${m.sub} ${m.area} ${m.ind} ${m.atc}${m.atmp ? ` advanced therapy medicinal product ATMP ${cls}` : ''}`);
-  return queryTerms(q).every((term) => hasTerm(hay, term));
+  const terms = queryTerms(q);
+  // A hyphenated name such as "PD-L1", "PD-1" or "IL-17" normalises to short
+  // fragments ("pd", "l1") that would match inside unrelated words (PDGFR …):
+  // when every fragment is short, the whole phrase must occur; a short fragment
+  // among longer terms must match as a whole word.
+  if (terms.length > 1 && terms.every((t) => t.length <= 3)) return hay.includes(normalise(q));
+  return terms.every((term) => hasTerm(hay, term) && (term.length > 2 || new RegExp(`\\b${term}\\b`).test(hay)));
 };
 
 /** Most recently authorised EU medicines, newest first. */
