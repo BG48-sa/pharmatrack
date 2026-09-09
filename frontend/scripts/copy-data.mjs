@@ -12,6 +12,7 @@ import { mkdirSync, copyFileSync, existsSync, readdirSync, readFileSync, writeFi
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -36,27 +37,38 @@ console.log(`[copy-data] published ${FILES.length} snapshots to public/data/`);
 // Full-text label corpora (EU SmPC + US USPI): per-drug JSON + a manifest
 // GENERATED from the files actually present, so a manifest can never claim a
 // drug the bundle lacks (or miss one) even if an extractor was interrupted.
-const publishLabels = (srcDir, outSub, indexName) => {
+// Every per-drug file is hashed into the index, and the index carries the
+// release id; release.json in turn carries the index hash. The app verifies
+// that chain when it loads a label (services/liveData.ts, LabelComparePanel),
+// so a label shown next to release X is provably the file release X shipped.
+const publishLabels = (srcDir, outSub, indexName, releaseId) => {
   const src = join(root, srcDir);
-  if (!existsSync(src)) return;
+  if (!existsSync(src)) return undefined;
   const out = join(outDir, outSub);
   mkdirSync(out, { recursive: true });
   const files = readdirSync(src).filter((f) => f.endsWith('.json'));
   const drugs = {};
   for (const f of files) {
-    copyFileSync(join(src, f), join(out, f));
-    try { const d = JSON.parse(readFileSync(join(src, f), 'utf8')); drugs[d.slug] = { brand: d.brand, inn: d.inn, ...(d.match ? { match: d.match, usGeneric: d.usGeneric || null } : {}) }; } catch { /* skip */ }
+    const buf = readFileSync(join(src, f));
+    writeFileSync(join(out, f), buf);
+    try {
+      const d = JSON.parse(buf.toString('utf8'));
+      drugs[d.slug] = { brand: d.brand, inn: d.inn, sha: createHash('sha256').update(buf).digest('hex'), ...(d.match ? { match: d.match, usGeneric: d.usGeneric || null } : {}) };
+    } catch { /* skip */ }
   }
   const idxFile = join(root, indexName);
   const stamp = existsSync(idxFile) ? (JSON.parse(readFileSync(idxFile, 'utf8')).generated || 'dev') : 'dev';
-  writeFileSync(join(outDir, indexName), JSON.stringify({ generated: stamp, count: files.length, drugs }));
+  const indexText = JSON.stringify({ generated: stamp, release: releaseId, count: files.length, drugs });
+  writeFileSync(join(outDir, indexName), indexText);
   console.log(`[copy-data] published ${files.length} ${outSub.toUpperCase()} files + manifest`);
   const matches = {};
   for (const d of Object.values(drugs)) if (d.match) matches[d.match] = (matches[d.match] || 0) + 1;
-  return { generated: stamp, count: files.length, ...(Object.keys(matches).length ? { matches } : {}) };
+  return { generated: stamp, count: files.length, sha256: createHash('sha256').update(indexText).digest('hex'), ...(Object.keys(matches).length ? { matches } : {}) };
 };
-const smpc = publishLabels('smpc-data', 'smpc', 'smpc-index.json');
-const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json');
+const generated = new Date().toISOString();
+const releaseId = generated.slice(0, 19).replace(/[-:T]/g, '');
+const smpc = publishLabels('smpc-data', 'smpc', 'smpc-index.json', releaseId);
+const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
 
 // Release manifest: the runtime snapshots (FILES) are only ever applied TOGETHER
 // (services/liveData.ts checks every file's hash against this list), so a half-
@@ -66,10 +78,8 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json');
 // inputs (hashes written by scripts/build-ema-data.py), with which counts —
 // so any published release can be traced back to its sources.
 {
-  const { createHash } = await import('node:crypto');
   const files = {};
   for (const f of FILES) files[f] = createHash('sha256').update(readFileSync(join(outDir, f))).digest('hex');
-  const generated = new Date().toISOString();
   const readJson = (f) => { try { return JSON.parse(readFileSync(join(root, f), 'utf8')); } catch { return null; } };
   const ema = readJson('ema-medicines.json') || {};
   const cgt = readJson('cgt-products.json') || {};
@@ -79,7 +89,7 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json');
   let commit = process.env.GITHUB_SHA;
   if (!commit) { try { commit = execSync('git rev-parse HEAD', { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { commit = undefined; } }
   const manifest = {
-    id: generated.slice(0, 19).replace(/[-:T]/g, ''),
+    id: releaseId,
     generated,
     commit,
     files,

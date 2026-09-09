@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { X, FileText, ExternalLink, ChevronDown, Loader2 } from 'lucide-react';
+import { sha256 } from '../services/liveData';
 
 /**
  * Jurisdiction-aware full-text label comparison. Each column is a medicine's
@@ -20,6 +21,17 @@ interface LabelDoc {
   usGeneric?: string; usRoute?: string; match?: 'brand' | 'substance';
   // Traceability per document: when the source text was retrieved, and (US) the label version date.
   retrieved?: string; effective?: string;
+  // true = the file's hash matches the applied data release's index; false = it does not
+  // (served from a different deploy); undefined = nothing to check against.
+  verified?: boolean;
+}
+
+export interface LabelIntegrity {
+  /** SHA-256 the applied release's index records for a label file. */
+  expectedSha: (slug: string, source: Src) => string | undefined;
+  releaseId?: string;
+  releaseDate?: string;
+  indexVerified?: { eu?: boolean | null; us?: boolean | null };
 }
 
 interface Props {
@@ -29,6 +41,8 @@ interface Props {
   available?: (slug: string, source: Src) => boolean;
   /** When each label corpus was extracted (ISO dates), so offline/cached text is honest about its age. */
   corpusDates?: { eu?: string; us?: string };
+  /** Binds each label file to the applied data release (hash chain release → index → file). */
+  integrity?: LabelIntegrity;
 }
 
 const REMOTE = 'https://bg48-sa.github.io/pharmatrack/data/';
@@ -50,12 +64,28 @@ const ROWS: { label: string; note?: string; keys: Record<Src, string | null> }[]
 
 const COLLAPSED_PX = 260;
 
-async function loadDoc(col: LabelColumn): Promise<LabelDoc | null> {
+// Loads a label file and checks it against the hash the applied release's index
+// records for it. A copy that does not match (a different deploy, a stale
+// cache) is retried straight from the live site for that release; if that still
+// differs, the label is shown anyway, marked as unverified — verification never
+// hides a label.
+async function loadDoc(col: LabelColumn, integrity?: LabelIntegrity): Promise<LabelDoc | null> {
   const path = `data/${dir(col.source)}/${col.slug}.json`;
-  for (const url of [`${import.meta.env.BASE_URL}${path}`, REMOTE + path.slice(5)]) {
-    try { const r = await fetch(url); if (r.ok) return await r.json(); } catch { /* next */ }
+  const expected = integrity?.expectedSha(col.slug, col.source);
+  const urls = [`${import.meta.env.BASE_URL}${path}`, `${REMOTE}${path.slice(5)}${expected ? `?r=${encodeURIComponent(integrity?.releaseId || '')}` : ''}`];
+  let fallback: LabelDoc | null = null;
+  for (const url of urls) {
+    try {
+      const r = await fetch(url, expected ? { cache: 'no-cache' } : undefined);
+      if (!r.ok) continue;
+      const text = await r.text();
+      const doc = JSON.parse(text) as LabelDoc;
+      if (!expected) return doc;
+      if ((await sha256(text)) === expected) return { ...doc, verified: true };
+      fallback = fallback || { ...doc, verified: false };
+    } catch { /* next */ }
   }
-  return null;
+  return fallback;
 }
 
 // A table line is one with ≥2 multi-space runs (aligned columns from pdftotext,
@@ -111,7 +141,7 @@ const fmtCorpusDate = (iso: string): string => {
   return isNaN(d.getTime()) ? iso : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 };
 
-const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpusDates }) => {
+const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpusDates, integrity }) => {
   // Columns are internal state so each can be toggled between EU / US in place.
   const [cols, setCols] = useState<LabelColumn[]>(columns);
   const [docs, setDocs] = useState<(LabelDoc | null)[] | null>(null);
@@ -129,7 +159,7 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
   useEffect(() => {
     let cancelled = false; // a quick EU/US toggle must not be overwritten by the earlier, slower load
     setDocs(null);
-    Promise.all(cols.map(loadDoc)).then((d) => { if (!cancelled) setDocs(d); });
+    Promise.all(cols.map((c) => loadDoc(c, integrity))).then((d) => { if (!cancelled) setDocs(d); });
     return () => { cancelled = true; };
   }, [cols]);
 
@@ -225,6 +255,16 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                         {cols[i].source === 'us'
                           ? `${d!.effective ? `label version ${fmtCorpusDate(d!.effective)}` : ''}${d!.effective && d!.retrieved ? ' · ' : ''}${d!.retrieved ? `retrieved ${fmtCorpusDate(d!.retrieved)}` : ''}`
                           : `SmPC text retrieved ${fmtCorpusDate(d!.retrieved || '')}`}
+                      </div>
+                    )}
+                    {d!.verified === true && (
+                      <div className="text-[10px] text-emerald-700 mt-0.5" title="The file's SHA-256 matches the index of the data release the app has applied">
+                        verified · data release {integrity?.releaseDate ? fmtCorpusDate(integrity.releaseDate.slice(0, 10)) : integrity?.releaseId || ''}
+                      </div>
+                    )}
+                    {d!.verified === false && (
+                      <div className="text-[10px] text-amber-700 mt-0.5" title="The file's SHA-256 does not match the index of the applied data release — it was served from a different deploy">
+                        label file from a different data release than the app's data
                       </div>
                     )}
                     <div className="mt-1.5 inline-flex rounded-md border border-slate-200 overflow-hidden">

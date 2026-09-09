@@ -3,7 +3,7 @@ import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaServ
 import { findDiseases, buildDiseaseComparison, DiseaseEntity } from './services/diseaseEntities';
 import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
 import { getUpcomingPdufa } from './services/pdufa';
-import { primeBundledData, refreshLiveData, getLastRefresh, getReleaseInfo } from './services/liveData';
+import { primeBundledData, refreshLiveData, getLastRefresh, getReleaseInfo, loadLabelIndex } from './services/liveData';
 import { searchTrials, TrialRegion, lastTrialTotal } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
@@ -125,22 +125,32 @@ export default function App() {
   // When each label corpus was extracted from EMA / openFDA (index `generated`
   // stamps) — shown in the label compare view so cached text is honest about age.
   const [corpusDates, setCorpusDates] = useState<{ eu?: string; us?: string }>({});
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/smpc-index.json`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((idx) => {
-        if (idx?.drugs) setSmpcIndex(idx.drugs);
-        if (idx?.generated && idx.generated !== 'dev') setCorpusDates((d) => ({ ...d, eu: idx.generated }));
-      })
-      .catch(() => {});
-    fetch(`${import.meta.env.BASE_URL}data/uspi-index.json`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((idx) => {
-        if (idx?.drugs) setUspiIndex(idx.drugs);
-        if (idx?.generated && idx.generated !== 'dev') setCorpusDates((d) => ({ ...d, us: idx.generated }));
-      })
-      .catch(() => {});
-  }, []);
+  // Whether each index matches the applied data release (null = not checked yet).
+  const [indexVerified, setIndexVerified] = useState<{ eu?: boolean | null; us?: boolean | null }>({});
+  // Loaded at startup (so label buttons appear at once) and again after the
+  // live release has been applied, when the manifest can vouch for the index.
+  const loadIndexes = () => {
+    loadLabelIndex('smpc').then((idx) => {
+      if (!idx) return;
+      setSmpcIndex(idx.drugs);
+      if (idx.generated && idx.generated !== 'dev') setCorpusDates((d) => ({ ...d, eu: idx.generated }));
+      setIndexVerified((v) => ({ ...v, eu: idx.verified }));
+    }).catch(() => {});
+    loadLabelIndex('uspi').then((idx) => {
+      if (!idx) return;
+      setUspiIndex(idx.drugs);
+      if (idx.generated && idx.generated !== 'dev') setCorpusDates((d) => ({ ...d, us: idx.generated }));
+      setIndexVerified((v) => ({ ...v, us: idx.verified }));
+    }).catch(() => {});
+  };
+  useEffect(loadIndexes, []);
+  // What the label panel needs to prove a label file belongs to the applied release.
+  const labelIntegrity = useMemo(() => ({
+    expectedSha: (slug: string, source: 'eu' | 'us') => ((source === 'eu' ? smpcIndex : uspiIndex)[slug] as { sha?: string } | undefined)?.sha,
+    releaseId: getReleaseInfo()?.id,
+    releaseDate: getReleaseInfo()?.generated,
+    indexVerified,
+  }), [smpcIndex, uspiIndex, indexVerified]);
   const hasEuLabel = (s: string) => !!(s && smpcIndex[s]);
   const hasUsLabel = (s: string) => !!(s && uspiIndex[s]);
   const labelAvailable = (s: string, src: 'eu' | 'us') => (src === 'eu' ? hasEuLabel(s) : hasUsLabel(s));
@@ -459,6 +469,7 @@ export default function App() {
     refreshLiveData().then((updated) => {
       if (cancelled || updated === 0) return;
       setDataVersion((v) => v + 1);
+      loadIndexes(); // re-check the label indexes against the release just applied
       if (!isSearchMode) loadDefaultData();
     });
     return () => {
@@ -1036,6 +1047,7 @@ export default function App() {
       )}
       {smpcOpen && labelReady && (
         <LabelComparePanel
+          integrity={labelIntegrity}
           columns={trayColumns}
           available={labelAvailable}
           corpusDates={corpusDates}
@@ -1044,6 +1056,7 @@ export default function App() {
       )}
       {euUsSlug && (
         <LabelComparePanel
+          integrity={labelIntegrity}
           columns={[
             { slug: euUsSlug, source: 'eu' },
             { slug: euUsSlug, source: 'us' },
@@ -1065,6 +1078,7 @@ export default function App() {
       )}
       {labelViewCols && (
         <LabelComparePanel
+          integrity={labelIntegrity}
           columns={labelViewCols}
           available={labelAvailable}
           corpusDates={corpusDates}

@@ -103,7 +103,7 @@ export const primeBundledData = (): Promise<number> => (primed ??= applySnapshot
  * succeeds. Resolves to the number of snapshots that were refreshed (0 =
  * everything kept the shipped copy). Never throws.
  */
-const sha256 = async (text: string): Promise<string> => {
+export const sha256 = async (text: string): Promise<string> => {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
 };
@@ -117,6 +117,52 @@ let releaseInfo: { id: string; generated: string } | null = null;
 /** Identity of the data release currently applied (id + ISO timestamp), if known. */
 export const getReleaseInfo = (): { id: string; generated: string } | null => releaseInfo;
 storeGet(RELEASE_KEY).then((v) => { if (v && !releaseInfo) { try { releaseInfo = JSON.parse(v); } catch { /* ignore */ } } });
+
+// The full manifest of that release (it also names the hash of each label
+// index, which in turn names the hash of every label file — see loadLabelIndex).
+const MANIFEST_KEY = 'dr_release_manifest';
+let releaseManifest: any | null = null;
+export const getReleaseManifest = (): any | null => releaseManifest;
+storeGet(MANIFEST_KEY).then((v) => { if (v && !releaseManifest) { try { releaseManifest = JSON.parse(v); } catch { /* ignore */ } } });
+
+export interface LabelIndex {
+  drugs: Record<string, { brand?: string; inn?: string; sha?: string; match?: 'brand' | 'substance'; usGeneric?: string | null }>;
+  generated?: string;
+  /** Id of the data release that published this index. */
+  release?: string;
+  /** true = hash matches the applied release's manifest; false = it does not (a different deploy); null = no manifest to check against. */
+  verified: boolean | null;
+}
+
+/**
+ * Load a label index (which medicines have an extracted SmPC / US label, with
+ * the SHA-256 of each file) and bind it to the applied data release: when the
+ * release manifest names the index hash, a copy that does not match is fetched
+ * once more straight from the live site for that release id. Verification never
+ * hides labels — a mismatch is reported, not fatal.
+ */
+export const loadLabelIndex = async (corpus: 'smpc' | 'uspi'): Promise<LabelIndex | null> => {
+  const file = `${corpus}-index.json`;
+  const expected: string | undefined = releaseManifest?.labels?.[corpus]?.sha256;
+  const get = async (url: string): Promise<string | null> => {
+    try { const r = await fetch(url, { cache: 'no-cache' }); return r.ok ? await r.text() : null; } catch { return null; }
+  };
+  let text = await get(`${import.meta.env.BASE_URL}data/${file}`);
+  let verified: boolean | null = null;
+  if (expected) {
+    verified = !!text && (await sha256(text)) === expected;
+    if (!verified) {
+      const again = await get(`${REMOTE_BASE}${file}?r=${encodeURIComponent(releaseManifest?.id || '')}`);
+      if (again && (await sha256(again)) === expected) { text = again; verified = true; }
+    }
+  }
+  if (!text) return null;
+  try {
+    const idx = JSON.parse(text);
+    if (!idx?.drugs) return null;
+    return { drugs: idx.drugs, generated: idx.generated, release: idx.release, verified };
+  } catch { return null; }
+};
 
 const fetchText = async (file: string): Promise<string | null> => {
   try {
@@ -195,6 +241,8 @@ export const refreshLiveData = async (): Promise<number> => {
     if (updated) {
       releaseInfo = { id: String(release.manifest.id || ''), generated: String(release.manifest.generated || '') };
       storeSet(RELEASE_KEY, JSON.stringify(releaseInfo));
+      releaseManifest = release.manifest;
+      storeSet(MANIFEST_KEY, JSON.stringify(release.manifest));
       storeVerifiedRelease(release.texts);
     }
   } else {
