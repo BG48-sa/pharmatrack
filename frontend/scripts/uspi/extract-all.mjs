@@ -191,6 +191,27 @@ async function run() {
   const requeryEmpty = process.env.REQUERY_EMPTY === '1'; // redo tier 2 where it returned nothing
   const maxCalls = process.env.MAX_CALLS ? parseInt(process.env.MAX_CALLS, 10) : Infinity;
   for (const d of [OUT_DIR, CACHE, CACHE2]) mkdirSync(d, { recursive: true });
+
+  // Write-time guard: a re-run must never silently degrade a label that was
+  // already good — a required section lost, the text collapsing under 40%, or
+  // a same-product ('brand') pairing demoted to a same-substance one. The old
+  // file is kept and the slug reported (index.guarded) for a manual look.
+  const REQUIRED = ['indications', 'dosage', 'contraindications', 'warnings', 'adverse_reactions'];
+  const secText = (v) => (typeof v === 'string' ? v : (v && !v.missing && v.text) || '');
+  const hasSec = (secs, k) => !!secText(secs?.[k]).trim();
+  const secLen = (secs) => Object.values(secs || {}).reduce((n, v) => n + secText(v).length, 0);
+  const guarded = [];
+  const regressed = (slug, next) => {
+    const file = join(OUT_DIR, `${slug}.json`);
+    if (!existsSync(file)) return null;
+    let prev; try { prev = JSON.parse(readFileSync(file, 'utf8')); } catch { return null; }
+    if (prev.match === 'brand' && next.match === 'substance') return 'pairing brand→substance';
+    const lost = REQUIRED.filter((k) => hasSec(prev.sections, k) && !hasSec(next.sections, k));
+    if (lost.length) return `lost ${lost.join('/')}`;
+    const pl = secLen(prev.sections), nl = secLen(next.sections);
+    if (pl >= 2000 && nl < 0.4 * pl) return `text ${pl}→${nl} chars`;
+    return null;
+  };
   const data = JSON.parse(readFileSync(join(root, 'ema-medicines.json'), 'utf8'));
 
   const seen = new Set();
@@ -258,7 +279,7 @@ async function run() {
     const sections = parse(chosen);
     if (!sections) { stats.none++; continue; }
     const of = chosen.openfda || {};
-    writeFileSync(join(OUT_DIR, `${slug}.json`), JSON.stringify({
+    const doc = {
       slug, brand: (match === 'brand' ? matchedBrand(chosen, want) : of.brand_name?.[0]) || m.n, inn: m.inn,
       usBrand: (match === 'brand' ? matchedBrand(chosen, want) : of.brand_name?.[0]) || null,
       usGeneric: of.generic_name?.[0] || null,
@@ -270,11 +291,22 @@ async function run() {
       url: `https://labels.fda.gov/`, splSetId: chosen.set_id || null,
       dailymed: chosen.set_id ? `https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=${chosen.set_id}` : 'https://www.accessdata.fda.gov/scripts/cder/daf/',
       source: 'openFDA drug label (US Prescribing Information)', sections,
-    }));
-    index.drugs[slug] = { brand: (match === 'brand' ? matchedBrand(chosen, want) : of.brand_name?.[0]) || m.n, inn: m.inn, match, usGeneric: of.generic_name?.[0] || null };
-    stats[match]++;
+    };
+    const why = regressed(slug, doc);
+    if (why) {                                                     // keep the good file already on disk
+      const prev = JSON.parse(readFileSync(join(OUT_DIR, `${slug}.json`), 'utf8'));
+      guarded.push(`${slug} (${why})`);
+      index.drugs[slug] = { brand: prev.brand, inn: prev.inn, match: prev.match, usGeneric: prev.usGeneric || null };
+      stats[prev.match] = (stats[prev.match] || 0) + 1;
+    } else {
+      writeFileSync(join(OUT_DIR, `${slug}.json`), JSON.stringify(doc));
+      index.drugs[slug] = { brand: doc.brand, inn: m.inn, match, usGeneric: of.generic_name?.[0] || null };
+      stats[match]++;
+    }
     if (done % 100 === 0) process.stdout.write(`  …${done}/${drugs.length}  brand:${stats.brand} substance:${stats.substance} none:${stats.none} (${apiCalls} calls)\n`);
   }
+
+  if (guarded.length) index.guarded = guarded; else delete index.guarded;
 
   // Remove per-drug files for slugs that no longer have an acceptable US label.
   let removed = 0;
@@ -287,7 +319,8 @@ async function run() {
   index.count = Object.keys(index.drugs).length;
   index.generated = process.env.STAMP || cacheStamp(CACHE2, '.json') || index.generated;
   writeFileSync(INDEX, JSON.stringify(index));
-  console.log(`\nDONE. brand-matched:${stats.brand} substance-matched:${stats.substance} noUSlabel:${stats.none} skipped(no calls left):${stats.skipped} removedStale:${removed} apiCalls:${apiCalls}`);
+  console.log(`\nDONE. brand-matched:${stats.brand} substance-matched:${stats.substance} noUSlabel:${stats.none} skipped(no calls left):${stats.skipped} removedStale:${removed} guarded(kept previous file):${guarded.length} apiCalls:${apiCalls}`);
+  if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
   console.log(`Manifest: ${index.count} drugs → uspi-index.json ; per-drug JSON → uspi-data/`);
 }
 run();

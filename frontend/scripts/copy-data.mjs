@@ -11,6 +11,7 @@
 import { mkdirSync, copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -50,18 +51,46 @@ const publishLabels = (srcDir, outSub, indexName) => {
   const stamp = existsSync(idxFile) ? (JSON.parse(readFileSync(idxFile, 'utf8')).generated || 'dev') : 'dev';
   writeFileSync(join(outDir, indexName), JSON.stringify({ generated: stamp, count: files.length, drugs }));
   console.log(`[copy-data] published ${files.length} ${outSub.toUpperCase()} files + manifest`);
+  const matches = {};
+  for (const d of Object.values(drugs)) if (d.match) matches[d.match] = (matches[d.match] || 0) + 1;
+  return { generated: stamp, count: files.length, ...(Object.keys(matches).length ? { matches } : {}) };
 };
+const smpc = publishLabels('smpc-data', 'smpc', 'smpc-index.json');
+const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json');
+
 // Release manifest: the runtime snapshots (FILES) are only ever applied TOGETHER
 // (services/liveData.ts checks every file's hash against this list), so a half-
 // updated set — new regulatory catalogue beside an old biomarker list — can not
-// be assembled from mixed CDN caches or partial downloads.
+// be assembled from mixed CDN caches or partial downloads. The rest of the
+// manifest is provenance: which pipeline commit built it, from which raw
+// inputs (hashes written by scripts/build-ema-data.py), with which counts —
+// so any published release can be traced back to its sources.
 {
   const { createHash } = await import('node:crypto');
   const files = {};
   for (const f of FILES) files[f] = createHash('sha256').update(readFileSync(join(outDir, f))).digest('hex');
   const generated = new Date().toISOString();
-  writeFileSync(join(outDir, 'release.json'), JSON.stringify({ id: generated.slice(0, 19).replace(/[-:T]/g, ''), generated, files }));
-  console.log(`[copy-data] release manifest for ${FILES.length} snapshots`);
+  const readJson = (f) => { try { return JSON.parse(readFileSync(join(root, f), 'utf8')); } catch { return null; } };
+  const ema = readJson('ema-medicines.json') || {};
+  const cgt = readJson('cgt-products.json') || {};
+  const bm = readJson('biomarkers.json') || {};
+  const cdx = readJson('fda-cdx.json') || {};
+  const sources = existsSync(join(root, 'scripts', '.sources.json')) ? readJson('scripts/.sources.json') : undefined;
+  let commit = process.env.GITHUB_SHA;
+  if (!commit) { try { commit = execSync('git rev-parse HEAD', { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { commit = undefined; } }
+  const manifest = {
+    id: generated.slice(0, 19).replace(/[-:T]/g, ''),
+    generated,
+    commit,
+    files,
+    counts: {
+      emaAuthorised: (ema.authorised || []).length, emaPending: (ema.pipeline || []).length, emaWithdrawn: (ema.gone || []).length,
+      emaReportDate: ema.generated, cgtProducts: Object.keys(cgt).length, biomarkers: (bm.biomarkers || []).length,
+      cdxAuthorisations: cdx.total, cdxListDate: cdx.listDate,
+    },
+    labels: { smpc, uspi },
+    ...(sources ? { sources } : {}),
+  };
+  writeFileSync(join(outDir, 'release.json'), JSON.stringify(manifest));
+  console.log(`[copy-data] release manifest for ${FILES.length} snapshots (commit ${(commit || 'unknown').slice(0, 7)}${sources ? ', with source hashes' : ''})`);
 }
-publishLabels('smpc-data', 'smpc', 'smpc-index.json');
-publishLabels('uspi-data', 'uspi', 'uspi-index.json');

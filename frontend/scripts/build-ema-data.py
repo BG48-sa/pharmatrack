@@ -40,8 +40,12 @@ the EMA procedure number, so a pending medicine can be matched exactly; one
 that already has a "Centralised - Authorisation" decision is published as
 authorised with the decision date and flagged ec="register".
 """
-import html, json, os, re, sys, datetime
+import hashlib, html, json, os, re, sys, datetime
 import openpyxl
+
+PARSER_VERSION = "ema-2026.09.09"   # bump when the mapping below changes
+EMA_XLSX_URL = "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx"
+EU_REGISTER_URL = "https://ec.europa.eu/health/documents/community-register/html/newproc.htm"
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else "/tmp/ema.xlsx"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "ema-medicines.json"
@@ -153,12 +157,38 @@ def norm_keys(inn, substance):
             if p:
                 keys.add(p)
                 keys.add(p.split()[0])  # first token (drops salt forms)
-    return keys
+    # Sorted, so the build is deterministic (set order varies per Python process).
+    return sorted(keys)
 
 
 wb = openpyxl.load_workbook(SRC, read_only=True)
 ws = wb["Medicine"]
 rows = list(ws.iter_rows(values_only=True))
+
+# The report is read by column POSITION. If EMA inserts or renames a column,
+# every field would shift silently — so refuse to build unless the header row
+# still says what each index is expected to say.
+EXPECTED_HEADERS = {
+    C_CATEGORY: "Category", C_NAME: "Name of medicine", C_EMA_NUMBER: "EMA product number",
+    C_STATUS: "Medicine status", C_OPINION_STATUS: "Opinion status",
+    C_INN: "International non-proprietary name (INN) / common name", C_SUBSTANCE: "Active substance",
+    C_AREA: "Therapeutic area (MeSH)", C_ATC: "ATC code (human)", C_INDICATION: "Therapeutic indication",
+    C_ACCELERATED: "Accelerated assessment", C_ATMP: "Advanced therapy", C_BIOSIMILAR: "Biosimilar",
+    C_CONDITIONAL: "Conditional approval", C_EXCEPTIONAL: "Exceptional circumstances", C_GENERIC: "Generic",
+    C_ORPHAN: "Orphan medicine", C_PRIME: "PRIME: priority medicine",
+    C_HOLDER: "Marketing authorisation developer / applicant / holder",
+    C_EC_DATE: "European Commission decision date", C_OPINION_DATE: "Opinion adopted date",
+    C_APP_WITHDRAWN_DATE: "Withdrawal of application date", C_MA_DATE: "Marketing authorisation date",
+    C_REFUSAL_DATE: "Refusal of marketing authorisation date",
+    C_MA_ENDED_DATE: "Withdrawal / expiry / revocation / lapse of marketing authorisation date",
+    C_SUSPENDED_DATE: "Suspension of marketing authorisation date", C_URL: "Medicine URL",
+}
+_hdr = rows[8] if len(rows) > 8 else ()
+_bad = [(i, exp, (clean(_hdr[i]) if i < len(_hdr) else None)) for i, exp in EXPECTED_HEADERS.items()
+        if i >= len(_hdr) or clean(_hdr[i]) != exp]
+if _bad:
+    raise SystemExit("EMA report layout changed — refusing to build. Column mismatches (index, expected, found): "
+                     + "; ".join(f"{i}: {exp!r} vs {found!r}" for i, exp, found in _bad))
 
 generated = fmt_date(rows[0][3]) if len(rows) > 0 else None
 
@@ -335,7 +365,7 @@ for i, row in enumerate(rows):
         for k in norm_keys(row[C_INN], row[C_SUBSTANCE]):
             inn_products.setdefault(k, set()).add(base["n"])
             if k not in by_inn or ma_date < by_inn[k]["d"]:
-                by_inn[k] = rec
+                by_inn[k] = dict(rec)   # own copy per key: the ambiguity count "k" below is per key
 
     elif status in ("Opinion", "Opinion under re-examination") and op_date:
         outcome = clean(row[C_OPINION_STATUS]).lower()
@@ -356,7 +386,7 @@ for i, row in enumerate(rows):
                 for k in norm_keys(row[C_INN], row[C_SUBSTANCE]):
                     inn_products.setdefault(k, set()).add(base["n"])
                     if k not in by_inn or hit["d"] < by_inn[k]["d"]:
-                        by_inn[k] = rec
+                        by_inn[k] = dict(rec)
                 continue
             # Positive CHMP opinion adopted, MA not yet granted: EC decision is the
             # single most useful "MA expected very soon" signal for an EU user.
@@ -446,6 +476,30 @@ out = {
 
 with open(OUT, "w") as f:
     json.dump(out, f, separators=(",", ":"), ensure_ascii=False)
+
+
+# Provenance of this build's raw inputs, picked up by scripts/copy-data.mjs and
+# published in release.json (gitignored: it changes with every download).
+def _src(path, url):
+    if not path or not os.path.exists(path):
+        return None
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    mtime = datetime.datetime.fromtimestamp(os.path.getmtime(path), datetime.timezone.utc)
+    return {"url": url, "sha256": h.hexdigest(), "bytes": os.path.getsize(path), "retrievedAt": mtime.isoformat(timespec="seconds")}
+
+
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".sources.json"), "w") as f:
+    json.dump({
+        "parser": PARSER_VERSION,
+        "builtAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+        "emaReportGenerated": generated,
+        "emaXlsx": _src(SRC, EMA_XLSX_URL),
+        "euRegister": _src(REGISTER, EU_REGISTER_URL),
+        "euRegisterDecisions": len(register),
+    }, f, indent=1)
 
 print(
     f"generated {generated} | authorised {len(authorised)} | "

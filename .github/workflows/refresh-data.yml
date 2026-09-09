@@ -55,6 +55,30 @@ jobs:
           python frontend/scripts/build-announcements.py frontend/announcements.json \
             || echo "WARN: announcements rebuild failed — keeping existing file"
 
+      # --- Quality gates: the candidate must not regress the published release ---
+      # Compares the working tree with the data/ folder of gh-pages (what users
+      # see right now). A failing gate stops the job here: nothing is committed
+      # and nothing is deployed, so the previous release stays live everywhere.
+      - name: Validate candidate against the published release
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin +gh-pages:refs/remotes/origin/gh-pages
+          python frontend/scripts/validate-release.py --published-ref origin/gh-pages --report /tmp/validation.json
+
+      # --- Keep the raw inputs + report of every run for 90 days (auditable) ---
+      - name: Archive raw sources and validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-inputs-${{ github.run_id }}
+          path: |
+            /tmp/ema.xlsx
+            /tmp/newproc.htm
+            /tmp/validation.json
+            frontend/scripts/.sources.json
+          if-no-files-found: ignore
+          retention-days: 90
+
       # --- Revert files whose CONTENT is unchanged (key order may differ) ------
       - name: Drop pure-reformatting changes
         run: |

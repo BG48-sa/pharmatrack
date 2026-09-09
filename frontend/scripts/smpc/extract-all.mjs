@@ -182,11 +182,14 @@ async function run() {
       if (!t || t === '404') { if (t === '404') notfound++; else fail++; index.failed.push(slug); if (!cached) await sleep(200); continue; }
       const sections = parseSections(t);
       if (!Object.values(sections).some((s) => !s.missing && s.text)) { fail++; index.failed.push(slug); continue; }
-      writeFileSync(join(OUT_DIR, `${slug}.json`), JSON.stringify({
+      const doc = {
         slug, brand: m.n, inn: m.inn, holder: m.holder, url: PI(slug), source: 'EMA product-information (Annex I, SmPC)',
         retrieved: (() => { try { return new Date(statSync(join(CACHE, `${slug}.txt`)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(), // when the PDF text was fetched from EMA
         sections,
-      }));
+      };
+      const why = regressed(slug, doc);
+      if (why) { guarded.push(`${slug} (${why})`); }               // keep the good file already on disk
+      else writeFileSync(join(OUT_DIR, `${slug}.json`), JSON.stringify(doc));
       index.drugs[slug] = { brand: m.n, inn: m.inn };
       ok++;
       if (done % 25 === 0) process.stdout.write(`  …${done}/${drugs.length}  ok:${ok} fetched:${fetched} 404:${notfound} fail:${fail}\n`);
@@ -195,13 +198,34 @@ async function run() {
     if (existsSync(pdf)) rmSync(pdf);
   }
 
+  // Write-time guard: a re-parse must never silently degrade a label that was
+  // already good. If the file on disk has a required section the new parse
+  // lost, or the new text is under 40% of the old, the old file is kept and the
+  // slug is reported (index.guarded) for a manual look.
+  const REQUIRED = ['4.1', '4.2', '4.3', '4.4', '4.8'];
+  const hasSec = (secs, k) => !!(secs?.[k] && !secs[k].missing && String(secs[k].text || '').trim());
+  const secLen = (secs) => Object.values(secs || {}).reduce((n, x) => n + (x && !x.missing && x.text ? x.text.length : 0), 0);
+  const guarded = [];
+  const regressed = (slug, next) => {
+    const file = join(OUT_DIR, `${slug}.json`);
+    if (!existsSync(file)) return null;
+    let prev; try { prev = JSON.parse(readFileSync(file, 'utf8')); } catch { return null; }
+    const lost = REQUIRED.filter((k) => hasSec(prev.sections, k) && !hasSec(next.sections, k));
+    if (lost.length) return `lost ${lost.join('/')}`;
+    const pl = secLen(prev.sections), nl = secLen(next.sections);
+    if (pl >= 2000 && nl < 0.4 * pl) return `text ${pl}→${nl} chars`;
+    return null;
+  };
+
   console.log(`SmPC batch: ${drugs.length} unique authorised medicines (downloadLimit=${limit}, reparse=${reparse})`);
   await Promise.all(Array.from({ length: CONC }, (_, i) => worker(i)));
 
   index.count = Object.keys(index.drugs).length;
   index.generated = process.env.STAMP || cacheStamp(CACHE, '.txt') || index.generated;
+  if (guarded.length) index.guarded = guarded; else delete index.guarded;
   writeFileSync(INDEX, JSON.stringify(index));
-  console.log(`\nDONE. parsed:${ok} newDownloads:${fetched} 404:${notfound} failed:${fail}`);
+  console.log(`\nDONE. parsed:${ok} newDownloads:${fetched} 404:${notfound} failed:${fail} guarded(kept previous file):${guarded.length}`);
+  if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
   console.log(`Manifest: ${index.count} drugs → smpc-index.json ; per-drug JSON → smpc-data/`);
 }
 run();
