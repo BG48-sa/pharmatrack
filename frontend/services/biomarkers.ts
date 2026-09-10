@@ -27,6 +27,7 @@
  */
 import { lookupEmaRec } from './fdaService';
 import { DrugDetailData } from '../types';
+import { usApprovalFor } from './usApproval';
 
 export interface BiomarkerDrug {
   b: string; // brand (EU)
@@ -143,8 +144,9 @@ export const findBiomarkers = (query: string, limit = 40): Biomarker[] => {
 /**
  * Build the side-by-side comparison rows for a biomarker: one normalised
  * DrugDetailData per EU-authorised member drug, enriched offline with the EMA
- * marketing-authorisation date and EPAR link. The US (FDA) column is left 'N/A'
- * and filled in live by the caller when online, mirroring the disease compare.
+ * marketing-authorisation date and EPAR link. The US (FDA) column comes from the
+ * offline US snapshots (usApproval.ts) and is otherwise 'N/A', filled in live by
+ * the caller when online, mirroring the disease compare.
  * Any member drug not resolvable in the bundled EMA data is dropped, so a
  * Europe-centered tab never shows a non-EU molecule.
  */
@@ -156,7 +158,7 @@ export const buildBiomarkerComparison = (m: Biomarker): DrugDetailData[] =>
       return {
         brandName: d.b,
         genericName: d.g,
-        approvalDate: 'N/A',
+        approvalDate: usApprovalFor(d.b, d.g),
         indication: '',
         drugClass: `${m.gene} — ${m.context}`,
         company: d.co || '—',

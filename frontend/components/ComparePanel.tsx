@@ -3,6 +3,7 @@ import { DrugDetailData } from '../types';
 import { parseIndication } from '../services/indicationParser';
 import { drugKey } from '../services/notes';
 import { GitCompare, X, FileText } from 'lucide-react';
+import { describeUsApproval } from '../services/usApproval';
 
 /**
  * Side-by-side comparison of two-to-many drugs. Reads the same normalised
@@ -34,8 +35,7 @@ const euStatus = (d: DrugDetailData): string => {
   return '—';
 };
 
-const usStatus = (d: DrugDetailData): string =>
-  d.approvalDate && /^\d/.test(d.approvalDate) ? `Approved ${fmt(d.approvalDate)}` : 'Not shown here';
+const usStatus = (d: DrugDetailData): string => describeUsApproval(d.approvalDate, fmt).text;
 
 const flagLabels = (d: DrugDetailData): string => {
   const f = d.emaFlags;

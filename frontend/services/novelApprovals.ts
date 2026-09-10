@@ -27,6 +27,9 @@ export const getNovelYears = (): string[] => Object.keys(data);
 /** Official CDER novel approvals for a year, newest approval first. */
 export const getNovelApprovals = (year: string): NovelApproval[] => data[year] || [];
 
+/** Every year's roster in one list — read by the Europe tab's EU → US lookup (services/usApproval.ts). */
+export const allNovelApprovals = (): NovelApproval[] => Object.values(data).flat();
+
 /** Link to the FDA page this year's list was sourced from. */
 export const novelSourceUrl = (year: string): string => `${NOVEL_SOURCE_BASE}${year}`;
 

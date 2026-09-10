@@ -117,7 +117,7 @@ export interface EmaData {
 export interface DrugDetailData {
   brandName: string;
   genericName: string;
-  approvalDate: string;   // raw FDA value (ISO, or 'N/A')
+  approvalDate: string;   // raw FDA value: ISO date; 'Same substance in US (<name>, <date>)' for an EU record matched on INN only; or 'N/A'
   indication?: string;
   drugClass?: string;
   company?: string;

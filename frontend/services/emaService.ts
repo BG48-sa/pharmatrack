@@ -1,4 +1,5 @@
 import { EmaData, EmaMedicine, EmaPipelineItem, EmaGoneItem, DrugDetailData, EmaFlags } from '../types';
+import { usApprovalFor } from './usApproval';
 
 /**
  * European medicines service — the EU-first counterpart to fdaService.
@@ -159,11 +160,14 @@ const fmtDate = (iso: string): string => {
   return isNaN(d.getTime()) ? iso : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 };
 
-/** Map an authorised EU medicine into the shared DrugDetail sheet shape. */
+/**
+ * Map an authorised EU medicine into the shared DrugDetail sheet shape. The FDA
+ * side (approvalDate) comes from the offline US snapshots — see usApproval.ts.
+ */
 export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
   brandName: m.n,
   genericName: m.inn || m.sub || '—',
-  approvalDate: 'N/A',
+  approvalDate: usApprovalFor(m.n, m.inn || m.sub),
   indication: m.ind || undefined,
   company: m.holder || undefined,
   emaApprovalDate: m.d,
@@ -187,7 +191,7 @@ export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
 export const goneToDetail = (m: EmaGoneItem): DrugDetailData => ({
   brandName: m.n,
   genericName: m.inn || m.sub || '—',
-  approvalDate: 'N/A',
+  approvalDate: usApprovalFor(m.n, m.inn || m.sub),
   indication: m.ind || undefined,
   company: m.holder || undefined,
   emaApprovalDate: m.d || 'Never authorised',
@@ -203,7 +207,7 @@ export const goneToDetail = (m: EmaGoneItem): DrugDetailData => ({
 export const pipelineToDetail = (m: EmaPipelineItem): DrugDetailData => ({
   brandName: m.n,
   genericName: m.inn || m.sub || '—',
-  approvalDate: 'N/A',
+  approvalDate: usApprovalFor(m.n, m.inn || m.sub),
   indication: m.ind || undefined,
   company: m.holder || undefined,
   emaApprovalDate: m.outcome === 'unknown' ? 'CHMP opinion adopted' : 'MA expected',

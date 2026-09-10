@@ -39,11 +39,13 @@ export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec>; byName?: Re
 // n/g/m/i (brand, generic, manufacturer, indication) let the US tab list a
 // product even when openFDA carries no label record for it yet (new approvals,
 // cord-blood units, withdrawn products such as Roctavian or Beqvez).
-interface CgtRec { d: string; c: string; n?: string; g?: string; m?: string; i?: string }
+export interface CgtRec { d: string; c: string; n?: string; g?: string; m?: string; i?: string }
 let cgtData: Record<string, CgtRec> = {};
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
 export const __setCgtData = (d: Record<string, CgtRec>): void => { cgtData = d; };
+/** The CBER snapshot as a list — read by the Europe tab's EU → US lookup (services/usApproval.ts). */
+export const cgtRecords = (): CgtRec[] => Object.values(cgtData);
 
 const OPENFDA_SOURCE: Source = {
   title: 'Drugs@FDA — U.S. Food & Drug Administration (openFDA)',

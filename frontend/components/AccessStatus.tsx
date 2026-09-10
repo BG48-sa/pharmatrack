@@ -1,5 +1,6 @@
 import React from 'react';
 import { DrugDetailData } from '../types';
+import { describeUsApproval, US_COVERAGE_NOTE } from '../services/usApproval';
 import { CheckCircle2, Hourglass, MinusCircle, ExternalLink, MapPin } from 'lucide-react';
 
 /**
@@ -51,10 +52,11 @@ const AccessStatus: React.FC<{ data: DrugDetailData }> = ({ data }) => {
   else if (data.emaApprovalDate === 'Not in EMA') eu = { s: 'no', d: 'Not centrally authorised' };
   else eu = { s: 'no', d: '—' };
 
-  // US (FDA) regulatory status
-  const us: { s: State; d: string } = fmt(data.approvalDate)
-    ? { s: 'yes', d: `Approved ${fmt(data.approvalDate)}` }
-    : { s: 'no', d: 'Not shown here' };
+  // US (FDA) regulatory status. EU-sourced records carry the FDA side from the
+  // offline US snapshots (services/usApproval.ts). A missing record is NOT
+  // "not approved" — the note under the row says what the snapshots cover.
+  const usInfo = describeUsApproval(data.approvalDate, fmt);
+  const us: { s: State; d: string } = { s: usInfo.state === 'approved' ? 'yes' : 'no', d: usInfo.text };
 
   const gbaTerm = data.genericName && data.genericName !== '—' ? data.genericName : data.brandName;
 
@@ -67,6 +69,9 @@ const AccessStatus: React.FC<{ data: DrugDetailData }> = ({ data }) => {
       <div className="bg-slate-50 rounded-2xl p-3 border border-slate-100">
         <Step s={eu.s} label="EU (EMA)" detail={eu.d} />
         <Step s={us.s} label="US (FDA)" detail={us.d} />
+        {usInfo.state === 'none' && (
+          <p className="text-[11px] text-slate-500 leading-snug pl-[26px] -mt-0.5 pb-1.5">{US_COVERAGE_NOTE}</p>
+        )}
         {/* Reimbursement / availability are national and NOT tracked here. */}
         <div className="flex items-start gap-2.5 py-1.5 border-t border-slate-200/70 mt-1 pt-2.5">
           <MinusCircle size={16} className="text-slate-300 mt-0.5 shrink-0" />

@@ -23,6 +23,7 @@
 import { lookupEmaRec } from './fdaService';
 import { DrugDetailData } from '../types';
 import { resolveTarget, actsOn, TargetClass } from './targetAgents';
+import { usApprovalFor } from './usApproval';
 
 export interface DiseaseDrug {
   b: string; // brand
@@ -166,8 +167,9 @@ export const findDisease = (query: string): DiseaseEntity | undefined =>
 /**
  * Build the comparison rows for a disease: one normalised DrugDetailData per
  * member drug, enriched offline with the EU (EMA) marketing-authorisation date
- * and EPAR link. The US (FDA) date is left 'N/A' here and filled in live by the
- * caller when online (openFDA), so the feature always renders without a network.
+ * and EPAR link. The US (FDA) date is the curated value, else the offline US
+ * snapshots (usApproval.ts), else 'N/A' — filled in live by the caller when online
+ * (openFDA), so the feature always renders without a network.
  */
 export const buildDiseaseComparison = (e: DiseaseEntity): DrugDetailData[] =>
   e.drugs.map((d) => {
@@ -175,7 +177,7 @@ export const buildDiseaseComparison = (e: DiseaseEntity): DrugDetailData[] =>
     return {
       brandName: d.b,
       genericName: d.g,
-      approvalDate: d.fda || 'N/A',
+      approvalDate: d.fda || usApprovalFor(d.b, d.g),
       indication: d.ind || '',
       drugClass: e.cls,
       company: d.co || '—',

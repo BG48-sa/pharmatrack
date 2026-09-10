@@ -9,6 +9,7 @@ import {
   X, Activity, Pill, Building2, Calendar, Globe, FlaskConical, ExternalLink,
   Sparkles, Hourglass, Stethoscope, GitCompare, Check, Share, FileText,
 } from 'lucide-react';
+import { describeUsApproval } from '../services/usApproval';
 
 interface DrugDetailProps {
   data: DrugDetailData;
@@ -55,6 +56,7 @@ const shareText = (d: DrugDetailData): string => {
   else if (d.emaApprovalDate && /^Same substance/.test(d.emaApprovalDate)) lines.push(`EU: ${d.emaApprovalDate} — not this product`);
   if (d.badge) lines.push(`Type: ${d.badge}`);
   if (d.approvalDate && /^\d/.test(d.approvalDate)) lines.push(`FDA approval: ${d.approvalDate}`);
+  else if (/^Same substance in US/.test(d.approvalDate || '')) lines.push(`US: ${d.approvalDate}`);
   if (d.company) lines.push(`Company: ${d.company}`);
   if (d.indication) lines.push(`Indication: ${d.indication}`);
   if (d.emaUrl) lines.push(d.emaUrl);
@@ -88,6 +90,7 @@ export const DrugDetailContent: React.FC<{
 }> = ({ data, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs, euUsButtonLabel }) => {
   const trialQuery = data.genericName && data.genericName !== '—' ? data.genericName : data.brandName;
   const hasEma = !!data.emaApprovalDate && /^\d/.test(data.emaApprovalDate);
+  const usInfo = describeUsApproval(data.approvalDate, formatPretty);
   const badgeId = badgeGlossaryId(data.badge);
 
   return (
@@ -182,7 +185,9 @@ export const DrugDetailContent: React.FC<{
             <p className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-1 flex items-center">
               <Calendar size={12} className="mr-1" /> FDA Approval
             </p>
-            <p className="text-sm font-bold text-slate-800">{formatPretty(data.approvalDate)}</p>
+            <p className={`text-sm font-bold ${usInfo.state === 'approved' ? 'text-slate-800' : 'text-slate-400'}`}>
+              {usInfo.state === 'approved' ? usInfo.date : usInfo.state === 'substance' ? usInfo.text : 'Not in app data'}
+            </p>
           </div>
           <div className="bg-slate-50 rounded-xl p-3">
             <p className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-1 flex items-center">
