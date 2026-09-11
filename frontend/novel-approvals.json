@@ -1,6 +1,132 @@
 {
   "2026": [
     {
+      "no": 38,
+      "brandName": "Etcamah",
+      "genericName": "camizestrant",
+      "approvalDate": "2026-09-04",
+      "indication": "To treat hormone receptor-positive, human epidermal growth factor receptor 2-negative, locally advanced or metastatic breast cancer upon detection of ESR1 mutation during aromatase inhibitor and CDK4/6 inhibitor therapy"
+    },
+    {
+      "no": 37,
+      "brandName": "Zanvastro",
+      "genericName": "zilganersen",
+      "approvalDate": "2026-09-03",
+      "indication": "To treat Alexander disease in pediatric and adult patients"
+    },
+    {
+      "no": 36,
+      "brandName": "Mimrylo",
+      "genericName": "rusfertide",
+      "approvalDate": "2026-08-28",
+      "indication": "To treat erythrocytosis in adults with polycythemia vera"
+    },
+    {
+      "no": 35,
+      "brandName": "Lisraya",
+      "genericName": "brepocitinib",
+      "approvalDate": "2026-08-27",
+      "indication": "To treat dermatomyositis in adults"
+    },
+    {
+      "no": 34,
+      "brandName": "Rasonque",
+      "genericName": "daraxonrasib",
+      "approvalDate": "2026-08-26",
+      "indication": "To treat metastatic pancreatic cancer"
+    },
+    {
+      "no": 33,
+      "brandName": "Pasatru",
+      "genericName": "garetosmab-grts",
+      "approvalDate": "2026-08-19",
+      "indication": "To reduce new heterotopic ossification and clinician-assessed disease flare-ups in adults with fibrodysplasia ossificans progressiva"
+    },
+    {
+      "no": 32,
+      "brandName": "Zenbexus",
+      "genericName": "iberdomide",
+      "approvalDate": "2026-08-13",
+      "indication": "To be used in combination with daratumumab and hyaluronidase-fihj and dexamethasone for adults with multiple myeloma who have received at least one prior line of therapy, including a proteasome inhibitor and an immunomodulatory agent"
+    },
+    {
+      "no": 31,
+      "brandName": "Tauklarify",
+      "genericName": "florquinitau F 18",
+      "approvalDate": "2026-08-13",
+      "indication": "To be used for positron emission tomography of the brain in adults with cognitive impairment who are being evaluated for Alzheimer disease to identify patients with tau neurofibrillary tangle pathology"
+    },
+    {
+      "no": 30,
+      "brandName": "Orzeyful",
+      "genericName": "oveporexton",
+      "approvalDate": "2026-08-05",
+      "indication": "To treat narcolepsy type 1"
+    },
+    {
+      "no": 29,
+      "brandName": "Simtriyo",
+      "genericName": "centanafadine",
+      "approvalDate": "2026-07-24",
+      "indication": "To treat attention-deficit hyperactivity disorder"
+    },
+    {
+      "no": 28,
+      "brandName": "Lytenava",
+      "genericName": "bevacizumab-vikg",
+      "approvalDate": "2026-07-24",
+      "indication": "To treat patients with neovascular (wet) age-related macular degeneration"
+    },
+    {
+      "no": 27,
+      "brandName": "Jideytro",
+      "genericName": "zidesamtinib",
+      "approvalDate": "2026-07-22",
+      "indication": "To treat adults with locally advanced or metastatic ROS1-positive non-small cell lung cancer after receiving a ROS1 kinase inhibitor"
+    },
+    {
+      "no": 26,
+      "brandName": "Lipfendra",
+      "genericName": "enlicitide decanoate",
+      "approvalDate": "2026-07-15",
+      "indication": "To reduce low-density lipoprotein cholesterol"
+    },
+    {
+      "no": 25,
+      "brandName": "Revtorpyk",
+      "genericName": "gedatolisib",
+      "approvalDate": "2026-07-14",
+      "indication": "In combination with fulvestran, to treat hormone receptor-positive, human epidermal growth factor receptor 2-negative, locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting"
+    },
+    {
+      "no": 24,
+      "brandName": "Trutakna",
+      "genericName": "atacicept-vymj",
+      "approvalDate": "2026-07-07",
+      "indication": "To reduce proteinuria in adults with primary immunoglobulin A nephropathy at risk for disease progression"
+    },
+    {
+      "no": 23,
+      "brandName": "Lumvoa",
+      "genericName": "veligrotug-vvze",
+      "approvalDate": "2026-06-26",
+      "indication": "To treat thyroid eye disease"
+    },
+    {
+      "no": 22,
+      "brandName": "Utebzi",
+      "genericName": "tebipenem pivoxil",
+      "approvalDate": "2026-06-17",
+      "indication": "To treat complicated urinary tract infections, including pyelonephritis, caused by several susceptible microorganisms in adults who have limited or no alternative oral treatment options"
+    },
+    {
+      "no": 21,
+      "brandName": "Ambelvist",
+      "genericName": "gadoquatrane",
+      "approvalDate": "2026-06-12",
+      "indication": "To detect and visualize lesions with abnormal vascularity, in conjunction with MRI"
+    },
+    {
       "no": 20,
       "brandName": "Cypsedo",
       "genericName": "cipepofol",
