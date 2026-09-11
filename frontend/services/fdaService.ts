@@ -470,10 +470,28 @@ const is351kQuery = (q: string): boolean =>
 // The "Generic" US chip: ANDA applications are the US generic-drug approvals.
 const isGenericQuery = (q: string): boolean => /^generics?$/i.test(q.trim());
 
+// The "Cell & gene therapy" US chip, plus the EU vocabulary a European reader
+// would type (ATMP, advanced therapy): the FDA has no such class in Drugs@FDA,
+// so these list the curated CBER snapshot in full, newest approval first.
+const isCgtQuery = (q: string): boolean =>
+  /^(?:cell(?:ular)?s?\s*(?:&|and|\+)\s*gene\s*therap(?:y|ies)|gene\s*(?:&|and)\s*cell\s*therap(?:y|ies)|cgt|cber|atmps?|advanced[\s-]*therap(?:y|ies)(?:\s*medicinal\s*products?)?)$/i.test(q.trim());
+const allCgtProducts = (): Drug[] =>
+  Object.entries(cgtData)
+    .filter(([, r]) => !!r.n)
+    .sort((a, b) => b[1].d.localeCompare(a[1].d))
+    .map(([bla, r], i) => cgtToDrug(bla, r, i + 1));
+
 /** Search by brand, generic/ingredient, sponsor, class — or list 351(k) biosimilars. */
 export const searchDrugDatabase = async (query: string): Promise<DrugDataResponse> => {
   const q = query.trim();
   if (!q) return { drugs: [], sources: [] };
+
+  // All FDA-approved cellular & gene therapy products (CBER list), offline.
+  if (isCgtQuery(q)) {
+    const drugs = allCgtProducts();
+    const hasEma = drugs.some((d) => d.emaApprovalDate && d.emaApprovalDate !== 'Not in EMA');
+    return { drugs, sources: drugs.length ? [CBER_SOURCE, ...(hasEma ? [EMA_SOURCE] : [])] : [] };
+  }
 
   try {
     let search: string;

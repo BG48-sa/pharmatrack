@@ -43,6 +43,7 @@ const CHIPS: Record<SearchBarProps['mode'], Chip[]> = {
   ],
   approvals: [
     { label: '351(k) Biosimilars', query: 'biosimilar', primary: true },
+    { label: 'Cell & gene therapy', query: 'cell & gene therapy' },
     { label: 'Generic', query: 'generic' },
     { label: 'Oncology', query: 'Antineoplastic' },
     { label: 'Antibodies', query: 'Monoclonal Antibody' },
