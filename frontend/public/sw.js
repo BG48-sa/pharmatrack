@@ -48,6 +48,10 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   const sameOrigin = url.origin === self.location.origin;
 
+  // Visitor counter (GoatCounter): let the browser handle it directly — never
+  // cache a count, and never replay one from cache when offline.
+  if (url.hostname === 'gc.zgo.at' || url.hostname.endsWith('.goatcounter.com')) return;
+
   // Runtime data snapshots (/data/*.json): always network-first so the app never
   // shows a snapshot older than what's published. Falls back to cache (then the
   // app's bundled data) when offline.

@@ -90,7 +90,9 @@ https://bg48-sa.github.io/pharmatrack/privacy.html
 
 ## 2. App privacy answers (App Store Connect → App Privacy)
 Answer: **Data Not Collected.**
-Rationale: no account, no analytics, no third-party SDKs. The only on-device
+Rationale: no account, no analytics, no third-party SDKs. (The GoatCounter visit
+counter in `frontend/index.html` only runs on the bg48-sa.github.io website — the
+native app is served from `capacitor://localhost`, so it never loads there.) The only on-device
 storage is a "last visit" timestamp that never leaves the device and is not
 linked to identity — this does not count as collected data.
 

@@ -18,6 +18,20 @@
     <link rel="apple-touch-icon" href="./icon.png">
     
     <title>DrugRadar - Drug Approvals</title>
+
+    <!-- Visitor counter (GoatCounter: free, no cookies, no personal data).
+         Runs ONLY on the public website bg48-sa.github.io — never in the iOS/Mac
+         app (which must stay "Data Not Collected") and never on the local dev server.
+         Stats: https://drugradar.goatcounter.com -->
+    <script>
+      if (location.hostname === 'bg48-sa.github.io') {
+        var gc = document.createElement('script');
+        gc.async = true;
+        gc.src = 'https://gc.zgo.at/count.js';
+        gc.setAttribute('data-goatcounter', 'https://drugradar.goatcounter.com/count');
+        document.head.appendChild(gc);
+      }
+    </script>
 </head>
 <body>
     <div id="root"></div>
