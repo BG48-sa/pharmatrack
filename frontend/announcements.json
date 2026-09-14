@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-12",
+  "generated": "2026-09-14",
   "items": [
     {
       "title": "FDA Approves First Therapy to Target Muscle Loss in Spinal Muscular Atrophy",
@@ -13,6 +13,25 @@
       "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOTE5QN1lES1VWNjdwMnVDRk1GRUNCc0pxOGlsdXVsTWMyTEVUWVVfdWRUaE9nUk1UZjcycTlLZnllN3dqaGhEWm41OUctczVIeHBjMUpSaEhkb2Y1aFZoX0xWV3VBdUdQQ2NVWGJtQ2I5RTlnOGZYa29qZ216RldybjYtMWVKYWZYWkFJU0xLZzdBbUNacDVRMXdTTXl6dVBGajBGTTZCSXdpc1pLcnZmZjZKM2JGaFJqNW8zUEVCeFF2YW5XcHh3RHZRbUk0NzVnVEdRY0VNaEhOdHBf?oc=5",
       "date": "2026-09-11",
       "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Isembyld (apitegromab-mstn) Muscle-Targeted Treatment for Children and Adults with Spinal Muscular Atrophy (SMA)",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-isembyld-apitegromab-mstn-muscle-targeted-children-adults-spinal-muscular-atrophy-sma-6881.html",
+      "date": "2026-09-11",
+      "source": "Drugs.com",
+      "names": [
+        "apitegromab",
+        "apitegromab-mstn",
+        "atrophy",
+        "isembyld"
+      ]
+    },
+    {
+      "title": "FDA Approves Pharming’s Joenja as First Treatment for Children with APDS in the U.S.",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-pharming-s-joenja-first-children-apds-u-s-6879.html",
+      "date": "2026-09-11",
+      "source": "Drugs.com",
       "names": []
     },
     {
@@ -192,20 +211,6 @@
         "daraxonrasib",
         "rasonque"
       ]
-    },
-    {
-      "title": "U.S. FDA Approves ViiV Healthcare’s Tivicay PD for HIV Treatment in Pediatric Patients Weighing at Least 2 kg",
-      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-viiv-healthcare-s-tivicay-pd-hiv-pediatric-patients-weighing-least-2-kg-6866.html",
-      "date": "2026-08-26",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "FDA Approves First Drug for Warm Autoimmune Hemolytic Anemia",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSW9PZ2hocXRwVHhTOFNsUXpWdGtnYkpvZ2R6LS1yTjdMOFg1dkNFdVFiMnprbjd3bHRKTlZlVU93Rlh6cVN5bVl0cFJoWk9mTWxqV0xNeUFKeVF0MDI2WGhKdnBLRmVQMk9PaXI5NWhFdHdUd09hb3BmU1NwMXowcnB6UmNRMDRqekFFWUNablNFMkJpUHlOV3R0Qm9KZEdZeUl0c2hGSlZEQQ?oc=5",
-      "date": "2026-08-25",
-      "source": "FDA",
-      "names": []
     }
   ]
 }
