@@ -1,0 +1,426 @@
+{
+  "BLA125197": {
+    "d": "2010-04-29",
+    "c": "Autologous cellular immunotherapy (prostate cancer)",
+    "n": "Provenge",
+    "g": "sipuleucel-T",
+    "m": "Dendreon",
+    "i": "Asymptomatic or minimally symptomatic metastatic castrate-resistant prostate cancer."
+  },
+  "BLA125348": {
+    "d": "2011-06-21",
+    "c": "Autologous cultured fibroblast therapy",
+    "n": "Laviv",
+    "g": "azficel-T",
+    "m": "Fibrocell Technologies",
+    "i": "Improvement of the appearance of moderate to severe nasolabial fold wrinkles in adults."
+  },
+  "BLA125397": {
+    "d": "2011-11-10",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "Hemacord",
+    "g": "HPC, cord blood",
+    "m": "New York Blood Center",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125400": {
+    "d": "2012-03-09",
+    "c": "Allogeneic cellularized scaffold (keratinocytes/fibroblasts)",
+    "n": "Gintuit",
+    "g": "allogeneic cultured keratinocytes and fibroblasts in bovine collagen",
+    "m": "Organogenesis",
+    "i": "Topical application to a surgically created vascular wound bed in the treatment of mucogingival conditions in adults."
+  },
+  "BLA125391": {
+    "d": "2012-05-24",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "HPC, Cord Blood (Clinimmune Labs)",
+    "g": "HPC, cord blood",
+    "m": "Clinimmune Labs, University of Colorado Cord Blood Bank",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125407": {
+    "d": "2012-10-04",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "Ducord",
+    "g": "HPC, cord blood",
+    "m": "Duke University School of Medicine",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125413": {
+    "d": "2013-05-30",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "Allocord",
+    "g": "HPC, cord blood",
+    "m": "SSM Cardinal Glennon Children's Medical Center",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125432": {
+    "d": "2013-06-13",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "HPC, Cord Blood (LifeSouth)",
+    "g": "HPC, cord blood",
+    "m": "LifeSouth Community Blood Centers",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125518": {
+    "d": "2015-10-27",
+    "c": "Oncolytic HSV-1 gene therapy",
+    "n": "Imlygic",
+    "g": "talimogene laherparepvec",
+    "m": "BioVex (Amgen)",
+    "i": "Local treatment of unresectable cutaneous, subcutaneous and nodal lesions in melanoma recurrent after initial surgery."
+  },
+  "BLA125585": {
+    "d": "2016-01-28",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "HPC, Cord Blood (Bloodworks)",
+    "g": "HPC, cord blood",
+    "m": "Bloodworks",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125594": {
+    "d": "2016-09-01",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "Clevecord",
+    "g": "HPC, cord blood",
+    "m": "Cleveland Cord Blood Center",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125603": {
+    "d": "2016-12-13",
+    "c": "Autologous cultured chondrocyte implant",
+    "n": "MACI",
+    "g": "autologous cultured chondrocytes on porcine collagen membrane",
+    "m": "Vericel",
+    "i": "Repair of symptomatic, single or multiple full-thickness cartilage defects of the knee in adults."
+  },
+  "BLA125646": {
+    "d": "2017-08-30",
+    "c": "CD19-directed CAR-T cell therapy",
+    "n": "Kymriah",
+    "g": "tisagenlecleucel",
+    "m": "Novartis",
+    "i": "Relapsed/refractory B-cell acute lymphoblastic leukemia in patients up to 25 years; relapsed/refractory large B-cell lymphoma and follicular lymphoma in adults."
+  },
+  "BLA125643": {
+    "d": "2017-10-18",
+    "c": "CD19-directed CAR-T cell therapy",
+    "n": "Yescarta",
+    "g": "axicabtagene ciloleucel",
+    "m": "Kite Pharma (Gilead)",
+    "i": "Relapsed/refractory large B-cell lymphoma and relapsed/refractory follicular lymphoma in adults."
+  },
+  "BLA125610": {
+    "d": "2017-12-19",
+    "c": "AAV2 gene therapy (RPE65)",
+    "n": "Luxturna",
+    "g": "voretigene neparvovec-rzyl",
+    "m": "Spark Therapeutics",
+    "i": "Confirmed biallelic RPE65 mutation-associated retinal dystrophy with viable retinal cells."
+  },
+  "BLA125657": {
+    "d": "2018-06-14",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "HPC, Cord Blood (MD Anderson)",
+    "g": "HPC, cord blood",
+    "m": "MD Anderson Cord Blood Bank",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125694": {
+    "d": "2019-05-24",
+    "c": "AAV9 gene therapy (SMN1)",
+    "n": "Zolgensma",
+    "g": "onasemnogene abeparvovec-xioi",
+    "m": "Novartis Gene Therapies",
+    "i": "Spinal muscular atrophy in patients under 2 years with bi-allelic SMN1 mutations."
+  },
+  "BLA125703": {
+    "d": "2020-07-24",
+    "c": "CD19-directed CAR-T cell therapy",
+    "n": "Tecartus",
+    "g": "brexucabtagene autoleucel",
+    "m": "Kite Pharma (Gilead)",
+    "i": "Relapsed/refractory mantle cell lymphoma and relapsed/refractory B-cell acute lymphoblastic leukemia in adults."
+  },
+  "BLA125714": {
+    "d": "2021-02-05",
+    "c": "CD19-directed CAR-T cell therapy",
+    "n": "Breyanzi",
+    "g": "lisocabtagene maraleucel",
+    "m": "Juno Therapeutics (Bristol Myers Squibb)",
+    "i": "Relapsed/refractory large B-cell lymphoma, CLL/SLL, follicular lymphoma and mantle cell lymphoma in adults."
+  },
+  "BLA125736": {
+    "d": "2021-03-26",
+    "c": "BCMA-directed CAR-T cell therapy",
+    "n": "Abecma",
+    "g": "idecabtagene vicleucel",
+    "m": "Celgene (Bristol Myers Squibb)",
+    "i": "Relapsed or refractory multiple myeloma after two or more prior lines including an immunomodulator, a proteasome inhibitor and an anti-CD38 antibody."
+  },
+  "BLA125730": {
+    "d": "2021-06-15",
+    "c": "Allogeneic cultured skin substitute (keratinocytes/fibroblasts)",
+    "n": "Stratagraft",
+    "g": "allogeneic cultured keratinocytes and dermal fibroblasts in murine collagen-dsat",
+    "m": "Stratatech (Mallinckrodt)",
+    "i": "Deep partial-thickness thermal burns with intact dermal elements in adults."
+  },
+  "BLA125685": {
+    "d": "2021-10-08",
+    "c": "Allogeneic processed thymus tissue",
+    "n": "Rethymic",
+    "g": "allogeneic processed thymus tissue-agdc",
+    "m": "Enzyvant Therapeutics (Sumitomo Pharma)",
+    "i": "Immune reconstitution in pediatric patients with congenital athymia."
+  },
+  "BLA125746": {
+    "d": "2022-02-28",
+    "c": "BCMA-directed CAR-T cell therapy",
+    "n": "Carvykti",
+    "g": "ciltacabtagene autoleucel",
+    "m": "Janssen Biotech",
+    "i": "Relapsed or refractory multiple myeloma after at least one prior line including a proteasome inhibitor and an immunomodulator, refractory to lenalidomide."
+  },
+  "BLA125717": {
+    "d": "2022-08-17",
+    "c": "Lentiviral ex-vivo gene therapy",
+    "n": "Zynteglo",
+    "g": "betibeglogene autotemcel",
+    "m": "bluebird bio",
+    "i": "Transfusion-dependent beta-thalassemia in adults and children."
+  },
+  "BLA125755": {
+    "d": "2022-09-16",
+    "c": "Lentiviral ex-vivo gene therapy",
+    "n": "Skysona",
+    "g": "elivaldogene autotemcel",
+    "m": "bluebird bio",
+    "i": "Slowing of neurologic dysfunction in boys 4-17 years with early, active cerebral adrenoleukodystrophy."
+  },
+  "BLA125772": {
+    "d": "2022-11-22",
+    "c": "AAV5 gene therapy (Factor IX)",
+    "n": "Hemgenix",
+    "g": "etranacogene dezaparvovec-drlb",
+    "m": "CSL Behring",
+    "i": "Hemophilia B in adults on factor IX prophylaxis or with life-threatening or repeated serious spontaneous bleeding."
+  },
+  "BLA125700": {
+    "d": "2022-12-16",
+    "c": "Adenoviral vector gene therapy",
+    "n": "Adstiladrin",
+    "g": "nadofaragene firadenovec-vcng",
+    "m": "Ferring Pharmaceuticals",
+    "i": "BCG-unresponsive non-muscle-invasive bladder cancer with carcinoma in situ, with or without papillary tumours."
+  },
+  "BLA125738": {
+    "d": "2023-04-17",
+    "c": "Expanded allogeneic cord-blood cell therapy",
+    "n": "Omisirge",
+    "g": "omidubicel-onlv",
+    "m": "Gamida Cell",
+    "i": "Hematologic malignancies planned for umbilical cord blood transplantation after myeloablative conditioning, to reduce time to neutrophil recovery and infections."
+  },
+  "BLA125774": {
+    "d": "2023-05-19",
+    "c": "HSV-1 vector gene therapy",
+    "n": "Vyjuvek",
+    "g": "beremagene geperpavec-svdt",
+    "m": "Krystal Biotech",
+    "i": "Wounds in patients 6 months and older with dystrophic epidermolysis bullosa with COL7A1 mutations."
+  },
+  "BLA125781": {
+    "d": "2023-06-22",
+    "c": "AAVrh74 gene therapy (microdystrophin)",
+    "n": "Elevidys",
+    "g": "delandistrogene moxeparvovec-rokl",
+    "m": "Sarepta Therapeutics",
+    "i": "Duchenne muscular dystrophy with a confirmed DMD gene mutation in ambulatory patients 4 years and older."
+  },
+  "BLA125734": {
+    "d": "2023-06-28",
+    "c": "Allogeneic pancreatic islet cell therapy",
+    "n": "Lantidra",
+    "g": "donislecel",
+    "m": "CellTrans",
+    "i": "Type 1 diabetes in adults unable to approach target HbA1c because of repeated severe hypoglycemia despite intensive management."
+  },
+  "BLA125720": {
+    "d": "2023-06-29",
+    "c": "AAV5 gene therapy (Factor VIII)",
+    "n": "Roctavian",
+    "g": "valoctocogene roxaparvovec-rvox",
+    "m": "BioMarin Pharmaceutical",
+    "i": "Severe hemophilia A in adults without pre-existing antibodies to AAV5. Marketed status: discontinued by the company."
+  },
+  "BLA125788": {
+    "d": "2023-12-08",
+    "c": "Lentiviral ex-vivo gene therapy",
+    "n": "Lyfgenia",
+    "g": "lovotibeglogene autotemcel",
+    "m": "bluebird bio",
+    "i": "Sickle cell disease in patients 12 years and older with a history of vaso-occlusive events."
+  },
+  "BLA125787": {
+    "d": "2023-12-08",
+    "c": "CRISPR/Cas9 gene-edited cell therapy",
+    "n": "Casgevy",
+    "g": "exagamglogene autotemcel",
+    "m": "Vertex Pharmaceuticals",
+    "i": "Sickle cell disease with recurrent vaso-occlusive crises (BLA 125787, approved 8 Dec 2023) and transfusion-dependent beta-thalassemia (BLA 125785, approved 16 Jan 2024), in patients 2 years and older per the current US label (July 2026; originally 12 years and older)."
+  },
+  "BLA125773": {
+    "d": "2024-02-16",
+    "c": "Autologous tumor-infiltrating lymphocyte (TIL) therapy",
+    "n": "Amtagvi",
+    "g": "lifileucel",
+    "m": "Iovance Biotherapeutics",
+    "i": "Unresectable or metastatic melanoma previously treated with a PD-1 antibody and, if BRAF V600-positive, a BRAF inhibitor."
+  },
+  "BLA125758": {
+    "d": "2024-03-18",
+    "c": "Lentiviral ex-vivo gene therapy",
+    "n": "Lenmeldy",
+    "g": "atidarsagene autotemcel",
+    "m": "Orchard Therapeutics",
+    "i": "Pre-symptomatic late infantile, pre-symptomatic early juvenile or early symptomatic early juvenile metachromatic leukodystrophy in children."
+  },
+  "BLA125786": {
+    "d": "2024-04-25",
+    "c": "AAVRh74var gene therapy (Factor IX)",
+    "n": "Beqvez",
+    "g": "fidanacogene elaparvovec-dzkt",
+    "m": "Pfizer",
+    "i": "Moderate to severe hemophilia B in adults on factor IX prophylaxis or with serious bleeding, without AAVRh74var antibodies. Marketed status: discontinued by the company."
+  },
+  "BLA125789": {
+    "d": "2024-08-01",
+    "c": "MAGE-A4-directed TCR T-cell therapy",
+    "n": "Tecelra",
+    "g": "afamitresgene autoleucel",
+    "m": "Adaptimmune",
+    "i": "Unresectable or metastatic synovial sarcoma in adults who have received prior chemotherapy, are HLA-A*02:01P, -A*02:02P, -A*02:03P or -A*02:06P positive (HLA-A*02:05P excluded) and whose tumour expresses MAGE-A4 (FDA-approved companion diagnostics)."
+  },
+  "BLA125813": {
+    "d": "2024-11-08",
+    "c": "CD19-directed CAR-T cell therapy",
+    "n": "Aucatzyl",
+    "g": "obecabtagene autoleucel",
+    "m": "Autolus",
+    "i": "Relapsed or refractory B-cell precursor acute lymphoblastic leukemia in adults."
+  },
+  "BLA125722": {
+    "d": "2024-11-13",
+    "c": "AAV2 gene therapy (AADC, intraputaminal)",
+    "n": "Kebilidi",
+    "g": "eladocagene exuparvovec-tneq",
+    "m": "PTC Therapeutics",
+    "i": "Aromatic L-amino acid decarboxylase (AADC) deficiency in adults and children."
+  },
+  "BLA125764": {
+    "d": "2024-11-20",
+    "c": "HPC, cord blood (allogeneic transplant)",
+    "n": "Regenecyte",
+    "g": "HPC, cord blood",
+    "m": "StemCyte",
+    "i": "Unrelated-donor hematopoietic progenitor cell transplantation, with an appropriate preparative regimen, for hematopoietic and immunologic reconstitution in inherited, acquired or treatment-related disorders of the hematopoietic system."
+  },
+  "BLA125706": {
+    "d": "2024-12-18",
+    "c": "Allogeneic mesenchymal stromal cell (MSC) therapy",
+    "n": "Ryoncil",
+    "g": "remestemcel-L-rknd",
+    "m": "Mesoblast",
+    "i": "Steroid-refractory acute graft-versus-host disease in pediatric patients 2 months and older."
+  },
+  "BLA125812": {
+    "d": "2024-12-19",
+    "c": "Acellular tissue-engineered vessel",
+    "n": "Symvess",
+    "g": "acellular tissue engineered vessel-tyod",
+    "m": "Humacyte Global",
+    "i": "Vascular conduit for extremity arterial injury in adults when urgent revascularization is needed and autologous vein graft is not feasible."
+  },
+  "BLA125798": {
+    "d": "2025-03-05",
+    "c": "Encapsulated cell therapy (CNTF-secreting)",
+    "n": "Encelto",
+    "g": "revakinagene taroretcel-lwey",
+    "m": "Neurotech Pharmaceuticals",
+    "i": "Macular telangiectasia type 2 in adults."
+  },
+  "BLA125807": {
+    "d": "2025-04-28",
+    "c": "Retroviral COL7A1 gene-corrected keratinocyte sheets",
+    "n": "Zevaskyn",
+    "g": "prademagene zamikeracel",
+    "m": "Abeona Therapeutics",
+    "i": "Wounds in adults and children with recessive dystrophic epidermolysis bullosa."
+  },
+  "BLA125832": {
+    "d": "2025-08-14",
+    "c": "Adenoviral vector immunotherapy (HPV 6/11)",
+    "n": "Papzimeos",
+    "g": "zopapogene imadenovec-drba",
+    "m": "Precigen",
+    "i": "Recurrent respiratory papillomatosis in adults."
+  },
+  "BLA125856": {
+    "d": "2025-11-24",
+    "c": "AAV9 gene therapy (SMN1, intrathecal)",
+    "n": "Itvisma",
+    "g": "onasemnogene abeparvovec-brve",
+    "m": "Novartis Gene Therapies",
+    "i": "Spinal muscular atrophy in patients 2 years and older with a confirmed SMN1 mutation (intrathecal)."
+  },
+  "BLA125846": {
+    "d": "2025-12-09",
+    "c": "Lentiviral ex-vivo gene therapy (WAS)",
+    "n": "Waskyra",
+    "g": "etuvetidigene autotemcel",
+    "m": "Fondazione Telethon",
+    "i": "Wiskott-Aldrich syndrome in patients 6 months and older with a WAS gene mutation, for whom haematopoietic stem cell transplantation is appropriate and no suitable HLA-matched related donor is available."
+  },
+  "BLA125806": {
+    "d": "2026-03-26",
+    "c": "Lentiviral ex-vivo gene therapy (ITGB2 / LAD-I)",
+    "n": "Kresladi",
+    "g": "marnetegragene autotemcel",
+    "m": "Rocket Pharmaceuticals",
+    "i": "Severe leukocyte adhesion deficiency-I (biallelic ITGB2 variants) in pediatric patients without an HLA-matched sibling donor."
+  },
+  "BLA125874": {
+    "d": "2026-04-23",
+    "c": "AAV gene therapy (OTOF, intracochlear)",
+    "n": "Otarmeni",
+    "g": "lunsotogene parvec-cwha",
+    "m": "Regeneron Pharmaceuticals",
+    "i": "Severe-to-profound sensorineural hearing loss due to biallelic OTOF variants, without a prior cochlear implant in the same ear."
+  },
+  "BLA125868": {
+    "d": "2026-06-30",
+    "c": "Allogeneic Treg-cell-engineered transplant graft therapy",
+    "n": "Tregzi",
+    "g": "allogeneic regulatory T cell immunotherapy with HSPC and T cells-vldq",
+    "m": "Orca Bio",
+    "i": "Adults with hematologic malignancies undergoing allogeneic hematopoietic stem cell transplant, to reduce graft-versus-host disease (Orca-T)."
+  },
+  "BLA125827": {
+    "d": "2026-08-06",
+    "c": "Oncolytic HSV-1 gene therapy (melanoma)",
+    "n": "Tudriqev",
+    "g": "vusolimogene oderparepvec-wtpg",
+    "m": "Replimune",
+    "i": "With nivolumab for unresectable advanced cutaneous melanoma after progression on a PD-1 antibody regimen (accelerated approval)."
+  },
+  "BLA125858": {
+    "d": "2026-08-19",
+    "c": "AAV8 gene therapy (G6PC, GSDIa)",
+    "n": "Genglycos",
+    "g": "pariglasgene brecaparvovec-opnr",
+    "m": "Ultragenyx Pharmaceutical",
+    "i": "Reduction of daily cornstarch intake in glycogen storage disease type Ia, patients 8 years and older (accelerated approval)."
+  }
+}

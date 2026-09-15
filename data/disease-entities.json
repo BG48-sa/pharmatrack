@@ -1,0 +1,3591 @@
+{
+  "generated": "2026-07-12",
+  "entities": [
+    {
+      "id": "pbc",
+      "name": "Primary biliary cholangitis (PBC)",
+      "short": "PBC",
+      "syn": [
+        "primary biliary cholangitis",
+        "pbc",
+        "primary biliary cirrhosis"
+      ],
+      "cls": "PPAR agonist for PBC",
+      "tgt": [
+        "PPAR",
+        "PPAR-delta",
+        "FXR"
+      ],
+      "drugs": [
+        {
+          "b": "Iqirvo",
+          "g": "elafibranor",
+          "co": "Ipsen"
+        },
+        {
+          "b": "Lyvdelzi",
+          "g": "seladelpar",
+          "co": "Gilead",
+          "emad": "2025-12-05",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/lyvdelzi"
+        }
+      ]
+    },
+    {
+      "id": "csu",
+      "name": "Chronic spontaneous urticaria (CSU)",
+      "short": "CSU",
+      "syn": [
+        "chronic spontaneous urticaria",
+        "csu",
+        "chronic urticaria",
+        "urticaria",
+        "hives"
+      ],
+      "cls": "Biologic / targeted therapy for chronic urticaria",
+      "tgt": [
+        "IgE",
+        "BTK",
+        "IL-4",
+        "IL-13",
+        "IL13"
+      ],
+      "drugs": [
+        {
+          "b": "Xolair",
+          "g": "omalizumab",
+          "co": "Novartis / Genentech"
+        },
+        {
+          "b": "Rhapsido",
+          "g": "remibrutinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Dupixent",
+          "g": "dupilumab",
+          "co": "Sanofi / Regeneron"
+        }
+      ]
+    },
+    {
+      "id": "alopecia-areata",
+      "name": "Alopecia areata",
+      "short": "Alopecia areata",
+      "syn": [
+        "alopecia areata",
+        "alopecia",
+        "hair loss"
+      ],
+      "cls": "JAK inhibitor for alopecia areata",
+      "tgt": [
+        "JAK",
+        "JAK1",
+        "JAK3",
+        "TEC"
+      ],
+      "drugs": [
+        {
+          "b": "Olumiant",
+          "g": "baricitinib",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Litfulo",
+          "g": "ritlecitinib",
+          "co": "Pfizer"
+        }
+      ]
+    },
+    {
+      "id": "hs",
+      "name": "Hidradenitis suppurativa (HS)",
+      "short": "Hidradenitis suppurativa",
+      "syn": [
+        "hidradenitis suppurativa",
+        "hidradenitis",
+        "acne inversa"
+      ],
+      "cls": "Biologic for hidradenitis suppurativa",
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "TNF"
+      ],
+      "drugs": [
+        {
+          "b": "Cosentyx",
+          "g": "secukinumab",
+          "co": "Novartis"
+        },
+        {
+          "b": "Bimzelx",
+          "g": "bimekizumab",
+          "co": "UCB"
+        },
+        {
+          "b": "Humira",
+          "g": "adalimumab",
+          "co": "AbbVie"
+        }
+      ]
+    },
+    {
+      "id": "waldenstrom",
+      "name": "Waldenström macroglobulinaemia (WM)",
+      "short": "Waldenström",
+      "syn": [
+        "waldenstrom macroglobulinaemia",
+        "waldenstrom macroglobulinemia",
+        "waldenstrom",
+        "lymphoplasmacytic lymphoma"
+      ],
+      "cls": "BTK inhibitor for Waldenström",
+      "tgt": [
+        "BTK",
+        "MYD88"
+      ],
+      "drugs": [
+        {
+          "b": "Imbruvica",
+          "g": "ibrutinib",
+          "co": "Janssen / AbbVie"
+        },
+        {
+          "b": "Brukinsa",
+          "g": "zanubrutinib",
+          "co": "BeiGene"
+        },
+        {
+          "b": "Calquence",
+          "g": "acalabrutinib",
+          "co": "AstraZeneca"
+        }
+      ]
+    },
+    {
+      "id": "mzl",
+      "name": "Marginal zone lymphoma (MZL)",
+      "short": "MZL",
+      "syn": [
+        "marginal zone lymphoma",
+        "mzl",
+        "malt lymphoma"
+      ],
+      "cls": "Targeted / T-cell-engaging therapy for MZL",
+      "tgt": [
+        "BTK",
+        "CD20",
+        "CD3",
+        "bispecific"
+      ],
+      "drugs": [
+        {
+          "b": "Brukinsa",
+          "g": "zanubrutinib",
+          "co": "BeiGene"
+        },
+        {
+          "b": "Imbruvica",
+          "g": "ibrutinib",
+          "co": "Janssen / AbbVie"
+        },
+        {
+          "b": "Lunsumio",
+          "g": "mosunetuzumab",
+          "co": "Roche"
+        }
+      ]
+    },
+    {
+      "id": "polycythemia-vera",
+      "name": "Polycythaemia vera (PV)",
+      "short": "Polycythaemia vera",
+      "syn": [
+        "polycythaemia vera",
+        "polycythemia vera",
+        "polycythaemia",
+        "polycythemia"
+      ],
+      "cls": "Interferon / JAK inhibitor for polycythaemia vera",
+      "tgt": [
+        "JAK",
+        "JAK2",
+        "interferon"
+      ],
+      "drugs": [
+        {
+          "b": "Besremi",
+          "g": "ropeginterferon alfa-2b",
+          "co": "PharmaEssentia"
+        },
+        {
+          "b": "Jakavi",
+          "g": "ruxolitinib",
+          "co": "Novartis"
+        }
+      ]
+    },
+    {
+      "id": "myelofibrosis",
+      "name": "Myelofibrosis",
+      "short": "Myelofibrosis",
+      "syn": [
+        "myelofibrosis",
+        "primary myelofibrosis",
+        "mpn"
+      ],
+      "cls": "JAK inhibitor for myelofibrosis",
+      "tgt": [
+        "JAK",
+        "JAK2",
+        "JAK1",
+        "ACVR1"
+      ],
+      "drugs": [
+        {
+          "b": "Jakavi",
+          "g": "ruxolitinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Inrebic",
+          "g": "fedratinib",
+          "co": "Bristol Myers Squibb"
+        },
+        {
+          "b": "Omjjara",
+          "g": "momelotinib",
+          "co": "GSK"
+        }
+      ]
+    },
+    {
+      "id": "attr-amyloidosis",
+      "name": "Transthyretin amyloidosis (ATTR)",
+      "short": "ATTR amyloidosis",
+      "syn": [
+        "transthyretin amyloidosis",
+        "attr",
+        "attr-cm",
+        "attr amyloidosis",
+        "hattr",
+        "attrv",
+        "transthyretin",
+        "cardiac amyloidosis",
+        "amyloid polyneuropathy"
+      ],
+      "cls": "Transthyretin stabiliser / silencer",
+      "tgt": [
+        "transthyretin",
+        "TTR",
+        "amyloid"
+      ],
+      "drugs": [
+        {
+          "b": "Vyndaqel",
+          "g": "tafamidis",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Onpattro",
+          "g": "patisiran",
+          "co": "Alnylam"
+        },
+        {
+          "b": "Amvuttra",
+          "g": "vutrisiran",
+          "co": "Alnylam"
+        },
+        {
+          "b": "Wainzua",
+          "g": "eplontersen",
+          "co": "AstraZeneca / Ionis"
+        },
+        {
+          "b": "Beyonttra",
+          "g": "acoramidis",
+          "co": "BridgeBio / Bayer"
+        }
+      ]
+    },
+    {
+      "id": "hae",
+      "name": "Hereditary angioedema (HAE)",
+      "short": "HAE",
+      "syn": [
+        "hereditary angioedema",
+        "hae",
+        "angioedema",
+        "c1 inhibitor deficiency"
+      ],
+      "cls": "HAE prophylaxis / on-demand therapy",
+      "tgt": [
+        "kallikrein",
+        "bradykinin",
+        "C1 esterase",
+        "factor XIIa",
+        "B2 receptor"
+      ],
+      "drugs": [
+        {
+          "b": "Takhzyro",
+          "g": "lanadelumab",
+          "co": "Takeda"
+        },
+        {
+          "b": "Orladeyo",
+          "g": "berotralstat",
+          "co": "BioCryst"
+        },
+        {
+          "b": "Firazyr",
+          "g": "icatibant",
+          "co": "Takeda"
+        },
+        {
+          "b": "Andembry",
+          "g": "garadacimab",
+          "co": "CSL Behring"
+        }
+      ]
+    },
+    {
+      "id": "cidp",
+      "name": "Chronic inflammatory demyelinating polyneuropathy (CIDP)",
+      "short": "CIDP",
+      "syn": [
+        "chronic inflammatory demyelinating polyneuropathy",
+        "cidp",
+        "demyelinating polyneuropathy"
+      ],
+      "cls": "FcRn inhibitor / immunoglobulin for CIDP",
+      "tgt": [
+        "FcRn",
+        "immunoglobulin"
+      ],
+      "drugs": [
+        {
+          "b": "Vyvgart",
+          "g": "efgartigimod",
+          "co": "argenx"
+        },
+        {
+          "b": "Privigen",
+          "g": "human normal immunoglobulin",
+          "co": "CSL Behring",
+          "emad": "2008-04-24",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/privigen"
+        },
+        {
+          "b": "Hizentra",
+          "g": "human normal immunoglobulin",
+          "co": "CSL Behring",
+          "emad": "2011-04-14",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/hizentra"
+        }
+      ]
+    },
+    {
+      "id": "masld",
+      "name": "MASLD / MASH (metabolic fatty liver)",
+      "short": "MASLD / MASH",
+      "syn": [
+        "masld",
+        "mash",
+        "nash",
+        "nafld",
+        "metabolic fatty liver",
+        "fatty liver",
+        "steatohepatitis",
+        "steatotic liver disease",
+        "non-alcoholic steatohepatitis"
+      ],
+      "cls": "Therapy for metabolic steatohepatitis",
+      "tgt": [
+        "THR-beta",
+        "thyroid hormone receptor",
+        "GLP-1",
+        "GLP1"
+      ],
+      "drugs": [
+        {
+          "b": "Rezdiffra",
+          "g": "resmetirom",
+          "co": "Madrigal"
+        },
+        {
+          "b": "Wegovy",
+          "g": "semaglutide",
+          "co": "Novo Nordisk",
+          "emad": "2022-01-06",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/wegovy"
+        }
+      ]
+    },
+    {
+      "id": "menopause-vms",
+      "name": "Menopausal vasomotor symptoms (hot flushes)",
+      "short": "Menopause VMS",
+      "syn": [
+        "menopausal vasomotor symptoms",
+        "vasomotor symptoms",
+        "hot flushes",
+        "hot flashes",
+        "menopause",
+        "vms"
+      ],
+      "cls": "Neurokinin-3 receptor antagonist",
+      "tgt": [
+        "NK3",
+        "neurokinin",
+        "NK-3"
+      ],
+      "drugs": [
+        {
+          "b": "Veoza",
+          "g": "fezolinetant",
+          "co": "Astellas"
+        },
+        {
+          "b": "Lynkuet",
+          "g": "elinzanetant",
+          "co": "Bayer"
+        }
+      ]
+    },
+    {
+      "id": "narcolepsy",
+      "name": "Narcolepsy",
+      "short": "Narcolepsy",
+      "syn": [
+        "narcolepsy",
+        "cataplexy",
+        "excessive daytime sleepiness",
+        "eds"
+      ],
+      "cls": "Wake-promoting / anticataplectic therapy",
+      "tgt": [
+        "histamine",
+        "H3",
+        "orexin",
+        "GABA"
+      ],
+      "drugs": [
+        {
+          "b": "Wakix",
+          "g": "pitolisant",
+          "co": "Bioprojet"
+        },
+        {
+          "b": "Xyrem",
+          "g": "sodium oxybate",
+          "co": "UCB / Jazz"
+        },
+        {
+          "b": "Sunosi",
+          "g": "solriamfetol",
+          "co": "Axsome"
+        }
+      ]
+    },
+    {
+      "id": "duchenne",
+      "name": "Duchenne muscular dystrophy (DMD)",
+      "short": "Duchenne",
+      "syn": [
+        "duchenne muscular dystrophy",
+        "duchenne",
+        "dmd",
+        "muscular dystrophy"
+      ],
+      "cls": "Therapy for Duchenne muscular dystrophy",
+      "tgt": [
+        "dystrophin",
+        "HDAC",
+        "corticosteroid"
+      ],
+      "drugs": [
+        {
+          "b": "Agamree",
+          "g": "vamorolone",
+          "co": "Santhera"
+        },
+        {
+          "b": "Duvyzat",
+          "g": "givinostat",
+          "co": "Italfarmaco"
+        }
+      ]
+    },
+    {
+      "id": "mcrpc",
+      "name": "mCRPC — PARP inhibitor & radioligand",
+      "short": "mCRPC",
+      "syn": [
+        "mcrpc",
+        "crpc",
+        "castration-resistant",
+        "castration resistant",
+        "metastatic castration-resistant"
+      ],
+      "cls": "PARP inhibitor & radioligand therapy for mCRPC",
+      "drugs": [
+        {
+          "b": "Pluvicto",
+          "g": "lutetium (177Lu) vipivotide tetraxetan",
+          "co": "Novartis"
+        },
+        {
+          "b": "Lynparza",
+          "g": "olaparib",
+          "co": "AstraZeneca / MSD"
+        },
+        {
+          "b": "Talzenna",
+          "g": "talazoparib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Akeega",
+          "g": "niraparib / abiraterone",
+          "co": "Janssen",
+          "emad": "2023-04-19",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/akeega"
+        }
+      ],
+      "tgt": [
+        "PARP",
+        "PSMA",
+        "radioligand"
+      ]
+    },
+    {
+      "id": "cervical",
+      "name": "Cervical cancer",
+      "short": "Cervical cancer",
+      "syn": [
+        "cervical cancer",
+        "cervical carcinoma",
+        "cancer of the cervix"
+      ],
+      "cls": "Immunotherapy / targeted therapy for cervical cancer",
+      "drugs": [
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Tivdak",
+          "g": "tisotumab vedotin",
+          "co": "Pfizer / Genmab"
+        },
+        {
+          "b": "Jemperli",
+          "g": "dostarlimab",
+          "co": "GSK"
+        }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "tissue factor",
+        "TF"
+      ]
+    },
+    {
+      "id": "sma",
+      "name": "Spinal muscular atrophy (SMA)",
+      "short": "SMA",
+      "syn": [
+        "spinal muscular atrophy",
+        "sma"
+      ],
+      "cls": "Disease-modifying therapy for SMA",
+      "drugs": [
+        {
+          "b": "Spinraza",
+          "g": "nusinersen",
+          "co": "Biogen"
+        },
+        {
+          "b": "Evrysdi",
+          "g": "risdiplam",
+          "co": "Roche"
+        },
+        {
+          "b": "Zolgensma",
+          "g": "onasemnogene abeparvovec",
+          "co": "Novartis"
+        }
+      ],
+      "tgt": [
+        "SMN",
+        "SMN1",
+        "SMN2"
+      ]
+    },
+    {
+      "id": "nsclc-io",
+      "name": "NSCLC immunotherapy (PD-1 / PD-L1)",
+      "short": "NSCLC immunotherapy",
+      "syn": [
+        "nsclc immunotherapy",
+        "lung cancer immunotherapy",
+        "immunotherapy lung cancer",
+        "checkpoint inhibitor lung"
+      ],
+      "cls": "PD-1 / PD-L1 checkpoint inhibitor for NSCLC",
+      "drugs": [
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Opdivo",
+          "g": "nivolumab",
+          "co": "Bristol Myers Squibb"
+        },
+        {
+          "b": "Tecentriq",
+          "g": "atezolizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Imfinzi",
+          "g": "durvalumab",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Libtayo",
+          "g": "cemiplimab",
+          "co": "Regeneron / Sanofi"
+        }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "PD-L1",
+        "PDL1",
+        "checkpoint"
+      ]
+    },
+    {
+      "id": "thyroid",
+      "name": "Thyroid cancer",
+      "short": "Thyroid cancer",
+      "syn": [
+        "thyroid cancer",
+        "thyroid carcinoma",
+        "medullary thyroid",
+        "differentiated thyroid",
+        "anaplastic thyroid"
+      ],
+      "cls": "Targeted therapy for thyroid cancer",
+      "drugs": [
+        {
+          "b": "Lenvima",
+          "g": "lenvatinib",
+          "co": "Eisai / MSD"
+        },
+        {
+          "b": "Nexavar",
+          "g": "sorafenib",
+          "co": "Bayer"
+        },
+        {
+          "b": "Retsevmo",
+          "g": "selpercatinib",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Cometriq",
+          "g": "cabozantinib",
+          "co": "Ipsen / Exelixis"
+        }
+      ],
+      "tgt": [
+        "RET",
+        "VEGFR",
+        "multikinase",
+        "BRAF"
+      ]
+    },
+    {
+      "id": "biliary",
+      "name": "Biliary tract cancer / cholangiocarcinoma",
+      "short": "Biliary tract cancer",
+      "syn": [
+        "biliary tract cancer",
+        "cholangiocarcinoma",
+        "bile duct cancer",
+        "gallbladder cancer",
+        "biliary cancer"
+      ],
+      "cls": "Targeted / immunotherapy for biliary tract cancer",
+      "drugs": [
+        {
+          "b": "Pemazyre",
+          "g": "pemigatinib",
+          "co": "Incyte"
+        },
+        {
+          "b": "Lytgobi",
+          "g": "futibatinib",
+          "co": "Taiho"
+        },
+        {
+          "b": "Tibsovo",
+          "g": "ivosidenib",
+          "co": "Servier"
+        },
+        {
+          "b": "Imjudo",
+          "g": "tremelimumab",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Imfinzi",
+          "g": "durvalumab",
+          "co": "AstraZeneca"
+        }
+      ],
+      "tgt": [
+        "FGFR",
+        "IDH1",
+        "IDH",
+        "PD-L1",
+        "PDL1"
+      ]
+    },
+    {
+      "id": "cystic-fibrosis",
+      "name": "Cystic fibrosis (CFTR modulator)",
+      "short": "Cystic fibrosis",
+      "syn": [
+        "cystic fibrosis",
+        "cf",
+        "cftr",
+        "cftr modulator"
+      ],
+      "cls": "CFTR modulator",
+      "drugs": [
+        {
+          "b": "Kaftrio",
+          "g": "elexacaftor / tezacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Symkevi",
+          "g": "tezacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Orkambi",
+          "g": "lumacaftor / ivacaftor",
+          "co": "Vertex"
+        },
+        {
+          "b": "Kalydeco",
+          "g": "ivacaftor",
+          "co": "Vertex"
+        }
+      ],
+      "tgt": [
+        "CFTR"
+      ]
+    },
+    {
+      "id": "gastric",
+      "name": "Gastric / gastro-oesophageal cancer",
+      "short": "Gastric cancer",
+      "syn": [
+        "gastric cancer",
+        "stomach cancer",
+        "gastro-oesophageal cancer",
+        "gastroesophageal cancer",
+        "gej cancer",
+        "gastric carcinoma",
+        "oesophageal cancer",
+        "esophageal cancer"
+      ],
+      "cls": "Targeted / immunotherapy for gastric & GEJ cancer",
+      "drugs": [
+        {
+          "b": "Herceptin",
+          "g": "trastuzumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Enhertu",
+          "g": "trastuzumab deruxtecan",
+          "co": "AstraZeneca / Daiichi Sankyo"
+        },
+        {
+          "b": "Cyramza",
+          "g": "ramucirumab",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Vyloy",
+          "g": "zolbetuximab",
+          "co": "Astellas"
+        },
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Opdivo",
+          "g": "nivolumab",
+          "co": "Bristol Myers Squibb"
+        }
+      ],
+      "tgt": [
+        "HER2",
+        "PD-1",
+        "PD1",
+        "PD-L1",
+        "PDL1",
+        "VEGFR",
+        "claudin",
+        "CLDN18.2"
+      ]
+    },
+    {
+      "id": "bladder",
+      "name": "Urothelial / bladder cancer",
+      "short": "Bladder cancer",
+      "syn": [
+        "bladder cancer",
+        "urothelial cancer",
+        "urothelial carcinoma",
+        "bladder carcinoma",
+        "urinary tract cancer"
+      ],
+      "cls": "Targeted / immunotherapy for urothelial cancer",
+      "drugs": [
+        {
+          "b": "Padcev",
+          "g": "enfortumab vedotin",
+          "co": "Astellas / Pfizer"
+        },
+        {
+          "b": "Balversa",
+          "g": "erdafitinib",
+          "co": "Janssen"
+        },
+        {
+          "b": "Bavencio",
+          "g": "avelumab",
+          "co": "Merck KGaA / Pfizer"
+        },
+        {
+          "b": "Trodelvy",
+          "g": "sacituzumab govitecan",
+          "co": "Gilead"
+        },
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "PD-L1",
+        "PDL1",
+        "FGFR",
+        "nectin-4",
+        "nectin",
+        "TROP-2",
+        "TROP2"
+      ]
+    },
+    {
+      "id": "endometrial",
+      "name": "Endometrial cancer",
+      "short": "Endometrial cancer",
+      "syn": [
+        "endometrial cancer",
+        "uterine cancer",
+        "endometrial carcinoma",
+        "womb cancer"
+      ],
+      "cls": "Immunotherapy for endometrial cancer",
+      "drugs": [
+        {
+          "b": "Jemperli",
+          "g": "dostarlimab",
+          "co": "GSK"
+        },
+        {
+          "b": "Keytruda",
+          "g": "pembrolizumab",
+          "co": "MSD"
+        },
+        {
+          "b": "Lenvima",
+          "g": "lenvatinib",
+          "co": "Eisai / MSD"
+        }
+      ],
+      "tgt": [
+        "PD-1",
+        "PD1",
+        "VEGFR",
+        "dMMR",
+        "MMR",
+        "MSI"
+      ]
+    },
+    {
+      "id": "pnh",
+      "name": "Paroxysmal nocturnal haemoglobinuria (PNH)",
+      "short": "PNH",
+      "syn": [
+        "paroxysmal nocturnal haemoglobinuria",
+        "paroxysmal nocturnal hemoglobinuria",
+        "pnh"
+      ],
+      "cls": "Complement inhibitor",
+      "drugs": [
+        {
+          "b": "Soliris",
+          "g": "eculizumab",
+          "co": "AstraZeneca / Alexion"
+        },
+        {
+          "b": "Ultomiris",
+          "g": "ravulizumab",
+          "co": "AstraZeneca / Alexion"
+        },
+        {
+          "b": "Fabhalta",
+          "g": "iptacopan",
+          "co": "Novartis"
+        },
+        {
+          "b": "Aspaveli",
+          "g": "pegcetacoplan",
+          "co": "Sobi / Apellis"
+        },
+        {
+          "b": "Voydeya",
+          "g": "danicopan",
+          "co": "AstraZeneca / Alexion"
+        },
+        {
+          "b": "Piasky",
+          "g": "crovalimab",
+          "co": "Roche"
+        }
+      ],
+      "tgt": [
+        "complement",
+        "C5",
+        "C3",
+        "factor B",
+        "factor D"
+      ]
+    },
+    {
+      "id": "hemophilia-a",
+      "name": "Haemophilia A",
+      "short": "Haemophilia A",
+      "syn": [
+        "haemophilia a",
+        "hemophilia a",
+        "haemophilia",
+        "hemophilia",
+        "factor viii deficiency"
+      ],
+      "cls": "Non-factor / prophylactic haemophilia A therapy",
+      "drugs": [
+        {
+          "b": "Hemlibra",
+          "g": "emicizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Altuvoct",
+          "g": "efanesoctocog alfa",
+          "co": "Sobi / Sanofi"
+        },
+        {
+          "b": "Hympavzi",
+          "g": "marstacimab",
+          "co": "Pfizer"
+        }
+      ],
+      "tgt": [
+        "factor VIII",
+        "FVIII",
+        "TFPI"
+      ]
+    },
+    {
+      "id": "copd",
+      "name": "COPD (maintenance & add-on)",
+      "short": "COPD",
+      "syn": [
+        "copd",
+        "chronic obstructive pulmonary disease",
+        "emphysema",
+        "chronic bronchitis"
+      ],
+      "cls": "COPD maintenance / add-on therapy",
+      "drugs": [
+        {
+          "b": "Dupixent",
+          "g": "dupilumab",
+          "co": "Sanofi / Regeneron"
+        },
+        {
+          "b": "Trelegy Ellipta",
+          "g": "fluticasone furoate / umeclidinium / vilanterol",
+          "co": "GSK",
+          "emad": "2017-11-15",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/trelegy-ellipta"
+        },
+        {
+          "b": "Trimbow",
+          "g": "beclometasone / formoterol / glycopyrronium",
+          "co": "Chiesi"
+        },
+        {
+          "b": "Trixeo Aerosphere",
+          "g": "formoterol / glycopyrronium / budesonide",
+          "co": "AstraZeneca",
+          "emad": "2020-12-09",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/trixeo-aerosphere"
+        }
+      ],
+      "tgt": [
+        "IL-4",
+        "IL-13",
+        "IL13",
+        "LABA",
+        "LAMA",
+        "ICS"
+      ]
+    },
+    {
+      "id": "parkinson",
+      "name": "Parkinson disease (adjunct therapy)",
+      "short": "Parkinson",
+      "syn": [
+        "parkinson",
+        "parkinson disease",
+        "parkinsons",
+        "parkinsonism"
+      ],
+      "cls": "Adjunct therapy for Parkinson disease",
+      "drugs": [
+        {
+          "b": "Ongentys",
+          "g": "opicapone",
+          "co": "Bial"
+        },
+        {
+          "b": "Xadago",
+          "g": "safinamide",
+          "co": "Zambon"
+        },
+        {
+          "b": "Inbrija",
+          "g": "levodopa",
+          "co": "Acorda",
+          "emad": "2019-09-19",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/inbrija"
+        }
+      ],
+      "tgt": [
+        "COMT",
+        "MAO-B",
+        "MAOB",
+        "dopamine"
+      ]
+    },
+    {
+      "id": "ipf",
+      "name": "Idiopathic pulmonary fibrosis (IPF)",
+      "short": "IPF",
+      "syn": [
+        "idiopathic pulmonary fibrosis",
+        "ipf",
+        "pulmonary fibrosis",
+        "lung fibrosis"
+      ],
+      "cls": "Antifibrotic therapy",
+      "drugs": [
+        {
+          "b": "Ofev",
+          "g": "nintedanib",
+          "co": "Boehringer Ingelheim",
+          "emad": "2015-01-14",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/ofev"
+        },
+        {
+          "b": "Esbriet",
+          "g": "pirfenidone",
+          "co": "Roche / Genentech"
+        }
+      ],
+      "tgt": [
+        "PDGFR",
+        "FGFR",
+        "VEGFR",
+        "antifibrotic"
+      ]
+    },
+    {
+      "id": "pah",
+      "name": "Pulmonary arterial hypertension (PAH)",
+      "short": "PAH",
+      "syn": [
+        "pulmonary arterial hypertension",
+        "pah",
+        "pulmonary hypertension"
+      ],
+      "cls": "PAH-targeted therapy",
+      "drugs": [
+        {
+          "b": "Winrevair",
+          "g": "sotatercept",
+          "co": "Merck / MSD"
+        },
+        {
+          "b": "Opsumit",
+          "g": "macitentan",
+          "co": "Janssen / Actelion"
+        },
+        {
+          "b": "Uptravi",
+          "g": "selexipag",
+          "co": "Janssen / Actelion"
+        },
+        {
+          "b": "Adempas",
+          "g": "riociguat",
+          "co": "Bayer / MSD"
+        },
+        {
+          "b": "Volibris",
+          "g": "ambrisentan",
+          "co": "GSK"
+        },
+        {
+          "b": "Revatio",
+          "g": "sildenafil",
+          "co": "Pfizer",
+          "emad": "2005-10-28",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/revatio"
+        }
+      ],
+      "tgt": [
+        "endothelin",
+        "ERA",
+        "PDE5",
+        "prostacyclin",
+        "sGC",
+        "activin"
+      ]
+    },
+    {
+      "id": "hepc",
+      "name": "Chronic hepatitis C",
+      "short": "Hepatitis C",
+      "syn": [
+        "hepatitis c",
+        "chronic hepatitis c",
+        "hcv",
+        "hep c",
+        "hepatitis c virus"
+      ],
+      "cls": "Direct-acting antiviral (DAA)",
+      "drugs": [
+        {
+          "b": "Epclusa",
+          "g": "sofosbuvir / velpatasvir",
+          "co": "Gilead",
+          "emad": "2016-07-06",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/epclusa"
+        },
+        {
+          "b": "Maviret",
+          "g": "glecaprevir / pibrentasvir",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Vosevi",
+          "g": "sofosbuvir / velpatasvir / voxilaprevir",
+          "co": "Gilead",
+          "emad": "2017-07-26",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/vosevi"
+        },
+        {
+          "b": "Zepatier",
+          "g": "elbasvir / grazoprevir",
+          "co": "MSD"
+        },
+        {
+          "b": "Harvoni",
+          "g": "ledipasvir / sofosbuvir",
+          "co": "Gilead"
+        }
+      ],
+      "tgt": [
+        "NS5A",
+        "NS5B",
+        "NS3",
+        "protease",
+        "polymerase"
+      ]
+    },
+    {
+      "id": "ckd",
+      "name": "Chronic kidney disease / diabetic kidney disease",
+      "short": "CKD / DKD",
+      "syn": [
+        "chronic kidney disease",
+        "ckd",
+        "diabetic kidney disease",
+        "diabetic nephropathy",
+        "diabetic kidney",
+        "kidney disease"
+      ],
+      "cls": "Kidney-protective therapy",
+      "drugs": [
+        {
+          "b": "Kerendia",
+          "g": "finerenone",
+          "co": "Bayer"
+        },
+        {
+          "b": "Forxiga",
+          "g": "dapagliflozin",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Jardiance",
+          "g": "empagliflozin",
+          "co": "Boehringer Ingelheim / Eli Lilly"
+        }
+      ],
+      "tgt": [
+        "SGLT2",
+        "mineralocorticoid",
+        "MR"
+      ]
+    },
+    {
+      "id": "igan",
+      "name": "IgA nephropathy (IgAN)",
+      "short": "IgA nephropathy",
+      "syn": [
+        "iga nephropathy",
+        "igan",
+        "berger disease",
+        "iga nephritis"
+      ],
+      "cls": "Targeted therapy for IgA nephropathy",
+      "drugs": [
+        {
+          "b": "Filspari",
+          "g": "sparsentan",
+          "co": "CSL Vifor / Travere"
+        },
+        {
+          "b": "Kinpeygo",
+          "g": "budesonide",
+          "co": "STADA / Calliditas",
+          "emad": "2022-07-15",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/kinpeygo"
+        },
+        {
+          "b": "Fabhalta",
+          "g": "iptacopan",
+          "co": "Novartis"
+        }
+      ],
+      "tgt": [
+        "endothelin",
+        "APRIL",
+        "factor B",
+        "complement"
+      ]
+    },
+    {
+      "id": "alzheimer",
+      "name": "Alzheimer disease (amyloid-targeting therapy)",
+      "short": "Alzheimer",
+      "syn": [
+        "alzheimer",
+        "alzheimer disease",
+        "alzheimers"
+      ],
+      "cls": "Anti-amyloid monoclonal antibody",
+      "drugs": [
+        {
+          "b": "Leqembi",
+          "g": "lecanemab",
+          "co": "Eisai / Biogen"
+        },
+        {
+          "b": "Kisunla",
+          "g": "donanemab",
+          "co": "Eli Lilly"
+        }
+      ],
+      "tgt": [
+        "amyloid beta",
+        "abeta"
+      ]
+    },
+    {
+      "id": "hiv",
+      "name": "HIV infection (antiretroviral therapy)",
+      "short": "HIV",
+      "syn": [
+        "hiv",
+        "human immunodeficiency virus",
+        "antiretroviral",
+        "hiv infection",
+        "aids"
+      ],
+      "cls": "Antiretroviral regimen",
+      "drugs": [
+        {
+          "b": "Biktarvy",
+          "g": "bictegravir / emtricitabine / tenofovir alafenamide",
+          "co": "Gilead"
+        },
+        {
+          "b": "Dovato",
+          "g": "dolutegravir / lamivudine",
+          "co": "ViiV Healthcare",
+          "emad": "2019-07-01",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/dovato"
+        },
+        {
+          "b": "Triumeq",
+          "g": "abacavir / dolutegravir / lamivudine",
+          "co": "ViiV Healthcare",
+          "emad": "2014-08-31",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/triumeq"
+        },
+        {
+          "b": "Vocabria",
+          "g": "cabotegravir",
+          "co": "ViiV Healthcare"
+        },
+        {
+          "b": "Sunlenca",
+          "g": "lenacapavir",
+          "co": "Gilead"
+        }
+      ],
+      "tgt": [
+        "integrase",
+        "INSTI",
+        "capsid",
+        "reverse transcriptase",
+        "protease",
+        "NRTI",
+        "NNRTI"
+      ]
+    },
+    {
+      "id": "itp",
+      "name": "Immune thrombocytopenia (ITP)",
+      "short": "ITP",
+      "syn": [
+        "immune thrombocytopenia",
+        "itp",
+        "immune thrombocytopenic purpura",
+        "idiopathic thrombocytopenic purpura"
+      ],
+      "cls": "TPO-receptor agonist / targeted ITP therapy",
+      "drugs": [
+        {
+          "b": "Revolade",
+          "g": "eltrombopag",
+          "co": "Novartis"
+        },
+        {
+          "b": "Nplate",
+          "g": "romiplostim",
+          "co": "Amgen"
+        },
+        {
+          "b": "Doptelet",
+          "g": "avatrombopag",
+          "co": "Sobi / Swedish Orphan"
+        },
+        {
+          "b": "Tavlesse",
+          "g": "fostamatinib",
+          "co": "Grifols / Rigel"
+        }
+      ],
+      "tgt": [
+        "TPO",
+        "thrombopoietin",
+        "SYK"
+      ]
+    },
+    {
+      "id": "pmr-gca",
+      "name": "Polymyalgia rheumatica & giant-cell arteritis",
+      "short": "PMR / GCA",
+      "syn": [
+        "polymyalgia rheumatica",
+        "pmr",
+        "giant cell arteritis",
+        "gca",
+        "giant-cell arteritis",
+        "temporal arteritis"
+      ],
+      "cls": "IL-6 receptor inhibitor",
+      "drugs": [
+        {
+          "b": "RoActemra",
+          "g": "tocilizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Kevzara",
+          "g": "sarilumab",
+          "co": "Sanofi / Regeneron"
+        }
+      ],
+      "tgt": [
+        "IL-6",
+        "IL6",
+        "IL-6R"
+      ]
+    },
+    {
+      "id": "anca",
+      "name": "ANCA-associated vasculitis",
+      "short": "ANCA vasculitis",
+      "syn": [
+        "anca-associated vasculitis",
+        "anca vasculitis",
+        "gpa",
+        "mpa",
+        "granulomatosis with polyangiitis",
+        "microscopic polyangiitis",
+        "egpa"
+      ],
+      "cls": "Targeted therapy for ANCA-associated vasculitis",
+      "drugs": [
+        {
+          "b": "Tavneos",
+          "g": "avacopan",
+          "co": "CSL Vifor / Amgen"
+        },
+        {
+          "b": "MabThera",
+          "g": "rituximab",
+          "co": "Roche"
+        },
+        {
+          "b": "Nucala",
+          "g": "mepolizumab",
+          "co": "GSK"
+        }
+      ],
+      "tgt": [
+        "C5a",
+        "C5aR",
+        "CD20",
+        "IL-5",
+        "IL5"
+      ]
+    },
+    {
+      "id": "colorectal",
+      "name": "Metastatic colorectal cancer",
+      "short": "Colorectal cancer",
+      "syn": [
+        "colorectal cancer",
+        "colorectal carcinoma",
+        "mcrc",
+        "bowel cancer",
+        "colon cancer",
+        "rectal cancer"
+      ],
+      "cls": "Targeted therapy for metastatic colorectal cancer",
+      "drugs": [
+        {
+          "b": "Erbitux",
+          "g": "cetuximab",
+          "co": "Merck KGaA"
+        },
+        {
+          "b": "Vectibix",
+          "g": "panitumumab",
+          "co": "Amgen"
+        },
+        {
+          "b": "Braftovi",
+          "g": "encorafenib",
+          "co": "Pierre Fabre / Pfizer"
+        },
+        {
+          "b": "Lonsurf",
+          "g": "trifluridine / tipiracil",
+          "co": "Servier / Taiho"
+        },
+        {
+          "b": "Fruzaqla",
+          "g": "fruquintinib",
+          "co": "Takeda / HUTCHMED"
+        }
+      ],
+      "tgt": [
+        "EGFR",
+        "BRAF",
+        "VEGFR",
+        "MEK",
+        "HER2"
+      ]
+    },
+    {
+      "id": "hcc",
+      "name": "Hepatocellular carcinoma (HCC)",
+      "short": "HCC",
+      "syn": [
+        "hepatocellular carcinoma",
+        "hcc",
+        "liver cancer",
+        "hepatic carcinoma"
+      ],
+      "cls": "Systemic therapy for hepatocellular carcinoma",
+      "drugs": [
+        {
+          "b": "Tecentriq",
+          "g": "atezolizumab",
+          "co": "Roche / Genentech"
+        },
+        {
+          "b": "Lenvima",
+          "g": "lenvatinib",
+          "co": "Eisai / MSD"
+        },
+        {
+          "b": "Nexavar",
+          "g": "sorafenib",
+          "co": "Bayer"
+        },
+        {
+          "b": "Cabometyx",
+          "g": "cabozantinib",
+          "co": "Ipsen / Exelixis",
+          "emad": "2016-09-09",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/cabometyx"
+        },
+        {
+          "b": "Imjudo",
+          "g": "tremelimumab",
+          "co": "AstraZeneca"
+        }
+      ],
+      "tgt": [
+        "VEGF",
+        "VEGFR",
+        "PD-L1",
+        "PDL1",
+        "CTLA-4",
+        "CTLA4",
+        "multikinase"
+      ]
+    },
+    {
+      "id": "type2-diabetes",
+      "name": "Type 2 diabetes mellitus",
+      "short": "Type 2 diabetes",
+      "syn": [
+        "type 2 diabetes",
+        "type 2 diabetes mellitus",
+        "t2dm",
+        "t2d",
+        "diabetes mellitus type 2",
+        "adult-onset diabetes",
+        "diabetes type 2"
+      ],
+      "cls": "GLP-1 receptor agonist / SGLT2 inhibitor / incretin therapy",
+      "drugs": [
+        {
+          "b": "Ozempic",
+          "g": "semaglutide",
+          "co": "Novo Nordisk"
+        },
+        {
+          "b": "Rybelsus",
+          "g": "semaglutide",
+          "co": "Novo Nordisk",
+          "emad": "2020-04-03",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/rybelsus"
+        },
+        {
+          "b": "Mounjaro",
+          "g": "tirzepatide",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Trulicity",
+          "g": "dulaglutide",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Victoza",
+          "g": "liraglutide",
+          "co": "Novo Nordisk"
+        },
+        {
+          "b": "Jardiance",
+          "g": "empagliflozin",
+          "co": "Boehringer Ingelheim / Eli Lilly"
+        },
+        {
+          "b": "Forxiga",
+          "g": "dapagliflozin",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Invokana",
+          "g": "canagliflozin",
+          "co": "Johnson & Johnson"
+        }
+      ],
+      "tgt": [
+        "GLP-1",
+        "GLP1",
+        "GIP",
+        "SGLT2",
+        "incretin",
+        "DPP-4"
+      ]
+    },
+    {
+      "id": "obesity",
+      "name": "Obesity (weight management)",
+      "short": "Obesity",
+      "syn": [
+        "obesity",
+        "overweight",
+        "weight management",
+        "weight loss",
+        "anti-obesity",
+        "obese"
+      ],
+      "cls": "Weight-management pharmacotherapy",
+      "drugs": [
+        {
+          "b": "Wegovy",
+          "g": "semaglutide",
+          "co": "Novo Nordisk",
+          "emad": "2022-01-06",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/wegovy"
+        },
+        {
+          "b": "Mounjaro",
+          "g": "tirzepatide",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Saxenda",
+          "g": "liraglutide",
+          "co": "Novo Nordisk",
+          "emad": "2015-03-23",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/saxenda"
+        },
+        {
+          "b": "Mysimba",
+          "g": "naltrexone / bupropion",
+          "co": "Currax / Orexigen"
+        },
+        {
+          "b": "Imcivree",
+          "g": "setmelanotide",
+          "co": "Rhythm Pharmaceuticals"
+        },
+        {
+          "b": "Xenical",
+          "g": "orlistat",
+          "co": "Roche"
+        }
+      ],
+      "tgt": [
+        "GLP-1",
+        "GLP1",
+        "GIP",
+        "MC4R"
+      ]
+    },
+    {
+      "id": "dyslipidemia",
+      "name": "Dyslipidaemia (non-statin LDL-lowering)",
+      "short": "Dyslipidaemia",
+      "syn": [
+        "dyslipidaemia",
+        "dyslipidemia",
+        "hypercholesterolaemia",
+        "hypercholesterolemia",
+        "high cholesterol",
+        "hyperlipidaemia",
+        "hyperlipidemia",
+        "ldl lowering"
+      ],
+      "cls": "Non-statin LDL-cholesterol-lowering therapy",
+      "drugs": [
+        {
+          "b": "Repatha",
+          "g": "evolocumab",
+          "co": "Amgen"
+        },
+        {
+          "b": "Praluent",
+          "g": "alirocumab",
+          "co": "Sanofi / Regeneron"
+        },
+        {
+          "b": "Leqvio",
+          "g": "inclisiran",
+          "co": "Novartis"
+        },
+        {
+          "b": "Nilemdo",
+          "g": "bempedoic acid",
+          "co": "Daiichi Sankyo",
+          "emad": "2020-04-01",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/nilemdo"
+        },
+        {
+          "b": "Evkeeza",
+          "g": "evinacumab",
+          "co": "Ultragenyx / Regeneron"
+        }
+      ],
+      "tgt": [
+        "PCSK9",
+        "ANGPTL3",
+        "ATP citrate lyase",
+        "LDL"
+      ]
+    },
+    {
+      "id": "hfref",
+      "name": "Heart failure with reduced ejection fraction (HFrEF)",
+      "short": "HFrEF",
+      "syn": [
+        "heart failure",
+        "hfref",
+        "heart failure with reduced ejection fraction",
+        "reduced ejection fraction",
+        "systolic heart failure",
+        "congestive heart failure",
+        "chf"
+      ],
+      "cls": "Foundational & add-on HFrEF therapy",
+      "drugs": [
+        {
+          "b": "Entresto",
+          "g": "sacubitril / valsartan",
+          "co": "Novartis"
+        },
+        {
+          "b": "Jardiance",
+          "g": "empagliflozin",
+          "co": "Boehringer Ingelheim / Eli Lilly"
+        },
+        {
+          "b": "Forxiga",
+          "g": "dapagliflozin",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Verquvo",
+          "g": "vericiguat",
+          "co": "Bayer / MSD"
+        },
+        {
+          "b": "Corlentor",
+          "g": "ivabradine",
+          "co": "Servier"
+        }
+      ],
+      "tgt": [
+        "neprilysin",
+        "ARNI",
+        "SGLT2",
+        "sGC",
+        "If channel"
+      ]
+    },
+    {
+      "id": "hcm",
+      "name": "Hypertrophic cardiomyopathy (HCM)",
+      "short": "HCM",
+      "syn": [
+        "hypertrophic cardiomyopathy",
+        "hcm",
+        "obstructive hypertrophic cardiomyopathy",
+        "ohcm",
+        "cardiac myosin inhibitor"
+      ],
+      "cls": "Cardiac myosin inhibitor",
+      "drugs": [
+        {
+          "b": "Camzyos",
+          "g": "mavacamten",
+          "co": "Bristol Myers Squibb"
+        },
+        {
+          "b": "Myqorzo",
+          "g": "aficamten",
+          "co": "Cytokinetics"
+        }
+      ],
+      "tgt": [
+        "myosin",
+        "cardiac myosin"
+      ]
+    },
+    {
+      "id": "osteoporosis",
+      "name": "Osteoporosis",
+      "short": "Osteoporosis",
+      "syn": [
+        "osteoporosis",
+        "postmenopausal osteoporosis",
+        "bone loss",
+        "fragility fracture",
+        "low bone density"
+      ],
+      "cls": "Anabolic & antiresorptive osteoporosis therapy",
+      "drugs": [
+        {
+          "b": "Prolia",
+          "g": "denosumab",
+          "co": "Amgen"
+        },
+        {
+          "b": "Evenity",
+          "g": "romosozumab",
+          "co": "UCB / Amgen"
+        },
+        {
+          "b": "Forsteo",
+          "g": "teriparatide",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Eladynos",
+          "g": "abaloparatide",
+          "co": "Theramex"
+        }
+      ],
+      "tgt": [
+        "RANKL",
+        "sclerostin",
+        "PTH",
+        "PTH1R"
+      ]
+    },
+    {
+      "id": "sclc",
+      "name": "Small cell lung cancer (SCLC)",
+      "short": "SCLC",
+      "syn": [
+        "sclc",
+        "small cell lung cancer",
+        "small-cell lung cancer",
+        "small cell lung carcinoma",
+        "small cell carcinoma of the lung",
+        "small cell carcinoma lung"
+      ],
+      "cls": "SCLC systemic therapy",
+      "drugs": [
+        {
+          "b": "Hycamtin",
+          "g": "Topotecan",
+          "co": "Novartis"
+        },
+        {
+          "b": "Zepzelca",
+          "g": "Lurbinectedin",
+          "co": "Jazz Pharmaceuticals"
+        },
+        {
+          "b": "Tecentriq",
+          "g": "Atezolizumab",
+          "co": "Genentech / Roche"
+        },
+        {
+          "b": "Imfinzi",
+          "g": "Durvalumab",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Imdylltra",
+          "g": "Tarlatamab",
+          "co": "Amgen"
+        }
+      ],
+      "tgt": [
+        "DLL3",
+        "PD-L1",
+        "PDL1",
+        "topoisomerase"
+      ]
+    },
+    {
+      "id": "cml",
+      "name": "Chronic myeloid leukemia (CML)",
+      "short": "CML",
+      "syn": [
+        "cml",
+        "chronic myeloid leukemia",
+        "chronic myelogenous leukemia",
+        "ph+ cml",
+        "bcr-abl"
+      ],
+      "cls": "BCR-ABL1 tyrosine kinase inhibitor (TKI)",
+      "drugs": [
+        {
+          "b": "Glivec",
+          "g": "Imatinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Sprycel",
+          "g": "Dasatinib",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "Tasigna",
+          "g": "Nilotinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Bosulif",
+          "g": "Bosutinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Iclusig",
+          "g": "Ponatinib",
+          "co": "Takeda"
+        },
+        {
+          "b": "Scemblix",
+          "g": "Asciminib",
+          "co": "Novartis"
+        }
+      ],
+      "tgt": [
+        "BCR-ABL",
+        "BCRABL",
+        "ABL1",
+        "ABL",
+        "TKI"
+      ]
+    },
+    {
+      "id": "egfr-nsclc",
+      "name": "EGFR-mutant non-small cell lung cancer",
+      "short": "EGFR+ NSCLC",
+      "syn": [
+        "egfr nsclc",
+        "egfr-mutant nsclc",
+        "egfr mutation lung",
+        "egfr positive lung cancer",
+        "egfr lung"
+      ],
+      "cls": "EGFR tyrosine kinase inhibitor (TKI)",
+      "drugs": [
+        {
+          "b": "Tarceva",
+          "g": "Erlotinib",
+          "co": "Genentech / Astellas"
+        },
+        {
+          "b": "Iressa",
+          "g": "Gefitinib",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Giotrif",
+          "g": "Afatinib",
+          "co": "Boehringer Ingelheim"
+        },
+        {
+          "b": "Vizimpro",
+          "g": "Dacomitinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Tagrisso",
+          "g": "Osimertinib",
+          "co": "AstraZeneca"
+        }
+      ],
+      "tgt": [
+        "EGFR"
+      ]
+    },
+    {
+      "id": "her2-breast",
+      "name": "HER2-positive breast cancer",
+      "short": "HER2+ breast",
+      "syn": [
+        "her2 breast cancer",
+        "her2-positive breast cancer",
+        "her2 positive breast",
+        "her2 breast"
+      ],
+      "cls": "HER2-targeted therapy",
+      "drugs": [
+        {
+          "b": "Herceptin",
+          "g": "Trastuzumab",
+          "co": "Genentech / Roche"
+        },
+        {
+          "b": "Perjeta",
+          "g": "Pertuzumab",
+          "co": "Genentech / Roche"
+        },
+        {
+          "b": "Kadcyla",
+          "g": "Trastuzumab emtansine",
+          "co": "Genentech / Roche"
+        },
+        {
+          "b": "Enhertu",
+          "g": "Trastuzumab deruxtecan",
+          "co": "Daiichi Sankyo / AstraZeneca"
+        },
+        {
+          "b": "Tyverb",
+          "g": "Lapatinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Nerlynx",
+          "g": "Neratinib",
+          "co": "Puma Biotechnology"
+        },
+        {
+          "b": "Tukysa",
+          "g": "Tucatinib",
+          "co": "Seagen / Pfizer"
+        }
+      ],
+      "tgt": [
+        "HER2",
+        "ERBB2",
+        "neu"
+      ]
+    },
+    {
+      "id": "cll-btk",
+      "name": "Chronic lymphocytic leukemia (CLL)",
+      "short": "CLL",
+      "syn": [
+        "cll",
+        "chronic lymphocytic leukemia",
+        "chronic lymphocytic leukaemia",
+        "sll",
+        "small lymphocytic lymphoma"
+      ],
+      "cls": "CLL targeted therapy",
+      "drugs": [
+        {
+          "b": "Imbruvica",
+          "g": "Ibrutinib",
+          "co": "AbbVie / Janssen"
+        },
+        {
+          "b": "Calquence",
+          "g": "Acalabrutinib",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Brukinsa",
+          "g": "Zanubrutinib",
+          "co": "BeiGene"
+        },
+        {
+          "b": "Jaypirca",
+          "g": "Pirtobrutinib",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Venclyxto",
+          "g": "Venetoclax",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Gazyvaro",
+          "g": "Obinutuzumab",
+          "co": "Roche"
+        },
+        {
+          "b": "MabThera",
+          "g": "Rituximab",
+          "co": "Roche"
+        },
+        {
+          "b": "Zydelig",
+          "g": "Idelalisib",
+          "co": "Gilead"
+        }
+      ],
+      "tgt": [
+        "BTK",
+        "BCL-2",
+        "BCL2",
+        "CD20",
+        "PI3K"
+      ]
+    },
+    {
+      "id": "mm-pi",
+      "name": "Multiple myeloma",
+      "short": "Myeloma",
+      "syn": [
+        "multiple myeloma",
+        "myeloma",
+        "plasma cell myeloma",
+        "mm"
+      ],
+      "cls": "Multiple myeloma targeted therapy",
+      "drugs": [
+        {
+          "b": "Velcade",
+          "g": "Bortezomib",
+          "co": "Takeda / Janssen"
+        },
+        {
+          "b": "Kyprolis",
+          "g": "Carfilzomib",
+          "co": "Amgen"
+        },
+        {
+          "b": "Ninlaro",
+          "g": "Ixazomib",
+          "co": "Takeda"
+        },
+        {
+          "b": "Revlimid",
+          "g": "Lenalidomide",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "Imnovid",
+          "g": "Pomalidomide",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "Darzalex",
+          "g": "Daratumumab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Sarclisa",
+          "g": "Isatuximab",
+          "co": "Sanofi"
+        },
+        {
+          "b": "Empliciti",
+          "g": "Elotuzumab",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "Tecvayli",
+          "g": "Teclistamab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Elrexfio",
+          "g": "Elranatamab",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Talvey",
+          "g": "Talquetamab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Abecma",
+          "g": "Idecabtagene vicleucel",
+          "co": "Bristol-Myers Squibb / 2seventy"
+        },
+        {
+          "b": "Carvykti",
+          "g": "Ciltacabtagene autoleucel",
+          "co": "Janssen / Legend"
+        },
+        {
+          "b": "Nexpovio",
+          "g": "Selinexor",
+          "co": "Menarini / Karyopharm"
+        },
+        {
+          "b": "Blenrep",
+          "g": "Belantamab mafodotin",
+          "co": "GSK"
+        }
+      ],
+      "tgt": [
+        "proteasome",
+        "CD38",
+        "BCMA",
+        "SLAMF7",
+        "XPO1"
+      ]
+    },
+    {
+      "id": "ph-all",
+      "name": "Philadelphia-positive acute lymphoblastic leukemia",
+      "short": "Ph+ ALL",
+      "syn": [
+        "ph+ all",
+        "philadelphia positive all",
+        "ph positive acute lymphoblastic leukemia",
+        "philadelphia chromosome all"
+      ],
+      "cls": "BCR-ABL1 tyrosine kinase inhibitor (TKI)",
+      "drugs": [
+        {
+          "b": "Glivec",
+          "g": "Imatinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Sprycel",
+          "g": "Dasatinib",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "Iclusig",
+          "g": "Ponatinib",
+          "co": "Takeda"
+        }
+      ],
+      "tgt": [
+        "BCR-ABL",
+        "BCRABL",
+        "ABL1",
+        "ABL"
+      ]
+    },
+    {
+      "id": "ra-jak",
+      "name": "Rheumatoid arthritis",
+      "short": "RA",
+      "syn": [
+        "rheumatoid arthritis",
+        "ra jak",
+        "rheumatoid",
+        "ra"
+      ],
+      "cls": "Rheumatoid arthritis targeted / biologic therapy",
+      "drugs": [
+        {
+          "b": "Xeljanz",
+          "g": "Tofacitinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Olumiant",
+          "g": "Baricitinib",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Rinvoq",
+          "g": "Upadacitinib",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Jyseleca",
+          "g": "Filgotinib",
+          "co": "Galapagos"
+        },
+        {
+          "b": "Humira",
+          "g": "Adalimumab",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Enbrel",
+          "g": "Etanercept",
+          "co": "Amgen / Pfizer"
+        },
+        {
+          "b": "Remicade",
+          "g": "Infliximab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Simponi",
+          "g": "Golimumab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Cimzia",
+          "g": "Certolizumab pegol",
+          "co": "UCB"
+        },
+        {
+          "b": "RoActemra",
+          "g": "Tocilizumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Kevzara",
+          "g": "Sarilumab",
+          "co": "Sanofi / Regeneron"
+        },
+        {
+          "b": "Orencia",
+          "g": "Abatacept",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "MabThera",
+          "g": "Rituximab",
+          "co": "Roche"
+        }
+      ],
+      "tgt": [
+        "JAK",
+        "TNF",
+        "IL-6",
+        "IL6",
+        "CD20",
+        "CTLA-4",
+        "CTLA4"
+      ]
+    },
+    {
+      "id": "doac-af",
+      "name": "Atrial fibrillation / venous thromboembolism (anticoagulation)",
+      "short": "DOACs",
+      "syn": [
+        "doac",
+        "noac",
+        "atrial fibrillation",
+        "anticoagulant",
+        "anticoagulation",
+        "novel oral anticoagulant",
+        "direct oral anticoagulant"
+      ],
+      "cls": "Direct oral anticoagulant (DOAC)",
+      "drugs": [
+        {
+          "b": "Pradaxa",
+          "g": "Dabigatran etexilate",
+          "co": "Boehringer Ingelheim"
+        },
+        {
+          "b": "Xarelto",
+          "g": "Rivaroxaban",
+          "co": "Bayer / Janssen"
+        },
+        {
+          "b": "Eliquis",
+          "g": "Apixaban",
+          "co": "Bristol-Myers Squibb / Pfizer"
+        },
+        {
+          "b": "Lixiana",
+          "g": "Edoxaban",
+          "co": "Daiichi Sankyo"
+        }
+      ],
+      "tgt": [
+        "factor Xa",
+        "FXa",
+        "thrombin",
+        "factor IIa"
+      ]
+    },
+    {
+      "id": "ms-dmt",
+      "name": "Multiple sclerosis (MS) disease-modifying therapy",
+      "short": "MS DMT",
+      "syn": [
+        "multiple sclerosis",
+        "relapsing multiple sclerosis",
+        "relapsing-remitting multiple sclerosis",
+        "rrms",
+        "spms",
+        "ppms",
+        "disease-modifying therapy",
+        "dmt"
+      ],
+      "cls": "Multiple sclerosis disease-modifying therapy (DMT)",
+      "drugs": [
+        {
+          "b": "Ocrevus",
+          "g": "Ocrelizumab",
+          "co": "Genentech / Roche"
+        },
+        {
+          "b": "Kesimpta",
+          "g": "Ofatumumab",
+          "co": "Novartis",
+          "fda": "2020-08-20"
+        },
+        {
+          "b": "Briumvi",
+          "g": "Ublituximab",
+          "co": "TG Therapeutics"
+        },
+        {
+          "b": "Tysabri",
+          "g": "Natalizumab",
+          "co": "Biogen"
+        },
+        {
+          "b": "Lemtrada",
+          "g": "Alemtuzumab",
+          "co": "Sanofi",
+          "fda": "2014-11-14",
+          "ind": "LEMTRADA is indicated for the treatment of relapsing forms of multiple sclerosis (MS), to include relapsing-remitting disease and active secondary progressive disease, in adults. Because of its safety profile, use is generally recommended in patients who have had an inadequate response to two or more MS therapies."
+        },
+        {
+          "b": "Mavenclad",
+          "g": "Cladribine",
+          "co": "Merck KGaA",
+          "fda": "2019-03-29",
+          "emad": "2017-08-22",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/mavenclad"
+        },
+        {
+          "b": "Gilenya",
+          "g": "Fingolimod",
+          "co": "Novartis"
+        },
+        {
+          "b": "Mayzent",
+          "g": "Siponimod",
+          "co": "Novartis"
+        },
+        {
+          "b": "Zeposia",
+          "g": "Ozanimod",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "Ponvory",
+          "g": "Ponesimod",
+          "co": "Janssen"
+        },
+        {
+          "b": "Tecfidera",
+          "g": "Dimethyl fumarate",
+          "co": "Biogen"
+        },
+        {
+          "b": "Vumerity",
+          "g": "Diroximel fumarate",
+          "co": "Biogen"
+        },
+        {
+          "b": "Aubagio",
+          "g": "Teriflunomide",
+          "co": "Sanofi"
+        },
+        {
+          "b": "Copaxone",
+          "g": "Glatiramer acetate",
+          "co": "Teva"
+        },
+        {
+          "b": "Plegridy",
+          "g": "Peginterferon beta-1a",
+          "co": "Biogen"
+        },
+        {
+          "b": "Avonex",
+          "g": "Interferon beta-1a",
+          "co": "Biogen"
+        }
+      ],
+      "tgt": [
+        "CD20",
+        "S1P",
+        "integrin",
+        "CD52"
+      ]
+    },
+    {
+      "id": "amd",
+      "name": "Neovascular (wet) age-related macular degeneration",
+      "short": "Wet AMD",
+      "syn": [
+        "age-related macular degeneration",
+        "wet amd",
+        "neovascular amd",
+        "macular degeneration",
+        "amd"
+      ],
+      "cls": "Anti-VEGF intravitreal therapy",
+      "drugs": [
+        {
+          "b": "Lucentis",
+          "g": "ranibizumab",
+          "co": "Novartis / Genentech"
+        },
+        {
+          "b": "Eylea",
+          "g": "aflibercept",
+          "co": "Bayer / Regeneron"
+        },
+        {
+          "b": "Beovu",
+          "g": "brolucizumab",
+          "co": "Novartis"
+        },
+        {
+          "b": "Vabysmo",
+          "g": "faricimab",
+          "co": "Roche / Genentech"
+        }
+      ],
+      "tgt": [
+        "VEGF",
+        "VEGF-A",
+        "Ang-2",
+        "angiopoietin"
+      ]
+    },
+    {
+      "id": "aml",
+      "name": "Acute myeloid leukemia (AML)",
+      "short": "AML",
+      "syn": [
+        "acute myeloid leukemia",
+        "acute myeloid leukaemia",
+        "aml",
+        "acute myelogenous leukemia"
+      ],
+      "cls": "Targeted therapy for AML",
+      "drugs": [
+        {
+          "b": "Rydapt",
+          "g": "midostaurin",
+          "co": "Novartis"
+        },
+        {
+          "b": "Xospata",
+          "g": "gilteritinib",
+          "co": "Astellas"
+        },
+        {
+          "b": "Tibsovo",
+          "g": "ivosidenib",
+          "co": "Servier"
+        },
+        {
+          "b": "Venclyxto",
+          "g": "venetoclax",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Vyxeos",
+          "g": "daunorubicin cytarabine",
+          "co": "Jazz"
+        },
+        {
+          "b": "Mylotarg",
+          "g": "gemtuzumab ozogamicin",
+          "co": "Pfizer"
+        }
+      ],
+      "tgt": [
+        "FLT3",
+        "IDH1",
+        "IDH2",
+        "IDH",
+        "BCL-2",
+        "BCL2",
+        "menin"
+      ]
+    },
+    {
+      "id": "hr-breast",
+      "name": "HR-positive, HER2-negative breast cancer",
+      "short": "HR+ breast",
+      "syn": [
+        "hormone receptor positive breast cancer",
+        "hr positive breast cancer",
+        "hr+ breast",
+        "cdk4/6"
+      ],
+      "cls": "CDK4/6 inhibitor",
+      "drugs": [
+        {
+          "b": "Ibrance",
+          "g": "palbociclib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Kisqali",
+          "g": "ribociclib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Verzenios",
+          "g": "abemaciclib",
+          "co": "Eli Lilly"
+        }
+      ],
+      "tgt": [
+        "CDK4/6",
+        "CDK4",
+        "CDK6"
+      ]
+    },
+    {
+      "id": "alk-nsclc",
+      "name": "ALK-positive non-small cell lung cancer",
+      "short": "ALK+ NSCLC",
+      "syn": [
+        "alk positive lung cancer",
+        "alk nsclc",
+        "alk+ nsclc",
+        "alk rearranged"
+      ],
+      "cls": "ALK tyrosine kinase inhibitor",
+      "drugs": [
+        {
+          "b": "Xalkori",
+          "g": "crizotinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Zykadia",
+          "g": "ceritinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Alecensa",
+          "g": "alectinib",
+          "co": "Roche"
+        },
+        {
+          "b": "Alunbrig",
+          "g": "brigatinib",
+          "co": "Takeda"
+        },
+        {
+          "b": "Lorviqua",
+          "g": "lorlatinib",
+          "co": "Pfizer"
+        }
+      ],
+      "tgt": [
+        "ALK"
+      ]
+    },
+    {
+      "id": "ros1-nsclc",
+      "name": "ROS1-positive non-small cell lung cancer",
+      "short": "ROS1+ NSCLC",
+      "syn": [
+        "ros1 positive lung cancer",
+        "ros1 nsclc",
+        "ros1+ nsclc",
+        "ros1 rearranged"
+      ],
+      "cls": "ROS1 tyrosine kinase inhibitor",
+      "drugs": [
+        {
+          "b": "Xalkori",
+          "g": "crizotinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Rozlytrek",
+          "g": "entrectinib",
+          "co": "Roche"
+        },
+        {
+          "b": "Augtyro",
+          "g": "repotrectinib",
+          "co": "Bristol-Myers Squibb"
+        }
+      ],
+      "tgt": [
+        "ROS1",
+        "ROS"
+      ]
+    },
+    {
+      "id": "ret-nsclc",
+      "name": "RET-altered non-small cell lung cancer / thyroid cancer",
+      "short": "RET+ NSCLC",
+      "syn": [
+        "ret fusion",
+        "ret altered",
+        "ret nsclc",
+        "ret positive"
+      ],
+      "cls": "RET-selective inhibitor",
+      "drugs": [
+        {
+          "b": "Retsevmo",
+          "g": "selpercatinib",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Gavreto",
+          "g": "pralsetinib",
+          "co": "Roche / Blueprint"
+        }
+      ],
+      "tgt": [
+        "RET"
+      ]
+    },
+    {
+      "id": "met-nsclc",
+      "name": "MET exon 14-skipping non-small cell lung cancer",
+      "short": "MET+ NSCLC",
+      "syn": [
+        "met exon 14",
+        "metex14",
+        "met nsclc",
+        "met altered"
+      ],
+      "cls": "MET inhibitor",
+      "drugs": [
+        {
+          "b": "Tabrecta",
+          "g": "capmatinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Tepmetko",
+          "g": "tepotinib",
+          "co": "Merck KGaA"
+        }
+      ],
+      "tgt": [
+        "MET",
+        "cMET"
+      ]
+    },
+    {
+      "id": "kras-nsclc",
+      "name": "KRAS G12C-mutant non-small cell lung cancer",
+      "short": "KRAS G12C",
+      "syn": [
+        "kras g12c",
+        "kras mutant lung cancer",
+        "kras nsclc",
+        "kras positive"
+      ],
+      "cls": "KRAS G12C inhibitor",
+      "drugs": [
+        {
+          "b": "Lumykras",
+          "g": "sotorasib",
+          "co": "Amgen"
+        },
+        {
+          "b": "Krazati",
+          "g": "adagrasib",
+          "co": "Bristol-Myers Squibb"
+        }
+      ],
+      "tgt": [
+        "KRAS",
+        "G12C"
+      ]
+    },
+    {
+      "id": "rcc",
+      "name": "Renal cell carcinoma (RCC)",
+      "short": "RCC",
+      "syn": [
+        "renal cell carcinoma",
+        "kidney cancer",
+        "rcc",
+        "renal cancer"
+      ],
+      "cls": "VEGFR tyrosine kinase inhibitor",
+      "drugs": [
+        {
+          "b": "Sutent",
+          "g": "sunitinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Votrient",
+          "g": "pazopanib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Inlyta",
+          "g": "axitinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Cabometyx",
+          "g": "cabozantinib",
+          "co": "Ipsen / Exelixis",
+          "emad": "2016-09-09",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/cabometyx"
+        },
+        {
+          "b": "Lenvima",
+          "g": "lenvatinib",
+          "co": "Eisai"
+        },
+        {
+          "b": "Fotivda",
+          "g": "tivozanib",
+          "co": "EUSA / Recordati"
+        }
+      ],
+      "tgt": [
+        "VEGFR",
+        "VEGF",
+        "mTOR",
+        "PD-1",
+        "PD1"
+      ]
+    },
+    {
+      "id": "prostate",
+      "name": "Prostate cancer (androgen receptor pathway)",
+      "short": "Prostate",
+      "syn": [
+        "prostate cancer",
+        "prostatic cancer",
+        "crpc",
+        "mcrpc"
+      ],
+      "cls": "Androgen receptor pathway inhibitor (ARPI)",
+      "drugs": [
+        {
+          "b": "Zytiga",
+          "g": "abiraterone",
+          "co": "Janssen"
+        },
+        {
+          "b": "Xtandi",
+          "g": "enzalutamide",
+          "co": "Astellas"
+        },
+        {
+          "b": "Erleada",
+          "g": "apalutamide",
+          "co": "Janssen"
+        },
+        {
+          "b": "Nubeqa",
+          "g": "darolutamide",
+          "co": "Bayer"
+        }
+      ],
+      "tgt": [
+        "androgen receptor",
+        "AR",
+        "CYP17"
+      ]
+    },
+    {
+      "id": "melanoma",
+      "name": "Melanoma (BRAF/MEK-targeted)",
+      "short": "Melanoma",
+      "syn": [
+        "melanoma",
+        "malignant melanoma",
+        "braf melanoma"
+      ],
+      "cls": "BRAF / MEK inhibitor",
+      "drugs": [
+        {
+          "b": "Zelboraf",
+          "g": "vemurafenib",
+          "co": "Roche"
+        },
+        {
+          "b": "Tafinlar",
+          "g": "dabrafenib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Mekinist",
+          "g": "trametinib",
+          "co": "Novartis"
+        },
+        {
+          "b": "Cotellic",
+          "g": "cobimetinib",
+          "co": "Roche"
+        },
+        {
+          "b": "Braftovi",
+          "g": "encorafenib",
+          "co": "Pierre Fabre"
+        },
+        {
+          "b": "Mektovi",
+          "g": "binimetinib",
+          "co": "Pierre Fabre"
+        }
+      ],
+      "tgt": [
+        "BRAF",
+        "MEK"
+      ]
+    },
+    {
+      "id": "ovarian",
+      "name": "Ovarian cancer",
+      "short": "Ovarian",
+      "syn": [
+        "ovarian cancer",
+        "ovarian carcinoma",
+        "fallopian tube cancer"
+      ],
+      "cls": "PARP inhibitor",
+      "drugs": [
+        {
+          "b": "Lynparza",
+          "g": "olaparib",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Zejula",
+          "g": "niraparib",
+          "co": "GSK"
+        },
+        {
+          "b": "Rubraca",
+          "g": "rucaparib",
+          "co": "pharma& / Clovis"
+        }
+      ],
+      "tgt": [
+        "PARP"
+      ]
+    },
+    {
+      "id": "migraine",
+      "name": "Migraine prevention (CGRP)",
+      "short": "Migraine",
+      "syn": [
+        "migraine",
+        "migraine prevention",
+        "migraine prophylaxis",
+        "cgrp"
+      ],
+      "cls": "CGRP pathway antagonist",
+      "drugs": [
+        {
+          "b": "Aimovig",
+          "g": "erenumab",
+          "co": "Novartis / Amgen"
+        },
+        {
+          "b": "Ajovy",
+          "g": "fremanezumab",
+          "co": "Teva"
+        },
+        {
+          "b": "Emgality",
+          "g": "galcanezumab",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Vyepti",
+          "g": "eptinezumab",
+          "co": "Lundbeck"
+        },
+        {
+          "b": "Aquipta",
+          "g": "atogepant",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Vydura",
+          "g": "rimegepant",
+          "co": "Pfizer"
+        }
+      ],
+      "tgt": [
+        "CGRP"
+      ]
+    },
+    {
+      "id": "mg",
+      "name": "Myasthenia gravis (gMG)",
+      "short": "Myasthenia",
+      "syn": [
+        "myasthenia gravis",
+        "gmg",
+        "myasthenia"
+      ],
+      "cls": "Complement / FcRn inhibitor",
+      "drugs": [
+        {
+          "b": "Soliris",
+          "g": "eculizumab",
+          "co": "Alexion"
+        },
+        {
+          "b": "Ultomiris",
+          "g": "ravulizumab",
+          "co": "Alexion"
+        },
+        {
+          "b": "Vyvgart",
+          "g": "efgartigimod",
+          "co": "argenx"
+        },
+        {
+          "b": "Rystiggo",
+          "g": "rozanolixizumab",
+          "co": "UCB"
+        },
+        {
+          "b": "Zilbrysq",
+          "g": "zilucoplan",
+          "co": "UCB"
+        }
+      ],
+      "tgt": [
+        "C5",
+        "complement",
+        "FcRn"
+      ]
+    },
+    {
+      "id": "nmosd",
+      "name": "Neuromyelitis optica spectrum disorder (NMOSD)",
+      "short": "NMOSD",
+      "syn": [
+        "neuromyelitis optica",
+        "nmosd",
+        "devic"
+      ],
+      "cls": "Targeted therapy for NMOSD",
+      "drugs": [
+        {
+          "b": "Soliris",
+          "g": "eculizumab",
+          "co": "Alexion"
+        },
+        {
+          "b": "Ultomiris",
+          "g": "ravulizumab",
+          "co": "Alexion"
+        },
+        {
+          "b": "Uplizna",
+          "g": "inebilizumab",
+          "co": "Amgen / Horizon"
+        },
+        {
+          "b": "Enspryng",
+          "g": "satralizumab",
+          "co": "Roche"
+        }
+      ],
+      "tgt": [
+        "C5",
+        "complement",
+        "IL-6",
+        "IL6",
+        "CD19",
+        "CD20"
+      ]
+    },
+    {
+      "id": "sle",
+      "name": "Systemic lupus erythematosus (SLE)",
+      "short": "Lupus",
+      "syn": [
+        "systemic lupus erythematosus",
+        "lupus",
+        "sle"
+      ],
+      "cls": "Biologic for SLE",
+      "drugs": [
+        {
+          "b": "Benlysta",
+          "g": "belimumab",
+          "co": "GSK"
+        },
+        {
+          "b": "Saphnelo",
+          "g": "anifrolumab",
+          "co": "AstraZeneca"
+        }
+      ],
+      "tgt": [
+        "BLyS",
+        "BAFF",
+        "interferon",
+        "IFNAR"
+      ]
+    },
+    {
+      "id": "uc",
+      "name": "Ulcerative colitis (advanced therapies)",
+      "short": "UC",
+      "syn": [
+        "ulcerative colitis",
+        "colitis"
+      ],
+      "cls": "Biologic / advanced therapy for UC",
+      "drugs": [
+        {
+          "b": "Entyvio",
+          "g": "vedolizumab",
+          "co": "Takeda"
+        },
+        {
+          "b": "Stelara",
+          "g": "ustekinumab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Omvoh",
+          "g": "mirikizumab",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Skyrizi",
+          "g": "risankizumab",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Rinvoq",
+          "g": "upadacitinib",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Jyseleca",
+          "g": "filgotinib",
+          "co": "Galapagos"
+        },
+        {
+          "b": "Zeposia",
+          "g": "ozanimod",
+          "co": "Bristol-Myers Squibb"
+        },
+        {
+          "b": "Velsipity",
+          "g": "etrasimod",
+          "co": "Pfizer"
+        }
+      ],
+      "tgt": [
+        "TNF",
+        "IL-23",
+        "IL23",
+        "IL-12",
+        "integrin",
+        "JAK",
+        "S1P"
+      ]
+    },
+    {
+      "id": "crohn",
+      "name": "Crohn disease (advanced therapies)",
+      "short": "Crohn",
+      "syn": [
+        "crohn disease",
+        "crohn's disease",
+        "crohns"
+      ],
+      "cls": "Biologic / advanced therapy for Crohn disease",
+      "drugs": [
+        {
+          "b": "Entyvio",
+          "g": "vedolizumab",
+          "co": "Takeda"
+        },
+        {
+          "b": "Stelara",
+          "g": "ustekinumab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Skyrizi",
+          "g": "risankizumab",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Rinvoq",
+          "g": "upadacitinib",
+          "co": "AbbVie"
+        }
+      ],
+      "tgt": [
+        "TNF",
+        "IL-23",
+        "IL23",
+        "IL-12",
+        "integrin",
+        "JAK"
+      ]
+    },
+    {
+      "id": "psoriasis",
+      "name": "Plaque psoriasis (IL-17/IL-23)",
+      "short": "Psoriasis",
+      "syn": [
+        "plaque psoriasis",
+        "psoriasis"
+      ],
+      "cls": "IL-17 / IL-23 biologic",
+      "drugs": [
+        {
+          "b": "Cosentyx",
+          "g": "secukinumab",
+          "co": "Novartis"
+        },
+        {
+          "b": "Taltz",
+          "g": "ixekizumab",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Bimzelx",
+          "g": "bimekizumab",
+          "co": "UCB"
+        },
+        {
+          "b": "Stelara",
+          "g": "ustekinumab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Tremfya",
+          "g": "guselkumab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Skyrizi",
+          "g": "risankizumab",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Ilumetri",
+          "g": "tildrakizumab",
+          "co": "Almirall"
+        },
+        {
+          "b": "Sotyktu",
+          "g": "deucravacitinib",
+          "co": "Bristol-Myers Squibb"
+        }
+      ],
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "IL-23",
+        "IL23"
+      ]
+    },
+    {
+      "id": "atopic-derm",
+      "name": "Atopic dermatitis (targeted therapies)",
+      "short": "Atopic derm",
+      "syn": [
+        "atopic dermatitis",
+        "eczema",
+        "atopic eczema"
+      ],
+      "cls": "Targeted therapy for atopic dermatitis",
+      "drugs": [
+        {
+          "b": "Dupixent",
+          "g": "dupilumab",
+          "co": "Sanofi / Regeneron"
+        },
+        {
+          "b": "Adtralza",
+          "g": "tralokinumab",
+          "co": "LEO Pharma"
+        },
+        {
+          "b": "Ebglyss",
+          "g": "lebrikizumab",
+          "co": "Almirall / Eli Lilly"
+        },
+        {
+          "b": "Rinvoq",
+          "g": "upadacitinib",
+          "co": "AbbVie"
+        },
+        {
+          "b": "Cibinqo",
+          "g": "abrocitinib",
+          "co": "Pfizer"
+        },
+        {
+          "b": "Olumiant",
+          "g": "baricitinib",
+          "co": "Eli Lilly"
+        }
+      ],
+      "tgt": [
+        "IL-4",
+        "IL-13",
+        "IL13",
+        "JAK",
+        "IL-31"
+      ]
+    },
+    {
+      "id": "asthma",
+      "name": "Severe asthma (biologics)",
+      "short": "Asthma",
+      "syn": [
+        "severe asthma",
+        "asthma",
+        "eosinophilic asthma"
+      ],
+      "cls": "Biologic for severe asthma",
+      "drugs": [
+        {
+          "b": "Xolair",
+          "g": "omalizumab",
+          "co": "Novartis"
+        },
+        {
+          "b": "Nucala",
+          "g": "mepolizumab",
+          "co": "GSK"
+        },
+        {
+          "b": "Cinqaero",
+          "g": "reslizumab",
+          "co": "Teva"
+        },
+        {
+          "b": "Fasenra",
+          "g": "benralizumab",
+          "co": "AstraZeneca"
+        },
+        {
+          "b": "Dupixent",
+          "g": "dupilumab",
+          "co": "Sanofi / Regeneron"
+        },
+        {
+          "b": "Tezspire",
+          "g": "tezepelumab",
+          "co": "AstraZeneca / Amgen"
+        }
+      ],
+      "tgt": [
+        "IgE",
+        "IL-5",
+        "IL5",
+        "IL-4",
+        "IL-13",
+        "IL13",
+        "TSLP"
+      ]
+    },
+    {
+      "id": "psa",
+      "name": "Psoriatic arthritis (IL-17/IL-23)",
+      "short": "PsA",
+      "syn": [
+        "psoriatic arthritis",
+        "psa"
+      ],
+      "cls": "IL-17 / IL-23 biologic for PsA",
+      "drugs": [
+        {
+          "b": "Cosentyx",
+          "g": "secukinumab",
+          "co": "Novartis"
+        },
+        {
+          "b": "Taltz",
+          "g": "ixekizumab",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Bimzelx",
+          "g": "bimekizumab",
+          "co": "UCB"
+        },
+        {
+          "b": "Tremfya",
+          "g": "guselkumab",
+          "co": "Janssen"
+        },
+        {
+          "b": "Skyrizi",
+          "g": "risankizumab",
+          "co": "AbbVie"
+        }
+      ],
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "IL-23",
+        "IL23",
+        "TNF",
+        "JAK"
+      ]
+    },
+    {
+      "id": "axspa",
+      "name": "Axial spondyloarthritis / ankylosing spondylitis",
+      "short": "axSpA",
+      "syn": [
+        "axial spondyloarthritis",
+        "ankylosing spondylitis",
+        "axspa",
+        "spondyloarthritis"
+      ],
+      "cls": "IL-17 biologic for axial SpA",
+      "drugs": [
+        {
+          "b": "Cosentyx",
+          "g": "secukinumab",
+          "co": "Novartis"
+        },
+        {
+          "b": "Taltz",
+          "g": "ixekizumab",
+          "co": "Eli Lilly"
+        },
+        {
+          "b": "Bimzelx",
+          "g": "bimekizumab",
+          "co": "UCB"
+        }
+      ],
+      "tgt": [
+        "IL-17",
+        "IL17",
+        "TNF",
+        "JAK"
+      ]
+    },
+    {
+      "id": "dlbcl",
+      "name": "Diffuse large B-cell lymphoma (DLBCL)",
+      "short": "DLBCL",
+      "syn": [
+        "diffuse large b-cell lymphoma",
+        "dlbcl",
+        "large b-cell lymphoma",
+        "non-hodgkin lymphoma"
+      ],
+      "cls": "Targeted / T-cell-engaging therapy for aggressive B-cell lymphoma",
+      "drugs": [
+        {
+          "b": "Polivy",
+          "g": "polatuzumab vedotin",
+          "co": "Roche"
+        },
+        {
+          "b": "Columvi",
+          "g": "glofitamab",
+          "co": "Roche"
+        },
+        {
+          "b": "Tepkinly",
+          "g": "epcoritamab",
+          "co": "AbbVie / Genmab"
+        },
+        {
+          "b": "Minjuvi",
+          "g": "tafasitamab",
+          "co": "Incyte"
+        },
+        {
+          "b": "Zynlonta",
+          "g": "loncastuximab tesirine",
+          "co": "ADC Therapeutics"
+        },
+        {
+          "b": "Kymriah",
+          "g": "tisagenlecleucel",
+          "co": "Novartis"
+        },
+        {
+          "b": "Yescarta",
+          "g": "axicabtagene ciloleucel",
+          "co": "Gilead / Kite"
+        },
+        {
+          "b": "Breyanzi",
+          "g": "lisocabtagene maraleucel",
+          "co": "Bristol-Myers Squibb"
+        }
+      ],
+      "tgt": [
+        "CD20",
+        "CD19",
+        "CD79b",
+        "CD3",
+        "bispecific"
+      ]
+    },
+    {
+      "id": "fl",
+      "name": "Follicular lymphoma",
+      "short": "Follicular",
+      "syn": [
+        "follicular lymphoma",
+        "indolent lymphoma"
+      ],
+      "cls": "Targeted / T-cell-engaging therapy for follicular lymphoma",
+      "drugs": [
+        {
+          "b": "Gazyvaro",
+          "g": "obinutuzumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Lunsumio",
+          "g": "mosunetuzumab",
+          "co": "Roche"
+        },
+        {
+          "b": "Columvi",
+          "g": "glofitamab",
+          "co": "Roche"
+        },
+        {
+          "b": "Tepkinly",
+          "g": "epcoritamab",
+          "co": "AbbVie / Genmab"
+        }
+      ],
+      "tgt": [
+        "CD20",
+        "CD3",
+        "EZH2",
+        "bispecific"
+      ]
+    }
+  ]
+}
