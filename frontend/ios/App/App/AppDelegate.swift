@@ -6,7 +6,11 @@ import CoreSpotlight
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    // No `window` property here any more: under the UIScene lifecycle the scene owns
+    // the window, and Main.storyboard is attached to the scene rather than to the
+    // app. UIKit also stops calling the app-level lifecycle, URL-open and
+    // user-activity callbacks once scenes are adopted, so those moved to
+    // SceneDelegate.swift; what stays here is the logic they share, as statics.
 
     // Widget bridge: Capacitor Preferences writes to UserDefaults.standard with a
     // "CapacitorStorage." prefix, which app extensions cannot read. The web app
@@ -15,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // App Group here so the DrugRadarWidget extension can render it. The snapshot
     // can only change while the app is in use, so mirroring on launch and on
     // resign-active/background covers every update.
-    private let appGroupId = "group.com.berndgansbacher.pharmatrack"
+    private static let appGroupId = "group.com.berndgansbacher.pharmatrack"
 
-    private func mirrorWidgetSnapshot() {
+    static func mirrorWidgetSnapshot() {
         guard let group = UserDefaults(suiteName: appGroupId) else { return }
         let snapshot = UserDefaults.standard.string(forKey: "CapacitorStorage.dr_widget_snapshot")
         if group.string(forKey: "widget_snapshot") == snapshot { return }
@@ -27,61 +31,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    /// A Spotlight result was tapped: hand the drug name to the web app via a
+    /// Preferences key it checks on mount and on foreground (visibilitychange).
+    /// Returns true when the activity was ours, so the caller knows not to pass it
+    /// on to Capacitor.
+    static func handleSpotlightActivity(_ userActivity: NSUserActivity) -> Bool {
+        guard userActivity.activityType == CSSearchableItemActionType,
+              let id = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String,
+              id.hasPrefix(SpotlightIndexer.idPrefix) else {
+            return false
+        }
+        let name = String(id.dropFirst(SpotlightIndexer.idPrefix.count))
+        let payload = ["name": name, "ts": ISO8601DateFormatter().string(from: Date())]
+        if let json = try? JSONSerialization.data(withJSONObject: payload),
+           let str = String(data: json, encoding: .utf8) {
+            UserDefaults.standard.set(str, forKey: "CapacitorStorage.dr_spotlight_open")
+        }
+        return true
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        mirrorWidgetSnapshot()
+        // Still called with scenes adopted, and still the right place for work that
+        // is per-process rather than per-window.
+        AppDelegate.mirrorWidgetSnapshot()
         SpotlightIndexer.indexIfNeeded()
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        mirrorWidgetSnapshot()
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        mirrorWidgetSnapshot()
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        // Called when the app was launched with a url. Feel free to add additional processing here,
-        // but if you want the App API to support tracking app url opens, make sure to keep this call
-        return ApplicationDelegateProxy.shared.application(app, open: url, options: options)
-    }
-
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        // A Spotlight result was tapped: hand the drug name to the web app via
-        // a Preferences key it checks on mount and on foreground (visibilitychange).
-        if userActivity.activityType == CSSearchableItemActionType,
-           let id = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String,
-           id.hasPrefix(SpotlightIndexer.idPrefix) {
-            let name = String(id.dropFirst(SpotlightIndexer.idPrefix.count))
-            let payload = ["name": name, "ts": ISO8601DateFormatter().string(from: Date())]
-            if let json = try? JSONSerialization.data(withJSONObject: payload),
-               let str = String(data: json, encoding: .utf8) {
-                UserDefaults.standard.set(str, forKey: "CapacitorStorage.dr_spotlight_open")
-            }
-            return true
-        }
-        // Called when the app was launched with an activity, including Universal Links.
-        // Feel free to add additional processing here, but if you want the App API to support
-        // tracking app url opens, make sure to keep this call
-        return ApplicationDelegateProxy.shared.application(application, continue: userActivity, restorationHandler: restorationHandler)
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        // Hands back the single configuration declared in Info.plist's
+        // UIApplicationSceneManifest ("Default Configuration").
+        UISceneConfiguration(name: connectingSceneSession.configuration.name, sessionRole: connectingSceneSession.role)
     }
 
 }

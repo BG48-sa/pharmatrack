@@ -20,6 +20,7 @@
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
 		E2F727AC6A8E014EEE182589 /* DrugRadarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4CBD466EF45EA36570D1F /* DrugRadarWidget.swift */; };
 		E947611FDB0206060720F2D5 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */; };
+		2F912E7ECFC82895ABE35918 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE74B047891A47F7190B3 /* SceneDelegate.swift */; };
 		EC2F308AF008F9476533F094 /* DrugRadarWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F1D63B9CBE2882DFF588B8BF /* DrugRadarWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 		6BD4CBD466EF45EA36570D1F /* DrugRadarWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DrugRadarWidget.swift; sourceTree = "<group>"; };
 		78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpotlightIndexer.swift; sourceTree = "<group>"; };
+		941BE74B047891A47F7190B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		958DCC722DB07C7200EA8C5F /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		ADDAF21168B6E87F5A547E21 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9245153B6A65B276B32ABD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -143,6 +145,7 @@
 				50B271D01FEDC1A000F3C39B /* public */,
 				BEB13C091E271775FF2CFE66 /* App.entitlements */,
 				78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */,
+				941BE74B047891A47F7190B3 /* SceneDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
 				E947611FDB0206060720F2D5 /* SpotlightIndexer.swift in Sources */,
+				2F912E7ECFC82895ABE35918 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +319,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DrugRadarWidget/DrugRadarWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = S8S8S983CX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DrugRadarWidget/Info.plist;
@@ -454,7 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = S8S8S983CX;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DrugRadar;
@@ -479,7 +483,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = S8S8S983CX;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DrugRadar;
@@ -503,7 +507,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DrugRadarWidget/DrugRadarWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = S8S8S983CX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DrugRadarWidget/Info.plist;
