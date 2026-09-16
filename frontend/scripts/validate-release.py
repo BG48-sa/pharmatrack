@@ -19,7 +19,8 @@ WHY THIS EXISTS
 GATES (each is recorded in the report; any FAIL exits 1)
   G1 every snapshot parses and stays within a size band of the published copy
   G2 EMA catalogue: counts do not collapse, no product vanishes, the EMA report
-     date does not move backwards
+     date does not move backwards and is not stale (a frozen upstream feed is
+     otherwise invisible — an unchanged run publishes nothing and reports success)
   G3 EMA records: required fields present, dates plausible
   G4 CBER cell & gene therapy snapshot never shrinks
   G5 label corpora (SmPC / USPI): no file vanishes beyond a small allowance, no
@@ -114,6 +115,7 @@ def main():
     ap.add_argument('--report', default=None, help='write the JSON report here')
     ap.add_argument('--max-vanished', type=int, default=3, help='EMA products / label files allowed to disappear')
     ap.add_argument('--max-label-regressions', type=int, default=0)
+    ap.add_argument('--max-ema-age', type=int, default=21, help="fail if EMA's own report date is older than this many days")
     ap.add_argument('--today', default=datetime.date.today().isoformat())
     a = ap.parse_args()
 
@@ -169,6 +171,14 @@ def main():
         r.add('G3', 'EMA pending: opinion date + outcome', not bad_pipe, f'{len(bad_pipe)}: {", ".join(bad_pipe[:8])}')
     elif ce and not pe:
         r.add('G2', 'EMA catalogue comparison', True, 'no published copy', skipped=True)
+    if ce:
+        # EMA republishes the report roughly weekly, so three missed cycles means
+        # the feed itself has stopped moving. Fail, so the job's failure mail is
+        # the alarm: a stale feed otherwise passes every other gate in silence.
+        gen = ce.get('generated') or ''
+        age = (datetime.date.fromisoformat(a.today) - datetime.date.fromisoformat(gen)).days if ISO.match(gen) else None
+        r.add('G2', f'EMA report date fresh (<={a.max_ema_age}d)', age is not None and age <= a.max_ema_age,
+              f'{gen or "missing"}, {age if age is not None else "?"} days old')
 
     # ---- G4: CBER snapshot ----------------------------------------------------
     cc, pc = cand_json.get('cgt-products.json'), pub_json.get('cgt-products.json')
