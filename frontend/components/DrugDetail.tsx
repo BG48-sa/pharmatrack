@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DrugDetailData } from '../types';
 import { drugKey } from '../services/notes';
 import EmaBadges from './EmaBadges';
@@ -7,9 +7,10 @@ import AccessStatus from './AccessStatus';
 import DrugNotes from './DrugNotes';
 import {
   X, Activity, Pill, Building2, Calendar, Globe, FlaskConical, ExternalLink,
-  Sparkles, Hourglass, Stethoscope, GitCompare, Check, Share, FileText,
+  Sparkles, Hourglass, Stethoscope, GitCompare, Check, Share, FileText, FileDown, Loader2,
 } from 'lucide-react';
 import { describeUsApproval } from '../services/usApproval';
+import { preloadPdfLibrary, saveDrugPdf } from '../services/drugPdf';
 
 interface DrugDetailProps {
   data: DrugDetailData;
@@ -92,6 +93,19 @@ export const DrugDetailContent: React.FC<{
   const hasEma = !!data.emaApprovalDate && /^\d/.test(data.emaApprovalDate);
   const usInfo = describeUsApproval(data.approvalDate, formatPretty);
   const badgeId = badgeGlossaryId(data.badge);
+  const [pdfState, setPdfState] = useState<'idle' | 'working' | 'failed'>('idle');
+
+  useEffect(() => {
+    preloadPdfLibrary();
+    setPdfState('idle');
+  }, [data]);
+
+  const handleSavePdf = async () => {
+    if (pdfState === 'working') return;
+    setPdfState('working');
+    const ok = await saveDrugPdf(data);
+    setPdfState(ok ? 'idle' : 'failed');
+  };
 
   return (
     <>
@@ -251,6 +265,21 @@ export const DrugDetailContent: React.FC<{
           </button>
         )}
       </div>
+
+      {/* One-page fact sheet of this medicine: save to Files, print, or send. */}
+      <button
+        onClick={handleSavePdf}
+        disabled={pdfState === 'working'}
+        className="w-full mt-3 py-3 font-semibold rounded-xl transition-colors flex items-center justify-center gap-2 border bg-white text-slate-700 border-slate-200 active:bg-slate-50 disabled:opacity-60"
+      >
+        {pdfState === 'working' ? <Loader2 size={18} className="animate-spin" /> : <FileDown size={18} />}
+        {pdfState === 'working' ? 'Creating PDF…' : 'Save as PDF'}
+      </button>
+      {pdfState === 'failed' && (
+        <p role="alert" className="text-xs text-red-600 text-center mt-1.5">
+          The PDF could not be created. Please try again.
+        </p>
+      )}
 
       <div className="flex flex-col gap-2 mt-3">
         <a
