@@ -29,6 +29,26 @@
         gc.async = true;
         gc.src = 'https://gc.zgo.at/count.js';
         gc.setAttribute('data-goatcounter', 'https://drugradar.goatcounter.com/count');
+        // Install counter. A web app has no "download" number, so two anonymous
+        // events stand in for it: "pwa-installed" once per device (Chrome/Android/
+        // desktop fire appinstalled; iOS Safari has no such event, so the first
+        // launch from the home screen counts instead) and "pwa-launch" for every
+        // start of the installed app — how much the installed copies are used.
+        gc.addEventListener('load', function () {
+          if (!window.goatcounter || !goatcounter.count) return;
+          var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+          var counted = function () { try { return localStorage.getItem('dr_pwa_counted'); } catch (e) { return '1'; } };
+          var installed = function () {
+            if (counted()) return;
+            try { localStorage.setItem('dr_pwa_counted', '1'); } catch (e) { /* private mode: count at most once per session */ }
+            goatcounter.count({ path: 'pwa-installed', title: 'PWA installed (home screen)', event: true });
+          };
+          if (standalone) {
+            goatcounter.count({ path: 'pwa-launch', title: 'PWA launch (installed app)', event: true });
+            installed();
+          }
+          window.addEventListener('appinstalled', installed);
+        });
         document.head.appendChild(gc);
       }
     </script>
