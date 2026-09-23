@@ -17,6 +17,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..', '..');                    // frontend/
@@ -208,6 +209,7 @@ async function run() {
       const doc = {
         slug, brand: m.n, inn: m.inn, holder: m.holder, url: PI(slug), source: 'EMA product-information (Annex I, SmPC)',
         retrieved: (() => { try { return new Date(statSync(join(CACHE, `${slug}.txt`)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(), // when the PDF text was fetched from EMA
+        sourceSha: createHash('sha256').update(t).digest('hex'), // fingerprint of the raw PDF text this extract was parsed from (validate-release.py: same source + different sections = parser drift)
         sections,
       };
       const why = regressed(slug, doc);

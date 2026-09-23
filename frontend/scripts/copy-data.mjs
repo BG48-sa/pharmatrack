@@ -85,7 +85,15 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
   const cgt = readJson('cgt-products.json') || {};
   const bm = readJson('biomarkers.json') || {};
   const cdx = readJson('fda-cdx.json') || {};
-  const sources = existsSync(join(root, 'scripts', '.sources.json')) ? readJson('scripts/.sources.json') : undefined;
+  // The source ledger is written by build-ema-data.py, i.e. by the CI refresh.
+  // A local build (native App Store archive) may hold an older ledger than the
+  // catalogue it bundles — provenance that names the wrong run is worse than
+  // none, so it is only included when it describes this catalogue.
+  let sources = existsSync(join(root, 'scripts', '.sources.json')) ? readJson('scripts/.sources.json') : undefined;
+  if (sources && ema.generated && sources.emaReportGenerated && sources.emaReportGenerated !== ema.generated) {
+    console.log(`[copy-data] scripts/.sources.json describes the EMA report of ${sources.emaReportGenerated}, the catalogue is ${ema.generated} — provenance omitted from release.json`);
+    sources = undefined;
+  }
   let commit = process.env.GITHUB_SHA;
   if (!commit) { try { commit = execSync('git rev-parse HEAD', { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { commit = undefined; } }
   const manifest = {

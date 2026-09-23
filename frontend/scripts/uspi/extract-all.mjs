@@ -31,6 +31,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSy
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..', '..');
@@ -193,8 +194,9 @@ async function run() {
   for (const d of [OUT_DIR, CACHE, CACHE2]) mkdirSync(d, { recursive: true });
 
   // Write-time guard: a re-run must never silently degrade a label that was
-  // already good — a required section lost, the text collapsing under 40%, or
-  // a same-product ('brand') pairing demoted to a same-substance one. The old
+  // already good — a required section lost, the text collapsing under 40%, a
+  // same-product ('brand') pairing demoted to a same-substance one, or an
+  // older label version replacing a newer one. The old
   // file is kept and the slug reported (index.guarded) for a manual look.
   const REQUIRED = ['indications', 'dosage', 'contraindications', 'warnings', 'adverse_reactions'];
   const secText = (v) => (typeof v === 'string' ? v : (v && !v.missing && v.text) || '');
@@ -206,6 +208,8 @@ async function run() {
     if (!existsSync(file)) return null;
     let prev; try { prev = JSON.parse(readFileSync(file, 'utf8')); } catch { return null; }
     if (prev.match === 'brand' && next.match === 'substance') return 'pairing brand→substance';
+    // openFDA may serve an older SPL version for a while (index rebuilds); a label version never goes backwards.
+    if (prev.effective && next.effective && next.effective < prev.effective && prev.match === next.match) return `label version ${prev.effective}→${next.effective} went backwards`;
     const lost = REQUIRED.filter((k) => hasSec(prev.sections, k) && !hasSec(next.sections, k));
     if (lost.length) return `lost ${lost.join('/')}`;
     const pl = secLen(prev.sections), nl = secLen(next.sections);
@@ -288,7 +292,8 @@ async function run() {
       match, // 'brand' = same product name in the US; 'substance' = different US product, same active substance
       effective: chosen.effective_time ? `${chosen.effective_time.slice(0, 4)}-${chosen.effective_time.slice(4, 6)}-${chosen.effective_time.slice(6, 8)}` : null, // label version date (openFDA effective_time)
       retrieved: (() => { try { return new Date(statSync(cacheFile(slug)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(),
-      url: `https://labels.fda.gov/`, splSetId: chosen.set_id || null,
+      url: `https://labels.fda.gov/`, splSetId: chosen.set_id || null, splId: chosen.id || null, // set_id = the label across versions, id = this exact SPL version
+      sourceSha: createHash('sha256').update(JSON.stringify(chosen)).digest('hex'), // fingerprint of the openFDA record this extract was parsed from
       dailymed: chosen.set_id ? `https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=${chosen.set_id}` : 'https://www.accessdata.fda.gov/scripts/cder/daf/',
       source: 'openFDA drug label (US Prescribing Information)', sections,
     };

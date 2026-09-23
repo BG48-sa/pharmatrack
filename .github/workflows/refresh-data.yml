@@ -63,7 +63,7 @@ jobs:
         run: |
           set -euo pipefail
           git fetch --depth=1 origin +gh-pages:refs/remotes/origin/gh-pages
-          python frontend/scripts/validate-release.py --published-ref origin/gh-pages --report /tmp/validation.json
+          python frontend/scripts/validate-release.py --published-ref origin/gh-pages --report /tmp/validation.json --changes /tmp/changes.md
 
       # --- Keep the raw inputs + report of every run for 90 days (auditable) ---
       - name: Archive raw sources and validation report
@@ -75,6 +75,7 @@ jobs:
             /tmp/ema.xlsx
             /tmp/newproc.htm
             /tmp/validation.json
+            /tmp/changes.md
             frontend/scripts/.sources.json
           if-no-files-found: ignore
           retention-days: 90

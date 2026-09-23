@@ -30,13 +30,25 @@ GATES (each is recorded in the report; any FAIL exits 1)
      appears in the curated CBER row for that product; EU indications are
      sourced from the SmPC wherever an extract exists, and the share of records
      where EMA's table disagrees with the SmPC on age limits stays small
+  G7 the MEANING extracted from a label, not just the file: every required
+     section is compared text-for-text with the published copy. A section that
+     changed although the source document did not (same sourceSha) is parser
+     drift and fails; a US label whose version date went backwards fails; a
+     corpus where more than a set share of labels changed at once fails (an
+     upstream or parser accident, not the weekly trickle of label updates). A
+     source that changed while no section text moved is only listed — the
+     extractor may have missed an update, a person should look.
 
 OUTPUT
   A JSON report (--report) listing every gate with its numbers, so a failure
-  names the file, the rule and the values that tripped it.
+  names the file, the rule and the values that tripped it — plus a change list
+  (added / removed / updated medicines and labels, with the sections that
+  changed), also written as Markdown (--changes) so that months later anyone
+  can see exactly what a given release changed and why it was accepted.
 """
 import argparse
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -82,6 +94,22 @@ def label_profile(doc, required):
     return have, total
 
 
+def section_sha(v):
+    txt = re.sub(r'\s+', ' ', section_text(v)).strip()
+    return hashlib.sha256(txt.encode('utf-8')).hexdigest()[:16] if txt else ''
+
+
+def label_name(doc, fallback):
+    return doc.get('brand') or doc.get('slug') or fallback
+
+
+def ema_key(rec):
+    # EPAR slug is the stable identity of an EMA product (names get re-branded)
+    url = (rec.get('url') or '')
+    slug = url.split('/EPAR/')[1].strip() if '/EPAR/' in url else ''
+    return slug or (rec.get('n') or '').strip().lower()
+
+
 class Report:
     def __init__(self):
         self.gates = []
@@ -107,6 +135,48 @@ def published_from_ref(ref):
     return os.path.join(tmp, 'data')
 
 
+def write_changes_md(path, changes, status, r, a):
+    """Human-readable change list: what this release changes versus the one that is live."""
+    out = [f'# DrugRadar data release — change list ({a.today})', '',
+           f'Validation: **{status}** ({len(r.failed)} failing of {len(r.gates)} gates)', '']
+    ema = changes.get('ema') or {}
+    if ema:
+        rd = ema.get('reportDate') or [None, None]
+        out += ['## EMA catalogue', '', f'EMA report date: {rd[0]} → {rd[1]}', '']
+        for lst, title in (('authorised', 'Authorised'), ('pipeline', 'Expected (pending CHMP opinion)'), ('gone', 'Withdrawn / refused')):
+            d = ema.get(lst) or {}
+            if d.get('added') or d.get('removed'):
+                out.append(f'### {title}')
+                out += [f'- added: {x}' for x in d.get('added', [])]
+                out += [f'- removed: {x}' for x in d.get('removed', [])]
+                out.append('')
+        if not any((ema.get(l) or {}).get('added') or (ema.get(l) or {}).get('removed') for l in ('authorised', 'pipeline', 'gone')):
+            out += ['No medicine entered or left any list.', '']
+    for corpus, title in (('smpc', 'EU labels (SmPC)'), ('uspi', 'US labels (USPI)')):
+        d = (changes.get('labels') or {}).get(corpus)
+        if d is None:
+            continue
+        out += [f'## {title}', '', f'added {len(d["added"])} · removed {len(d["removed"])} · updated {len(d["updated"])}', '']
+        out += [f'- added: {x}' for x in d['added'][:50]]
+        out += [f'- removed: {x}' for x in d['removed'][:50]]
+        for u in d['updated'][:200]:
+            eff = f' ({u["effective"][0]} → {u["effective"][1]})' if u.get('effective') and u['effective'][0] != u['effective'][1] else ''
+            out.append(f'- updated: {u["name"]} — sections {", ".join(u["sections"])}{eff}')
+        if len(d['updated']) > 200:
+            out.append(f'- … and {len(d["updated"]) - 200} more')
+        for key, label in (('parserDrift', 'PARSER DRIFT (same source, different text)'), ('versionBackwards', 'VERSION WENT BACKWARDS'),
+                           ('sourceChangedTextSame', 'source changed, extracted text did not — check')):
+            if d.get(key):
+                out += ['', f'**{label}:** ' + '; '.join(d[key][:30])]
+        out.append('')
+    if changes.get('snapshots'):
+        out += ['## Other snapshots that changed', ''] + [f'- {f}' for f in changes['snapshots']] + ['']
+    out += ['## Gates', ''] + [f'- [{g["status"]}] {g["id"]} {g["name"]}: {g["detail"]}' for g in r.gates] + ['']
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(out))
+    print(f'change list written to {path}')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--candidate', default=FRONTEND, help='frontend/ directory holding the candidate data')
@@ -116,6 +186,9 @@ def main():
     ap.add_argument('--max-vanished', type=int, default=3, help='EMA products / label files allowed to disappear')
     ap.add_argument('--max-label-regressions', type=int, default=0)
     ap.add_argument('--max-ema-age', type=int, default=21, help="fail if EMA's own report date is older than this many days")
+    ap.add_argument('--changes', default=None, help='write the human-readable change list (Markdown) here')
+    ap.add_argument('--max-parser-drift', type=int, default=0, help='labels whose sections may change while the source document did not')
+    ap.add_argument('--max-changed-share', type=float, default=0.5, help='fail if more than this share of a label corpus changed in one release')
     ap.add_argument('--today', default=datetime.date.today().isoformat())
     a = ap.parse_args()
 
@@ -269,9 +342,68 @@ def main():
             pub_from_smpc = sum(1 for x in pe.get('authorised', []) if x.get('indSrc') == 'smpc')
             r.add('G6', 'SmPC-sourced indications not dropping', from_smpc >= pub_from_smpc - 20, f'{pub_from_smpc} → {from_smpc}')
 
+    # ---- G7: extracted meaning, section by section -------------------------------
+    changes = {'labels': {}, 'ema': {}, 'snapshots': []}
+    for corpus, cdir, required in (('smpc', 'smpc-data', SMPC_REQUIRED), ('uspi', 'uspi-data', USPI_REQUIRED)):
+        cpath, ppath = os.path.join(cand, cdir), os.path.join(pub, corpus)
+        if not (os.path.isdir(ppath) and os.path.isdir(cpath)):
+            r.add('G7', f'{corpus} sections compared', True, 'no corpus pair to compare', skipped=True)
+            continue
+        cfiles = {f for f in os.listdir(cpath) if f.endswith('.json')}
+        pfiles = {f for f in os.listdir(ppath) if f.endswith('.json')}
+        added, removed, updated = sorted(cfiles - pfiles), sorted(pfiles - cfiles), []
+        drift, backwards, source_moved_text_same, no_fingerprint = [], [], [], 0
+        for f in sorted(pfiles & cfiles):
+            try:
+                pd_, cd_ = load(os.path.join(ppath, f)), load(os.path.join(cpath, f))
+            except Exception:  # noqa: BLE001
+                continue  # G5 already reports unreadable files
+            ps, cs = pd_.get('sections') or {}, cd_.get('sections') or {}
+            moved = [k for k in required if section_sha(ps.get(k)) != section_sha(cs.get(k))]
+            psha, csha = pd_.get('sourceSha'), cd_.get('sourceSha')
+            name = label_name(cd_, f)
+            if moved:
+                updated.append({'file': f, 'name': name, 'sections': moved, 'effective': [pd_.get('effective') or pd_.get('retrieved'), cd_.get('effective') or cd_.get('retrieved')]})
+            if psha and csha:
+                if psha == csha and moved:
+                    drift.append(f'{name} ({"/".join(moved)})')
+                elif psha != csha and not moved:
+                    source_moved_text_same.append(name)
+            else:
+                no_fingerprint += 1
+            pe, ce = pd_.get('effective'), cd_.get('effective')
+            if pe and ce and ISO.match(pe) and ISO.match(ce) and ce < pe and pd_.get('match') == cd_.get('match'):
+                backwards.append(f'{name} {pe}→{ce}')
+        both = len(pfiles & cfiles)
+        share = len(updated) / both if both else 0.0
+        r.add('G7', f'{corpus} no parser drift (same source, different sections)', len(drift) <= a.max_parser_drift,
+              f'{len(drift)} labels (max {a.max_parser_drift}); {no_fingerprint} without a source fingerprint yet: {"; ".join(drift[:8])}')
+        if corpus == 'uspi':
+            r.add('G7', 'US label version never goes backwards', not backwards, f'{len(backwards)}: {"; ".join(backwards[:8])}')
+        r.add('G7', f'{corpus} corpus-wide change stays below {int(a.max_changed_share * 100)}%', share <= a.max_changed_share,
+              f'{len(updated)} of {both} labels changed a required section ({share:.0%}); added {len(added)}, removed {len(removed)}')
+        if source_moved_text_same:
+            print(f'[note] {corpus}: {len(source_moved_text_same)} source documents changed without any required section moving — check the extractor: {", ".join(source_moved_text_same[:8])}')
+        changes['labels'][corpus] = {'added': added, 'removed': removed, 'updated': updated, 'sourceChangedTextSame': source_moved_text_same, 'parserDrift': drift, 'versionBackwards': backwards}
+
+    # EMA catalogue: which medicines came, went or moved between lists
+    ce_, pe_ = cand_json.get('ema-medicines.json'), pub_json.get('ema-medicines.json')
+    if isinstance(ce_, dict) and isinstance(pe_, dict):
+        for lst in ('authorised', 'pipeline', 'gone'):
+            cm = {ema_key(x): x for x in ce_.get(lst) or [] if isinstance(x, dict)}
+            pm = {ema_key(x): x for x in pe_.get(lst) or [] if isinstance(x, dict)}
+            changes['ema'][lst] = {'added': sorted(f'{cm[k].get("n")} ({cm[k].get("inn")})' for k in cm.keys() - pm.keys()),
+                                   'removed': sorted(f'{pm[k].get("n")} ({pm[k].get("inn")})' for k in pm.keys() - cm.keys())}
+        changes['ema']['reportDate'] = [pe_.get('generated'), ce_.get('generated')]
+    for f in SNAPSHOTS:
+        if f in cand_json and f in pub_json and json.dumps(cand_json[f], sort_keys=True) != json.dumps(pub_json[f], sort_keys=True):
+            changes['snapshots'].append(f)
+
     status = 'FAIL' if r.failed else 'pass'
+    if a.changes:
+        write_changes_md(a.changes, changes, status, r, a)
     report = {'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'candidate': os.path.abspath(cand),
-              'published': a.published_ref or os.path.abspath(pub), 'status': status, 'gates': r.gates}
+              'published': a.published_ref or os.path.abspath(pub), 'status': status, 'gates': r.gates, 'changes': changes}
     if a.report:
         with open(a.report, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=1)
