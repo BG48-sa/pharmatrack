@@ -243,10 +243,11 @@ async function run() {
   const refreshedUS = [];
   let unchangedUS = 0, goneUS = 0;
   if (changedOnly) {
-    const bySet = new Map();
-    for (const m of drugs) { const prev = readDoc(slugOf(m)); if (prev?.splSetId) bySet.set(prev.splSetId, { slug: slugOf(m), prev }); }
+    const bySet = new Map(); // set_id -> every EU medicine paired with that US label (biosimilars share the reference product's label)
+    let stored = 0;
+    for (const m of drugs) { const prev = readDoc(slugOf(m)); if (prev?.splSetId) { stored++; if (!bySet.has(prev.splSetId)) bySet.set(prev.splSetId, []); bySet.get(prev.splSetId).push({ slug: slugOf(m), prev }); } }
     const ids = [...bySet.keys()];
-    console.log(`Changed-only: checking the version of ${ids.length} stored US labels in ${Math.ceil(ids.length / 50)} queries`);
+    console.log(`Changed-only: checking the version of ${stored} stored US labels (${ids.length} distinct set_ids) in ${Math.ceil(ids.length / 50)} queries`);
     for (let i = 0; i < ids.length; i += 50) {
       const batch = ids.slice(i, i + 50);
       const search = `(${batch.map((id) => `set_id:"${id}"`).join(' ')})`;
@@ -255,15 +256,17 @@ async function run() {
       if (results === null) { console.log(`  ✗ batch ${i / 50 + 1} failed twice — those ${batch.length} labels stay as they are`); continue; }
       const seenIds = new Set();
       for (const r of results) {
-        const e = bySet.get(r.set_id);
-        if (!e) continue;
+        const entries = bySet.get(r.set_id);
+        if (!entries) continue;
         seenIds.add(r.set_id);
         const eff = isoDate(r.effective_time);
-        if (eff && (!e.prev.effective || eff > e.prev.effective)) {
-          presel.set(e.slug, { chosen: r, match: e.prev.match });
-          saveCache(e.slug, { [e.prev.match]: [r], versionCheckedAt: new Date().toISOString() }); // retrieved date = today
-          refreshedUS.push(`${e.slug} (${e.prev.effective || '?'} → ${eff})`);
-        } else unchangedUS++;
+        for (const e of entries) {
+          if (eff && (!e.prev.effective || eff > e.prev.effective)) {
+            presel.set(e.slug, { chosen: r, match: e.prev.match });
+            saveCache(e.slug, { [e.prev.match]: [r], versionCheckedAt: new Date().toISOString() }); // retrieved date = today
+            refreshedUS.push(`${e.slug} (${e.prev.effective || '?'} → ${eff})`);
+          } else unchangedUS++;
+        }
       }
       goneUS += batch.filter((id) => !seenIds.has(id)).length; // set_id no longer served: kept as is, G7/G5 will tell if that matters
     }

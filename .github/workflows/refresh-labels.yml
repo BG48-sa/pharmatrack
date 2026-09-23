@@ -89,7 +89,12 @@ jobs:
           git config user.email 'bernd.gansbacher@gmail.com'
           n=$(git diff --cached --name-only -- frontend/smpc-data frontend/uspi-data | wc -l | tr -d ' ')
           git commit -q -m "Refresh label texts $(date -u +%F): $n label(s) changed at EMA / openFDA [skip ci]"
-          git push
+          # main moves during a multi-hour run (daily data commit, code pushes);
+          # none of those touch label files, so a rebase is conflict-free.
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push && break
+            echo "push attempt $i failed — retrying"; sleep 30
+          done
           gh workflow run refresh-data.yml --ref main -f force_deploy=true
         env:
           GH_TOKEN: ${{ github.token }}
