@@ -143,15 +143,14 @@ const lastModified = new Map(); // slug -> ISO timestamp of the PDF EMA served (
 const parseLastModified = (headers) => { const m = /^last-modified:\s*(.+)$/im.exec(headers || ''); const d = m ? new Date(m[1].trim()) : null; return d && !isNaN(d) ? d.toISOString() : null; };
 // HEAD request: is EMA's copy newer than ours? Returns {ok, lastModified} — no download.
 async function headPdf(slug) {
-  for (let attempt = 0; attempt < 2; attempt++) {
-    let out = '';
-    try { out = execFileSync('curl', ['-sIL', '-A', 'Mozilla/5.0', '--max-time', '30', PI(slug)], { encoding: 'utf8' }); } catch { out = ''; }
-    const codes = [...out.matchAll(/^HTTP\/\S+\s+(\d{3})/gm)].map((m) => m[1]);
-    const code = codes[codes.length - 1] || '000';
-    if (code === '200') return { ok: true, lastModified: parseLastModified(out) };
-    if (code === '404') return { ok: true, notFound: true };
-    await sleep(15000 * (attempt + 1));
-  }
+  // one attempt only: a failed check just means "not checked this week" (the
+  // label is kept), and retry sleeps here were the main cost of a full sweep
+  let out = '';
+  try { out = execFileSync('curl', ['-sIL', '-A', 'Mozilla/5.0', '--max-time', '20', PI(slug)], { encoding: 'utf8' }); } catch { out = ''; }
+  const codes = [...out.matchAll(/^HTTP\/\S+\s+(\d{3})/gm)].map((m) => m[1]);
+  const code = codes[codes.length - 1] || '000';
+  if (code === '200') return { ok: true, lastModified: parseLastModified(out) };
+  if (code === '404') return { ok: true, notFound: true };
   return { ok: false };
 }
 async function rawText(slug, pdfTmp, force = false) {
@@ -185,6 +184,12 @@ async function run() {
   const limit = process.argv[2] ? parseInt(process.argv[2], 10) : Infinity;
   const reparse = process.env.REPARSE === '1';
   const changedOnly = process.env.CHANGED_ONLY === '1';
+  // Wall-clock budget for a changed-only run (minutes): once spent, the
+  // remaining labels are kept unchecked and the run finishes normally, so a
+  // slow EMA day can never push the job into its hard limit and lose the work.
+  const budgetMs = (parseInt(process.env.TIME_BUDGET_MIN || '0', 10) || Infinity) * 60000;
+  const startedAt = Date.now();
+  let budgetSpent = false;
   for (const d of [OUT_DIR, CACHE]) mkdirSync(d, { recursive: true });
   const data = JSON.parse(readFileSync(join(root, 'ema-medicines.json'), 'utf8'));
 
@@ -223,15 +228,16 @@ async function run() {
       if (changedOnly) {
         const prev = readDoc(slug);
         if (prev) {
-          if (fetched >= limit) { keepExisting(slug, m); continue; }        // budget spent: not even checked this week
+          if (!budgetSpent && Date.now() - startedAt > budgetMs) { budgetSpent = true; console.log(`\n⏱ time budget spent after ${done - 1} labels — the rest is kept unchecked until next week`); }
+          if (fetched >= limit || budgetSpent) { keepExisting(slug, m); continue; } // budget spent: not even checked this week
           const h = await headPdf(slug);
           await sleep(700 + Math.floor(Math.random() * 400));
           if (!h.ok) {                                                       // the label stays as it is; ride out a block like a failed download
             headFailed++; consecutiveFail++; keepExisting(slug, m);
             if (consecutiveFail >= 6) {
               if (++cooldowns > 5) { aborted = true; console.log(`\n⚠ EMA still blocking after ${cooldowns} cooldowns — stopping. Unchecked labels are kept as they are.`); return; }
-              console.log(`\n⏸ ${consecutiveFail} consecutive HEAD failures — EMA rate-limit active. Cooling down 20 min (cooldown ${cooldowns}/5)…`);
-              await sleep(20 * 60 * 1000);
+              console.log(`\n⏸ ${consecutiveFail} consecutive HEAD failures — EMA rate-limit active. Cooling down 5 min (cooldown ${cooldowns}/5)…`);
+              await sleep(5 * 60 * 1000);
               consecutiveFail = 0;
             }
             continue;
@@ -310,7 +316,7 @@ async function run() {
   writeFileSync(INDEX, JSON.stringify(index));
   console.log(`\nDONE. parsed:${ok} newDownloads:${fetched} 404:${notfound} failed:${fail} guarded(kept previous file):${guarded.length}`);
   if (changedOnly) {
-    console.log(`  changed-only: unchanged:${unchanged} refreshed:${refreshed.length} headFailed:${headFailed}`);
+    console.log(`  changed-only: unchanged:${unchanged} refreshed:${refreshed.length} headFailed:${headFailed} minutes:${Math.round((Date.now() - startedAt) / 60000)}${budgetSpent ? ' (time budget spent)' : ''}`);
     if (refreshed.length) console.log(`  refreshed: ${refreshed.join('; ')}`);
   }
   if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);

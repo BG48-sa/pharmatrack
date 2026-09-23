@@ -47,7 +47,9 @@ jobs:
         run: |
           set -euo pipefail
           cd frontend
-          CHANGED_ONLY=1 node scripts/smpc/extract-all.mjs "${{ github.event.inputs.limit || '200' }}" 2>&1 | tee /tmp/smpc.log | tail -20
+          # 150-minute budget: whatever is not checked by then waits for next week;
+          # the job (5 h limit) always gets to validate and commit what it has.
+          TIME_BUDGET_MIN=150 CHANGED_ONLY=1 node scripts/smpc/extract-all.mjs "${{ github.event.inputs.limit || '200' }}" 2>&1 | tee /tmp/smpc.log | tail -20
 
       - name: US labels — refresh what changed at openFDA
         run: |
