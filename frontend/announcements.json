@@ -1,6 +1,15 @@
 {
-  "generated": "2026-09-22",
+  "generated": "2026-09-23",
   "items": [
+    {
+      "title": "FDA approves imlunestrant in combination with abemaciclib for ER-posit",
+      "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQNjB4ZTMtdmVQSnFLTFFLd2I5Q2VvV042MGVwTlpsX1NXSzh0cFRhaHhtSm1vZ1JMWG0wclFDQjZId2Q3RVJZQ3ZrX1pQc0xsTi1RZ3ZYaldqRldka0lMUUhfM29faXZSUGplbUwyVk5VbTRvb2ZEQUtsNy1zT25oNFBiclRBUUFCbHpSMnRoVGlPYUVNYjhRVmlWVmpLalViUlRqM1lUcU5GVVpZa1I3RllxWHA3VDJ0TkJiT09neGloY1ZnTGlsX0pGa0ExVTZ0WWN6ZW1OLUR0bWZTRlZUamJoMmo4bHl2X1pPbG9BaUVvOURjZmc?oc=5",
+      "date": "2026-09-18",
+      "source": "FDA",
+      "names": [
+        "abemaciclib"
+      ]
+    },
     {
       "title": "FDA Approves Therapy to Treat Ataxia in Patients with Ataxia-Telangiectasia, a Rare Genetic Disorder",
       "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNU19PQ3dsVE8yNk9lODJ2cEt0ZEd0QXVDbDRqZVpjYzNZY0hDdTdxRTVmUWJpR3haU040c2RscjVqUDBZTUlpZmpkbThZZE8tUVRWM1N0UFVuVXVYY1ZFZzNwaWZxbmpQd2RXT0tuM3FoVnhTQ1hsbWhuYVhjeHJLaXM5Z1A2RHJ3d2FYWjJzYmVwbDg3SmdRaHVhZGttVGpBOHBWdXlWY0R5YXpmOGZTQ0diRHZnazBIeUpqN0w1cVVSTDVVcnNOZ0o5WHp3OGtOUlE?oc=5",
@@ -9,12 +18,25 @@
       "names": []
     },
     {
-      "title": "FDA approves imlunestrant in combination with abemaciclib for ER-posit",
-      "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQNjB4ZTMtdmVQSnFLTFFLd2I5Q2VvV042MGVwTlpsX1NXSzh0cFRhaHhtSm1vZ1JMWG0wclFDQjZId2Q3RVJZQ3ZrX1pQc0xsTi1RZ3ZYaldqRldka0lMUUhfM29faXZSUGplbUwyVk5VbTRvb2ZEQUtsNy1zT25oNFBiclRBUUFCbHpSMnRoVGlPYUVNYjhRVmlWVmpLalViUlRqM1lUcU5GVVpZa1I3RllxWHA3VDJ0TkJiT09neGloY1ZnTGlsX0pGa0ExVTZ0WWN6ZW1OLUR0bWZTRlZUamJoMmo4bHl2X1pPbG9BaUVvOURjZmc?oc=5",
+      "title": "FDA Approves Inluriyo (imlunestrant) in Combination with Verzenio (abemaciclib) for Adults with ER+, HER2-, ESR1-Mutated Advanced or Metastatic Breast Cancer",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-inluriyo-imlunestrant-combination-verzenio-abemaciclib-adults-er-her2-esr1-mutated-6892.html",
       "date": "2026-09-18",
-      "source": "FDA",
+      "source": "Drugs.com",
       "names": [
-        "abemaciclib"
+        "abemaciclib",
+        "imlunestrant",
+        "inluriyo",
+        "verzenio"
+      ]
+    },
+    {
+      "title": "IntraBio Announces U.S. FDA Approval of Aqneursa (levacetylleucine) for Ataxia-Telangiectasia",
+      "url": "https://www.drugs.com/newdrugs/intrabio-announces-u-s-fda-approval-aqneursa-levacetylleucine-ataxia-telangiectasia-6891.html",
+      "date": "2026-09-18",
+      "source": "Drugs.com",
+      "names": [
+        "aqneursa",
+        "levacetylleucine"
       ]
     },
     {
@@ -45,6 +67,16 @@
         "disease",
         "finerenone",
         "kerendia"
+      ]
+    },
+    {
+      "title": "Nuvation Bio Announces FDA Approval of Supplemental New Drug Application for Ibtrozi (taletrectinib) with Updated Duration of Response in TKI-Naïve Advanced ROS1-Positive Non-Small Cell Lung Cancer",
+      "url": "https://www.drugs.com/newdrugs/nuvation-bio-announces-fda-approval-supplemental-new-application-ibtrozi-taletrectinib-updated-6889.html",
+      "date": "2026-09-16",
+      "source": "Drugs.com",
+      "names": [
+        "ibtrozi",
+        "taletrectinib"
       ]
     },
     {
@@ -186,29 +218,6 @@
       "title": "FDA Approves Treatment for Essential Thrombocythemia",
       "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNcURwakRyQ1NpLXpaeDEtd25vNVlxc3JyVmc5bmJlMGt3ZmlSV19rTXBYV2tFcHdaazFPN0ZuME9mbU94SVZvTFgxdzAwLS1taFJ3WllUaFhTTlRDejlkX0lUWkRveUR4SEFTMFYwTlV3RUdfcjhTelBVeU9mSDBiaVpibUJiOUhaMGhjVFgtTHZCMUZYNEtKODNhcGZsbDA?oc=5",
       "date": "2026-08-31",
-      "source": "FDA",
-      "names": []
-    },
-    {
-      "title": "FDA Approves PharmaEssentia’s BESREMi (ropeginterferon alfa-2b-njft) for Adults with Essential Thrombocythemia",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-pharmaessentia-s-besremi-ropeginterferon-alfa-2b-njft-adults-essential-thrombocythemia-6874.html",
-      "date": "2026-08-31",
-      "source": "Drugs.com",
-      "names": [
-        "besremi"
-      ]
-    },
-    {
-      "title": "FDA Approves First Drug of Its Kind for Polycythemia Vera, a Rare Blood Disorder",
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPakFaRU1pWWMwckRRMi1KRXl2MXVXdEQ4OG9jN0N1VEpVNGNRNDJkdTdHd2FzUTNRNEpyVUgwcnRTZUxDM1hjMGVuQ1Z1NEliM1dtMllsMWRQZ0I4Qy1GN0xJekFESG9VNG82a0FlRXFrTF9qb2RZRlBiakFpZFFSMzZja2h4X0g2REhIVkJNbVIzVWZDOGhrRWJaU0RxcWE2Y2MyX1JTb1NBU09yZFdwcXBhbXpqaUh1d25faEdkZw?oc=5",
-      "date": "2026-08-28",
-      "source": "FDA",
-      "names": []
-    },
-    {
-      "title": "FDA Approves Stelara for Pediatric Ulcerative Colitis",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQUWZBV0UwZGwwcVEwVFpvSEVxSElrWlY5YlE0TVE1OGN6dm1Md19GcW95WmxhTTV5Y0RTdDZHQTRqbDJHYWpEaWlSdmJNTlU4UVp2VHZ2aUZNeDd0bEFmQ1VRTDhNMVVVMi1ZZUczTThES2dVekktcy1MMU53SDFjMVNXWW5ESi1tT012anh5c25IMGxCTkZIOUx2UVVaUzQy?oc=5",
-      "date": "2026-08-28",
       "source": "FDA",
       "names": []
     }
