@@ -187,7 +187,7 @@ async function run() {
   // Wall-clock budget for a changed-only run (minutes): once spent, the
   // remaining labels are kept unchecked and the run finishes normally, so a
   // slow EMA day can never push the job into its hard limit and lose the work.
-  const budgetMs = (parseInt(process.env.TIME_BUDGET_MIN || '0', 10) || Infinity) * 60000;
+  const budgetMs = (parseFloat(process.env.TIME_BUDGET_MIN || '0') || Infinity) * 60000;
   const startedAt = Date.now();
   let budgetSpent = false;
   for (const d of [OUT_DIR, CACHE]) mkdirSync(d, { recursive: true });
