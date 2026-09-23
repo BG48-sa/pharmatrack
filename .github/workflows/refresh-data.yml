@@ -11,7 +11,11 @@ on:
     - cron: '17 6 * * *'      # daily 06:17 UTC — announcements go stale in days
                               # (EMA data still only actually changes ~weekly;
                               # unchanged days publish nothing, see Detect change)
-  workflow_dispatch: {}       # allow manual runs
+  workflow_dispatch:          # allow manual runs
+    inputs:
+      force_deploy:           # set by refresh-labels.yml: its bot push cannot trigger this
+        description: 'deploy even if the daily snapshots did not change'
+        default: 'false'
   push:                       # code or snapshot commits to main deploy too
     branches: [main]          # (the bot's own commits carry [skip ci])
 
@@ -127,11 +131,11 @@ jobs:
 
       # --- Build + publish to GitHub Pages so the installed app pulls it -------
       - uses: actions/setup-node@v4
-        if: steps.chk.outputs.changed == 'true' || github.event_name == 'push'
+        if: steps.chk.outputs.changed == 'true' || github.event_name == 'push' || github.event.inputs.force_deploy == 'true'
         with:
           node-version: '20'
       - name: Build + deploy to gh-pages
-        if: steps.chk.outputs.changed == 'true' || github.event_name == 'push'
+        if: steps.chk.outputs.changed == 'true' || github.event_name == 'push' || github.event.inputs.force_deploy == 'true'
         run: |
           set -euo pipefail
           npm install --prefix frontend --no-audit --no-fund

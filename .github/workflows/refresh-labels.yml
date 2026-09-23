@@ -1,0 +1,95 @@
+name: Refresh label texts (weekly, changed-only)
+
+# The daily job keeps the medicine LISTS current; this one keeps the label
+# TEXTS current (EU SmPC sections, US prescribing information). It does not
+# re-download the corpus: EMA is asked with a HEAD request per label whether
+# its PDF is newer than our extract (Last-Modified), openFDA is asked for the
+# current version of every stored set_id — only what changed is re-parsed,
+# everything else stays byte-identical. The result is committed to main and
+# the daily job is dispatched with force_deploy (a push made with the Action's
+# own token triggers no workflow), so it validates the labels once more
+# against the live release (G5/G7 gates) and deploys — one deploy path.
+
+on:
+  schedule:
+    - cron: '30 4 * * 1'       # Mondays 04:30 UTC, well before the daily 06:17 refresh
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'max labels to download per run (EU)'
+        default: '200'
+
+concurrency:
+  group: refresh-data          # never overlap with the daily job
+  cancel-in-progress: false
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300       # ~1,600 HEAD requests paced for EMA's rate limit + downloads
+    permissions:
+      contents: write
+      actions: write         # to dispatch the daily deploy job at the end
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pdftotext
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils >/dev/null
+
+      - name: EU SmPC — refresh what changed at EMA
+        run: |
+          set -euo pipefail
+          cd frontend
+          CHANGED_ONLY=1 node scripts/smpc/extract-all.mjs "${{ github.event.inputs.limit || '200' }}" 2>&1 | tee /tmp/smpc.log | tail -20
+
+      - name: US labels — refresh what changed at openFDA
+        run: |
+          set -euo pipefail
+          cd frontend
+          CHANGED_ONLY=1 node scripts/uspi/extract-all.mjs 2>&1 | tee /tmp/uspi.log | tail -20
+
+      # The same gates the daily job runs — a refreshed label that lost a
+      # section, shrank, or went back to an older version stops the commit.
+      - name: Validate candidate against the published release
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin +gh-pages:refs/remotes/origin/gh-pages
+          python frontend/scripts/validate-release.py --published-ref origin/gh-pages --report /tmp/validation.json --changes /tmp/changes.md
+
+      - name: Archive logs, validation report and change list
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: label-refresh-${{ github.run_id }}
+          path: |
+            /tmp/smpc.log
+            /tmp/uspi.log
+            /tmp/validation.json
+            /tmp/changes.md
+          if-no-files-found: ignore
+          retention-days: 90
+
+      - name: Commit refreshed labels
+        run: |
+          set -euo pipefail
+          git add frontend/smpc-data frontend/uspi-data frontend/smpc-index.json frontend/uspi-index.json
+          if git diff --cached --quiet; then
+            echo "No label changed this week — nothing to commit."
+            exit 0
+          fi
+          git --no-pager diff --cached --stat | tail -5
+          git config user.name  'DrugRadar Refresh Bot'
+          git config user.email 'bernd.gansbacher@gmail.com'
+          n=$(git diff --cached --name-only -- frontend/smpc-data frontend/uspi-data | wc -l | tr -d ' ')
+          git commit -q -m "Refresh label texts $(date -u +%F): $n label(s) changed at EMA / openFDA [skip ci]"
+          git push
+          gh workflow run refresh-data.yml --ref main -f force_deploy=true
+        env:
+          GH_TOKEN: ${{ github.token }}

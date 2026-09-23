@@ -13,6 +13,12 @@
 //   node scripts/smpc/extract-all.mjs 50         cap NEW downloads to 50 (parsing still runs on all cached)
 //   REPARSE=1 node scripts/smpc/extract-all.mjs  re-parse every cached drug (after changing caps/reflow), no new fetch
 //   FORCE=1 node scripts/smpc/extract-all.mjs    ignore cache, re-download everything
+//   CHANGED_ONLY=1 node scripts/smpc/extract-all.mjs 200
+//        weekly refresh (CI): one HEAD request per label reads EMA's Last-Modified;
+//        only labels newer than the extract on disk (and medicines without an
+//        extract yet) are downloaded and re-parsed, capped at 200 per run. Every
+//        other label is kept exactly as it is — a label never disappears because
+//        it was not checked. Each refreshed extract records sourceModified.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -133,14 +139,31 @@ function parseSections(txt) {
 }
 
 // Returns raw text (from cache or fresh download), or null on failure.
-async function rawText(slug, pdfTmp) {
+const lastModified = new Map(); // slug -> ISO timestamp of the PDF EMA served (from its Last-Modified header)
+const parseLastModified = (headers) => { const m = /^last-modified:\s*(.+)$/im.exec(headers || ''); const d = m ? new Date(m[1].trim()) : null; return d && !isNaN(d) ? d.toISOString() : null; };
+// HEAD request: is EMA's copy newer than ours? Returns {ok, lastModified} — no download.
+async function headPdf(slug) {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    let out = '';
+    try { out = execFileSync('curl', ['-sIL', '-A', 'Mozilla/5.0', '--max-time', '30', PI(slug)], { encoding: 'utf8' }); } catch { out = ''; }
+    const codes = [...out.matchAll(/^HTTP\/\S+\s+(\d{3})/gm)].map((m) => m[1]);
+    const code = codes[codes.length - 1] || '000';
+    if (code === '200') return { ok: true, lastModified: parseLastModified(out) };
+    if (code === '404') return { ok: true, notFound: true };
+    await sleep(15000 * (attempt + 1));
+  }
+  return { ok: false };
+}
+async function rawText(slug, pdfTmp, force = false) {
   const cacheFile = join(CACHE, `${slug}.txt`);
-  if (process.env.FORCE !== '1' && existsSync(cacheFile)) return readFileSync(cacheFile, 'utf8');
+  if (!force && process.env.FORCE !== '1' && existsSync(cacheFile)) return readFileSync(cacheFile, 'utf8');
   for (let attempt = 0; attempt < 3; attempt++) {
     let code = '000';
+    const hdrTmp = pdfTmp + '.hdr';
     try {
-      code = execFileSync('curl', ['-sL', '-A', 'Mozilla/5.0', '--max-time', '60', '-o', pdfTmp, '-w', '%{http_code}', PI(slug)], { encoding: 'utf8' }).trim();
+      code = execFileSync('curl', ['-sL', '-A', 'Mozilla/5.0', '--max-time', '60', '-D', hdrTmp, '-o', pdfTmp, '-w', '%{http_code}', PI(slug)], { encoding: 'utf8' }).trim();
     } catch { code = '000'; }
+    try { lastModified.set(slug, parseLastModified(readFileSync(hdrTmp, 'utf8'))); rmSync(hdrTmp); } catch { /* no headers */ }
     if (code === '200' && existsSync(pdfTmp)) {
       const txtTmp = pdfTmp + '.txt';
       try {
@@ -161,13 +184,15 @@ async function rawText(slug, pdfTmp) {
 async function run() {
   const limit = process.argv[2] ? parseInt(process.argv[2], 10) : Infinity;
   const reparse = process.env.REPARSE === '1';
+  const changedOnly = process.env.CHANGED_ONLY === '1';
   for (const d of [OUT_DIR, CACHE]) mkdirSync(d, { recursive: true });
   const data = JSON.parse(readFileSync(join(root, 'ema-medicines.json'), 'utf8'));
 
+  const only = process.env.ONLY ? new Set(process.env.ONLY.split(',')) : null; // debugging: restrict to these slugs (the manifest then lists only them — do not commit it)
   const seen = new Set();
   const drugs = data.authorised.filter((m) => {
     const s = slugOf(m);
-    if (!s || seen.has(s)) return false;
+    if (!s || seen.has(s) || (only && !only.has(s))) return false;
     seen.add(s); return true;
   });
 
@@ -177,6 +202,15 @@ async function run() {
   const queue = [...drugs];
 
   let consecutiveFail = 0, cooldowns = 0, aborted = false;
+  let unchanged = 0, headFailed = 0;
+  const refreshed = [];
+  const readDoc = (slug) => { try { return JSON.parse(readFileSync(join(OUT_DIR, `${slug}.json`), 'utf8')); } catch { return null; } };
+  // Keep the extract already on disk listed in the manifest (nothing about it changes).
+  const keepExisting = (slug, m) => { if (existsSync(join(OUT_DIR, `${slug}.json`))) { index.drugs[slug] = { brand: m.n, inn: m.inn }; ok++; return true; } return false; };
+  // EMA's copy counts as newer when its Last-Modified differs from the one we
+  // extracted from — or, for extracts made before that was recorded, when it
+  // post-dates the day the text was retrieved.
+  const isNewer = (lm, prev) => !!lm && (prev.sourceModified ? lm !== prev.sourceModified : lm.slice(0, 10) > String(prev.retrieved || ''));
   async function worker(id) {
     const pdf = join(CACHE, `.tmp.${id}.pdf`);
     while (queue.length) {
@@ -184,13 +218,36 @@ async function run() {
       const m = queue.shift();
       const slug = slugOf(m);
       done++;
-      const cached = existsSync(join(CACHE, `${slug}.txt`));
+      let cached = existsSync(join(CACHE, `${slug}.txt`));
+      let force = false;
+      if (changedOnly) {
+        const prev = readDoc(slug);
+        if (prev) {
+          if (fetched >= limit) { keepExisting(slug, m); continue; }        // budget spent: not even checked this week
+          const h = await headPdf(slug);
+          await sleep(700 + Math.floor(Math.random() * 400));
+          if (!h.ok) {                                                       // the label stays as it is; ride out a block like a failed download
+            headFailed++; consecutiveFail++; keepExisting(slug, m);
+            if (consecutiveFail >= 6) {
+              if (++cooldowns > 5) { aborted = true; console.log(`\n⚠ EMA still blocking after ${cooldowns} cooldowns — stopping. Unchecked labels are kept as they are.`); return; }
+              console.log(`\n⏸ ${consecutiveFail} consecutive HEAD failures — EMA rate-limit active. Cooling down 20 min (cooldown ${cooldowns}/5)…`);
+              await sleep(20 * 60 * 1000);
+              consecutiveFail = 0;
+            }
+            continue;
+          }
+          consecutiveFail = 0;
+          if (h.notFound || !isNewer(h.lastModified, prev)) { unchanged++; keepExisting(slug, m); continue; }
+          refreshed.push(`${slug} (${String(prev.sourceModified || prev.retrieved).slice(0, 10)} → ${h.lastModified.slice(0, 10)})`);
+          force = true; cached = false;                                        // EMA has a newer PDF: download it
+        }
+      }
       if (!cached && reparse) {                            // a re-parse only touches what is cached — never a fetch failure
-        if (existsSync(join(OUT_DIR, `${slug}.json`))) { index.drugs[slug] = { brand: m.n, inn: m.inn }; ok++; } // keep the file already on disk listed
+        keepExisting(slug, m);                             // keep the file already on disk listed
         continue;
       }
-      if (!cached && !reparse && fetched >= limit) continue; // download budget hit; parse only cached
-      let t = reparse && !cached ? null : await rawText(slug, pdf);
+      if (!cached && !reparse && fetched >= limit) { keepExisting(slug, m); continue; } // download budget hit; parse only cached
+      let t = reparse && !cached ? null : await rawText(slug, pdf, force);
       if (!cached && t && t !== '404') { fetched++; consecutiveFail = 0; }
       if (!t) { // genuine fetch failure (not 404): ride out EMA's block with a long cooldown, then retry this drug once
         consecutiveFail++;
@@ -203,13 +260,14 @@ async function run() {
           continue;
         }
       }
-      if (!t || t === '404') { if (t === '404') notfound++; else fail++; index.failed.push(slug); if (!cached) await sleep(200); continue; }
+      if (!t || t === '404') { if (t === '404') notfound++; else fail++; index.failed.push(slug); keepExisting(slug, m); if (!cached) await sleep(200); continue; }
       const sections = parseSections(t);
-      if (!Object.values(sections).some((s) => !s.missing && s.text)) { fail++; index.failed.push(slug); continue; }
+      if (!Object.values(sections).some((s) => !s.missing && s.text)) { fail++; index.failed.push(slug); keepExisting(slug, m); continue; }
       const doc = {
         slug, brand: m.n, inn: m.inn, holder: m.holder, url: PI(slug), source: 'EMA product-information (Annex I, SmPC)',
         retrieved: (() => { try { return new Date(statSync(join(CACHE, `${slug}.txt`)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(), // when the PDF text was fetched from EMA
         sourceSha: createHash('sha256').update(t).digest('hex'), // fingerprint of the raw PDF text this extract was parsed from (validate-release.py: same source + different sections = parser drift)
+        ...(lastModified.get(slug) || readDoc(slug)?.sourceModified ? { sourceModified: lastModified.get(slug) || readDoc(slug).sourceModified } : {}), // EMA's Last-Modified of the PDF (weekly change check)
         sections,
       };
       const why = regressed(slug, doc);
@@ -246,10 +304,15 @@ async function run() {
   await Promise.all(Array.from({ length: CONC }, (_, i) => worker(i)));
 
   index.count = Object.keys(index.drugs).length;
-  index.generated = process.env.STAMP || cacheStamp(CACHE, '.txt') || index.generated;
+  // a changed-only run DID read EMA today (every HEAD check), so the stamp is today
+  index.generated = process.env.STAMP || (changedOnly ? new Date().toISOString().slice(0, 10) : cacheStamp(CACHE, '.txt')) || index.generated;
   if (guarded.length) index.guarded = guarded; else delete index.guarded;
   writeFileSync(INDEX, JSON.stringify(index));
   console.log(`\nDONE. parsed:${ok} newDownloads:${fetched} 404:${notfound} failed:${fail} guarded(kept previous file):${guarded.length}`);
+  if (changedOnly) {
+    console.log(`  changed-only: unchanged:${unchanged} refreshed:${refreshed.length} headFailed:${headFailed}`);
+    if (refreshed.length) console.log(`  refreshed: ${refreshed.join('; ')}`);
+  }
   if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
   console.log(`Manifest: ${index.count} drugs → smpc-index.json ; per-drug JSON → smpc-data/`);
 }

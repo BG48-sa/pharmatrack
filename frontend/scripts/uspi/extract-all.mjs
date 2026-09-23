@@ -188,6 +188,16 @@ const openfda = async (search, limit) => {
 async function run() {
   const reparse = process.env.REPARSE === '1';
   const force = process.env.FORCE === '1';
+  // CHANGED_ONLY=1 (weekly CI refresh): openFDA is asked for the current version
+  // of every stored set_id (50 per query); only labels with a newer
+  // effective_time are re-parsed, EU medicines authorised in the last 120 days
+  // without a US extract yet get a fresh lookup, everything else is kept as it
+  // is — a label never disappears because it was not checked.
+  const changedOnly = process.env.CHANGED_ONLY === '1';
+  const only = process.env.ONLY ? new Set(process.env.ONLY.split(',')) : null; // debugging: restrict to these slugs
+  const readDoc = (slug) => { try { return JSON.parse(readFileSync(join(OUT_DIR, `${slug}.json`), 'utf8')); } catch { return null; } };
+  const isoDate = (t) => (t && /^\d{8}$/.test(t) ? `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}` : null);
+  const recentEU = (m) => !!m.d && Date.now() - Date.parse(m.d) < 120 * 864e5;
   const rebrand = process.env.REBRAND === '1';          // redo tier 1 for every brand
   const requeryEmpty = process.env.REQUERY_EMPTY === '1'; // redo tier 2 where it returned nothing
   const maxCalls = process.env.MAX_CALLS ? parseInt(process.env.MAX_CALLS, 10) : Infinity;
@@ -221,16 +231,49 @@ async function run() {
   const seen = new Set();
   const drugs = data.authorised.filter((m) => {
     const s = slugOf(m);
-    if (!s || !m.inn || seen.has(s)) return false;
+    if (!s || !m.inn || seen.has(s) || (only && !only.has(s))) return false;
     seen.add(s); return true;
   });
   const cacheFile = (slug) => join(CACHE2, `${slug}.json`);
   const loadCache = (slug) => { try { return JSON.parse(readFileSync(cacheFile(slug), 'utf8')); } catch { return null; } };
   const saveCache = (slug, c) => writeFileSync(cacheFile(slug), JSON.stringify(c));
 
+  // ---- changed-only: version check of every stored label by set_id ---------
+  const presel = new Map(); // slug -> { chosen, match } for labels openFDA holds a newer version of
+  const refreshedUS = [];
+  let unchangedUS = 0, goneUS = 0;
+  if (changedOnly) {
+    const bySet = new Map();
+    for (const m of drugs) { const prev = readDoc(slugOf(m)); if (prev?.splSetId) bySet.set(prev.splSetId, { slug: slugOf(m), prev }); }
+    const ids = [...bySet.keys()];
+    console.log(`Changed-only: checking the version of ${ids.length} stored US labels in ${Math.ceil(ids.length / 50)} queries`);
+    for (let i = 0; i < ids.length; i += 50) {
+      const batch = ids.slice(i, i + 50);
+      const search = `(${batch.map((id) => `set_id:"${id}"`).join(' ')})`;
+      let results = await openfda(search, 100);
+      if (results === null) { console.log('  ⏸ openFDA transient error — cooling down 60s'); await sleep(60000); results = await openfda(search, 100); }
+      if (results === null) { console.log(`  ✗ batch ${i / 50 + 1} failed twice — those ${batch.length} labels stay as they are`); continue; }
+      const seenIds = new Set();
+      for (const r of results) {
+        const e = bySet.get(r.set_id);
+        if (!e) continue;
+        seenIds.add(r.set_id);
+        const eff = isoDate(r.effective_time);
+        if (eff && (!e.prev.effective || eff > e.prev.effective)) {
+          presel.set(e.slug, { chosen: r, match: e.prev.match });
+          saveCache(e.slug, { [e.prev.match]: [r], versionCheckedAt: new Date().toISOString() }); // retrieved date = today
+          refreshedUS.push(`${e.slug} (${e.prev.effective || '?'} → ${eff})`);
+        } else unchangedUS++;
+      }
+      goneUS += batch.filter((id) => !seenIds.has(id)).length; // set_id no longer served: kept as is, G7/G5 will tell if that matters
+    }
+    console.log(`  unchanged:${unchangedUS} newer:${presel.size} notServedAnyMore:${goneUS}`);
+  }
+
   // ---- Tier 1: brand lookups, 40 EU brands per openFDA query ----------------
   if (!reparse) {
-    const need = drugs.filter((m) => !isGenericStyleName(m) && (force || rebrand || !loadCache(slugOf(m))?.brand));
+    const need = drugs.filter((m) => !isGenericStyleName(m) && (force || rebrand || !loadCache(slugOf(m))?.brand)
+      && (!changedOnly || (!readDoc(slugOf(m)) && recentEU(m))));       // changed-only: fresh lookups only for recent EU medicines without a US extract
     console.log(`Tier 1 (brand): ${need.length} EU brands to look up in ${Math.ceil(need.length / 20)} batched queries`);
     for (let i = 0; i < need.length; i += 20) {
       if (apiCalls >= maxCalls) { console.log('MAX_CALLS reached — stopping tier 1'); break; }
@@ -259,10 +302,20 @@ async function run() {
     done++;
     let c = loadCache(slug) || {};
     let chosen = null, match = null;
+    if (changedOnly) {
+      const prev = readDoc(slug);
+      if (prev && !presel.has(slug)) {                                  // not newer at openFDA: keep the extract as it is
+        index.drugs[slug] = { brand: prev.brand, inn: prev.inn, match: prev.match, usGeneric: prev.usGeneric || null };
+        stats[prev.match] = (stats[prev.match] || 0) + 1;
+        continue;
+      }
+      if (!prev && !recentEU(m)) { stats.none++; continue; }            // no extract and not a recent EU authorisation: not looked up this week
+      if (presel.has(slug)) ({ chosen, match } = presel.get(slug));
+    }
     const want = norm(US_ALIAS[slug] || m.n);
     // tier 1 — exact brand with the same actives
     // CBER labels sometimes carry no generic_name at all — a brand match then stands on its own.
-    const brandHits = (c.brand || []).filter((r) => isRx(r) && brandEquals(r, want) && (!r.openfda?.generic_name?.[0] || sameActives(m.inn, r.openfda.generic_name[0])));
+    const brandHits = chosen ? [] : (c.brand || []).filter((r) => isRx(r) && brandEquals(r, want) && (!r.openfda?.generic_name?.[0] || sameActives(m.inn, r.openfda.generic_name[0])));
     if (brandHits.length) { chosen = brandHits.sort((a, b) => rank(b) - rank(a))[0]; match = 'brand'; }
     // tier 2 — same active substance(s), originator preferred
     if (!chosen) {
@@ -318,12 +371,14 @@ async function run() {
   for (const f of readdirSync(OUT_DIR)) {
     if (!f.endsWith('.json')) continue;
     const slug = f.replace(/\.json$/, '');
-    if (!index.drugs[slug] && !stats.skipped) { try { unlinkSync(join(OUT_DIR, f)); removed++; } catch { /* ignore */ } }
+    if (!index.drugs[slug] && !stats.skipped && !only) { try { unlinkSync(join(OUT_DIR, f)); removed++; } catch { /* ignore */ } }
   }
 
   index.count = Object.keys(index.drugs).length;
-  index.generated = process.env.STAMP || cacheStamp(CACHE2, '.json') || index.generated;
+  // a changed-only run DID read openFDA today (every version check), so the stamp is today
+  index.generated = process.env.STAMP || (changedOnly ? new Date().toISOString().slice(0, 10) : cacheStamp(CACHE2, '.json')) || index.generated;
   writeFileSync(INDEX, JSON.stringify(index));
+  if (changedOnly && refreshedUS.length) console.log(`  refreshed: ${refreshedUS.join('; ')}`);
   console.log(`\nDONE. brand-matched:${stats.brand} substance-matched:${stats.substance} noUSlabel:${stats.none} skipped(no calls left):${stats.skipped} removedStale:${removed} guarded(kept previous file):${guarded.length} apiCalls:${apiCalls}`);
   if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
   console.log(`Manifest: ${index.count} drugs → uspi-index.json ; per-drug JSON → uspi-data/`);
