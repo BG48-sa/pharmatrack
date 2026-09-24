@@ -91,6 +91,7 @@ PRODUCTS = [
     ("BLA125868", "2026-06-30", "Allogeneic Treg-cell-engineered transplant graft therapy", "Tregzi", "allogeneic regulatory T cell immunotherapy with HSPC and T cells-vldq", "Orca Bio", "Adults with hematologic malignancies undergoing allogeneic hematopoietic stem cell transplant, to reduce graft-versus-host disease (Orca-T)."),
     ("BLA125827", "2026-08-06", "Oncolytic HSV-1 gene therapy (melanoma)", "Tudriqev", "vusolimogene oderparepvec-wtpg", "Replimune", "With nivolumab for unresectable advanced cutaneous melanoma after progression on a PD-1 antibody regimen (accelerated approval)."),
     ("BLA125858", "2026-08-19", "AAV8 gene therapy (G6PC, GSDIa)", "Genglycos", "pariglasgene brecaparvovec-opnr", "Ultragenyx Pharmaceutical", "Reduction of daily cornstarch intake in glycogen storage disease type Ia, patients 8 years and older (accelerated approval)."),
+    ("BLA125845", "2026-09-17", "AAV9 gene therapy (SGSH, MPS IIIA)", "Fayuvi", "rebisufligene etisparvovec-hopf", "Ultragenyx Pharmaceutical", "Neurologic manifestations of mucopolysaccharidosis type IIIA (Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function."),
 ]
 
 data = {

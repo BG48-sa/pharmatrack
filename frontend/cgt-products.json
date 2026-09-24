@@ -422,5 +422,13 @@
     "g": "pariglasgene brecaparvovec-opnr",
     "m": "Ultragenyx Pharmaceutical",
     "i": "Reduction of daily cornstarch intake in glycogen storage disease type Ia, patients 8 years and older (accelerated approval)."
+  },
+  "BLA125845": {
+    "d": "2026-09-17",
+    "c": "AAV9 gene therapy (SGSH, MPS IIIA)",
+    "n": "Fayuvi",
+    "g": "rebisufligene etisparvovec-hopf",
+    "m": "Ultragenyx Pharmaceutical",
+    "i": "Neurologic manifestations of mucopolysaccharidosis type IIIA (Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function."
   }
 }
