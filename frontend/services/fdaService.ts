@@ -102,7 +102,7 @@ const cleanClass = (cls?: string): string =>
 const cleanIndication = (raw?: string): string => {
   if (!raw) return '';
   let t = raw.replace(/\s+/g, ' ').trim();
-  t = t.replace(/^[\d.\s]*INDICATIONS\s+AND\s+USAGE[\s:.-]*/i, '').trim();
+  t = t.replace(/^[\d.\s]*INDICATIONS\s+(?:AND|&)\s+USAGE(?:\s+SECTION)?[\s:.-]*/i, '').trim();
   if (t.length > 260) t = t.slice(0, 260).replace(/\s+\S*$/, '') + '…';
   return t;
 };
@@ -234,11 +234,16 @@ interface LabelResult {
   };
 }
 
-const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)[]): Promise<void> => {
-  const valid = appNos.filter((a): a is string => !!a);
-  if (valid.length === 0) return;
+// Indications already looked up this session, by application number. Label
+// records are large (one query returns ~10 MB of full label text), and the
+// start-up list is loaded twice, often at the same moment (shipped data, then
+// live data), so never ask openFDA again for an application we already have —
+// and let an identical request still in flight be shared rather than repeated.
+const indicationCache = new Map<string, string>();
+const inflight = new Map<string, Promise<void>>();
+
+const fetchIndications = async (clause: string): Promise<void> => {
   try {
-    const clause = valid.map((a) => `"${a}"`).join(' ');
     const params = new URLSearchParams({
       search: `openfda.application_number:(${clause})`,
       limit: '100',
@@ -247,21 +252,33 @@ const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)
     if (!res.ok) return;
     const json = await res.json();
     const results: LabelResult[] = json.results || [];
-    const byApp = new Map<string, string>();
     for (const r of results) {
       const indication = cleanIndication(r.indications_and_usage?.[0]);
       if (!indication) continue;
       for (const app of r.openfda?.application_number || []) {
-        if (!byApp.has(app)) byApp.set(app, indication);
+        if (!indicationCache.has(app)) indicationCache.set(app, indication);
       }
     }
-    drugs.forEach((drug, i) => {
-      const app = appNos[i];
-      if (app && byApp.has(app)) drug.indication = byApp.get(app)!;
-    });
   } catch {
     /* best-effort */
   }
+};
+
+const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)[]): Promise<void> => {
+  const valid = [...new Set(appNos.filter((a): a is string => !!a && !indicationCache.has(a)))];
+  if (valid.length > 0) {
+    const clause = valid.map((a) => `"${a}"`).join(' ');
+    let p = inflight.get(clause);
+    if (!p) {
+      p = fetchIndications(clause).finally(() => inflight.delete(clause));
+      inflight.set(clause, p);
+    }
+    await p;
+  }
+  drugs.forEach((drug, i) => {
+    const app = appNos[i];
+    if (app && indicationCache.has(app)) drug.indication = indicationCache.get(app)!;
+  });
 };
 
 const buildSources = (drugs: Drug[], usedLabelApi = false, usedCber = false): Source[] => {

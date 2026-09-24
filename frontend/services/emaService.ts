@@ -118,15 +118,27 @@ const matchesQuery = (m: EmaMedicine | EmaPipelineItem | EmaGoneItem, q: string)
   return terms.every((term) => hasTerm(hay, term) && (term.length > 2 || new RegExp(`\\b${term}\\b`).test(hay)));
 };
 
-/** Most recently authorised EU medicines, newest first. */
+// A medicine whose own name or INN IS the query goes first (a search for
+// "pembrolizumab" opens on Keytruda, not on medicines that merely name it as a
+// combination partner); everything else keeps its date order.
+const exactFirst = <T extends { n: string; inn: string; sub: string }>(list: T[], query: string): T[] => {
+  const q = normalise(query);
+  if (!q) return list;
+  const isExact = (m: T) =>
+    [m.n, m.n.replace(/\s*\(.*\)\s*$/, ''), m.inn, m.sub].some((s) => !!s && normalise(s) === q);
+  return [...list.filter(isExact), ...list.filter((m) => !isExact(m))];
+};
+
+/** Most recently authorised EU medicines, newest first (exact name/INN hits on top). */
 export const recentApprovals = (
   query = '',
   filter: EmaFilter = 'all',
   limit = 60
 ): EmaMedicine[] =>
-  data.authorised
-    .filter((m) => matchesFilter(m, filter) && matchesQuery(m, query))
-    .slice(0, limit);
+  exactFirst(
+    data.authorised.filter((m) => matchesFilter(m, filter) && matchesQuery(m, query)),
+    query
+  ).slice(0, limit);
 
 /** Medicines with a CHMP opinion adopted, awaiting the EC decision. */
 export const pipeline = (query = '', filter: EmaFilter = 'all'): EmaPipelineItem[] =>
@@ -135,9 +147,10 @@ export const pipeline = (query = '', filter: EmaFilter = 'all'): EmaPipelineItem
 /** Medicines no longer authorised (or never authorised): withdrawn, expired,
  *  lapsed, revoked, suspended, refused, application withdrawn. Newest event first. */
 export const withdrawn = (query = '', filter: EmaFilter = 'all', limit = 80): EmaGoneItem[] =>
-  (data.gone || [])
-    .filter((m) => matchesFilter(m, filter) && matchesQuery(m, query))
-    .slice(0, limit);
+  exactFirst(
+    (data.gone || []).filter((m) => matchesFilter(m, filter) && matchesQuery(m, query)),
+    query
+  ).slice(0, limit);
 
 /** Total number of no-longer-authorised medicines in the snapshot (unfiltered). */
 export const withdrawnCount = (): number => (data.gone || []).length;

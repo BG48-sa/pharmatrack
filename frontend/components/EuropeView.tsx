@@ -179,6 +179,16 @@ const WithdrawnCard: React.FC<{ m: EmaGoneItem; onClick: () => void }> = ({ m, o
   </button>
 );
 
+const ShowMore: React.FC<{ shown: number; total: number; onMore: () => void }> = ({ shown, total, onMore }) =>
+  shown < total ? (
+    <button
+      onClick={onMore}
+      className="w-full py-2.5 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 border border-slate-200 active:bg-slate-200"
+    >
+      Showing {shown} of {total} — show {Math.min(60, total - shown)} more
+    </button>
+  ) : null;
+
 const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTrials, watchedTerms, onWatchIndication, onCompareDisease }) => {
   const [sub, setSub] = useState<SubView>('approved');
   const [filter, setFilter] = useState<EmaFilter>('all');
@@ -207,10 +217,17 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
   // one; a molecular target (e.g. "PD-1", "CD20") can yield several classes.
   const diseases = onCompareDisease ? findDiseaseMatches(q) : [];
 
-  const approved = useMemo(() => recentApprovals(query, filter), [query, filter]);
+  // Lists render a page at a time; "Show more" reveals the rest, so a broad
+  // search ("diabetes": ~150 hits) never silently drops the older medicines.
+  const PAGE = 60;
+  const [shown, setShown] = useState(PAGE);
+  useEffect(() => setShown(PAGE), [query, filter, sub]);
+  const approvedAll = useMemo(() => recentApprovals(query, filter, Infinity), [query, filter]);
+  const approved = approvedAll.slice(0, shown);
   const expected = useMemo(() => pipeline(query, filter), [query, filter]);
-  const gone = useMemo(() => withdrawn(query, filter), [query, filter]);
-  const goneUnfiltered = useMemo(() => withdrawn(query, 'all'), [query]);
+  const goneAll = useMemo(() => withdrawn(query, filter, Infinity), [query, filter]);
+  const gone = goneAll.slice(0, shown);
+  const goneUnfiltered = useMemo(() => withdrawn(query, 'all', Infinity), [query]);
   // The query IS the name of a withdrawn/expired/refused product (e.g. "MACI"),
   // while the approved list still has fuzzy hits (macitentan…). Say so on top,
   // otherwise the real answer hides behind unrelated matches.
@@ -220,11 +237,11 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
     [goneUnfiltered, query]
   );
   const exactLive = useMemo(
-    () => approved.some((m) => eq(m.n, query)) || expected.some((m) => eq(m.n, query)),
-    [approved, expected, query]
+    () => approvedAll.some((m) => eq(m.n, query)) || expected.some((m) => eq(m.n, query)),
+    [approvedAll, expected, query]
   );
   // Cross-checks used to turn an empty result into guidance instead of a dead-end.
-  const approvedUnfiltered = useMemo(() => recentApprovals(query, 'all'), [query]);
+  const approvedUnfiltered = useMemo(() => recentApprovals(query, 'all', Infinity), [query]);
   const expectedUnfiltered = useMemo(() => pipeline(query, 'all'), [query]);
 
   const subTab = (active: boolean) =>
@@ -237,10 +254,10 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
       {/* Announce result counts to screen readers as the search/filter changes. */}
       <p className="sr-only" role="status" aria-live="polite">
         {sub === 'approved'
-          ? `${approved.length} approved EU medicines shown`
+          ? `${approved.length} of ${approvedAll.length} approved EU medicines shown`
           : sub === 'expected'
             ? `${expected.length} expected EU medicines shown`
-            : `${gone.length} withdrawn or refused EU medicines shown`}
+            : `${gone.length} of ${goneAll.length} withdrawn or refused EU medicines shown`}
       </p>
       {/* Approved | Expected */}
       <div className="flex bg-slate-100 rounded-xl p-1 mb-3">
@@ -371,6 +388,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
                   onClick={() => { markSeen(m); onSelect(approvalToDetail(m)); }}
                 />
               ))}
+              <ShowMore shown={approved.length} total={approvedAll.length} onMore={() => setShown(shown + PAGE)} />
             </div>
           )}
         </>
@@ -437,6 +455,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
               {gone.map((m) => (
                 <WithdrawnCard key={`${m.n}-${m.e}-${m.st}`} m={m} onClick={() => onSelect(goneToDetail(m))} />
               ))}
+              <ShowMore shown={gone.length} total={goneAll.length} onMore={() => setShown(shown + PAGE)} />
             </div>
           )}
         </>

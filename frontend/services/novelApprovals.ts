@@ -22,7 +22,8 @@ let data: Record<string, NovelApproval[]> = {};
 export const __setNovelData = (d: Record<string, NovelApproval[]>): void => { data = d; };
 
 /** Years available, newest first (e.g. ['2026', '2025']). */
-export const getNovelYears = (): string[] => Object.keys(data);
+// JS orders integer-like keys ascending, so sort explicitly.
+export const getNovelYears = (): string[] => Object.keys(data).sort().reverse();
 
 /** Official CDER novel approvals for a year, newest approval first. */
 export const getNovelApprovals = (year: string): NovelApproval[] => data[year] || [];
