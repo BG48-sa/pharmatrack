@@ -140,6 +140,31 @@ export const recentApprovals = (
     query
   ).slice(0, limit);
 
+/**
+ * The distinct medicines behind a result list, for an "all EU medicines for
+ * this disease" comparison: generics, biosimilars and diagnostics dropped, and
+ * duplicate marketing authorisations (same substance, same company — Januvia /
+ * Xelevia / Tesavel) collapsed to the first-authorised brand.
+ */
+export const distinctMedicines = (list: EmaMedicine[], phrases: string[] = []): EmaMedicine[] => {
+  // The free-text search only needs every word somewhere ("pulmonary" …
+  // "cystic fibrosis" matches "pulmonary fibrosis"); a disease comparison
+  // needs the disease named as a phrase in the therapeutic area or indication.
+  const wanted = phrases.map((p) => ` ${normalise(p)} `).filter((p) => p.trim().length > 2);
+  const names = (m: EmaMedicine) => ` ${normalise(`${m.area} ${m.ind}`)} `;
+  if (wanted.length) list = list.filter((m) => { const h = names(m); return wanted.some((p) => h.includes(p)); });
+  const holderKey = (h: string) => normalise(h || '').split(' ')[0] || '';
+  const seen = new Map<string, EmaMedicine>();
+  for (const m of list) {
+    if (m.gen || m.bio || /for diagnostic use only/i.test(m.ind || '')) continue;
+    const key = `${normalise(m.inn || m.sub)}|${holderKey(m.holder || '')}`;
+    const prev = seen.get(key);
+    if (!prev || m.d < prev.d) seen.set(key, m);
+  }
+  const keep = new Set(seen.values());
+  return list.filter((m) => keep.has(m));
+};
+
 /** Medicines with a CHMP opinion adopted, awaiting the EC decision. */
 export const pipeline = (query = '', filter: EmaFilter = 'all'): EmaPipelineItem[] =>
   data.pipeline.filter((m) => matchesFilter(m, filter) && matchesQuery(m, query));

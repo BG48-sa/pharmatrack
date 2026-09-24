@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-12",
+  "generated": "2026-09-24",
   "entities": [
     {
       "id": "pbc",
@@ -306,6 +306,13 @@
           "b": "Beyonttra",
           "g": "acoramidis",
           "co": "BridgeBio / Bayer"
+        },
+        {
+          "b": "Attrogy",
+          "g": "diflunisal",
+          "co": "Purpose Pharma",
+          "emad": "2025-07-17",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/attrogy"
         }
       ]
     },
@@ -347,6 +354,20 @@
           "b": "Andembry",
           "g": "garadacimab",
           "co": "CSL Behring"
+        },
+        {
+          "b": "Dawnzera",
+          "g": "donidalorsen",
+          "co": "Otsuka / Ionis",
+          "emad": "2026-01-19",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/dawnzera"
+        },
+        {
+          "b": "Ekterly",
+          "g": "sebetralstat",
+          "co": "KalVista",
+          "emad": "2025-09-17",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/ekterly"
         }
       ]
     },
@@ -750,6 +771,13 @@
           "b": "Imfinzi",
           "g": "durvalumab",
           "co": "AstraZeneca"
+        },
+        {
+          "b": "Ziihera",
+          "g": "zanidatamab",
+          "co": "Jazz Pharmaceuticals",
+          "emad": "2025-06-27",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/ziihera"
         }
       ],
       "tgt": [
@@ -892,6 +920,20 @@
           "b": "Keytruda",
           "g": "pembrolizumab",
           "co": "MSD"
+        },
+        {
+          "b": "Adstiladrin",
+          "g": "nadofaragene firadenovec",
+          "co": "Ferring",
+          "emad": "2026-05-28",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/adstiladrin"
+        },
+        {
+          "b": "Anktiva",
+          "g": "nogapendekin alfa inbakicept",
+          "co": "ImmunityBio",
+          "emad": "2026-02-16",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/anktiva"
         }
       ],
       "tgt": [
@@ -1020,6 +1062,13 @@
           "b": "Hympavzi",
           "g": "marstacimab",
           "co": "Pfizer"
+        },
+        {
+          "b": "Alhemo",
+          "g": "concizumab",
+          "co": "Novo Nordisk",
+          "emad": "2024-12-13",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/alhemo"
         }
       ],
       "tgt": [
@@ -1134,6 +1183,13 @@
           "b": "Esbriet",
           "g": "pirfenidone",
           "co": "Roche / Genentech"
+        },
+        {
+          "b": "Jascayd",
+          "g": "nerandomilast",
+          "co": "Boehringer Ingelheim",
+          "emad": "2026-07-15",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/jascayd"
         }
       ],
       "tgt": [
@@ -1431,6 +1487,13 @@
           "b": "Tavlesse",
           "g": "fostamatinib",
           "co": "Grifols / Rigel"
+        },
+        {
+          "b": "Wayrilz",
+          "g": "rilzabrutinib",
+          "co": "Sanofi",
+          "emad": "2025-12-22",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/wayrilz"
         }
       ],
       "tgt": [
@@ -1938,6 +2001,20 @@
           "b": "Imdylltra",
           "g": "Tarlatamab",
           "co": "Amgen"
+        },
+        {
+          "b": "Hetronifly",
+          "g": "serplulimab",
+          "co": "Accord / Henlius",
+          "emad": "2025-02-03",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/hetronifly"
+        },
+        {
+          "b": "Tevimbra",
+          "g": "tislelizumab",
+          "co": "BeOne Medicines",
+          "emad": "2023-09-15",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/tevimbra"
         }
       ],
       "tgt": [
@@ -2244,6 +2321,13 @@
           "b": "Blenrep",
           "g": "Belantamab mafodotin",
           "co": "GSK"
+        },
+        {
+          "b": "Lynozyfic",
+          "g": "linvoseltamab",
+          "co": "Regeneron",
+          "emad": "2025-04-23",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/lynozyfic"
         }
       ],
       "tgt": [
@@ -2521,6 +2605,13 @@
           "b": "Avonex",
           "g": "Interferon beta-1a",
           "co": "Biogen"
+        },
+        {
+          "b": "Cenrifki",
+          "g": "tolebrutinib",
+          "co": "Sanofi",
+          "emad": "2026-06-19",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/cenrifki"
         }
       ],
       "tgt": [
@@ -2562,6 +2653,13 @@
           "b": "Vabysmo",
           "g": "faricimab",
           "co": "Roche / Genentech"
+        },
+        {
+          "b": "Lytenava",
+          "g": "bevacizumab",
+          "co": "Outlook Therapeutics",
+          "emad": "2024-05-27",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/lytenava"
         }
       ],
       "tgt": [
@@ -2612,6 +2710,20 @@
           "b": "Mylotarg",
           "g": "gemtuzumab ozogamicin",
           "co": "Pfizer"
+        },
+        {
+          "b": "Vanflyta",
+          "g": "quizartinib",
+          "co": "Daiichi Sankyo",
+          "emad": "2023-11-06",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/vanflyta"
+        },
+        {
+          "b": "Inaqovi",
+          "g": "cedazuridine / decitabine",
+          "co": "Otsuka / Taiho",
+          "emad": "2023-09-15",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/inaqovi"
         }
       ],
       "tgt": [
@@ -3068,6 +3180,13 @@
           "b": "Zilbrysq",
           "g": "zilucoplan",
           "co": "UCB"
+        },
+        {
+          "b": "Imaavy",
+          "g": "nipocalimab",
+          "co": "Janssen",
+          "emad": "2025-11-28",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/imaavy"
         }
       ],
       "tgt": [
@@ -3346,6 +3465,13 @@
           "b": "Olumiant",
           "g": "baricitinib",
           "co": "Eli Lilly"
+        },
+        {
+          "b": "Nemluvio",
+          "g": "nemolizumab",
+          "co": "Galderma",
+          "emad": "2025-02-12",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/nemluvio"
         }
       ],
       "tgt": [
@@ -3396,6 +3522,13 @@
           "b": "Tezspire",
           "g": "tezepelumab",
           "co": "AstraZeneca / Amgen"
+        },
+        {
+          "b": "Exdensur",
+          "g": "depemokimab",
+          "co": "GSK",
+          "emad": "2026-02-12",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/exdensur"
         }
       ],
       "tgt": [
@@ -3578,6 +3711,13 @@
           "b": "Tepkinly",
           "g": "epcoritamab",
           "co": "AbbVie / Genmab"
+        },
+        {
+          "b": "Ordspono",
+          "g": "odronextamab",
+          "co": "Regeneron",
+          "emad": "2024-08-22",
+          "emau": "https://www.ema.europa.eu/en/medicines/human/EPAR/ordspono"
         }
       ],
       "tgt": [

@@ -255,9 +255,10 @@ export default function App() {
   // Strictly fill the FDA date/indication for each catalogued drug from openFDA,
   // matching only on an exact brand or generic name so a fuzzy hit can never put
   // the wrong approval date on a drug. Failures (offline) keep the EU-only stub.
-  const enrichDiseaseFda = async (stubs: DrugDetailData[]): Promise<DrugDetailData[]> =>
-    Promise.all(
-      stubs.map(async (s) => {
+  // Runs at most 4 lookups at a time: an "all EU medicines" comparison can hold
+  // 40+ drugs, and firing every openFDA search at once trips its rate limit.
+  const enrichDiseaseFda = async (stubs: DrugDetailData[]): Promise<DrugDetailData[]> => {
+    const enrichOne = async (s: DrugDetailData): Promise<DrugDetailData> => {
         try {
           const res = await searchDrugDatabase(s.brandName);
           const norm = (x?: string) => (x || '').toLowerCase().trim();
@@ -266,29 +267,59 @@ export default function App() {
           // (alemtuzumab: Lemtrada[MS] vs Campath[B-CLL]; ofatumumab: Kesimpta[MS]
           // vs Arzerra[CLL]), so a generic-first match would stamp the wrong
           // approval date and indication onto the catalogued brand.
-          const hit =
-            res.drugs.find((p) => norm(p.brandName) === norm(s.brandName)) ||
-            res.drugs.find((p) => norm(p.genericName) === norm(s.genericName));
+          const byBrand = res.drugs.find((p) => norm(p.brandName) === norm(s.brandName));
+          let hit = byBrand || res.drugs.find((p) => norm(p.genericName) === norm(s.genericName));
+          // The EU brand is often not the US one (Imnovid = Pomalyst, Nexpovio =
+          // Xpovio, Caelyx = Doxil): look the substance up too.
+          if (!hit && s.genericName && s.genericName !== '—') {
+            const bySubstance = await searchDrugDatabase(s.genericName);
+            // Only when the substance has exactly ONE US brand (as the offline
+            // lookup does): a generic's "brand" is just the substance name, and
+            // an old molecule's many products (dexamethasone: Ozurdex, Hemady…)
+            // say nothing about this medicine.
+            const branded = bySubstance.drugs.filter(
+              (p) => norm(p.genericName) === norm(s.genericName) &&
+                !norm(p.brandName).includes(norm(s.genericName)) &&
+                /^\d/.test(p.fdaApprovalDate),
+            );
+            if (new Set(branded.map((p) => norm(p.brandName))).size === 1) {
+              hit = branded.sort((a, b) => a.fdaApprovalDate.localeCompare(b.fdaApprovalDate))[0];
+            }
+          }
           if (!hit) return s;
           // A curated US date/indication (DiseaseDrug.fda/.ind) is authoritative
           // for drugs whose openFDA record is INN-conflated — never overwrite it.
           const curatedDate = /^\d/.test(s.approvalDate);
           const curatedInd = !!s.indication;
+          const liveDate = /^\d/.test(hit.fdaApprovalDate);
           return {
             ...s,
-            approvalDate: curatedDate
+            // A generic-only hit is ANOTHER product with the same molecule
+            // (Lytenava vs Avastin): say so, as the offline lookup does, and
+            // never borrow that product's indication.
+            approvalDate: curatedDate || !liveDate
               ? s.approvalDate
-              : /^\d/.test(hit.fdaApprovalDate)
+              : byBrand
               ? hit.fdaApprovalDate
-              : s.approvalDate,
-            indication: curatedInd ? s.indication : hit.indication || s.indication,
+              : `Same substance in US (${hit.brandName}, ${hit.fdaApprovalDate})`,
+            indication: curatedInd || !byBrand ? s.indication : hit.indication || s.indication,
             company: s.company === '—' ? hit.company || s.company : s.company,
           };
         } catch {
           return s; // offline / API error -> keep the offline stub
         }
-      }),
-    );
+    };
+    const out: DrugDetailData[] = [...stubs];
+    let next = 0;
+    const worker = async () => {
+      while (next < stubs.length) {
+        const i = next++;
+        out[i] = await enrichOne(stubs[i]);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(4, stubs.length) }, worker));
+    return out;
+  };
 
   const handleCompareDisease = (e: DiseaseEntity) => {
     const stubs = buildDiseaseComparison(e);

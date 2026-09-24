@@ -11,11 +11,12 @@ import {
   approvalToDetail,
   pipelineToDetail,
   splitAreas,
+  distinctMedicines,
   EmaFilter,
 } from '../services/emaService';
 import { EmaMedicine, EmaPipelineItem, EmaGoneItem, DrugDetailData } from '../types';
 import EmaBadges from './EmaBadges';
-import { findDiseaseMatches, DiseaseEntity } from '../services/diseaseEntities';
+import { findDiseaseMatches, DiseaseEntity, classForInn } from '../services/diseaseEntities';
 import DiseaseClassCard from './DiseaseClassCard';
 import {
   CalendarClock, CheckCircle2, Hourglass, Building2, Sparkles, Info, Star, FlaskConical, BellRing, Pill, ExternalLink, GitCompare, Ban,
@@ -243,6 +244,37 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
   // Cross-checks used to turn an empty result into guidance instead of a dead-end.
   const approvedUnfiltered = useMemo(() => recentApprovals(query, 'all', Infinity), [query]);
   const expectedUnfiltered = useMemo(() => pipeline(query, 'all'), [query]);
+  // Every distinct EU-authorised medicine for the searched disease, whatever
+  // its class — offered on demand next to the curated class card(s). Not for a
+  // drug-name or target search, where "all medicines" would mean nothing.
+  const phrases = useMemo(
+    () => [q, ...diseases.flatMap((m) => [m.entity.name.replace(/\s*\(.*\)\s*$/, ''), ...m.entity.syn])],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [q, diseases.map((m) => m.entity.id).join()]
+  );
+  const allForDisease = useMemo(() => distinctMedicines(approvedUnfiltered, phrases), [approvedUnfiltered, phrases]);
+  const isDrugQuery = approvedUnfiltered.some((m) => eq(m.n, q) || eq(m.inn || '', q) || eq(m.sub || '', q));
+  const showAllCompare =
+    sub === 'approved' && !!onCompareDisease && !!q && !isDrugQuery && !exactLive &&
+    diseases.every((m) => !m.target && !m.viaTargetOnly) &&
+    // A therapeutic-area word ("cancer": 150+ medicines) is not one disease.
+    allForDisease.length >= 2 && allForDisease.length <= 60;
+  const compareAll = () =>
+    onCompareDisease!({
+      id: `all:${q.toLowerCase()}`,
+      name: `All EU medicines for “${q}”`,
+      short: q,
+      syn: [],
+      cls: 'EU-authorised medicine',
+      drugs: allForDisease.map((m) => ({
+        b: m.n.replace(/\s*\(previously[^)]*\)\s*$/i, ''),
+        g: m.inn || m.sub,
+        co: m.holder || undefined,
+        c: classForInn(m.inn || m.sub, m.atc),
+        emad: m.d,
+        emau: m.url || undefined,
+      })),
+    });
 
   const subTab = (active: boolean) =>
     `flex-1 flex items-center justify-center gap-1.5 py-2 text-sm font-semibold rounded-lg transition-colors ${
@@ -311,6 +343,14 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
           <DiseaseClassCard match={m} query={q} onCompare={onCompareDisease} />
         </div>
       ))}
+      {showAllCompare && (
+        <button
+          onClick={compareAll}
+          className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 mb-3 rounded-lg text-xs font-semibold bg-white text-emerald-700 border border-emerald-200 active:bg-emerald-50 transition-colors"
+        >
+          <GitCompare size={13} /> Compare all {allForDisease.length} EU medicines for “{q}” — any drug class
+        </button>
+      )}
 
       {/* When filtering to generics, cite the official generic-medicine registers. */}
       {filter === 'gen' && (

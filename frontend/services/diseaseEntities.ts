@@ -22,13 +22,14 @@
  */
 import { lookupEmaRec } from './fdaService';
 import { DrugDetailData } from '../types';
-import { resolveTarget, actsOn, TargetClass } from './targetAgents';
+import { resolveTarget, actsOn, TargetClass, TARGET_CLASSES } from './targetAgents';
 import { usApprovalFor } from './usApproval';
 
 export interface DiseaseDrug {
   b: string; // brand
   g: string; // generic / INN
   co?: string; // company
+  c?: string; // this drug's own class, when it differs from the group's `cls`
   // Optional offline overrides for the US column. openFDA keys its approval date
   // and label to the FIRST product with a given INN, so a newer brand that shares
   // its molecule with an older product inherits the wrong US date/indication
@@ -179,10 +180,26 @@ export const buildDiseaseComparison = (e: DiseaseEntity): DrugDetailData[] =>
       genericName: d.g,
       approvalDate: d.fda || usApprovalFor(d.b, d.g),
       indication: d.ind || '',
-      drugClass: e.cls,
+      drugClass: d.c || e.cls,
       company: d.co || '—',
       emaApprovalDate: d.emad || (ema ? ema.d : 'Not in EMA'),
       emaUrl: d.emau || ema?.u || undefined,
       badge: e.short || undefined,
     };
   });
+
+/**
+ * A class label for one molecule in an "all EU medicines" comparison, which
+ * spans classes: its molecular target where known ("PD-1/PD-L1", "BCMA"…,
+ * disease-neutral), else the class of the single disease group listing it,
+ * else its ATC code. Never another disease's group name for a drug that sits
+ * in several groups (pembrolizumab must not read "…for NSCLC" under melanoma).
+ */
+export const classForInn = (inn: string, atc?: string): string | undefined => {
+  const k = inn.toLowerCase().trim();
+  const targets = TARGET_CLASSES.filter((t) => t.label !== 'immune checkpoint' && actsOn(k, t)).map((t) => t.label);
+  if (targets.length) return `Acts on ${targets.join(', ')}`;
+  const groups = entities.filter((e) => e.drugs.some((d) => d.g.toLowerCase() === k));
+  if (groups.length === 1) return groups[0].cls;
+  return atc ? `ATC ${atc}` : undefined;
+};
