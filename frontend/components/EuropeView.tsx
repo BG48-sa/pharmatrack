@@ -273,6 +273,7 @@ const EuropeView: React.FC<Props> = ({ query, onSelect, lastVisitISO, onSearchTr
         c: classForInn(m.inn || m.sub, m.atc),
         emad: m.d,
         emau: m.url || undefined,
+        eu: (({ indication, indicationNote, therapeuticArea, emaFlags }) => ({ indication, indicationNote, therapeuticArea, emaFlags }))(approvalToDetail(m)),
       })),
     });
 

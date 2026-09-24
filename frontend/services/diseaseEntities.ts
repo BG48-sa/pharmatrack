@@ -30,6 +30,10 @@ export interface DiseaseDrug {
   g: string; // generic / INN
   co?: string; // company
   c?: string; // this drug's own class, when it differs from the group's `cls`
+  // EU facts for rows of an "all EU medicines" comparison (SmPC indication,
+  // therapeutic area, EMA flags); they win over the offline stub, and a set
+  // indication stops the live US lookup from putting the US one in its place.
+  eu?: Partial<DrugDetailData>;
   // Optional offline overrides for the US column. openFDA keys its approval date
   // and label to the FIRST product with a given INN, so a newer brand that shares
   // its molecule with an older product inherits the wrong US date/indication
@@ -185,6 +189,7 @@ export const buildDiseaseComparison = (e: DiseaseEntity): DrugDetailData[] =>
       emaApprovalDate: d.emad || (ema ? ema.d : 'Not in EMA'),
       emaUrl: d.emau || ema?.u || undefined,
       badge: e.short || undefined,
+      ...d.eu,
     };
   });
 
