@@ -170,3 +170,7 @@ export const actsOn = (inn: string, target: TargetClass): boolean => {
   const words = inn.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
   return words.some((w) => target.agents.includes(w));
 };
+
+/** The molecular targets a molecule acts on, e.g. "idecabtagene vicleucel" -> ["BCMA"]. */
+export const targetsOf = (inn: string): string[] =>
+  TARGET_CLASSES.filter((t) => t.label !== 'immune checkpoint' && actsOn(inn || '', t)).map((t) => t.label);

@@ -12,6 +12,7 @@ import { Capacitor } from '@capacitor/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 import type { DrugDetailData, EmaFlags } from '../types';
+import { targetsOf } from './targetAgents';
 import { describeUsApproval, US_COVERAGE_NOTE } from './usApproval';
 
 const drugsAtFdaUrl = (brand: string): string =>
@@ -237,6 +238,7 @@ export const buildDrugPdf = async (d: DrugDetailData): Promise<{ bytes: ArrayBuf
     heading('Product');
     if (d.company) fact('Company', d.company);
     if (d.drugClass) fact('Drug class', d.drugClass);
+    { const t = targetsOf(d.genericName); if (t.length && !d.drugClass?.startsWith('Acts on')) fact('Mechanism', `Acts on ${t.join(', ')}`); }
     if (d.therapeuticArea) {
       fact('Therapeutic area', d.therapeuticArea.split(';').map((a) => a.trim()).filter(Boolean).join(' · '));
     }

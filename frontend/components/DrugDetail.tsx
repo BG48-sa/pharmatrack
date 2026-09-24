@@ -7,9 +7,10 @@ import AccessStatus from './AccessStatus';
 import DrugNotes from './DrugNotes';
 import {
   X, Activity, Pill, Building2, Calendar, Globe, FlaskConical, ExternalLink,
-  Sparkles, Hourglass, Stethoscope, GitCompare, Check, Share, FileText, FileDown, Loader2,
+  Sparkles, Hourglass, Stethoscope, GitCompare, Check, Share, FileText, FileDown, Loader2, Crosshair,
 } from 'lucide-react';
 import { describeUsApproval } from '../services/usApproval';
+import { targetsOf } from '../services/targetAgents';
 import { preloadPdfLibrary, saveDrugPdf } from '../services/drugPdf';
 
 interface DrugDetailProps {
@@ -56,6 +57,8 @@ const shareText = (d: DrugDetailData): string => {
   else if (d.emaApprovalDate && /^\d/.test(d.emaApprovalDate)) lines.push(`EU marketing authorisation: ${d.emaApprovalDate}${d.statusNote ? ` (${d.statusNote})` : ''}${d.sourceNote ? ` (${d.sourceNote})` : ''}`);
   else if (d.emaApprovalDate && /^Same substance/.test(d.emaApprovalDate)) lines.push(`EU: ${d.emaApprovalDate} — not this product`);
   if (d.badge) lines.push(`Type: ${d.badge}`);
+  const mech = targetsOf(d.genericName);
+  if (mech.length && !d.drugClass?.startsWith('Acts on')) lines.push(`Mechanism: acts on ${mech.join(', ')}`);
   if (d.approvalDate && /^\d/.test(d.approvalDate)) lines.push(`FDA approval: ${d.approvalDate}`);
   else if (/^Same substance in US/.test(d.approvalDate || '')) lines.push(`US: ${d.approvalDate}`);
   if (d.company) lines.push(`Company: ${d.company}`);
@@ -193,6 +196,14 @@ export const DrugDetailContent: React.FC<{
           </Row>
         )}
         {data.drugClass && <Row icon={<Pill size={18} />} label="Drug Class">{data.drugClass}</Row>}
+        {/* Molecular target(s), from DrugRadar's target table — shown unless the
+            class line above already says it (rows of an all-class comparison). */}
+        {(() => {
+          const t = targetsOf(data.genericName);
+          return t.length > 0 && !data.drugClass?.startsWith('Acts on') ? (
+            <Row icon={<Crosshair size={18} />} label="Mechanism">Acts on {t.join(', ')}</Row>
+          ) : null;
+        })()}
         {data.company && <Row icon={<Building2 size={18} />} label="Company">{data.company}</Row>}
         <div className="grid grid-cols-2 gap-3 pt-1">
           <div className="bg-slate-50 rounded-xl p-3">
