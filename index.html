@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Keep this app out of search engines (Google, Bing, etc.). The link still works for anyone you share it with. -->
+    <meta name="robots" content="noindex, nofollow">
+    <!-- iOS specific viewport settings to prevent scaling and handle the notch/dynamic island -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <!-- PWA Manifest and Theme Color -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- iOS Standalone App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="DrugRadar Web">
+    <link rel="apple-touch-icon" href="./icon.png">
+    
+    <title>DrugRadar - Drug Approvals</title>
+
+    <!-- Visitor counter (GoatCounter: free, no cookies, no personal data).
+         Runs ONLY on the public website bg48-sa.github.io — never in the iOS/Mac
+         app (which must stay "Data Not Collected") and never on the local dev server.
+         Stats: https://drugradar.goatcounter.com -->
+    <script>
+      if (location.hostname === 'bg48-sa.github.io') {
+        var gc = document.createElement('script');
+        gc.async = true;
+        gc.src = 'https://gc.zgo.at/count.js';
+        gc.setAttribute('data-goatcounter', 'https://drugradar.goatcounter.com/count');
+        // Install counter. A web app has no "download" number, so two anonymous
+        // events stand in for it: "pwa-installed" once per device (Chrome/Android/
+        // desktop fire appinstalled; iOS Safari has no such event, so the first
+        // launch from the home screen counts instead) and "pwa-launch" for every
+        // start of the installed app — how much the installed copies are used.
+        gc.addEventListener('load', function () {
+          if (!window.goatcounter || !goatcounter.count) return;
+          var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+          var counted = function () { try { return localStorage.getItem('dr_pwa_counted'); } catch (e) { return '1'; } };
+          var installed = function () {
+            if (counted()) return;
+            try { localStorage.setItem('dr_pwa_counted', '1'); } catch (e) { /* private mode: count at most once per session */ }
+            goatcounter.count({ path: 'pwa-installed', title: 'PWA installed (home screen)', event: true });
+          };
+          if (standalone) {
+            goatcounter.count({ path: 'pwa-launch', title: 'PWA launch (installed app)', event: true });
+            installed();
+          }
+          window.addEventListener('appinstalled', installed);
+        });
+        document.head.appendChild(gc);
+      }
+    </script>
+  <script type="module" crossorigin src="/pharmatrack/assets/index-DtQ_guQA.js"></script>
+  <link rel="stylesheet" crossorigin href="/pharmatrack/assets/index-eIZH9TwI.css">
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Register Service Worker for PWA Installability -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        // When a new service worker takes control (an app update activated),
+        // reload once so the user immediately gets the new build instead of a
+        // stale cached UI. Guarded so it never loops and never fires on the very
+        // first install (when there is no prior controller).
+        let refreshing = false;
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (refreshing) return;
+            refreshing = true;
+            window.location.reload();
+          });
+        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').then(
+            (registration) => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+              // A window kept open for days never navigates, so the browser never
+              // re-checks sw.js on its own. Check whenever the app comes back to the
+              // foreground (at most every 10 minutes): a new build then installs,
+              // takes control and triggers the one-time reload above.
+              let lastCheck = Date.now();
+              document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState !== 'visible' || Date.now() - lastCheck < 10 * 60 * 1000) return;
+                lastCheck = Date.now();
+                registration.update().catch(() => {});
+              });
+            },
+            (err) => {
+              console.log('ServiceWorker registration failed: ', err);
+            }
+          );
+        });
+      }
+    </script>
+</body>
+</html>
