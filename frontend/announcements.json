@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-27",
+  "generated": "2026-09-28",
   "items": [
     {
       "title": "FDA Approves Third Treatment for Fibrodysplasia Ossificans Progressiva",
@@ -14,6 +14,30 @@
       "date": "2026-09-25",
       "source": "FDA",
       "names": []
+    },
+    {
+      "title": "U.S. FDA Approves Welireg (belzutifan) Plus Lenvima (lenvatinib) for Certain Previously Treated Adult Patients With Advanced Renal Cell Carcinoma With a Clear Cell Component (ccRCC)",
+      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-welireg-belzutifan-plus-lenvima-lenvatinib-certain-previously-treated-adult-6898.html",
+      "date": "2026-09-25",
+      "source": "Drugs.com",
+      "names": [
+        "belzutifan",
+        "ccrcc",
+        "component",
+        "lenvatinib",
+        "lenvima",
+        "welireg"
+      ]
+    },
+    {
+      "title": "FDA Approves Atebrioz (zilurgisertib) for Adult and Pediatric Patients with Fibrodysplasia Ossificans Progressiva",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-atebrioz-zilurgisertib-adult-pediatric-patients-fibrodysplasia-ossificans-progressiva-6897.html",
+      "date": "2026-09-25",
+      "source": "Drugs.com",
+      "names": [
+        "atebrioz",
+        "zilurgisertib"
+      ]
     },
     {
       "title": "FDA Approves Once-Weekly Insulin for Type 2 Diabetes Mellitus",
@@ -57,6 +81,15 @@
       "names": [
         "lirafugratinib",
         "lyrfigtu"
+      ]
+    },
+    {
+      "title": "FDA Approves Bravnetsa (lutetium Lu 177 dotatate) as a Therapeutic Equivalent to Lutathera for the Treatment of Somatostatin Receptor-Positive Gastroenteropancreatic Neuroendocrine Tumors in Adults",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-bravnetsa-lutetium-lu-177-dotatate-therapeutic-equivalent-lutathera-somatostatin-6894.html",
+      "date": "2026-09-22",
+      "source": "Drugs.com",
+      "names": [
+        "bravnetsa"
       ]
     },
     {
@@ -152,7 +185,7 @@
       "names": []
     },
     {
-      "title": "FDA Approves Bexlutry (lutetium Lu 177 dotatate) for Somatostatin Receptor-Positive Gastroenteropancreatic Neuroendocrine Tumors",
+      "title": "FDA Approves Bexlutry (lutetium Lu 177 dotatate) for the Treatment of Somatostatin Receptor-Positive Gastroenteropancreatic Neuroendocrine Tumors in Adults",
       "url": "https://www.drugs.com/newdrugs/fda-approves-bexlutry-lutetium-lu-177-dotatate-somatostatin-receptor-positive-6886.html",
       "date": "2026-09-14",
       "source": "Drugs.com",
@@ -191,34 +224,6 @@
       "names": [
         "cabozantinib",
         "omcazio"
-      ]
-    },
-    {
-      "title": "FDA Approves Isembyld (apitegromab-mstn) Muscle-Targeted Treatment for Children and Adults with Spinal Muscular Atrophy (SMA)",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-isembyld-apitegromab-mstn-muscle-targeted-children-adults-spinal-muscular-atrophy-sma-6881.html",
-      "date": "2026-09-11",
-      "source": "Drugs.com",
-      "names": [
-        "apitegromab",
-        "apitegromab-mstn",
-        "atrophy",
-        "isembyld"
-      ]
-    },
-    {
-      "title": "FDA Approves Pharming’s Joenja as First Treatment for Children with APDS in the U.S.",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-pharming-s-joenja-first-children-apds-u-s-6879.html",
-      "date": "2026-09-11",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "FDA grants accelerated approval to sevabertinib for locally advanced o",
-      "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQX2dXNjhwOTdLb2c2RUVYLXJwdG9KMUt3X3h4aElDZmIzTDVWY0ZoM0ZWUkZPZ21RelBUdEwtdU9XYkEzUnE3SVdHRUJ6dUFLZmRKM0x2cjB2ZGtKNDBrQWlkdlNsdW9rUEtYUTBLZWNTQVJyMnMyTEcwUjlLWURWX2FnMnVnbkZWbXVNSHE4dmJScnZ6akhHQi1rSGNaTVJxWGN4a18xOVBSbUR0Ml9ZYlZyeFpDU194T3ZsYVRoNFVZa1lSc3VGNHhoZnhuN0JhVjREUnBwc2NrQ212LTFVNnJ6b0UwU2JhRGJIbnNhZEV4bVE?oc=5",
-      "date": "2026-09-09",
-      "source": "FDA",
-      "names": [
-        "sevabertinib"
       ]
     }
   ]
