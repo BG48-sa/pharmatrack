@@ -1,6 +1,33 @@
 {
-  "generated": "2026-09-28",
+  "generated": "2026-09-29",
   "items": [
+    {
+      "title": "FDA Approves First Treatment for MCT8 Deficiency",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOUWZyeTZaNTNkMGUxbGRkcnM0U3FqS28tUDJsR1FpT0hpd1RxZWVlczdyYXl6RXh1dkMwQ3hpa2trOEZpYnQ5VkZMa1kwdWpJWk80YmtQMHZiQkxhbmJOOXEzMVBHaUtFSEhDTXVyVkpGcDhkWHlCY0FWVXJqTFBxR09MdVBWeURkQUM3bm9XQW41ekdxY3hLc1dzVW0?oc=5",
+      "date": "2026-09-28",
+      "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Emcitate (tiratricol) for the Treatment of Patients with MCT8 Deficiency",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-emcitate-tiratricol-patients-mct8-deficiency-6903.html",
+      "date": "2026-09-28",
+      "source": "Drugs.com",
+      "names": [
+        "emcitate",
+        "tiratricol"
+      ]
+    },
+    {
+      "title": "FDA Approves Juvmo (tavapadon) for the Treatment of Parkinson's Disease",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-juvmo-tavapadon-parkinson-s-6900.html",
+      "date": "2026-09-28",
+      "source": "Drugs.com",
+      "names": [
+        "juvmo",
+        "tavapadon"
+      ]
+    },
     {
       "title": "FDA Approves Third Treatment for Fibrodysplasia Ossificans Progressiva",
       "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNbkdsTFpqNm9vZGh4TF9RNkUzRkttUGdZM183dnF1aVRmQjA5V0pOUkVfYk1kWV8zak1GUWJ6emtYMmdCeTd0TW1haHhTeVhHWld6bW5zakFmTHpCT1NLMVRhRzgwSFd6ZXlIdkZrOGRGMkhYU2xqU3FtNXhrRUNKQmJGZW1SSHV2QVpWQndpY3ZiZDd4NzY0V0JYLXE5SF82eWtybFFtOHRRY0Y1TzMyd2Z4SFRWNlk?oc=5",
@@ -14,6 +41,23 @@
       "date": "2026-09-25",
       "source": "FDA",
       "names": []
+    },
+    {
+      "title": "FDA Approves Gazyva for Idiopathic Nephrotic Syndrome in Patients Aged 2 and Older",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-gazyva-idiopathic-nephrotic-syndrome-patients-aged-2-older-6901.html",
+      "date": "2026-09-25",
+      "source": "Drugs.com",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Lilly's Olumiant (baricitinib) for Pediatric Patients 12 Years of Age and Older with Severe Alopecia Areata",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-lilly-s-olumiant-baricitinib-pediatric-patients-12-years-age-older-severe-alopecia-6899.html",
+      "date": "2026-09-25",
+      "source": "Drugs.com",
+      "names": [
+        "baricitinib",
+        "olumiant"
+      ]
     },
     {
       "title": "U.S. FDA Approves Welireg (belzutifan) Plus Lenvima (lenvatinib) for Certain Previously Treated Adult Patients With Advanced Renal Cell Carcinoma With a Clear Cell Component (ccRCC)",
@@ -40,13 +84,6 @@
       ]
     },
     {
-      "title": "FDA Approves Once-Weekly Insulin for Type 2 Diabetes Mellitus",
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTkRhYV9lUlg0WmhZX0d1d2JnX0llNjMxZVlhUU1wZHZLMzVMcFJTQkp1cnczM3BXZFR6Z3FjTHZtNkxmalJlRUtwRi1BblF2cndoNFdac3FuREM4NnRxY0ZTODM0aFNxTTN0OVBqS1ZUNTRPNnQxVjYxLW45OTRZVjRaTHJJRDJyVEJsaThtd0F2TjhvTlo1VGszUldEd3JSLW9IWGt6UGJ5dDA?oc=5",
-      "date": "2026-09-24",
-      "source": "FDA",
-      "names": []
-    },
-    {
       "title": "FDA approves belzutifan in combination with lenvatinib for advanced renal cell carcinoma with a clear cell component",
       "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPb3RPOGNNWDctUVpqS0pwZEtHS0pTbHd5OW5qMlZUUFY1T2hCY2VkOF9jeWxoSDkzaEc5Z1ZXelVIZ3pLTkRWMTZxMU5KUENlX29OeWVyal9oQ05HZzlrbkl4OFZXenFUTDNwbnZhUTdyM1dGajVhdG53ODB1dVJUOWowbVhwUk9aNll1RWpydXFxbmxiaXFZYy1sSDNOV2Z3SE9abXdjZzZUeHllUzN1aVBSbDF2THFGUGk0NGpmTC1Id1hVcG1KN0hTd2dNWUlRdlZLaExFY3YzcmxBLVFmMk9ycnZXMlN5aExjWWtqRFN0QQ?oc=5",
       "date": "2026-09-24",
@@ -54,6 +91,13 @@
       "names": [
         "lenvatinib"
       ]
+    },
+    {
+      "title": "FDA Approves Once-Weekly Insulin for Type 2 Diabetes Mellitus",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTkRhYV9lUlg0WmhZX0d1d2JnX0llNjMxZVlhUU1wZHZLMzVMcFJTQkp1cnczM3BXZFR6Z3FjTHZtNkxmalJlRUtwRi1BblF2cndoNFdac3FuREM4NnRxY0ZTODM0aFNxTTN0OVBqS1ZUNTRPNnQxVjYxLW45OTRZVjRaTHJJRDJyVEJsaThtd0F2TjhvTlo1VGszUldEd3JSLW9IWGt6UGJ5dDA?oc=5",
+      "date": "2026-09-24",
+      "source": "FDA",
+      "names": []
     },
     {
       "title": "FDA Approves Onswik (insulin efsitora alfa-gobe) Once-Weekly Basal Insulin for Adults with Type 2 Diabetes",
@@ -81,6 +125,16 @@
       "names": [
         "lirafugratinib",
         "lyrfigtu"
+      ]
+    },
+    {
+      "title": "U.S. FDA Approves Update to the Label for Winrevair (sotatercept-csrk) to Include Data from the Phase 3 HYPERION Trial",
+      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-update-label-winrevair-sotatercept-csrk-include-data-phase-3-hyperion-trial-6893.html",
+      "date": "2026-09-22",
+      "source": "Drugs.com",
+      "names": [
+        "sotatercept-csrk",
+        "winrevair"
       ]
     },
     {
@@ -176,55 +230,6 @@
       "date": "2026-09-14",
       "source": "Drugs.com",
       "names": []
-    },
-    {
-      "title": "Biofrontera Announces FDA Approval of Ameluz Red Light PDT for the Treatment of Superficial Basal Cell Carcinoma",
-      "url": "https://www.drugs.com/newdrugs/biofrontera-announces-fda-approval-ameluz-red-light-pdt-superficial-basal-cell-carcinoma-6883.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "FDA Approves Bexlutry (lutetium Lu 177 dotatate) for the Treatment of Somatostatin Receptor-Positive Gastroenteropancreatic Neuroendocrine Tumors in Adults",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-bexlutry-lutetium-lu-177-dotatate-somatostatin-receptor-positive-6886.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": [
-        "bexlutry"
-      ]
-    },
-    {
-      "title": "FDA Approves Pixclara (floretyrosine F 18) FET-PET Imaging Agent for Glioma",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-pixclara-floretyrosine-f-18-fet-pet-imaging-agent-glioma-6882.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": [
-        "pixclara"
-      ]
-    },
-    {
-      "title": "FDA approves first treatment for children aged 4-11 years with APDS, a rare genetic disorder of the immune system",
-      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOTE5QN1lES1VWNjdwMnVDRk1GRUNCc0pxOGlsdXVsTWMyTEVUWVVfdWRUaE9nUk1UZjcycTlLZnllN3dqaGhEWm41OUctczVIeHBjMUpSaEhkb2Y1aFZoX0xWV3VBdUdQQ2NVWGJtQ2I5RTlnOGZYa29qZ216RldybjYtMWVKYWZYWkFJU0xLZzdBbUNacDVRMXdTTXl6dVBGajBGTTZCSXdpc1pLcnZmZjZKM2JGaFJqNW8zUEVCeFF2YW5XcHh3RHZRbUk0NzVnVEdRY0VNaEhOdHBf?oc=5",
-      "date": "2026-09-11",
-      "source": "FDA",
-      "names": []
-    },
-    {
-      "title": "FDA Approves First Therapy to Target Muscle Loss in Spinal Muscular Atrophy",
-      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNSnNDdWtrSThzdkxNQm1zVklIT0xtV2xDTV9zU3BXZk1ncmlQU1VGekd3bVM2WnFGTWtlRTlDSFVVRUFZY1pWU2gyaHl1aFE3OHBSVVNfVkpwOFlUWURULTV1LTNtZ1AzUFZCb0duYi15c2dVT2E4Nkx5VXdiMkoyQWxXQVFQZWx4UEI4WFVObXBmMGkyUjhmQWh1dC1SbTdYNVBkd09UNHQ2cVk5ZHRKNFllQlVlTURHTGRV?oc=5",
-      "date": "2026-09-11",
-      "source": "FDA",
-      "names": []
-    },
-    {
-      "title": "FDA Approves Omcazio (cabozantinib) Capsule Formulation for Administration Without Regard to Food",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-omcazio-cabozantinib-capsule-formulation-administration-without-regard-food-6880.html",
-      "date": "2026-09-11",
-      "source": "Drugs.com",
-      "names": [
-        "cabozantinib",
-        "omcazio"
-      ]
     }
   ]
 }
