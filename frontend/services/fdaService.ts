@@ -26,11 +26,42 @@ interface EmaRec { d: string; n: string; u: string; b: boolean; k?: number }
 // loads the shipped snapshot at startup.
 let emaData: Record<string, EmaRec> = {};
 let emaByName: Record<string, EmaRec> = {};
+// Active substances per EU product (lower-case name → normalised substance
+// keys). byInn files a combination under each of its substances ('bictegravir'
+// → Biktarvy), so a substance hit is only the same medicine when the substance
+// counts agree; combinations are matched on their full substance set instead.
+let emaComponents: Record<string, number> = {};
+let emaCombos: Record<string, EmaRec> = {};
+
+// 'Bictegravir Sodium' → 'bictegravir', 'tenofovir disoproxil fumarate' →
+// 'tenofovir disoproxil': salt / hydrate words differ between FDA and EMA.
+const SALT_WORDS = /\b(?:sodium|disodium|potassium|dipotassium|calcium|magnesium|zinc|hydrochloride|dihydrochloride|hcl|hydrobromide|fumarate|hemifumarate|maleate|mesylate|mesilate|dimesylate|besylate|besilate|tosylate|tartrate|bitartrate|succinate|citrate|sulfate|sulphate|phosphate|acetate|bromide|chloride|lauryl ?sulfate|laurylsulfate|monohydrate|dihydrate|trihydrate|sesquihydrate|hydrate|anhydrous)\b/g;
+const substanceKey = (name: string): string =>
+  name.toLowerCase().replace(SALT_WORDS, ' ').replace(/[^a-z0-9-]+/g, ' ').trim().replace(/\s+/g, ' ');
+const comboKey = (keys: Iterable<string>): string => [...new Set(keys)].filter(Boolean).sort().join('+');
 
 // Swap in a fresher snapshot fetched at runtime (see services/liveData.ts).
-export const __setFdaEmaData = (d: { byInn?: Record<string, EmaRec>; byName?: Record<string, EmaRec> }): void => {
+export const __setFdaEmaData = (d: {
+  byInn?: Record<string, EmaRec>; byName?: Record<string, EmaRec>;
+  authorised?: { n?: string; inn?: string; d?: string; url?: string }[];
+  gone?: { n?: string; inn?: string }[];
+}): void => {
   emaData = d.byInn || {};
   emaByName = d.byName || {};
+  emaComponents = {};
+  emaCombos = {};
+  for (const x of [...(d.authorised || []), ...(d.gone || [])]) {
+    if (x.n && x.inn) emaComponents[x.n.toLowerCase()] = new Set(x.inn.split(';').map(substanceKey).filter(Boolean)).size;
+  }
+  // Authorised combinations by substance set; the earliest product represents
+  // the set, `k` counts the products sharing it (then shown as 'same substance').
+  for (const x of d.authorised || []) {
+    if (!x.n || !x.inn || !x.d || !x.inn.includes(';')) continue;
+    const key = comboKey(x.inn.split(';').map(substanceKey));
+    const prev = emaCombos[key];
+    const k = (prev?.k || (prev ? 1 : 0)) + 1;
+    emaCombos[key] = !prev || x.d < prev.d ? { d: x.d, n: x.n, u: x.url || '', b: false, k } : { ...prev, k };
+  }
 };
 
 // CBER cell & gene therapy snapshot, keyed by BLA application number. These
@@ -59,6 +90,10 @@ const EMA_SOURCE: Source = {
 const CBER_SOURCE: Source = {
   title: 'FDA CBER — Approved Cellular and Gene Therapy Products',
   uri: 'https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/approved-cellular-and-gene-therapy-products',
+};
+const NOVEL_SOURCE: Source = {
+  title: 'FDA CDER — Novel Drug Approvals (current year)',
+  uri: 'https://www.fda.gov/drugs/novel-drug-approvals-fda',
 };
 const LABEL_SOURCE: Source = {
   title: 'FDA Structured Product Labeling (openFDA drug labels)',
@@ -113,17 +148,35 @@ const cleanIndication = (raw?: string): string => {
 // Product identity first (brand names), substance second. A substance match
 // shared by several EU products is returned with `ambiguous` so callers show
 // 'same substance authorised' instead of another product's date and EPAR link.
+// `usSubstances` = the US product's active substances, when known: a
+// combination is matched on its whole substance set, and a single-substance
+// hit on an EU product with a different substance count is another medicine
+// (US Bixlenvo, bictegravir + lenacapavir, is not EU Biktarvy).
 type EmaHit = EmaRec & { ambiguous?: boolean };
-const lookupEma = (names: (string | undefined)[], brands: (string | undefined)[] = []): EmaHit | undefined => {
+const lookupEma = (names: (string | undefined)[], brands: (string | undefined)[] = [], usSubstances: string[] = []): EmaHit | undefined => {
   for (const b of brands) {
     const key = String(b || '').toLowerCase().trim();
     if (key && emaByName[key]) return emaByName[key];
   }
+  const usKeys = new Set(usSubstances.flatMap((n) => n.split(/[,;/]|\band\b/i)).map(substanceKey).filter(Boolean));
+  if (usKeys.size > 1) {
+    // A combination is only the same medicine as an EU combination of exactly
+    // these substances; one shared substance proves nothing.
+    const combo = emaCombos[comboKey(usKeys)];
+    return combo ? (combo.k && combo.k > 1 ? { ...combo, ambiguous: true } : combo) : undefined;
+  }
   for (const raw of names) {
     if (!raw) continue;
     const norm = raw.toLowerCase().trim();
-    const hit = emaData[norm] || (() => { const first = norm.split(/[\s,;]+/)[0]; return first ? emaData[first] : undefined; })();
-    if (hit) return hit.k && hit.k > 1 ? { ...hit, ambiguous: true } : hit;
+    // Full name, then without salt words, then its first word ('sodium
+    // glycerophosphate' must not fall back to 'sodium' → Ammonaps).
+    const bare = substanceKey(norm);
+    const first = bare.split(' ')[0];
+    const hit = emaData[norm] || (bare && emaData[bare]) || (first && emaData[first]) || undefined;
+    if (!hit) continue;
+    const euCount = emaComponents[hit.n.toLowerCase()];
+    if (usKeys.size === 1 && euCount && euCount !== 1) continue;
+    return hit.k && hit.k > 1 ? { ...hit, ambiguous: true } : hit;
   }
   return undefined;
 };
@@ -201,7 +254,7 @@ const mapResult = (r: FdaResult, id: number): { drug: Drug; appNo?: string } | n
     of.generic_name?.[0],
     of.substance_name?.[0],
     ingredientNames[0],
-  ], [product.brand_name, ...(of.brand_name || [])]);
+  ], [product.brand_name, ...(of.brand_name || [])], ingredientNames);
 
   return {
     appNo: r.application_number,
@@ -315,7 +368,7 @@ const mapLabelResult = (r: LabelResult, id: number): Drug | null => {
     titleCase(of.route?.[0]) ||
     undefined;
 
-  const ema = lookupEma([of.generic_name?.[0], of.substance_name?.[0]], of.brand_name || []);
+  const ema = lookupEma([of.generic_name?.[0], of.substance_name?.[0]], of.brand_name || [], of.substance_name?.length ? of.substance_name : [of.generic_name?.[0] || '']);
 
   return {
     id,
@@ -435,8 +488,8 @@ const novelIndication = (brand: string): string | undefined => {
   return allNovelApprovals().find((n) => norm(n.brandName) === b)?.indication || undefined;
 };
 
-const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean }> => {
-  const rows: { drug: Drug; app?: string }[] = [];
+const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean; usedNovel: boolean }> => {
+  const rows: { drug: Drug; app?: string; cber?: boolean; novel?: boolean }[] = [];
   for (const r of usRecent) {
     const mapped = mapResult(r, 0);
     if (!mapped) continue;
@@ -447,7 +500,21 @@ const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean 
   // approved inside the same window.
   const oldest = rows.length ? rows[rows.length - 1].drug.fdaApprovalDate : '9999';
   for (const [bla, c] of Object.entries(cgtData)) {
-    if (c.n && c.d >= oldest) rows.push({ drug: cgtToDrug(bla, c, 0) });
+    if (c.n && c.d >= oldest) rows.push({ drug: cgtToDrug(bla, c, 0), cber: true });
+  }
+  // CDER's novel-approvals roster is updated within days; Drugs@FDA can lag
+  // a week or more. Novel drugs it does not list yet join from the roster.
+  const have = new Set(rows.map((x) => norm(x.drug.brandName)));
+  for (const n of allNovelApprovals()) {
+    if (n.approvalDate < oldest || have.has(norm(n.brandName))) continue;
+    const ema = lookupEma([n.genericName], [n.brandName], [n.genericName]);
+    rows.push({
+      novel: true,
+      drug: {
+        id: 0, brandName: n.brandName, genericName: n.genericName, indication: n.indication, indicationSource: 'summary',
+        company: '—', fdaApprovalDate: n.approvalDate, emaApprovalDate: emaDateFor(ema), emaUrl: emaUrlFor(ema),
+      },
+    });
   }
   const top = rows
     .sort((a, b) => b.drug.fdaApprovalDate.localeCompare(a.drug.fdaApprovalDate))
@@ -459,14 +526,16 @@ const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean 
     const ind = novelIndication(d.brandName);
     if (ind) { d.indication = ind; d.indicationSource = 'summary'; }
   }
-  return { drugs, usedCber: top.some((x) => !x.app) };
+  return { drugs, usedCber: top.some((x) => x.cber), usedNovel: top.some((x) => x.novel) };
 };
 
 /** Default view: the most recent original FDA approvals (new NDAs/BLAs + CBER cell & gene therapies). */
 export const fetchRecentDrugApprovals = async (): Promise<DrugDataResponse> => {
   if (usRecent.length) {
-    const { drugs, usedCber } = await recentFromSnapshot();
-    return { drugs, sources: buildSources(drugs, false, usedCber) };
+    const { drugs, usedCber, usedNovel } = await recentFromSnapshot();
+    const sources = buildSources(drugs, false, usedCber);
+    if (usedNovel) sources.splice(1, 0, NOVEL_SOURCE);
+    return { drugs, sources };
   }
   // No snapshot (e.g. a cached release from before it existed): live query.
   try {

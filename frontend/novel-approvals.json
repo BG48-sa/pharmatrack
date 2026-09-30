@@ -1,6 +1,55 @@
 {
   "2026": [
     {
+      "no": 45,
+      "brandName": "Emcitate",
+      "genericName": "tiratricol",
+      "approvalDate": "2026-09-28",
+      "indication": "To treat peripheral thyrotoxicosis in patients with MCT8 deficiency"
+    },
+    {
+      "no": 44,
+      "brandName": "Atebrioz",
+      "genericName": "zilurgisertib",
+      "approvalDate": "2026-09-25",
+      "indication": "To reduce the volume of total new heterotopic ossification in adults and pediatric patients 12 years and older with fibrodysplasia ossificans progressiva"
+    },
+    {
+      "no": 43,
+      "brandName": "Juvmo",
+      "genericName": "tavapadon",
+      "approvalDate": "2026-09-25",
+      "indication": "To treat Parkinson’s disease in adults"
+    },
+    {
+      "no": 42,
+      "brandName": "Lyrfigtu",
+      "genericName": "lirafugratinib",
+      "approvalDate": "2026-09-23",
+      "indication": "To adults with previously treated unresectable, locally advanced or metastatic cholangiocarcinoma harboring a fibroblast growth factor receptor 2 gene fusion or other rearrangement"
+    },
+    {
+      "no": 41,
+      "brandName": "Onswik",
+      "genericName": "insulin efsitora alfa-gobe",
+      "approvalDate": "2026-09-23",
+      "indication": "To improve glycemic control in adults with type 2 diabetes mellitus, as an adjunct to diet and exercise"
+    },
+    {
+      "no": 40,
+      "brandName": "Pixclara",
+      "genericName": "floretyrosine F 18",
+      "approvalDate": "2026-09-11",
+      "indication": "To use with positron emission tomography to differentiate recurrent or progressive glioma from treatment-related change in conjunction with other diagnostic evaluations"
+    },
+    {
+      "no": 39,
+      "brandName": "Isembyld",
+      "genericName": "apitegromab-mstn",
+      "approvalDate": "2026-09-11",
+      "indication": "To treat spinal muscular atrophy in adults and pediatric patients 2 years of age and older who are currently receiving an SMN2-targeted treatment"
+    },
+    {
       "no": 38,
       "brandName": "Etcamah",
       "genericName": "camizestrant",
