@@ -22,7 +22,8 @@ GATES (each is recorded in the report; any FAIL exits 1)
      date does not move backwards and is not stale (a frozen upstream feed is
      otherwise invisible — an unchanged run publishes nothing and reports success)
   G3 EMA records: required fields present, dates plausible
-  G4 CBER cell & gene therapy snapshot never shrinks
+  G4 CBER cell & gene therapy snapshot never shrinks; the US recent-approvals
+     list is complete, newest first, fresh (<=45 d) and does not collapse
   G5 label corpora (SmPC / USPI): no file vanishes beyond a small allowance, no
      required section is lost, no catastrophic text shrink, US pairing counts
      do not drop
@@ -62,7 +63,8 @@ sys.path.insert(0, HERE)
 from agephrases import age_thresholds  # noqa: E402
 
 SNAPSHOTS = ['ema-medicines.json', 'novel-approvals.json', 'pdufa.json', 'critical-medicines.json',
-             'cgt-products.json', 'disease-entities.json', 'biomarkers.json', 'fda-cdx.json', 'announcements.json']
+             'cgt-products.json', 'disease-entities.json', 'biomarkers.json', 'fda-cdx.json', 'announcements.json',
+             'us-recent.json']
 # Allowed relative size change per snapshot (candidate vs published).
 SIZE_BAND = {'ema-medicines.json': 0.15, 'announcements.json': 0.80}
 SIZE_BAND_DEFAULT = 0.35
@@ -259,6 +261,19 @@ def main():
         bad = [k for k, v in cc.items() if not (isinstance(v, dict) and v.get('d') and v.get('n'))]
         prev_n = len(pc) if isinstance(pc, dict) else 0
         r.add('G4', 'CBER cell & gene therapy snapshot never shrinks', len(cc) >= prev_n and not bad, f'{prev_n} → {len(cc)} products, {len(bad)} malformed')
+
+    # US "Recent Approvals" list: original NDA/BLA approvals, newest first
+    cu, pu = cand_json.get('us-recent.json'), pub_json.get('us-recent.json')
+    if isinstance(cu, dict):
+        items = cu.get('items') or []
+        dates = [x.get('orig', '') for x in items]
+        newest = dates[0] if dates else ''
+        age = (datetime.date.fromisoformat(a.today) - datetime.date(int(newest[:4]), int(newest[4:6]), int(newest[6:8]))).days if len(newest) == 8 else None
+        bad = [x.get('application_number') for x in items if not (str(x.get('application_number', '')).startswith(('NDA', 'BLA')) and len(x.get('orig', '')) == 8 and x.get('products'))]
+        prev_n = len(pu.get('items') or []) if isinstance(pu, dict) else 0
+        r.add('G4', 'US recent approvals: complete, sorted, fresh',
+              len(items) >= 20 and not bad and dates == sorted(dates, reverse=True) and age is not None and age <= 45 and len(items) >= 0.7 * prev_n,
+              f'{prev_n} → {len(items)} approvals, newest {newest or "missing"} ({age if age is not None else "?"} days old), {len(bad)} malformed')
 
     # ---- G5: label corpora ----------------------------------------------------
     for corpus, cdir, required in (('smpc', 'smpc-data', SMPC_REQUIRED), ('uspi', 'uspi-data', USPI_REQUIRED)):

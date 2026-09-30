@@ -58,6 +58,10 @@ jobs:
           # A feed hiccup must not kill the EMA refresh — keep the old file.
           python frontend/scripts/build-announcements.py frontend/announcements.json \
             || echo "WARN: announcements rebuild failed — keeping existing file"
+          # US "Recent Approvals": original NDA/BLA approvals of the last year from
+          # Drugs@FDA. The script refuses implausible results; keep the old file then.
+          python frontend/scripts/build-us-recent.py frontend/us-recent.json \
+            || echo "WARN: US recent-approvals rebuild failed — keeping existing file"
 
       # --- Quality gates: the candidate must not regress the published release ---
       # Compares the working tree with the data/ folder of gh-pages (what users
@@ -94,9 +98,13 @@ jobs:
               # so an unchanged item list never triggers a daily redeploy.
               if f.endswith("announcements.json") and isinstance(d, dict):
                   d = {k: v for k, v in d.items() if k != "generated"}
+              # us-recent.json restamps its download ledger every run — only
+              # the approvals themselves count as a change.
+              if f.endswith("us-recent.json") and isinstance(d, dict):
+                  d = d.get("items")
               return d
           for f in ["frontend/ema-medicines.json", "frontend/cgt-products.json",
-                    "frontend/announcements.json"]:
+                    "frontend/announcements.json", "frontend/us-recent.json"]:
               try:
                   head = subprocess.run(["git", "show", "HEAD:" + f],
                                         capture_output=True, text=True, check=True).stdout
@@ -113,10 +121,10 @@ jobs:
       - name: Detect change
         id: chk
         run: |
-          if git diff --quiet -- frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json; then
+          if git diff --quiet -- frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"; echo "No data changes — nothing to publish."
           else
-            echo "changed=true"  >> "$GITHUB_OUTPUT"; git --no-pager diff --stat -- frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json
+            echo "changed=true"  >> "$GITHUB_OUTPUT"; git --no-pager diff --stat -- frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json
           fi
 
       # --- Commit refreshed source data to main -------------------------------
@@ -125,7 +133,7 @@ jobs:
         run: |
           git config user.name  'DrugRadar Refresh Bot'
           git config user.email 'bernd.gansbacher@gmail.com'
-          git add frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json
+          git add frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json
           git commit -m "Refresh bundled data $(date -u +%F) [skip ci]"
           git push
 
@@ -149,3 +157,22 @@ jobs:
           git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # --- Keep every published manifest for good -------------------------------
+      # gh-pages is force-pushed and run artifacts expire after 90 days, so the
+      # manifest of each release (pipeline commit, per-file hashes, source hashes)
+      # is committed to main under data-releases/. With the commit it names, any
+      # release users ever saw can be rebuilt and checked byte for byte.
+      - name: Archive the published release manifest
+        if: steps.chk.outputs.changed == 'true' || github.event_name == 'push' || github.event.inputs.force_deploy == 'true'
+        run: |
+          set -euo pipefail
+          id=$(python -c "import json; print(json.load(open('frontend/dist/data/release.json'))['id'])")
+          mkdir -p data-releases
+          cp frontend/dist/data/release.json "data-releases/${id}.json"
+          cp /tmp/changes.md "data-releases/${id}.changes.md" 2>/dev/null || true
+          git config user.name  'DrugRadar Refresh Bot'
+          git config user.email 'bernd.gansbacher@gmail.com'
+          git add data-releases
+          git commit -q -m "Archive data release ${id} [skip ci]"
+          for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done

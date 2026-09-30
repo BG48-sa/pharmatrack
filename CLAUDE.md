@@ -47,3 +47,16 @@ The label extractors also refuse to overwrite a good per-drug file with a degrad
 CBER rows must carry the age limits of the extracted US label, and EU records take their
 indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval date,
 `indT` = EMA-table age phrases when the two sources disagree) — the EMA table lags the SmPC.
+
+## US "Recent Approvals" + permanent release archive
+- The US tab's default list comes from `frontend/us-recent.json`, rebuilt nightly by
+  `frontend/scripts/build-us-recent.py` (Drugs@FDA records with any submission in the
+  last 365 days → original NDA/BLA approval date per application; ANDA, OTC-only,
+  medical gases and NDA chemistry type 5 dropped), merged in the app with CBER
+  cell & gene therapies from the same window. openFDA alone cannot rank by FIRST
+  approval — do not go back to a live `submission_status_date` sort. Gate G4 checks it.
+- Every deploy of the refresh-data Action commits the published `release.json`
+  (+ changes.md) to `data-releases/<release id>.json` on main — gh-pages is
+  force-pushed and run artifacts expire after 90 days, so this is the permanent record.
+  `release.json` → `sourcesFda.drugsfda` holds the openFDA download ledger.
+

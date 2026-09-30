@@ -28,6 +28,7 @@ const FILES = [
   'biomarkers.json',
   'fda-cdx.json',
   'announcements.json',
+  'us-recent.json',
 ];
 
 mkdirSync(outDir, { recursive: true });
@@ -85,6 +86,7 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
   const cgt = readJson('cgt-products.json') || {};
   const bm = readJson('biomarkers.json') || {};
   const cdx = readJson('fda-cdx.json') || {};
+  const usRecent = readJson('us-recent.json') || {};
   // The source ledger is written by build-ema-data.py, i.e. by the CI refresh.
   // A local build (native App Store archive) may hold an older ledger than the
   // catalogue it bundles — provenance that names the wrong run is worse than
@@ -105,9 +107,13 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
       emaAuthorised: (ema.authorised || []).length, emaPending: (ema.pipeline || []).length, emaWithdrawn: (ema.gone || []).length,
       emaReportDate: ema.generated, cgtProducts: Object.keys(cgt).length, biomarkers: (bm.biomarkers || []).length,
       cdxAuthorisations: cdx.total, cdxListDate: cdx.listDate,
+      usRecentApprovals: (usRecent.items || []).length, usRecentNewest: usRecent.items?.[0]?.orig,
     },
     labels: { smpc, uspi },
     ...(sources ? { sources } : {}),
+    // US side: the openFDA Drugs@FDA download behind the recent-approvals list
+    // (its own ledger, so it is present even when the EMA ledger is omitted).
+    ...(usRecent.source ? { sourcesFda: { drugsfda: { ...usRecent.source, generated: usRecent.generated } } } : {}),
   };
   writeFileSync(join(outDir, 'release.json'), JSON.stringify(manifest));
   console.log(`[copy-data] release manifest for ${FILES.length} snapshots (commit ${(commit || 'unknown').slice(0, 7)}${sources ? ', with source hashes' : ''})`);

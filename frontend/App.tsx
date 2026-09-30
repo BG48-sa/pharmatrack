@@ -826,7 +826,7 @@ export default function App() {
                 <p className="text-slate-500 text-xs mt-1 leading-relaxed">
                   {isSearchMode
                     ? `Found ${activeData.drugs.length} approved drug(s) matching "${currentQuery}".`
-                    : 'Recent FDA approvals with a classified drug class, live from openFDA with EMA authorisation dates. The very latest approvals can take weeks to appear here — see the Novel tab for the complete new-drug list. Search by drug, ingredient, company, disease/indication, or class — or tap 351(k) Biosimilars or Cell & gene therapy.'}
+                    : 'The newest original FDA approvals (new NDAs and BLAs from Drugs@FDA, rebuilt nightly, plus CBER cell & gene therapies), with EMA authorisation dates. New formulations of existing drugs and generics are left out. Search by drug, ingredient, company, disease/indication, or class — or tap 351(k) Biosimilars or Cell & gene therapy.'}
                 </p>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-[11px] text-slate-500">
                   <span className="font-semibold text-slate-600">Official generics registers:</span>

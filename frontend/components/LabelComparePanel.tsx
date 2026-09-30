@@ -257,6 +257,11 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                           : `SmPC text retrieved ${fmtCorpusDate(d!.retrieved || '')}`}
                       </div>
                     )}
+                    {cols[i].source === 'us' && (
+                      <div className="text-[10px] text-slate-400 leading-snug" title="openFDA/DailyMed carry the label currently in use (Structured Product Labeling). FDA notes it can differ from the last FDA-approved labeling listed in Drugs@FDA.">
+                        current in-use label (DailyMed) — can differ from the last FDA-approved version
+                      </div>
+                    )}
                     {d!.verified === true && (
                       <div className="text-[10px] text-emerald-700 mt-0.5" title="The file's SHA-256 matches the index of the data release the app has applied">
                         file integrity verified · data release {integrity?.releaseDate ? fmtCorpusDate(integrity.releaseDate.slice(0, 10)) : integrity?.releaseId || ''}
@@ -322,7 +327,7 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                 {crossJurisdiction
                   ? 'The EU SmPC and the US Prescribing Information are separate legal documents: approved indications, boxed/black-box warnings, dosing and populations differ, and each applies ONLY in its own jurisdiction — they are not interchangeable. '
                   : ''}
-                Section text is extracted from the official source documents (EMA product-information / openFDA drug labels) and may be abbreviated; long sections are truncated with the full text one tap away via the links above. Labels are revised frequently; the live linked document is the only authoritative version. For informational use by a healthcare professional only — not medical advice and not a basis for any prescribing, dosing, or treatment decision. Verify against the current label before use.
+                Section text is extracted from the official source documents (EMA product-information / openFDA drug labels) and may be abbreviated; long sections are truncated with the full text one tap away via the links above. Labels are revised frequently; the live linked document is the only authoritative version. US text is the label currently in use as listed on DailyMed/openFDA, which the FDA notes can differ from the last FDA-approved labeling in Drugs@FDA. For informational use by a healthcare professional only — not medical advice and not a basis for any prescribing, dosing, or treatment decision. Verify against the current label before use.
               </p>
             </>
           )}

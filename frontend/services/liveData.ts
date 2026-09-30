@@ -23,7 +23,7 @@ import { __setEmaData } from './emaService';
 import { __setNovelData } from './novelApprovals';
 import { __setCriticalData } from './criticalMedicines';
 import { __setPdufaData } from './pdufa';
-import { __setFdaEmaData, __setCgtData } from './fdaService';
+import { __setFdaEmaData, __setCgtData, __setUsRecentData } from './fdaService';
 import { __setDiseaseData } from './diseaseEntities';
 import { __setBiomarkerData } from './biomarkers';
 import { __setCdxData } from './companionDx';
@@ -79,6 +79,7 @@ const SNAPSHOTS: Array<[string, (d: any) => void]> = [
   ['biomarkers.json', __setBiomarkerData],
   ['fda-cdx.json', __setCdxData],
   ['announcements.json', __setAnnouncementsData],
+  ['us-recent.json', __setUsRecentData],
 ];
 
 // Fetch all snapshots in parallel via `get` and apply each one that succeeds.

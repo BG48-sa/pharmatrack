@@ -74,7 +74,7 @@ const DrugList: React.FC<DrugListProps> = ({ drugs, onSelect }) => {
               <Activity size={18} className="mr-2.5 mt-0.5 text-slate-400 shrink-0" />
               <div>
                 <span className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-0.5">Indication</span>
-                <span className="leading-snug">{drug.indication || 'Not listed in FDA labeling'}</span>
+                <span className="leading-snug">{drug.indication || 'No label text in openFDA yet'}</span>
               </div>
             </div>
             {drug.drugClass && (

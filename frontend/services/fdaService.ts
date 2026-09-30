@@ -1,4 +1,5 @@
 import { Drug, DrugDataResponse, Source } from '../types';
+import { allNovelApprovals } from './novelApprovals';
 
 /**
  * openFDA + EMA data service.
@@ -415,8 +416,59 @@ const requestDrugs = async (search: string, sort?: string, limit = 30): Promise<
   return drugs;
 };
 
-/** Default view: most recent notable FDA approvals (branded NDAs/BLAs with a known drug class). */
+// Nightly list of original NDA/BLA approvals (us-recent.json, built by
+// scripts/build-us-recent.py). openFDA cannot rank applications by their FIRST
+// approval — its sort key is the latest submission of any kind, so the live
+// query below surfaces old drugs with a recent labeling supplement (Verzenio
+// 2017, Meloxicam 2006), and it needs pharm_class_epc, which openFDA adds weeks
+// after approval. Starts empty; services/liveData.ts loads the snapshot.
+type UsRecentItem = FdaResult & { orig: string; cls?: string };
+let usRecent: UsRecentItem[] = [];
+export const __setUsRecentData = (d: { items?: UsRecentItem[] }): void => { usRecent = d?.items || []; };
+
+const RECENT_LIMIT = 30;
+
+// Brand-new drugs often have no label in openFDA yet; CDER's novel-approvals
+// roster carries the FDA's own one-line indication for them.
+const novelIndication = (brand: string): string | undefined => {
+  const b = norm(brand);
+  return allNovelApprovals().find((n) => norm(n.brandName) === b)?.indication || undefined;
+};
+
+const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean }> => {
+  const rows: { drug: Drug; app?: string }[] = [];
+  for (const r of usRecent) {
+    const mapped = mapResult(r, 0);
+    if (!mapped) continue;
+    mapped.drug.fdaApprovalDate = formatDate(r.orig);
+    rows.push({ drug: mapped.drug, app: mapped.appNo });
+  }
+  // CBER cell & gene therapies are not in Drugs@FDA — add the curated ones
+  // approved inside the same window.
+  const oldest = rows.length ? rows[rows.length - 1].drug.fdaApprovalDate : '9999';
+  for (const [bla, c] of Object.entries(cgtData)) {
+    if (c.n && c.d >= oldest) rows.push({ drug: cgtToDrug(bla, c, 0) });
+  }
+  const top = rows
+    .sort((a, b) => b.drug.fdaApprovalDate.localeCompare(a.drug.fdaApprovalDate))
+    .slice(0, RECENT_LIMIT);
+  const drugs = top.map((x, i) => ({ ...x.drug, id: i + 1 }));
+  await enrichWithIndications(drugs, top.map((x) => x.app));
+  for (const d of drugs) {
+    if (d.indication) continue;
+    const ind = novelIndication(d.brandName);
+    if (ind) { d.indication = ind; d.indicationSource = 'summary'; }
+  }
+  return { drugs, usedCber: top.some((x) => !x.app) };
+};
+
+/** Default view: the most recent original FDA approvals (new NDAs/BLAs + CBER cell & gene therapies). */
 export const fetchRecentDrugApprovals = async (): Promise<DrugDataResponse> => {
+  if (usRecent.length) {
+    const { drugs, usedCber } = await recentFromSnapshot();
+    return { drugs, sources: buildSources(drugs, false, usedCber) };
+  }
+  // No snapshot (e.g. a cached release from before it existed): live query.
   try {
     const search =
       'openfda.product_type:"HUMAN PRESCRIPTION DRUG"' +
