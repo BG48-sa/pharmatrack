@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-29",
+  "generated": "2026-09-30",
   "items": [
     {
       "title": "FDA Approves First Treatment for MCT8 Deficiency",
@@ -19,6 +19,17 @@
       ]
     },
     {
+      "title": "FDA Approves Degevma (denosumab-adet), a Biosimilar to Xgeva",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-degevma-denosumab-adet-biosimilar-xgeva-6902.html",
+      "date": "2026-09-28",
+      "source": "Drugs.com",
+      "names": [
+        "degevma",
+        "denosumab",
+        "denosumab-adet"
+      ]
+    },
+    {
       "title": "FDA Approves Juvmo (tavapadon) for the Treatment of Parkinson's Disease",
       "url": "https://www.drugs.com/newdrugs/fda-approves-juvmo-tavapadon-parkinson-s-6900.html",
       "date": "2026-09-28",
@@ -27,6 +38,13 @@
         "juvmo",
         "tavapadon"
       ]
+    },
+    {
+      "title": "Meitheal Pharmaceuticals Announces FDA Approval of High-Concentration Formulation of Yusimry, a Biosimilar to Humira",
+      "url": "https://www.drugs.com/newdrugs/meitheal-pharmaceuticals-announces-fda-approval-concentration-formulation-yusimry-biosimilar-humira-6904.html",
+      "date": "2026-09-28",
+      "source": "Drugs.com",
+      "names": []
     },
     {
       "title": "FDA Approves Third Treatment for Fibrodysplasia Ossificans Progressiva",
@@ -213,23 +231,6 @@
         "finerenone",
         "kerendia"
       ]
-    },
-    {
-      "title": "Nuvation Bio Announces FDA Approval of Supplemental New Drug Application for Ibtrozi (taletrectinib) with Updated Duration of Response in TKI-Naïve Advanced ROS1-Positive Non-Small Cell Lung Cancer",
-      "url": "https://www.drugs.com/newdrugs/nuvation-bio-announces-fda-approval-supplemental-new-application-ibtrozi-taletrectinib-updated-6889.html",
-      "date": "2026-09-16",
-      "source": "Drugs.com",
-      "names": [
-        "ibtrozi",
-        "taletrectinib"
-      ]
-    },
-    {
-      "title": "FDA Approves Reduced Monitoring Time for First Two Doses of Imdelltra",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-reduced-monitoring-time-first-two-doses-imdelltra-6885.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": []
     }
   ]
 }
