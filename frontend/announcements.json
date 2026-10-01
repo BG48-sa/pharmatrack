@@ -1,6 +1,25 @@
 {
-  "generated": "2026-09-30",
+  "generated": "2026-10-01",
   "items": [
+    {
+      "title": "FDA approves first drug to improve functional capacity and symptoms in children with rare inherited heart condition",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPUHAzclJCYnYwUEN0LWF2YUxOOXdWYWZyUzQ3Ry1hLUoxbzNlOV9LVV94VEdZZjloNmlNR0F5ODNob2hoY3N6Z3d2dnFEQXpIS3FvUllIUnM5b2lERG02WEpLR29CWjRPbzMtc0c0WnNqNWx5anRNd2JKUDJXX3FKc01wV0tqV2t5RDdBcTQzQ0pfNUh1QXRWeDBHbnRRMVZjam42Q20xWGhNWmh3UmptcnFyYng1R2J4RjJkVFhoUDV6MFhLWUlwQTNBVzdiY1p4eW9yVnJscDBuYnc0?oc=5",
+      "date": "2026-09-30",
+      "source": "FDA",
+      "names": []
+    },
+    {
+      "title": "U.S. Food and Drug Administration Approves Expanded Indication for Bristol Myers Squibb’s Camzyos (mavacamten) for the Treatment of Symptomatic Obstructive Hypertrophic Cardiomyopathy (oHCM) in Adults and Pediatric Patients*",
+      "url": "https://www.drugs.com/newdrugs/u-s-food-administration-approves-expanded-indication-bristol-myers-squibb-s-camzyos-mavacamten-6906.html",
+      "date": "2026-09-30",
+      "source": "Drugs.com",
+      "names": [
+        "camzyos",
+        "cardiomyopathy",
+        "mavacamten",
+        "ohcm"
+      ]
+    },
     {
       "title": "FDA Approves First Treatment for MCT8 Deficiency",
       "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOUWZyeTZaNTNkMGUxbGRkcnM0U3FqS28tUDJsR1FpT0hpd1RxZWVlczdyYXl6RXh1dkMwQ3hpa2trOEZpYnQ5VkZMa1kwdWpJWk80YmtQMHZiQkxhbmJOOXEzMVBHaUtFSEhDTXVyVkpGcDhkWHlCY0FWVXJqTFBxR09MdVBWeURkQUM3bm9XQW41ekdxY3hLc1dzVW0?oc=5",
@@ -208,29 +227,6 @@
       "date": "2026-09-17",
       "source": "FDA",
       "names": []
-    },
-    {
-      "title": "FDA Approves Fayuvi (rebisufligene etisparvovec-hopf) Gene Therapy for the Treatment for Sanfilippo Syndrome Type A (MPS IIIA)",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-fayuvi-rebisufligene-etisparvovec-hopf-gene-therapy-sanfilippo-syndrome-type-mps-iiia-6890.html",
-      "date": "2026-09-17",
-      "source": "Drugs.com",
-      "names": [
-        "etisparvovec",
-        "etisparvovec-hopf",
-        "fayuvi",
-        "rebisufligene"
-      ]
-    },
-    {
-      "title": "Bayer’s Kerendia (finerenone) Receives FDA Approval as the First New Treatment in 30 Years for Adults with Chronic Kidney Disease (CKD) and Type 1 Diabetes",
-      "url": "https://www.drugs.com/newdrugs/bayer-s-kerendia-finerenone-receives-fda-approval-first-new-30-years-adults-chronic-kidney-ckd-type-6888.html",
-      "date": "2026-09-17",
-      "source": "Drugs.com",
-      "names": [
-        "disease",
-        "finerenone",
-        "kerendia"
-      ]
     }
   ]
 }
