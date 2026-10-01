@@ -369,6 +369,9 @@ for i, row in enumerate(rows):
         "gen": yes(row[C_GENERIC]),
         "dev": is_device_combo(row[C_NAME]),
         "holder": clean(row[C_HOLDER]),
+        # EMEA/H/C/006388 — joins the medicine to EMA's EPAR document list
+        # (scripts/smpc/ema-feed.mjs: product-information URL + last update)
+        "num": "/".join(clean(row[C_EMA_NUMBER]).split("/")[:4]).upper(),
     }
     slug_now = (clean(row[C_URL]).split("/EPAR/")[1] if "/EPAR/" in clean(row[C_URL]) else "").replace("-previously-", "").lower()
     if slug_now in OPINION_DATE_FIX and op_date == OPINION_DATE_FIX[slug_now][0]:

@@ -2,10 +2,14 @@ name: Refresh label texts (weekly, changed-only)
 
 # The daily job keeps the medicine LISTS current; this one keeps the label
 # TEXTS current (EU SmPC sections, US prescribing information). It does not
-# re-download the corpus: EMA is asked with a HEAD request per label whether
-# its PDF is newer than our extract (Last-Modified), openFDA is asked for the
-# current version of every stored set_id — only what changed is re-parsed,
-# everything else stays byte-identical. The result is committed to main and
+# re-download the corpus: EMA's EPAR document list (one file, last update per
+# product information) names the EU labels that changed, plus a rotating
+# sample of ~100 labels is asked directly (PDF Last-Modified) as a cross-check;
+# openFDA is asked for the current version of every stored set_id — only what
+# changed is re-parsed, everything else stays byte-identical. A drift report
+# then compares the whole EU corpus with EMA's list independently of the
+# refresh; labels more than 14 days behind EMA, labels of withdrawn medicines
+# or an incomplete run turn the run red (GitHub mails the repo owner). The result is committed to main and
 # the daily job is dispatched with force_deploy (a push made with the Action's
 # own token triggers no workflow), so it validates the labels once more
 # against the live release (G5/G7 gates) and deploys — one deploy path.
@@ -65,6 +69,16 @@ jobs:
           git fetch --depth=1 origin +gh-pages:refs/remotes/origin/gh-pages
           python frontend/scripts/validate-release.py --published-ref origin/gh-pages --report /tmp/validation.json --changes /tmp/changes.md
 
+      # Independent of what the refresh did: is every EU label as new as EMA's?
+      - name: Drift report — EU labels vs EMA's document list
+        id: drift
+        if: always()
+        run: |
+          set -euo pipefail
+          cd frontend
+          node scripts/smpc/drift-report.mjs --json /tmp/smpc-drift.json --md /tmp/smpc-drift.md
+          cat /tmp/smpc-drift.md >> "$GITHUB_STEP_SUMMARY"
+
       - name: Archive logs, validation report and change list
         if: always()
         uses: actions/upload-artifact@v4
@@ -75,6 +89,8 @@ jobs:
             /tmp/uspi.log
             /tmp/validation.json
             /tmp/changes.md
+            /tmp/smpc-drift.json
+            /tmp/smpc-drift.md
           if-no-files-found: ignore
           retention-days: 90
 
@@ -100,3 +116,10 @@ jobs:
           gh workflow run refresh-data.yml --ref main -f force_deploy=true
         env:
           GH_TOKEN: ${{ github.token }}
+
+      # After the commit, so what was refreshed is kept either way.
+      - name: Fail when EU labels drift from EMA
+        if: steps.drift.outputs.problems != '' && steps.drift.outputs.problems != '0'
+        run: |
+          echo "::error::EU label corpus does not match EMA (${{ steps.drift.outputs.problems }} problem(s)) — see the run summary / smpc-drift.md"
+          exit 1

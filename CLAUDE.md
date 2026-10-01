@@ -48,6 +48,28 @@ CBER rows must carry the age limits of the extracted US label, and EU records ta
 indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval date,
 `indT` = EMA-table age phrases when the two sources disagree) — the EMA table lags the SmPC.
 
+## EU label freshness (EMA document list + drift report)
+- The weekly label job (`refresh-labels.yml`, Mondays) no longer asks EMA's PDF
+  server about every label (EMA blocks after a few hundred requests — on 28.9.2026
+  only 402 of 1,580 got checked). `frontend/scripts/smpc/ema-feed.mjs` downloads
+  EMA's EPAR document list (`documents-output-epar_documents_json-report_en.json`,
+  ~28 MB, regenerated 06:00/18:00 Amsterdam) and joins it on the EMA product number
+  (`num` in ema-medicines.json, from build-ema-data.py) — that gives the real PDF
+  URL (not always `<slug>-epar-product-information_en.pdf`: Arikayce, Byannli,
+  Briviact) and `last_updated_date`. Only labels EMA changed are downloaded; a
+  rotating sample of `HEAD_SAMPLE` (default 100) labels is still checked directly
+  as an independent cross-check (`headOffset` in smpc-index.json).
+- New extracts carry `emaUpdated` (the list's clock); older ones are compared via
+  `retrieved` / `sourceModified` (+1 day slack — the PDF date can trail the list).
+- A run that stops early keeps every label listed, records `unchecked` (checked
+  first next run) and `incomplete`. Extracts of medicines no longer authorised are
+  deleted (gate G5 counts those as "retired", not as vanished).
+- `node frontend/scripts/smpc/drift-report.mjs` compares the whole corpus with
+  EMA's list independently: labels behind EMA, authorised medicines without a
+  label, labels of withdrawn medicines, incomplete run. In CI it goes to the run
+  summary + artifact; problems (behind > 14 days, stale, incomplete) turn the run
+  red after the commit. Run it locally any time to see the current state.
+
 ## US "Recent Approvals" + permanent release archive
 - The US tab's default list comes from `frontend/us-recent.json`, rebuilt nightly by
   `frontend/scripts/build-us-recent.py` (Drugs@FDA records with any submission in the

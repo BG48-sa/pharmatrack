@@ -287,7 +287,16 @@ def main():
         cfiles = {f for f in os.listdir(cpath) if f.endswith('.json')}
         pfiles = {f for f in os.listdir(ppath) if f.endswith('.json')}
         vanished = sorted(pfiles - cfiles)
-        r.add('G5', f'{corpus} files vanished', len(vanished) <= a.max_vanished, f'{len(pfiles)} → {len(cfiles)} files; vanished {len(vanished)} (max {a.max_vanished}): {", ".join(vanished[:8])}')
+        # A label whose medicine left the authorised list (withdrawn, revoked,
+        # renamed to a new EPAR slug) is removed on purpose — only unexplained
+        # disappearances count against the limit.
+        authorised = {re.sub(r'-previously-.*$', '', (m.get('url') or '').split('/EPAR/')[-1].strip())
+                      for m in ((ce or {}).get('authorised') or []) if '/EPAR/' in (m.get('url') or '')}
+        retired = [f for f in vanished if authorised and f[:-5] not in authorised]
+        unexplained = [f for f in vanished if f not in retired]
+        r.add('G5', f'{corpus} files vanished', len(unexplained) <= a.max_vanished,
+              f'{len(pfiles)} → {len(cfiles)} files; vanished {len(unexplained)} (max {a.max_vanished}): {", ".join(unexplained[:8])}'
+              + (f'; retired with their medicine {len(retired)}: {", ".join(f[:-5] for f in retired[:12])}' if retired else ''))
         regressions, shrunk, unreadable = [], [], []
         match_c, match_p = {}, {}
         for f in sorted(pfiles & cfiles):
