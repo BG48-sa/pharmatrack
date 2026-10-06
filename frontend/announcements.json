@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04",
+  "generated": "2026-10-06",
   "items": [
     {
       "title": "FDA approves pirtobrutinib for previously untreated chronic lymphocytic leukemia or small lymphocytic lymphoma",
@@ -7,6 +7,16 @@
       "date": "2026-10-02",
       "source": "FDA",
       "names": [
+        "pirtobrutinib"
+      ]
+    },
+    {
+      "title": "Lilly's Jaypirca (pirtobrutinib), the First-and-Only Approved Non-Covalent BTK Inhibitor, Receives Expanded Indication from U.S. FDA for Certain Patients with Previously Untreated CLL/SLL",
+      "url": "https://www.drugs.com/newdrugs/lilly-s-jaypirca-pirtobrutinib-first-only-approved-non-covalent-btk-inhibitor-receives-expanded-6907.html",
+      "date": "2026-10-02",
+      "source": "Drugs.com",
+      "names": [
+        "jaypirca",
         "pirtobrutinib"
       ]
     },
@@ -137,6 +147,13 @@
       ]
     },
     {
+      "title": "FDA Approves Once-Weekly Insulin for Type 2 Diabetes Mellitus",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTkRhYV9lUlg0WmhZX0d1d2JnX0llNjMxZVlhUU1wZHZLMzVMcFJTQkp1cnczM3BXZFR6Z3FjTHZtNkxmalJlRUtwRi1BblF2cndoNFdac3FuREM4NnRxY0ZTODM0aFNxTTN0OVBqS1ZUNTRPNnQxVjYxLW45OTRZVjRaTHJJRDJyVEJsaThtd0F2TjhvTlo1VGszUldEd3JSLW9IWGt6UGJ5dDA?oc=5",
+      "date": "2026-09-24",
+      "source": "FDA",
+      "names": []
+    },
+    {
       "title": "FDA approves belzutifan in combination with lenvatinib for advanced renal cell carcinoma with a clear cell component",
       "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPb3RPOGNNWDctUVpqS0pwZEtHS0pTbHd5OW5qMlZUUFY1T2hCY2VkOF9jeWxoSDkzaEc5Z1ZXelVIZ3pLTkRWMTZxMU5KUENlX29OeWVyal9oQ05HZzlrbkl4OFZXenFUTDNwbnZhUTdyM1dGajVhdG53ODB1dVJUOWowbVhwUk9aNll1RWpydXFxbmxiaXFZYy1sSDNOV2Z3SE9abXdjZzZUeHllUzN1aVBSbDF2THFGUGk0NGpmTC1Id1hVcG1KN0hTd2dNWUlRdlZLaExFY3YzcmxBLVFmMk9ycnZXMlN5aExjWWtqRFN0QQ?oc=5",
       "date": "2026-09-24",
@@ -144,13 +161,6 @@
       "names": [
         "lenvatinib"
       ]
-    },
-    {
-      "title": "FDA Approves Once-Weekly Insulin for Type 2 Diabetes Mellitus",
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTkRhYV9lUlg0WmhZX0d1d2JnX0llNjMxZVlhUU1wZHZLMzVMcFJTQkp1cnczM3BXZFR6Z3FjTHZtNkxmalJlRUtwRi1BblF2cndoNFdac3FuREM4NnRxY0ZTODM0aFNxTTN0OVBqS1ZUNTRPNnQxVjYxLW45OTRZVjRaTHJJRDJyVEJsaThtd0F2TjhvTlo1VGszUldEd3JSLW9IWGt6UGJ5dDA?oc=5",
-      "date": "2026-09-24",
-      "source": "FDA",
-      "names": []
     },
     {
       "title": "FDA Approves Onswik (insulin efsitora alfa-gobe) Once-Weekly Basal Insulin for Adults with Type 2 Diabetes",
@@ -213,18 +223,6 @@
       "source": "FDA",
       "names": [
         "abemaciclib"
-      ]
-    },
-    {
-      "title": "FDA Approves Inluriyo (imlunestrant) in Combination with Verzenio (abemaciclib) for Adults with ER+, HER2-, ESR1-Mutated Advanced or Metastatic Breast Cancer",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-inluriyo-imlunestrant-combination-verzenio-abemaciclib-adults-er-her2-esr1-mutated-6892.html",
-      "date": "2026-09-18",
-      "source": "Drugs.com",
-      "names": [
-        "abemaciclib",
-        "imlunestrant",
-        "inluriyo",
-        "verzenio"
       ]
     }
   ]
