@@ -1,48 +1,44 @@
 {
- "checkedAt": "2026-10-07T07:04:50Z",
+ "checkedAt": "2026-10-07T07:14:00Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-10-06",
+  "euCatalogue": "2026-10-07",
   "euLabels": "2026-10-05",
-  "usApprovals": "2026-10-05",
+  "usApprovals": "2026-10-06",
   "usApprovalsAnnounced": "2026-10-02",
   "usLabels": "2026-10-05",
-  "pipelineRun": "2026-10-07T07:04:50Z"
+  "pipelineRun": "2026-10-07T07:14:00Z"
  },
  "sources": {
   "ema_medicines_report": {
    "name": "EMA medicines report (EU catalogue)",
    "cadence": "about weekly",
    "status": "OK",
-   "count": 1576,
+   "count": 1575,
    "pending": 12,
-   "sha256": null,
+   "sha256": "0c186a5510b5933dd42f0392ff2ea4dd097e78716780eeed99475406b01f3dc8",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-10-06",
-   "sourceAgeDays": 1.3,
-   "fetchedAt": null,
-   "fetchedAgeDays": null,
+   "sourceUpdatedAt": "2026-10-07",
+   "sourceAgeDays": 0.3,
+   "fetchedAt": "2026-10-07T07:13:54+00:00",
+   "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-10-07T04:02:58Z",
     "kind": "Last-Modified"
    },
-   "notes": [
-    "download ledger (scripts/.sources.json) is from another run — download time not graded"
-   ]
+   "notes": []
   },
   "eu_union_register": {
    "name": "EU Union Register (Commission decisions)",
    "cadence": "daily download, no own watermark",
    "status": "OK",
    "count": 51,
-   "sha256": null,
+   "sha256": "8c4dafce8b86c7eab6c797b94401754578ff04e7117cddaee6144a45d02c071d",
    "sourceUpdatedAt": null,
-   "fetchedAt": null,
-   "fetchedAgeDays": null,
-   "notes": [
-    "download ledger is from another run — not graded"
-   ]
+   "fetchedAt": "2026-10-07T07:13:56+00:00",
+   "fetchedAgeDays": 0.0,
+   "notes": []
   },
   "ema_epar_documents": {
    "name": "EMA EPAR document list (EU labels)",
@@ -55,7 +51,7 @@
     "unchecked": 12
    },
    "sourceUpdatedAt": "2026-10-05T05:48:59Z",
-   "sourceAgeDays": 2.05,
+   "sourceAgeDays": 2.06,
    "fetchedAt": "2026-10-05",
    "probe": {
     "value": "2026-10-07T03:53:26Z",
@@ -69,15 +65,15 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3448,
+   "count": 3449,
    "approvals": 101,
    "newestOriginalApproval": "2026-09-28",
-   "sha256": "f6730ae22f47160ed5c166c786ab5bb4c56d5786d6cd9859fe482df7880d21ef",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251006+TO+20261013]",
-   "sourceUpdatedAt": "2026-10-05",
-   "sourceAgeDays": 2.3,
-   "fetchedAt": "2026-10-06T13:15:54+00:00",
-   "fetchedAgeDays": 0.74,
+   "sha256": "ee45296fc8b8cf1b042af1bf7937eda0488fca2db03f8096860c04b34d0c014f",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251007+TO+20261014]",
+   "sourceUpdatedAt": "2026-10-06",
+   "sourceAgeDays": 1.3,
+   "fetchedAt": "2026-10-07T07:14:00+00:00",
+   "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-10-06",
     "kind": "meta.last_updated"
@@ -121,8 +117,8 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-10-06",
-   "fetchedAgeDays": 1.3,
+   "fetchedAt": "2026-10-07",
+   "fetchedAgeDays": 0.3,
    "sourceUpdatedAt": "2026-10-02",
    "sourceAgeDays": 5.3,
    "notes": []
@@ -148,5 +144,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": null
+ "previousCheckedAt": "2026-10-07T07:04:50Z"
 }
