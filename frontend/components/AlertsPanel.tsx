@@ -7,7 +7,7 @@ import {
   notificationsSupported,
   PermState,
 } from '../services/notifications';
-import { getLastRefresh } from '../services/liveData';
+import { getLastRefresh, getDataFreshness, describeDataFreshness } from '../services/liveData';
 import { exportToCalendar, DecisionEvent } from '../services/calendar';
 import {
   BellRing, X, Plus, Trash2, CalendarClock, CalendarPlus, WifiOff, Info, Check, Search,
@@ -109,6 +109,8 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
   const countFor = (term: string): number => pipeline(term, 'all').length;
 
   const lastRefresh = getLastRefresh();
+  const freshness = getDataFreshness();
+  const dataThrough = describeDataFreshness();
   const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
 
   return (
@@ -332,19 +334,28 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
             official notifications from any authority. Not medical advice.
           </p>
 
-          {/* Data freshness / offline status */}
+          {/* Data freshness / offline status. "Synced" is when this device last
+              downloaded a release; the "through" dates are the regulators' own
+              data dates inside that release (release.json → freshness) — the
+              pipeline running today does not make openFDA's dataset newer. */}
           <div className="flex items-center gap-1.5 text-[11px] text-slate-400 pt-1">
             {offline ? (
               <>
                 <WifiOff size={12} /> Offline — showing saved data
-                {lastRefresh ? ` (updated ${fmt(lastRefresh.slice(0, 10))})` : ''}
+                {lastRefresh ? ` (synced ${fmt(lastRefresh.slice(0, 10))})` : ''}
               </>
             ) : lastRefresh ? (
-              <>Data updated {fmt(lastRefresh.slice(0, 10))}</>
+              <>Synced {fmt(lastRefresh.slice(0, 10))}</>
             ) : (
               <>Using bundled data</>
             )}
           </div>
+          {dataThrough && (
+            <div className="text-[11px] text-slate-400 leading-snug">
+              {dataThrough}
+              {freshness?.status === 'STALE' && ' — one source is behind its usual schedule'}
+            </div>
+          )}
         </div>
       </div>
     </div>

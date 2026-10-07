@@ -96,6 +96,23 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
     console.log(`[copy-data] scripts/.sources.json describes the EMA report of ${sources.emaReportGenerated}, the catalogue is ${ema.generated} — provenance omitted from release.json`);
     sources = undefined;
   }
+  // Source-freshness report (scripts/source-freshness.py, run by the CI
+  // refresh before the gates): how old the DATA inside each upstream source is.
+  // Same guard as the ledger — a report that describes another catalogue would
+  // put the wrong "current through" dates on this release, so it is omitted
+  // unless its EU catalogue date is this catalogue's. The app reads
+  // release.json → freshness.currentThrough instead of saying "updated today".
+  let freshness = readJson('freshness.json');
+  if (freshness && ema.generated && freshness.currentThrough?.euCatalogue !== ema.generated) {
+    console.log(`[copy-data] freshness.json describes the EU catalogue of ${freshness.currentThrough?.euCatalogue}, the catalogue is ${ema.generated} — freshness omitted from release.json`);
+    freshness = null;
+  }
+  if (freshness) {
+    copyFileSync(join(root, 'freshness.json'), join(outDir, 'freshness.json'));
+    const fsources = {};
+    for (const [k, s] of Object.entries(freshness.sources || {})) fsources[k] = { status: s.status, sourceUpdatedAt: s.sourceUpdatedAt ?? null, ...(s.lag ? { lag: s.lag } : {}) };
+    freshness = { checkedAt: freshness.checkedAt, status: freshness.status, currentThrough: freshness.currentThrough, sources: fsources };
+  }
   let commit = process.env.GITHUB_SHA;
   if (!commit) { try { commit = execSync('git rev-parse HEAD', { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { commit = undefined; } }
   const manifest = {
@@ -114,7 +131,10 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
     // US side: the openFDA Drugs@FDA download behind the recent-approvals list
     // (its own ledger, so it is present even when the EMA ledger is omitted).
     ...(usRecent.source ? { sourcesFda: { drugsfda: { ...usRecent.source, generated: usRecent.generated } } } : {}),
+    // Freshness of every upstream source + the "data current through" dates
+    // the app shows (OK / STALE / FAILED per source — see source-freshness.py).
+    ...(freshness ? { freshness } : {}),
   };
   writeFileSync(join(outDir, 'release.json'), JSON.stringify(manifest));
-  console.log(`[copy-data] release manifest for ${FILES.length} snapshots (commit ${(commit || 'unknown').slice(0, 7)}${sources ? ', with source hashes' : ''})`);
+  console.log(`[copy-data] release manifest for ${FILES.length} snapshots (commit ${(commit || 'unknown').slice(0, 7)}${sources ? ', with source hashes' : ''}${freshness ? `, freshness ${freshness.status}` : ''})`);
 }

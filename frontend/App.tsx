@@ -4,7 +4,7 @@ import { findDiseaseMatches, buildDiseaseComparison, DiseaseEntity, DiseaseMatch
 import DiseaseClassCard from './components/DiseaseClassCard';
 import { buildBiomarkerComparison, Biomarker } from './services/biomarkers';
 import { getUpcomingPdufa } from './services/pdufa';
-import { primeBundledData, refreshLiveData, getLastRefresh, getReleaseInfo, getReleaseManifest, loadLabelIndex } from './services/liveData';
+import { primeBundledData, refreshLiveData, getLastRefresh, getReleaseInfo, getReleaseManifest, loadLabelIndex, describeDataFreshness } from './services/liveData';
 import { searchTrials, TrialRegion, lastTrialTotal } from './services/clinicalTrials';
 import { DrugDataResponse, Trial, DrugDetailData } from './types';
 import DrugList from './components/DrugList';
@@ -667,6 +667,10 @@ export default function App() {
             <span>
               Offline — showing saved data
               {(() => {
+                // Prefer the sources' own dates (what the data is current
+                // through) over the release date (when the pipeline ran).
+                const through = describeDataFreshness();
+                if (through) return ` — ${through} (file integrity verified)`;
                 const rel = getReleaseInfo();
                 if (rel?.generated) { const rd = new Date(rel.generated); if (!isNaN(rd.getTime())) return ` — data release of ${rd.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} (file integrity verified)`; }
                 const iso = getLastRefresh();

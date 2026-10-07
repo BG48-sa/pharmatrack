@@ -79,6 +79,16 @@ jobs:
           node scripts/smpc/drift-report.mjs --json /tmp/smpc-drift.json --md /tmp/smpc-drift.md
           cat /tmp/smpc-drift.md >> "$GITHUB_STEP_SUMMARY"
 
+      # How old is the data behind each source after this refresh (EMA document
+      # list clock, openFDA label dataset date …)? Report only — the daily job
+      # it dispatches below recomputes and commits freshness.json with the deploy.
+      - name: Source freshness watchdog
+        if: always()
+        run: |
+          set -euo pipefail
+          python frontend/scripts/source-freshness.py --probe --no-fail --json /tmp/freshness.json --md /tmp/freshness.md
+          cat /tmp/freshness.md >> "$GITHUB_STEP_SUMMARY"
+
       - name: Archive logs, validation report and change list
         if: always()
         uses: actions/upload-artifact@v4
@@ -91,6 +101,8 @@ jobs:
             /tmp/changes.md
             /tmp/smpc-drift.json
             /tmp/smpc-drift.md
+            /tmp/freshness.json
+            /tmp/freshness.md
           if-no-files-found: ignore
           retention-days: 90
 

@@ -126,6 +126,52 @@ let releaseManifest: any | null = null;
 export const getReleaseManifest = (): any | null => releaseManifest;
 storeGet(MANIFEST_KEY).then((v) => { if (v && !releaseManifest) { try { releaseManifest = JSON.parse(v); } catch { /* ignore */ } } });
 
+/**
+ * How current the DATA inside the applied release is — per upstream source, as
+ * measured by the pipeline's source-freshness watchdog (release.json →
+ * freshness, written by scripts/source-freshness.py). The dates are the
+ * SOURCES' own watermarks (EMA's report date, openFDA's dataset date), not the
+ * day the pipeline ran — so the UI can say "EU data through 6 Oct" instead of
+ * an "updated today" that only means the job ran today. Null when the applied
+ * release predates the watchdog.
+ */
+export interface DataFreshness {
+  /** OK = every source within its cadence; STALE = at least one source is behind. */
+  status: 'OK' | 'STALE' | 'FAILED';
+  checkedAt?: string;
+  currentThrough: {
+    euCatalogue?: string | null;
+    euLabels?: string | null;
+    usApprovals?: string | null;
+    usApprovalsAnnounced?: string | null;
+    usLabels?: string | null;
+    pipelineRun?: string | null;
+  };
+  sources?: Record<string, { status: 'OK' | 'STALE' | 'FAILED'; sourceUpdatedAt?: string | null; lag?: { behindDays: number; reference: string } }>;
+}
+export const getDataFreshness = (): DataFreshness | null => {
+  const f = releaseManifest?.freshness;
+  return f && f.currentThrough ? (f as DataFreshness) : null;
+};
+
+/** "EU data through 6 Oct 2026 · US approvals through 2 Oct 2026" — or null when the release carries no freshness block. */
+export const describeDataFreshness = (): string | null => {
+  const f = getDataFreshness();
+  if (!f) return null;
+  const fmt = (iso?: string | null) => {
+    if (!iso) return null;
+    const d = new Date(iso.slice(0, 10));
+    return isNaN(d.getTime()) ? null : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  };
+  const parts: string[] = [];
+  const eu = fmt(f.currentThrough.euCatalogue);
+  const us = fmt(f.currentThrough.usApprovals);
+  const usAnn = fmt(f.currentThrough.usApprovalsAnnounced);
+  if (eu) parts.push(`EU data through ${eu}`);
+  if (us) parts.push(`US approvals through ${us}${usAnn && f.currentThrough.usApprovalsAnnounced! > (f.currentThrough.usApprovals || '') ? ` (FDA announcements through ${usAnn})` : ''}`);
+  return parts.length ? parts.join(' · ') : null;
+};
+
 export interface LabelIndex {
   drugs: Record<string, { brand?: string; inn?: string; sha?: string; match?: 'brand' | 'substance'; usGeneric?: string | null }>;
   generated?: string;

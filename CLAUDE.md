@@ -70,6 +70,26 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   summary + artifact; problems (behind > 14 days, stale, incomplete) turn the run
   red after the commit. Run it locally any time to see the current state.
 
+## Source-freshness watchdog (OK / STALE / FAILED per upstream source)
+- The release gates check OUR files; `frontend/scripts/source-freshness.py` checks the
+  DATA inside each upstream source: it records the source's own watermark (EMA report
+  date, openFDA `meta.last_updated`, the EMA document list's clock, newest CDER
+  novel approval, CBER/CDx list dates) next to our download time, probes the live
+  sources (`--probe`: HTTP Last-Modified of EMA's files, openFDA `limit=1` meta) and
+  compares with the previous run (`HEAD:frontend/freshness.json`). Thresholds per
+  source are in `LIMITS` at the top of the script.
+- STALE = alive but behind its cadence (warning annotation, still published; the
+  app shows "EU data through … · US approvals through …" from `release.json →
+  freshness.currentThrough`, never "updated today"). FAILED = publishing would be
+  wrong (watermark moved backwards, count collapsed, ledger unreadable) → the daily
+  job stops before commit/deploy. An openFDA lag behind FDA's own announcements is
+  recorded as `lag` and stays OK up to 14 days — the Recent-Approvals overlay covers it.
+- The report is committed as `frontend/freshness.json` (only a moved watermark /
+  status / count counts as a change, see "Drop pure-reformatting changes"),
+  published as `data/freshness.json`, summarised in the run summary, and archived
+  per release as `data-releases/<id>.freshness.json`. The Monday label job runs it
+  report-only. Run locally: `python3 frontend/scripts/source-freshness.py --probe`.
+
 ## US "Recent Approvals" + permanent release archive
 - The US tab's default list comes from `frontend/us-recent.json`, rebuilt nightly by
   `frontend/scripts/build-us-recent.py` (Drugs@FDA records with any submission in the
