@@ -1,6 +1,23 @@
 {
-  "generated": "2026-10-07",
+  "generated": "2026-10-08",
   "items": [
+    {
+      "title": "Novartis Rhapsido (remibrutinib) Receives FDA Approval as First Treatment for Symptomatic Dermographism",
+      "url": "https://www.drugs.com/newdrugs/novartis-rhapsido-remibrutinib-receives-fda-approval-first-symptomatic-dermographism-6908.html",
+      "date": "2026-10-07",
+      "source": "Drugs.com",
+      "names": [
+        "remibrutinib",
+        "rhapsido"
+      ]
+    },
+    {
+      "title": "Pfizer’s Tukysa Regimen Receives FDA Approval as Front-Line Maintenance Treatment for HER2+ Metastatic Breast Cancer",
+      "url": "https://www.drugs.com/newdrugs/pfizer-s-tukysa-regimen-receives-fda-approval-front-line-maintenance-her2-metastatic-breast-cancer-6909.html",
+      "date": "2026-10-07",
+      "source": "Drugs.com",
+      "names": []
+    },
     {
       "title": "Lilly's Jaypirca (pirtobrutinib), the First-and-Only Approved Non-Covalent BTK Inhibitor, Receives Expanded Indication from U.S. FDA for Certain Patients with Previously Untreated CLL/SLL",
       "url": "https://www.drugs.com/newdrugs/lilly-s-jaypirca-pirtobrutinib-first-only-approved-non-covalent-btk-inhibitor-receives-expanded-6907.html",
@@ -225,28 +242,6 @@
       "source": "Drugs.com",
       "names": [
         "pixclara"
-      ]
-    },
-    {
-      "title": "FDA Approves Omcazio (cabozantinib) Capsule Formulation for Administration Without Regard to Food",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-omcazio-cabozantinib-capsule-formulation-administration-without-regard-food-6880.html",
-      "date": "2026-09-11",
-      "source": "Drugs.com",
-      "names": [
-        "cabozantinib",
-        "omcazio"
-      ]
-    },
-    {
-      "title": "FDA Approves Isembyld (apitegromab-mstn) Muscle-Targeted Treatment for Children and Adults with Spinal Muscular Atrophy (SMA)",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-isembyld-apitegromab-mstn-muscle-targeted-children-adults-spinal-muscular-atrophy-sma-6881.html",
-      "date": "2026-09-11",
-      "source": "Drugs.com",
-      "names": [
-        "apitegromab",
-        "apitegromab-mstn",
-        "atrophy",
-        "isembyld"
       ]
     }
   ]
