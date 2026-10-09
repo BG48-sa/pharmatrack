@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-10-08T13:24:27Z",
+ "checkedAt": "2026-10-09T13:12:33Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-10-08",
+  "euCatalogue": "2026-10-09",
   "euLabels": "2026-10-05",
   "usApprovals": "2026-10-07",
   "usApprovalsAnnounced": "2026-10-07",
   "usLabels": "2026-10-05",
-  "pipelineRun": "2026-10-08T13:24:27Z"
+  "pipelineRun": "2026-10-09T13:12:33Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,14 +17,14 @@
    "status": "OK",
    "count": 1575,
    "pending": 12,
-   "sha256": "046f68db0267b3090a0f654e11f5c1b403cdd616abb80799c80571df5322797a",
+   "sha256": "30d56eeb405303feeefc023e57cb651c273f19b2606edff5c041602ee055436e",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-10-08",
-   "sourceAgeDays": 0.56,
-   "fetchedAt": "2026-10-08T13:24:18+00:00",
+   "sourceUpdatedAt": "2026-10-09",
+   "sourceAgeDays": 0.55,
+   "fetchedAt": "2026-10-09T13:12:23+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-10-08T04:15:37Z",
+    "value": "2026-10-09T04:23:59Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -34,9 +34,9 @@
    "cadence": "daily download, no own watermark",
    "status": "OK",
    "count": 51,
-   "sha256": "fa6282f9de9624a0ed072cb8f79002b9b9f86d93c30fe46c2c303a9e8306d592",
+   "sha256": "ceceb8c2ca873678db95c03c1b295c4ff2bdeda312a8f74152c3898f3329160d",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-10-08T13:24:20+00:00",
+   "fetchedAt": "2026-10-09T13:12:24+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -51,10 +51,10 @@
     "unchecked": 12
    },
    "sourceUpdatedAt": "2026-10-05T05:48:59Z",
-   "sourceAgeDays": 3.32,
+   "sourceAgeDays": 4.31,
    "fetchedAt": "2026-10-05",
    "probe": {
-    "value": "2026-10-08T04:08:33Z",
+    "value": "2026-10-09T04:02:55Z",
     "kind": "Last-Modified"
    },
    "notes": [
@@ -65,14 +65,14 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3456,
+   "count": 3451,
    "approvals": 99,
    "newestOriginalApproval": "2026-09-28",
-   "sha256": "475d4d2421c5868b43214c6ccff032bf20e79fa4fb06b7d59375d97b07ce9d46",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251008+TO+20261015]",
+   "sha256": "41fa7a71ed84aa9b298474baacbfdc82bc2abea60eff7952c4123a26013d05ee",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251009+TO+20261016]",
    "sourceUpdatedAt": "2026-10-07",
-   "sourceAgeDays": 1.56,
-   "fetchedAt": "2026-10-08T13:24:26+00:00",
+   "sourceAgeDays": 2.55,
+   "fetchedAt": "2026-10-09T13:12:33+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-10-07",
@@ -95,9 +95,9 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-10-05",
    "fetchedAt": "2026-10-05",
-   "sourceAgeDays": 3.56,
+   "sourceAgeDays": 4.55,
    "probe": {
-    "value": "2026-10-07",
+    "value": "2026-10-08",
     "kind": "meta.last_updated"
    },
    "notes": []
@@ -109,7 +109,7 @@
    "count": 91,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 10.56,
+   "sourceAgeDays": 11.55,
    "notes": []
   },
   "fda_announcements": {
@@ -117,10 +117,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-10-08",
-   "fetchedAgeDays": 0.56,
+   "fetchedAt": "2026-10-09",
+   "fetchedAgeDays": 0.55,
    "sourceUpdatedAt": "2026-10-07",
-   "sourceAgeDays": 1.56,
+   "sourceAgeDays": 2.55,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -130,7 +130,7 @@
    "count": 54,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-09-17",
-   "sourceAgeDays": 21.56,
+   "sourceAgeDays": 22.55,
    "notes": []
   },
   "fda_cdx_list": {
@@ -140,9 +140,9 @@
    "count": 226,
    "fetchedAt": "2026-09-08",
    "sourceUpdatedAt": "2026-07-23",
-   "sourceAgeDays": 77.56,
+   "sourceAgeDays": 78.55,
    "notes": []
   }
  },
- "previousCheckedAt": "2026-10-07T07:14:00Z"
+ "previousCheckedAt": "2026-10-08T13:24:27Z"
 }
