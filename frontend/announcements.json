@@ -1,6 +1,17 @@
 {
-  "generated": "2026-10-08",
+  "generated": "2026-10-13",
   "items": [
+    {
+      "title": "FDA Approves Hovilpri (pritelivir) for the Treatment of Mucocutaneous Herpes Simplex Virus (HSV) Lesions",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-hovilpri-pritelivir-mucocutaneous-herpes-simplex-virus-hsv-lesions-6910.html",
+      "date": "2026-10-12",
+      "source": "Drugs.com",
+      "names": [
+        "hovilpri",
+        "pritelivir",
+        "virus"
+      ]
+    },
     {
       "title": "Novartis Rhapsido (remibrutinib) Receives FDA Approval as First Treatment for Symptomatic Dermographism",
       "url": "https://www.drugs.com/newdrugs/novartis-rhapsido-remibrutinib-receives-fda-approval-first-symptomatic-dermographism-6908.html",
@@ -233,15 +244,6 @@
       "source": "Drugs.com",
       "names": [
         "bexlutry"
-      ]
-    },
-    {
-      "title": "FDA Approves Pixclara (floretyrosine F 18) FET-PET Imaging Agent for Glioma",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-pixclara-floretyrosine-f-18-fet-pet-imaging-agent-glioma-6882.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": [
-        "pixclara"
       ]
     }
   ]
