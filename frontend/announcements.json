@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-13",
+  "generated": "2026-10-14",
   "items": [
     {
       "title": "FDA Approves Hovilpri (pritelivir) for the Treatment of Mucocutaneous Herpes Simplex Virus (HSV) Lesions",
@@ -11,6 +11,23 @@
         "pritelivir",
         "virus"
       ]
+    },
+    {
+      "title": "FDA Approves Weltruza (olanzapine) Once-Monthly Subcutaneous Injection for the Treatment of Adults with Schizophrenia",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-weltruza-olanzapine-once-monthly-subcutaneous-adults-schizophrenia-6912.html",
+      "date": "2026-10-09",
+      "source": "Drugs.com",
+      "names": [
+        "olanzapine",
+        "weltruza"
+      ]
+    },
+    {
+      "title": "FDA Approves Genentech’s Tecentriq in Combination With a Fluoropyrimidine and Oxaliplatin for The Adjuvant Treatment of a Certain Type of Stage III Colon Cancer",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-genentech-s-tecentriq-combination-fluoropyrimidine-oxaliplatin-adjuvant-certain-type-6911.html",
+      "date": "2026-10-08",
+      "source": "Drugs.com",
+      "names": []
     },
     {
       "title": "Novartis Rhapsido (remibrutinib) Receives FDA Approval as First Treatment for Symptomatic Dermographism",
@@ -229,22 +246,6 @@
       "date": "2026-09-14",
       "source": "Drugs.com",
       "names": []
-    },
-    {
-      "title": "Biofrontera Announces FDA Approval of Ameluz Red Light PDT for the Treatment of Superficial Basal Cell Carcinoma",
-      "url": "https://www.drugs.com/newdrugs/biofrontera-announces-fda-approval-ameluz-red-light-pdt-superficial-basal-cell-carcinoma-6883.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "FDA Approves Bexlutry (lutetium Lu 177 dotatate) for the Treatment of Somatostatin Receptor-Positive Gastroenteropancreatic Neuroendocrine Tumors in Adults",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-bexlutry-lutetium-lu-177-dotatate-somatostatin-receptor-positive-6886.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": [
-        "bexlutry"
-      ]
     }
   ]
 }
