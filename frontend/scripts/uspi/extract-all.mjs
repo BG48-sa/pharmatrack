@@ -27,6 +27,9 @@
 //   node scripts/uspi/extract-all.mjs 200        cap NEW lookups to 200
 //   REPARSE=1 node scripts/uspi/extract-all.mjs  re-select/re-parse from cached candidates only
 //   FORCE=1 ...                                   ignore cache
+//   CHANGED_ONLY=1 ...                            weekly CI refresh (see run())
+//   PLAN_ONLY=1 CHANGED_ONLY=1 ...                print which EU medicines would get a fresh US lookup this week; no network, nothing written
+//   RETRY_SAMPLE=40 ...                           extract-less EU medicines re-tried per changed-only run (rotation)
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -190,14 +193,39 @@ async function run() {
   const force = process.env.FORCE === '1';
   // CHANGED_ONLY=1 (weekly CI refresh): openFDA is asked for the current version
   // of every stored set_id (50 per query); only labels with a newer
-  // effective_time are re-parsed, EU medicines authorised in the last 120 days
-  // without a US extract yet get a fresh lookup, everything else is kept as it
-  // is — a label never disappears because it was not checked.
+  // effective_time are re-parsed. EU medicines WITHOUT a US extract get a fresh
+  // lookup only when eligible (see below): authorised in the EU in the last 120
+  // days, FDA-approved in the last 400 days per the app's own US rosters (an
+  // EU-first medicine's US label appears months or years after its EU
+  // authorisation — Awiqli, Emcitate), or in this week's rotation slice of
+  // RETRY_SAMPLE extract-less medicines, so nothing stays unlooked-up for good.
+  // Everything else is kept as it is — a label never disappears because it was
+  // not checked.
   const changedOnly = process.env.CHANGED_ONLY === '1';
+  const planOnly = process.env.PLAN_ONLY === '1';          // print the week's lookup plan, fetch nothing, write nothing
   const only = process.env.ONLY ? new Set(process.env.ONLY.split(',')) : null; // debugging: restrict to these slugs
   const readDoc = (slug) => { try { return JSON.parse(readFileSync(join(OUT_DIR, `${slug}.json`), 'utf8')); } catch { return null; } };
   const isoDate = (t) => (t && /^\d{8}$/.test(t) ? `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}` : null);
-  const recentEU = (m) => !!m.d && Date.now() - Date.parse(m.d) < 120 * 864e5;
+  const EU_WINDOW_DAYS = 120, US_WINDOW_DAYS = 400;
+  const recentEU = (m) => !!m.d && Date.now() - Date.parse(m.d) < EU_WINDOW_DAYS * 864e5;
+  // FDA approval date of an EU medicine from the snapshots the app ships (CDER
+  // novel roster + CBER cell & gene list): exact brand, else exact INN when only
+  // one US product carries it — the rule of services/usApproval.ts.
+  const usDates = (() => {
+    const byName = new Map(), byInn = new Map();
+    const add = (n, g, d) => {
+      if (!n || !d) return;
+      byName.set(norm(n), [...(byName.get(norm(n)) || []), d]);
+      if (g) { const k = norm(g); if (!byInn.has(k)) byInn.set(k, new Map()); byInn.get(k).set(norm(n), d); }
+    };
+    try { for (const list of Object.values(JSON.parse(readFileSync(join(root, 'novel-approvals.json'), 'utf8')))) if (Array.isArray(list)) for (const e of list) add(e.brandName, e.genericName, e.approvalDate); } catch { /* no roster */ }
+    try { for (const r of Object.values(JSON.parse(readFileSync(join(root, 'cgt-products.json'), 'utf8')))) add(r.n, r.g, r.d); } catch { /* no CBER list */ }
+    return (m) => {
+      const ds = byName.get(norm(m.n)); if (ds) return [...ds].sort()[0];
+      const inn = byInn.get(norm(m.inn)); return inn && inn.size === 1 ? [...inn.values()][0] : null;
+    };
+  })();
+  const recentUS = (m) => { const d = usDates(m); return !!d && Date.now() - Date.parse(d) < US_WINDOW_DAYS * 864e5; };
   const rebrand = process.env.REBRAND === '1';          // redo tier 1 for every brand
   const requeryEmpty = process.env.REQUERY_EMPTY === '1'; // redo tier 2 where it returned nothing
   const maxCalls = process.env.MAX_CALLS ? parseInt(process.env.MAX_CALLS, 10) : Infinity;
@@ -238,6 +266,28 @@ async function run() {
   const loadCache = (slug) => { try { return JSON.parse(readFileSync(cacheFile(slug), 'utf8')); } catch { return null; } };
   const saveCache = (slug, c) => writeFileSync(cacheFile(slug), JSON.stringify(c));
 
+  // ---- which extract-less EU medicines get a fresh US lookup this week ------
+  const prevIndex = (() => { try { return JSON.parse(readFileSync(INDEX, 'utf8')); } catch { return {}; } })();
+  const lookupWhy = new Map(); // slug -> 'eu' | 'fda' | 'rotation'
+  let retryOffset = 0;
+  if (changedOnly) {
+    const noExtract = drugs.filter((m) => !readDoc(slugOf(m)));
+    for (const m of noExtract) { if (recentEU(m)) lookupWhy.set(slugOf(m), 'eu'); else if (recentUS(m)) lookupWhy.set(slugOf(m), 'fda'); }
+    const rest = noExtract.map(slugOf).filter((s) => !lookupWhy.has(s)).sort();
+    const sampleN = Math.max(0, parseInt(process.env.RETRY_SAMPLE ?? '40', 10) || 0);
+    const start = rest.length ? (prevIndex.retryOffset || 0) % rest.length : 0;
+    for (const s of (sampleN >= rest.length ? rest : [...rest, ...rest].slice(start, start + sampleN))) lookupWhy.set(s, 'rotation');
+    retryOffset = rest.length ? (start + Math.min(sampleN, rest.length)) % rest.length : 0;
+    const n = (k) => [...lookupWhy.values()].filter((v) => v === k).length;
+    console.log(`Fresh US lookups this week: ${lookupWhy.size} of ${noExtract.length} EU medicines without a US extract (EU authorised <${EU_WINDOW_DAYS} d: ${n('eu')}, FDA approval <${US_WINDOW_DAYS} d per roster: ${n('fda')}, rotation from #${start}: ${n('rotation')})`);
+    if (planOnly) {
+      for (const why of ['eu', 'fda', 'rotation']) console.log(`  ${why}: ${[...lookupWhy].filter(([, w]) => w === why).map(([s]) => `${s}${why === 'fda' ? ` (FDA ${usDates(drugs.find((m) => slugOf(m) === s))})` : ''}`).join(', ') || '—'}`);
+      console.log('PLAN_ONLY — no label fetched, no file written.');
+      return;
+    }
+  }
+  const eligible = (m) => !changedOnly || lookupWhy.has(slugOf(m));
+
   // ---- changed-only: version check of every stored label by set_id ---------
   const presel = new Map(); // slug -> { chosen, match } for labels openFDA holds a newer version of
   const refreshedUS = [];
@@ -276,7 +326,7 @@ async function run() {
   // ---- Tier 1: brand lookups, 40 EU brands per openFDA query ----------------
   if (!reparse) {
     const need = drugs.filter((m) => !isGenericStyleName(m) && (force || rebrand || !loadCache(slugOf(m))?.brand)
-      && (!changedOnly || (!readDoc(slugOf(m)) && recentEU(m))));       // changed-only: fresh lookups only for recent EU medicines without a US extract
+      && (!changedOnly || (!readDoc(slugOf(m)) && eligible(m))));       // changed-only: fresh lookups only for eligible EU medicines without a US extract
     console.log(`Tier 1 (brand): ${need.length} EU brands to look up in ${Math.ceil(need.length / 20)} batched queries`);
     for (let i = 0; i < need.length; i += 20) {
       if (apiCalls >= maxCalls) { console.log('MAX_CALLS reached — stopping tier 1'); break; }
@@ -312,7 +362,7 @@ async function run() {
         stats[prev.match] = (stats[prev.match] || 0) + 1;
         continue;
       }
-      if (!prev && !recentEU(m)) { stats.none++; continue; }            // no extract and not a recent EU authorisation: not looked up this week
+      if (!prev && !eligible(m)) { stats.none++; continue; }             // no extract and not eligible this week (see lookupWhy): not looked up
       if (presel.has(slug)) ({ chosen, match } = presel.get(slug));
     }
     const want = norm(US_ALIAS[slug] || m.n);
@@ -368,6 +418,7 @@ async function run() {
   }
 
   if (guarded.length) index.guarded = guarded; else delete index.guarded;
+  if (changedOnly) index.retryOffset = retryOffset; // where next week's rotation of extract-less medicines starts
 
   // Remove per-drug files for slugs that no longer have an acceptable US label.
   let removed = 0;
