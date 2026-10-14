@@ -331,7 +331,10 @@ const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)
   }
   drugs.forEach((drug, i) => {
     const app = appNos[i];
-    if (app && indicationCache.has(app)) drug.indication = indicationCache.get(app)!;
+    if (app && indicationCache.has(app)) {
+      drug.indication = indicationCache.get(app)!;
+      drug.indicationSource = 'label'; // the SPL label's own text now — no longer a roster / curated summary
+    }
   });
 };
 
