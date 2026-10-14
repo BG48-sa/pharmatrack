@@ -69,6 +69,27 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   label, labels of withdrawn medicines, incomplete run. In CI it goes to the run
   summary + artifact; problems (behind > 14 days, stale, incomplete) turn the run
   red after the commit. Run it locally any time to see the current state.
+- Ingest failures are NOT exempt from that alarm (they were until 14.10.2026):
+  `smpc-index.json → failed` (reason per slug in `failedWhy`: `404` EMA serves no
+  PDF yet, `fetch`, `parse`) count as problems once the medicine is > 28 days past
+  its EC decision (`--failed-max-days`; EMA publishes the EPAR ~2 weeks after the
+  decision) or 7 days after EMA's document list names its product-information
+  PDF (`--listed-grace-days`: EMA has published, so the failure is ours). The usual
+  case is a medicine authorised via the Union Register while EMA's table still
+  says "Opinion" (`ec: "register"`): on 14.10.2026 seven had no SmPC, Nylaspeg and
+  Onswik 55 days after the decision — nobody had been told.
+
+## US label freshness (openFDA, weekly)
+- `frontend/scripts/uspi/extract-all.mjs` (CHANGED_ONLY=1, Mondays) re-checks the
+  version of every stored set_id and looks up EU medicines WITHOUT a US extract
+  only when eligible: EU authorisation < 120 d, FDA approval < 400 d per the app's
+  US rosters (`novel-approvals.json` / `cgt-products.json`, same brand-or-unique-INN
+  rule as `services/usApproval.ts` — EU-first medicines get their US label years
+  later: Awiqli, Emcitate), plus a rotation of `RETRY_SAMPLE` (40) extract-less
+  medicines per run (`retryOffset` in uspi-index.json). Before 14.10.2026 only the
+  120-day EU window existed, so such medicines were never looked up again.
+  `PLAN_ONLY=1 CHANGED_ONLY=1 node scripts/uspi/extract-all.mjs` prints the week's
+  plan without touching the network or any file.
 
 ## Source-freshness watchdog (OK / STALE / FAILED per upstream source)
 - The release gates check OUR files; `frontend/scripts/source-freshness.py` checks the
