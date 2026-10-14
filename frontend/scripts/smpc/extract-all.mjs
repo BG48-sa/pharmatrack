@@ -214,7 +214,11 @@ async function run() {
     seen.add(s); return true;
   });
 
-  const index = { generated: 'dev', source: 'EMA product-information (Annex I, SmPC)', drugs: {}, failed: [] };
+  // failed = labels this run could not ingest; failedWhy says why per slug:
+  // '404' EMA serves no PDF (yet), 'fetch' download failed, 'parse' no QRD
+  // section found. drift-report.mjs uses it to tell "EMA is late" from "we are broken".
+  const index = { generated: 'dev', source: 'EMA product-information (Annex I, SmPC)', drugs: {}, failed: [], failedWhy: {} };
+  const markFailed = (slug, why) => { index.failed.push(slug); index.failedWhy[slug] = why; };
   let done = 0, ok = 0, fetched = 0, notfound = 0, fail = 0;
   const CONC = 1; // single-threaded: EMA's burst limit is low, so pace one-at-a-time
   const readDoc = (slug) => { try { return JSON.parse(readFileSync(join(OUT_DIR, `${slug}.json`), 'utf8')); } catch { return null; } };
@@ -315,9 +319,9 @@ async function run() {
           continue;
         }
       }
-      if (!t || t === '404') { if (t === '404') notfound++; else fail++; index.failed.push(slug); keepExisting(slug, m); if (!cached) await sleep(200); continue; }
+      if (!t || t === '404') { if (t === '404') notfound++; else fail++; markFailed(slug, t === '404' ? '404' : 'fetch'); keepExisting(slug, m); if (!cached) await sleep(200); continue; }
       const sections = parseSections(t);
-      if (!Object.values(sections).some((s) => !s.missing && s.text)) { fail++; index.failed.push(slug); keepExisting(slug, m); continue; }
+      if (!Object.values(sections).some((s) => !s.missing && s.text)) { fail++; markFailed(slug, 'parse'); keepExisting(slug, m); continue; }
       const doc = {
         slug, brand: m.n, inn: m.inn, holder: m.holder, url: urlOf(slug), source: 'EMA product-information (Annex I, SmPC)',
         retrieved: (() => { try { return new Date(statSync(join(CACHE, `${slug}.txt`)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(), // when the PDF text was fetched from EMA
