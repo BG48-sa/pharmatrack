@@ -1,6 +1,13 @@
 {
-  "generated": "2026-10-14",
+  "generated": "2026-10-15",
   "items": [
+    {
+      "title": "FDA Expands Anktiva Approval for BCG-Unresponsive Non-Muscle-Invasive Bladder Cancer to Cover Both Papillary and CIS Disease",
+      "url": "https://www.drugs.com/newdrugs/fda-expands-anktiva-approval-bcg-unresponsive-non-muscle-invasive-bladder-cancer-cover-both-6913.html",
+      "date": "2026-10-14",
+      "source": "Drugs.com",
+      "names": []
+    },
     {
       "title": "FDA Approves Hovilpri (pritelivir) for the Treatment of Mucocutaneous Herpes Simplex Virus (HSV) Lesions",
       "url": "https://www.drugs.com/newdrugs/fda-approves-hovilpri-pritelivir-mucocutaneous-herpes-simplex-virus-hsv-lesions-6910.html",
@@ -239,13 +246,6 @@
         "ibtrozi",
         "taletrectinib"
       ]
-    },
-    {
-      "title": "FDA Approves Reduced Monitoring Time for First Two Doses of Imdelltra",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-reduced-monitoring-time-first-two-doses-imdelltra-6885.html",
-      "date": "2026-09-14",
-      "source": "Drugs.com",
-      "names": []
     }
   ]
 }
