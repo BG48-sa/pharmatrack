@@ -1,30 +1,30 @@
 {
- "checkedAt": "2026-10-15T11:24:01Z",
+ "checkedAt": "2026-10-16T11:18:35Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-10-15",
+  "euCatalogue": "2026-10-16",
   "euLabels": "2026-10-12",
   "usApprovals": "2026-10-14",
   "usApprovalsAnnounced": "2026-10-14",
   "usLabels": "2026-10-12",
-  "pipelineRun": "2026-10-15T11:24:01Z"
+  "pipelineRun": "2026-10-16T11:18:35Z"
  },
  "sources": {
   "ema_medicines_report": {
    "name": "EMA medicines report (EU catalogue)",
    "cadence": "about weekly",
    "status": "OK",
-   "count": 1574,
-   "pending": 12,
-   "sha256": "f964f4d5a88d3c9186c2bdd073b3d95d5ae69857cbe30b830df463e7e8546dd8",
+   "count": 1573,
+   "pending": 13,
+   "sha256": "5195cd056048dfa2c486ceec0a9056e046e6b06c7dd3a16c50d09c44bf1a86f9",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-10-15",
-   "sourceAgeDays": 0.48,
-   "fetchedAt": "2026-10-15T11:23:53+00:00",
+   "sourceUpdatedAt": "2026-10-16",
+   "sourceAgeDays": 0.47,
+   "fetchedAt": "2026-10-16T11:18:24+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-10-15T04:02:55Z",
+    "value": "2026-10-16T04:02:52Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -36,7 +36,7 @@
    "count": 50,
    "sha256": "7a77f0824ce0ec5038b1e7129fc85d13f3cce9d46c287aa94d747fdd21060df5",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-10-15T11:23:55+00:00",
+   "fetchedAt": "2026-10-16T11:18:25+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -51,10 +51,10 @@
     "unchecked": 8
    },
    "sourceUpdatedAt": "2026-10-12T05:48:58Z",
-   "sourceAgeDays": 3.23,
+   "sourceAgeDays": 4.23,
    "fetchedAt": "2026-10-12",
    "probe": {
-    "value": "2026-10-15T03:53:28Z",
+    "value": "2026-10-16T03:53:31Z",
     "kind": "Last-Modified"
    },
    "notes": [
@@ -65,14 +65,14 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "STALE",
-   "count": 3459,
+   "count": 3448,
    "approvals": 99,
    "newestOriginalApproval": "2026-09-28",
-   "sha256": "e0749dd65368d41973984d83bbd63f890ca0243758b9a5cab18fd5d94947fccf",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251015+TO+20261022]",
+   "sha256": "e4837ad9a4ee146e0904397be17924b3838217aa23ca4477c6c0deb20cf2f27b",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251016+TO+20261023]",
    "sourceUpdatedAt": "2026-10-14",
-   "sourceAgeDays": 1.48,
-   "fetchedAt": "2026-10-15T11:24:01+00:00",
+   "sourceAgeDays": 2.47,
+   "fetchedAt": "2026-10-16T11:18:35+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-10-14",
@@ -95,9 +95,9 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-10-12",
    "fetchedAt": "2026-10-12",
-   "sourceAgeDays": 3.48,
+   "sourceAgeDays": 4.47,
    "probe": {
-    "value": "2026-10-14",
+    "value": "2026-10-16",
     "kind": "meta.last_updated"
    },
    "notes": []
@@ -109,7 +109,7 @@
    "count": 91,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 17.48,
+   "sourceAgeDays": 18.47,
    "notes": []
   },
   "fda_announcements": {
@@ -117,10 +117,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-10-15",
-   "fetchedAgeDays": 0.48,
+   "fetchedAt": "2026-10-16",
+   "fetchedAgeDays": 0.47,
    "sourceUpdatedAt": "2026-10-14",
-   "sourceAgeDays": 1.48,
+   "sourceAgeDays": 2.47,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -130,7 +130,7 @@
    "count": 54,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-09-17",
-   "sourceAgeDays": 28.48,
+   "sourceAgeDays": 29.47,
    "notes": []
   },
   "fda_cdx_list": {
@@ -140,9 +140,9 @@
    "count": 226,
    "fetchedAt": "2026-09-08",
    "sourceUpdatedAt": "2026-07-23",
-   "sourceAgeDays": 84.48,
+   "sourceAgeDays": 85.47,
    "notes": []
   }
  },
- "previousCheckedAt": "2026-10-14T11:47:26Z"
+ "previousCheckedAt": "2026-10-15T11:24:01Z"
 }

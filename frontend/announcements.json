@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-15",
+  "generated": "2026-10-16",
   "items": [
     {
       "title": "FDA Expands Anktiva Approval for BCG-Unresponsive Non-Muscle-Invasive Bladder Cancer to Cover Both Papillary and CIS Disease",
@@ -73,6 +73,16 @@
         "cardiomyopathy",
         "mavacamten",
         "ohcm"
+      ]
+    },
+    {
+      "title": "FDA Approves Lamlique (lamotrigine) Oral Suspension for Seizures and Bipolar Disorder",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-lamlique-lamotrigine-oral-suspension-seizures-bipolar-disorder-6905.html",
+      "date": "2026-09-29",
+      "source": "Drugs.com",
+      "names": [
+        "lamlique",
+        "lamotrigine"
       ]
     },
     {
@@ -235,16 +245,6 @@
         "disease",
         "finerenone",
         "kerendia"
-      ]
-    },
-    {
-      "title": "Nuvation Bio Announces FDA Approval of Supplemental New Drug Application for Ibtrozi (taletrectinib) with Updated Duration of Response in TKI-Naïve Advanced ROS1-Positive Non-Small Cell Lung Cancer",
-      "url": "https://www.drugs.com/newdrugs/nuvation-bio-announces-fda-approval-supplemental-new-application-ibtrozi-taletrectinib-updated-6889.html",
-      "date": "2026-09-16",
-      "source": "Drugs.com",
-      "names": [
-        "ibtrozi",
-        "taletrectinib"
       ]
     }
   ]
