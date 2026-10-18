@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "copy-data": "node scripts/copy-data.mjs",
-    "build": "npm run copy-data && vite build",
+    "build": "npm run copy-data && vite build && node scripts/stamp-sw.mjs",
     "preview": "vite preview",
     "ios": "npm run build && cap sync ios && cap open ios"
   },

@@ -1,4 +1,9 @@
-const CACHE_NAME = 'pharmatrack-cache-v5';
+const CACHE_NAME = 'pharmatrack-cache-v6';
+// Replaced with the release id by scripts/stamp-sw.mjs in every build, so each
+// deploy is a byte-different worker: it installs, takes control and the open
+// page reloads once (index.html: controllerchange). Without this a code-only
+// deploy never reached a long-open window.
+const BUILD_STAMP = 'dev';
 
 // App shell — cached on install so the UI loads offline. Hashed build assets
 // (JS/CSS) are cached at runtime by the same-origin handler below, since their
@@ -18,6 +23,9 @@ const DATA_SNAPSHOTS = [
   './data/disease-entities.json',
   './data/biomarkers.json',
   './data/fda-cdx.json',
+  './data/announcements.json',
+  './data/us-recent.json',
+  './data/pending-labels.json',
   './data/smpc-index.json',
   './data/uspi-index.json',
 ];

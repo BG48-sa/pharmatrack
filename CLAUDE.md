@@ -118,6 +118,15 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   "Drop pure-reformatting changes" ignores `lastChecked`, so a quiet day commits
   nothing. Run locally: `python3 frontend/scripts/label-reconciliation.py --probe --md /tmp/labels.md`.
 
+## Web app updates (service worker)
+- Browsers install a new service worker only when `sw.js` changes byte for byte, and
+  the app reloads itself only on that event (index.html `controllerchange`). A
+  code-only deploy therefore never reached a long-open DrugRadar Web window until
+  18.10.2026: `npm run build` now ends with `scripts/stamp-sw.mjs`, which writes the
+  release id (+ commit) into `dist/sw.js` (`BUILD_STAMP`), so every deploy is a new
+  worker → installs → takes control → one reload. `public/sw.js` itself is not
+  rewritten. Bump `CACHE_NAME` only when the precache list or caching rules change.
+
 ## US "Recent Approvals" + permanent release archive
 - The US tab's default list comes from `frontend/us-recent.json`, rebuilt nightly by
   `frontend/scripts/build-us-recent.py` (Drugs@FDA records with any submission in the
