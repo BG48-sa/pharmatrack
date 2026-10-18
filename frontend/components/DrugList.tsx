@@ -20,6 +20,7 @@ const toDetail = (drug: Drug): DrugDetailData => ({
   badge: drug.is351k ? '351(k) Biosimilar' : undefined,
   labelStatus: drug.labelStatus,
   labelStatusNote: drug.labelStatusNote,
+  indicationFull: drug.indicationFull,
 });
 
 // Approval → label hand-over state of a recently approved product (see

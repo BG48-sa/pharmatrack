@@ -247,7 +247,7 @@ export const buildDrugPdf = async (d: DrugDetailData): Promise<{ bytes: ArrayBuf
   // ── Indication ───────────────────────────────────────────────────────────
   if (d.indication) {
     heading(d.indicationSource === 'summary' ? 'Indication (summary)' : 'Indication');
-    for (const block of d.indication.split(/\n+/).map((b) => b.trim()).filter(Boolean)) {
+    for (const block of (d.indicationFull || d.indication).split(/\n+/).map((b) => b.trim()).filter(Boolean)) {
       para(block);
       y += 1.5;
     }

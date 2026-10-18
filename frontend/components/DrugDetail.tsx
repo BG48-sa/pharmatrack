@@ -180,12 +180,12 @@ export const DrugDetailContent: React.FC<{
       )}
 
       {/* Structured facets parsed from the approved indication text. */}
-      <IndicationFacets indication={data.indication} />
+      <IndicationFacets indication={data.indicationFull || data.indication} />
 
       <div className="space-y-3.5">
         {data.indication && (
           <Row icon={<Activity size={18} />} label={data.indicationSource === 'summary' ? 'Indication (summary)' : 'Indication'}>
-            <span className="whitespace-pre-line">{data.indication}</span>
+            <span className="whitespace-pre-line">{data.indicationFull || data.indication}</span>
             {data.indicationNote && (
               <span className="block text-[11px] text-slate-500 mt-1">{data.indicationNote}</span>
             )}

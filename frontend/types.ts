@@ -16,6 +16,8 @@ export interface Drug {
   /** Approval → label hand-over state from pending-labels.json (recent approvals only). */
   labelStatus?: LabelStatus;
   labelStatusNote?: string;
+  /** Longer official Indications and Usage text (verified label), for the detail sheet and PDF; `indication` stays card-length. */
+  indicationFull?: string;
 }
 
 // Approval → label reconciliation queue (pending-labels.json, rebuilt nightly by
@@ -178,6 +180,7 @@ export interface DrugDetailData {
   /** Approval → label hand-over state (pending-labels.json) for recently approved medicines. */
   labelStatus?: LabelStatus;
   labelStatusNote?: string;
+  indicationFull?: string;   // longer official label text than the card-length `indication`, when available
 }
 
 // Curated, user-maintained PDUFA watchlist (sponsor/analyst-disclosed target

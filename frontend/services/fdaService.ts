@@ -343,6 +343,20 @@ const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)
 // app shows the official wording even where the live query above finds
 // nothing — openFDA links a label to its application number only after
 // harmonisation, which can take months — or when the device is offline.
+// The verified label text for the detail sheet: same clean-up as the card text
+// but cut at a sentence end after ~1,200 characters instead of mid-sentence
+// at 260 (the Indications and Usage section repeats its lead sentence in the
+// numbered subsection, so the whole section is rarely useful on a phone).
+const FULL_INDICATION_CAP = 1200;
+const longIndication = (raw: string): string => {
+  let t = raw.replace(/\s+/g, ' ').trim();
+  t = t.replace(/^[\d.\s]*INDICATIONS\s+(?:AND|&)\s+USAGE(?:\s+SECTION)?[\s:.-]*/i, '').trim();
+  if (t.length <= FULL_INDICATION_CAP) return t;
+  const head = t.slice(0, FULL_INDICATION_CAP);
+  const end = Math.max(head.lastIndexOf('. '), head.lastIndexOf('.'));
+  return (end > 200 ? head.slice(0, end + 1) : head.replace(/\s+\S*$/, '')) + ' …';
+};
+
 const applyLabelQueueTo = (d: Drug, app?: string): Drug => {
   if (app) d.applicationNumber = app;
   const e = usLabelEntry(app, d.brandName);
@@ -352,6 +366,7 @@ const applyLabelQueueTo = (d: Drug, app?: string): Drug => {
       d.indication = cleanIndication(e.label.indications) || e.label.indications;
       d.indicationSource = 'label';
     }
+    if (d.indicationSource !== 'summary') d.indicationFull = longIndication(e.label.indications);
     d.labelStatus = 'verified';
   } else if (d.indication && d.indicationSource !== 'summary') {
     d.labelStatus = 'available';  // openFDA answered just now; the nightly check has not verified it yet
