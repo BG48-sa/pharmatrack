@@ -343,25 +343,26 @@ const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)
 // app shows the official wording even where the live query above finds
 // nothing — openFDA links a label to its application number only after
 // harmonisation, which can take months — or when the device is offline.
-const applyLabelQueue = (drugs: Drug[], appNos: (string | undefined)[]): void => {
-  drugs.forEach((d, i) => {
-    const app = appNos[i];
-    if (app) d.applicationNumber = app;
-    const e = usLabelEntry(app, d.brandName);
-    if (!e) return;
-    if (e.status === 'LABEL_VERIFIED' && e.label?.indications) {
-      if (!d.indication || d.indicationSource === 'summary') {
-        d.indication = cleanIndication(e.label.indications) || e.label.indications;
-        d.indicationSource = 'label';
-      }
-      d.labelStatus = 'verified';
-    } else if (d.indication && d.indicationSource !== 'summary') {
-      d.labelStatus = 'available';  // openFDA answered just now; the nightly check has not verified it yet
-    } else {
-      d.labelStatus = 'pending';
+const applyLabelQueueTo = (d: Drug, app?: string): Drug => {
+  if (app) d.applicationNumber = app;
+  const e = usLabelEntry(app, d.brandName);
+  if (!e) return d;
+  if (e.status === 'LABEL_VERIFIED' && e.label?.indications) {
+    if (!d.indication || d.indicationSource === 'summary') {
+      d.indication = cleanIndication(e.label.indications) || e.label.indications;
+      d.indicationSource = 'label';
     }
-    d.labelStatusNote = usLabelNote(e, d.labelStatus);
-  });
+    d.labelStatus = 'verified';
+  } else if (d.indication && d.indicationSource !== 'summary') {
+    d.labelStatus = 'available';  // openFDA answered just now; the nightly check has not verified it yet
+  } else {
+    d.labelStatus = 'pending';
+  }
+  d.labelStatusNote = usLabelNote(e, d.labelStatus);
+  return d;
+};
+const applyLabelQueue = (drugs: Drug[], appNos: (string | undefined)[]): void => {
+  drugs.forEach((d, i) => applyLabelQueueTo(d, appNos[i]));
 };
 
 const buildSources = (drugs: Drug[], usedLabelApi = false, usedCber = false): Source[] => {
@@ -399,7 +400,7 @@ const mapLabelResult = (r: LabelResult, id: number): Drug | null => {
 
   const ema = lookupEma([of.generic_name?.[0], of.substance_name?.[0]], of.brand_name || [], of.substance_name?.length ? of.substance_name : [of.generic_name?.[0] || '']);
 
-  return {
+  return applyLabelQueueTo({
     id,
     brandName: brandName || 'Unknown',
     genericName: genericName || '—',
@@ -409,7 +410,7 @@ const mapLabelResult = (r: LabelResult, id: number): Drug | null => {
     fdaApprovalDate: cgt ? cgt.d : 'N/A',
     emaApprovalDate: emaDateFor(ema),
     emaUrl: emaUrlFor(ema),
-  };
+  }, of.application_number?.[0]);
 };
 
 // Search the SPL label endpoint as a fallback when Drugs@FDA has no match.
@@ -595,7 +596,9 @@ const norm = (t: string): string =>
 
 const cgtToDrug = (bla: string, r: CgtRec, id: number): Drug => {
   const ema = lookupEma([r.g], [r.n]);
-  return {
+  // Curated CBER rows carry a summary; a verified label in the queue replaces it
+  // (search results and the CGT chip come through here, not through the list).
+  return applyLabelQueueTo({
     id,
     brandName: r.n || bla,
     genericName: r.g || '—',
@@ -606,7 +609,7 @@ const cgtToDrug = (bla: string, r: CgtRec, id: number): Drug => {
     fdaApprovalDate: r.d,
     emaApprovalDate: emaDateFor(ema),
     emaUrl: emaUrlFor(ema),
-  };
+  }, bla);
 };
 
 const searchCgtSnapshot = (query: string): Drug[] => {
