@@ -1,5 +1,6 @@
 import { EmaData, EmaMedicine, EmaPipelineItem, EmaGoneItem, DrugDetailData, EmaFlags } from '../types';
 import { usApprovalFor } from './usApproval';
+import { euLabelFields } from './labelQueue';
 
 /**
  * European medicines service — the EU-first counterpart to fdaService.
@@ -223,6 +224,9 @@ export const approvalToDetail = (m: EmaMedicine): DrugDetailData => ({
   indicationConflict: m.indT?.length
     ? `EMA\'s medicine table${data.generated ? ` of ${fmtDate(data.generated)}` : ''} states different age limits (“${m.indT.join('”, “')}”). The SmPC wording above is the authoritative text; check the current SmPC via the EMA link.`
     : undefined,
+  // Recently authorised: where the hand-over from authorisation to the
+  // published SmPC stands (pending-labels.json). Nothing for older medicines.
+  ...euLabelFields(m.num),
 });
 
 /** Map a no-longer-authorised medicine into the shared DrugDetail sheet shape. */
@@ -257,4 +261,5 @@ export const pipelineToDetail = (m: EmaPipelineItem): DrugDetailData => ({
   // Only a POSITIVE opinion supports an expected authorisation; the date is an
   // estimate (opinion + 67 days), not an official timetable.
   expectedDecision: m.outcome === 'unknown' ? undefined : estimatedDecisionDate(m.op),
+  ...euLabelFields(m.num),
 });

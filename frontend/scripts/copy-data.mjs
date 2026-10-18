@@ -29,6 +29,7 @@ const FILES = [
   'fda-cdx.json',
   'announcements.json',
   'us-recent.json',
+  'pending-labels.json',   // approval → label reconciliation queue (scripts/label-reconciliation.py)
 ];
 
 mkdirSync(outDir, { recursive: true });
@@ -87,6 +88,7 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
   const bm = readJson('biomarkers.json') || {};
   const cdx = readJson('fda-cdx.json') || {};
   const usRecent = readJson('us-recent.json') || {};
+  const queue = readJson('pending-labels.json') || {};
   // The source ledger is written by build-ema-data.py, i.e. by the CI refresh.
   // A local build (native App Store archive) may hold an older ledger than the
   // catalogue it bundles — provenance that names the wrong run is worse than
@@ -125,6 +127,8 @@ const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
       emaReportDate: ema.generated, cgtProducts: Object.keys(cgt).length, biomarkers: (bm.biomarkers || []).length,
       cdxAuthorisations: cdx.total, cdxListDate: cdx.listDate,
       usRecentApprovals: (usRecent.items || []).length, usRecentNewest: usRecent.items?.[0]?.orig,
+      // approval → label hand-overs still open / verified (scripts/label-reconciliation.py)
+      ...(queue.summary ? { labelQueue: { generated: queue.generated, tracked: queue.summary.total, unresolved: queue.summary.unresolved, verified: queue.summary.byStatus?.LABEL_VERIFIED, alerts: queue.summary.alerts } } : {}),
     },
     labels: { smpc, uspi },
     ...(sources ? { sources } : {}),

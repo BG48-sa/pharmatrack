@@ -256,6 +256,10 @@ export const buildDrugPdf = async (d: DrugDetailData): Promise<{ bytes: ArrayBuf
     if (d.indicationSource === 'summary') {
       para('Summarised by DrugRadar from the FDA approval; eligibility criteria (genotype, age, prior therapy, diagnostics) may be shortened - the full label is authoritative.', 8.5, '#b45309');
     }
+    if (d.labelStatusNote) para(d.labelStatusNote, 8.5, d.labelStatus === 'verified' ? '#047857' : d.labelStatus === 'available' ? '#1d4ed8' : '#b45309');
+  } else if (d.labelStatusNote) {
+    heading('Indication');
+    para(d.labelStatusNote, 8.5, '#b45309');
   }
 
   // ── Sources ──────────────────────────────────────────────────────────────

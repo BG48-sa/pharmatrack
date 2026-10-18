@@ -31,6 +31,11 @@ GATES (each is recorded in the report; any FAIL exits 1)
      appears in the curated CBER row for that product; EU indications are
      sourced from the SmPC wherever an extract exists, and the share of records
      where EMA's table disagrees with the SmPC on age limits stays small
+  G8 the approval → label reconciliation queue (pending-labels.json): every
+     entry carries a known status, a verified entry carries its source hash
+     and document reference, no entry the published release had already
+     verified falls back to an open state, and the queue is not older than
+     the published one
   G7 the MEANING extracted from a label, not just the file: every required
      section is compared text-for-text with the published copy. A section that
      changed although the source document did not (same sourceSha) is parser
@@ -64,10 +69,14 @@ from agephrases import age_thresholds  # noqa: E402
 
 SNAPSHOTS = ['ema-medicines.json', 'novel-approvals.json', 'pdufa.json', 'critical-medicines.json',
              'cgt-products.json', 'disease-entities.json', 'biomarkers.json', 'fda-cdx.json', 'announcements.json',
-             'us-recent.json']
+             'us-recent.json', 'pending-labels.json']
 # Allowed relative size change per snapshot (candidate vs published).
-SIZE_BAND = {'ema-medicines.json': 0.15, 'announcements.json': 0.80}
+SIZE_BAND = {'ema-medicines.json': 0.15, 'announcements.json': 0.80,
+             # the label queue is small and legitimately jumps when a batch of labels is verified
+             'pending-labels.json': 1.50}
 SIZE_BAND_DEFAULT = 0.35
+# Approval → label reconciliation queue (scripts/label-reconciliation.py): gate G8
+QUEUE_STATUSES = {'AWAITING_USPI', 'AWAITING_EC_DECISION', 'AWAITING_SMPC', 'LABEL_AVAILABLE', 'LABEL_VERIFIED'}
 
 SMPC_REQUIRED = ['4.1', '4.2', '4.3', '4.4', '4.8']
 USPI_REQUIRED = ['indications', 'dosage', 'contraindications', 'warnings', 'adverse_reactions']
@@ -365,6 +374,30 @@ def main():
         if pe and any(x.get('indSrc') for x in pe.get('authorised', [])):
             pub_from_smpc = sum(1 for x in pe.get('authorised', []) if x.get('indSrc') == 'smpc')
             r.add('G6', 'SmPC-sourced indications not dropping', from_smpc >= pub_from_smpc - 20, f'{pub_from_smpc} → {from_smpc}')
+
+    # ---- G8: approval → label reconciliation queue ------------------------------
+    cq, pq = cand_json.get('pending-labels.json'), pub_json.get('pending-labels.json')
+    if isinstance(cq, dict):
+        entries = [e for e in cq.get('entries') or [] if isinstance(e, dict)]
+        bad = [str(e.get('id')) for e in entries if not e.get('id') or not e.get('drug') or e.get('jurisdiction') not in ('FDA', 'EMA')
+               or e.get('status') not in QUEUE_STATUSES or not e.get('statusSince')]
+        r.add('G8', 'label queue: entries well-formed', not bad, f'{len(entries)} entries, {len(bad)} malformed: {", ".join(bad[:8])}')
+        unverified = [e['id'] for e in entries if e.get('status') == 'LABEL_VERIFIED'
+                      and not ((e.get('label') or {}).get('sha256') and ((e.get('label') or {}).get('url') or (e.get('label') or {}).get('setId')))]
+        r.add('G8', 'label queue: verified entries carry source hash + document reference', not unverified, f'{len(unverified)}: {", ".join(unverified[:8])}')
+        ids = [e['id'] for e in entries if e.get('id')]
+        r.add('G8', 'label queue: ids unique', len(ids) == len(set(ids)), f'{len(ids)} ids, {len(ids) - len(set(ids))} duplicates')
+        if isinstance(pq, dict):
+            pub_verified = {e.get('id') for e in pq.get('entries') or [] if isinstance(e, dict) and e.get('status') == 'LABEL_VERIFIED'}
+            cand_status = {e.get('id'): e.get('status') for e in entries}
+            regressed = sorted(i for i in pub_verified if i in cand_status and cand_status[i] != 'LABEL_VERIFIED')
+            r.add('G8', 'label queue: no verified hand-over regresses', not regressed, f'{len(regressed)}: {", ".join(regressed[:8])}')
+            r.add('G8', 'label queue: not older than the published queue', (cq.get('generated') or '') >= (pq.get('generated') or ''),
+                  f'{pq.get("generated")} → {cq.get("generated")}')
+        else:
+            r.add('G8', 'label queue comparison', True, 'no published queue yet', skipped=True)
+    else:
+        r.add('G8', 'label queue present', True, 'pending-labels.json not in this candidate', skipped=True)
 
     # ---- G7: extracted meaning, section by section -------------------------------
     changes = {'labels': {}, 'ema': {}, 'snapshots': []}

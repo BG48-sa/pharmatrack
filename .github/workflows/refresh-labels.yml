@@ -61,6 +61,16 @@ jobs:
           cd frontend
           CHANGED_ONLY=1 node scripts/uspi/extract-all.mjs 2>&1 | tee /tmp/uspi.log | tail -20
 
+      # Weekly approval → label report: which newly approved medicines still
+      # wait for their official label after this refresh. Report only — the
+      # daily job this run dispatches recomputes and commits the queue.
+      - name: Approval → label reconciliation (weekly report)
+        if: always()
+        run: |
+          set -euo pipefail
+          python frontend/scripts/label-reconciliation.py --probe --json /tmp/pending-labels.json --previous frontend/pending-labels.json --md /tmp/labels.md
+          cat /tmp/labels.md >> "$GITHUB_STEP_SUMMARY"
+
       # The same gates the daily job runs — a refreshed label that lost a
       # section, shrank, or went back to an older version stops the commit.
       - name: Validate candidate against the published release
@@ -103,6 +113,8 @@ jobs:
             /tmp/smpc-drift.md
             /tmp/freshness.json
             /tmp/freshness.md
+            /tmp/pending-labels.json
+            /tmp/labels.md
           if-no-files-found: ignore
           retention-days: 90
 

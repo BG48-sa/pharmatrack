@@ -90,6 +90,34 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   per release as `data-releases/<id>.freshness.json`. The Monday label job runs it
   report-only. Run locally: `python3 frontend/scripts/source-freshness.py --probe`.
 
+## Approval → label reconciliation queue (pending-labels.json)
+- A medicine is shown the day it is approved, before its official label exists:
+  US recent approvals carry CDER's one-line roster summary until openFDA has the
+  USPI; an EU medicine carries EMA's table wording until its SmPC is extracted; a
+  positive CHMP opinion waits for the EC decision, then for the product
+  information. `frontend/scripts/label-reconciliation.py` (daily job, `--probe`)
+  keeps one entry per such hand-over in `frontend/pending-labels.json` and moves
+  it along `AWAITING_USPI | AWAITING_EC_DECISION | AWAITING_SMPC → LABEL_AVAILABLE
+  → LABEL_VERIFIED` — never backwards (gate G8). Verified entries record set ID /
+  version / effective date (US) or the SmPC URL + retrieval date (EU) and a SHA-256
+  of the ingested text; US entries also carry the Indications and Usage text.
+- US labels are looked up in three tiers: by application number, by brand under
+  another application (shared label), and in `spl_product_data_elements` for
+  labels openFDA has not harmonised yet (no `openfda` block — Saphnelo, Trimbow,
+  Tudriqev sat there for months; the app's live query by application number
+  never finds those, the queue text does). A label not linked to the application
+  must be at least as new as the approval (−60 d) or it is another product.
+- Thresholds (script flags): US no USPI after 45 d, EU no SmPC after 30 d,
+  document detected but not ingested after 14 d, no EC decision 120 d after the
+  opinion → `::warning::` + run summary + `alerts=N` output; never a stop. Entries
+  leave the queue 180 d after approval once verified; unresolved ones stay.
+- Published with every release (`copy-data.mjs` FILES, `release.json →
+  counts.labelQueue`); the Monday label job writes the report only. The app
+  (`services/labelQueue.ts`) shows "Label pending / found / verified" on US cards
+  and in both detail sheets + PDF, and uses verified US text in place of a summary.
+  "Drop pure-reformatting changes" ignores `lastChecked`, so a quiet day commits
+  nothing. Run locally: `python3 frontend/scripts/label-reconciliation.py --probe --md /tmp/labels.md`.
+
 ## US "Recent Approvals" + permanent release archive
 - The US tab's default list comes from `frontend/us-recent.json`, rebuilt nightly by
   `frontend/scripts/build-us-recent.py` (Drugs@FDA records with any submission in the

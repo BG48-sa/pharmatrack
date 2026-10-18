@@ -33,6 +33,13 @@ const formatPretty = (val?: string): string => {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 };
 
+// Colour of the approval → label hand-over line (services/labelQueue.ts).
+const LABEL_STATUS_CLS: Record<NonNullable<DrugDetailData['labelStatus']>, string> = {
+  pending: 'text-amber-700',
+  available: 'text-blue-700',
+  verified: 'text-emerald-700',
+};
+
 const drugsAtFdaUrl = (brand: string): string =>
   `https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=BasicSearch.process&searchTerm=${encodeURIComponent(brand)}`;
 
@@ -188,6 +195,15 @@ export const DrugDetailContent: React.FC<{
             {data.indicationSource === 'summary' && (
               <span className="block text-[11px] text-amber-700 mt-1">Summarised by DrugRadar from the FDA approval; eligibility criteria (genotype, age, prior therapy, diagnostics) may be shortened — the full label is authoritative.</span>
             )}
+            {data.labelStatusNote && (
+              <span className={`block text-[11px] mt-1 ${LABEL_STATUS_CLS[data.labelStatus || 'pending']}`}>{data.labelStatusNote}</span>
+            )}
+          </Row>
+        )}
+        {/* Tracked hand-over with no indication text at all yet (approval known, label not published). */}
+        {!data.indication && data.labelStatusNote && (
+          <Row icon={<Activity size={18} />} label="Indication">
+            <span className={`block text-[11px] ${LABEL_STATUS_CLS[data.labelStatus || 'pending']}`}>{data.labelStatusNote}</span>
           </Row>
         )}
         {data.therapeuticArea && (

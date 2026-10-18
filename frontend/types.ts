@@ -12,6 +12,46 @@ export interface Drug {
   indicationSource?: 'label' | 'summary';
   is351k?: boolean;
   applicationDate351k?: string;
+  applicationNumber?: string;  // NDA/BLA number (Drugs@FDA), when known
+  /** Approval → label hand-over state from pending-labels.json (recent approvals only). */
+  labelStatus?: LabelStatus;
+  labelStatusNote?: string;
+}
+
+// Approval → label reconciliation queue (pending-labels.json, rebuilt nightly by
+// scripts/label-reconciliation.py): one entry per recently approved medicine
+// until its official label (US prescribing information / EU SmPC) has been
+// ingested and verified. Status never goes backwards (release gate G8).
+export type LabelQueueStatus = 'AWAITING_USPI' | 'AWAITING_EC_DECISION' | 'AWAITING_SMPC' | 'LABEL_AVAILABLE' | 'LABEL_VERIFIED';
+/** The three states the app shows: pending (no official document yet), available (document detected, not yet verified), verified. */
+export type LabelStatus = 'pending' | 'available' | 'verified';
+export interface LabelQueueEntry {
+  id: string;
+  jurisdiction: 'FDA' | 'EMA';
+  drug: string;
+  inn?: string | null;
+  applicationNumber?: string | null;
+  emaNumber?: string;
+  slug?: string;
+  approvalDate?: string;
+  opinionDate?: string | null;
+  decisionDate?: string | null;
+  status: LabelQueueStatus;
+  statusSince: string;
+  lastChecked?: string;
+  sources?: string[];
+  summary?: string | null;
+  note?: string;
+  alert?: string;
+  label?: {
+    setId?: string | null; version?: string | null; effective?: string | null; retrieved?: string | null; detected?: string | null;
+    url?: string | null; sha256?: string | null; indications?: string; note?: string; harmonised?: boolean; applicationNumber?: string | null;
+  };
+}
+export interface LabelQueue {
+  generated: string;
+  entries: LabelQueueEntry[];
+  summary?: { total: number; unresolved: number; byStatus: Record<LabelQueueStatus, number>; alerts: number };
 }
 
 export interface Source {
@@ -54,6 +94,7 @@ export interface EmaMedicine extends EmaFlags {
   ind: string;      // therapeutic indication (truncated)
   url: string;      // EMA medicine page
   holder: string;   // marketing-authorisation holder
+  num?: string;     // EMA product number (EMEA/H/C/006388) — joins the label queue and EMA's document list
   d: string;        // marketing-authorisation date (YYYY-MM-DD)
   op?: string;      // CHMP opinion date, if recorded
   fs?: string;      // date DrugRadar first imported this record (YYYY-MM-DD) — drives the NEW marker
@@ -134,6 +175,9 @@ export interface DrugDetailData {
   indicationSource?: 'label' | 'summary';
   indicationNote?: string;   // which document the indication wording comes from, with its date
   indicationConflict?: string; // set when another official source words the age limits differently
+  /** Approval → label hand-over state (pending-labels.json) for recently approved medicines. */
+  labelStatus?: LabelStatus;
+  labelStatusNote?: string;
 }
 
 // Curated, user-maintained PDUFA watchlist (sponsor/analyst-disclosed target

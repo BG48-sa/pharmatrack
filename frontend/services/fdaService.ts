@@ -1,5 +1,6 @@
 import { Drug, DrugDataResponse, Source } from '../types';
 import { allNovelApprovals } from './novelApprovals';
+import { usLabelEntry, usLabelNote } from './labelQueue';
 
 /**
  * openFDA + EMA data service.
@@ -335,6 +336,34 @@ const enrichWithIndications = async (drugs: Drug[], appNos: (string | undefined)
   });
 };
 
+// Approval → label reconciliation queue (pending-labels.json, rebuilt nightly
+// by scripts/label-reconciliation.py): for every recently approved product it
+// records whether the official prescribing information has been found and
+// verified. A VERIFIED entry carries the Indications and Usage text, so the
+// app shows the official wording even where the live query above finds
+// nothing — openFDA links a label to its application number only after
+// harmonisation, which can take months — or when the device is offline.
+const applyLabelQueue = (drugs: Drug[], appNos: (string | undefined)[]): void => {
+  drugs.forEach((d, i) => {
+    const app = appNos[i];
+    if (app) d.applicationNumber = app;
+    const e = usLabelEntry(app, d.brandName);
+    if (!e) return;
+    if (e.status === 'LABEL_VERIFIED' && e.label?.indications) {
+      if (!d.indication || d.indicationSource === 'summary') {
+        d.indication = cleanIndication(e.label.indications) || e.label.indications;
+        d.indicationSource = 'label';
+      }
+      d.labelStatus = 'verified';
+    } else if (d.indication && d.indicationSource !== 'summary') {
+      d.labelStatus = 'available';  // openFDA answered just now; the nightly check has not verified it yet
+    } else {
+      d.labelStatus = 'pending';
+    }
+    d.labelStatusNote = usLabelNote(e, d.labelStatus);
+  });
+};
+
 const buildSources = (drugs: Drug[], usedLabelApi = false, usedCber = false): Source[] => {
   if (!drugs.length) return [];
   const sources = [OPENFDA_SOURCE];
@@ -466,6 +495,7 @@ const requestDrugs = async (search: string, sort?: string, limit = 30): Promise<
   }
 
   await enrichWithIndications(drugs, appNos);
+  applyLabelQueue(drugs, appNos);
   return drugs;
 };
 
@@ -520,12 +550,16 @@ const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean;
     .sort((a, b) => b.drug.fdaApprovalDate.localeCompare(a.drug.fdaApprovalDate))
     .slice(0, RECENT_LIMIT);
   const drugs = top.map((x, i) => ({ ...x.drug, id: i + 1 }));
-  await enrichWithIndications(drugs, top.map((x) => x.app));
+  const apps = top.map((x) => x.app);
+  await enrichWithIndications(drugs, apps);
   for (const d of drugs) {
     if (d.indication) continue;
     const ind = novelIndication(d.brandName);
     if (ind) { d.indication = ind; d.indicationSource = 'summary'; }
   }
+  // Verified official label text replaces a summary; every tracked product
+  // gets its hand-over state (label pending / found / verified).
+  applyLabelQueue(drugs, apps);
   return { drugs, usedCber: top.some((x) => x.cber), usedNovel: top.some((x) => x.novel) };
 };
 

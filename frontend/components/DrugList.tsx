@@ -18,7 +18,17 @@ const toDetail = (drug: Drug): DrugDetailData => ({
   emaApprovalDate: drug.emaApprovalDate,
   emaUrl: drug.emaUrl,
   badge: drug.is351k ? '351(k) Biosimilar' : undefined,
+  labelStatus: drug.labelStatus,
+  labelStatusNote: drug.labelStatusNote,
 });
+
+// Approval → label hand-over state of a recently approved product (see
+// services/labelQueue.ts): has the official prescribing information arrived?
+const LABEL_CHIP: Record<NonNullable<Drug['labelStatus']>, { text: string; cls: string }> = {
+  pending: { text: 'Label pending', cls: 'bg-amber-50 text-amber-700 border-amber-200' },
+  available: { text: 'Label found', cls: 'bg-blue-50 text-blue-700 border-blue-200' },
+  verified: { text: 'Label verified', cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+};
 
 const DrugList: React.FC<DrugListProps> = ({ drugs, onSelect }) => {
   if (drugs.length === 0) {
@@ -60,8 +70,16 @@ const DrugList: React.FC<DrugListProps> = ({ drugs, onSelect }) => {
                 <h3 className="font-bold text-slate-900 text-lg leading-tight">{drug.brandName}</h3>
                 <p className="text-sm text-slate-500 font-medium mt-0.5">{drug.genericName}</p>
                 {drug.is351k && (
-                  <span className="inline-flex items-center mt-1.5 px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-bold uppercase tracking-wider">
+                  <span className="inline-flex items-center mt-1.5 mr-1.5 px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-bold uppercase tracking-wider">
                     351(k) Biosimilar
+                  </span>
+                )}
+                {drug.labelStatus && (
+                  <span
+                    className={`inline-flex items-center mt-1.5 px-2 py-0.5 rounded-md border text-[10px] font-bold uppercase tracking-wider ${LABEL_CHIP[drug.labelStatus].cls}`}
+                    title={drug.labelStatusNote}
+                  >
+                    {LABEL_CHIP[drug.labelStatus].text}
                   </span>
                 )}
               </div>

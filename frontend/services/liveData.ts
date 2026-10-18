@@ -28,6 +28,7 @@ import { __setDiseaseData } from './diseaseEntities';
 import { __setBiomarkerData } from './biomarkers';
 import { __setCdxData } from './companionDx';
 import { __setAnnouncementsData } from './announcements';
+import { __setLabelQueue } from './labelQueue';
 import { storeGet, storeSet } from './storage';
 
 // Absolute URL so the native app (a different origin) reaches the live data.
@@ -80,6 +81,7 @@ const SNAPSHOTS: Array<[string, (d: any) => void]> = [
   ['fda-cdx.json', __setCdxData],
   ['announcements.json', __setAnnouncementsData],
   ['us-recent.json', __setUsRecentData],
+  ['pending-labels.json', __setLabelQueue],
 ];
 
 // Fetch all snapshots in parallel via `get` and apply each one that succeeds.
