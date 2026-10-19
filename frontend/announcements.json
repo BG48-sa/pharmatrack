@@ -1,6 +1,25 @@
 {
-  "generated": "2026-10-16",
+  "generated": "2026-10-19",
   "items": [
+    {
+      "title": "FDA Approves Genentech’s Enspryng, a First-in-Class IL-6R Inhibitor, as the First and Only At-Home Subcutaneous Treatment Option for Thyroid Eye Disease (TED)",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-genentech-s-enspryng-first-class-il-6r-inhibitor-first-only-home-subcutaneous-option-6915.html",
+      "date": "2026-10-18",
+      "source": "Drugs.com",
+      "names": [
+        "disease"
+      ]
+    },
+    {
+      "title": "UCB Announces U.S. FDA Approval for Zilbrysq (zilucoplan) Autoinjector Self-administration for Adults Living with Generalized Myasthenia Gravis",
+      "url": "https://www.drugs.com/newdrugs/ucb-announces-u-s-fda-approval-zilbrysq-zilucoplan-autoinjector-self-administration-adults-living-6916.html",
+      "date": "2026-10-16",
+      "source": "Drugs.com",
+      "names": [
+        "zilbrysq",
+        "zilucoplan"
+      ]
+    },
     {
       "title": "FDA Expands Anktiva Approval for BCG-Unresponsive Non-Muscle-Invasive Bladder Cancer to Cover Both Papillary and CIS Disease",
       "url": "https://www.drugs.com/newdrugs/fda-expands-anktiva-approval-bcg-unresponsive-non-muscle-invasive-bladder-cancer-cover-both-6913.html",
@@ -222,29 +241,6 @@
       "names": [
         "aqneursa",
         "levacetylleucine"
-      ]
-    },
-    {
-      "title": "FDA Approves Fayuvi (rebisufligene etisparvovec-hopf) Gene Therapy for the Treatment for Sanfilippo Syndrome Type A (MPS IIIA)",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-fayuvi-rebisufligene-etisparvovec-hopf-gene-therapy-sanfilippo-syndrome-type-mps-iiia-6890.html",
-      "date": "2026-09-17",
-      "source": "Drugs.com",
-      "names": [
-        "etisparvovec",
-        "etisparvovec-hopf",
-        "fayuvi",
-        "rebisufligene"
-      ]
-    },
-    {
-      "title": "Bayer’s Kerendia (finerenone) Receives FDA Approval as the First New Treatment in 30 Years for Adults with Chronic Kidney Disease (CKD) and Type 1 Diabetes",
-      "url": "https://www.drugs.com/newdrugs/bayer-s-kerendia-finerenone-receives-fda-approval-first-new-30-years-adults-chronic-kidney-ckd-type-6888.html",
-      "date": "2026-09-17",
-      "source": "Drugs.com",
-      "names": [
-        "disease",
-        "finerenone",
-        "kerendia"
       ]
     }
   ]
