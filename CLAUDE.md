@@ -67,17 +67,32 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
 - `node frontend/scripts/smpc/drift-report.mjs` compares the whole corpus with
   EMA's list independently: labels behind EMA, authorised medicines without a
   label, labels of withdrawn medicines, incomplete run. In CI it goes to the run
-  summary + artifact; problems (behind > 14 days, stale, incomplete) turn the run
-  red after the commit. Run it locally any time to see the current state.
-- Ingest failures are NOT exempt from that alarm (they were until 14.10.2026):
+  summary + artifact; problems (behind > 14 days, stale, an incomplete run with a
+  real gap — see below) turn the run red after the commit. Run it locally any
+  time to see the current state.
+- Ingest failures are NOT exempt from that alarm, but EMA being late is not ours:
   `smpc-index.json → failed` (reason per slug in `failedWhy`: `404` EMA serves no
-  PDF yet, `fetch`, `parse`) count as problems once the medicine is > 28 days past
-  its EC decision (`--failed-max-days`; EMA publishes the EPAR ~2 weeks after the
-  decision) or 7 days after EMA's document list names its product-information
-  PDF (`--listed-grace-days`: EMA has published, so the failure is ours). The usual
-  case is a medicine authorised via the Union Register while EMA's table still
-  says "Opinion" (`ec: "register"`): on 14.10.2026 seven had no SmPC, Nylaspeg and
-  Onswik 55 days after the decision — nobody had been told.
+  PDF yet, `fetch`, `parse`) counts as a problem once EMA's document list names
+  the product-information PDF and we still have no extract 7 days later
+  (`--listed-grace-days`: EMA has published, the failure is ours), or as a
+  backstop 90 days after the decision with nothing listed at EMA
+  (`--failed-max-days`: a broken product-number join). Before that, a medicine
+  authorised via the Union Register while EMA's table still says "Opinion"
+  (`ec: "register"`; on 19.10.2026 seven, Nylaspeg/Onswik 60 days) is the
+  approval → label queue's warning (30 d), not a red run.
+- What turns the Monday run red (drift-report `problems`): a label behind EMA
+  > 14 d, a stale extract, an ingest failure as above, the EMA list unavailable,
+  or an INCOMPLETE refresh with a real gap — run cut short (EMA blocking, time
+  budget, download limit), a label EMA marked as changed not fetched, a label
+  unchecked two runs in a row, or EMA refusing > 50 % of the rotating cross-check
+  sample. Refused cross-check HEADs alone are reported, not red: the runs of
+  5., 12. and 19.10.2026 were red for nothing else (12, 8 and 49 unchecked, all
+  from the sample; every label EMA's list had marked as changed was downloaded).
+  The extractor retries refused HEADs once after `HEAD_RETRY_PAUSE_MS` (60 s) and
+  records the cause per label (`uncheckedWhy`: HTTP status / timeout / budget /
+  abort + plan), a breakdown in `incomplete` (changed / sample / carry / unlisted
+  / repeat / codes) and `downloadFailed` (a changed label whose download failed,
+  old extract kept — it shows as "behind" and escalates after 14 d).
 
 ## US label freshness (openFDA, weekly)
 - `frontend/scripts/uspi/extract-all.mjs` (CHANGED_ONLY=1, Mondays) re-checks the
