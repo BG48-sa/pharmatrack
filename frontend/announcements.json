@@ -1,6 +1,17 @@
 {
-  "generated": "2026-10-19",
+  "generated": "2026-10-20",
   "items": [
+    {
+      "title": "Jemperli (dostarlimab-gxly) Approved in US as First and Only Immunotherapy for Adults with MSI-H/dMMR Locally Advanced Rectal Cancer",
+      "url": "https://www.drugs.com/newdrugs/jemperli-dostarlimab-gxly-approved-us-first-only-immunotherapy-adults-msi-h-dmmr-locally-advanced-6918.html",
+      "date": "2026-10-19",
+      "source": "Drugs.com",
+      "names": [
+        "dostarlimab",
+        "dostarlimab-gxly",
+        "jemperli"
+      ]
+    },
     {
       "title": "FDA Approves Genentech’s Enspryng, a First-in-Class IL-6R Inhibitor, as the First and Only At-Home Subcutaneous Treatment Option for Thyroid Eye Disease (TED)",
       "url": "https://www.drugs.com/newdrugs/fda-approves-genentech-s-enspryng-first-class-il-6r-inhibitor-first-only-home-subcutaneous-option-6915.html",
@@ -19,6 +30,23 @@
         "zilbrysq",
         "zilucoplan"
       ]
+    },
+    {
+      "title": "FDA Approves Brytly (apraclonidine) Ophthalmic Solution for Relief of Eye Redness",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-brytly-apraclonidine-ophthalmic-solution-relief-eye-redness-6914.html",
+      "date": "2026-10-16",
+      "source": "Drugs.com",
+      "names": [
+        "apraclonidine",
+        "brytly"
+      ]
+    },
+    {
+      "title": "Viatris Receives U.S. FDA Approval for Ryzumvi for the Treatment of Presbyopia",
+      "url": "https://www.drugs.com/newdrugs/viatris-receives-u-s-fda-approval-ryzumvi-presbyopia-6917.html",
+      "date": "2026-10-16",
+      "source": "Drugs.com",
+      "names": []
     },
     {
       "title": "FDA Expands Anktiva Approval for BCG-Unresponsive Non-Muscle-Invasive Bladder Cancer to Cover Both Papillary and CIS Disease",
@@ -210,37 +238,6 @@
       "names": [
         "sotatercept-csrk",
         "winrevair"
-      ]
-    },
-    {
-      "title": "FDA Approves Bravnetsa (lutetium Lu 177 dotatate) as a Therapeutic Equivalent to Lutathera for the Treatment of Somatostatin Receptor-Positive Gastroenteropancreatic Neuroendocrine Tumors in Adults",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-bravnetsa-lutetium-lu-177-dotatate-therapeutic-equivalent-lutathera-somatostatin-6894.html",
-      "date": "2026-09-22",
-      "source": "Drugs.com",
-      "names": [
-        "bravnetsa"
-      ]
-    },
-    {
-      "title": "FDA Approves Inluriyo (imlunestrant) in Combination with Verzenio (abemaciclib) for Adults with ER+, HER2-, ESR1-Mutated Advanced or Metastatic Breast Cancer",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-inluriyo-imlunestrant-combination-verzenio-abemaciclib-adults-er-her2-esr1-mutated-6892.html",
-      "date": "2026-09-18",
-      "source": "Drugs.com",
-      "names": [
-        "abemaciclib",
-        "imlunestrant",
-        "inluriyo",
-        "verzenio"
-      ]
-    },
-    {
-      "title": "IntraBio Announces U.S. FDA Approval of Aqneursa (levacetylleucine) for Ataxia-Telangiectasia",
-      "url": "https://www.drugs.com/newdrugs/intrabio-announces-u-s-fda-approval-aqneursa-levacetylleucine-ataxia-telangiectasia-6891.html",
-      "date": "2026-09-18",
-      "source": "Drugs.com",
-      "names": [
-        "aqneursa",
-        "levacetylleucine"
       ]
     }
   ]
