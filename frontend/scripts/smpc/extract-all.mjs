@@ -27,6 +27,11 @@
 //        it did not reach (index.unchecked, checked first next time) and marks
 //        itself incomplete. Each refreshed extract records sourceModified and
 //        emaUpdated. Extracts of medicines no longer authorised are removed.
+//        HEAD checks EMA refuses are retried once after HEAD_RETRY_PAUSE_MS
+//        (60 s); what stays unchecked is recorded with its cause
+//        (index.uncheckedWhy: HTTP status / timeout / budget / abort, and the
+//        plan it was on) plus a breakdown in index.incomplete, so that
+//        drift-report.mjs can tell a refused cross-check from a real gap.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -156,15 +161,18 @@ const lastModified = new Map(); // slug -> ISO timestamp of the PDF EMA served (
 const parseLastModified = (headers) => { const m = /^last-modified:\s*(.+)$/im.exec(headers || ''); const d = m ? new Date(m[1].trim()) : null; return d && !isNaN(d) ? d.toISOString() : null; };
 // HEAD request: is EMA's copy newer than ours? Returns {ok, lastModified} — no download.
 async function headPdf(slug) {
-  // one attempt only: a failed check just means "not checked this week" (the
-  // label is kept), and retry sleeps here were the main cost of a full sweep
-  let out = '';
-  try { out = execFileSync('curl', ['-sIL', '-A', 'Mozilla/5.0', '--max-time', '20', urlOf(slug)], { encoding: 'utf8' }); } catch { out = ''; }
+  // One attempt here; a refused check is retried once at the end of the run
+  // (see run()) and otherwise just means "not checked this week" (the label is
+  // kept). `code` says why: EMA's HTTP status (429 / 403 …), a curl timeout or a
+  // connection error — it ends up in smpc-index.json → uncheckedWhy.
+  let out = '', curlExit = 0;
+  try { out = execFileSync('curl', ['-sIL', '-A', 'Mozilla/5.0', '--max-time', '20', urlOf(slug)], { encoding: 'utf8' }); }
+  catch (e) { out = typeof e?.stdout === 'string' ? e.stdout : ''; curlExit = e?.status || 1; }
   const codes = [...out.matchAll(/^HTTP\/\S+\s+(\d{3})/gm)].map((m) => m[1]);
-  const code = codes[codes.length - 1] || '000';
-  if (code === '200') return { ok: true, lastModified: parseLastModified(out) };
-  if (code === '404') return { ok: true, notFound: true };
-  return { ok: false };
+  const code = codes[codes.length - 1] || (curlExit === 28 ? 'timeout' : `curl${curlExit}`);
+  if (code === '200') return { ok: true, lastModified: parseLastModified(out), code };
+  if (code === '404') return { ok: true, notFound: true, code };
+  return { ok: false, code };
 }
 async function rawText(slug, pdfTmp, force = false) {
   const cacheFile = join(CACHE, `${slug}.txt`);
@@ -228,8 +236,9 @@ async function run() {
   // (download), 'head' = ask EMA's PDF server (rotating cross-check sample, or
   // every label when the list is unavailable / does not name it), 'keep'.
   const plan = new Map();
+  const headKind = new Map();                    // slug -> why it gets a HEAD check: 'sample' (rotating cross-check), 'carry' (unchecked last run), 'unlisted' (EMA's list does not name it)
   const feedUpdated = new Map();                 // slug -> EMA list last_updated_date
-  let feed = null, headOffset = 0;
+  let feed = null, headOffset = 0, sampleSize = 0;
   const firstUp = new Set(prevIndex.unchecked || []); // labels a previous run did not reach
   if (changedOnly) {
     feed = loadFeed(CACHE, drugs);
@@ -239,9 +248,11 @@ async function run() {
     const start = feed && stored.length ? (prevIndex.headOffset || 0) % stored.length : 0;
     const sample = new Set(sampleN >= stored.length ? stored : [...stored, ...stored].slice(start, start + sampleN));
     headOffset = feed && stored.length ? (start + Math.min(sampleN, stored.length)) % stored.length : 0;
+    sampleSize = sample.size;
     for (const s of stored) {
       const u = feedUpdated.get(s);
       plan.set(s, u && feedNewer(u, readDoc(s)) ? 'feed' : (!u || sample.has(s) || firstUp.has(s)) ? 'head' : 'keep');
+      if (plan.get(s) === 'head') headKind.set(s, !u ? 'unlisted' : firstUp.has(s) ? 'carry' : 'sample');
     }
     const n = (k) => [...plan.values()].filter((v) => v === k).length;
     console.log(feed
@@ -252,12 +263,18 @@ async function run() {
   const rank = (m) => (firstUp.has(slugOf(m)) ? 0 : plan.get(slugOf(m)) === 'feed' ? 1 : 2);
   const queue = [...drugs].sort((a, b) => rank(a) - rank(b));
   const unchecked = [];                          // stored labels this run could not check
+  const uncheckedWhy = {};                       // slug -> { code, plan }: HTTP status / timeout / budget / limit / abort, and the plan it was on
+  const noteUnchecked = (slug, code, kind) => { if (!unchecked.includes(slug)) unchecked.push(slug); uncheckedWhy[slug] = { code: String(code), plan: kind || plan.get(slug) || 'head' }; };
+  const forgetUnchecked = (slug) => { const i = unchecked.indexOf(slug); if (i >= 0) unchecked.splice(i, 1); delete uncheckedWhy[slug]; };
+  const headRetry = [], retried = new Set();     // HEAD checks EMA refused: retried once after a pause at the end of the run
+  const HEAD_RETRY_PAUSE_MS = parseInt(process.env.HEAD_RETRY_PAUSE_MS || '60000', 10);
+  let recovered = 0;
 
   let consecutiveFail = 0, cooldowns = 0, aborted = false;
   let unchanged = 0, headFailed = 0;
   const refreshed = [];
   // Keep the extract already on disk listed in the manifest (nothing about it changes).
-  const keepExisting = (slug, m) => { if (existsSync(join(OUT_DIR, `${slug}.json`))) { index.drugs[slug] = { brand: m.n, inn: m.inn }; ok++; return true; } return false; };
+  const keepExisting = (slug, m) => { if (existsSync(join(OUT_DIR, `${slug}.json`))) { if (!index.drugs[slug]) ok++; index.drugs[slug] = { brand: m.n, inn: m.inn }; return true; } return false; }; // counted once, even when a retried label is kept twice
   // EMA's copy counts as newer when its Last-Modified differs from the one we
   // extracted from — or, for extracts made before that was recorded, when it
   // post-dates the day the text was retrieved.
@@ -277,7 +294,7 @@ async function run() {
           const step = plan.get(slug) || 'head';
           if (step === 'keep') { unchanged++; keepExisting(slug, m); continue; } // EMA's list: not updated since our extract
           if (!budgetSpent && Date.now() - startedAt > budgetMs) { budgetSpent = true; console.log(`\n⏱ time budget spent after ${done - 1} labels — the rest is kept unchecked until next week`); }
-          if (fetched >= limit || budgetSpent) { keepExisting(slug, m); unchecked.push(slug); continue; } // budget spent: not even checked this week
+          if (fetched >= limit || budgetSpent) { keepExisting(slug, m); noteUnchecked(slug, fetched >= limit ? 'limit' : 'budget', step === 'head' ? headKind.get(slug) : step); continue; } // budget spent: not even checked this week
           if (step === 'feed') {
             refreshed.push(`${slug} (${day(prev.emaUpdated || prev.sourceModified || prev.retrieved)} → ${day(feedUpdated.get(slug))}, EMA list)`);
             force = true; cached = false;
@@ -285,7 +302,8 @@ async function run() {
           const h = await headPdf(slug);
           await sleep(700 + Math.floor(Math.random() * 400));
           if (!h.ok) {                                                       // the label stays as it is; ride out a block like a failed download
-            headFailed++; consecutiveFail++; keepExisting(slug, m); unchecked.push(slug);
+            consecutiveFail++; keepExisting(slug, m); noteUnchecked(slug, h.code, headKind.get(slug));
+            if (!retried.has(slug)) { headFailed++; headRetry.push(m); }   // first refusal: one more try at the end of the run
             if (consecutiveFail >= 6) {
               if (++cooldowns > 5) { aborted = true; console.log(`\n⚠ EMA still blocking after ${cooldowns} cooldowns — stopping. Unchecked labels are kept as they are.`); return; }
               console.log(`\n⏸ ${consecutiveFail} consecutive HEAD failures — EMA rate-limit active. Cooling down 5 min (cooldown ${cooldowns}/5)…`);
@@ -295,6 +313,7 @@ async function run() {
             continue;
           }
           consecutiveFail = 0;
+          if (retried.has(slug)) recovered++;
           if (h.notFound || !isNewer(h.lastModified, prev)) { unchanged++; keepExisting(slug, m); continue; }
           refreshed.push(`${slug} (${String(prev.sourceModified || prev.retrieved).slice(0, 10)} → ${h.lastModified.slice(0, 10)}, PDF date)`);
           force = true; cached = false;                                        // EMA has a newer PDF: download it
@@ -363,16 +382,46 @@ async function run() {
   console.log(`SmPC batch: ${drugs.length} unique authorised medicines (downloadLimit=${limit}, reparse=${reparse})`);
   await Promise.all(Array.from({ length: CONC }, (_, i) => worker(i)));
 
+  // HEAD checks EMA refused (429 / 403 / timeouts) get one more try after a
+  // pause: most refusals are a burst limit, and on 5., 12. and 19.10.2026 such
+  // refusals alone turned the weekly run red. Not when EMA blocked the run
+  // outright or the time budget is gone.
+  if (changedOnly && headRetry.length && !aborted && !budgetSpent) {
+    console.log(`\n↻ retrying ${headRetry.length} refused HEAD check(s) once after ${Math.round(HEAD_RETRY_PAUSE_MS / 1000)} s…`);
+    await sleep(HEAD_RETRY_PAUSE_MS);
+    for (const m of headRetry) { const s = slugOf(m); retried.add(s); forgetUnchecked(s); queue.push(m); }
+    consecutiveFail = 0;
+    await worker(0);
+    console.log(`  retry: ${recovered} of ${headRetry.length} recovered`);
+  }
+
   // A run that stopped early (EMA blocking) leaves part of the queue untouched:
   // those labels stay listed exactly as they are and are checked first next run.
   for (const m of queue) {
     const slug = slugOf(m);
-    if (keepExisting(slug, m) && changedOnly && plan.get(slug) !== 'keep') unchecked.push(slug);
+    if (keepExisting(slug, m) && changedOnly && plan.get(slug) !== 'keep') noteUnchecked(slug, 'abort', plan.get(slug) === 'head' ? headKind.get(slug) : plan.get(slug));
   }
   if (changedOnly) {
-    if (unchecked.length) index.unchecked = [...new Set(unchecked)];
-    if (aborted || budgetSpent || unchecked.length)
-      index.incomplete = { reason: aborted ? 'EMA kept blocking requests' : budgetSpent ? 'time budget spent' : fetched >= limit ? 'download limit reached' : 'some checks failed', unchecked: new Set(unchecked).size };
+    const u = [...new Set(unchecked)];
+    if (u.length) { index.unchecked = u; index.uncheckedWhy = Object.fromEntries(u.map((s) => [s, uncheckedWhy[s] || { code: '?', plan: plan.get(s) || 'head' }])); }
+    const repeat = u.filter((s) => firstUp.has(s));                          // unchecked two runs in a row
+    if (repeat.length) index.uncheckedRepeat = repeat;
+    // Stored labels EMA marked as changed whose download failed: the old extract
+    // is kept (they are "behind" in the drift report) — named, not hidden in `failed`.
+    const downloadFailed = index.failed.filter((s) => index.failedWhy[s] === 'fetch' && existsSync(join(OUT_DIR, `${s}.json`)));
+    if (downloadFailed.length) index.downloadFailed = downloadFailed;
+    if (aborted || budgetSpent || u.length) {
+      const kind = (k) => u.filter((s) => (uncheckedWhy[s]?.plan || '') === k).length;
+      const codes = {}; for (const s of u) { const c = uncheckedWhy[s]?.code || '?'; codes[c] = (codes[c] || 0) + 1; }
+      index.incomplete = {
+        reason: aborted ? 'EMA kept blocking requests' : budgetSpent ? 'time budget spent' : fetched >= limit ? 'download limit reached' : 'some checks failed',
+        unchecked: u.length,
+        changed: kind('feed'),                 // EMA's list says these changed and they were NOT fetched — a real gap
+        sample: kind('sample'), sampleSize,    // rotating cross-check HEADs refused — EMA's list says these are unchanged
+        carry: kind('carry'), unlisted: kind('unlisted'),
+        repeat: repeat.length, codes,
+      };
+    }
     if (feed) index.headOffset = headOffset;
     if (feed?.timestamp) index.emaList = feed.timestamp;
   }
@@ -395,9 +444,10 @@ async function run() {
   if (guarded.length) index.guarded = guarded; else delete index.guarded;
   writeFileSync(INDEX, JSON.stringify(index));
   console.log(`\nDONE. parsed:${ok} newDownloads:${fetched} 404:${notfound} failed:${fail} guarded(kept previous file):${guarded.length} removed(no longer authorised):${removed.length}${removed.length ? ` [${removed.join(', ')}]` : ''}`);
-  if (index.incomplete) console.log(`  ⚠ INCOMPLETE (${index.incomplete.reason}): ${index.incomplete.unchecked} labels not checked — first in line next run`);
+  if (index.incomplete) { const i = index.incomplete; console.log(`  ⚠ INCOMPLETE (${i.reason}): ${i.unchecked} labels not checked — changed at EMA: ${i.changed}, cross-check sample: ${i.sample} of ${i.sampleSize}, carried over: ${i.carry}, unlisted: ${i.unlisted}, repeat: ${i.repeat}; codes: ${Object.entries(i.codes).map(([c, n]) => `${c}×${n}`).join(' ') || '—'} — first in line next run`); }
+  if (index.downloadFailed) console.log(`  ⚠ download failed, old extract kept: ${index.downloadFailed.join(', ')}`);
   if (changedOnly) {
-    console.log(`  changed-only: unchanged:${unchanged} refreshed:${refreshed.length} headFailed:${headFailed} minutes:${Math.round((Date.now() - startedAt) / 60000)}${budgetSpent ? ' (time budget spent)' : ''}`);
+    console.log(`  changed-only: unchanged:${unchanged} refreshed:${refreshed.length} headFailed:${headFailed} (recovered on retry: ${recovered}) minutes:${Math.round((Date.now() - startedAt) / 60000)}${budgetSpent ? ' (time budget spent)' : ''}`);
     if (refreshed.length) console.log(`  refreshed: ${refreshed.join('; ')}`);
   }
   if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
