@@ -600,7 +600,7 @@ wrap the network toggle in one Bash script with `trap networksetup on EXIT`.
 
 ---
 
-## 12. Version 2.0.5 (build 34) — 20 Oct 2026
+## 12. Version 2.0.5 (build 35, replaces 34) — 21 Oct 2026
 
 First native build since 2.0.4 (7 Oct). Everything below is already live in
 DrugRadar Web; the native app only gets new code through an App Store build.
@@ -612,7 +612,14 @@ DrugRadar Web; the native app only gets new code through an App Store build.
 • Medicines whose FDA label openFDA has not yet linked to the application number are found anyway, so their official wording appears weeks earlier.
 • Text taken live from the FDA label is now marked as label text, never as a summary.
 • Data: EU medicines whose product information EMA has not published yet are shown as pending rather than treated as errors; US labels of EU-first medicines are picked up by their FDA approval date.
+• US prescribing information now comes from the manufacturer's own label, never from a repackager's older reprint, and the detail sheet shows the full Indications and Usage text (for example Wegovy with its MASH indication, Mounjaro with cardiovascular risk reduction).
+• US search finds products whose FDA label is not yet linked in openFDA, with the correct approval date and company.
 ```
+
+Build 34 (20 Oct) was withdrawn from review on 21 Oct: its US cards still showed
+repackager labels (Wegovy without MASH, "A-S Medication Solutions" as company, no
+FDA approval date). Build 35 = build 34 + commits 51f6e58 (label data) and 8054881
+(US cards), archived headlessly to build_store/App35.xcarchive and uploaded.
 
 **Build on the Mac** (details in section 6)
 ```
@@ -622,5 +629,5 @@ cd frontend && npm install && npm run ios      # build + cap sync + opens Xcode
 ```
 Xcode: scheme App → Any iOS Device (arm64) → Product → Archive → Distribute App →
 App Store Connect → Upload. Then in App Store Connect: add version 2.0.5, paste the
-text above, pick build 34, submit. Version and build number come from
-`App.xcodeproj` (MARKETING_VERSION 2.0.5 / CURRENT_PROJECT_VERSION 34) — no edit needed.
+text above, pick build 35, submit. Version and build number come from
+`App.xcodeproj` (MARKETING_VERSION 2.0.5 / CURRENT_PROJECT_VERSION 35) — no edit needed.
