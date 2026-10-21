@@ -67,6 +67,7 @@ DEVICE_FIX = {
     'PATHWAY anti-HER-2/neu (4B5) Rabbit Monoclonal Primary Antibody (PATHWAY anti-HER2 (4B5) antibody)':
         'PATHWAY anti-Her2/neu (4B5) Rabbit Monoclonal Primary Antibody',
     'MI Cancer Seek': 'MI Cancer Seek (MCS)',
+    'Foundation One CDx': 'FoundationOne CDx',  # 2026 colorectal row
 }
 
 
@@ -185,7 +186,8 @@ def parse_drugs(raw: str):
 
 # --- submission number / date ------------------------------------------------
 DATE_FIX = {'08/22/0218': '08/22/2018'}
-NUM_RE = re.compile(r'([A-Z]{1,3}\d{6}(?:/S\d{3})?(?:\s*/\s*[A-Z]\d{6})?)\s*\((\d{2}/\d{2}/\s?\d{4})\)')
+# The date may be typed with a single-digit month/day ('7/30/2026' on the 2026 group row).
+NUM_RE = re.compile(r'([A-Z]{1,3}\d{6}(?:/S\d{3})?(?:\s*/\s*[A-Z]\d{6})?)\s*\((\d{1,2}/\d{1,2}/\s?\d{4})\)')
 TYPE = {'P': 'PMA', 'K': '510(k)', 'DEN': 'De Novo', 'H': 'HDE', 'BK': '510(k) · CBER', 'BR': 'CBER'}
 
 
@@ -199,7 +201,7 @@ def parse_num(raw: str):
         date = date.replace(' ', '')
         date = DATE_FIX.get(date, date)
         mm, dd, yy = date.split('/')
-        iso = f'{yy}-{mm}-{dd}'
+        iso = f'{yy}-{int(mm):02d}-{int(dd):02d}'
         datetime.date.fromisoformat(iso)  # validates
         hist.append({'num': num, 'date': iso})
     if not hist:
@@ -214,7 +216,7 @@ _DMMR = ['dMMR', 'MMR', 'MLH1', 'MSH2', 'MSH6', 'PMS2']
 _NTRK = ['NTRK1', 'NTRK2', 'NTRK3', 'NTRK']
 BM_GENES = {
     'EGFR (HER1)': ['EGFR', 'HER1'], 'EGFR': ['EGFR'],
-    'BRAF': ['BRAF'], 'KRAS': ['KRAS'], 'KRAS and NRAS': ['KRAS', 'NRAS'],
+    'BRAF': ['BRAF'], 'KRAS': ['KRAS'], 'KRAS and NRAS': ['KRAS', 'NRAS'], 'KRAS/NRAS': ['KRAS', 'NRAS'],
     'ERBB2 (HER2)': _HER2, 'ERBB2/HER2': _HER2, 'ERBB2': _HER2,
     'PD-L1': ['PD-L1', 'CD274'],
     'BRCA1 and BRCA2': ['BRCA1', 'BRCA2'], 'BRCA1, BRCA2 and ATM': ['BRCA1', 'BRCA2', 'ATM'],

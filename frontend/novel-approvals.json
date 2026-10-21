@@ -1,6 +1,20 @@
 {
   "2026": [
     {
+      "no": 47,
+      "brandName": "Hibsago",
+      "genericName": "bepirovirsen",
+      "approvalDate": "2026-10-20",
+      "indication": "To treat chronic hepatitis B virus infection in certain adults without cirrhosis, in combination with existing antiviral therapy"
+    },
+    {
+      "no": 46,
+      "brandName": "Hovilpri",
+      "genericName": "pritelivir",
+      "approvalDate": "2026-10-09",
+      "indication": "To treat adults with weakened immune systems who have mucocutaneous lesions caused by herpes simplex virus infection and have not responded to other therapies"
+    },
+    {
       "no": 45,
       "brandName": "Emcitate",
       "genericName": "tiratricol",

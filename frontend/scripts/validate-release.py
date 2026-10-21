@@ -73,7 +73,10 @@ SNAPSHOTS = ['ema-medicines.json', 'novel-approvals.json', 'pdufa.json', 'critic
 # Allowed relative size change per snapshot (candidate vs published).
 SIZE_BAND = {'ema-medicines.json': 0.15, 'announcements.json': 0.80,
              # the label queue is small and legitimately jumps when a batch of labels is verified
-             'pending-labels.json': 1.50}
+             'pending-labels.json': 1.50,
+             # the curated PDUFA watchlist is tiny and refilled in batches (5 → 38 entries on
+             # 21.10.2026); an empty or exhausted list is caught by the freshness watchdog instead
+             'pdufa.json': 6.00}
 SIZE_BAND_DEFAULT = 0.35
 # Approval → label reconciliation queue (scripts/label-reconciliation.py): gate G8
 QUEUE_STATUSES = {'AWAITING_USPI', 'AWAITING_EC_DECISION', 'AWAITING_SMPC', 'LABEL_AVAILABLE', 'LABEL_VERIFIED'}

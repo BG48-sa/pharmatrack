@@ -53,10 +53,12 @@ jobs:
           # 200 (after a redirect), so a download only counts when it contains the
           # register's decision records; three tries, then build-ema-data.py falls
           # back to the last good decisions (frontend/eu-register-decisions.json).
+          # reg_last.htm is the page itself (HTTPS, 200); the old newproc.htm
+          # address only redirects there — over plain http://, so it is not used.
           ok=0
           for i in 1 2 3; do
             if curl -fsSL -A "Mozilla/5.0" -m 120 -o /tmp/newproc.htm \
-                 "https://ec.europa.eu/health/documents/community-register/html/newproc.htm" \
+                 "https://ec.europa.eu/health/documents/community-register/html/reg_last.htm" \
                && grep -q '^{"cat":' /tmp/newproc.htm; then ok=1; break; fi
             echo "WARN: Union Register attempt $i returned no decisions"; sleep 30
           done

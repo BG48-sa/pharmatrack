@@ -155,7 +155,9 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   nothing. Run locally: `python3 frontend/scripts/label-reconciliation.py --probe --md /tmp/labels.md`.
 
 ## EU Union Register outage fallback (eu-register-decisions.json)
-- The Commission's register page (`ec.europa.eu/.../newproc.htm`) is sometimes down for
+- The Commission's register page (`ec.europa.eu/.../reg_last.htm`; the old `newproc.htm`
+  address only redirects there over plain http, so since 21.10.2026 the workflow reads
+  `reg_last.htm` directly) is sometimes down for
   hours and then serves "Server temporarily unavailable" with HTTP 200 (after a redirect
   to sorry.ec.europa.eu) — on 21.10.2026 07:40 UTC the daily run read it as 0 decisions,
   the freshness watchdog saw 44 → 0 ("count collapsed") and stopped the deploy (correctly;

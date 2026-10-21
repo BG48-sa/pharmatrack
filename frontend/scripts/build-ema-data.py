@@ -29,7 +29,7 @@ EmaMedicine / EmaPipelineItem fields:
 Usage:
   curl -sL -A "Mozilla/5.0" -o /tmp/ema.xlsx <url-above>
   curl -sL -A "Mozilla/5.0" -o /tmp/newproc.htm \
-    https://ec.europa.eu/health/documents/community-register/html/newproc.htm
+    https://ec.europa.eu/health/documents/community-register/html/reg_last.htm
   python3 scripts/build-ema-data.py /tmp/ema.xlsx ema-medicines.json /tmp/newproc.htm
 
 The third argument (or env EU_REGISTER) is optional: the EU Union Register page
@@ -66,7 +66,9 @@ def smpc_indication(slug):
 
 PARSER_VERSION = "ema-2026.09.09"   # bump when the mapping below changes
 EMA_XLSX_URL = "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx"
-EU_REGISTER_URL = "https://ec.europa.eu/health/documents/community-register/html/newproc.htm"
+# reg_last.htm is the page itself (HTTPS); the older newproc.htm address only
+# redirects there over plain http://, so it is no longer used.
+EU_REGISTER_URL = "https://ec.europa.eu/health/documents/community-register/html/reg_last.htm"
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else "/tmp/ema.xlsx"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "ema-medicines.json"

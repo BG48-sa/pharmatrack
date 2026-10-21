@@ -48,12 +48,28 @@ SOURCES (what we read, where the watermark comes from, expected cadence)
   openfda_drug_label     US prescribing information via openFDA — date openFDA
                          was last read (uspi-index.json.generated). Weekly job.
   fda_novel_roster       CDER "Novel Drug Approvals" export (manual xlsx) —
-                         newest approval date in novel-approvals.json.
+                         newest approval date in novel-approvals.json. The
+                         roster is also compared with what FDA has approved
+                         since: new-molecular-entity originals in Drugs@FDA
+                         (us-recent.json, class TYPE 1 / original BLA) and
+                         "FDA Approves …" press items (announcements.json);
+                         names missing from the roster are listed, and the
+                         source goes STALE once they are older than a grace
+                         period. fda.gov itself blocks scripted reads, so
+                         these are the reachable mirrors of the roster.
   fda_announcements      FDA press-release mirror (announcements.json) — fetch
                          date + newest item. Daily.
   fda_cber_cgt           CBER cell & gene therapy list — manual snapshot,
                          newest approval date (cgt-products.json).
   fda_cdx_list           FDA companion-diagnostics list — its own list date.
+                         With --probe, openFDA's device/pma endpoint is asked
+                         for companion-diagnostic approvals decided after the
+                         list date (the FDA page cannot be read by scripts):
+                         decisions older than a grace period that our
+                         snapshot does not carry make the source STALE.
+  pdufa_watchlist        Curated PDUFA target dates (pdufa.json, unofficial).
+                         STALE when no entry lies in the future — the app's
+                         "Coming Up" list would be empty.
 
   With --probe the script also asks the live sources for their CURRENT
   watermark (openFDA meta.last_updated with limit=1; HTTP Last-Modified of
@@ -77,8 +93,11 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import subprocess
 import sys
+import urllib.error
+import urllib.parse
 import urllib.request
 from email.utils import parsedate_to_datetime
 
@@ -93,6 +112,12 @@ EMA_XLSX = 'https://www.ema.europa.eu/en/documents/report/medicines-output-medic
 EMA_DOCS = 'https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json'
 OPENFDA_DRUGSFDA = 'https://api.fda.gov/drug/drugsfda.json?limit=1'
 OPENFDA_LABEL = 'https://api.fda.gov/drug/label.json?limit=1'
+# Companion-diagnostic device approvals (PMA originals + supplements) decided in a
+# date window — the reachable mirror of FDA's companion-diagnostics list.
+OPENFDA_PMA_CDX = ('https://api.fda.gov/device/pma.json?search=ao_statement:%22companion+diagnostic%22'
+                   '+AND+decision_date:[{since}+TO+{until}]&limit=100')
+# Is an active ingredient already in Drugs@FDA (i.e. not a new molecular entity)?
+OPENFDA_INGREDIENT = 'https://api.fda.gov/drug/drugsfda.json?search=products.active_ingredients.name:%22{name}%22&limit=25'
 
 # Thresholds in DAYS unless the name says hours. "ours" = age of OUR copy /
 # download; "upstream" = age of the source's own watermark; "lag" = how far our
@@ -105,10 +130,14 @@ LIMITS = {
     # a dataset one day newer than our copy is the normal daily rhythm, not a lag.
     'openfda_drugsfda': {'ours_stale': 1.5, 'upstream_stale': 14, 'lag_stale': 1.5, 'collapse': 0.7, 'overlay_stale': 14},
     'openfda_drug_label': {'ours_stale': 9, 'ours_fail': 16, 'collapse': 0.95},
-    'fda_novel_roster': {'upstream_stale': 45},
+    # missing_grace: days an approval may be missing from the manual snapshot
+    # before that counts as STALE (time for the FDA page and the next export).
+    'fda_novel_roster': {'upstream_stale': 45, 'missing_grace': 7},
     'fda_announcements': {'ours_stale': 1.5, 'upstream_stale': 30, 'collapse': 0.3},
     'fda_cber_cgt': {'upstream_stale': 120, 'collapse': 1.0},
-    'fda_cdx_list': {'upstream_stale': 180, 'collapse': 0.95},
+    'fda_cdx_list': {'upstream_stale': 180, 'collapse': 0.95, 'missing_grace': 30},
+    # horizon: warn when the last future target date is closer than this.
+    'pdufa_watchlist': {'horizon': 30},
 }
 
 
@@ -177,6 +206,38 @@ def probe(url, method='GET', timeout=30):
             if attempt == 2:
                 return {'error': err}
     return {'error': 'unreachable'}
+
+
+def probe_json(url, timeout=30):
+    """GET a JSON API; returns the parsed body or {'error': ...}. Never raises."""
+    req = urllib.request.Request(url, headers={'User-Agent': 'DrugRadar-freshness'})
+    for attempt in (1, 2):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read().decode('utf-8'))
+        except urllib.error.HTTPError as e:
+            if e.code == 404:  # openFDA: "no matches" is a 404
+                return {'results': [], 'meta': {'results': {'total': 0}}}
+            err = f'HTTP {e.code}'
+        except Exception as e:  # noqa: BLE001
+            err = f'{type(e).__name__}: {e}'[:120]
+        if attempt == 2:
+            return {'error': err}
+    return {'error': 'unreachable'}
+
+
+def words(*names):
+    """Lower-case word tokens of drug names, for loose brand/INN matching."""
+    out = set()
+    for n in names:
+        for w in re.split(r'[^a-z0-9]+', (n or '').lower()):
+            if len(w) >= 4 and w not in NAME_STOPWORDS:
+                out.add(w)
+    return out
+
+
+NAME_STOPWORDS = {'alfa', 'beta', 'with', 'and', 'acetate', 'sodium', 'hydrochloride', 'injection', 'solution',
+                  'extended', 'release', 'tablets', 'capsules', 'virus', 'disease', 'treatment', 'insulin'}
 
 
 def previous_report(path):
@@ -266,6 +327,129 @@ def check_probe(src, result, now, our_watermark=None, slack_days=0.0, stale_hour
         src.mark(STALE, f'source has newer data ({day(result["value"])}) than our copy ({day(our_watermark)})')
 
 
+def novel_roster_missing(novel, newest, us_recent, ann, ema, now, do_probe):
+    """FDA approvals that look like new molecular entities and are not in the
+    CDER novel roster. Two reachable mirrors of the roster:
+      • Drugs@FDA originals (us-recent.json) of class TYPE 1 (new molecular
+        entity, also TYPE 1/4), or original BLAs without a class code whose
+        substance the EU catalogue does not know (that excludes biosimilars);
+      • "FDA Approves <Brand> (<inn>)" press items (announcements.json) newer
+        than the roster's newest entry whose names are neither in the roster
+        nor a substance the EU catalogue already knows; with --probe, an INN
+        that Drugs@FDA already carried a year before the roster's newest entry
+        is dropped too (a new formulation of an old drug, not a novel drug).
+    Returns [{name, date, via}], newest first."""
+    roster_words = set()
+    for yr in novel.values():
+        if isinstance(yr, list):
+            for r in yr:
+                roster_words |= words(r.get('brandName'), r.get('genericName'))
+    if not roster_words:
+        return []
+    known_eu = set()
+    for m in (ema.get('authorised') or []) + (ema.get('pipeline') or []):
+        if isinstance(m, dict):
+            known_eu |= words(m.get('inn'), m.get('sub'))
+    newest_dt = parse_ts(newest) if newest else None
+    found, seen = [], set()
+    # Originals Drugs@FDA classes as NOT a new molecular entity (TYPE 2 new
+    # active ingredient, TYPE 3 new dosage form, TYPE 5 new formulation …):
+    # a press release about one of these is not a roster gap.
+    not_novel = set()
+    for it in (us_recent.get('items') or []):
+        cls = (it.get('cls') or '').upper()
+        if cls and cls != 'UNKNOWN' and not cls.startswith('TYPE 1'):
+            for p in it.get('products') or []:
+                not_novel |= words(p.get('brand_name'), *[ai.get('name') for ai in (p.get('active_ingredients') or [])])
+
+    for it in (us_recent.get('items') or []):
+        cls = (it.get('cls') or '').upper()
+        appno = it.get('application_number') or ''
+        if not (cls.startswith('TYPE 1') or (appno.startswith('BLA') and cls in ('', 'UNKNOWN'))):
+            continue
+        d = day(it.get('orig'))
+        if not d:
+            continue
+        names, ingredients = [], []
+        for p in it.get('products') or []:
+            names.append(p.get('brand_name'))
+            ingredients += [ai.get('name') for ai in (p.get('active_ingredients') or [])]
+        if words(*names, *ingredients) & roster_words:
+            continue
+        # An original BLA without a class code is often a biosimilar (rituximab-cdxx …):
+        # a substance the EU catalogue already knows is not a novel drug.
+        if not cls.startswith('TYPE 1') and words(*ingredients) & known_eu:
+            continue
+        label = (names[0] or appno).title() + (f' ({ingredients[0].lower()})' if ingredients and ingredients[0] else '')
+        key = words(*names, *ingredients)
+        if key & seen:
+            continue
+        seen |= key
+        found.append({'name': label, 'date': d, 'via': 'Drugs@FDA ' + (cls or 'BLA')})
+
+    for it in (ann.get('items') or []):
+        title = it.get('title') or ''
+        d = day(it.get('date'))
+        if not title.lower().startswith('fda approves ') or not d or not it.get('names'):
+            continue
+        if newest_dt and parse_ts(d) <= newest_dt:
+            continue
+        w = words(*it['names'])
+        if not w or w & roster_words or w & known_eu or w & not_novel or w & seen:
+            continue
+        inn = sorted(it['names'], key=len)[-1]
+        if do_probe:  # an ingredient Drugs@FDA knew long before the roster's newest entry is not novel
+            body = probe_json(OPENFDA_INGREDIENT.format(name=urllib.parse.quote(inn)))
+            old = False
+            for r in body.get('results') or []:
+                for sub in r.get('submissions') or []:
+                    sd = day(sub.get('submission_status_date'))
+                    if sub.get('submission_type') == 'ORIG' and sd and newest_dt and parse_ts(sd) < newest_dt - dt.timedelta(days=365):
+                        old = True
+            if old:
+                continue
+        m = re.match(r'(?i)fda approves\s+(.+?)(?:\s+\(|\s+for\b|\s+to\b|,|$)', title)
+        label = (m.group(1).strip() if m else inn)[:60]
+        seen |= w
+        found.append({'name': label, 'date': d, 'via': 'FDA press release'})
+    return sorted(found, key=lambda m: m['date'], reverse=True)
+
+
+def check_cdx_probe(src, body, cdx, now):
+    """openFDA device/pma companion-diagnostic decisions after our list date."""
+    if body is None:
+        return
+    if 'error' in body:
+        src.notes.append(f'live probe failed: {body["error"]} (not counted)')
+        return
+    have = set()
+    for d in cdx.get('devices') or []:
+        for au in d.get('auths') or []:
+            have.add(au.get('num', '').replace(' ', ''))
+    for g in cdx.get('group') or []:
+        have.add((g.get('num') or '').replace(' ', ''))
+    newer = []
+    for r in body.get('results') or []:
+        num = (r.get('pma_number') or '') + (('/' + r['supplement_number']) if r.get('supplement_number') else '')
+        d = day(r.get('decision_date'))
+        if not d or num in have:
+            continue
+        name = re.sub(r'[\x00-\x1f\x7f-\x9f®™]', '', r.get('trade_name') or '').strip()  # openFDA carries stray ™ bytes
+        newer.append({'num': num, 'date': d, 'device': name[:60]})
+    newer.sort(key=lambda x: x['date'], reverse=True)
+    src.set(probe={'kind': 'openFDA device/pma companion-diagnostic decisions after list date', 'count': len(newer),
+                   'lastUpdated': (body.get('meta') or {}).get('last_updated')}, missing=newer or None)
+    if not newer:
+        return
+    grace = LIMITS[src.key]['missing_grace']
+    overdue = [x for x in newer if (age_days(x['date'], now) or 0) > grace]
+    desc = ', '.join(f"{x['device']} {x['num']} ({x['date']})" for x in newer)
+    if overdue:
+        src.mark(STALE, f'{len(newer)} companion-diagnostic approval(s) decided after the list date are not in the snapshot: {desc} — re-extract the FDA list (scripts/cdx/README.md)')
+    else:
+        src.notes.append(f'{len(newer)} companion-diagnostic approval(s) newer than the list date (within {grace} d grace): {desc}')
+
+
 # ---------------------------------------------------------------- main ------
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
@@ -295,6 +479,8 @@ def main():
     cgt = read_json(os.path.join(fe, 'cgt-products.json')) or {}
     cdx = read_json(os.path.join(fe, 'fda-cdx.json')) or {}
 
+    pdufa = read_json(os.path.join(fe, 'pdufa.json')) or {}
+
     probes = {}
     if a.probe:
         probes = {
@@ -303,6 +489,9 @@ def main():
             'drugsfda': probe(OPENFDA_DRUGSFDA),
             'label': probe(OPENFDA_LABEL),
         }
+        if day(cdx.get('listDate')):
+            since = day(cdx['listDate']).replace('-', '')
+            probes['pma_cdx'] = probe_json(OPENFDA_PMA_CDX.format(since=since, until=now.strftime('%Y%m%d')))
 
     sources = []
 
@@ -416,6 +605,16 @@ def main():
         check_upstream(s, novel_dates[0], now)
     else:
         s.mark(FAILED, 'novel-approvals.json empty or unreadable')
+    missing = novel_roster_missing(novel, novel_dates[0] if novel_dates else None, us_recent, ann, ema, now, a.probe)
+    s.set(missing=missing or None)
+    if missing:
+        grace = LIMITS[s.key]['missing_grace']
+        overdue = [m for m in missing if (age_days(m['date'], now) or 0) > grace]
+        desc = ', '.join(f"{m['name']} ({m['date']}, {m['via']})" for m in missing)
+        if overdue:
+            s.mark(STALE, f'{len(missing)} FDA approval(s) not in the roster, oldest {fmt_age(age_days(overdue[-1]["date"], now))} ago: {desc}')
+        else:
+            s.notes.append(f'{len(missing)} recent FDA approval(s) not yet in the roster (within {grace} d grace): {desc}')
     if s.status == STALE:
         s.notes.append('export the current year from fda.gov → scripts/data/novel-<year>.xlsx, run build-novel-approvals.py')
     check_against_previous(s, prev_src.get(s.key))
@@ -452,7 +651,23 @@ def main():
         check_upstream(s, cdx.get('listDate'), now)
     else:
         s.mark(STALE, 'fda-cdx.json carries no list date')
+    check_cdx_probe(s, probes.get('pma_cdx'), cdx, now)
     check_against_previous(s, prev_src.get(s.key))
+    sources.append(s)
+
+    # --- PDUFA watchlist (curated, unofficial) -------------------------------
+    s = Source('pdufa_watchlist', 'PDUFA watchlist (curated, unofficial)', 'manual; sponsor/analyst-disclosed target dates')
+    entries = [e for e in (pdufa.get('entries') or []) if isinstance(e, dict) and e.get('pdufaDate')]
+    today = now.date().isoformat()
+    upcoming = sorted(e['pdufaDate'][:10] for e in entries if e['pdufaDate'][:10] >= today)
+    s.set(count=len(entries), upcoming=len(upcoming), nextDate=upcoming[0] if upcoming else None,
+          lastDate=upcoming[-1] if upcoming else None, fetchedAt=None, sourceUpdatedAt=None)
+    if not entries:
+        s.mark(STALE, 'pdufa.json has no entries')
+    elif not upcoming:
+        s.mark(STALE, f'all {len(entries)} target dates are past (newest {max(e["pdufaDate"][:10] for e in entries)}) — the app\'s "Coming Up" list is empty; refresh frontend/pdufa.json')
+    elif (parse_ts(upcoming[-1]) - now).days < LIMITS[s.key]['horizon']:
+        s.notes.append(f'watchlist runs out on {upcoming[-1]} — add later target dates to frontend/pdufa.json')
     sources.append(s)
 
     # --- Roll-up --------------------------------------------------------------
