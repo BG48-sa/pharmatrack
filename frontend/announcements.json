@@ -1,6 +1,25 @@
 {
-  "generated": "2026-10-20",
+  "generated": "2026-10-21",
   "items": [
+    {
+      "title": "FDA Approves Hibsago (bepirovirsen) for the Treatment of Chronic Hepatitis B",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-hibsago-bepirovirsen-chronic-hepatitis-b-6920.html",
+      "date": "2026-10-20",
+      "source": "Drugs.com",
+      "names": [
+        "bepirovirsen",
+        "hibsago"
+      ]
+    },
+    {
+      "title": "Cosette Pharmaceuticals Announces FDA Approval of Evoxac (cevimeline HCl) Oral Solution",
+      "url": "https://www.drugs.com/newdrugs/cosette-pharmaceuticals-announces-fda-approval-evoxac-cevimeline-hcl-oral-solution-6919.html",
+      "date": "2026-10-20",
+      "source": "Drugs.com",
+      "names": [
+        "evoxac"
+      ]
+    },
     {
       "title": "Jemperli (dostarlimab-gxly) Approved in US as First and Only Immunotherapy for Adults with MSI-H/dMMR Locally Advanced Rectal Cancer",
       "url": "https://www.drugs.com/newdrugs/jemperli-dostarlimab-gxly-approved-us-first-only-immunotherapy-adults-msi-h-dmmr-locally-advanced-6918.html",
@@ -218,26 +237,6 @@
       "source": "Drugs.com",
       "names": [
         "onswik"
-      ]
-    },
-    {
-      "title": "FDA Approves Lyrfigtu (lirafugratinib) for the Treatment of Cholangiocarcinoma with FGFR2 Fusion or Other Rearrangement",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-lyrfigtu-lirafugratinib-cholangiocarcinoma-fgfr2-fusion-other-rearrangement-6895.html",
-      "date": "2026-09-23",
-      "source": "Drugs.com",
-      "names": [
-        "lirafugratinib",
-        "lyrfigtu"
-      ]
-    },
-    {
-      "title": "U.S. FDA Approves Update to the Label for Winrevair (sotatercept-csrk) to Include Data from the Phase 3 HYPERION Trial",
-      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-update-label-winrevair-sotatercept-csrk-include-data-phase-3-hyperion-trial-6893.html",
-      "date": "2026-09-22",
-      "source": "Drugs.com",
-      "names": [
-        "sotatercept-csrk",
-        "winrevair"
       ]
     }
   ]
