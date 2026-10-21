@@ -154,6 +154,36 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   "Drop pure-reformatting changes" ignores `lastChecked`, so a quiet day commits
   nothing. Run locally: `python3 frontend/scripts/label-reconciliation.py --probe --md /tmp/labels.md`.
 
+## Post-authorisation audit (events vs stored labels, report only)
+- `frontend/scripts/post-authorisation-audit.py` (Monday label job, step after the
+  freshness watchdog; `continue-on-error`, never stops a run, changes no file in the
+  repo) starts from the regulatory EVENT instead of the label source — the label
+  refresh and drift report cannot see an approval whose label never moved.
+- EU: EMA's post-authorisation list (`medicines-output-post_authorisation_json-report_en.json`,
+  extension-of-indication opinions) joined on the EMA product number to
+  `ema-medicines.json` + `smpc-data`. A positive opinion is followed by the EC decision
+  (≤ 67 d) and then a new SmPC: `PENDING_EC` → `PENDING_PUBLICATION` (+14 d) →
+  `VERIFIED` (our SmPC dated after the opinion) / `PENDING_INGEST` (EMA published < 14 d
+  ago) / `BEHIND_EMA` (> 14 d, drift report territory) / `OVERDUE` (neither EMA's
+  product information nor ours is newer than the opinion — an EC decision or EMA
+  publication to look at; Trixeo Aerosphere on 21.10.2026: opinion 23.7., EMA PI still
+  of 19.9.2025). Opinion ≠ EC decision.
+- US: Drugs@FDA approved SUPPL submissions of class EFFICACY / LABELING on applications
+  whose label we hold (`uspi-data` `usApplication`, `effective`): `PENDING` (< 45 d) /
+  `VERIFIED` (label effective ≥ supplement − 14 d) / `LABEL_OLDER`. Only EFFICACY raises
+  an alert; the note says whether openFDA already holds a newer version of the set ID
+  (our ingest is behind) or not (the label source lags, or the supplement sits on
+  another label of the same application — Wegovy tablets/injection, Tivicay PD).
+- Per event it records SHA-256 of whitespace-normalised key sections (EU 4.1–4.4, US
+  indications/dosage/contraindications/boxed warning/warnings); `--previous` carries
+  first-seen hashes so a later run can see 4.1 / Indications move. CI does not persist
+  that state yet (artifact `post-auth.json` only).
+- Not a clinical check: dates + section hashes, not text equivalence. First run
+  21.10.2026: 27 EU events (13 verified, 12 pending EC, 1 pending ingest, 1 overdue),
+  248 US events (170 verified, 44 pending, 34 label older of which 6 efficacy).
+  Run locally: `python3 frontend/scripts/post-authorisation-audit.py --md /tmp/pa.md`
+  (`--no-epar`, `--skip-us`, `--ema-feed FILE` for offline use).
+
 ## Web app updates (service worker)
 - Browsers install a new service worker only when `sw.js` changes byte for byte, and
   the app reloads itself only on that event (index.html `controllerchange`). A

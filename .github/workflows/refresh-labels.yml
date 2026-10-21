@@ -99,6 +99,18 @@ jobs:
           python frontend/scripts/source-freshness.py --probe --no-fail --json /tmp/freshness.json --md /tmp/freshness.md
           cat /tmp/freshness.md >> "$GITHUB_STEP_SUMMARY"
 
+      # Event → label cross-check: starts from the regulatory EVENT (EMA positive
+      # opinion on an extension of indication, FDA approved efficacy/labeling
+      # supplement) and asks whether the label we hold reflects it. Report only —
+      # never stops the run, changes no label.
+      - name: Post-authorisation audit (events vs stored labels)
+        if: always()
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python frontend/scripts/post-authorisation-audit.py --json /tmp/post-auth.json --md /tmp/post-auth.md
+          cat /tmp/post-auth.md >> "$GITHUB_STEP_SUMMARY"
+
       - name: Archive logs, validation report and change list
         if: always()
         uses: actions/upload-artifact@v4
@@ -115,6 +127,8 @@ jobs:
             /tmp/freshness.md
             /tmp/pending-labels.json
             /tmp/labels.md
+            /tmp/post-auth.json
+            /tmp/post-auth.md
           if-no-files-found: ignore
           retention-days: 90
 
