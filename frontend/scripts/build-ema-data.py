@@ -333,6 +333,28 @@ def load_register(path):
 register = load_register(REGISTER)
 register_hits = []
 
+# The Commission's server is sometimes down for hours ("Server temporarily
+# unavailable"). Decisions are never revoked, so the last good set stays valid:
+# remember every good download next to the output, and fall back to it when
+# today's page has no decisions. Only the NEW decisions of the outage are missed
+# (the next good run adds them); the freshness report marks the source STALE.
+REGISTER_CACHE = os.path.join(os.path.dirname(os.path.abspath(OUT)), "eu-register-decisions.json")
+register_from_cache = False
+if register:
+    _body = json.dumps({"decisions": dict(sorted(register.items()))}, indent=0, sort_keys=True, ensure_ascii=False) + "\n"
+    try:
+        _old = open(REGISTER_CACHE, encoding="utf-8").read()
+    except OSError:
+        _old = ""
+    if _body != _old:
+        open(REGISTER_CACHE, "w", encoding="utf-8").write(_body)
+else:
+    try:
+        register = json.load(open(REGISTER_CACHE, encoding="utf-8")).get("decisions") or {}
+        register_from_cache = bool(register)
+    except (OSError, ValueError):
+        register = {}
+
 for i, row in enumerate(rows):
     if i <= 8:
         continue
@@ -542,6 +564,7 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".sources.jso
         "emaXlsx": _src(SRC, EMA_XLSX_URL),
         "euRegister": _src(REGISTER, EU_REGISTER_URL),
         "euRegisterDecisions": len(register),
+        "euRegisterFromCache": register_from_cache,
     }, f, indent=1)
 
 print(
@@ -553,5 +576,6 @@ print(
     f"{sum(1 for r in pipeline if r['dev'])} pending | "
     f"Union Register: {len(register)} authorisation decisions"
     + (f", applied to {len(register_hits)} pending: " + "; ".join(register_hits) if register_hits else
-       ("" if register else " (register not available — pending list unverified)"))
+       (" (register not available — pending list unverified)" if not register else
+        " (register unavailable today — decisions of the last good download)" if register_from_cache else ""))
 )

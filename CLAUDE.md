@@ -154,6 +154,19 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   "Drop pure-reformatting changes" ignores `lastChecked`, so a quiet day commits
   nothing. Run locally: `python3 frontend/scripts/label-reconciliation.py --probe --md /tmp/labels.md`.
 
+## EU Union Register outage fallback (eu-register-decisions.json)
+- The Commission's register page (`ec.europa.eu/.../newproc.htm`) is sometimes down for
+  hours and then serves "Server temporarily unavailable" with HTTP 200 (after a redirect
+  to sorry.ec.europa.eu) — on 21.10.2026 07:40 UTC the daily run read it as 0 decisions,
+  the freshness watchdog saw 44 → 0 ("count collapsed") and stopped the deploy (correctly;
+  the previous release stayed live). Now: the download step accepts a page only if it has
+  `{"cat":` decision records (3 tries, 30 s apart); otherwise `build-ema-data.py` falls back
+  to `frontend/eu-register-decisions.json` (the decisions of the last good download, written
+  on every good run, committed with the daily data). Decisions are never revoked, so only
+  the new decisions of the outage are missed; the freshness report marks the source STALE
+  ("served from the last good download"), never FAILED. Seeded 21.10.2026 from the raw page
+  of the successful 20.10. run (artifact `release-inputs-<run>`, 44 decisions).
+
 ## Post-authorisation audit (events vs stored labels, report only)
 - `frontend/scripts/post-authorisation-audit.py` (Monday label job, step after the
   freshness watchdog; `continue-on-error`, never stops a run, changes no file in the

@@ -335,6 +335,8 @@ def main():
         s.notes.append('download ledger is from another run — not graded')
     elif x.get('retrievedAt'):
         check_ours(s, x.get('retrievedAt'), now)
+    elif ledger.get('euRegisterFromCache'):
+        s.mark(STALE, 'Commission register unavailable today — decisions of the last good download (new decisions are missed until it is back)')
     else:
         s.mark(STALE, 'not downloaded in the last run (pending list not cross-checked)')
     check_against_previous(s, prev_src.get(s.key))

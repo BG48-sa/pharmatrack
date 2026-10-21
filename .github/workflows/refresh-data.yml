@@ -48,10 +48,22 @@ jobs:
           test -s /tmp/ema.xlsx
           # EU Union Register (Commission decisions of the last six months): lets a
           # medicine the Commission has already authorised leave the "expected"
-          # list before EMA updates its own table. Optional — never fatal.
-          curl -fsSL -A "Mozilla/5.0" -o /tmp/newproc.htm \
-            "https://ec.europa.eu/health/documents/community-register/html/newproc.htm" \
-            || echo "WARN: Union Register unavailable — pending list not cross-checked"
+          # list before EMA updates its own table. Optional — never fatal. The
+          # Commission serves its "Server temporarily unavailable" page with HTTP
+          # 200 (after a redirect), so a download only counts when it contains the
+          # register's decision records; three tries, then build-ema-data.py falls
+          # back to the last good decisions (frontend/eu-register-decisions.json).
+          ok=0
+          for i in 1 2 3; do
+            if curl -fsSL -A "Mozilla/5.0" -m 120 -o /tmp/newproc.htm \
+                 "https://ec.europa.eu/health/documents/community-register/html/newproc.htm" \
+               && grep -q '^{"cat":' /tmp/newproc.htm; then ok=1; break; fi
+            echo "WARN: Union Register attempt $i returned no decisions"; sleep 30
+          done
+          if [ "$ok" != 1 ]; then
+            rm -f /tmp/newproc.htm
+            echo "::warning::EU Union Register unavailable — using the last good decisions"
+          fi
           python frontend/scripts/build-ema-data.py /tmp/ema.xlsx frontend/ema-medicines.json /tmp/newproc.htm
           python frontend/scripts/build-cgt-data.py frontend/cgt-products.json
           # FDA press-release announcements (bridges the openFDA data lag).
@@ -177,8 +189,8 @@ jobs:
       - name: Detect change
         id: chk
         run: |
-          files="frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json frontend/freshness.json frontend/pending-labels.json"
-          if git diff --quiet -- $files && [ -z "$(git ls-files --others --exclude-standard -- frontend/freshness.json)" ]; then
+          files="frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json frontend/freshness.json frontend/pending-labels.json frontend/eu-register-decisions.json"
+          if git diff --quiet -- $files && [ -z "$(git ls-files --others --exclude-standard -- frontend/freshness.json frontend/eu-register-decisions.json)" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"; echo "No data changes — nothing to publish."
           else
             echo "changed=true"  >> "$GITHUB_OUTPUT"; git --no-pager diff --stat -- $files
@@ -190,7 +202,7 @@ jobs:
         run: |
           git config user.name  'DrugRadar Refresh Bot'
           git config user.email 'bernd.gansbacher@gmail.com'
-          git add frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json frontend/freshness.json frontend/pending-labels.json
+          git add frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json frontend/freshness.json frontend/pending-labels.json frontend/eu-register-decisions.json
           git commit -m "Refresh bundled data $(date -u +%F) [skip ci]"
           git push
 
