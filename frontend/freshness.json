@@ -1,5 +1,5 @@
 {
- "checkedAt": "2026-10-21T08:48:37Z",
+ "checkedAt": "2026-10-21T17:12:37Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
@@ -8,7 +8,7 @@
   "usApprovals": "2026-10-20",
   "usApprovalsAnnounced": "2026-10-20",
   "usLabels": "2026-10-21",
-  "pipelineRun": "2026-10-21T08:48:37Z"
+  "pipelineRun": "2026-10-21T17:12:37Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,14 +17,14 @@
    "status": "OK",
    "count": 1572,
    "pending": 18,
-   "sha256": "53a2062586cc03215ec27fba5ed3b8d009bfe497ae3fac974be514763dfb7f65",
+   "sha256": "7b52684bcfcc2ac0020cd751bc6a6d6d909a9c0a118b4033bdb7a32902ec810d",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-10-21",
-   "sourceAgeDays": 0.37,
-   "fetchedAt": "2026-10-21T08:47:27+00:00",
+   "sourceAgeDays": 0.72,
+   "fetchedAt": "2026-10-21T17:11:24+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-10-21T04:02:45Z",
+    "value": "2026-10-21T16:08:21Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -34,9 +34,9 @@
    "cadence": "daily download, no own watermark",
    "status": "OK",
    "count": 44,
-   "sha256": "446d70116b2d8676c9034520e4baef2356940c29938c1abba50361c53a26fda5",
+   "sha256": "e8f582cdca5953bdf3919d6f98de2ce747c60dfd6ff2b6553192d2b26c576314",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-10-21T08:47:28+00:00",
+   "fetchedAt": "2026-10-21T17:11:25+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -51,10 +51,10 @@
     "unchecked": 49
    },
    "sourceUpdatedAt": "2026-10-19T05:50:22Z",
-   "sourceAgeDays": 2.12,
+   "sourceAgeDays": 2.47,
    "fetchedAt": "2026-10-19",
    "probe": {
-    "value": "2026-10-21T03:52:18Z",
+    "value": "2026-10-21T15:56:52Z",
     "kind": "Last-Modified"
    },
    "notes": [
@@ -68,11 +68,11 @@
    "count": 3497,
    "approvals": 100,
    "newestOriginalApproval": "2026-10-15",
-   "sha256": "c34904693c3f45b95046e4f9698f76e96402b7b9a073289adefc46d12c0115f4",
+   "sha256": "e780d9a7df7f4d446c1b79cc1743a48d2ef8028f96c9d36404dc0e264afc53d0",
    "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251021+TO+20261028]",
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 1.37,
-   "fetchedAt": "2026-10-21T08:47:36+00:00",
+   "sourceAgeDays": 1.72,
+   "fetchedAt": "2026-10-21T17:11:33+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-10-20",
@@ -95,7 +95,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-10-21",
    "fetchedAt": "2026-10-21",
-   "sourceAgeDays": 0.37,
+   "sourceAgeDays": 0.72,
    "probe": {
     "value": "2026-10-20",
     "kind": "meta.last_updated"
@@ -106,10 +106,11 @@
    "name": "FDA CDER novel drug approvals (roster)",
    "cadence": "FDA: within days of each approval; manual xlsx export",
    "status": "OK",
-   "count": 91,
+   "count": 93,
    "fetchedAt": null,
-   "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 23.37,
+   "sourceUpdatedAt": "2026-10-20",
+   "sourceAgeDays": 1.72,
+   "missing": null,
    "notes": []
   },
   "fda_announcements": {
@@ -118,9 +119,9 @@
    "status": "OK",
    "count": 25,
    "fetchedAt": "2026-10-21",
-   "fetchedAgeDays": 0.37,
+   "fetchedAgeDays": 0.72,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 1.37,
+   "sourceAgeDays": 1.72,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -130,19 +131,37 @@
    "count": 54,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-09-17",
-   "sourceAgeDays": 34.37,
+   "sourceAgeDays": 34.72,
    "notes": []
   },
   "fda_cdx_list": {
    "name": "FDA companion diagnostics list",
    "cadence": "FDA: every few months",
    "status": "OK",
-   "count": 226,
-   "fetchedAt": "2026-09-08",
-   "sourceUpdatedAt": "2026-07-23",
-   "sourceAgeDays": 90.37,
+   "count": 232,
+   "fetchedAt": "2026-10-21",
+   "sourceUpdatedAt": "2026-09-28",
+   "sourceAgeDays": 23.72,
+   "probe": {
+    "kind": "openFDA device/pma companion-diagnostic decisions after list date",
+    "count": 0,
+    "lastUpdated": null
+   },
+   "missing": null,
+   "notes": []
+  },
+  "pdufa_watchlist": {
+   "name": "PDUFA watchlist (curated, unofficial)",
+   "cadence": "manual; sponsor/analyst-disclosed target dates",
+   "status": "OK",
+   "count": 38,
+   "upcoming": 38,
+   "nextDate": "2026-10-29",
+   "lastDate": "2027-06-14",
+   "fetchedAt": null,
+   "sourceUpdatedAt": null,
    "notes": []
   }
  },
- "previousCheckedAt": "2026-10-21T08:09:27Z"
+ "previousCheckedAt": "2026-10-21T08:48:37Z"
 }

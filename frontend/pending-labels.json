@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-21",
- "checkedAt": "2026-10-21T08:09:27Z",
+ "checkedAt": "2026-10-21T17:12:37Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,10 +11,10 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 113,
-  "unresolved": 50,
+  "total": 115,
+  "unresolved": 52,
   "byStatus": {
-   "AWAITING_USPI": 25,
+   "AWAITING_USPI": 27,
    "AWAITING_EC_DECISION": 18,
    "AWAITING_SMPC": 6,
    "LABEL_AVAILABLE": 1,
@@ -23,52 +23,21 @@
   "alerts": 19,
   "transitions": [
    {
-    "id": "FDA:evoxac",
-    "drug": "Evoxac",
+    "id": "FDA:hibsago",
+    "drug": "Hibsago",
     "from": null,
     "to": "AWAITING_USPI",
     "note": "new"
    },
    {
-    "id": "EMA:EMEA/H/C/006937",
-    "drug": "Cavoley",
-    "from": "AWAITING_SMPC",
-    "to": "LABEL_AVAILABLE",
-    "note": "product information published by EMA — awaiting the weekly label refresh"
+    "id": "FDA:hovilpri",
+    "drug": "Hovilpri",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
    }
   ],
-  "closed": [
-   {
-    "id": "FDA:otarmeni",
-    "drug": "Otarmeni",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   },
-   {
-    "id": "EMA:EMEA/H/C/006313",
-    "drug": "Rhapsido",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   },
-   {
-    "id": "EMA:EMEA/H/C/006583",
-    "drug": "Poherdy",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   },
-   {
-    "id": "EMA:EMEA/H/C/006636",
-    "drug": "Palsonify",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   },
-   {
-    "id": "EMA:EMEA/H/C/006738",
-    "drug": "Fubelv",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   }
-  ]
+  "closed": []
  },
  "alerts": [
   {
@@ -207,6 +176,30 @@
  ],
  "entries": [
   {
+   "id": "FDA:hibsago",
+   "jurisdiction": "FDA",
+   "drug": "Hibsago",
+   "inn": "bepirovirsen",
+   "applicationNumber": null,
+   "approvalDate": "2026-10-20",
+   "sources": [
+    "novel"
+   ],
+   "summary": "To treat chronic hepatitis B virus infection in certain adults without cirrhosis, in combination with existing antiviral therapy",
+   "sponsor": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-21",
+   "statusSince": "2026-10-21",
+   "history": [
+    {
+     "date": "2026-10-21",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-21"
+  },
+  {
    "id": "FDA:evoxac",
    "jurisdiction": "FDA",
    "drug": "Evoxac",
@@ -218,6 +211,30 @@
    ],
    "summary": null,
    "sponsor": "Cosette Pharms Nc",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-21",
+   "statusSince": "2026-10-21",
+   "history": [
+    {
+     "date": "2026-10-21",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-21"
+  },
+  {
+   "id": "FDA:hovilpri",
+   "jurisdiction": "FDA",
+   "drug": "Hovilpri",
+   "inn": "pritelivir",
+   "applicationNumber": null,
+   "approvalDate": "2026-10-09",
+   "sources": [
+    "novel"
+   ],
+   "summary": "To treat adults with weakened immune systems who have mucocutaneous lesions caused by herpes simplex virus infection and have not responded to other therapies",
+   "sponsor": null,
    "status": "AWAITING_USPI",
    "firstSeen": "2026-10-21",
    "statusSince": "2026-10-21",
@@ -2465,7 +2482,7 @@
    "opinionDate": "2026-07-23",
    "decisionDate": "2026-09-25",
    "holder": "CuraTeQ Biologics s.r.o",
-   "decisionSource": "EU Union Register",
+   "decisionSource": "EMA medicines table",
    "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
    "statusSince": "2026-10-21",
