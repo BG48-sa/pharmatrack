@@ -28,6 +28,7 @@ import SourceList from './components/SourceList';
 import SearchBar from './components/SearchBar';
 import InstallButton from './components/InstallButton';
 import { getWatched, setWatched as persistWatched } from './services/watchlist';
+import { setUsLabelIndex } from './services/usLabels';
 import { syncIndicationAlerts } from './services/notifications';
 import { consumeSpotlightOpen } from './services/spotlight';
 import { recentApprovals, approvalToDetail } from './services/emaService';
@@ -140,6 +141,7 @@ export default function App() {
     loadLabelIndex('uspi').then((idx) => {
       if (!idx) return;
       setUspiIndex(idx.drugs);
+      setUsLabelIndex(idx.drugs, getReleaseInfo()?.id);
       if (idx.generated && idx.generated !== 'dev') setCorpusDates((d) => ({ ...d, us: idx.generated }));
       setIndexVerified((v) => ({ ...v, us: idx.verified }));
     }).catch(() => {});

@@ -20,6 +20,7 @@
  * refreshed weekly by refresh-data.sh.
  */
 import { __setEmaData } from './emaService';
+import { sha256 } from './labelFiles';
 import { __setNovelData } from './novelApprovals';
 import { __setCriticalData } from './criticalMedicines';
 import { __setPdufaData } from './pdufa';
@@ -106,10 +107,9 @@ export const primeBundledData = (): Promise<number> => (primed ??= applySnapshot
  * succeeds. Resolves to the number of snapshots that were refreshed (0 =
  * everything kept the shipped copy). Never throws.
  */
-export const sha256 = async (text: string): Promise<string> => {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
-};
+// sha256 lives in labelFiles.ts (no app imports there, so services that load label
+// files do not pull this module — and through it fdaService — into an import cycle).
+export { sha256, loadLabelFile } from './labelFiles';
 
 // The last COMPLETE, hash-verified release is kept in its own cache so that a
 // failed or partial download never degrades the app to a mixed set: the app

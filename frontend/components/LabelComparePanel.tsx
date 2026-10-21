@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { X, FileText, ExternalLink, ChevronDown, Loader2 } from 'lucide-react';
-import { sha256 } from '../services/liveData';
+import { loadLabelFile } from '../services/labelFiles';
 
 /**
  * Jurisdiction-aware full-text label comparison. Each column is a medicine's
@@ -45,7 +45,6 @@ interface Props {
   integrity?: LabelIntegrity;
 }
 
-const REMOTE = 'https://bg48-sa.github.io/pharmatrack/data/';
 const dir = (s: Src) => (s === 'eu' ? 'smpc' : 'uspi');
 
 // Section map: each row pulls a different section key per jurisdiction. `null`
@@ -64,29 +63,9 @@ const ROWS: { label: string; note?: string; keys: Record<Src, string | null> }[]
 
 const COLLAPSED_PX = 260;
 
-// Loads a label file and checks it against the hash the applied release's index
-// records for it. A copy that does not match (a different deploy, a stale
-// cache) is retried straight from the live site for that release; if that still
-// differs, the label is shown anyway, marked as unverified — verification never
-// hides a label.
-async function loadDoc(col: LabelColumn, integrity?: LabelIntegrity): Promise<LabelDoc | null> {
-  const path = `data/${dir(col.source)}/${col.slug}.json`;
-  const expected = integrity?.expectedSha(col.slug, col.source);
-  const urls = [`${import.meta.env.BASE_URL}${path}`, `${REMOTE}${path.slice(5)}${expected ? `?r=${encodeURIComponent(integrity?.releaseId || '')}` : ''}`];
-  let fallback: LabelDoc | null = null;
-  for (const url of urls) {
-    try {
-      const r = await fetch(url, expected ? { cache: 'no-cache' } : undefined);
-      if (!r.ok) continue;
-      const text = await r.text();
-      const doc = JSON.parse(text) as LabelDoc;
-      if (!expected) return doc;
-      if ((await sha256(text)) === expected) return { ...doc, verified: true };
-      fallback = fallback || { ...doc, verified: false };
-    } catch { /* next */ }
-  }
-  return fallback;
-}
+// Loads a label file bound to the applied data release (see loadLabelFile).
+const loadDoc = (col: LabelColumn, integrity?: LabelIntegrity): Promise<LabelDoc | null> =>
+  loadLabelFile<LabelDoc>(dir(col.source), col.slug, integrity?.expectedSha(col.slug, col.source), integrity?.releaseId);
 
 // A table line is one with ≥2 multi-space runs (aligned columns from pdftotext,
 // EU side); such runs render monospace so alignment survives.

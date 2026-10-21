@@ -185,6 +185,15 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   at most 180 days older than the reprint (Wegovy, Tivicay, Biktarvy, Levemir, NovoRapid
   are unharmonised at openFDA). Fields an unharmonised record lacks (application, route,
   generic) come from the repackager record of the same product or the previous extract.
+- The app's US cards (services/fdaService.ts) use the same rule live: Drugs@FDA is
+  searched by `products.brand_name` too (openfda.* is empty until openFDA harmonises
+  an application — Wegovy fell through to a repackager's label record with "Not in app
+  data" as approval date), live label records are ordered manufacturer-first then
+  newest, and when the pipeline holds a same-product label (`services/usLabels.ts`,
+  index `match: 'brand'`, file hash-checked against the release via
+  `services/labelFiles.ts`) its Indications and Usage replaces the live text, in full in
+  the detail sheet (`indicationFull`). labelFiles.ts imports nothing app-specific — the
+  loader used to live in liveData.ts, which imports fdaService (import cycle).
 - The write guard's "version went backwards" now applies only within one set ID (moving
   from a reprint to the manufacturer's label may go to an older version date).
 

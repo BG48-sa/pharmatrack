@@ -1,6 +1,7 @@
 import { Drug, DrugDataResponse, Source } from '../types';
 import { allNovelApprovals } from './novelApprovals';
 import { usLabelEntry, usLabelNote } from './labelQueue';
+import { curatedUsLabel } from './usLabels';
 
 /**
  * openFDA + EMA data service.
@@ -275,7 +276,16 @@ const mapResult = (r: FdaResult, id: number): { drug: Drug; appNo?: string } | n
   };
 };
 
+// Repackagers file their own copy of a label under the manufacturer's application
+// number and rarely update it (same list as scripts/uspi/extract-all.mjs).
+const REPACKAGER = /\b(A-S Medication Solutions|Aphena Pharma|Asclemed|Bryant Ranch|Cardinal Health|Henry Schein|NuCare|Redpharm|RPK Pharmaceuticals|DOH Central Pharmacy|Proficient Rx|ProPharma Distribution|RemedyRepack|Sportpharm|Direct[_ ]?Rx|Quality Care Products|PD-Rx|Preferred Pharmaceuticals|Aidarex|Lake Erie Medical|Northwind|Medsource|Unit Dose Services|Physicians Total Care|Rebel Distributors|Golden State Medical Supply|H\.?J\.? Harkins|Denton Pharma|NorthStar Rx|Coupler)\b|repack|prepack|pharmacy\b/i;
+const isRepackagerLabel = (r: LabelResult): boolean => REPACKAGER.test(r.openfda?.manufacturer_name?.[0] || '');
+// The manufacturer's own label first, then the newest version.
+const labelOrder = (a: LabelResult, b: LabelResult): number =>
+  (Number(isRepackagerLabel(a)) - Number(isRepackagerLabel(b))) || String(b.effective_time || '').localeCompare(String(a.effective_time || ''));
+
 interface LabelResult {
+  effective_time?: string;
   indications_and_usage?: string[];
   openfda?: {
     application_number?: string[];
@@ -306,7 +316,7 @@ const fetchIndications = async (clause: string): Promise<void> => {
     const res = await fetch(`${LABEL_API}?${params.toString()}`);
     if (!res.ok) return;
     const json = await res.json();
-    const results: LabelResult[] = json.results || [];
+    const results: LabelResult[] = (json.results || []).sort(labelOrder); // first label per application wins
     for (const r of results) {
       const indication = cleanIndication(r.indications_and_usage?.[0]);
       if (!indication) continue;
@@ -381,6 +391,22 @@ const applyLabelQueueTo = (d: Drug, app?: string): Drug => {
 };
 const applyLabelQueue = (drugs: Drug[], appNos: (string | undefined)[]): void => {
   drugs.forEach((d, i) => applyLabelQueueTo(d, appNos[i]));
+};
+
+// The pipeline's checked US label (manufacturer's own, see services/usLabels.ts)
+// replaces the live query's text on cards of the same product — full Indications
+// and Usage for the detail sheet, the usual short form for the card. A verified
+// entry of the approval → label queue stays as it is.
+const applyCuratedUsLabels = async (drugs: Drug[]): Promise<void> => {
+  await Promise.all(drugs.map(async (d) => {
+    if (d.labelStatus === 'verified' && d.indicationFull) return;
+    const c = await curatedUsLabel(d.brandName);
+    if (!c) return;
+    d.indication = cleanIndication(c.indications);
+    d.indicationFull = longIndication(c.indications);
+    d.indicationSource = 'label';
+    if (c.labeler && REPACKAGER.test(d.company || '')) d.company = titleCase(c.labeler);
+  }));
 };
 
 const buildSources = (drugs: Drug[], usedLabelApi = false, usedCber = false): Source[] => {
@@ -466,7 +492,7 @@ const searchLabels = async (query: string): Promise<Drug[]> => {
     if (app.startsWith('NDA')) return 1;
     return 2; // ANDA / unknown
   };
-  results.sort((a, b) => rank(a) - rank(b));
+  results.sort((a, b) => (rank(a) - rank(b)) || labelOrder(a, b));
 
   // Dedupe by active ingredient so a disease search doesn't return a dozen
   // identical generics; fall back to brand name when no ingredient is present.
@@ -515,6 +541,7 @@ const requestDrugs = async (search: string, sort?: string, limit = 30): Promise<
 
   await enrichWithIndications(drugs, appNos);
   applyLabelQueue(drugs, appNos);
+  await applyCuratedUsLabels(drugs);
   return drugs;
 };
 
@@ -586,6 +613,7 @@ const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean;
 export const fetchRecentDrugApprovals = async (): Promise<DrugDataResponse> => {
   if (usRecent.length) {
     const { drugs, usedCber, usedNovel } = await recentFromSnapshot();
+    await applyCuratedUsLabels(drugs);
     const sources = buildSources(drugs, false, usedCber);
     if (usedNovel) sources.splice(1, 0, NOVEL_SOURCE);
     return { drugs, sources };
@@ -696,8 +724,12 @@ export const searchDrugDatabase = async (query: string): Promise<DrugDataRespons
       // US generic-drug approvals = ANDA applications, most recently approved first.
       search = 'application_number:ANDA* AND submissions.submission_status:AP';
     } else {
+      // products.brand_name: Drugs@FDA's own product names — openfda.* is filled
+      // only once openFDA has harmonised the application's label (Wegovy has none),
+      // and without it the search fell through to a repackager's label record.
       const fields = [
         'openfda.brand_name',
+        'products.brand_name',
         'openfda.generic_name',
         'openfda.substance_name',
         'sponsor_name',
@@ -720,6 +752,7 @@ export const searchDrugDatabase = async (query: string): Promise<DrugDataRespons
     // without any openFDA record still surface.
     if (!special) {
       const labelDrugs = await searchLabels(q);
+      await applyCuratedUsLabels(labelDrugs);
       const m = mergeCgt(labelDrugs, q);
       return { drugs: m.drugs, sources: buildSources(m.drugs, labelDrugs.length > 0, m.added) };
     }
