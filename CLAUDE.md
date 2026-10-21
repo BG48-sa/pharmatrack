@@ -167,6 +167,27 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   ("served from the last good download"), never FAILED. Seeded 21.10.2026 from the raw page
   of the successful 20.10. run (artifact `release-inputs-<run>`, 44 decisions).
 
+## US labels: manufacturer's label, not a repackager's (extract-all.mjs)
+- Repackagers (A-S Medication Solutions, Cardinal Health 107, NuCare, ProPharma …) file
+  their own SPL under the manufacturer's NDA/BLA number and rarely update it. Until
+  21.10.2026 the selection broke ties inside an application arbitrarily: 85 of 1,255 US
+  extracts were repackager copies — Wegovy (A-S, 2024: no MASH), Mounjaro (no CV-risk
+  indication), Januvia, Jardiance, Xarelto, Eliquis …
+- Now (`better()` + `REPACKAGER` in extract-all.mjs): old score first, then not a
+  repackager, then the earliest application, then the newest version. `usLabeler` is
+  stored per extract (null = label not harmonised at openFDA).
+- The weekly changed-only run re-selects any stored label whose current openFDA record is
+  a repackager's (`reselect`): one brand query per medicine (limit 1000 — a 20-brand batch
+  capped at 250 would cut the manufacturer's label off), the stored route kept (Ozempic:
+  Novo's harmonised label under that brand is the oral tablet), and — when only
+  repackagers remain — tier 3: unharmonised labels found via `spl_product_data_elements`
+  whose DailyMed labeler (title "[…]", browser UA needed) is not a repackager and which are
+  at most 180 days older than the reprint (Wegovy, Tivicay, Biktarvy, Levemir, NovoRapid
+  are unharmonised at openFDA). Fields an unharmonised record lacks (application, route,
+  generic) come from the repackager record of the same product or the previous extract.
+- The write guard's "version went backwards" now applies only within one set ID (moving
+  from a reprint to the manufacturer's label may go to an older version date).
+
 ## Post-authorisation audit (events vs stored labels, report only)
 - `frontend/scripts/post-authorisation-audit.py` (Monday label job, step after the
   freshness watchdog; `continue-on-error`, never stops a run, changes no file in the
@@ -175,24 +196,28 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
 - EU: EMA's post-authorisation list (`medicines-output-post_authorisation_json-report_en.json`,
   extension-of-indication opinions) joined on the EMA product number to
   `ema-medicines.json` + `smpc-data`. A positive opinion is followed by the EC decision
-  (≤ 67 d) and then a new SmPC: `PENDING_EC` → `PENDING_PUBLICATION` (+14 d) →
-  `VERIFIED` (our SmPC dated after the opinion) / `PENDING_INGEST` (EMA published < 14 d
-  ago) / `BEHIND_EMA` (> 14 d, drift report territory) / `OVERDUE` (neither EMA's
-  product information nor ours is newer than the opinion — an EC decision or EMA
-  publication to look at; Trixeo Aerosphere on 21.10.2026: opinion 23.7., EMA PI still
-  of 19.9.2025). Opinion ≠ EC decision.
+  (≤ 67 d) and then a new SmPC. EMA's own product-information date (EPAR document list)
+  decides: newer than the opinion → `VERIFIED` once ours is at least as new (after the
+  67-day window) / `PENDING_INGEST` (EMA published < 14 d ago) / `BEHIND_EMA` (> 14 d);
+  still older than the opinion → `PENDING_EC` (≤ 67 d) → `PENDING_PUBLICATION` (+14 d) →
+  `OVERDUE` (an EC decision or EMA publication to look at; 21.10.2026: Trixeo Aerosphere,
+  opinion 23.7., EMA PI of 19.9.2025; Palynziq, opinion 21.5., EMA PI of 12.7.2024). Our
+  download date is never evidence on its own (it once passed Palynziq as verified); without
+  EMA's date only `emaUpdated`/`sourceModified` can verify, else `UNVERIFIABLE`. EMA's
+  product numbers carry stray spaces ("EMEA/H/C/005679 ") — stripped. Opinion ≠ EC decision.
 - US: Drugs@FDA approved SUPPL submissions of class EFFICACY / LABELING on applications
   whose label we hold (`uspi-data` `usApplication`, `effective`): `PENDING` (< 45 d) /
   `VERIFIED` (label effective ≥ supplement − 14 d) / `LABEL_OLDER`. Only EFFICACY raises
   an alert; the note says whether openFDA already holds a newer version of the set ID
-  (our ingest is behind) or not (the label source lags, or the supplement sits on
-  another label of the same application — Wegovy tablets/injection, Tivicay PD).
+  (our ingest is behind) or not, naming the label's labeler — on 21.10.2026 the flags for
+  Wegovy, Mounjaro and Tivicay were repackager copies (see "US labels: manufacturer's
+  label, not a repackager's" below).
 - Per event it records SHA-256 of whitespace-normalised key sections (EU 4.1–4.4, US
   indications/dosage/contraindications/boxed warning/warnings); `--previous` carries
   first-seen hashes so a later run can see 4.1 / Indications move. CI does not persist
   that state yet (artifact `post-auth.json` only).
 - Not a clinical check: dates + section hashes, not text equivalence. First run
-  21.10.2026: 27 EU events (13 verified, 12 pending EC, 1 pending ingest, 1 overdue),
+  21.10.2026 (after the EU fix): 27 EU events (12 verified, 11 pending EC, 2 pending ingest, 2 overdue),
   248 US events (170 verified, 44 pending, 34 label older of which 6 efficacy).
   Run locally: `python3 frontend/scripts/post-authorisation-audit.py --md /tmp/pa.md`
   (`--no-epar`, `--skip-us`, `--ema-feed FILE` for offline use).

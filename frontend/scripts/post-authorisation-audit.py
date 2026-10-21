@@ -13,12 +13,14 @@ the REGULATORY EVENT, and checks that a label which ought to have changed has:
         PENDING_PUBLICATION  EC window over, grace period for EMA's publication
         PENDING_INGEST       EMA published a newer product information within the last
                              --eu-ingest-days; the next weekly refresh takes it
-        VERIFIED             our SmPC is dated after the opinion (or its 4.1 text moved)
+        VERIFIED             EMA's product information is dated after the opinion and ours is
+                             at least that new (or our 4.1 text moved)
         BEHIND_EMA           EMA's current product information is newer than ours
         OVERDUE              neither EMA's product information nor ours is newer than
                              the opinion, long after the EC window — an EC decision
                              or EMA publication to look at, which the label drift
                              report (it only compares with EMA's own list) cannot see
+        UNVERIFIABLE         EMA's date unknown and our SmPC carries no EMA-side date
         NO_SMPC              a medicine without an SmPC extract (the approval → label
                              queue / drift report own that)
   US  Drugs@FDA submissions: an approved EFFICACY supplement (new indication,
@@ -144,7 +146,7 @@ def epar_dates(path, no_epar):
                 continue
             if not PDF_SLUG.search(str(r.get('document_url') or '')):
                 continue
-            num = '/'.join(str(r.get('ema_product_number') or '').split('/')[:4]).upper()
+            num = '/'.join(x.strip() for x in str(r.get('ema_product_number') or '').split('/')[:4]).upper()
             d = ymd(r['last_updated_date'])
             if num and d and (num not in out or d > out[num]):
                 out[num] = d
@@ -177,7 +179,7 @@ def eu_events(a, today, prev):
         d = dmy(r.get('post_authorisation_opinion_date'))
         if not d or d < since:
             continue
-        num = r.get('ema_product_number') or ''
+        num = '/'.join(x.strip() for x in str(r.get('ema_product_number') or '').split('/')[:4]).upper()
         ev = {'agency': 'EMA', 'kind': 'extension of indication (positive CHMP opinion)', 'product': r.get('name_of_medicine'),
               'productId': num, 'opinionDate': d.isoformat(), 'daysSinceOpinion': (today - d).days,
               'listUpdated': (dmy(r.get('last_updated_date')) or date.min).isoformat()}
@@ -189,33 +191,55 @@ def eu_events(a, today, prev):
             ev['note'] = 'not an authorised medicine in the app' if not m else 'authorised, no SmPC extract'
             events.append(ev)
             continue
-        label = ymd(doc.get('emaUpdated')) or ymd(doc.get('sourceModified')) or ymd(doc.get('retrieved'))
-        ema_pi = (epar or {}).get(num.upper()) if epar else None
+        # Our SmPC's date on EMA's clock. The download date ('retrieved') is NOT evidence:
+        # a fresh download of an unchanged, pre-opinion SmPC once passed as verified
+        # (Palynziq, 21.10.2026: opinion 21.5.2026, EMA product information of 12.7.2024).
+        label = ymd(doc.get('emaUpdated')) or ymd(doc.get('sourceModified'))
+        got = ymd(doc.get('retrieved'))
+        ema_pi = (epar or {}).get(num) if epar else None
         key = f'EMA:{num}:{d.isoformat()}'
         cur = hashes(doc, EU_SECTIONS)
         base = ((prev.get(key) or {}).get('baselineHashes')) or cur
-        ev.update({'slug': slug, 'ourLabelDate': label.isoformat() if label else None,
+        ev.update({'slug': slug, 'ourLabelDate': label.isoformat() if label else None, 'ourDownload': got.isoformat() if got else None,
                    'emaProductInfoDate': ema_pi.isoformat() if ema_pi else None,
                    'baselineHashes': base, 'currentHashes': cur, 'text41Changed': bool(base.get('4.1') and cur.get('4.1') != base.get('4.1'))})
         days = ev['daysSinceOpinion']
-        if ev['text41Changed'] or (label and label >= d and days > EC_WINDOW_DAYS):
-            ev['status'] = 'VERIFIED'
-        elif days <= EC_WINDOW_DAYS:
-            ev['status'] = 'PENDING_EC'
-        elif days <= EC_WINDOW_DAYS + a.eu_publication_days:
-            ev['status'] = 'PENDING_PUBLICATION'
-        elif ema_pi and ema_pi >= d and (not label or ema_pi > label):
-            behind = (today - ema_pi).days
-            ev['note'] = f'EMA product information dated {ema_pi}, ours {label}'
-            if behind <= a.eu_ingest_days:
-                ev['status'] = 'PENDING_INGEST'      # EMA published recently — the Monday refresh picks it up
+        if ema_pi:
+            # EMA's own product-information date decides whether a new SmPC exists;
+            # ours is current when it is at least that new (downloaded after it counts).
+            have = max([x for x in (label, got) if x] or [date.min])
+            if ema_pi >= d:
+                if have >= ema_pi or ev['text41Changed']:
+                    ev['status'] = 'VERIFIED' if days > EC_WINDOW_DAYS or ev['text41Changed'] else 'PENDING_EC'
+                else:
+                    behind = (today - ema_pi).days
+                    ev['note'] = f'EMA product information dated {ema_pi}, ours {label or got}'
+                    if behind <= a.eu_ingest_days:
+                        ev['status'] = 'PENDING_INGEST'  # EMA published recently — the Monday refresh picks it up
+                    else:
+                        ev['status'] = 'BEHIND_EMA'
+                        ev['note'] += f' ({behind} days)'
+            elif days <= EC_WINDOW_DAYS:
+                ev['status'] = 'PENDING_EC'
+            elif days <= EC_WINDOW_DAYS + a.eu_publication_days:
+                ev['status'] = 'PENDING_PUBLICATION'
             else:
-                ev['status'] = 'BEHIND_EMA'
-                ev['note'] += f' ({behind} days)'
+                ev['status'] = 'OVERDUE'
+                ev['note'] = (f'opinion {days} days ago; EMA product information still {ema_pi} (before the opinion) — '
+                              'check the EC decision / EMA publication')
         else:
-            ev['status'] = 'OVERDUE'
-            ev['note'] = (f'opinion {days} days ago; EMA product information {ema_pi or "date unknown"}, '
-                          f'our SmPC {label or "date unknown"} — check the EC decision / EMA publication')
+            # EMA's date unknown (list unavailable or product not in it): only our label's
+            # own EMA-side date can verify; a download date alone cannot.
+            if ev['text41Changed'] or (label and label >= d and days > EC_WINDOW_DAYS):
+                ev['status'] = 'VERIFIED'
+            elif days <= EC_WINDOW_DAYS:
+                ev['status'] = 'PENDING_EC'
+            elif days <= EC_WINDOW_DAYS + a.eu_publication_days:
+                ev['status'] = 'PENDING_PUBLICATION'
+            else:
+                ev['status'] = 'UNVERIFIABLE'
+                ev['note'] = (f'opinion {days} days ago; EMA product-information date unknown, our SmPC '
+                              f'{label or "carries no EMA date (downloaded " + str(got) + ")"} — check by hand')
         events.append(ev)
     return {'events': events, 'listTimestamp': stamp, 'eparList': bool(epar)}, None
 
@@ -235,7 +259,8 @@ def probe_us(set_id):
     """openFDA's current version of one set ID (effective date, version)."""
     try:
         r = json.loads(fetch(f'https://api.fda.gov/drug/label.json?search=set_id:"{set_id}"&limit=1', tries=2, timeout=30))['results'][0]
-        return {'effective': r.get('effective_time'), 'version': r.get('version')}
+        return {'effective': r.get('effective_time'), 'version': r.get('version'),
+                'labeler': ((r.get('openfda') or {}).get('manufacturer_name') or [None])[0]}
     except Exception as e:  # noqa: BLE001
         return {'error': str(e)[:80]}
 
@@ -299,8 +324,9 @@ def us_events(a, today, prev):
                     if cur_eff and eff and cur_eff > eff:
                         ev['note'] += f'; openFDA already holds version {ev["openfdaCurrent"].get("version")} of {cur_eff} — OUR ingest is behind'
                     elif cur_eff:
-                        ev['note'] += (f'; ingest is current (openFDA still holds this set ID at {cur_eff}) — the label source lags the approval, '
-                                       'or the supplement sits on another label of the application')
+                        who = ev['openfdaCurrent'].get('labeler') or doc.get('usLabeler') or 'unknown labeler'
+                        ev['note'] += (f'; openFDA holds no newer version of this label ({who}, {cur_eff}) — a repackager copy, '
+                                       "the manufacturer's label not yet updated, or the supplement sits on another label of the application")
             events.append(ev)
     return {'events': events, 'openfdaLastUpdated': last_updated, 'records': len(records)}, None
 
@@ -309,7 +335,7 @@ def us_events(a, today, prev):
 def alert_events(events):
     out = []
     for e in events:
-        if e['agency'] == 'EMA' and e['status'] in ('OVERDUE', 'BEHIND_EMA'):
+        if e['agency'] == 'EMA' and e['status'] in ('OVERDUE', 'BEHIND_EMA', 'UNVERIFIABLE'):
             out.append(e)
         elif e['agency'] == 'FDA' and e['status'] == 'LABEL_OLDER' and 'efficacy' in e['kind']:
             out.append(e)
@@ -323,7 +349,7 @@ def count(events, agency, status):
 def markdown(doc):
     s, ev = doc['summary'], doc['events']
     L = [f'## Post-authorisation audit — {doc["generated"]} (report only)', '']
-    for agency, label, statuses in (('EMA', 'EU — positive CHMP opinions (extension of indication)', ['PENDING_EC', 'PENDING_PUBLICATION', 'PENDING_INGEST', 'VERIFIED', 'BEHIND_EMA', 'OVERDUE', 'NO_SMPC']),
+    for agency, label, statuses in (('EMA', 'EU — positive CHMP opinions (extension of indication)', ['PENDING_EC', 'PENDING_PUBLICATION', 'PENDING_INGEST', 'VERIFIED', 'BEHIND_EMA', 'OVERDUE', 'UNVERIFIABLE', 'NO_SMPC']),
                                     ('FDA', 'US — approved supplements on stored labels', ['PENDING', 'VERIFIED', 'LABEL_OLDER'])):
         src = doc['sources'].get(agency.lower(), {})
         if src.get('error'):

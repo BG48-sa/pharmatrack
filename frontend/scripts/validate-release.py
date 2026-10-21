@@ -409,7 +409,7 @@ def main():
         cfiles = {f for f in os.listdir(cpath) if f.endswith('.json')}
         pfiles = {f for f in os.listdir(ppath) if f.endswith('.json')}
         added, removed, updated = sorted(cfiles - pfiles), sorted(pfiles - cfiles), []
-        drift, backwards, source_moved_text_same, no_fingerprint = [], [], [], 0
+        drift, backwards, relabelled, source_moved_text_same, no_fingerprint = [], [], [], [], 0
         for f in sorted(pfiles & cfiles):
             try:
                 pd_, cd_ = load(os.path.join(ppath, f)), load(os.path.join(cpath, f))
@@ -430,7 +430,14 @@ def main():
                 no_fingerprint += 1
             pe, ce = pd_.get('effective'), cd_.get('effective')
             if pe and ce and ISO.match(pe) and ISO.match(ce) and ce < pe and pd_.get('match') == cd_.get('match'):
-                backwards.append(f'{name} {pe}→{ce}')
+                # Within one label (set ID) a version never goes back. Moving from a
+                # repackager's reprint to the manufacturer's own label (another set ID,
+                # same application) may land on an older version date — listed, not failed.
+                if pd_.get('splSetId') and cd_.get('splSetId') and pd_['splSetId'] != cd_['splSetId'] \
+                        and (cd_.get('usApplication') == pd_.get('usApplication') or cd_.get('usLabeler')):
+                    relabelled.append(f'{name} {pe}→{ce} ({cd_.get("usLabeler") or "manufacturer, unharmonised at openFDA"})')
+                else:
+                    backwards.append(f'{name} {pe}→{ce}')
         both = len(pfiles & cfiles)
         share = len(updated) / both if both else 0.0
         r.add('G7', f'{corpus} no parser drift (same source, different sections)', len(drift) <= a.max_parser_drift,
@@ -439,9 +446,11 @@ def main():
             r.add('G7', 'US label version never goes backwards', not backwards, f'{len(backwards)}: {"; ".join(backwards[:8])}')
         r.add('G7', f'{corpus} corpus-wide change stays below {int(a.max_changed_share * 100)}%', share <= a.max_changed_share,
               f'{len(updated)} of {both} labels changed a required section ({share:.0%}); added {len(added)}, removed {len(removed)}')
+        if relabelled:
+            print(f'[note] {corpus}: {len(relabelled)} labels moved to another label of the same product with an older version date (reprint → manufacturer): {"; ".join(relabelled[:8])}')
         if source_moved_text_same:
             print(f'[note] {corpus}: {len(source_moved_text_same)} source documents changed without any required section moving — check the extractor: {", ".join(source_moved_text_same[:8])}')
-        changes['labels'][corpus] = {'added': added, 'removed': removed, 'updated': updated, 'sourceChangedTextSame': source_moved_text_same, 'parserDrift': drift, 'versionBackwards': backwards}
+        changes['labels'][corpus] = {'added': added, 'removed': removed, 'updated': updated, 'sourceChangedTextSame': source_moved_text_same, 'parserDrift': drift, 'versionBackwards': backwards, 'relabelled': relabelled}
 
     # EMA catalogue: which medicines came, went or moved between lists
     ce_, pe_ = cand_json.get('ema-medicines.json'), pub_json.get('ema-medicines.json')

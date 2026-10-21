@@ -166,7 +166,32 @@ const isBranded = (r) => { const b = norm(r.openfda?.brand_name?.[0]), g = norm(
 // substance match that is the original reference product (Lucentis BLA125156
 // over the later Susvimo implant BLA761197; Prolia over the biosimilars).
 const appNum = (r) => { const m = /(\d{5,7})/.exec((r.openfda?.application_number || [])[0] || ''); return m ? parseInt(m[1], 10) : 9e9; };
-const rank = (r) => (isOriginator(r) ? 4 : 0) + (hasSuffix(r) ? 0 : 2) + (isBranded(r) ? 1 : 0) + (r.effective_time ? 0.5 : 0) - appNum(r) / 1e10;
+// Repackagers / relabelers file their own SPL under the manufacturer's NDA/BLA
+// number (A-S Medication Solutions alone had 48 of our US labels on 21.10.2026)
+// and rarely update it: our Wegovy label (A-S, 2024) lacked MASH, our Mounjaro
+// label lacked the CV-risk indication of 27.8.2026. Within one application the
+// manufacturer's own label wins, then the newest version.
+const REPACKAGER = /\b(A-S Medication Solutions|Aphena Pharma|Asclemed|Bryant Ranch|Cardinal Health|Henry Schein|NuCare|Redpharm|RPK Pharmaceuticals|DOH Central Pharmacy|Proficient Rx|ProPharma Distribution|RemedyRepack|Sportpharm|Direct[_ ]?Rx|Quality Care Products|PD-Rx|Preferred Pharmaceuticals|Aidarex|Lake Erie Medical|Northwind|Medsource|Unit Dose Services|Physicians Total Care|Rebel Distributors|Golden State Medical Supply|H\.?J\.? Harkins|Denton Pharma|NorthStar Rx|Coupler)\b|repack|prepack|pharmacy\b/i;
+const isRepackager = (r) => REPACKAGER.test(r.openfda?.manufacturer_name?.[0] || '');
+// Sort order (best first): the old score — originator, no biosimilar suffix, branded,
+// has a version date — then not a repackager (before the application number: Cardinal
+// Health's Xarelto copy lists an earlier application than Janssen's own label), then the
+// EARLIEST application, then the newest label version.
+const better = (a, b) => {
+  const base = (r) => (isOriginator(r) ? 4 : 0) + (hasSuffix(r) ? 0 : 2) + (isBranded(r) ? 1 : 0) + (r.effective_time ? 0.5 : 0);
+  return (base(b) - base(a)) || ((isRepackager(a) ? 1 : 0) - (isRepackager(b) ? 1 : 0)) || (appNum(a) - appNum(b))
+    || String(b.effective_time || '').localeCompare(String(a.effective_time || ''));
+};
+// Labeler of an SPL openFDA has not harmonised: DailyMed's title ends in "[LABELER]".
+const dailymedLabeler = (setId) => {
+  let j = null;                                    // DailyMed answers plain clients with an HTML page: send a browser UA
+  for (let i = 0; i < 2 && !j; i++) {
+    try { j = JSON.parse(execFileSync('curl', ['-sL', '-A', 'Mozilla/5.0', '--max-time', '30', `https://dailymed.nlm.nih.gov/dailymed/services/v2/spls/${setId}/history.json`], { encoding: 'utf8' })); } catch { j = null; }
+    if (!j) execFileSync('sleep', ['2']);
+  }
+  const t = j?.data?.spl?.title || '';
+  return /\[([^\]]+)\]\s*$/.exec(t)?.[1] || null;
+};
 
 const fetchJson = (url) => {
   let body = '';
@@ -247,7 +272,7 @@ async function run() {
     let prev; try { prev = JSON.parse(readFileSync(file, 'utf8')); } catch { return null; }
     if (prev.match === 'brand' && next.match === 'substance') return 'pairing brand→substance';
     // openFDA may serve an older SPL version for a while (index rebuilds); a label version never goes backwards.
-    if (prev.effective && next.effective && next.effective < prev.effective && prev.match === next.match) return `label version ${prev.effective}→${next.effective} went backwards`;
+    if (prev.effective && next.effective && next.effective < prev.effective && prev.match === next.match && prev.splSetId === next.splSetId) return `label version ${prev.effective}→${next.effective} went backwards`;
     const lost = REQUIRED.filter((k) => hasSec(prev.sections, k) && !hasSec(next.sections, k));
     if (lost.length) return `lost ${lost.join('/')}`;
     const pl = secLen(prev.sections), nl = secLen(next.sections);
@@ -290,6 +315,7 @@ async function run() {
 
   // ---- changed-only: version check of every stored label by set_id ---------
   const presel = new Map(); // slug -> { chosen, match } for labels openFDA holds a newer version of
+  const reselect = new Set(); // slugs whose stored label is a repackager's copy: looked up again (brand + substance)
   const refreshedUS = [];
   let unchangedUS = 0, goneUS = 0;
   if (changedOnly) {
@@ -311,6 +337,7 @@ async function run() {
         seenIds.add(r.set_id);
         const eff = isoDate(r.effective_time);
         for (const e of entries) {
+          if (isRepackager(r)) { reselect.add(e.slug); continue; }
           if (eff && (!e.prev.effective || eff > e.prev.effective)) {
             presel.set(e.slug, { chosen: r, match: e.prev.match });
             saveCache(e.slug, { [e.prev.match]: [r], versionCheckedAt: new Date().toISOString() }); // retrieved date = today
@@ -320,7 +347,7 @@ async function run() {
       }
       goneUS += batch.filter((id) => !seenIds.has(id)).length; // set_id no longer served: kept as is, G7/G5 will tell if that matters
     }
-    console.log(`  unchanged:${unchangedUS} newer:${presel.size} notServedAnyMore:${goneUS}`);
+    console.log(`  unchanged:${unchangedUS} newer:${presel.size} notServedAnyMore:${goneUS} repackagerCopy(re-selected):${reselect.size}`);
   }
 
   // ---- Tier 1: brand lookups, 40 EU brands per openFDA query ----------------
@@ -328,6 +355,15 @@ async function run() {
     const need = drugs.filter((m) => !isGenericStyleName(m) && (force || rebrand || !loadCache(slugOf(m))?.brand)
       && (!changedOnly || (!readDoc(slugOf(m)) && eligible(m))));       // changed-only: fresh lookups only for eligible EU medicines without a US extract
     console.log(`Tier 1 (brand): ${need.length} EU brands to look up in ${Math.ceil(need.length / 20)} batched queries`);
+    for (const m of drugs.filter((x) => reselect.has(slugOf(x)) && !isGenericStyleName(x))) {
+      if (apiCalls >= maxCalls) break;
+      const want = norm(US_ALIAS[slugOf(m)] || m.n);
+      const results = await openfda(`openfda.brand_name:"${want}" AND ${RX}`, 1000);
+      if (results === null) { console.log(`  ⏸ transient error on ${slugOf(m)} — its repackager label stays this week`); reselect.delete(slugOf(m)); continue; }
+      const c = loadCache(slugOf(m)) || {};
+      c.brand = results.filter((r) => brandEquals(r, want)); c.brandQueried = want;
+      saveCache(slugOf(m), c);
+    }
     for (let i = 0; i < need.length; i += 20) {
       if (apiCalls >= maxCalls) { console.log('MAX_CALLS reached — stopping tier 1'); break; }
       const batch = need.slice(i, i + 20);
@@ -357,7 +393,7 @@ async function run() {
     let chosen = null, match = null;
     if (changedOnly) {
       const prev = readDoc(slug);
-      if (prev && !presel.has(slug)) {                                  // not newer at openFDA: keep the extract as it is
+      if (prev && !presel.has(slug) && !reselect.has(slug)) {           // not newer at openFDA: keep the extract as it is
         index.drugs[slug] = { brand: prev.brand, inn: prev.inn, match: prev.match, usGeneric: prev.usGeneric || null };
         stats[prev.match] = (stats[prev.match] || 0) + 1;
         continue;
@@ -368,33 +404,74 @@ async function run() {
     const want = norm(US_ALIAS[slug] || m.n);
     // tier 1 — exact brand with the same actives
     // CBER labels sometimes carry no generic_name at all — a brand match then stands on its own.
-    const brandHits = chosen ? [] : (c.brand || []).filter((r) => isRx(r) && brandEquals(r, want) && (!r.openfda?.generic_name?.[0] || sameActives(m.inn, r.openfda.generic_name[0])));
-    if (brandHits.length) { chosen = brandHits.sort((a, b) => rank(b) - rank(a))[0]; match = 'brand'; }
+    let brandHits = chosen ? [] : (c.brand || []).filter((r) => isRx(r) && brandEquals(r, want) && (!r.openfda?.generic_name?.[0] || sameActives(m.inn, r.openfda.generic_name[0])));
+    // A re-selection replaces a repackager copy with the SAME product's label: keep the
+    // route of the stored extract (Ozempic: Novo's harmonised label under that brand is
+    // the new oral tablet, the injection's own label is unharmonised — tier 3 below).
+    const prevRoute = reselect.has(slug) ? String(readDoc(slug)?.usRoute || '').toUpperCase() : '';
+    const sameRoute = (r) => (r.openfda?.route || []).some((x) => String(x).toUpperCase() === prevRoute);
+    if (prevRoute && brandHits.some(sameRoute)) brandHits = brandHits.filter(sameRoute);
+    if (brandHits.length) { chosen = brandHits.sort(better)[0]; match = 'brand'; }
     // tier 2 — same active substance(s), originator preferred
     if (!chosen) {
-      if ((!Array.isArray(c.substance) || (requeryEmpty && c.substance.length === 0)) && !reparse) {
+      if ((!Array.isArray(c.substance) || (requeryEmpty && c.substance.length === 0) || reselect.has(slug)) && !reparse) {
         if (apiCalls >= maxCalls) { stats.skipped++; continue; }
         const inn = String(m.inn).split(/[;/]/).map((x) => x.trim()).filter(Boolean);
         const search = `(${inn.map((x) => `openfda.generic_name:"${x}"`).join(' AND ')}) AND ${RX}`;
-        let results = await openfda(search, 100);
-        if (results === null) { console.log(`  ⏸ transient error on ${slug} — cooling down 60s`); await sleep(60000); results = await openfda(search, 100); }
+        const lim = reselect.has(slug) ? 1000 : 100;                    // a re-selection must see the manufacturer's label among the repackagers'
+        let results = await openfda(search, lim);
+        if (results === null) { console.log(`  ⏸ transient error on ${slug} — cooling down 60s`); await sleep(60000); results = await openfda(search, lim); }
         if (results === null) { stats.skipped++; continue; }
         c.substance = results.map((r) => ({ ...r })); // full records (needed for sections)
         saveCache(slug, c);
       }
-      const subHits = (c.substance || []).filter((r) => isRx(r) && sameActives(m.inn, r.openfda?.generic_name?.[0] || ''));
-      if (subHits.length) { chosen = subHits.sort((a, b) => rank(b) - rank(a))[0]; match = 'substance'; }
+      let subHits = (c.substance || []).filter((r) => isRx(r) && sameActives(m.inn, r.openfda?.generic_name?.[0] || ''));
+      if (prevRoute && subHits.some(sameRoute)) subHits = subHits.filter(sameRoute);
+      if (subHits.length) { chosen = subHits.sort(better)[0]; match = 'substance'; }
+    }
+    // tier 3 — re-selection still landed on a repackager copy: the manufacturer's own
+    // label is often one openFDA has not harmonised yet (no `openfda` block, so no
+    // brand_name to search — Novo's Wegovy, ViiV's Tivicay on 21.10.2026). The SPL
+    // product data elements still name it ("WEGOVY semaglutide …"); take the newest
+    // such label that names the brand and every active substance, if it is newer.
+    let inherited = null;
+    if (chosen && reselect.has(slug) && isRepackager(chosen) && !reparse && apiCalls < maxCalls) {
+      const term = want.split(' ').slice(0, 3).join(' ');
+      const res = await openfda(`spl_product_data_elements:"${term}"`, 100);
+      const innTok = tokens(String(m.inn).replace(/[;/,]/g, ' '));
+      const cands = (res || []).filter((r) => {
+        if (r.openfda && Object.keys(r.openfda).length) return false;        // harmonised ones were candidates already
+        const pde = norm((r.spl_product_data_elements || [''])[0]);
+        return pde.startsWith(want + ' ') && innTok.every((t) => pde.includes(t));
+      }).sort((a, b) => String(b.effective_time || '').localeCompare(String(a.effective_time || '')));
+      // The newest candidate whose DailyMed labeler is not a repackager. A repackager
+      // reprints the manufacturer's CURRENT label, so a manufacturer label more than 180
+      // days older than the reprint is not taken (Eliquis: BMS starter pack of 2025-04 vs
+      // Cardinal's copy of 2026-04); without DailyMed only a newer label is trusted.
+      const floor = (() => { const t = String(chosen.effective_time || ''); if (!/^\d{8}$/.test(t)) return ''; const d = new Date(Date.UTC(+t.slice(0, 4), +t.slice(4, 6) - 1, +t.slice(6, 8)) - 180 * 864e5); return d.toISOString().slice(0, 10).replace(/-/g, ''); })();
+      let alt = null;
+      for (const r of cands.slice(0, 5)) {
+        const eff = String(r.effective_time || '');
+        if (eff < floor) break;                                            // sorted newest first
+        const who = r.set_id ? dailymedLabeler(r.set_id) : null;
+        if (who ? !REPACKAGER.test(who) : eff > String(chosen.effective_time || '')) { alt = r; break; }
+      }
+      if (alt) { inherited = chosen.openfda; chosen = alt; console.log(`  ${slug}: manufacturer label (unharmonised at openFDA, ${alt.effective_time}) instead of a repackager copy`); }
+      else console.log(`  ${slug}: only repackager copies found — kept`);
     }
     if (!chosen) { stats.none++; continue; }
     const sections = parse(chosen);
     if (!sections) { stats.none++; continue; }
-    const of = chosen.openfda || {};
+    const own = chosen.openfda && Object.keys(chosen.openfda).length ? chosen.openfda : null;
+    const prevDoc = readDoc(slug);
+    const of = own || inherited || {};
     const doc = {
-      slug, brand: (match === 'brand' ? matchedBrand(chosen, want) : of.brand_name?.[0]) || m.n, inn: m.inn,
-      usBrand: (match === 'brand' ? matchedBrand(chosen, want) : of.brand_name?.[0]) || null,
-      usGeneric: of.generic_name?.[0] || null,
-      usRoute: of.route?.[0] || null,
-      usApplication: of.application_number?.[0] || null,
+      slug, brand: (match === 'brand' ? matchedBrand({ openfda: of }, want) : of.brand_name?.[0]) || prevDoc?.brand || m.n, inn: m.inn,
+      usBrand: (match === 'brand' ? matchedBrand({ openfda: of }, want) : of.brand_name?.[0]) || prevDoc?.usBrand || null,
+      usGeneric: of.generic_name?.[0] || prevDoc?.usGeneric || null,
+      usRoute: of.route?.[0] || prevDoc?.usRoute || null,
+      usApplication: of.application_number?.[0] || prevDoc?.usApplication || null,
+      usLabeler: own?.manufacturer_name?.[0] || null, // the company that filed this SPL (a repackager only when nothing else exists); null = not harmonised at openFDA
       match, // 'brand' = same product name in the US; 'substance' = different US product, same active substance
       effective: chosen.effective_time ? `${chosen.effective_time.slice(0, 4)}-${chosen.effective_time.slice(4, 6)}-${chosen.effective_time.slice(6, 8)}` : null, // label version date (openFDA effective_time)
       retrieved: (() => { try { return new Date(statSync(cacheFile(slug)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(),
