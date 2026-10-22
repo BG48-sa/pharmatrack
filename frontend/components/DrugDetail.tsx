@@ -98,6 +98,7 @@ export const DrugDetailContent: React.FC<{
   onToggleCompare?: (data: DrugDetailData) => void;
   inCompare?: boolean;
   onCompareEuUs?: () => void;
+  euUsButtonLabel?: string;   // caption of the EU ↔ US label-comparison button (App decides which side is missing)
 }> = ({ data, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs, euUsButtonLabel }) => {
   const trialQuery = data.genericName && data.genericName !== '—' ? data.genericName : data.brandName;
   const hasEma = !!data.emaApprovalDate && /^\d/.test(data.emaApprovalDate);

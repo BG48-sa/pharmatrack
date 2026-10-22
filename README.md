@@ -48,9 +48,9 @@ the FDA page into `frontend/scripts/data/novel-<year>.xlsx` first.
 ## Develop
 
 ```bash
-cd frontend
-npm install
+npm ci           # exactly the versions in package-lock.json (root lockfile, workspace frontend/)
 npm run dev      # Vite dev server
+npm run check    # tsc --noEmit + the data-script fixture tests (see frontend/scripts/tests/)
 ```
 
 ## Build for iOS / macOS

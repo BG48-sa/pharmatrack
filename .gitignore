@@ -10,15 +10,13 @@ frontend/public/data/
 # macOS
 .DS_Store
 
-# Local env / secrets (EMA alerts watcher) — never publish to a web-accessible repo
-alerts/config.env
-alerts/state.json
+# Local env / secrets — never publish to a web-accessible repo
 *.local
 
 # Editor / logs
 *.log
 
-# Python caches (EMA alerts watcher)
+# Python caches (data scripts + tests)
 __pycache__/
 *.pyc
 

@@ -1,9 +1,14 @@
 {
   "name": "pharmatrack-recent-drug-approvals",
-  "workspaces": ["frontend"],
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
     "dev": "npm run dev --prefix frontend",
     "build": "npm run build --prefix frontend",
-    "ios": "npm run ios --prefix frontend"
+    "ios": "npm run ios --prefix frontend",
+    "typecheck": "npm run typecheck --prefix frontend",
+    "test": "npm test --prefix frontend",
+    "check": "npm run check --prefix frontend"
   }
 }

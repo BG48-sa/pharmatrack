@@ -8,28 +8,32 @@
     "copy-data": "node scripts/copy-data.mjs",
     "build": "npm run copy-data && vite build && node scripts/stamp-sw.mjs",
     "preview": "vite preview",
-    "ios": "npm run build && cap sync ios && cap open ios"
+    "ios": "npm run build && cap sync ios && cap open ios",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "python3 -m unittest discover -s scripts/tests -p 'test_*.py' -v",
+    "check": "npm run typecheck && npm test"
   },
   "dependencies": {
-    "@capacitor/cli": "^8.4.0",
-    "@capacitor/core": "^8.4.0",
-    "@capacitor/filesystem": "^8.1.2",
-    "@capacitor/ios": "^8.4.0",
-    "@capacitor/local-notifications": "^8.2.0",
-    "@capacitor/preferences": "^8.0.1",
-    "@capacitor/share": "^8.0.1",
+    "@capacitor/cli": "8.5.3",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/filesystem": "8.1.2",
+    "@capacitor/ios": "8.5.3",
+    "@capacitor/local-notifications": "8.2.0",
+    "@capacitor/preferences": "8.0.1",
+    "@capacitor/share": "8.0.1",
     "jspdf": "4.2.1",
     "lucide-react": "1.17.0",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@capacitor/assets": "^3.0.5",
-    "@tailwindcss/vite": "^4.3.0",
+    "@tailwindcss/vite": "4.3.0",
     "@types/node": "25.9.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.0.2",
-    "tailwindcss": "^4.3.0",
+    "tailwindcss": "4.3.0",
     "typescript": "6.0.3",
-    "vite": "8.0.16"
+    "vite": "8.3.5"
   }
 }

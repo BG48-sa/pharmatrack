@@ -17,6 +17,7 @@ name: Refresh label texts (weekly, changed-only)
 on:
   schedule:
     - cron: '30 4 * * 1'       # Mondays 04:30 UTC, well before the daily 06:17 refresh
+                               # (the concurrency group makes the daily run wait if this one is still going)
   workflow_dispatch:
     inputs:
       limit:
@@ -27,21 +28,25 @@ concurrency:
   group: refresh-data          # never overlap with the daily job
   cancel-in-progress: false
 
+env:
+  BOT_NAME: DrugRadar Refresh Bot        # same identity as refresh-data.yml
+  BOT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+
 jobs:
   labels:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 300       # ~1,600 HEAD requests paced for EMA's rate limit + downloads
     permissions:
       contents: write
       actions: write         # to dispatch the daily deploy job at the end
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: '20'
-      - uses: actions/setup-python@v5
+          node-version: '24'
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
       - name: Install pdftotext
@@ -113,7 +118,7 @@ jobs:
 
       - name: Archive logs, validation report and change list
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: label-refresh-${{ github.run_id }}
           path: |
@@ -141,8 +146,8 @@ jobs:
             exit 0
           fi
           git --no-pager diff --cached --stat | tail -5
-          git config user.name  'DrugRadar Refresh Bot'
-          git config user.email 'bernd.gansbacher@gmail.com'
+          git config user.name  "$BOT_NAME"
+          git config user.email "$BOT_EMAIL"
           n=$(git diff --cached --name-only -- frontend/smpc-data frontend/uspi-data | wc -l | tr -d ' ')
           git commit -q -m "Refresh label texts $(date -u +%F): $n label(s) changed at EMA / openFDA [skip ci]"
           # main moves during a multi-hour run (daily data commit, code pushes);

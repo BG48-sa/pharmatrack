@@ -124,6 +124,7 @@ export interface EmaPipelineItem extends EmaFlags {
   reexam: boolean;   // opinion under re-examination
   outcome?: 'positive' | 'unknown'; // negative opinions are never listed here
   cls?: string;
+  num?: string;      // EMA product number (EMEA/H/C/006388) — joins the label queue and EMA's document list
 }
 
 // A medicine that is no longer authorised in the EU, or never was: the MA was

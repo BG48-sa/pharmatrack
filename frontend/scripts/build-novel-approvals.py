@@ -81,7 +81,8 @@ def strip_embedded_brands(drugs):
 
 
 def parse_year(path):
-    ws = openpyxl.load_workbook(path, read_only=True, data_only=True).active
+    wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+    ws = wb.active
     drugs = []
     for row in ws.iter_rows(values_only=True):
         if not row or row[0] is None:
@@ -96,6 +97,7 @@ def parse_year(path):
             "approvalDate": norm_date(row[3]),
             "indication": clean(row[4]) if len(row) > 4 else "",
         })
+    wb.close()
     strip_embedded_brands(drugs)
     # Newest approval first (the FDA pages list it this way; No. descends).
     drugs.sort(key=lambda d: d["no"], reverse=True)

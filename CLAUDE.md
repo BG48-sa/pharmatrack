@@ -1,7 +1,7 @@
 # PharmaTracker
 
 Recent drug-approvals tracker. **React + Vite + TypeScript** frontend, **Capacitor**
-iOS wrapper, plus a Python alerts service. Data from openFDA / EMA sources.
+iOS wrapper, Python/Node data scripts run by GitHub Actions. Data from openFDA / EMA sources.
 
 ## Location & layout
 - Canonical source: `~/Downloads/Wissenschaft & KI/pharmatrack_-recent-drug-approvals`
@@ -13,10 +13,21 @@ iOS wrapper, plus a Python alerts service. Data from openFDA / EMA sources.
   (FDA press-release mirror bridging the ~weekly openFDA lag; rebuilt by
   `scripts/build-announcements.py`, daily via the refresh-data GitHub Action);
   `capacitor.config.ts`, `ios/` for the Capacitor iOS project).
-- `alerts/` — Python alert poller (`ema_alerts.py`) run via a launchd plist.
+- The legacy `alerts/` e-mail watcher (launchd, Gmail app password) was removed on
+  22.10.2026 — it had not run since the repo moved folders in June 2026; its local
+  files are archived outside the repo in `~/Downloads/Wissenschaft & KI/pharmatrack-alerts-archive-2026-10-22/`.
 
 ## Running
 From repo root: `npm run dev` (frontend dev server), `npm run build`, `npm run ios`.
+
+## Checks (run before every commit; the deploy job runs them too)
+- `npm ci` — install exactly what `package-lock.json` records (root lockfile, workspace `frontend`).
+- `npm run check` = `npm run typecheck` (`tsc --noEmit`, strict, `frontend/tsconfig.json`) +
+  `npm test` (Python `unittest` fixture tests in `frontend/scripts/tests/` for
+  label-reconciliation.py, build-ema-data.py incl. the Union Register path, and
+  build-novel-approvals.py; stdlib + openpyxl only, no network).
+- `npm audit` — dependencies are pinned to exact versions; the accepted remaining
+  finding is documented in `frontend/scripts/tests/README.md`.
 
 ## Distribution
 - **GitHub Pages PWA**: deployed via `deploy-pages.sh` to repo `bg48-sa/pharmatrack`.

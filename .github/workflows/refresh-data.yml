@@ -8,9 +8,14 @@ name: Refresh EMA data & deploy
 
 on:
   schedule:
-    - cron: '17 6 * * *'      # daily 06:17 UTC — announcements go stale in days
-                              # (EMA data still only actually changes ~weekly;
-                              # unchanged days publish nothing, see Detect change)
+    - cron: '17 6 * * *'      # 06:17 UTC — after EMA's overnight report / the
+                              # 06:00 Amsterdam document-list refresh
+    - cron: '17 18 * * *'     # 18:17 UTC — second daily slot: same-day FDA
+                              # approvals and press releases (US morning), the
+                              # EMA 18:00 Amsterdam refresh, Union Register
+                              # decisions published during the day. Unchanged
+                              # snapshots publish nothing (see Detect change),
+                              # so a quiet slot costs one validation run.
   workflow_dispatch:          # allow manual runs
     inputs:
       force_deploy:           # set by refresh-labels.yml: its bot push cannot trigger this
@@ -22,19 +27,26 @@ on:
 permissions:
   contents: write
 
+env:
+  # Author of the bot's commits (data refreshes, release archive, gh-pages).
+  # GitHub's own Actions bot identity: no personal e-mail in the history, and
+  # GitHub attributes the commits to github-actions[bot].
+  BOT_NAME: DrugRadar Refresh Bot
+  BOT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+
 concurrency:
   group: refresh-data
   cancel-in-progress: false
 
 jobs:
   refresh:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04      # pinned: a runner image change should be a deliberate commit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
       - run: pip install --quiet openpyxl
@@ -131,7 +143,7 @@ jobs:
       # --- Keep the raw inputs + report of every run for 90 days (auditable) ---
       - name: Archive raw sources and validation report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-inputs-${{ github.run_id }}
           path: |
@@ -202,28 +214,39 @@ jobs:
       - name: Commit refreshed data
         if: steps.chk.outputs.changed == 'true'
         run: |
-          git config user.name  'DrugRadar Refresh Bot'
-          git config user.email 'bernd.gansbacher@gmail.com'
+          git config user.name  "$BOT_NAME"
+          git config user.email "$BOT_EMAIL"
           git add frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json frontend/freshness.json frontend/pending-labels.json frontend/eu-register-decisions.json
           git commit -m "Refresh bundled data $(date -u +%F) [skip ci]"
           git push
 
       # --- Build + publish to GitHub Pages so the installed app pulls it -------
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: steps.chk.outputs.changed == 'true' || github.event_name == 'push' || github.event.inputs.force_deploy == 'true'
         with:
-          node-version: '20'
+          node-version: '24'
+          cache: 'npm'
+      # npm ci installs exactly what package-lock.json records (and fails if the
+      # lockfile and package.json disagree), so the published build is the one
+      # that was checked locally. Type check + data-script fixture tests run
+      # before the build: a code regression stops the deploy, the previous
+      # release stays live.
+      - name: Install, type-check and test
+        if: steps.chk.outputs.changed == 'true' || github.event_name == 'push' || github.event.inputs.force_deploy == 'true'
+        run: |
+          set -euo pipefail
+          npm ci --no-audit --no-fund
+          npm run check
       - name: Build + deploy to gh-pages
         if: steps.chk.outputs.changed == 'true' || github.event_name == 'push' || github.event.inputs.force_deploy == 'true'
         run: |
           set -euo pipefail
-          npm install --prefix frontend --no-audit --no-fund
           GH_PAGES=true VITE_BUILD_COMMIT="$GITHUB_SHA" npm run build
           cd frontend/dist
           touch .nojekyll
           git init -q -b gh-pages
           git add -A
-          git -c user.name='DrugRadar Refresh Bot' -c user.email='bernd.gansbacher@gmail.com' \
+          git -c user.name="$BOT_NAME" -c user.email="$BOT_EMAIL" \
               commit -q -m "Deploy $(date -u '+%F %H:%M') UTC"
           git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
         env:
@@ -246,8 +269,8 @@ jobs:
           cp frontend/freshness.json "data-releases/${id}.freshness.json" 2>/dev/null || true
           # the approval → label reconciliation report of this release (which hand-overs closed, which stay open)
           cp /tmp/labels.md "data-releases/${id}.labels.md" 2>/dev/null || true
-          git config user.name  'DrugRadar Refresh Bot'
-          git config user.email 'bernd.gansbacher@gmail.com'
+          git config user.name  "$BOT_NAME"
+          git config user.email "$BOT_EMAIL"
           git add data-releases
           git commit -q -m "Archive data release ${id} [skip ci]"
           for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done

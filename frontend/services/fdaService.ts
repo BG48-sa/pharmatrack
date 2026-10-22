@@ -379,7 +379,8 @@ const applyLabelQueueTo = (d: Drug, app?: string): Drug => {
       d.indication = cleanIndication(e.label.indications) || e.label.indications;
       d.indicationSource = 'label';
     }
-    if (d.indicationSource !== 'summary') d.indicationFull = longIndication(e.label.indications);
+    // By here the source is never a summary (a summary was just replaced above).
+    d.indicationFull = longIndication(e.label.indications);
     d.labelStatus = 'verified';
   } else if (d.indication && d.indicationSource !== 'summary') {
     d.labelStatus = 'available';  // openFDA answered just now; the nightly check has not verified it yet
