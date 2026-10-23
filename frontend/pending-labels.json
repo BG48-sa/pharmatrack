@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-23",
- "checkedAt": "2026-10-23T11:34:57Z",
+ "checkedAt": "2026-10-23T21:25:41Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -21,29 +21,7 @@
    "LABEL_VERIFIED": 62
   },
   "alerts": 19,
-  "transitions": [
-   {
-    "id": "FDA:calrezdy",
-    "drug": "Calrezdy",
-    "from": null,
-    "to": "AWAITING_USPI",
-    "note": "new"
-   },
-   {
-    "id": "FDA:cienby",
-    "drug": "Cienby",
-    "from": null,
-    "to": "AWAITING_USPI",
-    "note": "new"
-   },
-   {
-    "id": "FDA:yulzety",
-    "drug": "Yulzety",
-    "from": null,
-    "to": "AWAITING_USPI",
-    "note": "new"
-   }
-  ],
+  "transitions": [],
   "closed": []
  },
  "alerts": [
@@ -187,13 +165,14 @@
    "jurisdiction": "FDA",
    "drug": "Hibsago",
    "inn": "bepirovirsen",
-   "applicationNumber": null,
+   "applicationNumber": "NDA221276",
    "approvalDate": "2026-10-20",
    "sources": [
+    "drugsfda",
     "novel"
    ],
    "summary": "To treat chronic hepatitis B virus infection in certain adults without cirrhosis, in combination with existing antiviral therapy",
-   "sponsor": null,
+   "sponsor": "Glaxosmithkline Llc",
    "status": "AWAITING_USPI",
    "firstSeen": "2026-10-21",
    "statusSince": "2026-10-21",
