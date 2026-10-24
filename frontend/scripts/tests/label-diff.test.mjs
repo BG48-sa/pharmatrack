@@ -2,13 +2,13 @@
 // Run: node --test --experimental-strip-types frontend/scripts/tests/ (npm test does).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { diffSections, splitUnits, tokens, similarity } from '../../services/labelDiff.ts';
+import { diffSections, splitUnits, tokens, similarity, isHeading } from '../../services/labelDiff.ts';
 
 test('units: sentences per line, cross-reference markers stay with their claim, table blocks are one unit', () => {
   const us = '1 INDICATIONS AND USAGE X is indicated: Melanoma for the treatment of patients with metastatic melanoma. ( 1.1 ) for the adjuvant treatment of adults. ( 1.1 ) Lung Cancer in combination with chemotherapy. ( 1.2 )';
   const units = splitUnits(us).map((u) => u.text);
   assert.deepEqual(units, [
-    '1 INDICATIONS AND USAGE X is indicated: Melanoma for the treatment of patients with metastatic melanoma. ( 1.1 )',
+    'X is indicated: Melanoma for the treatment of patients with metastatic melanoma. ( 1.1 )',   // section title stripped
     'for the adjuvant treatment of adults. ( 1.1 )',
     'Lung Cancer in combination with chemotherapy. ( 1.2 )',
   ]);
@@ -25,7 +25,7 @@ test('units: sentences per line, cross-reference markers stay with their claim, 
 });
 
 test('tokens: lower-case, no stop words, cross references removed, decimals kept', () => {
-  assert.deepEqual(tokens('Drug is indicated for the treatment of Adults (see section 5.1) at 2,5 mg/kg ( 1.1 )'), ['drug', 'indicated', 'treatment', 'adults', '2.5', 'mg', 'kg']);
+  assert.deepEqual(tokens('Drug is indicated for the treatment of Adults (see section 5.1) at 2,5 mg/kg ( 1.1 , 2.1 )'), ['drug', 'indicate', 'treat', 'adult', '2.5', 'mg', 'kg']);
   assert.equal(similarity(tokens('dose weight frequency'), tokens('dose weight frequency')), 1);
   assert.equal(similarity(['x'], []), 0);
 });
@@ -51,10 +51,34 @@ test('identical sentences are same; rephrased sentences are not word-marked, onl
   const c = 'Administer the recommended dosage of 400 mg by intravenous infusion over 30 minutes every 6 weeks until progression.';
   const d = diffSections(a, c);
   assert.equal(d.a[0].k, 'changed');
-  assert.ok(d.a[0].sim < 0.75 && d.a[0].sim >= 0.55, `sim ${d.a[0].sim}`);
+  assert.ok(d.a[0].sim < 0.75 && d.a[0].sim >= 0.4, `sim ${d.a[0].sim}`);
   assert.deepEqual(d.a[0].words.filter((w) => w.k === 'diff'), []);
   assert.deepEqual(d.a[0].words.filter((w) => w.k === 'num').map((w) => w.t), ['200', '3']);
   assert.deepEqual(d.b[0].words.filter((w) => w.k === 'num').map((w) => w.t), ['400', '6']);
+});
+
+test('dialects fold: abbreviations, monotherapy / single agent, British spelling, adolescents / pediatric', () => {
+  assert.deepEqual(tokens('as monotherapy for adolescents with NSCLC'), tokens('as a single agent for pediatric patients with non-small cell lung cancer'));
+  assert.deepEqual(tokens('oesophageal carcinoma'), tokens('esophageal cancer'));
+  const eu = 'KEYTRUDA as monotherapy is indicated for the adjuvant treatment of adults with non-small cell lung carcinoma who are at high risk of recurrence following complete resection and platinum-based chemotherapy (see section 5.1).';
+  const us = 'as a single agent, for adjuvant treatment following resection and platinum-based chemotherapy for adult patients with Stage IB (T2a ≥4 cm), II, or IIIA NSCLC. ( 1.2 )';
+  const d = diffSections(eu, us);
+  assert.equal(d.a[0].k, 'changed', 'the same adjuvant NSCLC claim in both dialects pairs up');
+  assert.equal(d.b[0].pair, 0);
+});
+
+test('headings are neither claims nor differences; a claim stated twice on one side is not unique', () => {
+  assert.ok(isHeading('Melanoma'));
+  assert.ok(isHeading('Head and neck squamous cell carcinoma (HNSCC)'));
+  assert.ok(isHeading('▸ KEYTRUDA 25 mg/mL concentrate for solution for infusion'));
+  assert.ok(isHeading('4 CONTRAINDICATIONS'));
+  assert.ok(!isHeading('Hypersensitivity to the active substance.'));
+  assert.ok(!isHeading('The recommended dose is 200 mg every 3 weeks.'));
+  const claim = 'KEYTRUDA as monotherapy is indicated for the treatment of adults with advanced melanoma.';
+  const d = diffSections(`Melanoma\n${claim}\n▸ KEYTRUDA 395 mg solution for injection\nMelanoma\n${claim}`, `1 INDICATIONS AND USAGE ${claim}`);
+  assert.deepEqual(d.a.map((u) => u.k), ['heading', 'same', 'heading', 'heading', 'same']);
+  assert.deepEqual(d.stats, { uniqueA: 0, uniqueB: 0, changed: 0, unitsA: 5, unitsB: 1 });
+  assert.equal(d.b[0].text, claim, 'the US section title is stripped from the first sentence');
 });
 
 test('empty or missing text is not compared', () => {

@@ -109,6 +109,7 @@ const WORD_DIFF = 'bg-amber-200 rounded-sm';
 const WORD_NUM = 'text-red-700 font-bold underline decoration-wavy decoration-red-400 underline-offset-2';
 
 const renderUnit = (u: DiffUnit, side: number, i: number): React.ReactNode => {
+  if (u.k === 'heading') return <span key={i} className="font-semibold text-slate-800">{u.text}</span>;
   if (u.k === 'unique') return <span key={i} className={SIDE_UNIQUE[side]}>{u.text}</span>;
   if (u.k === 'changed') {
     return (
@@ -122,17 +123,35 @@ const renderUnit = (u: DiffUnit, side: number, i: number): React.ReactNode => {
   return <span key={i}>{u.text}</span>;
 };
 
+/** "Differences only": keep the units that differ, the heading each sits under, and an ellipsis for what was skipped. */
+const differencesOnly = (units: DiffUnit[]): DiffUnit[] => {
+  const out: DiffUnit[] = [];
+  let heading: DiffUnit | null = null, skipped = false;
+  for (const u of units) {
+    if (u.k === 'heading') { heading = u; continue; }
+    if (u.k === 'unique' || u.k === 'changed') {
+      if (heading) { out.push(heading); heading = null; }
+      else if (skipped && out.length) out.push({ text: '…', k: 'same', line: u.line - 0.5 });
+      out.push(u);
+      skipped = false;
+    } else skipped = true;
+  }
+  return out;
+};
+
 /** The diffed version of renderText: units re-joined per source line, tables as blocks. */
-const renderDiff = (units: DiffUnit[], side: number): React.ReactNode[] => {
+const renderDiff = (units: DiffUnit[], side: number, onlyDiff: boolean): React.ReactNode[] => {
+  const shown = onlyDiff ? differencesOnly(units) : units;
+  if (onlyDiff && !shown.length) return [<p key="none" className="text-[12px] italic text-slate-400 my-1">No differences found in this section.</p>];
   const lines = new Map<number, DiffUnit[]>();
-  for (const u of units) { const l = lines.get(u.line); if (l) l.push(u); else lines.set(u.line, [u]); }
+  for (const u of shown) { const l = lines.get(u.line); if (l) l.push(u); else lines.set(u.line, [u]); }
   return [...lines.entries()].map(([line, us]) => {
     if (us[0].table) {
       const cls = us[0].k === 'unique' ? `border-l-4 ${side === 0 ? 'border-rose-300' : 'border-emerald-400'}` : us[0].k === 'changed' ? 'border-l-4 border-amber-300' : '';
       return <pre key={line} className={`overflow-x-auto whitespace-pre font-mono text-[11px] leading-relaxed text-slate-700 my-1 bg-slate-50 rounded-md px-2 py-1.5 ${cls}`}>{us[0].text}</pre>;
     }
     return (
-      <p key={line} className="whitespace-pre-wrap text-[12px] leading-relaxed text-slate-700 my-1">
+      <p key={line} className={`whitespace-pre-wrap text-[12px] leading-relaxed text-slate-700 my-1${us[0].text === '…' ? ' text-slate-300 select-none' : ''}`}>
         {us.map((u, i) => <React.Fragment key={i}>{i > 0 ? ' ' : ''}{renderUnit(u, side, i)}</React.Fragment>)}
       </p>
     );
@@ -149,7 +168,7 @@ const DiffLegend: React.FC<{ names: string[] }> = ({ names }) => (
   </div>
 );
 
-const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded: boolean; sectionKey?: string | null; units?: DiffUnit[]; side?: number }> = ({ section, absent, expanded, sectionKey, units, side = 0 }) => {
+const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded: boolean; sectionKey?: string | null; units?: DiffUnit[]; side?: number; onlyDiff?: boolean }> = ({ section, absent, expanded, sectionKey, units, side = 0, onlyDiff = false }) => {
   if (absent) return <p className="text-[11px] italic text-slate-300">Not a section of this label.</p>;
   if (!section || section.missing || (!section.text && !section.tables?.length)) {
     // An empty extract is NOT evidence that the official label lacks the
@@ -161,8 +180,8 @@ const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded:
   }
   return (
     <div className="relative min-w-0" style={expanded ? undefined : { maxHeight: COLLAPSED_PX, overflow: 'hidden' }}>
-      {section.text ? (units ? renderDiff(units, side) : renderText(section.text)) : null}
-      {section.tables?.map((html, i) => (
+      {section.text ? (units ? renderDiff(units, side, onlyDiff) : renderText(section.text)) : null}
+      {!(units && onlyDiff) && section.tables?.map((html, i) => (
         <div key={i} className="uspi-table overflow-x-auto my-1.5" dangerouslySetInnerHTML={{ __html: html }} />
       ))}
       {!expanded && <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent" />}
@@ -187,6 +206,9 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
     return columns.length === 2;
   });
   const toggleHighlight = () => setHighlight((h) => { try { localStorage.setItem('labelCompare.highlight', h ? '0' : '1'); } catch { /* ignore */ } return !h; });
+  // "Differences only": hide the matching sentences, keep each difference under its heading.
+  const [onlyDiff, setOnlyDiff] = useState<boolean>(() => { try { return localStorage.getItem('labelCompare.onlyDiff') === '1'; } catch { return false; } });
+  const toggleOnlyDiff = () => setOnlyDiff((v) => { try { localStorage.setItem('labelCompare.onlyDiff', v ? '0' : '1'); } catch { /* ignore */ } return !v; });
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -293,6 +315,20 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
               >
                 <Highlighter size={12} /> Highlight differences
               </button>
+              {highlight && (
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={onlyDiff}
+                  onClick={toggleOnlyDiff}
+                  className={`ml-2 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold transition-colors ${
+                    onlyDiff ? 'bg-slate-700 border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-600 active:bg-slate-50'
+                  }`}
+                  title="Show only the statements that differ, each under its heading; matching text is hidden"
+                >
+                  Differences only
+                </button>
+              )}
               {highlight && <DiffLegend names={[colName(0), colName(1)]} />}
               {highlight && anySubstitute && (
                 <p className="text-[10px] text-amber-700 mt-1">The US column is a different product — differences reflect two products, not one label in two jurisdictions.</p>
@@ -400,7 +436,7 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                     const key = row.keys[cols[i].source];
                     const diff = highlight ? diffs[row.label] : null;
                     const units = diff ? (i === 0 ? diff.a : diff.b) : undefined;
-                    return <SectionCell key={i} absent={key === null} sectionKey={key} section={key ? d!.sections[key] : undefined} expanded={!!expanded[row.label]} units={units} side={i} />;
+                    return <SectionCell key={i} absent={key === null} sectionKey={key} section={key ? d!.sections[key] : undefined} expanded={!!expanded[row.label] || (onlyDiff && !!units)} units={units} side={i} onlyDiff={onlyDiff} />;
                   })}
                 </div>
               ))}
