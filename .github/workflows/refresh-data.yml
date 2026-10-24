@@ -234,11 +234,21 @@ jobs:
           git config user.email "$BOT_EMAIL"
           git add frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json frontend/freshness.json frontend/pending-labels.json frontend/eu-register-decisions.json
           git commit -m "Refresh bundled data $(date -u +%F) [skip ci]"
-          # main can move between checkout and here (a release archive from a run
-          # that overlapped — 24.10.2026: two push-triggered runs 30 s apart, the
-          # second's plain push was rejected as non-fast-forward and its data
-          # commit lost). Those commits never touch the data files: rebase, retry.
-          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && break; echo "push attempt $i failed — retrying"; sleep 10; done
+          # main can move between checkout and here (an overlapping run's data or
+          # archive commit — 24.10.2026, two push-triggered runs 30 s apart). Rebase
+          # onto it; a conflict on a data file (both runs rewrote freshness.json)
+          # is resolved in favour of THIS run's fresh files (-X theirs = the commit
+          # being replayed). If every attempt fails the step FAILS — on 24.10.2026
+          # a loop that fell through after a conflicted rebase let the deploy run
+          # from a half-merged tree (conflict markers in pending-labels.json on
+          # the live site, freshness.json missing).
+          ok=0
+          for i in 1 2 3; do
+            if git pull -q --rebase -X theirs origin main && git push -q; then ok=1; break; fi
+            git rebase --abort 2>/dev/null || true
+            echo "push attempt $i failed — retrying"; sleep 10
+          done
+          [ "$ok" = 1 ] || { echo "::error::could not push the data commit after 3 attempts"; exit 1; }
 
       # --- Build + publish to GitHub Pages so the installed app pulls it -------
       - uses: actions/setup-node@v7
@@ -261,6 +271,17 @@ jobs:
         if: steps.chk.outputs.changed == 'true' || github.event_name == 'push' || github.event.inputs.force_deploy == 'true'
         run: |
           set -euo pipefail
+          # Never publish from a tree that is not exactly a commit: no rebase or
+          # merge in progress, no uncommitted change to a published data file.
+          if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ] || [ -f .git/MERGE_HEAD ]; then
+            echo "::error::a rebase/merge is in progress — refusing to deploy from a half-merged tree"; exit 1
+          fi
+          if ! git diff --quiet -- frontend/*.json; then
+            echo "::error::uncommitted changes in published data files — refusing to deploy"; git status --short -- frontend/*.json; exit 1
+          fi
+          if grep -lE '^(<<<<<<<|=======|>>>>>>>) ' frontend/*.json 2>/dev/null | grep -q .; then
+            echo "::error::conflict markers in a data file — refusing to deploy"; exit 1
+          fi
           GH_PAGES=true VITE_BUILD_COMMIT="$GITHUB_SHA" npm run build
           cd frontend/dist
           touch .nojekyll
@@ -293,4 +314,10 @@ jobs:
           git config user.email "$BOT_EMAIL"
           git add data-releases
           git commit -q -m "Archive data release ${id} [skip ci]"
-          for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done
+          ok=0
+          for i in 1 2 3; do
+            if git pull -q --rebase origin main && git push -q; then ok=1; break; fi
+            git rebase --abort 2>/dev/null || true
+            sleep 10
+          done
+          [ "$ok" = 1 ] || { echo "::error::could not push the release archive after 3 attempts (the deploy itself succeeded)"; exit 1; }
