@@ -16,8 +16,11 @@ name: Refresh label texts (weekly, changed-only)
 
 on:
   schedule:
-    - cron: '30 4 * * 1'       # Mondays 04:30 UTC, well before the daily 06:17 refresh
-                               # (the concurrency group makes the daily run wait if this one is still going)
+    - cron: '41 0 * * 1'       # Mondays 00:41 UTC. GitHub starts `schedule` runs hours late
+                               # under load (28.9.–19.10.2026: 04:30 → 10:11–12:21 UTC); an
+                               # earlier slot lands the run in the early morning, before the
+                               # daily refresh (the concurrency group makes that one wait
+                               # if this job is still going)
   workflow_dispatch:
     inputs:
       limit:
@@ -113,8 +116,12 @@ jobs:
         continue-on-error: true
         run: |
           set -euo pipefail
-          python frontend/scripts/post-authorisation-audit.py --json /tmp/post-auth.json --md /tmp/post-auth.md
+          # --previous: last week's committed report carries the first-seen section
+          # hashes, so a changed 4.1 / Indications text shows up across runs.
+          python frontend/scripts/post-authorisation-audit.py --json /tmp/post-auth.json --md /tmp/post-auth.md \
+            --previous frontend/post-auth.json
           cat /tmp/post-auth.md >> "$GITHUB_STEP_SUMMARY"
+          cp /tmp/post-auth.json frontend/post-auth.json
 
       - name: Archive logs, validation report and change list
         if: always()
@@ -141,6 +148,9 @@ jobs:
         run: |
           set -euo pipefail
           git add frontend/smpc-data frontend/uspi-data frontend/smpc-index.json frontend/uspi-index.json
+          # The post-authorisation audit's state (first-seen section hashes) is
+          # kept in the repo so next week's --previous can see sections move.
+          [ -f frontend/post-auth.json ] && git add frontend/post-auth.json
           if git diff --cached --quiet; then
             echo "No label changed this week — nothing to commit."
             exit 0
@@ -149,6 +159,15 @@ jobs:
           git config user.name  "$BOT_NAME"
           git config user.email "$BOT_EMAIL"
           n=$(git diff --cached --name-only -- frontend/smpc-data frontend/uspi-data | wc -l | tr -d ' ')
+          labels_changed=$(git diff --cached --name-only -- frontend/smpc-data frontend/uspi-data frontend/smpc-index.json frontend/uspi-index.json | wc -l | tr -d ' ')
+          if [ "$labels_changed" = 0 ]; then
+            git commit -q -m "Post-authorisation audit $(date -u +%F): no label changed this week [skip ci]"
+            for i in 1 2 3; do
+              git pull --rebase -q origin main && git push && break
+              echo "push attempt $i failed — retrying"; sleep 30
+            done
+            exit 0                   # nothing to deploy
+          fi
           git commit -q -m "Refresh label texts $(date -u +%F): $n label(s) changed at EMA / openFDA [skip ci]"
           # main moves during a multi-hour run (daily data commit, code pushes);
           # none of those touch label files, so a rebase is conflict-free.

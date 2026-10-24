@@ -397,7 +397,9 @@ for i, row in enumerate(rows):
         # (scripts/smpc/ema-feed.mjs: product-information URL + last update)
         "num": "/".join(clean(row[C_EMA_NUMBER]).split("/")[:4]).upper(),
     }
-    slug_now = (clean(row[C_URL]).split("/EPAR/")[1] if "/EPAR/" in clean(row[C_URL]) else "").replace("-previously-", "").lower()
+    # Renamed products carry "-previously-<old name>" in the EPAR slug; the whole
+    # tail goes (as in smpc/extract-all.mjs), so the fix tables match the PDF slug.
+    slug_now = re.sub(r"-previously-.*$", "", clean(row[C_URL]).split("/EPAR/")[1] if "/EPAR/" in clean(row[C_URL]) else "").lower()
     if slug_now in OPINION_DATE_FIX and op_date == OPINION_DATE_FIX[slug_now][0]:
         op_date = OPINION_DATE_FIX[slug_now][1]
     if base["atmp"]:

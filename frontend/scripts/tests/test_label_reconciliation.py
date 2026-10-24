@@ -110,7 +110,68 @@ class HelperTests(unittest.TestCase):
         self.assertEqual(lr.title('ACME PHARMA INC'), 'Acme Pharma Inc')
         self.assertEqual(lr.title('Novo Nordisk'), 'Novo Nordisk')
         self.assertEqual(lr.brand_query_term('Bixlenvo Sunlenca Starter Pack (copackaged)'), 'Bixlenvo Sunlenca Starter')
-        self.assertEqual(lr.slug_of(EPAR + 'Alphazon-previously-oldname'), 'alphazonoldname')
+        self.assertEqual(lr.slug_of(EPAR + 'Alphazon-previously-oldname'), 'alphazon')   # the whole "-previously-…" tail goes
+        self.assertEqual(lr.slug_of(EPAR + 'spikevax-previously-covid-19-vaccine-moderna'), 'spikevax')
+        self.assertEqual(lr.brand_query_terms('Bixlenvo Sunlenca Starter Pack (copackaged)'), ['Bixlenvo Sunlenca Starter', 'Bixlenvo'])
+        self.assertEqual(lr.brand_query_terms('Zetavex'), ['Zetavex'])
+
+    def test_inn_key_and_same_approval(self):
+        self.assertEqual(lr.inn_key('PRITELIVIR'), lr.inn_key('pritelivir'))
+        self.assertEqual(lr.inn_key('ibuprofen and famotidine'), lr.inn_key('IBUPROFEN, FAMOTIDINE'))
+        self.assertEqual(lr.inn_key('semaglutide sodium'), 'semaglutide')
+        self.assertNotEqual(lr.inn_key('sodium citrate'), lr.inn_key('sodium ctirate'))   # FDA typos are not guessed
+        a = {'inn': 'pritelivir', 'approvalDate': '2026-10-09'}
+        self.assertTrue(lr.same_approval(a, {'inn': 'PRITELIVIR', 'approvalDate': '2026-10-10'}))
+        self.assertFalse(lr.same_approval(a, {'inn': 'pritelivir', 'approvalDate': '2026-10-12'}))
+        self.assertFalse(lr.same_approval(a, {'inn': 'other', 'approvalDate': '2026-10-09'}))
+
+    def test_ema_feed_names_the_real_pdf(self):
+        tmp = tempfile.mkdtemp()
+        try:
+            rows = [{'type': 'product-information', 'last_updated_date': '2026-10-01T00:00:00',
+                     'document_url': 'https://www.ema.europa.eu/en/documents/product-information/byannli-epar-product-information_en.pdf',
+                     'ema_product_number': 'EMEA/H/C/005352/0000'}]
+            rows += [{'type': 'product-information', 'last_updated_date': '2026-01-01',
+                      'document_url': f'https://www.ema.europa.eu/en/documents/product-information/med{i}-epar-product-information_en.pdf',
+                      'ema_product_number': f'EMEA/H/C/{i:06d}'} for i in range(1000)]
+            rows.append({'type': 'other', 'last_updated_date': '2026-01-01', 'document_url': 'x'})
+            path = os.path.join(tmp, 'feed.json')
+            write_json(path, {'meta': {'timestamp': '2026-10-21T06:00:00'}, 'data': rows})
+            feed = lr.load_ema_feed(path, lambda m: None)
+            self.assertEqual(feed['EMEA/H/C/005352']['updated'], '2026-10-01')
+            self.assertTrue(feed['slug:byannli']['url'].endswith('byannli-epar-product-information_en.pdf'))
+            write_json(path, {'data': rows[:3]})
+            self.assertIsNone(lr.load_ema_feed(path, lambda m: None))      # implausibly small → HEAD fallback
+            self.assertIsNone(lr.load_ema_feed(None, lambda m: None))
+        finally:
+            shutil.rmtree(tmp)
+
+    def test_dailymed_spl_is_shaped_like_an_openfda_record(self):
+        xml = ('<document xmlns="urn:hl7-org:v3"><id root="spl-1"/><setId root="set-1"/><versionNumber value="3"/>'
+               '<effectiveTime value="20261001"/><component><structuredBody><component><section>'
+               '<subject><manufacturedProduct><manufacturedProduct><name>ZETAVEX</name>'
+               '<asEntityWithGeneric><genericMedicine><name>zetamab</name></genericMedicine></asEntityWithGeneric>'
+               '</manufacturedProduct><subjectOf><approval><id extension="NDA210001" root="2.16"/></approval></subjectOf>'
+               '</manufacturedProduct></subject></section></component>'
+               '<component><section><code code="34067-9"/><title>1 INDICATIONS AND USAGE</title>'
+               '<text><paragraph>ZETAVEX is a monoclonal antibody indicated for the treatment of adult patients '
+               'with relapsed or refractory test disease after two prior lines.</paragraph></text></section></component>'
+               '</structuredBody></component></document>').encode()
+        orig = lr.http
+        lr.http = lambda url, **kw: (200, {}, xml)
+        try:
+            rec = lr.dailymed_record('set-1')
+        finally:
+            lr.http = orig
+        self.assertEqual(rec['set_id'], 'set-1')
+        self.assertEqual(rec['version'], '3')
+        self.assertEqual(rec['effective_time'], '20261001')
+        self.assertEqual(rec['openfda']['brand_name'], ['ZETAVEX'])
+        self.assertEqual(rec['openfda']['application_number'], ['NDA210001'])
+        self.assertIn('relapsed or refractory test disease', rec['indications_and_usage'][0])
+        ok, checks, text = lr.validate_us_label(rec, 'NDA210001', 'Zetavex', 'zetamab')
+        self.assertTrue(ok)
+        self.assertTrue(checks['applicationMatch'])
 
 
 class QueueBuildTests(unittest.TestCase):
@@ -153,6 +214,59 @@ class QueueBuildTests(unittest.TestCase):
         self.assertEqual(out['summary']['byStatus'][lr.S_VERIFIED], 1)
         self.assertEqual(len(out['summary']['transitions']), 7)           # 6 × new + Alphazon → VERIFIED
         self.assertTrue(all(e['firstSeen'] == TODAY and e['lastChecked'] == TODAY for e in out['entries']))
+
+    def test_brand_misspelt_at_drugsfda_is_one_medicine_with_the_roster(self):
+        # Drugs@FDA: "HOVILPR" (typo), CDER roster: "Hovilpri" — same INN, same date.
+        us = read_json(os.path.join(self.fe, 'us-recent.json'))
+        us['items'].insert(0, {'orig': '20261009', 'application_number': 'NDA221154', 'sponsor_name': 'AICURIS AG',
+                               'products': [{'brand_name': 'HOVILPR', 'active_ingredients': [{'name': 'PRITELIVIR'}]}]})
+        write_json(os.path.join(self.fe, 'us-recent.json'), us)
+        novel = read_json(os.path.join(self.fe, 'novel-approvals.json'))
+        novel['2026'].insert(0, {'no': 46, 'brandName': 'Hovilpri', 'genericName': 'pritelivir', 'approvalDate': '2026-10-09',
+                                 'indication': 'To treat mucocutaneous HSV lesions in immunocompromised adults'})
+        write_json(os.path.join(self.fe, 'novel-approvals.json'), novel)
+        # An earlier run already queued both spellings (the bug being fixed).
+        previous = {'entries': [
+            {'id': 'FDA:hovilpr', 'jurisdiction': 'FDA', 'drug': 'Hovilpr', 'inn': 'pritelivir', 'applicationNumber': 'NDA221154',
+             'approvalDate': '2026-10-09', 'status': lr.S_AWAITING_USPI, 'firstSeen': '2026-10-18', 'statusSince': '2026-10-18', 'history': []},
+            {'id': 'FDA:hovilpri', 'jurisdiction': 'FDA', 'drug': 'Hovilpri', 'inn': 'pritelivir', 'applicationNumber': None,
+             'approvalDate': '2026-10-09', 'status': lr.S_AWAITING_USPI, 'firstSeen': '2026-10-10', 'statusSince': '2026-10-10', 'history': []},
+        ]}
+        q, out = run_queue(self.fe, TODAY, previous=previous)
+        e = by_id(out)
+        self.assertNotIn('FDA:hovilpr', e)
+        h = e['FDA:hovilpri']
+        self.assertEqual(h['drug'], 'Hovilpri')
+        self.assertEqual(h['applicationNumber'], 'NDA221154')
+        self.assertEqual(h['sources'], ['drugsfda', 'novel'])
+        self.assertEqual(h['firstSeen'], '2026-10-10')
+        self.assertIn('merged FDA:hovilpr into FDA:hovilpri', h['history'][-1]['note'])
+        self.assertEqual([c['id'] for c in out['summary']['closed']], ['FDA:hovilpr'])
+        # A verified entry under the misspelt id keeps its verified state under the new id.
+        previous['entries'][0]['status'] = lr.S_VERIFIED
+        previous['entries'][0]['label'] = {'setId': 'set-h', 'sha256': 'abc'}
+        q, out = run_queue(self.fe, TODAY, previous=previous)
+        h = by_id(out)['FDA:hovilpri']
+        self.assertEqual(h['status'], lr.S_VERIFIED)
+        self.assertEqual(h['label']['setId'], 'set-h')
+        self.assertEqual(h['drug'], 'Hovilpri')
+
+    def test_ema_document_list_marks_the_pdf_available_without_a_head_probe(self):
+        feed = {'EMEA/H/C/006002': {'url': 'https://www.ema.europa.eu/en/documents/product-information/betarix-x-epar-product-information_en.pdf',
+                                    'updated': '2026-10-15'}}
+        q = lr.Queue({}, TODAY)
+        lr.reconcile_us(q, self.fe, TODAY, 180, False, lambda m: None)
+        lr.reconcile_eu(q, self.fe, TODAY, 180, False, lambda m: None, feed=feed)
+        beta = q.get('EMA:EMEA/H/C/006002')
+        self.assertEqual(beta['status'], lr.S_AVAILABLE)
+        self.assertTrue(beta['label']['url'].endswith('betarix-x-epar-product-information_en.pdf'))
+        self.assertEqual(beta['label']['emaUpdated'], '2026-10-15')
+        # Not listed next time (and never confirmed by a HEAD probe) → back to awaiting.
+        out = lr.build_output(q, TODAY, 180, THRESHOLDS, False)
+        q2 = lr.Queue(out, '2026-10-22')
+        lr.reconcile_us(q2, self.fe, '2026-10-22', 180, False, lambda m: None)
+        lr.reconcile_eu(q2, self.fe, '2026-10-22', 180, False, lambda m: None, feed={})
+        self.assertEqual(q2.get('EMA:EMEA/H/C/006002')['status'], lr.S_AWAITING_SMPC)
 
     def test_second_run_moves_opinion_to_authorised_and_never_regresses_verified(self):
         _, first = run_queue(self.fe, TODAY)
