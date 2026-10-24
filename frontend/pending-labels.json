@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-23",
- "checkedAt": "2026-10-23T21:25:41Z",
+ "generated": "2026-10-24",
+ "checkedAt": "2026-10-24T10:55:49Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -30,133 +30,133 @@
    "drug": "Zanvastro",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 50 days after approval"
+   "message": "no US prescribing information at openFDA 51 days after approval"
   },
   {
    "id": "FDA:bixlenvo sunlenca starter pack copackaged",
    "drug": "Bixlenvo Sunlenca Starter Pack (copackaged)",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 57 days after approval"
+   "message": "no US prescribing information at openFDA 58 days after approval"
   },
   {
    "id": "FDA:genglycos",
    "drug": "Genglycos",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 65 days after approval"
+   "message": "no US prescribing information at openFDA 66 days after approval"
   },
   {
    "id": "FDA:tauklarify",
    "drug": "Tauklarify",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 71 days after approval"
+   "message": "no US prescribing information at openFDA 72 days after approval"
   },
   {
    "id": "FDA:orzeyful",
    "drug": "Orzeyful",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 79 days after approval"
+   "message": "no US prescribing information at openFDA 80 days after approval"
   },
   {
    "id": "FDA:zimrixby",
    "drug": "Zimrixby",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 84 days after approval"
+   "message": "no US prescribing information at openFDA 85 days after approval"
   },
   {
    "id": "FDA:glycophos",
    "drug": "Glycophos",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 86 days after approval"
+   "message": "no US prescribing information at openFDA 87 days after approval"
   },
   {
    "id": "FDA:simtriyo",
    "drug": "Simtriyo",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 91 days after approval"
+   "message": "no US prescribing information at openFDA 92 days after approval"
   },
   {
    "id": "FDA:utebzi",
    "drug": "Utebzi",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 128 days after approval"
+   "message": "no US prescribing information at openFDA 129 days after approval"
   },
   {
    "id": "FDA:ranluspec",
    "drug": "Ranluspec",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 143 days after approval"
+   "message": "no US prescribing information at openFDA 144 days after approval"
   },
   {
    "id": "FDA:cypsedo",
    "drug": "Cypsedo",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 147 days after approval"
+   "message": "no US prescribing information at openFDA 148 days after approval"
   },
   {
    "id": "FDA:immgolis",
    "drug": "Immgolis",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 161 days after approval"
+   "message": "no US prescribing information at openFDA 162 days after approval"
   },
   {
    "id": "FDA:ennumo",
    "drug": "Ennumo",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 169 days after approval"
+   "message": "no US prescribing information at openFDA 170 days after approval"
   },
   {
    "id": "EMA:EMEA/H/C/006516",
    "drug": "Ubeslo",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 35 days after the EU authorisation"
+   "message": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006838",
    "drug": "Riociguat Accord",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 35 days after the EU authorisation"
+   "message": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006694",
    "drug": "Lyrokaul",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 35 days after the EU authorisation"
+   "message": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006517",
    "drug": "Evlarco",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 35 days after the EU authorisation"
+   "message": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006388",
    "drug": "Onswik",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 64 days after the EU authorisation"
+   "message": "no SmPC extract 65 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006085",
    "drug": "Nylaspeg",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 64 days after the EU authorisation"
+   "message": "no SmPC extract 65 days after the EU authorisation"
   }
  ],
  "entries": [
@@ -183,7 +183,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:cienby",
@@ -207,7 +207,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:calrezdy",
@@ -231,7 +231,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:yulzety",
@@ -255,7 +255,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:evoxac",
@@ -279,7 +279,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:hovilpri",
@@ -303,7 +303,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:hovilpr",
@@ -327,7 +327,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:emcitate",
@@ -352,7 +352,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:lamlique",
@@ -376,7 +376,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:juvmo",
@@ -401,7 +401,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:degevma",
@@ -425,7 +425,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:atebrioz",
@@ -450,7 +450,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:onswik",
@@ -475,7 +475,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:lyrfigtu",
@@ -500,7 +500,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:fayuvi",
@@ -524,7 +524,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:pixclara",
@@ -549,7 +549,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:isembyld",
@@ -574,7 +574,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "FDA:etcamah",
@@ -604,7 +604,7 @@
      "note": "USPI verified: set ID c54223d3-f3c7-4186-afa0-429d84805826, label version 1 of 2026-09-04"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -652,8 +652,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 50 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 51 days after approval"
   },
   {
    "id": "FDA:mimrylo",
@@ -683,7 +683,7 @@
      "note": "USPI verified: set ID 101aff01-31ed-4841-a8b6-0a5a8503189b, label version 2 of 2026-08-28"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -736,7 +736,7 @@
      "note": "USPI verified: set ID 5023a17b-e96a-67d4-e063-6394a90a14a7, label version 3 of 2026-08-28"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -783,8 +783,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 57 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 58 days after approval"
   },
   {
    "id": "FDA:bixlenvo",
@@ -813,7 +813,7 @@
      "note": "USPI verified: set ID 072a3c7e-33fb-4a87-ba21-3d8dad3f5c48, label version 1 of 2026-08-27"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -866,7 +866,7 @@
      "note": "USPI verified: set ID 13a65923-d072-4dac-8620-8eabbf8c3641, label version 1 of 2026-08-27"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -919,7 +919,7 @@
      "note": "USPI verified: set ID 0d5cec96-b02b-4f1d-bc66-51e62ce04e3c, label version 1 of 2026-08-14"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -966,8 +966,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 65 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 66 days after approval"
   },
   {
    "id": "FDA:zenbexus",
@@ -997,7 +997,7 @@
      "note": "USPI verified: set ID 3663d9cb-3f66-48ae-bf0a-6958bc0888de, label version 2 of 2026-08-13"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1045,8 +1045,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 71 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 72 days after approval"
   },
   {
    "id": "FDA:tudriqev",
@@ -1075,7 +1075,7 @@
      "note": "USPI verified: set ID 26627b8d-91ac-4f76-a213-7e25efd024d1, label version 3 of 2026-09-01"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": null,
     "nameMatch": true,
@@ -1124,8 +1124,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 79 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 80 days after approval"
   },
   {
    "id": "FDA:zimrixby",
@@ -1149,8 +1149,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 84 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 85 days after approval"
   },
   {
    "id": "FDA:glycophos",
@@ -1174,8 +1174,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 86 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 87 days after approval"
   },
   {
    "id": "FDA:simtriyo",
@@ -1200,8 +1200,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 91 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 92 days after approval"
   },
   {
    "id": "FDA:lytenava",
@@ -1231,7 +1231,7 @@
      "note": "USPI verified: set ID 7f9a3014-b3d4-4943-a83a-92a77d8f947c, label version 1 of 2026-07-16"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": null,
     "nameMatch": true,
@@ -1284,7 +1284,7 @@
      "note": "USPI verified: set ID 30c64769-d2f7-4604-ac9e-2a6bc09506c9, label version 9 of 2026-07-31"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1337,7 +1337,7 @@
      "note": "USPI verified: set ID 3760e421-b523-4d9b-e063-6394a90ab94b, label version 5 of 2026-07-22"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1390,7 +1390,7 @@
      "note": "USPI verified: set ID 100ec543-fbd0-44fc-b740-db9cdff39145, label version 2 of 2026-07-15"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1443,7 +1443,7 @@
      "note": "USPI verified: set ID 959d73ef-831f-4005-956c-210702270bda, label version 1 of 2026-07-14"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": null,
     "nameMatch": true,
@@ -1496,7 +1496,7 @@
      "note": "USPI verified: set ID b2de0c9a-0065-4f2c-9983-add39525f3a3, label version 2 of 2026-07-16"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1548,7 +1548,7 @@
      "note": "USPI verified: set ID 07730e8c-1340-4d30-8d71-e20f850db8da, label version 3 of 2026-07-10"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1601,7 +1601,7 @@
      "note": "USPI verified: set ID 24aa29f6-ccff-45d3-89af-4d26e525cef8, label version 3 of 2026-08-05"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1653,7 +1653,7 @@
      "note": "USPI verified: set ID 2157e11b-87c3-4d54-a225-81b341e4e21a, label version 4 of 2026-06-30"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1706,7 +1706,7 @@
      "note": "USPI verified: set ID 11bc286a-5411-45af-af3f-69ad38efb610, label version 7 of 2026-06-29"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1754,8 +1754,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 128 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 129 days after approval"
   },
   {
    "id": "FDA:ambelvist",
@@ -1785,7 +1785,7 @@
      "note": "USPI verified: set ID fac80f5d-8d37-4237-bb52-0faef0dd46aa, label version 5 of 2025-06-12"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1832,8 +1832,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 143 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 144 days after approval"
   },
   {
    "id": "FDA:zaynich",
@@ -1863,7 +1863,7 @@
      "note": "USPI verified: set ID c84e652e-5e76-4568-8812-bd5fa34803b6, label version 2 of 2026-06-05"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": null,
     "nameMatch": true,
@@ -1917,7 +1917,7 @@
      "note": "USPI verified: set ID 526acf60-abc3-2cc2-e063-6294a90affa6, label version 2 of 2026-06-03"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -1965,8 +1965,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 147 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 148 days after approval"
   },
   {
    "id": "FDA:decnupaz",
@@ -1996,7 +1996,7 @@
      "note": "USPI verified: set ID 508b6ff8-601d-4901-a7a5-816141134054, label version 2 of 2026-05-27"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -2049,7 +2049,7 @@
      "note": "USPI verified: set ID 12391cc2-38c2-4cf5-86d3-2be9370127fc, label version 1 of 2026-05-22"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -2096,8 +2096,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 161 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 162 days after approval"
   },
   {
    "id": "FDA:baxfendy",
@@ -2127,7 +2127,7 @@
      "note": "USPI verified: set ID b1fc1ee7-facc-4099-b3db-a4c1daeaa4be, label version 3 of 2026-08-07"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": null,
     "nameMatch": true,
@@ -2181,7 +2181,7 @@
      "note": "USPI verified: set ID ff684558-e9cb-46de-a8bf-f4d79093df7a, label version 3 of 2026-07-27"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": null,
     "nameMatch": true,
@@ -2229,8 +2229,8 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
-   "alert": "no US prescribing information at openFDA 169 days after approval"
+   "lastChecked": "2026-10-24",
+   "alert": "no US prescribing information at openFDA 170 days after approval"
   },
   {
    "id": "FDA:veppanu",
@@ -2260,7 +2260,7 @@
      "note": "USPI verified: set ID 484e21ba-8fe1-4c6d-b923-8ba4cf5b2f20, label version 1 of 2026-06-12"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": true,
     "nameMatch": true,
@@ -2312,7 +2312,7 @@
      "note": "USPI verified: set ID 5328761e-59d3-ca7a-e063-6394a90ae810, label version 5 of 2026-06-07"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "checks": {
     "applicationMatch": null,
     "nameMatch": true,
@@ -2359,7 +2359,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/007122",
@@ -2382,7 +2382,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/007009",
@@ -2405,7 +2405,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006892",
@@ -2428,7 +2428,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006940",
@@ -2451,7 +2451,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006632",
@@ -2474,7 +2474,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006937",
@@ -2503,7 +2503,7 @@
      "note": "product information published by EMA — awaiting the weekly label refresh"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Reduction of neutropenia in adults",
    "note": "weekly label refresh could not download the product information last run",
    "label": {
@@ -2541,7 +2541,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Nezglyal is indicated for the treatment of Cerebral Adrenoleukodystrophy (cALD) in males with Adrenoleukodystrophy (ALD) aged 2 to 12 years with non-Gadolinium (Gd) enhancing lesions (i.e. Gd negative) in brain Magnetic Resonance Imaging (MRI), with a Neurological Functional Score (NFS) of 0 or 1.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/nezglyal-epar-product-information_en.pdf",
@@ -2579,7 +2579,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Zokovea is indicated for the post-exposure prophylaxis of COVID-19 in adults and adolescents aged 12 years and older. Zokovea should be used in accordance with official recommendations.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/zokovea-epar-product-information_en.pdf",
@@ -2612,10 +2612,10 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Treatment of primary hypercholesterolaemia or mixed dyslipidaemia.",
    "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 35 days after the EU authorisation"
+   "alert": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006711",
@@ -2644,7 +2644,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-10-01"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Tafamidis Accord is indicated for the treatment of hereditary transthyretin amyloidosis in adult patients with cardiomyopathy (ATTRh-CM).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/tafamidis-accord-epar-product-information_en.pdf",
@@ -2682,7 +2682,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Susvimo is indicated in adult patients for the treatment of neovascular (wet) age-related macular degeneration (nAMD) who have achieved stable disease after previously responding to intravitreal treatment with a vascular endothelial growth factor (VEGF) inhibitor medicinal product (see section 4.2).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/susvimo-epar-product-information_en.pdf",
@@ -2720,7 +2720,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Myelofibrosis (MF) Ruxolitinib Viatris is indicated for the treatment of disease-related splenomegaly or symptoms in adult patients with primary myelofibrosis (also known as chronic idiopathic myelofibrosis), post polycythaemia vera myelofibrosis or post essential thrombocythaemia myelofibrosis. Polycythaemia vera (PV) Ruxolitinib Viatris is indicated for the treatment of adult patients with polycythaemia vera who are resistant to or intolerant of hydroxyurea. Graft versus host disease (GvHD) Acute GvHD Ruxolitinib Viatris is indicated for the treatment of adults and paediatric patients aged 28 days and older with acute graft versus host disease who have inadequate response to corticosteroids or other systemic therapies (see section 5.1). Chronic GvHD Ruxolitinib Viatris is indicated for the treatment of adults and paediatric patients aged 6 months and older with chronic graft versus host disease who have inadequate response to corticosteroids or other systemic therapies (see section 5.1).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/ruxolitinib-viatris-epar-product-information_en.pdf",
@@ -2753,10 +2753,10 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Treatment of Chronic thromboembolic pulmonary hypertension (CTEPH) in adults and treatment of Pulmonary arterial hypertension (PAH) in adults and children from 6 years of age.",
    "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 35 days after the EU authorisation"
+   "alert": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006339",
@@ -2785,7 +2785,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "PAVBLU is indicated for adults for the treatment of • neovascular (wet) age-related macular degeneration (AMD) (see section 5.1), • visual impairment due to macular oedema secondary to retinal vein occlusion (branch RVO or central RVO) (see section 5.1), • visual impairment due to diabetic macular oedema (DME) (see section 5.1), • visual impairment due to myopic choroidal neovascularisation (myopic CNV) (see section 5.1).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/pavblu-epar-product-information_en.pdf",
@@ -2818,10 +2818,10 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "It is indicated in adults with primary hypercholesterolaemia (heterozygous familial (HeFH) and non-familial) or mixed dyslipidaemia as an adjunct to diet.",
    "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 35 days after the EU authorisation"
+   "alert": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006730",
@@ -2850,7 +2850,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "ICOTYDE is indicated for the treatment of moderate to severe plaque psoriasis in adults, and adolescents 12 years of age and older and weighing at least 40 kg, who are candidates for systemic therapy.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/icotyde-epar-product-information_en.pdf",
@@ -2883,10 +2883,10 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Treatment of primary hypercholesterolaemia or mixed dyslipidaemia.",
    "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 35 days after the EU authorisation"
+   "alert": "no SmPC extract 36 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/005855",
@@ -2909,7 +2909,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006602",
@@ -2932,7 +2932,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006708",
@@ -2955,7 +2955,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006791",
@@ -2978,7 +2978,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006727",
@@ -3001,7 +3001,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006731",
@@ -3024,7 +3024,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006558",
@@ -3047,7 +3047,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006698",
@@ -3070,7 +3070,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006757",
@@ -3093,7 +3093,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006344",
@@ -3116,7 +3116,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006756",
@@ -3139,7 +3139,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006626",
@@ -3168,7 +3168,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Prevention of skeletal related events (pathological fracture, radiation to bone, spinal cord compression or surgery to bone) in adults with advanced malignancies involving bone (see section 5.1). Treatment of adults and skeletally mature adolescents with giant cell tumour of bone that is unresectable or where surgical resection is likely to result in severe morbidity.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/denosumab-ascend-epar-product-information_en.pdf",
@@ -3201,10 +3201,10 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Treatment of type 2 diabetes mellitus",
    "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 64 days after the EU authorisation"
+   "alert": "no SmPC extract 65 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006085",
@@ -3228,10 +3228,10 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Reduction of neutropoenia in adults",
    "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 64 days after the EU authorisation"
+   "alert": "no SmPC extract 65 days after the EU authorisation"
   },
   {
    "id": "EMA:EMEA/H/C/006629",
@@ -3260,7 +3260,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Hopledo is indicated for the treatment of adult patients with Parkinson’s disease and moderate to severe motor fluctuations who have not been sufficiently stabilised with oral levodopa/dopa decarboxylase (DDC) inhibitor-based treatment regimens.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/hopledo-epar-product-information_en.pdf",
@@ -3303,7 +3303,7 @@
      "note": "SmPC extract revised (retrieved 2026-10-19)"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Daybu is indicated for the treatment of neurobehavioural symptoms of Rett syndrome in adults and paediatric patients aged 5 years and older.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/daybu-epar-product-information_en.pdf",
@@ -3341,7 +3341,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Prophylaxis of influenza in adults 50 years of age and older. Aujemflu should be used in accordance with official recommendations.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/aujemflu-epar-product-information_en.pdf",
@@ -3379,7 +3379,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Colchicine AGEPHA Pharma is indicated for secondary prevention of atherothrombotic events in adult patients with coronary disease stable for at least 6 months.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/colchicine-agepha-pharma-epar-product-information_en.pdf",
@@ -3411,7 +3411,7 @@
      "note": "entered the queue"
     }
    ],
-   "lastChecked": "2026-10-23"
+   "lastChecked": "2026-10-24"
   },
   {
    "id": "EMA:EMEA/H/C/006494",
@@ -3440,7 +3440,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Etcamah in combination with a CDK4/6 inhibitor (palbociclib, ribociclib, or abemaciclib) is indicated for the treatment of adult patients with ER-positive, HER2-negative, locally advanced or metastatic breast cancer upon detection of ESR1-mutation and without disease progression during first-line endocrine therapy in combination with a CDK4/6 inhibitor (for biomarker based patient-selection, see section 4.2 and 5.1). In pre- or peri-menopausal women and in men, Etcamah plus a CDK4/6 inhibitor should be combined with a luteinizing hormone releasing hormone (LHRH) agonist or antagonist.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/etcamah-epar-product-information_en.pdf",
@@ -3478,7 +3478,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Vislyfa is indicated in adults for: • The treatment of neovascular (wet) age-related macular degeneration (AMD) • The treatment of visual impairment due to diabetic macular oedema (DME) • The treatment of proliferative diabetic retinopathy (PDR) • The treatment of visual impairment due to macular oedema secondary to retinal vein occlusion (branch RVO or central RVO) • The treatment of visual impairment due to choroidal neovascularisation (CNV)",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/vislyfa-epar-product-information_en.pdf",
@@ -3516,7 +3516,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Vijoice is indicated for the treatment of adult and paediatric patients aged 2 years and older with severe or life-threatening manifestations of PIK3CA-related overgrowth spectrum (PROS) who require systemic therapy.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/vijoice-epar-product-information_en.pdf",
@@ -3554,7 +3554,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Liraglutide STADA is indicated for the treatment of adults, adolescents and children aged 10 years and above with insufficiently controlled type 2 diabetes mellitus as an adjunct to diet and exercise • as monotherapy when metformin is considered inappropriate due to intolerance or contraindications • in addition to other medicinal products for the treatment of diabetes For study results with respect to combinations, effects on glycaemic control and cardiovascular events, and the populations studied, see sections 4.4, 4.5 and 5.1.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/liraglutide-stada-epar-product-information_en.pdf",
@@ -3592,7 +3592,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Jascayd is indicated for the treatment of adult patients with Idiopathic Pulmonary Fibrosis (IPF). Jascayd is indicated for the treatment of adult patients with Progressive Pulmonary Fibrosis (PPF).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/jascayd-epar-product-information_en.pdf",
@@ -3630,7 +3630,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Boey is indicated for the temporary improvement in the appearance of moderate to severe lines between the eyebrows seen at maximum frown (glabellar lines), when these have an important psychological impact in adult patients (see section 5.1).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/boey-epar-product-information_en.pdf",
@@ -3668,7 +3668,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Adults Ablymico is indicated as an adjunct to a reduced-calorie diet and increased physical activity for weight management in adult patients with an initial Body Mass Index (BMI) of: • ≥ 30 kg/m2 (obesity), or • ≥ 27 kg/m2 to < 30 kg/m2 (overweight) in the presence of at least one weight-related comorbidity such as dysglycaemia (prediabetes or type 2 diabetes mellitus), hypertension, dyslipidaemia or obstructive sleep apnoea. Treatment with Ablymico should be discontinued after 12 weeks on the 3.0 mg/day dose if patients have not lost at least 5 % of their initial body weight. Adolescents (≥ 12 years) Ablymico can be used as an adjunct to a healthy nutrition and increased physical activity for weight management in adolescent patients from the age of 12 years and above with: • obesity (BMI corresponding to ≥ 30 kg/m2 for adults by international cut-off points)* and • body weight above 60 kg. Treatment with Ablymico should be discontinued and re-evaluated if patients have not lost at least 4 % of their BMI or BMI z score after 12 weeks on the 3.0 mg/day or maximum tolerated dose. *IOTF BMI cut-off points for obesity by sex between 12-18 years (see table 1), in accordance with study design of the Trial 4180, see section 5.1. Table 1 IOTF BMI cut-off points for obesity by sex between 12-18 years BMI corresponding to 30 kg/m2 for adults by international cut-off Age (years) points. Males Females 12 26.02 26.67 12.5 26.43 27.24 13 26.84 27.76 BMI corresponding to 30 kg/m2 for adults by international cut-off Age (years) points. Males Females 13.5 27.25 28.20 14 27.63 28.57 14.5 27.98 28.87 15 28.30 29.11 15.5 28.60 29.29 16 28.88 29.43 16.5 29.14 29.56 17 29.41 29.69 17.5 29.70 29.84 18 30.00 30.00 Children (6 to < 12 years) Ablymico is indicated as an adjunct to healthy nutrition and increased physical activity for weight management in children from the age of 6 to < 12 years with • obesity (BMI ≥ 95th percentile)* and • body weight ≥ 45 kg Treatment with Ablymico should be discontinued and re-evaluated if patients have not lost at least 4 % of their BMI or BMI z score after 12 weeks on the 3.0 mg/day or maximum tolerated dose. *CDC BMI cut-off points for obesity (≥ 95th percentile) by sex between 6 to < 12 years (see table 2), in accordance with study design of the Trial 4392, see section 5.1. Table 2 Cut-off points for BMI (Weight in kg/Height in m2) for obesity (≥ 95th percentile) by sex for children from 6 and < 12 years of age Obesity Age (years) BMI ≥ 95th percentile Males Females 6 18.41 18.84 6.5 18.76 19.23 7 19.15 19.68 7.5 19.59 20.17 8 20.07 20.70 8.5 20.57 21.25 9 21.09 21.82 9.5 21.62 22.40 10 22.15 22.98 10.5 22.69 23.57 11 23.21 24.14 11.5 23.73 24.71",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/ablymico-epar-product-information_en.pdf",
@@ -3706,7 +3706,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Itvisma is indicated for the treatment of 5q spinal muscular atrophy (SMA) with a bi-allelic mutation in the SMN1 gene in patients 2 years of age and older.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/itvisma-epar-product-information_en.pdf",
@@ -3744,7 +3744,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Rexatilux is indicated in adults for: • The treatment of neovascular (wet) age-related macular degeneration (AMD) • The treatment of visual impairment due to diabetic macular oedema (DME) • The treatment of proliferative diabetic retinopathy (PDR) • The treatment of visual impairment due to macular oedema secondary to retinal vein occlusion (branch RVO or central RVO) • The treatment of visual impairment due to choroidal neovascularisation (CNV)",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/rexatilux-epar-product-information_en.pdf",
@@ -3782,7 +3782,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Redemplo is indicated as an adjunct to diet to reduce triglyceride levels in adult patients with familial chylomicronaemia syndrome (FCS) (see section 4.2 for patient selection criteria).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/redemplo-epar-product-information_en.pdf",
@@ -3820,7 +3820,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Palbociclib Viatris is indicated for the treatment of hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer. - in combination with an aromatase inhibitor; - in combination with fulvestrant in women who have received prior endocrine therapy (see section 5.1). In pre- or perimenopausal women, the endocrine therapy should be combined with a luteinizing hormone-releasing hormone (LHRH) agonist.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/palbociclib-viatris-epar-product-information_en.pdf",
@@ -3858,7 +3858,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Cenrifki is indicated for the treatment of adult patients with secondary progressive multiple sclerosis (SPMS) without relapses in the last 2 years (see section 5.1).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/cenrifki-epar-product-information_en.pdf",
@@ -3896,7 +3896,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "ZEPZELCA, in combination with atezolizumab, is indicated for the maintenance treatment of adult patients with extensive-stage small cell lung cancer (ES-SCLC) whose disease has not progressed after first-line induction therapy with atezolizumab, carboplatin and etoposide.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/zepzelca-epar-product-information_en.pdf",
@@ -3934,7 +3934,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "IMDYLLTRA is indicated as monotherapy for the treatment of adult patients with extensive-stage small cell lung cancer (ES-SCLC), who require systemic therapy following disease progression on or after first-line treatment with platinum-based chemotherapy.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/imdylltra-epar-product-information_en.pdf",
@@ -3972,7 +3972,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Bopediat is indicated in children from birth to less than 18 years of age for the treatment of oedema of cardiac or renal origin, oedema of hepatic origin, and hypertension in patients with chronic kidney disease.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/bopediat-epar-product-information_en.pdf",
@@ -4010,7 +4010,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "ADSTILADRIN is indicated as monotherapy for the treatment of adult patients with Bacillus Calmette-Guérin (BCG)-unresponsive non-muscle invasive bladder cancer (NMIBC) with carcinoma in situ (CIS) with or without papillary tumours.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/adstiladrin-epar-product-information_en.pdf",
@@ -4048,7 +4048,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Joenja is indicated for the treatment of activated phosphoinositide 3-kinase delta syndrome (APDS) in adults and adolescents 12 years of age and older and weighing 45 kg or more.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/joenja-epar-product-information_en.pdf",
@@ -4086,7 +4086,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-10-05"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "For the treatment of adults and children with diabetes mellitus who require insulin for the maintenance of normal glucose homeostasis. Bysumlog is also indicated for the initial stabilisation of diabetes mellitus.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/bysumlog-epar-product-information_en.pdf",
@@ -4124,7 +4124,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Teriparatide is indicated in adults. Treatment of osteoporosis in postmenopausal women and in men at increased risk of fracture (see section 5.1). In postmenopausal women, a significant reduction in the incidence of vertebral and non- vertebral fractures but not hip fractures has been demonstrated. Treatment of osteoporosis associated with sustained systemic glucocorticoid therapy in women and men at increased risk for fracture (see section 5.1).",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/zandoriah-epar-product-information_en.pdf",
@@ -4162,7 +4162,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Xolremdi is indicated in patients 12 years of age and older for the treatment of WHIM syndrome (warts, hypogammaglobulinemia, infections and myelokathexis) to increase the number of circulating mature neutrophils and lymphocytes.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/xolremdi-epar-product-information_en.pdf",
@@ -4200,7 +4200,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "▸ Tuyory 20 mg/mL concentrate for solution for infusion. Rheumatoid arthritis (RA) Tuyory, in combination with methotrexate (MTX), is indicated for: • the treatment of severe, active and progressive RA in adults not previously treated with MTX. • the treatment of moderate to severe active RA in adult patients who have either responded inadequately to, or who were intolerant to, previous therapy with one or more disease- modifying anti-rheumatic drugs (DMARDs) or tumour necrosis factor (TNF) antagonists. In these patients, Tuyory can be given as monotherapy in case of intolerance to MTX or where continued treatment with MTX is inappropriate. Tocilizumab has been shown to reduce the rate of progression of joint damage as measured by X-ray and to improve physical function when given in combination with MTX. Coronavirus disease 2019 (COVID-19) Tuyory is indicated for the treatment of COVID-19 in adults who are receiving systemic corticosteroids and require supplemental oxygen or mechanical ventilation. Systemic juvenile idiopathic arthritis (sJIA) Tuyory is indicated for the treatment of active sJIA in patients 2 years of age and older, who have responded inadequately to previous therapy with non-steroidal anti-inflammatory drugs (NSAIDs) and systemic corticosteroids. Tuyory can be given as monotherapy (in case of intolerance to MTX or where treatment with MTX is inappropriate) or in combination with MTX. Polyarticular juvenile idiopathic arthritis (pJIA) Tuyory in combination with MTX is indicated for the treatment of pJIA (rheumatoid factor positive or negative and extended oligoarthritis) in patients 2 years of age and older, who have responded inadequately to previous therapy with MTX. Tuyory can be given as monotherapy in case of intolerance to MTX or where continued treatment with MTX is inappropriate. Cytokine release syndrome (CRS) Tuyory is indicated for the treatment of chimeric antigen receptor (CAR) T cell-induced severe or life- threatening CRS in adults and paediatric patients 2 years of age and older. ▸ Tuyory 162 mg solution for injection in pre-filled syringe. Rheumatoid arthritis (RA) Tuyory, in combination with methotrexate (MTX), is indicated for: • the treatment of severe, active and progressive RA in adults not previously treated with MTX. • the treatment of moderate to severe active RA in adult patients who have either responded inadequately to, or who were intolerant to, previous therapy with one or more disease- modifying anti-rheumatic drugs (DMARDs) or tumour necrosis factor (TNF) antagonists. In these patients, Tuyory can be given as monotherapy in case of intolerance to MTX or where continued treatment with MTX is inappropriate. Tocilizumab has been shown to reduce the rate of progression of joint damage as measured by X-ray and to improve physical function when given in combination with methotrexate. Systemic juvenile idiopathic arthritis (sJIA) Tuyory is indicated for the treatment of active sJIA in patients 1 year of age and older, who have responded inadequately to previous therapy with non-steroidal anti-inflammatory drugs (NSAIDs) and systemic corticosteroids. Tuyory can be given as monotherapy (in case of intolerance to MTX or where treatment with MTX is inappropriate) or in combination with MTX. Polyarticular juvenile idiopathic arthritis (pJIA) Tuyory in combination with MTX is indicated for the treatment of pJIA (rheumatoid factor positive or negative and extended oligoarthritis) in patients 2 years of age and older, who have responded inadequately to previous therapy with MTX. Tuyory can be given as monotherapy in case of intolerance to MTX or where continued treatment with MTX is inappropriate. Giant cell arteritis (GCA) Tuyory is indicated for the treatment of GCA in adult patients. ▸ Tuyory 162 mg solution for injection in pre-filled pen. Rheumatoid arthritis (RA) Tuyory, in combination with methotrexate (MTX), is indicated for • the treatment of severe, active and progressive RA in adults not previously treated with MTX. • the treatment of moderate to severe active RA in adult patients who have either responded inadequately to, or who were intolerant to, previous therapy with one or more disease- modifying anti-rheumatic drugs (DMARDs) or tumour necrosis factor (TNF) antagonists. In these patients, Tuyory can be given as monotherapy in case of intolerance to MTX or where continued treatment with MTX is inappropriate. Tocilizumab has been shown to reduce the rate of progression of joint damage as measured by X-ray and to improve physical function when given in combination with methotrexate. Systemic juvenile idiopathic arthritis (sJIA) Tuyory is indicated for the treatment of active sJIA in patients 12 years of age and older, who have responded inadequately to previous therapy with non-steroidal anti-inflammatory drugs (NSAIDs) and systemic corticosteroids (see section 4.2). Tuyory can be given as monotherapy (in case of intolerance to MTX or where treatment with MTX is inappropriate) or in combination with MTX. Polyarticular juvenile idiopathic arthritis (pJIA) Tuyory in combination with methotrexate (MTX) is indicated for the treatment of pJIA (rheumatoid factor positive or negative and extended oligoarthritis) in patients 12 years of age and older, who have responded inadequately to previous therapy with MTX . Tuyory can be given as monotherapy in case of intolerance to MTX or where continued treatment with MTX is inappropriate. Giant cell arteritis (GCA) Tuyory is indicated for the treatment of GCA in adult patients.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/tuyory-epar-product-information_en.pdf",
@@ -4238,7 +4238,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Onerji is indicated for the treatment of motor fluctuations in patients with advanced Parkinson's disease which are not sufficiently controlled by oral anti-Parkinson medicinal products.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/onerji-epar-product-information_en.pdf",
@@ -4276,7 +4276,7 @@
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
     }
    ],
-   "lastChecked": "2026-10-23",
+   "lastChecked": "2026-10-24",
    "summary": "Dazparda is indicated for treatment of diabetes mellitus in adults, adolescents and children aged 1 year and above.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/dazparda-epar-product-information_en.pdf",
