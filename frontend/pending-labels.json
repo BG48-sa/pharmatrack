@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-24",
- "checkedAt": "2026-10-24T10:55:49Z",
+ "checkedAt": "2026-10-24T14:49:21Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,18 +11,33 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 117,
-  "unresolved": 55,
+  "total": 116,
+  "unresolved": 54,
   "byStatus": {
-   "AWAITING_USPI": 30,
+   "AWAITING_USPI": 28,
    "AWAITING_EC_DECISION": 18,
    "AWAITING_SMPC": 6,
-   "LABEL_AVAILABLE": 1,
+   "LABEL_AVAILABLE": 2,
    "LABEL_VERIFIED": 62
   },
-  "alerts": 19,
-  "transitions": [],
-  "closed": []
+  "alerts": 18,
+  "transitions": [
+   {
+    "id": "FDA:bixlenvo sunlenca starter pack copackaged",
+    "drug": "Bixlenvo Sunlenca Starter Pack (copackaged)",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_AVAILABLE",
+    "note": "label record found at openFDA but failed validation: applicationMatch"
+   }
+  ],
+  "closed": [
+   {
+    "id": "FDA:hovilpr",
+    "drug": "Hovilpr",
+    "status": "AWAITING_USPI",
+    "why": "merged into FDA:hovilpri: same medicine as Hovilpri (INN + approval date) — brand misspelt at Drugs@FDA"
+   }
+  ]
  },
  "alerts": [
   {
@@ -31,13 +46,6 @@
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
    "message": "no US prescribing information at openFDA 51 days after approval"
-  },
-  {
-   "id": "FDA:bixlenvo sunlenca starter pack copackaged",
-   "drug": "Bixlenvo Sunlenca Starter Pack (copackaged)",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 58 days after approval"
   },
   {
    "id": "FDA:genglycos",
@@ -286,45 +294,27 @@
    "jurisdiction": "FDA",
    "drug": "Hovilpri",
    "inn": "pritelivir",
-   "applicationNumber": null,
+   "applicationNumber": "NDA221154",
    "approvalDate": "2026-10-09",
    "sources": [
+    "drugsfda",
     "novel"
    ],
    "summary": "To treat adults with weakened immune systems who have mucocutaneous lesions caused by herpes simplex virus infection and have not responded to other therapies",
-   "sponsor": null,
+   "sponsor": "Aicuris Anti-infective Cures Ag",
    "status": "AWAITING_USPI",
-   "firstSeen": "2026-10-21",
+   "firstSeen": "2026-10-18",
    "statusSince": "2026-10-21",
    "history": [
     {
      "date": "2026-10-21",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
-    }
-   ],
-   "lastChecked": "2026-10-24"
-  },
-  {
-   "id": "FDA:hovilpr",
-   "jurisdiction": "FDA",
-   "drug": "Hovilpr",
-   "inn": "pritelivir",
-   "applicationNumber": "NDA221154",
-   "approvalDate": "2026-10-09",
-   "sources": [
-    "drugsfda"
-   ],
-   "summary": null,
-   "sponsor": "Aicuris Anti-infective Cures Ag",
-   "status": "AWAITING_USPI",
-   "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
-   "history": [
+    },
     {
-     "date": "2026-10-18",
+     "date": "2026-10-24",
      "status": "AWAITING_USPI",
-     "note": "entered the queue"
+     "note": "merged FDA:hovilpr into FDA:hovilpri: same medicine as Hovilpri (INN + approval date) — brand misspelt at Drugs@FDA"
     }
    ],
    "lastChecked": "2026-10-24"
@@ -773,18 +763,36 @@
    ],
    "summary": null,
    "sponsor": "Gilead Sciences Inc",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-24",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-24",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch"
     }
    ],
    "lastChecked": "2026-10-24",
-   "alert": "no US prescribing information at openFDA 58 days after approval"
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "072a3c7e-33fb-4a87-ba21-3d8dad3f5c48",
+    "effective": "2026-08-27",
+    "version": "1",
+    "detected": "2026-10-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=072a3c7e-33fb-4a87-ba21-3d8dad3f5c48"
+   }
   },
   {
    "id": "FDA:bixlenvo",
@@ -2509,7 +2517,7 @@
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/cavoley-epar-product-information_en.pdf",
     "detected": "2026-10-21",
-    "lastModified": "Wed, 21 Oct 2026 06:58:32 GMT",
+    "emaUpdated": "2026-10-21",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006937"
    }
