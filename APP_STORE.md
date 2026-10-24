@@ -648,3 +648,7 @@ Everything below was already live in DrugRadar Web.
 ```
 Version and build (MARKETING_VERSION 2.0.6 / CURRENT_PROJECT_VERSION 36) were set in
 Xcode on the Mac and recorded in `App.xcodeproj` on main afterwards.
+
+**Before the next build on the Mac:** `git pull` first. If it refuses because of local
+changes to `project.pbxproj`, run `git checkout -- frontend/ios/App/App.xcodeproj/project.pbxproj`
+and pull again. If the pull works, ignore this. Unrelated to Apple's review.

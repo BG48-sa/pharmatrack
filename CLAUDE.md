@@ -17,6 +17,16 @@ iOS wrapper, Python/Node data scripts run by GitHub Actions. Data from openFDA /
   22.10.2026 — it had not run since the repo moved folders in June 2026; its local
   files are archived outside the repo in `~/Downloads/Wissenschaft & KI/pharmatrack-alerts-archive-2026-10-22/`.
 
+## Building a release on the Mac — remember this
+- Before any build, `git pull` in the project folder. If it refuses with "Your local
+  changes would be overwritten … project.pbxproj", Xcode has edited the project file
+  locally (version/build set in its UI, or housekeeping). Run
+  `git checkout -- frontend/ios/App/App.xcodeproj/project.pbxproj`, then pull again.
+  If the pull works, nothing to do. This has NOTHING to do with Apple's review.
+- After a Mac build, record the version/build in `App.xcodeproj` on main (done for
+  2.0.5/35 and 2.0.6/36), otherwise the next build reuses a number Apple rejects.
+- Tell Bernd plainly, step by step; he follows from the iPhone or Mac screenshots.
+
 ## Running
 From repo root: `npm run dev` (frontend dev server), `npm run build`, `npm run ios`.
 
