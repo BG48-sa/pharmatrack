@@ -234,7 +234,11 @@ jobs:
           git config user.email "$BOT_EMAIL"
           git add frontend/ema-medicines.json frontend/cgt-products.json frontend/announcements.json frontend/us-recent.json frontend/freshness.json frontend/pending-labels.json frontend/eu-register-decisions.json
           git commit -m "Refresh bundled data $(date -u +%F) [skip ci]"
-          git push
+          # main can move between checkout and here (a release archive from a run
+          # that overlapped — 24.10.2026: two push-triggered runs 30 s apart, the
+          # second's plain push was rejected as non-fast-forward and its data
+          # commit lost). Those commits never touch the data files: rebase, retry.
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && break; echo "push attempt $i failed — retrying"; sleep 10; done
 
       # --- Build + publish to GitHub Pages so the installed app pulls it -------
       - uses: actions/setup-node@v7
