@@ -584,6 +584,17 @@ const recentFromSnapshot = async (): Promise<{ drugs: Drug[]; usedCber: boolean;
   const have = new Set(rows.map((x) => norm(x.drug.brandName)));
   for (const n of allNovelApprovals()) {
     if (n.approvalDate < oldest || have.has(norm(n.brandName))) continue;
+    // Same approval under another spelling? Drugs@FDA listed pritelivir as
+    // "HOVILPR" (roster: Hovilpri, 2026-10-09) — one medicine, two cards. A
+    // Drugs@FDA row with the same active ingredient and the same approval date
+    // (±1 day) is that medicine: take the roster's spelling, keep the row.
+    const twin = rows.find((x) => !x.novel && !x.cber && sameApproval(x.drug, n.genericName, n.approvalDate));
+    if (twin) {
+      twin.drug.brandName = n.brandName;
+      if (!twin.drug.indication) { twin.drug.indication = n.indication; twin.drug.indicationSource = 'summary'; }
+      have.add(norm(n.brandName));
+      continue;
+    }
     const ema = lookupEma([n.genericName], [n.brandName], [n.genericName]);
     rows.push({
       novel: true,
@@ -640,6 +651,23 @@ export const fetchRecentDrugApprovals = async (): Promise<DrugDataResponse> => {
 // a record for it. Matches brand, generic, manufacturer, class and indication.
 const norm = (t: string): string =>
   t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+// Active-ingredient key for matching one approval across sources: lower-case,
+// salt/ester words and "and" dropped (mirrors inn_key() in
+// scripts/label-reconciliation.py). A misspelt ingredient stays different.
+const innKey = (t?: string): string =>
+  norm(t || '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\b(and|hydrochloride|hcl|sodium|potassium|calcium|acetate|sulfate|sulphate|mesylate|maleate|tartrate|citrate|phosphate|succinate|fumarate|besylate|tosylate|bromide|chloride|dihydrate|monohydrate|anhydrous)\b/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+
+const sameApproval = (d: Drug, inn: string, date: string): boolean => {
+  const a = innKey(d.genericName), b = innKey(inn);
+  if (!a || a !== b || !/^\d{4}-\d{2}-\d{2}$/.test(d.fdaApprovalDate)) return false;
+  const diff = Math.abs(Date.parse(d.fdaApprovalDate) - Date.parse(date));
+  return diff <= 864e5;
+};
 
 const cgtToDrug = (bla: string, r: CgtRec, id: number): Drug => {
   const ema = lookupEma([r.g], [r.n]);

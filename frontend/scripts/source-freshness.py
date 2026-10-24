@@ -70,6 +70,9 @@ SOURCES (what we read, where the watermark comes from, expected cadence)
   pdufa_watchlist        Curated PDUFA target dates (pdufa.json, unofficial).
                          STALE when no entry lies in the future — the app's
                          "Coming Up" list would be empty.
+  eu_critical_medicines  Union list of critical medicines (critical-medicines.json,
+                         curated, about yearly) — age of our copy only.
+  biomarkers_table       Biomarker table (biomarkers.json, curated) — age only.
 
   With --probe the script also asks the live sources for their CURRENT
   watermark (openFDA meta.last_updated with limit=1; HTTP Last-Modified of
@@ -138,6 +141,9 @@ LIMITS = {
     'fda_cdx_list': {'upstream_stale': 180, 'collapse': 0.95, 'missing_grace': 30},
     # horizon: warn when the last future target date is closer than this.
     'pdufa_watchlist': {'horizon': 30},
+    # Curated snapshots with no live feed: age of our copy only (reminders).
+    'eu_critical_medicines': {'upstream_stale': 400, 'collapse': 0.9},
+    'biomarkers_table': {'upstream_stale': 180, 'collapse': 0.9},
 }
 
 
@@ -269,6 +275,29 @@ class Source:
 
 
 # ---------------------------------------------------------------- checks ----
+SAMPLE_FAIL_SHARE = 0.5     # drift-report.mjs: EMA refusing > 50 % of the cross-check sample is a gap
+
+
+def incomplete_gap(inc):
+    """Reasons an incomplete EU label refresh counts as a real gap (list; empty =
+    no gap). Mirrors the `incompleteWhy` rule in smpc/drift-report.mjs."""
+    if not isinstance(inc, dict):
+        return []
+    why = []
+    if inc.get('changed') is None:
+        why.append('no breakdown recorded (older extractor)')
+    if re.search(r'blocking|budget|limit', str(inc.get('reason') or '')):
+        why.append(f'run cut short ({inc.get("reason")})')
+    if (inc.get('changed') or 0) > 0:
+        why.append(f'{inc["changed"]} label(s) EMA marked as changed not fetched')
+    if (inc.get('repeat') or 0) > 0:
+        why.append(f'{inc["repeat"]} label(s) unchecked two runs in a row')
+    size = inc.get('sampleSize') or 0
+    if size and (inc.get('sample') or 0) / size > SAMPLE_FAIL_SHARE:
+        why.append(f'EMA refused {inc.get("sample")} of {size} cross-check HEADs')
+    return why
+
+
 def check_against_previous(src, prev, count_key='count', watermark_key='sourceUpdatedAt'):
     """Watermark must never move backwards, counts must never collapse."""
     if not prev:
@@ -480,6 +509,8 @@ def main():
     cdx = read_json(os.path.join(fe, 'fda-cdx.json')) or {}
 
     pdufa = read_json(os.path.join(fe, 'pdufa.json')) or {}
+    critical = read_json(os.path.join(fe, 'critical-medicines.json')) or {}
+    biomarkers = read_json(os.path.join(fe, 'biomarkers.json')) or {}
 
     probes = {}
     if a.probe:
@@ -546,9 +577,20 @@ def main():
         s.mark(FAILED, f'EU label corpus is {fmt_age(age)} behind EMA\'s list (limit {lim["ours_fail"]} d) — two weekly runs missed')
     elif age is not None and age > lim['ours_stale']:
         s.mark(STALE, f'EU label corpus is {fmt_age(age)} old (weekly job expected within {lim["ours_stale"]} d)')
-    if smpc_idx.get('incomplete'):
-        inc = smpc_idx['incomplete']
-        s.mark(STALE, f'last label run incomplete: {inc.get("reason", "?")}, {inc.get("unchecked", "?")} unchecked')
+    inc = smpc_idx.get('incomplete')
+    if inc:
+        # Same rule as smpc/drift-report.mjs: an incomplete run is STALE only
+        # when it left a REAL gap. Refused rotating-sample HEAD checks alone
+        # (EMA's list says those labels are unchanged) are a note, not a
+        # warning — otherwise one refused HEAD of 100 kept the whole release
+        # "STALE" for a week (October 2026). An index written by the old
+        # extractor (no breakdown) cannot be told apart from a gap: STALE.
+        why = incomplete_gap(inc)
+        tag = f'last label run incomplete: {inc.get("reason", "?")}, {inc.get("unchecked", "?")} unchecked'
+        if why:
+            s.mark(STALE, f'{tag} — {"; ".join(why)}')
+        else:
+            s.notes.append(f'{tag} — all from the rotating cross-check sample; EMA\'s list says those labels are unchanged (no gap, checked first next run)')
     s.set(fetchedAt=smpc_idx.get('generated'))
     check_probe(s, probes.get('ema_docs'), now, stale_hours=lim['upstream_stale_h'])
     check_against_previous(s, prev_src.get(s.key))
@@ -652,6 +694,33 @@ def main():
     else:
         s.mark(STALE, 'fda-cdx.json carries no list date')
     check_cdx_probe(s, probes.get('pma_cdx'), cdx, now)
+    check_against_previous(s, prev_src.get(s.key))
+    sources.append(s)
+
+    # --- Curated snapshots without a live feed: EU critical-medicines list, biomarkers
+    # The Union list of critical medicines is revised about once a year (v1 Dec 2023,
+    # v2 Dec 2024, v2.1 2025); the biomarker table is maintained by hand. Neither
+    # has a watermark to probe — the age of our copy is the only measure, and a
+    # copy older than its cadence is a reminder to look, not a reason to stop.
+    s = Source('eu_critical_medicines', 'EU Union list of critical medicines (curated snapshot)', 'EMA/EC: about yearly (December)')
+    s.set(count=critical.get('count') or len(critical.get('medicines') or []), version=critical.get('version'), url=critical.get('ref'))
+    if critical.get('generated'):
+        check_upstream(s, critical.get('generated'), now)
+    else:
+        s.mark(STALE, 'critical-medicines.json carries no date')
+    if s.status == STALE:
+        s.notes.append('check ema.europa.eu for a newer Union list version and rebuild frontend/critical-medicines.json')
+    check_against_previous(s, prev_src.get(s.key))
+    sources.append(s)
+
+    s = Source('biomarkers_table', 'Biomarker / companion-test table (curated snapshot)', 'manual; review quarterly')
+    s.set(count=len(biomarkers.get('biomarkers') or []))
+    if biomarkers.get('generated'):
+        check_upstream(s, biomarkers.get('generated'), now)
+    else:
+        s.mark(STALE, 'biomarkers.json carries no date')
+    if s.status == STALE:
+        s.notes.append('review frontend/biomarkers.json against the CDx list and recent approvals')
     check_against_previous(s, prev_src.get(s.key))
     sources.append(s)
 

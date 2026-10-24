@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # Refresh DrugRadar's bundled snapshot data, then redeploy if anything changed.
 #
+# NOTE: the GitHub Action .github/workflows/refresh-data.yml is the production
+# pipeline (four slots a day, validation gates, freshness watchdog, release
+# archive). This script is the laptop fallback for an offline/manual refresh
+# and rebuilds the same daily snapshots, minus the Union Register fallback file
+# and the published freshness report. Prefer the Action; run this to recover
+# when GitHub Actions is down.
+#
 # What auto-updates from the internet:
 #   • EMA medicines  — the official "Download medicine data" xlsx is fetched and
 #                      rebuilt every run. This is the main reason to schedule it.
@@ -10,7 +17,9 @@
 #                       them by hand into frontend/scripts/data/novel-<year>.xlsx.
 #   • Cell/gene Tx    — CBER has no API; products are hardcoded in build-cgt-data.py.
 #   • Critical meds   — one-off snapshot, no generator script. Not touched here.
-# FDA approvals and clinical trials are queried LIVE by the app — nothing to do.
+#   • US recent approvals, the approval → label queue and the freshness report
+#     are rebuilt from openFDA / EMA (steps 3c–3e). Clinical trials are queried
+#     LIVE by the app — nothing to do.
 #
 # Usage:
 #   ./refresh-data.sh            # refresh, and deploy + commit if data changed
@@ -68,12 +77,31 @@ log "Rebuilding announcements.json"
 "$PY" "$SCRIPTS/build-announcements.py" "$FE/announcements.json" \
   || log "WARN: announcements rebuild failed — keeping the existing file"
 
+# --- 3c. US "Recent Approvals" (Drugs@FDA original NDA/BLA approvals, last year)
+log "Rebuilding us-recent.json"
+"$PY" "$SCRIPTS/build-us-recent.py" "$FE/us-recent.json" \
+  || log "WARN: US recent-approvals rebuild failed — keeping the existing file"
+
+# --- 3d. Approval → label reconciliation queue (asks openFDA / EMA) ---------
+log "Updating pending-labels.json"
+"$PY" "$SCRIPTS/label-reconciliation.py" --probe --json "$FE/pending-labels.json" \
+  || log "WARN: label reconciliation failed — keeping the existing queue"
+
+# --- 3e. Source-freshness report (what the app shows as "data through …") ---
+log "Updating freshness.json"
+"$PY" "$SCRIPTS/source-freshness.py" --probe --json "$FE/freshness.json" >/dev/null \
+  || log "WARN: freshness watchdog failed — keeping the existing report"
+
 # --- 4. Deploy only if a data file actually changed --------------------------
 DATA_FILES=(
   "$FE/ema-medicines.json"
   "$FE/novel-approvals.json"
   "$FE/cgt-products.json"
   "$FE/announcements.json"
+  "$FE/us-recent.json"
+  "$FE/pending-labels.json"
+  "$FE/freshness.json"
+  "$FE/eu-register-decisions.json"
 )
 
 # The builders pretty-print, but some committed files are hand-compacted. Revert
@@ -84,9 +112,26 @@ for f in "${DATA_FILES[@]}"; do
   if "$PY" - "$f" <<'PYEOF'
 import json, subprocess, sys
 f = sys.argv[1]
+def norm(d):
+    # Same rule as the Action's "Drop pure-reformatting changes": restamped
+    # check times / ledgers are not a change, only the data itself is.
+    if not isinstance(d, dict):
+        return d
+    if f.endswith("announcements.json"):
+        return {k: v for k, v in d.items() if k != "generated"}
+    if f.endswith("us-recent.json"):
+        return d.get("items")
+    if f.endswith("freshness.json"):
+        return {"status": d.get("status"),
+                "currentThrough": {k: v for k, v in (d.get("currentThrough") or {}).items() if k != "pipelineRun"},
+                "sources": {k: (s.get("status"), s.get("sourceUpdatedAt"), s.get("count")) for k, s in (d.get("sources") or {}).items()}}
+    if f.endswith("pending-labels.json"):
+        return {"entries": [{k: v for k, v in e.items() if k != "lastChecked"} for e in d.get("entries") or []],
+                "alerts": d.get("alerts")}
+    return d
 try:
     head = subprocess.run(["git", "show", "HEAD:" + f], capture_output=True, text=True, check=True).stdout
-    sys.exit(0 if json.loads(head) == json.load(open(f)) else 1)
+    sys.exit(0 if norm(json.loads(head)) == norm(json.load(open(f))) else 1)
 except Exception:
     sys.exit(1)  # can't compare -> treat as changed, let git diff decide
 PYEOF

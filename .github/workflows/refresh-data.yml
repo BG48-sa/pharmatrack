@@ -8,14 +8,22 @@ name: Refresh EMA data & deploy
 
 on:
   schedule:
-    - cron: '17 6 * * *'      # 06:17 UTC — after EMA's overnight report / the
-                              # 06:00 Amsterdam document-list refresh
-    - cron: '17 18 * * *'     # 18:17 UTC — second daily slot: same-day FDA
-                              # approvals and press releases (US morning), the
-                              # EMA 18:00 Amsterdam refresh, Union Register
-                              # decisions published during the day. Unchanged
-                              # snapshots publish nothing (see Detect change),
-                              # so a quiet slot costs one validation run.
+    # GitHub starts `schedule` runs late under load — in October 2026 the
+    # 06:17 UTC slot actually began 11:30–13:00 UTC (a regulator opening the app
+    # at 09:00 CEST saw yesterday's snapshot until the afternoon) and the 18:17
+    # slot ~21:30 UTC. The slots below are placed EARLIER than the data they
+    # wait for, so that the delayed start lands in the intended window, and
+    # there are more of them: unchanged snapshots publish nothing (see Detect
+    # change), so a quiet slot costs one validation run. Off-the-hour minutes
+    # avoid the busiest queue times.
+    - cron: '41 3 * * *'      # 03:41 UTC → expected start ~06–09 UTC: EMA's
+                              # overnight report / 06:00 Amsterdam list refresh
+    - cron: '41 8 * * *'      # 08:41 UTC → ~11–14 UTC: catch-up before the
+                              # European afternoon; Union Register decisions
+    - cron: '41 13 * * *'     # 13:41 UTC → ~16–19 UTC: same-day FDA approvals
+                              # and press releases (US morning)
+    - cron: '41 18 * * *'     # 18:41 UTC → ~21–24 UTC: the EMA 18:00 Amsterdam
+                              # refresh, late US-day approvals
   workflow_dispatch:          # allow manual runs
     inputs:
       force_deploy:           # set by refresh-labels.yml: its bot push cannot trigger this
@@ -104,7 +112,15 @@ jobs:
         id: labels
         run: |
           set -euo pipefail
-          python frontend/scripts/label-reconciliation.py --probe --json frontend/pending-labels.json --md /tmp/labels.md
+          # EMA's EPAR document list names the published product-information
+          # PDFs (real URL + EMA's own date) — one ~28 MB download instead of a
+          # HEAD request per EU medicine against EMA's rate-limited PDF server.
+          # Optional: without it the script falls back to the HEAD probes.
+          curl -fsSL -A "Mozilla/5.0" --max-time 300 --retry 2 -o /tmp/epar-documents.json \
+            "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json" \
+            || { echo "WARN: EMA EPAR document list unavailable — HEAD probes instead"; rm -f /tmp/epar-documents.json; }
+          feed=""; [ -f /tmp/epar-documents.json ] && feed="--ema-feed /tmp/epar-documents.json"
+          python frontend/scripts/label-reconciliation.py --probe --json frontend/pending-labels.json --md /tmp/labels.md $feed
           cat /tmp/labels.md >> "$GITHUB_STEP_SUMMARY"
       - name: Warn when a label hand-over stays open
         if: steps.labels.outputs.alerts != '' && steps.labels.outputs.alerts != '0'

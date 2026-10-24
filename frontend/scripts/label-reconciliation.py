@@ -169,8 +169,34 @@ def http(url, method='GET', tries=3, timeout=60):
 
 
 def slug_of(url):
+    """EPAR slug of an EMA medicine URL. Renamed products carry a "-previously-<old
+    name>" tail (spikevax-previously-covid-19-vaccine-moderna) that the PDF name and
+    the smpc-data file name do not — the whole tail goes, as in extract-all.mjs."""
     s = (url or '').split('/EPAR/')
-    return (s[1].strip() if len(s) > 1 else '').replace('-previously-', '').lower()
+    return re.sub(r'-previously-.*$', '', (s[1].strip() if len(s) > 1 else '')).lower()
+
+
+def inn_key(inn):
+    """Comparable active-ingredient key: lower-case, salt/ester words and 'and'
+    dropped ('PRITELIVIR' == 'pritelivir', 'ibuprofen and famotidine' ==
+    'ibuprofen, famotidine'). A misspelt ingredient ('sodium ctirate') stays
+    different — FDA typos are not guessed."""
+    s = norm(inn)
+    if not s:
+        return ''
+    s = re.sub(r'\b(and|hydrochloride|hcl|sodium|potassium|calcium|acetate|sulfate|sulphate|mesylate|maleate|tartrate|citrate|'
+               r'phosphate|succinate|fumarate|besylate|tosylate|bromide|chloride|dihydrate|monohydrate|anhydrous)\b', ' ', s)
+    return ' '.join(s.split())
+
+
+def same_approval(a, b):
+    """Same original approval: identical active ingredient and approval dates at
+    most one day apart (Drugs@FDA and the CDER roster can disagree by a day)."""
+    ka, kb = inn_key(a.get('inn')), inn_key(b.get('inn'))
+    if not ka or ka != kb:
+        return False
+    d = days_between(a.get('approvalDate') or '', b.get('approvalDate') or '')
+    return d is not None and abs(d) <= 1
 
 
 # --------------------------------------------------------------------------- queue model
@@ -223,10 +249,33 @@ class Queue:
         if e:
             self.closed.append((id_, e.get('drug'), e.get('status'), why))
 
+    def rename(self, old_id, new_id, note):
+        """Two entries turned out to be one medicine: keep the further-advanced
+        state under new_id, record the merge in its history, drop the other."""
+        old, new = self.by_id.get(old_id), self.by_id.get(new_id)
+        if old is None:
+            return
+        if new is None or STATUSES.index(old.get('status', STATUSES[0])) > STATUSES.index(new.get('status', STATUSES[0])):
+            keep, other = old, new
+        else:
+            keep, other = new, old
+        keep['id'] = new_id
+        if other:
+            for k, v in other.items():
+                if k not in keep or keep[k] in (None, '', []):
+                    keep[k] = v
+            keep['firstSeen'] = min(keep.get('firstSeen') or self.today, other.get('firstSeen') or self.today)
+        keep.setdefault('history', []).append({'date': self.today, 'status': keep['status'], 'note': f'merged {old_id} into {new_id}: {note}'})
+        keep['history'] = keep['history'][-HISTORY_CAP:]
+        self.by_id.pop(old_id, None)
+        self.by_id[new_id] = keep
+        self.closed.append((old_id, old.get('drug'), old.get('status'), f'merged into {new_id}: {note}'))
+
 
 # --------------------------------------------------------------------------- US side
 def us_candidates(fe, today, window):
-    """{norm brand: candidate} from Drugs@FDA recent list, CDER novel roster, CBER list."""
+    """({norm brand: candidate}, {merged Drugs@FDA key: roster key}) from the Drugs@FDA
+    recent list, CDER's novel roster and the CBER list."""
     since = (dt.date.fromisoformat(today) - dt.timedelta(days=window)).isoformat()
     cands = {}
     us_recent = read_json(os.path.join(fe, 'us-recent.json'), {}) or {}
@@ -244,12 +293,23 @@ def us_candidates(fe, today, window):
         c['sources'].append('drugsfda')
         c['sponsor'] = title(it.get('sponsor_name'))
     novel = read_json(os.path.join(fe, 'novel-approvals.json'), {}) or {}
+    merged = {}                                                # Drugs@FDA key -> roster key (brand misspelt at FDA)
     for rows in novel.values():
         for n in rows or []:
             d = iso(n.get('approvalDate'))
             if not d or d < since or not n.get('brandName'):
                 continue
-            c = cands.setdefault(norm(n['brandName']), {'drug': n['brandName'], 'inn': n.get('genericName'), 'approvalDate': d, 'sources': []})
+            key = norm(n['brandName'])
+            if key not in cands:
+                # Same approval under another spelling? Drugs@FDA carried pritelivir
+                # as "HOVILPR" (roster: Hovilpri, 2026-10-09): one medicine, two
+                # cards and two queue entries until matched on INN + approval date.
+                probe = {'inn': n.get('genericName'), 'approvalDate': d}
+                twin = next((k for k, v in cands.items() if 'drugsfda' in v['sources'] and k not in merged and same_approval(v, probe)), None)
+                if twin:
+                    cands[key] = cands.pop(twin)
+                    merged[twin] = key
+            c = cands.setdefault(key, {'drug': n['brandName'], 'inn': n.get('genericName'), 'approvalDate': d, 'sources': []})
             c['drug'] = n['brandName']                         # the roster spells the brand properly
             c['inn'] = c.get('inn') or n.get('genericName')
             c['summary'] = n.get('indication')
@@ -263,7 +323,7 @@ def us_candidates(fe, today, window):
         c['applicationNumber'] = c.get('applicationNumber') or (bla if bla.startswith(('BLA', 'NDA')) else None)
         c['summary'] = c.get('summary') or r.get('i')
         c['sources'].append('cber')
-    return cands
+    return cands, merged
 
 
 def validate_us_label(rec, app, brand, inn):
@@ -299,6 +359,19 @@ def brand_query_term(brand):
     return ' '.join(words[:3])
 
 
+def brand_query_terms(brand):
+    """Search terms to try in turn: the three-word term, then the first word alone.
+    A co-packaged product ("Bixlenvo Sunlenca Starter Pack") shares the label of
+    its lead component, which openFDA files under that brand only ("BIXLENVO");
+    the three-word term never finds it."""
+    first = brand_query_term(brand)
+    words = first.split()
+    terms = [first]
+    if len(words) > 1 and len(words[0]) > 3:
+        terms.append(words[0])
+    return [t for t in terms if t]
+
+
 def openfda_lookup_apps(apps):
     """One query for up to APP_BATCH application numbers -> {app: [records]}."""
     clause = ' '.join(f'"{a}"' for a in apps)
@@ -317,21 +390,107 @@ def openfda_lookup_brand(brand):
     """Tier 2: harmonised label of that brand under another application number
     (a new formulation sharing the brand's label); tier 3: a label openFDA has
     not harmonised yet (no `openfda` block) — searched in the SPL product data."""
-    term = brand_query_term(brand)
-    if not term:
-        return []
-    for field in ('openfda.brand_name', 'spl_product_data_elements'):
-        q = urllib.parse.urlencode({'search': f'{field}:"{term}"', 'limit': '10'})
-        status, _, body = http(f'{LABEL_API}?{q}')
-        recs = json.loads(body).get('results') or [] if status == 200 and body else []
-        if recs:
-            return recs
-        time.sleep(0.3)
+    for term in brand_query_terms(brand):
+        for field in ('openfda.brand_name', 'spl_product_data_elements'):
+            q = urllib.parse.urlencode({'search': f'{field}:"{term}"', 'limit': '10'})
+            status, _, body = http(f'{LABEL_API}?{q}')
+            recs = json.loads(body).get('results') or [] if status == 200 and body else []
+            if recs:
+                return recs
+            time.sleep(0.3)
     return []
 
 
+# --------------------------------------------------------------------------- DailyMed (tier 4)
+# openFDA's label endpoint lags DailyMed by days to months for a new product
+# (Ennumo, Immgolis, Cypsedo … waited 50–170 days in 2026 while their labels
+# were on DailyMed all along). DailyMed's own REST API lists SPLs by name and
+# serves the SPL XML; the Indications and Usage section (LOINC 34067-9) is
+# read from it and validated like an openFDA record. The record is marked
+# harmonised=False / source=DailyMed so the origin stays visible.
+DAILYMED_API = 'https://dailymed.nlm.nih.gov/dailymed/services/v2/spls'
+HL7 = '{urn:hl7-org:v3}'
+LOINC_INDICATIONS = '34067-9'
+
+
+def dailymed_list(term):
+    """SPLs DailyMed lists for a drug name -> [{setid, title, published_date, spl_version}] (Rx labels only)."""
+    q = urllib.parse.urlencode({'drug_name': term, 'name_type': 'both', 'pagesize': '25'})
+    status, _, body = http(f'{DAILYMED_API}.json?{q}', timeout=40)
+    if status != 200 or not body:
+        return []
+    rows = (json.loads(body).get('data') or [])
+    return [r for r in rows if r.get('setid') and 'HUMAN PRESCRIPTION' in (r.get('title') or '').upper()]
+
+
+def dailymed_record(setid):
+    """Fetch an SPL from DailyMed and shape it like an openFDA label record
+    (set_id, version, effective_time, indications_and_usage, openfda.*)."""
+    import xml.etree.ElementTree as ET
+    status, _, body = http(f'{DAILYMED_API}/{setid}.xml', timeout=60)
+    if status != 200 or not body:
+        return None
+    try:
+        root = ET.fromstring(body)
+    except ET.ParseError:
+        return None
+    def attr(path, name):
+        el = root.find(path)
+        return (el.get(name) or '').strip() if el is not None else ''
+    def texts(path):
+        return [t for t in ((el.text or '').strip() for el in root.findall('.//' + path)) if t]
+    ind = ''
+    for sec in root.iter(f'{HL7}section'):
+        code = sec.find(f'{HL7}code')
+        if code is not None and code.get('code') == LOINC_INDICATIONS:
+            ind = ' '.join(' '.join(sec.itertext()).split())
+            break
+    brands = texts(f'{HL7}manufacturedProduct/{HL7}name') or texts(f'{HL7}manufacturedProduct/{HL7}manufacturedProduct/{HL7}name')
+    generics = texts(f'{HL7}genericMedicine/{HL7}name')
+    apps = [i.get('extension', '').upper() for ap in root.iter(f'{HL7}approval') for i in ap.iter(f'{HL7}id') if i.get('extension')]
+    return {
+        'set_id': attr(f'{HL7}setId', 'root'), 'id': attr(f'{HL7}id', 'root'),
+        'version': attr(f'{HL7}versionNumber', 'value'), 'effective_time': attr(f'{HL7}effectiveTime', 'value'),
+        'indications_and_usage': [ind] if ind else [],
+        'openfda': {'brand_name': list(dict.fromkeys(brands)), 'generic_name': list(dict.fromkeys(generics)),
+                    'application_number': list(dict.fromkeys(a for a in apps if re.match(r'^(NDA|BLA)\d+', a)))},
+        'dailymed': True,
+    }
+
+
+def dailymed_lookup(brand, inn, approval_date, log):
+    """Tier 4: labels DailyMed lists for the brand (or the INN), as openFDA-shaped
+    records; only SPLs published on/after the approval (−60 d) are fetched."""
+    seen, out = set(), []
+    for term in brand_query_terms(brand) + ([inn] if inn and ' ' not in inn.strip() else []):
+        try:
+            rows = dailymed_list(term)
+        except Exception as ex:  # noqa: BLE001
+            log(f'DailyMed lookup failed for {term}: {ex}')
+            continue
+        for r in rows:
+            sid = r['setid']
+            pub = iso(dt.datetime.strptime(r['published_date'], '%b %d, %Y').date().isoformat()) if r.get('published_date') else None
+            if sid in seen or (pub and approval_date and (days_between(pub, approval_date) or 0) > 60):
+                continue
+            seen.add(sid)
+            try:
+                rec = dailymed_record(sid)
+            except Exception as ex:  # noqa: BLE001
+                log(f'DailyMed SPL {sid} failed: {ex}')
+                rec = None
+            if rec:
+                out.append(rec)
+            time.sleep(0.3)
+        if out:
+            break
+    return out
+
+
 def reconcile_us(q, fe, today, window, probe, log):
-    cands = us_candidates(fe, today, window)
+    cands, merged = us_candidates(fe, today, window)
+    for old, new in merged.items():
+        q.rename(f'FDA:{old}', f'FDA:{new}', f'same medicine as {cands[new]["drug"]} (INN + approval date) — brand misspelt at Drugs@FDA')
     for key, c in cands.items():
         id_ = f'FDA:{key}'
         e = q.ensure(id_, jurisdiction='FDA', drug=c['drug'], inn=c.get('inn'), applicationNumber=c.get('applicationNumber'),
@@ -362,6 +521,9 @@ def reconcile_us(q, fe, today, window, probe, log):
                 log(f'openFDA brand lookup failed for {e["drug"]}: {ex}')
                 continue
             time.sleep(0.3)
+        if not recs and e['status'] != S_VERIFIED:
+            # Tier 4: DailyMed itself, for a label openFDA does not serve yet.
+            recs = dailymed_lookup(e['drug'], e.get('inn'), e.get('approvalDate'), log)
         apply_us_records(q, e, recs, today)
 
 
@@ -403,15 +565,17 @@ def apply_us_records(q, e, recs, today):
         'setId': rec.get('set_id'), 'splId': rec.get('id'), 'effective': iso(rec.get('effective_time')), 'version': rec.get('version'),
         'detected': prev.get('detected') or today, 'retrieved': today if prev.get('sha256') != new_sha else prev.get('retrieved', today),
         'url': DAILYMED_URL.format(setid=rec.get('set_id')) if rec.get('set_id') else None,
-        'source': 'openFDA drug label (US Prescribing Information)',
+        'source': 'DailyMed SPL (US Prescribing Information; not yet served by openFDA)' if rec.get('dailymed') else 'openFDA drug label (US Prescribing Information)',
         'usBrand': (of.get('brand_name') or [None])[0], 'usGeneric': (of.get('generic_name') or [None])[0],
         'applicationNumber': (of.get('application_number') or [None])[0],
-        'harmonised': bool(of),           # False: openFDA has not yet linked this SPL to its application / brand fields
+        'harmonised': bool(of) and not rec.get('dailymed'),   # False: openFDA has not yet linked this SPL to its application / brand fields
         'sha256': new_sha, 'indications': text[:INDICATION_CAP],
     }
     if not e.get('applicationNumber') and label['applicationNumber']:
         e['applicationNumber'] = label['applicationNumber']
-    if checks.get('applicationMatch') is None and not of:
+    if rec.get('dailymed'):
+        label['note'] = 'label read from DailyMed; openFDA does not serve this SPL yet'
+    elif checks.get('applicationMatch') is None and not of:
         label['note'] = 'label found in the SPL product data; openFDA has not yet linked it to the application number'
     elif checks.get('applicationMatch') is None and label['applicationNumber'] and e.get('applicationNumber') \
             and label['applicationNumber'].upper() != e['applicationNumber'].upper():
@@ -444,7 +608,44 @@ def smpc_extract_ok(fe, slug):
     return not problems, doc.get('retrieved'), doc.get('url'), sha, problems
 
 
-def reconcile_eu(q, fe, today, window, probe, log):
+EMA_FEED_URL = 'https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json'
+PDF_SLUG = re.compile(r'/en/documents/product-information/(.+?)(?:-epar)?-product-information_en\.pdf$')
+
+
+def load_ema_feed(path, log):
+    """EMA's EPAR document list (the file ema-feed.mjs uses for the weekly refresh):
+    {ema product number | slug: {'url', 'updated'}} for product-information PDFs, or
+    None when the file is missing / unreadable / implausibly small. It names the
+    real PDF (not always <slug>-epar-product-information_en.pdf: Arikayce,
+    Byannli, Briviact) and EMA's own last-update date — one download instead of a
+    HEAD request per medicine against EMA's rate-limited PDF server."""
+    if not path:
+        return None
+    doc = read_json(path)
+    rows = doc if isinstance(doc, list) else (doc or {}).get('data')
+    if not isinstance(rows, list):
+        log(f'EMA EPAR document list unreadable: {path}')
+        return None
+    feed = {}
+    for r in rows:
+        if not isinstance(r, dict) or r.get('type') != 'product-information' or not r.get('last_updated_date'):
+            continue
+        url = str(r.get('document_url') or '')
+        m = PDF_SLUG.search(url)
+        if not m:
+            continue
+        hit = {'url': url, 'updated': iso(r['last_updated_date'])}
+        num = '/'.join(str(r.get('ema_product_number') or '').split('/')[:4]).upper().strip()
+        if num:
+            feed[num] = hit
+        feed['slug:' + m.group(1)] = hit
+    if sum(1 for k in feed if k.startswith('slug:')) < 1000:
+        log('EMA EPAR document list implausibly small — falling back to HEAD checks')
+        return None
+    return feed
+
+
+def reconcile_eu(q, fe, today, window, probe, log, feed=None):
     since = (dt.date.fromisoformat(today) - dt.timedelta(days=window)).isoformat()
     ema = read_json(os.path.join(fe, 'ema-medicines.json'), {}) or {}
     idx = read_json(os.path.join(fe, 'smpc-index.json'), {}) or {}
@@ -503,6 +704,18 @@ def reconcile_eu(q, fe, today, window, probe, log):
             e['note'] = 'weekly label refresh could not download the product information last run'
         elif e.get('note'):
             e.pop('note', None)
+        hit = feed and (feed.get(num) or feed.get('slug:' + slug)) if slug else None
+        if feed is not None and slug:
+            # EMA's document list is authoritative: listed → published (real URL +
+            # EMA's date), not listed → not published yet; no HEAD request needed.
+            if hit:
+                prev = e.get('label') or {}
+                e['label'] = {'url': hit['url'], 'detected': prev.get('detected') or today, 'emaUpdated': hit.get('updated'),
+                              'source': 'EMA product information (Annex I, SmPC)', 'emaNumber': num}
+                q.set_status(e, S_AVAILABLE, f'product information listed by EMA (updated {hit.get("updated")}) — awaiting the weekly label refresh')
+            elif e['status'] == S_AVAILABLE and not (e.get('label') or {}).get('lastModified'):
+                q.set_status(e, S_AWAITING_SMPC, 'product information no longer in EMA\'s document list')
+            continue
         if probe and slug:
             url = EMA_PI_URL.format(slug=slug)
             try:
@@ -642,6 +855,7 @@ def main():
     ap.add_argument('--previous', default=None, help='previous queue to carry state from (default: the --json path)')
     ap.add_argument('--md', default=None, help='write the Markdown report here')
     ap.add_argument('--probe', action='store_true', help='ask openFDA / EMA for the current documents')
+    ap.add_argument('--ema-feed', default=None, help="EMA's EPAR document list JSON (downloaded copy): names the published product-information PDFs instead of HEAD-probing EMA")
     ap.add_argument('--window', type=int, default=180, help='days after approval a medicine is tracked')
     ap.add_argument('--us-pending-days', type=int, default=45)
     ap.add_argument('--eu-pending-days', type=int, default=30)
@@ -660,7 +874,7 @@ def main():
 
     q = Queue(previous, a.today)
     reconcile_us(q, fe, a.today, a.window, a.probe, log)
-    reconcile_eu(q, fe, a.today, a.window, a.probe, log)
+    reconcile_eu(q, fe, a.today, a.window, a.probe, log, feed=load_ema_feed(a.ema_feed, log))
     apply_alerts_and_retention(q, a.today, a.window, a)
     out = build_output(q, a.today, a.window, a, a.probe)
     if logs:

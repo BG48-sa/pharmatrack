@@ -165,6 +165,41 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   "Drop pure-reformatting changes" ignores `lastChecked`, so a quiet day commits
   nothing. Run locally: `python3 frontend/scripts/label-reconciliation.py --probe --md /tmp/labels.md`.
 
+## Audit fixes of 24.10.2026 (Gemini review, verified against the repo)
+- GitHub starts `schedule` runs hours late (06:17 UTC slot began 11:30–13:00 UTC,
+  Monday 04:30 → 10:11–12:21 UTC). The daily job now has four earlier slots
+  (03:41 / 08:41 / 13:41 / 18:41 UTC) so the delayed start lands in the intended
+  window; the label job runs Mondays 00:41 UTC. Quiet slots publish nothing. If the
+  delays persist, an external trigger (`gh workflow run` from a cron elsewhere)
+  would start within seconds — needs a PAT, not done.
+- One medicine, two spellings: Drugs@FDA listed pritelivir as "HOVILPR", the CDER
+  roster as "Hovilpri" → two US cards and two queue entries. `recentFromSnapshot()`
+  and `us_candidates()` now match a roster entry to a Drugs@FDA row on INN +
+  approval date (±1 d, salts/"and" ignored — `innKey`/`inn_key`) and take the
+  roster's spelling; `Queue.rename()` merges the queue entries (the further-advanced
+  state wins, history records the merge). FDA's own ingredient typos ("sodium
+  ctirate", "calcuim chloride", NDA219455/6) are NOT guessed.
+- `slug_of()` in label-reconciliation.py and build-ema-data.py stripped only the
+  literal `-previously-` (spikevax-previously-covid-19-vaccine-moderna →
+  `spikevaxcovid-19-vaccine-moderna`); now the whole tail goes, as in extract-all.mjs.
+- label-reconciliation.py: `--ema-feed FILE` (the daily job downloads EMA's EPAR
+  document list) marks EU product information LABEL_AVAILABLE from the list (real
+  PDF URL + EMA's date) instead of HEAD-probing a guessed URL; HEAD remains the
+  fallback. US lookups: a co-packaged brand ("Bixlenvo Sunlenca Starter Pack") is
+  retried by its first word; tier 4 asks DailyMed's REST API (`spls.json` +
+  SPL XML, Indications section LOINC 34067-9) when openFDA has nothing — the
+  label carries `source: DailyMed …`, `harmonised: false`.
+- source-freshness.py: `ema_epar_documents` is STALE for an incomplete label run
+  only when it left a real gap (same rule as drift-report.mjs, `incomplete_gap()`);
+  refused cross-check HEADs are a note. Two curated snapshots are now watched by
+  age: `eu_critical_medicines` (400 d) and `biomarkers_table` (180 d).
+- The Monday job commits `frontend/post-auth.json` and passes it as `--previous`,
+  so section-hash changes (4.1 / Indications) are seen across weeks.
+- `refresh-data.sh` (laptop fallback) rebuilds all daily snapshots now;
+  `deploy-pages.sh` no longer claims a token in the remote URL.
+- AccessStatus.tsx: EU HTA joint clinical assessment, France (HAS), Spain (AEMPS
+  IPT) and UK (NICE) links next to AIFA / G-BA.
+
 ## EU Union Register outage fallback (eu-register-decisions.json)
 - The Commission's register page (`ec.europa.eu/.../reg_last.htm`; the old `newproc.htm`
   address only redirects there over plain http, so since 21.10.2026 the workflow reads

@@ -16,7 +16,8 @@ GH_PAGES=true npm run build
 DIST="frontend/dist"
 touch "$DIST/.nojekyll"   # stop GitHub from running Jekyll on the build output
 
-# Reuse the remote URL (with token) already configured on origin.
+# Push to the same remote as origin. The URL carries no token: pushes
+# authenticate through the git credential helper (macOS keychain / gh auth).
 REMOTE=$(git remote get-url origin)
 
 echo "==> Publishing $DIST to gh-pages"

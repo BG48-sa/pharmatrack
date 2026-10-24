@@ -22,8 +22,26 @@ const fmt = (val?: string): string => {
   return isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
 };
 
-const aifaUrl = (t: string) => `https://www.google.com/search?q=${encodeURIComponent(`AIFA ${t}`)}`;
-const gbaUrl = (t: string) => `https://www.google.com/search?q=${encodeURIComponent(`G-BA Nutzenbewertung ${t}`)}`;
+const search = (q: string) => `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+const aifaUrl = (t: string) => search(`AIFA ${t}`);
+const gbaUrl = (t: string) => search(`G-BA Nutzenbewertung ${t}`);
+// EU HTA Regulation (EU) 2021/2282: joint clinical assessments (JCA) started on
+// 12 January 2025 for oncology medicines and ATMPs — the EU-level dossier that
+// national HTA bodies build on. Reports are published on the Commission's HTA
+// pages; a web search by substance finds the JCA / its scoping.
+const jcaUrl = (t: string) => search(`EU HTA joint clinical assessment JCA ${t}`);
+const hasUrl = (t: string) => search(`HAS avis commission de la transparence ${t}`);
+const aempsUrl = (t: string) => search(`AEMPS informe de posicionamiento terapéutico ${t}`);
+const niceUrl = (t: string) => `https://www.nice.org.uk/search?q=${encodeURIComponent(t)}`;
+
+const LINKS: { label: string; url: (t: string) => string; byBrand?: boolean; wide?: boolean }[] = [
+  { label: '🇪🇺 EU HTA · joint clinical assessment', url: jcaUrl, wide: true },
+  { label: '🇮🇹 Italy · AIFA', url: aifaUrl, byBrand: true },
+  { label: '🇩🇪 Germany · G-BA', url: gbaUrl },
+  { label: '🇫🇷 France · HAS', url: hasUrl },
+  { label: '🇪🇸 Spain · AEMPS', url: aempsUrl },
+  { label: '🇬🇧 UK · NICE', url: niceUrl, wide: true },
+];
 
 const StepIcon: React.FC<{ s: State }> = ({ s }) =>
   s === 'yes' ? (
@@ -85,24 +103,20 @@ const AccessStatus: React.FC<{ data: DrugDetailData }> = ({ data }) => {
         </div>
       </div>
 
-      {/* National deep-links to check reimbursement/availability. */}
+      {/* HTA / reimbursement deep-links: the EU joint clinical assessment first,
+          then the national bodies (Italy, Germany, France, Spain, UK). */}
       <div className="grid grid-cols-2 gap-2 mt-2">
-        <a
-          href={aifaUrl(data.brandName)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-50 active:bg-slate-100 rounded-lg py-2.5"
-        >
-          🇮🇹 Italy · AIFA <ExternalLink size={11} className="ml-1.5" />
-        </a>
-        <a
-          href={gbaUrl(gbaTerm)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-50 active:bg-slate-100 rounded-lg py-2.5"
-        >
-          🇩🇪 Germany · G-BA <ExternalLink size={11} className="ml-1.5" />
-        </a>
+        {LINKS.map((l) => (
+          <a
+            key={l.label}
+            href={l.url(l.byBrand ? data.brandName : gbaTerm)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-50 active:bg-slate-100 rounded-lg py-2.5${l.wide ? ' col-span-2' : ''}`}
+          >
+            {l.label} <ExternalLink size={11} className="ml-1.5" />
+          </a>
+        ))}
       </div>
     </div>
   );
