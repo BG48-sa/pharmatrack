@@ -1,0 +1,181 @@
+name: Release iOS to App Store Connect
+
+# Builds the native DrugRadar app on a GitHub macOS runner and uploads it to App
+# Store Connect (TestFlight / the version's build picker), so a release needs no
+# Mac. Version (MARKETING_VERSION) and build number (CURRENT_PROJECT_VERSION) come
+# from frontend/ios/App/App.xcodeproj; both can be overridden per run.
+#
+# Signing is automatic and authenticated with an App Store Connect API key (three
+# repository secrets, see APP_STORE.md §13): the archive step lets xcodebuild
+# create or refresh profiles and a development certificate through the key; the
+# export step signs for the App Store with the team's cloud-managed distribution
+# certificate and uploads (frontend/ios/App/ExportOptions.plist: method
+# app-store-connect, destination upload). A team without cloud-managed signing
+# supplies its exportable distribution certificate as an optional .p12 secret; it
+# is imported into a throw-away keychain that is deleted at the end.
+# Submission for review stays manual in App Store Connect (pick the build, paste
+# the What's New text from APP_STORE.md).
+
+on:
+  workflow_dispatch:
+    inputs:
+      marketing_version:
+        description: 'Version shown in the App Store — empty = MARKETING_VERSION from the Xcode project'
+        default: ''
+      build_number:
+        description: 'Build number — empty = CURRENT_PROJECT_VERSION from the Xcode project (must be higher than the last upload of this version)'
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-ios
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    env:
+      TEAM_ID: S8S8S983CX
+      PROJECT: frontend/ios/App/App.xcodeproj
+      SCHEME: App
+      KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+      ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+      CERT_P12_BASE64: ${{ secrets.IOS_CERT_P12_BASE64 }}
+      CERT_PASSWORD: ${{ secrets.IOS_CERT_PASSWORD }}
+      MV_OVERRIDE: ${{ inputs.marketing_version }}
+      BN_OVERRIDE: ${{ inputs.build_number }}
+    steps:
+      - name: Check that the App Store Connect API key is configured
+        env:
+          PRIVATE_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+        run: |
+          missing=""
+          [ -n "$KEY_ID" ] || missing="$missing APPSTORE_KEY_ID"
+          [ -n "$ISSUER_ID" ] || missing="$missing APPSTORE_ISSUER_ID"
+          [ -n "$PRIVATE_KEY" ] || missing="$missing APPSTORE_PRIVATE_KEY"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secret(s):$missing — App Store Connect → Users and Access → Integrations → App Store Connect API → Team Keys; see APP_STORE.md §13."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build the web app and sync it into the iOS project
+        run: |
+          set -eo pipefail
+          npm install --prefix frontend --no-audit --no-fund
+          cd frontend
+          npm run build          # plain build (base path /), exactly what `npm run ios` does
+          npx cap sync ios
+
+      - name: Versions
+        run: |
+          xcodebuild -version
+          echo "project: $(grep -m1 -oE 'MARKETING_VERSION = [^;]+' "$PROJECT/project.pbxproj") / $(grep -m1 -oE 'CURRENT_PROJECT_VERSION = [^;]+' "$PROJECT/project.pbxproj")"
+          [ -z "$MV_OVERRIDE" ] || echo "override: MARKETING_VERSION=$MV_OVERRIDE"
+          [ -z "$BN_OVERRIDE" ] || echo "override: CURRENT_PROJECT_VERSION=$BN_OVERRIDE"
+
+      - name: Install the App Store Connect API key
+        env:
+          PRIVATE_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+        run: |
+          set -e
+          mkdir -p ~/private_keys
+          printf '%s\n' "$PRIVATE_KEY" > ~/private_keys/AuthKey_$KEY_ID.p8
+          chmod 600 ~/private_keys/AuthKey_$KEY_ID.p8
+
+      # A throw-away keychain, unlocked for the run: xcodebuild keeps the signing
+      # keys it creates (development certificate) or that we import (.p12) here,
+      # never in the runner's login keychain. Deleted in the last step.
+      - name: Prepare a throw-away keychain
+        run: |
+          set -e
+          KEYCHAIN="$RUNNER_TEMP/release.keychain-db"
+          KEYCHAIN_PASSWORD="$(uuidgen)"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+          security default-keychain -d user -s "$KEYCHAIN"
+          echo "KEYCHAIN=$KEYCHAIN" >> "$GITHUB_ENV"
+          echo "KEYCHAIN_PASSWORD=$KEYCHAIN_PASSWORD" >> "$GITHUB_ENV"
+          echo "::add-mask::$KEYCHAIN_PASSWORD"
+
+      - name: Import the exportable distribution certificate (only if a .p12 secret exists)
+        if: env.CERT_P12_BASE64 != ''
+        run: |
+          set -e
+          echo "$CERT_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -P "$CERT_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN" >/dev/null
+          rm -f "$RUNNER_TEMP/cert.p12"
+          security find-identity -v -p codesigning "$KEYCHAIN"
+
+      - name: Archive (automatic signing through the API key)
+        run: |
+          set -o pipefail
+          overrides=""
+          [ -z "$MV_OVERRIDE" ] || overrides="$overrides MARKETING_VERSION=$MV_OVERRIDE"
+          [ -z "$BN_OVERRIDE" ] || overrides="$overrides CURRENT_PROJECT_VERSION=$BN_OVERRIDE"
+          xcodebuild -project "$PROJECT" -scheme "$SCHEME" -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_$KEY_ID.p8 \
+            -authenticationKeyID "$KEY_ID" -authenticationKeyIssuerID "$ISSUER_ID" \
+            DEVELOPMENT_TEAM="$TEAM_ID" CODE_SIGN_STYLE=Automatic $overrides \
+            archive 2>&1 | tee "$RUNNER_TEMP/archive.log" | grep -E --line-buffered 'error:|warning: .*(sign|provision|certificate)|Signing Identity|Provisioning Profile|ARCHIVE (SUCCEEDED|FAILED)' || true
+          grep -q 'ARCHIVE SUCCEEDED' "$RUNNER_TEMP/archive.log" || { echo "::error::Archive failed — see archive.log in the run artifacts"; tail -60 "$RUNNER_TEMP/archive.log"; exit 1; }
+
+      - name: Export for the App Store and upload to App Store Connect
+        run: |
+          set -o pipefail
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -exportOptionsPlist frontend/ios/App/ExportOptions.plist \
+            -exportPath "$RUNNER_TEMP/export" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_$KEY_ID.p8 \
+            -authenticationKeyID "$KEY_ID" -authenticationKeyIssuerID "$ISSUER_ID" \
+            2>&1 | tee "$RUNNER_TEMP/export.log" | grep -E --line-buffered 'error:|Upload|EXPORT (SUCCEEDED|FAILED)|Signing Identity|Provisioning Profile' || true
+          grep -q 'EXPORT SUCCEEDED' "$RUNNER_TEMP/export.log" || { echo "::error::Export/upload failed — see export.log in the run artifacts"; tail -60 "$RUNNER_TEMP/export.log"; exit 1; }
+
+      - name: Run summary
+        if: always()
+        run: |
+          {
+            echo "## iOS release → App Store Connect"
+            echo "- Project: $(grep -m1 -oE 'MARKETING_VERSION = [^;]+' "$PROJECT/project.pbxproj"), $(grep -m1 -oE 'CURRENT_PROJECT_VERSION = [^;]+' "$PROJECT/project.pbxproj")"
+            [ -z "$MV_OVERRIDE$BN_OVERRIDE" ] || echo "- Overrides: ${MV_OVERRIDE:+MARKETING_VERSION=$MV_OVERRIDE} ${BN_OVERRIDE:+CURRENT_PROJECT_VERSION=$BN_OVERRIDE}"
+            if grep -q 'EXPORT SUCCEEDED' "$RUNNER_TEMP/export.log" 2>/dev/null; then
+              echo "- **Uploaded.** App Store Connect processes the build in 10–30 min (e-mail when done), then: My Apps → DrugRadar → + Version → pick the build → paste What's New (APP_STORE.md §12) → Submit for Review."
+            else
+              echo "- **Not uploaded** — see the step log and the archive/export logs in the artifacts."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-release-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/archive.log
+            ${{ runner.temp }}/export.log
+            ${{ runner.temp }}/export/*.plist
+            ${{ runner.temp }}/export/*.log
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Remove the throw-away keychain and the API key
+        if: always()
+        run: |
+          [ -z "${KEYCHAIN:-}" ] || security delete-keychain "$KEYCHAIN" || true
+          rm -rf ~/private_keys

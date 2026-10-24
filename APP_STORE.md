@@ -631,3 +631,38 @@ Xcode: scheme App → Any iOS Device (arm64) → Product → Archive → Distrib
 App Store Connect → Upload. Then in App Store Connect: add version 2.0.5, paste the
 text above, pick build 35, submit. Version and build number come from
 `App.xcodeproj` (MARKETING_VERSION 2.0.5 / CURRENT_PROJECT_VERSION 35) — no edit needed.
+
+---
+
+## 13. Release from the cloud (GitHub Actions) — set up once, then one click
+
+`.github/workflows/release-ios.yml` builds the app on a GitHub macOS runner and
+uploads it to App Store Connect, so a release no longer needs the MacBook.
+Submission for review stays in App Store Connect (pick the build, paste What's New).
+
+**One-time setup (about 10 minutes, your Apple account)**
+1. App Store Connect → Users and Access → Integrations → App Store Connect API →
+   Team Keys → "+" → Name `GitHub Actions`, Access **App Manager** → Generate.
+   Note the **Issuer ID** (top of the page) and the key's **Key ID**; download the
+   `.p8` file (possible only once; keep it safe).
+2. GitHub → repository → Settings → Secrets and variables → Actions → New
+   repository secret, three times:
+   - `APPSTORE_KEY_ID` — the Key ID
+   - `APPSTORE_ISSUER_ID` — the Issuer ID
+   - `APPSTORE_PRIVATE_KEY` — the whole text of the `.p8` file (open it in
+     TextEdit, copy everything including the BEGIN/END lines)
+3. Only if a run fails with "no signing certificate" — i.e. the team does not use
+   Xcode's cloud-managed distribution certificate: export the "Apple Distribution"
+   certificate from Xcode (Settings → Accounts → the team → Manage Certificates →
+   right-click → Export Certificate…, choose a password), then add the secrets
+   `IOS_CERT_P12_BASE64` (`base64 -i cert.p12 | pbcopy`) and `IOS_CERT_PASSWORD`.
+
+**Each release**
+- Bump `MARKETING_VERSION` / `CURRENT_PROJECT_VERSION` in `App.xcodeproj` (or use the
+  workflow's override inputs — the build number must be higher than the last upload
+  of that version), commit, push.
+- GitHub → Actions → **Release iOS to App Store Connect** → Run workflow. The run
+  takes 10–20 minutes; App Store Connect e-mails when processing is done.
+- App Store Connect → My Apps → DrugRadar → "+ Version" → pick the build → paste the
+  What's New text (see the version section above) → Submit for Review.
+- Claude can start the workflow from a chat session once the secrets exist.

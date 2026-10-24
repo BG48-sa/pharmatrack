@@ -318,6 +318,20 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   "only in" one label, and a weak pair (≈0.4) can be wrong; the footer says so. Tune in
   `labelDiff.ts` (thresholds, PHRASES, SYNONYMS). Tests:
   `scripts/tests/label-diff.test.mjs` (`node --test --experimental-strip-types`, in `npm test`).
+## iOS release from GitHub Actions (no Mac needed)
+- `.github/workflows/release-ios.yml` (workflow_dispatch): `npm run build` + `npx cap sync
+  ios`, `xcodebuild archive` with automatic signing authenticated by an App Store
+  Connect API key (secrets `APPSTORE_KEY_ID` / `APPSTORE_ISSUER_ID` /
+  `APPSTORE_PRIVATE_KEY`; `-allowProvisioningUpdates` creates profiles and a
+  development certificate in a throw-away keychain), then `xcodebuild -exportArchive`
+  with `frontend/ios/App/ExportOptions.plist` (app-store-connect, destination upload)
+  — cloud-managed distribution certificate, or an optional `IOS_CERT_P12_BASE64` /
+  `IOS_CERT_PASSWORD` import. Version and build come from `App.xcodeproj`
+  (`MARKETING_VERSION`, `CURRENT_PROJECT_VERSION`; override inputs exist). Needs the
+  shared scheme `App.xcodeproj/xcshareddata/xcschemes/App.xcscheme` (added
+  20.10.2026 — Xcode's auto-created schemes live in xcuserdata, which is not in git).
+  Submission for review stays manual (APP_STORE.md §12/§13). Build logs are run
+  artifacts for 30 days.
 
 ## Web app updates (service worker)
 - Browsers install a new service worker only when `sw.js` changes byte for byte, and
