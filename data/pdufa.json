@@ -1,0 +1,351 @@
+{
+  "_comment": "Curated PDUFA watchlist. These are sponsor/analyst-disclosed FDA target action dates, NOT an official FDA feed — the FDA does not publish PDUFA dates. Add/edit/remove entries here; the app shows upcoming ones (pdufaDate >= today) sorted soonest-first. Verify each via its 'source' before relying on it. Refreshed 2026-10-21 from the RTTNews and MarketBeat FDA calendars (unofficial); past-dated entries were removed.",
+  "entries": [
+    {
+      "brandName": "ILUMYA",
+      "genericName": "tildrakizumab",
+      "company": "Sun Pharmaceutical Industries",
+      "indication": "Active psoriatic arthritis in adults",
+      "pdufaDate": "2026-10-29",
+      "type": "sBLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=5"
+    },
+    {
+      "brandName": "INO-3107",
+      "genericName": "INO-3107 (DNA immunotherapy)",
+      "company": "Inovio Pharmaceuticals",
+      "indication": "Recurrent respiratory papillomatosis in adults",
+      "pdufaDate": "2026-10-30",
+      "type": "BLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=5"
+    },
+    {
+      "brandName": "Pyrukynd",
+      "genericName": "mitapivat",
+      "company": "Agios Pharmaceuticals",
+      "indication": "Sickle cell disease",
+      "pdufaDate": "2026-11-01",
+      "type": "sNDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=5"
+    },
+    {
+      "brandName": "MYQORZO",
+      "genericName": "aficamten",
+      "company": "Cytokinetics",
+      "indication": "Obstructive hypertrophic cardiomyopathy — label update based on MAPLE-HCM (aficamten vs metoprolol)",
+      "pdufaDate": "2026-11-14",
+      "type": "sNDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=5"
+    },
+    {
+      "brandName": "IGALMI",
+      "genericName": "dexmedetomidine (sublingual film)",
+      "company": "BioXcel Therapeutics",
+      "indication": "At-home use for acute agitation in bipolar disorder or schizophrenia",
+      "pdufaDate": "2026-11-14",
+      "type": "sNDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=5"
+    },
+    {
+      "brandName": "Ivonescimab",
+      "genericName": "ivonescimab",
+      "company": "Summit Therapeutics",
+      "indication": "EGFR-mutated NSCLC after TKI therapy, with chemotherapy",
+      "pdufaDate": "2026-11-14",
+      "type": "BLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=5"
+    },
+    {
+      "brandName": "Molbreevi",
+      "genericName": "molgramostim (inhaled)",
+      "company": "Savara",
+      "indication": "Autoimmune pulmonary alveolar proteinosis (aPAP)",
+      "pdufaDate": "2026-11-22",
+      "type": "BLA",
+      "note": "Earlier target date was 22 Aug 2026.",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "Deramiocel",
+      "genericName": "deramiocel (CAP-1002)",
+      "company": "Capricor Therapeutics",
+      "indication": "Duchenne muscular dystrophy cardiomyopathy",
+      "pdufaDate": "2026-11-22",
+      "type": "BLA",
+      "note": "Resubmitted BLA.",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "Venglustat",
+      "genericName": "venglustat",
+      "company": "Sanofi",
+      "indication": "Type 3 Gaucher disease (GD3)",
+      "pdufaDate": "2026-11-25",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "BBP-418",
+      "genericName": "ribitol (BBP-418)",
+      "company": "BridgeBio Pharma",
+      "indication": "Limb-girdle muscular dystrophy type 2I/R9",
+      "pdufaDate": "2026-11-27",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "Neladalkib",
+      "genericName": "neladalkib",
+      "company": "GSK",
+      "indication": "ALK-positive advanced NSCLC previously treated with an ALK TKI",
+      "pdufaDate": "2026-11-27",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "D-PLEX100",
+      "genericName": "doxycycline (polymer-lipid implant)",
+      "company": "PolyPid",
+      "indication": "Prevention of surgical site infections in abdominal colorectal surgery",
+      "pdufaDate": "2026-11-28",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "Bezuclastinib + sunitinib",
+      "genericName": "bezuclastinib",
+      "company": "Cogent Biosciences",
+      "indication": "Gastrointestinal stromal tumours (GIST)",
+      "pdufaDate": "2026-11-30",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "Povetacicept",
+      "genericName": "povetacicept",
+      "company": "Vertex Pharmaceuticals",
+      "indication": "Immunoglobulin A nephropathy",
+      "pdufaDate": "2026-11-30",
+      "type": "BLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "Giredestrant",
+      "genericName": "giredestrant",
+      "company": "Roche",
+      "indication": "ER-positive early-stage breast cancer",
+      "pdufaDate": "2026-11-30",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=4"
+    },
+    {
+      "brandName": "Imsidolimab",
+      "genericName": "imsidolimab",
+      "company": "Vanda Pharmaceuticals / AnaptysBio",
+      "indication": "Generalised pustular psoriasis (GPP)",
+      "pdufaDate": "2026-12-12",
+      "type": "BLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "Relacorilant",
+      "genericName": "relacorilant",
+      "company": "Corcept Therapeutics",
+      "indication": "Endogenous hypercortisolism (Cushing's syndrome)",
+      "pdufaDate": "2026-12-17",
+      "type": "NDA",
+      "note": "Resubmitted NDA.",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "CAM2029",
+      "genericName": "octreotide extended-release injection",
+      "company": "Camurus",
+      "indication": "Acromegaly",
+      "pdufaDate": "2026-12-18",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "Giredestrant + everolimus",
+      "genericName": "giredestrant",
+      "company": "Roche",
+      "indication": "ER-positive advanced breast cancer, in combination with everolimus",
+      "pdufaDate": "2026-12-18",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "Imlifidase",
+      "genericName": "imlifidase",
+      "company": "Hansa Biopharma",
+      "indication": "Desensitisation of highly sensitised adult kidney-transplant patients",
+      "pdufaDate": "2026-12-19",
+      "type": "BLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "Lorundrostat",
+      "genericName": "lorundrostat",
+      "company": "Mineralys Therapeutics",
+      "indication": "Hypertension, in combination with other antihypertensives",
+      "pdufaDate": "2026-12-22",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "Anito-cel",
+      "genericName": "anitocabtagene autoleucel",
+      "company": "Gilead Sciences / Arcellx",
+      "indication": "Relapsed or refractory multiple myeloma (fourth line)",
+      "pdufaDate": "2026-12-23",
+      "type": "BLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "Relutrigine",
+      "genericName": "relutrigine",
+      "company": "Praxis Precision Medicines",
+      "indication": "SCN2A and SCN8A developmental and epileptic encephalopathies",
+      "pdufaDate": "2026-12-27",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=2"
+    },
+    {
+      "brandName": "MR-107A-02",
+      "genericName": "meloxicam/rizatriptan (MR-107A-02)",
+      "company": "Viatris",
+      "indication": "Moderate-to-severe acute pain",
+      "pdufaDate": "2026-12-27",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=2"
+    },
+    {
+      "brandName": "Bezuclastinib",
+      "genericName": "bezuclastinib",
+      "company": "Cogent Biosciences",
+      "indication": "Non-advanced systemic mastocytosis",
+      "pdufaDate": "2026-12-30",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=2"
+    },
+    {
+      "brandName": "ANKTIVA",
+      "genericName": "nogapendekin alfa inbakicept",
+      "company": "ImmunityBio",
+      "indication": "BCG-unresponsive NMIBC with papillary disease without CIS, with BCG",
+      "pdufaDate": "2027-01-06",
+      "type": "sBLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=2"
+    },
+    {
+      "brandName": "Enspryng",
+      "genericName": "satralizumab",
+      "company": "Roche",
+      "indication": "MOG antibody-associated disease (MOGAD)",
+      "pdufaDate": "2027-01-10",
+      "type": "sBLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=2"
+    },
+    {
+      "brandName": "Zeleciment rostudirsen",
+      "genericName": "zeleciment rostudirsen (DYNE-251)",
+      "company": "Dyne Therapeutics",
+      "indication": "Duchenne muscular dystrophy amenable to exon 51 skipping",
+      "pdufaDate": "2027-01-21",
+      "type": "BLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "ARIKAYCE",
+      "genericName": "amikacin liposome inhalation suspension",
+      "company": "Insmed",
+      "indication": "MAC lung disease (broader label)",
+      "pdufaDate": "2027-01-28",
+      "type": "sNDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "Ulixacaltamide",
+      "genericName": "ulixacaltamide",
+      "company": "Praxis Precision Medicines",
+      "indication": "Essential tremor in adults",
+      "pdufaDate": "2027-01-29",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "Joenja",
+      "genericName": "leniolisib",
+      "company": "Pharming Group",
+      "indication": "APDS in children aged 4+ weighing 13–27 kg (lower doses)",
+      "pdufaDate": "2027-01-30",
+      "type": "sNDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "Yeztugo",
+      "genericName": "lenacapavir (once-weekly oral)",
+      "company": "Gilead Sciences",
+      "indication": "HIV pre-exposure prophylaxis — once-weekly oral tablet",
+      "pdufaDate": "2027-02-02",
+      "type": "sNDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "Infigratinib",
+      "genericName": "infigratinib (oral)",
+      "company": "BridgeBio Pharma",
+      "indication": "Achondroplasia in children",
+      "pdufaDate": "2027-02-04",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "Lunsumio VELO",
+      "genericName": "mosunetuzumab (subcutaneous), with Polivy",
+      "company": "Roche",
+      "indication": "Relapsed or refractory large B-cell lymphoma",
+      "pdufaDate": "2027-02-09",
+      "type": "sBLA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "Tinlarebant",
+      "genericName": "tinlarebant",
+      "company": "Belite Bio",
+      "indication": "Stargardt disease type 1",
+      "pdufaDate": "2027-02-12",
+      "type": "NDA",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=1"
+    },
+    {
+      "brandName": "Zanzalintinib",
+      "genericName": "zanzalintinib",
+      "company": "Exelixis",
+      "indication": "Metastatic colorectal cancer, with Tecentriq",
+      "pdufaDate": "2027-03-03",
+      "type": "NDA",
+      "note": "Original target 3 Dec 2026; the calendar notes the FDA extended the date to 3 Mar 2027.",
+      "source": "https://www.rttnews.com/corpinfo/fdacalendar.aspx?PageNum=3"
+    },
+    {
+      "brandName": "Anaphylm",
+      "genericName": "epinephrine sublingual film",
+      "company": "Aquestive Therapeutics",
+      "indication": "Anaphylaxis — epinephrine prodrug sublingual film",
+      "pdufaDate": "2027-03-16",
+      "type": "NDA",
+      "source": "https://www.marketbeat.com/fda-calendar/"
+    },
+    {
+      "brandName": "UGN-103",
+      "genericName": "mitomycin (UGN-103)",
+      "company": "UroGen Pharma",
+      "indication": "Low-grade intermediate-risk non-muscle-invasive bladder cancer",
+      "pdufaDate": "2027-06-14",
+      "type": "NDA",
+      "source": "https://www.marketbeat.com/fda-calendar/"
+    }
+  ]
+}
