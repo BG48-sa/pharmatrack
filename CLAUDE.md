@@ -244,6 +244,34 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   Run locally: `python3 frontend/scripts/post-authorisation-audit.py --md /tmp/pa.md`
   (`--no-epar`, `--skip-us`, `--ema-feed FILE` for offline use).
 
+## Label comparison: "Highlight differences" (services/labelDiff.ts)
+- `LabelComparePanel.tsx` has a toggle (two-label comparisons only; default on,
+  remembered in localStorage `labelCompare.highlight`) that colours a sentence-level
+  comparison of the two columns, plus a "Differences only" switch (`labelCompare.onlyDiff`)
+  that hides matching sentences and keeps each difference under its heading.
+- `diffSections()`: units = sentences per line (an aligned pdftotext table block is one
+  unit; the US "1 INDICATIONS AND USAGE" / "1.5 Classical Hodgkin Lymphoma" titles are
+  stripped off their first sentence; short lines without punctuation/digits and "▸ BRAND
+  25 mg/mL …" presentation lines are `heading`, never a difference). Matching: tokens are
+  folded across the two regulatory dialects first (PHRASES/SYNONYMS: single agent =
+  monotherapy, adolescents/children = pediatric, British → American spelling, tumour/
+  carcinoma → cancer, NSCLC/HNSCC/RCC/cHL/… expanded, q3w = every 3 week), cross-reference
+  markers removed, then IDF-weighted similarity = max(Dice, 0.85 × overlap coefficient) so
+  a short US Highlights claim contained in a long EU sentence still pairs; greedy best
+  pair first at `MATCH_THRESHOLD` 0.4, and a unit left over may pair with an already
+  matched counterpart (the SmPC repeats 4.1 per presentation, the PI has Highlights +
+  full text — a repeat is not a difference). Marks: unmatched = "only in" that label
+  (rose = column 1, emerald = column 2, dotted underline), matched with unshared tokens
+  = "wording differs" (amber; single words painted only when overlap ≥
+  `WORD_MARK_THRESHOLD` 0.75), differing NUMBERS always (red, wavy). Colour is always
+  paired with a decoration (colour-vision deficiency, greyscale print). Each unit carries
+  `pair` (index on the other side). Keytruda 4.1 on 24.10.2026: 4 only EU · 21 only US
+  · 71 differ in ~80 ms (before tuning: 69 · 59 · 39 — mostly noise).
+- It is a text comparison, not a clinical judgement: a rephrased claim can still show as
+  "only in" one label, and a weak pair (≈0.4) can be wrong; the footer says so. Tune in
+  `labelDiff.ts` (thresholds, PHRASES, SYNONYMS). Tests:
+  `scripts/tests/label-diff.test.mjs` (`node --test --experimental-strip-types`, in `npm test`).
+
 ## Web app updates (service worker)
 - Browsers install a new service worker only when `sw.js` changes byte for byte, and
   the app reloads itself only on that event (index.html `controllerchange`). A

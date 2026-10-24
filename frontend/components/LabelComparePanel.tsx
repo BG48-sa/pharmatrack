@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { X, FileText, ExternalLink, ChevronDown, Loader2 } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { X, FileText, ExternalLink, ChevronDown, Loader2, Highlighter } from 'lucide-react';
 import { loadLabelFile } from '../services/labelFiles';
+import { diffSections, DiffUnit, SectionDiff } from '../services/labelDiff';
 
 /**
  * Jurisdiction-aware full-text label comparison. Each column is a medicine's
@@ -94,7 +95,80 @@ const renderText = (raw: string): React.ReactNode[] => {
   });
 };
 
-const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded: boolean; sectionKey?: string | null }> = ({ section, absent, expanded, sectionKey }) => {
+// --- Difference highlighting -------------------------------------------------
+// Colour AND a text decoration per kind, so the marks survive red–green colour
+// vision deficiency and greyscale printing: dotted underline = only in this
+// label, light amber = wording differs, bold wavy underline = a number differs.
+const SIDE_UNIQUE = [
+  'bg-rose-100 text-rose-950 underline decoration-dotted decoration-rose-400 underline-offset-2 rounded-sm box-decoration-clone px-0.5',
+  'bg-emerald-100 text-emerald-950 underline decoration-dotted decoration-emerald-500 underline-offset-2 rounded-sm box-decoration-clone px-0.5',
+];
+const SIDE_SWATCH = ['bg-rose-100 border-rose-300', 'bg-emerald-100 border-emerald-400'];
+const CHANGED = 'bg-amber-50 rounded-sm box-decoration-clone';
+const WORD_DIFF = 'bg-amber-200 rounded-sm';
+const WORD_NUM = 'text-red-700 font-bold underline decoration-wavy decoration-red-400 underline-offset-2';
+
+const renderUnit = (u: DiffUnit, side: number, i: number): React.ReactNode => {
+  if (u.k === 'heading') return <span key={i} className="font-semibold text-slate-800">{u.text}</span>;
+  if (u.k === 'unique') return <span key={i} className={SIDE_UNIQUE[side]}>{u.text}</span>;
+  if (u.k === 'changed') {
+    return (
+      <span key={i} className={CHANGED}>
+        {u.words
+          ? u.words.map((w, j) => (w.k === 'same' ? w.t : <mark key={j} className={w.k === 'num' ? `${WORD_NUM} bg-transparent` : WORD_DIFF}>{w.t}</mark>))
+          : u.text}
+      </span>
+    );
+  }
+  return <span key={i}>{u.text}</span>;
+};
+
+/** "Differences only": keep the units that differ, the heading each sits under, and an ellipsis for what was skipped. */
+const differencesOnly = (units: DiffUnit[]): DiffUnit[] => {
+  const out: DiffUnit[] = [];
+  let heading: DiffUnit | null = null, skipped = false;
+  for (const u of units) {
+    if (u.k === 'heading') { heading = u; continue; }
+    if (u.k === 'unique' || u.k === 'changed') {
+      if (heading) { out.push(heading); heading = null; }
+      else if (skipped && out.length) out.push({ text: '…', k: 'same', line: u.line - 0.5 });
+      out.push(u);
+      skipped = false;
+    } else skipped = true;
+  }
+  return out;
+};
+
+/** The diffed version of renderText: units re-joined per source line, tables as blocks. */
+const renderDiff = (units: DiffUnit[], side: number, onlyDiff: boolean): React.ReactNode[] => {
+  const shown = onlyDiff ? differencesOnly(units) : units;
+  if (onlyDiff && !shown.length) return [<p key="none" className="text-[12px] italic text-slate-400 my-1">No differences found in this section.</p>];
+  const lines = new Map<number, DiffUnit[]>();
+  for (const u of shown) { const l = lines.get(u.line); if (l) l.push(u); else lines.set(u.line, [u]); }
+  return [...lines.entries()].map(([line, us]) => {
+    if (us[0].table) {
+      const cls = us[0].k === 'unique' ? `border-l-4 ${side === 0 ? 'border-rose-300' : 'border-emerald-400'}` : us[0].k === 'changed' ? 'border-l-4 border-amber-300' : '';
+      return <pre key={line} className={`overflow-x-auto whitespace-pre font-mono text-[11px] leading-relaxed text-slate-700 my-1 bg-slate-50 rounded-md px-2 py-1.5 ${cls}`}>{us[0].text}</pre>;
+    }
+    return (
+      <p key={line} className={`whitespace-pre-wrap text-[12px] leading-relaxed text-slate-700 my-1${us[0].text === '…' ? ' text-slate-300 select-none' : ''}`}>
+        {us.map((u, i) => <React.Fragment key={i}>{i > 0 ? ' ' : ''}{renderUnit(u, side, i)}</React.Fragment>)}
+      </p>
+    );
+  });
+};
+
+const DiffLegend: React.FC<{ names: string[] }> = ({ names }) => (
+  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-slate-500 mt-1.5">
+    {names.map((n, i) => (
+      <span key={i} className="inline-flex items-center gap-1"><span className={`inline-block w-3 h-3 rounded-sm border ${SIDE_SWATCH[i]}`} /> only in {n}</span>
+    ))}
+    <span className="inline-flex items-center gap-1"><span className="inline-block w-3 h-3 rounded-sm bg-amber-200 border border-amber-300" /> wording differs</span>
+    <span className="inline-flex items-center gap-1"><span className={`${WORD_NUM} text-[10px]`}>12</span> number differs</span>
+  </div>
+);
+
+const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded: boolean; sectionKey?: string | null; units?: DiffUnit[]; side?: number; onlyDiff?: boolean }> = ({ section, absent, expanded, sectionKey, units, side = 0, onlyDiff = false }) => {
   if (absent) return <p className="text-[11px] italic text-slate-300">Not a section of this label.</p>;
   if (!section || section.missing || (!section.text && !section.tables?.length)) {
     // An empty extract is NOT evidence that the official label lacks the
@@ -106,8 +180,8 @@ const SectionCell: React.FC<{ section?: SectionData; absent?: boolean; expanded:
   }
   return (
     <div className="relative min-w-0" style={expanded ? undefined : { maxHeight: COLLAPSED_PX, overflow: 'hidden' }}>
-      {section.text ? renderText(section.text) : null}
-      {section.tables?.map((html, i) => (
+      {section.text ? (units ? renderDiff(units, side, onlyDiff) : renderText(section.text)) : null}
+      {!(units && onlyDiff) && section.tables?.map((html, i) => (
         <div key={i} className="uspi-table overflow-x-auto my-1.5" dangerouslySetInnerHTML={{ __html: html }} />
       ))}
       {!expanded && <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent" />}
@@ -125,6 +199,16 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
   const [cols, setCols] = useState<LabelColumn[]>(columns);
   const [docs, setDocs] = useState<(LabelDoc | null)[] | null>(null);
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  // "Highlight differences": on by default for a two-label comparison (where
+  // the diff is defined), off otherwise; remembered per browser.
+  const [highlight, setHighlight] = useState<boolean>(() => {
+    try { const v = localStorage.getItem('labelCompare.highlight'); if (v !== null) return v === '1'; } catch { /* private mode etc. */ }
+    return columns.length === 2;
+  });
+  const toggleHighlight = () => setHighlight((h) => { try { localStorage.setItem('labelCompare.highlight', h ? '0' : '1'); } catch { /* ignore */ } return !h; });
+  // "Differences only": hide the matching sentences, keep each difference under its heading.
+  const [onlyDiff, setOnlyDiff] = useState<boolean>(() => { try { return localStorage.getItem('labelCompare.onlyDiff') === '1'; } catch { return false; } });
+  const toggleOnlyDiff = () => setOnlyDiff((v) => { try { localStorage.setItem('labelCompare.onlyDiff', v ? '0' : '1'); } catch { /* ignore */ } return !v; });
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -162,6 +246,26 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
   };
   // Hide rows with no content in ANY present column's jurisdiction.
   const rows = ROWS.filter((r) => cols.some((c) => r.keys[c.source]));
+  // Sentence-level differences per row, two columns only (services/labelDiff.ts).
+  const canDiff = cols.length === 2 && !!bothLoaded;
+  const diffs = useMemo<Record<string, SectionDiff | null>>(() => {
+    if (!canDiff || !highlight || !docs) return {};
+    const out: Record<string, SectionDiff | null> = {};
+    for (const row of rows) {
+      const ka = row.keys[cols[0].source], kb = row.keys[cols[1].source];
+      const sa = ka ? docs[0]!.sections[ka] : undefined, sb = kb ? docs[1]!.sections[kb] : undefined;
+      const ta = sa && !sa.missing ? sa.text || '' : '', tb = sb && !sb.missing ? sb.text || '' : '';
+      out[row.label] = diffSections(ta, tb);
+    }
+    return out;
+    // rows derives from cols; docs change with cols.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canDiff, highlight, docs, cols]);
+  const colName = (i: number): string => {
+    const d = docs?.[i];
+    const brand = cols[i].source === 'us' ? d?.usBrand || d?.brand : d?.brand;
+    return `${brand || cols[i].slug} (${cols[i].source.toUpperCase()})`;
+  };
   // With more than two columns (a whole drug class), give each a readable min
   // width and let the aligned grid scroll horizontally instead of squishing.
   const many = cols.length > 2;
@@ -197,6 +301,40 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
               )}
             </div>
           </div>
+          {canDiff && (
+            <div className="mt-2.5">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={highlight}
+                onClick={toggleHighlight}
+                className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold transition-colors ${
+                  highlight ? 'bg-sky-600 border-sky-600 text-white' : 'bg-white border-slate-200 text-sky-600 active:bg-sky-50'
+                }`}
+                title="Sentence-level comparison of the two labels: statements found on one side only, and numbers that differ in matching statements"
+              >
+                <Highlighter size={12} /> Highlight differences
+              </button>
+              {highlight && (
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={onlyDiff}
+                  onClick={toggleOnlyDiff}
+                  className={`ml-2 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold transition-colors ${
+                    onlyDiff ? 'bg-slate-700 border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-600 active:bg-slate-50'
+                  }`}
+                  title="Show only the statements that differ, each under its heading; matching text is hidden"
+                >
+                  Differences only
+                </button>
+              )}
+              {highlight && <DiffLegend names={[colName(0), colName(1)]} />}
+              {highlight && anySubstitute && (
+                <p className="text-[10px] text-amber-700 mt-1">The US column is a different product — differences reflect two products, not one label in two jurisdictions.</p>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="px-5 py-4 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]">
@@ -279,6 +417,16 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                   <div className="pt-0.5 min-w-0">
                     <div className="text-[13px] font-bold text-slate-700 leading-tight">{row.label}</div>
                     {row.note && <div className="text-[10px] text-slate-400 mt-0.5">{row.note}</div>}
+                    {highlight && canDiff && diffs[row.label] && (
+                      <div className="text-[10px] text-slate-500 mt-1 leading-snug">
+                        {diffs[row.label]!.stats.uniqueA + diffs[row.label]!.stats.uniqueB + diffs[row.label]!.stats.changed === 0
+                          ? 'no differences found'
+                          : `${diffs[row.label]!.stats.uniqueA} only ${cols[0].source.toUpperCase()} · ${diffs[row.label]!.stats.uniqueB} only ${cols[1].source.toUpperCase()} · ${diffs[row.label]!.stats.changed} differ`}
+                      </div>
+                    )}
+                    {highlight && canDiff && diffs[row.label] === null && row.keys[cols[0].source] && row.keys[cols[1].source] && (
+                      <div className="text-[10px] text-slate-400 mt-1 leading-snug">not compared (a section is missing or too long)</div>
+                    )}
                     <button onClick={() => setExpanded((e) => ({ ...e, [row.label]: !e[row.label] }))} className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-sky-600 active:text-sky-800">
                       <ChevronDown size={13} className={`transition-transform ${expanded[row.label] ? 'rotate-180' : ''}`} />
                       {expanded[row.label] ? 'Collapse' : 'Expand'}
@@ -286,7 +434,9 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                   </div>
                   {docs!.map((d, i) => {
                     const key = row.keys[cols[i].source];
-                    return <SectionCell key={i} absent={key === null} sectionKey={key} section={key ? d!.sections[key] : undefined} expanded={!!expanded[row.label]} />;
+                    const diff = highlight ? diffs[row.label] : null;
+                    const units = diff ? (i === 0 ? diff.a : diff.b) : undefined;
+                    return <SectionCell key={i} absent={key === null} sectionKey={key} section={key ? d!.sections[key] : undefined} expanded={!!expanded[row.label] || (onlyDiff && !!units)} units={units} side={i} onlyDiff={onlyDiff} />;
                   })}
                 </div>
               ))}
@@ -306,6 +456,7 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
                 {crossJurisdiction
                   ? 'The EU SmPC and the US Prescribing Information are separate legal documents: approved indications, boxed/black-box warnings, dosing and populations differ, and each applies ONLY in its own jurisdiction — they are not interchangeable. '
                   : ''}
+                {highlight && canDiff ? 'Highlighted differences are a deterministic sentence-by-sentence comparison of the extracted texts (word overlap), not a clinical judgement: a rephrased statement can show as "only in" one label, and matching is approximate. ' : ''}
                 Section text is extracted from the official source documents (EMA product-information / openFDA drug labels) and may be abbreviated; long sections are truncated with the full text one tap away via the links above. Labels are revised frequently; the live linked document is the only authoritative version. US text is the label currently in use as listed on DailyMed/openFDA, which the FDA notes can differ from the last FDA-approved labeling in Drugs@FDA. For informational use by a healthcare professional only — not medical advice and not a basis for any prescribing, dosing, or treatment decision. Verify against the current label before use.
               </p>
             </>
