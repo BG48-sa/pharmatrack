@@ -244,6 +244,24 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   Run locally: `python3 frontend/scripts/post-authorisation-audit.py --md /tmp/pa.md`
   (`--no-epar`, `--skip-us`, `--ema-feed FILE` for offline use).
 
+## Label comparison: "Highlight differences" (services/labelDiff.ts)
+- `LabelComparePanel.tsx` has a toggle (two-label comparisons only; default on,
+  remembered in localStorage `labelCompare.highlight`) that colours a sentence-level
+  comparison of the two columns: `diffSections()` cuts each section into units
+  (sentences per line; an aligned pdftotext table block is one unit), matches units
+  across the sides by Dice overlap of content tokens (cross-reference markers "( 1.2 )",
+  "(see section 5.1)" removed; threshold `MATCH_THRESHOLD` 0.55, greedy best pair
+  first), and marks: unmatched = "only in" that label (rose = column 1, emerald =
+  column 2, dotted underline), matched with unshared tokens = "wording differs"
+  (amber; single words painted only when overlap ≥ `WORD_MARK_THRESHOLD` 0.75),
+  differing NUMBERS always marked (red, wavy underline). Colour is always paired with
+  a decoration (colour-vision deficiency, greyscale print). Per row the stats read
+  "n only EU · m only US · k differ". Deterministic, in-browser, ~50 ms for Keytruda
+  4.1; sections over 400k unit pairs or with a missing side are not compared.
+- It is a text comparison, not a clinical judgement: a rephrased claim shows as
+  "only in" one label; the footer says so. Tests: `scripts/tests/label-diff.test.mjs`
+  (`node --test --experimental-strip-types`, part of `npm test`).
+
 ## Web app updates (service worker)
 - Browsers install a new service worker only when `sw.js` changes byte for byte, and
   the app reloads itself only on that event (index.html `controllerchange`). A
