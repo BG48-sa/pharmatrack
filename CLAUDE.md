@@ -200,6 +200,18 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
 - AccessStatus.tsx: EU HTA joint clinical assessment, France (HAS), Spain (AEMPS
   IPT) and UK (NICE) links next to AIFA / G-BA.
 
+## Deploy from a committed tree only (refresh-data.yml, 24.10.2026)
+- Two push-triggered runs 30 s apart (merges of #5 and #6) both rewrote the daily data;
+  the later run's `git pull --rebase` conflicted on freshness.json / pending-labels.json,
+  the retry loop fell through WITHOUT failing, and the deploy built from the half-merged
+  tree: the live site carried conflict markers in `data/pending-labels.json` and no
+  `data/freshness.json` for ~15 minutes until a forced redeploy. Now: the data commit
+  rebases with `-X theirs` (this run's fresh files win), aborts a failed rebase, and the
+  step fails after 3 attempts; the deploy step refuses to run with a rebase/merge in
+  progress, uncommitted data files or conflict markers; the archive step fails loudly too.
+  Overlapping runs are expected (push + schedule); the concurrency group does not
+  serialise a run that is already past checkout.
+
 ## EU Union Register outage fallback (eu-register-decisions.json)
 - The Commission's register page (`ec.europa.eu/.../reg_last.htm`; the old `newproc.htm`
   address only redirects there over plain http, so since 21.10.2026 the workflow reads
