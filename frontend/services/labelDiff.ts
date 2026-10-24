@@ -107,6 +107,7 @@ const stripRefs = (s: string): string =>
   s
     .replace(/\(\s*\d+(?:\.\d+)*(?:\s*,\s*\d+(?:\.\d+)*)*\s*\)/g, ' ')   // US "( 1.1 )", "(2.3)", "( 1.18 , 2.1 )"
     .replace(/\(\s*see\s+sections?[^)]*\)/gi, ' ')            // EU "(see section 5.1)"
+    .replace(/\bsections?\s+\d+(?:\.\d+)*(?:(?:\s*,\s*|\s+and\s+)\d+(?:\.\d+)*)*/gi, ' ')   // "…criteria, see section 5.1)", "sections 4.4 and 5.1"
     .replace(/\[see[^\]]*\]/gi, ' ');                          // US "[see Warnings and Precautions (5.2)]"
 
 const isNumeric = (t: string): boolean => /^\d/.test(t);
@@ -216,19 +217,44 @@ export const splitUnits = (text: string): { text: string; line: number; table?: 
   return units;
 };
 
-/** Loosely matched pairs (below this overlap) get only their differing NUMBERS marked: marking every
- *  differing word in a sentence that is mostly rephrased would just paint the whole sentence. */
-export const WORD_MARK_THRESHOLD = 0.75;
+/** Inside a matched pair only NUMBERS and clinically decisive words are marked. Painting
+ *  every token one side lacks ("patients", "undergone", "indicated") marks style, not
+ *  substance — the pair's amber background already says the wording differs. Tokens are
+ *  compared after folding (SYNONYMS), so the list is in folded form. */
+export const DECISIVE = new Set([
+  // negation / limits (quantities themselves are numbers and always marked)
+  'not', 'no', 'none', 'never', 'only', 'except', 'unless', 'without', 'contraindicated', 'limitation', 'limitations', 'maximum', 'minimum', 'exceed',
+  // treatment setting / line
+  'adjuvant', 'neoadjuvant', 'perioperative', 'maintenance', 'firstline', 'secondline', 'thirdline', 'priortherapy', 'progression',
+  'metastatic', 'resectable', 'unresectable', 'locally', 'advanced', 'recurrent', 'refractory', 'relapsed', 'residual',
+  'monotherapy', 'alone', 'chemotherapy', 'radiotherapy', 'chemoradiotherapy',
+  // population (see POPULATION: painted only against a stated population on the other side)
+  'adult', 'pediatric', 'infant', 'neonate', 'elderly', 'pregnancy', 'pregnant', 'lactation', 'breastfeeding', 'hepatic', 'renal', 'impairment',
+  'male', 'female', 'women', 'men',
+  // route / form (frequency words carry their number, which is marked anyway)
+  'oral', 'intravenous', 'subcutaneous', 'intramuscular', 'intrathecal', 'topical', 'inhaled', 'once', 'twice', 'daily', 'weekly', 'monthly',
+  // biomarker / status words
+  'positive', 'negative', 'expressing', 'mutation', 'mutations', 'wild', 'deficient', 'proficient',
+  // severity / action
+  'severe', 'fatal', 'boxed', 'discontinue', 'withhold', 'interrupt',
+]);
+/** "in adults" on one side and no age on the other is a style difference; "adults" vs
+ *  "pediatric (12 years and older)" is a population difference. */
+const POPULATION = new Set(['adult', 'pediatric', 'infant', 'neonate', 'elderly', 'year', 'month', 'kg']);
 
 /** Whitespace chunks of a sentence marked by whether their tokens are among the side's unshared tokens. */
-const markWords = (text: string, unshared: Map<string, number>, words: boolean): DiffWord[] => {
+const markWords = (text: string, unshared: Map<string, number>, theirs: string[]): DiffWord[] => {
   const left = new Map(unshared);
+  const theirPopulation = theirs.some((t) => POPULATION.has(t));
   return text.split(/(\s+)/).map((chunk) => {
     if (!chunk.trim()) return { t: chunk, k: 'same' as WordKind };
     let k: WordKind = 'same';
     for (const t of tokens(chunk)) {
       const n = left.get(t) || 0;
-      if (n > 0) { left.set(t, n - 1); if (isNumeric(t)) k = 'num'; else if (words && k !== 'num') k = 'diff'; }
+      if (n <= 0) continue;
+      left.set(t, n - 1);
+      if (isNumeric(t)) k = 'num';
+      else if (k !== 'num' && DECISIVE.has(t) && (!POPULATION.has(t) || theirPopulation)) k = 'diff';
     }
     return { t: chunk, k };
   });
@@ -291,7 +317,7 @@ export const diffSections = (textA: string, textB: string, threshold = MATCH_THR
         if (isNumeric(t) && [theirs[m.j - 1], theirs[m.j + 1]].some((n) => n && n.includes(t))) unshared.delete(t);
       }
       if (!unshared.size) return { ...u, k: 'same', sim: m.s, pair: m.j };
-      return { ...u, k: 'changed', sim: m.s, pair: m.j, words: u.table ? undefined : markWords(u.text, unshared, m.s >= WORD_MARK_THRESHOLD) };
+      return { ...u, k: 'changed', sim: m.s, pair: m.j, words: u.table ? undefined : markWords(u.text, unshared, theirs[m.j]) };
     });
 
   const a = build(ua, ta, tb, ha, matchA);
