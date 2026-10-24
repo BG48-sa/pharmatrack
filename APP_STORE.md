@@ -631,3 +631,20 @@ Xcode: scheme App → Any iOS Device (arm64) → Product → Archive → Distrib
 App Store Connect → Upload. Then in App Store Connect: add version 2.0.5, paste the
 text above, pick build 35, submit. Version and build number come from
 `App.xcodeproj` (MARKETING_VERSION 2.0.5 / CURRENT_PROJECT_VERSION 35) — no edit needed.
+
+---
+
+## 13. Version 2.0.6 (build 36) — 24 Oct 2026
+
+Built and uploaded from the Mac (Xcode → Archive → Upload), submitted 24 Oct 2026.
+Everything below was already live in DrugRadar Web.
+
+**What's New (as submitted)**
+```
+• Label comparison with "Highlight differences": statements that exist in only one label and numbers that differ (dose, age limit, threshold) are marked, with a "Differences only" view that lists what an assessor would note.
+• One card per approval, even when Drugs@FDA and the FDA roster spell a name differently.
+• Verified official label text also from DailyMed where openFDA has no record yet.
+• Access status now links the EU HTA joint assessment, HAS, AEMPS and NICE.
+```
+Version and build (MARKETING_VERSION 2.0.6 / CURRENT_PROJECT_VERSION 36) were set in
+Xcode on the Mac and recorded in `App.xcodeproj` on main afterwards.
