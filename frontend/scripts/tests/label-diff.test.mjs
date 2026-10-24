@@ -81,6 +81,14 @@ test('headings are neither claims nor differences; a claim stated twice on one s
   assert.equal(d.b[0].text, claim, 'the US section title is stripped from the first sentence');
 });
 
+test('a number the other side states in the neighbouring sentence is not marked', () => {
+  const eu = 'KEYTRUDA as monotherapy is indicated for the treatment of adults and adolescents aged 12 years and older with advanced melanoma.';
+  const us = 'KEYTRUDA is indicated: Melanoma for the treatment of patients with unresectable or metastatic melanoma. ( 1.1 )\nfor the adjuvant treatment of adult and pediatric (12 years and older) patients with Stage III melanoma. ( 1.1 )';
+  const d = diffSections(eu, us);
+  assert.equal(d.a[0].k, 'changed');
+  assert.deepEqual(d.a[0].words.filter((w) => w.k === 'num'), []);
+});
+
 test('empty or missing text is not compared', () => {
   assert.equal(diffSections('', 'x'), null);
   assert.equal(diffSections('Hypersensitivity.', '   '), null);

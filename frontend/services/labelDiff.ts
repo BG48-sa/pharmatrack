@@ -284,6 +284,12 @@ export const diffSections = (textA: string, textB: string, threshold = MATCH_THR
       const m = match.get(i);
       if (!m) return { ...u, k: mine[i].some((t) => !isNumeric(t)) ? 'unique' : 'same' };
       const unshared = unsharedTokens(mine[i], theirs[m.j]);
+      // A number the counterpart states in its neighbouring sentence is not a
+      // difference: the US Highlights split one EU sentence into two lines
+      // ("…melanoma. ( 1.1 ) for the adjuvant treatment of adult and pediatric (12 years and older)…").
+      for (const t of [...unshared.keys()]) {
+        if (isNumeric(t) && [theirs[m.j - 1], theirs[m.j + 1]].some((n) => n && n.includes(t))) unshared.delete(t);
+      }
       if (!unshared.size) return { ...u, k: 'same', sim: m.s, pair: m.j };
       return { ...u, k: 'changed', sim: m.s, pair: m.j, words: u.table ? undefined : markWords(u.text, unshared, m.s >= WORD_MARK_THRESHOLD) };
     });
