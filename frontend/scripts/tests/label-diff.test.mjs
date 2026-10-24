@@ -47,14 +47,27 @@ test('identical sentences are same; rephrased sentences are not word-marked, onl
   const a = 'The recommended dose is 200 mg every 3 weeks administered as an intravenous infusion over 30 minutes.';
   const b = 'The recommended dose is 200 mg every 3 weeks administered as an intravenous infusion over 30 minutes.';
   assert.equal(diffSections(a, b).a[0].k, 'same');
-  // Loosely matched (overlap between 0.55 and 0.75): differing words are not painted, a differing number is.
+  // Rephrased: filler words are not painted, differing numbers are.
   const c = 'Administer the recommended dosage of 400 mg by intravenous infusion over 30 minutes every 6 weeks until progression.';
   const d = diffSections(a, c);
   assert.equal(d.a[0].k, 'changed');
-  assert.ok(d.a[0].sim < 0.75 && d.a[0].sim >= 0.4, `sim ${d.a[0].sim}`);
   assert.deepEqual(d.a[0].words.filter((w) => w.k === 'diff'), []);
   assert.deepEqual(d.a[0].words.filter((w) => w.k === 'num').map((w) => w.t), ['200', '3']);
   assert.deepEqual(d.b[0].words.filter((w) => w.k === 'num').map((w) => w.t), ['400', '6']);
+  // "patients" / "undergone" are style; "adjuvant" vs "neoadjuvant", "not" are substance.
+  const e = diffSections('X is indicated for the adjuvant treatment of adults with melanoma who have undergone resection.',
+                         'X is indicated for the neoadjuvant treatment of adult patients with melanoma not amenable to resection.');
+  assert.deepEqual(e.a[0].words.filter((w) => w.k === 'diff').map((w) => w.t), ['adjuvant']);
+  assert.deepEqual(e.b[0].words.filter((w) => w.k === 'diff').map((w) => w.t), ['neoadjuvant', 'not']);
+  // "adults" against silence is style; against a stated population it is substance.
+  const f = diffSections('X is indicated for the treatment of adults with melanoma.', 'X is indicated for the treatment of patients with melanoma.');
+  assert.deepEqual(f.a[0].words.filter((w) => w.k !== 'same'), []);
+  const g = diffSections('X is indicated for the treatment of adults with melanoma.', 'X is indicated for the treatment of pediatric patients with melanoma.');
+  assert.deepEqual(g.a[0].words.filter((w) => w.k === 'diff').map((w) => w.t), ['adults']);
+  assert.deepEqual(g.b[0].words.filter((w) => w.k === 'diff').map((w) => w.t), ['pediatric']);
+  // An inline cross-reference is never a differing number.
+  const h = diffSections('X is indicated in adults (for selection criteria, see section 5.1).', 'X is indicated in adults.');
+  assert.deepEqual(h.a[0].words.filter((w) => w.k === 'num'), []);
 });
 
 test('dialects fold: abbreviations, monotherapy / single agent, British spelling, adolescents / pediatric', () => {

@@ -297,8 +297,8 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   matched counterpart (the SmPC repeats 4.1 per presentation, the PI has Highlights +
   full text — a repeat is not a difference). Marks: unmatched = "only in" that label
   (rose = column 1, emerald = column 2, dotted underline), matched with unshared tokens
-  = "wording differs" (amber; single words painted only when overlap ≥
-  `WORD_MARK_THRESHOLD` 0.75), differing NUMBERS always (red, wavy). Colour is always
+  = "wording differs" (amber;
+  only numbers and clinically decisive words — `DECISIVE`: negations, setting/line, population, route, biomarker, severity — are painted, population words only against a stated population on the other side (`POPULATION`); "patients", "undergone", "every … weeks" are style, not substance), differing NUMBERS always (red, wavy). Colour is always
   paired with a decoration (colour-vision deficiency, greyscale print). Each unit carries
   `pair` (index on the other side). Keytruda 4.1 on 24.10.2026: 4 only EU · 21 only US
   · 71 differ in ~80 ms (before tuning: 69 · 59 · 39 — mostly noise).
