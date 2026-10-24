@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B56CF735AEA4273AC4216FC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 31324A277C1E4DCCB2C2BB56 /* PrivacyInfo.xcprivacy */; };
-		C2C7F36D32E948D5A641F58A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 703352F8CC9741A788F62CD6 /* PrivacyInfo.xcprivacy */; };
+		2F912E7ECFC82895ABE35918 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE74B047891A47F7190B3 /* SceneDelegate.swift */; };
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		40AA18747C39C1D66B910191 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9245153B6A65B276B32ABD4 /* Foundation.framework */; };
 		4D22ABE92AF431CB00220026 /* CapApp-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 4D22ABE82AF431CB00220026 /* CapApp-SPM */; };
@@ -18,9 +18,9 @@
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		C2C7F36D32E948D5A641F58A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 703352F8CC9741A788F62CD6 /* PrivacyInfo.xcprivacy */; };
 		E2F727AC6A8E014EEE182589 /* DrugRadarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4CBD466EF45EA36570D1F /* DrugRadarWidget.swift */; };
 		E947611FDB0206060720F2D5 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */; };
-		2F912E7ECFC82895ABE35918 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE74B047891A47F7190B3 /* SceneDelegate.swift */; };
 		EC2F308AF008F9476533F094 /* DrugRadarWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F1D63B9CBE2882DFF588B8BF /* DrugRadarWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -49,10 +49,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		31324A277C1E4DCCB2C2BB56 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		703352F8CC9741A788F62CD6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1F7B2B595030F48494C31EAF /* DrugRadarWidget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = DrugRadarWidget.entitlements; sourceTree = "<group>"; };
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
+		31324A277C1E4DCCB2C2BB56 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 		6BD4CBD466EF45EA36570D1F /* DrugRadarWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DrugRadarWidget.swift; sourceTree = "<group>"; };
+		703352F8CC9741A788F62CD6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		78BF1916AE4515C20C8E85C4 /* SpotlightIndexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpotlightIndexer.swift; sourceTree = "<group>"; };
 		941BE74B047891A47F7190B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		958DCC722DB07C7200EA8C5F /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../debug.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -99,7 +99,6 @@
 				703352F8CC9741A788F62CD6 /* PrivacyInfo.xcprivacy */,
 				1F7B2B595030F48494C31EAF /* DrugRadarWidget.entitlements */,
 			);
-			name = DrugRadarWidget;
 			path = DrugRadarWidget;
 			sourceTree = "<group>";
 		};
