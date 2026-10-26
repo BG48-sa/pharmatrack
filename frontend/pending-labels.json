@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-26",
- "checkedAt": "2026-10-26T10:48:47Z",
+ "checkedAt": "2026-10-26T11:10:54Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -20,43 +20,21 @@
    "LABEL_AVAILABLE": 4,
    "LABEL_VERIFIED": 68
   },
-  "alerts": 22,
-  "transitions": [
-   {
-    "id": "FDA:lamlique",
-    "drug": "Lamlique",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID a4d89cd9-c5d8-490f-996d-fc15b47c7b21, label version 17 of 2026-10-14"
-   },
-   {
-    "id": "FDA:degevma",
-    "drug": "Degevma",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_AVAILABLE",
-    "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
-   },
-   {
-    "id": "FDA:immgolis",
-    "drug": "Immgolis",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_AVAILABLE",
-    "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
-   },
-   {
-    "id": "FDA:ennumo",
-    "drug": "Ennumo",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_AVAILABLE",
-    "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
-   }
-  ],
+  "alerts": 21,
+  "transitions": [],
   "closed": []
  },
  "alerts": [
   {
    "id": "FDA:yulzety",
    "drug": "Yulzety",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:lamlique",
+   "drug": "Lamlique",
    "jurisdiction": "FDA",
    "status": "LABEL_VERIFIED",
    "message": "openFDA no longer returns the verified label — check DailyMed"
@@ -125,13 +103,6 @@
    "message": "no US prescribing information at openFDA or DailyMed 82 days after approval"
   },
   {
-   "id": "FDA:zimrixby",
-   "drug": "Zimrixby",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA or DailyMed 87 days after approval"
-  },
-  {
    "id": "FDA:glycophos",
    "drug": "Glycophos",
    "jurisdiction": "FDA",
@@ -151,13 +122,6 @@
    "jurisdiction": "FDA",
    "status": "LABEL_VERIFIED",
    "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:ranluspec",
-   "drug": "Ranluspec",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA or DailyMed 146 days after approval"
   },
   {
    "id": "FDA:cypsedo",
@@ -467,7 +431,8 @@
     "sha256": "8231d9739a91fec3f5cbe72b9aa8ee351d30383da4905023f398923c6c929fd5",
     "indications": "1 INDICATIONS AND USAGE Lamotrigine is indicated for: Epilepsy — adjunctive therapy in patients aged 2 years and older: partial-onset seizures. primary generalized tonic-clonic (PGTC) seizures. generalized seizures of Lennox-Gastaut syndrome. ( 1.1 ) Epilepsy—monotherapy in patients aged 16 years and older Conversion to monotherapy in patients with partial-onset seizures who are receiving treatment with carbamazepine, phenytoin, phenobarbital, primidone, or valproate as the single antiepileptic drug. ( 1.1 ) Bipolar disorder Maintenance treatment of bipolar I disorder to delay the time to occurrence of mood episodes in patients treated for acute mood episodes with standard therapy. ( 1.2 ) Limitations of Use Treatment of acute manic or mixed episodes is not recommended. Effectiveness of lamotrigine in the acute treatment of mood episodes has not been established. 1.1 Epilepsy Adjunctive Therapy Lamotrigine is indicated as adjunctive therapy for the following seizure types in patients aged 2 years and older: partial-onset seizures. primary generalized tonic-clonic (PGTC) seizures. generalized seizures of Lennox-Gastaut syndrome. Monotherapy Lamotrigine is indicated for conversion to monotherapy in adults (aged 16 years and older) with partial-onset seizures who are receiving treatment with carbamazepine, phenytoin, phenobarbital, primidone, or valproate as the single antiepileptic drug (AED). Safety and effectiveness of lamotrigine have not been established (1) as initial monotherapy; (2) for conversion to monotherapy from AEDs other than carbamazepine, phenytoin, phenobarbital, primidone, or valproate; or (3) for simultaneous conversion to monotherapy from 2 or more concomitant AEDs. 1.2 Bipolar Disorder Lamotrigine is indicated for the maintenance treatment of bipolar I disorder to delay the time to occurrence of mood episodes (depression, mania, hypomania, mixed episodes) in patients treated for acute mood episodes with standard therapy [see Clinical Studies ( 14.2 )] . Limitations of Use Treatment of acute manic or mixed episodes is not recommended. Effectiveness of lamotrigine in the acute treatment of mood episodes has not been established.",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:juvmo",
@@ -565,7 +530,8 @@
     "version": "3",
     "detected": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b1f0590e-f5bb-44ac-99a0-4aa4596c7e54"
-   }
+   },
+   "biosimilar": true
   },
   {
    "id": "FDA:atebrioz",
@@ -1486,7 +1452,8 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA or DailyMed 87 days after approval"
+   "biosimilar": true,
+   "note": "biosimilar: no SPL at openFDA or DailyMed 87 days after approval — expected until commercial launch"
   },
   {
    "id": "FDA:glycophos",
@@ -1643,7 +1610,8 @@
     "harmonised": true,
     "sha256": "0c394173ad5ffad4af07ad28757a5554744c1004eb74ea1836cbdfee367ceae4",
     "indications": "1 INDICATIONS AND USAGE Garzulys™ is indicated to improve glycemic control in adults and pediatric patients with diabetes mellitus. Garzulys is rapid acting human insulin analog indicated to improve glycemic control in adults and pediatric patients with diabetes mellitus ( 1 )."
-   }
+   },
+   "biosimilar": true
   },
   {
    "id": "FDA:jideytro",
@@ -2198,7 +2166,8 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA or DailyMed 146 days after approval"
+   "biosimilar": true,
+   "note": "biosimilar: no SPL at openFDA or DailyMed 146 days after approval — expected until commercial launch"
   },
   {
    "id": "FDA:zaynich",
@@ -2480,7 +2449,8 @@
     "version": "43",
     "detected": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f86cb4a7-c358-4136-ae57-b32bda9bba00"
-   }
+   },
+   "biosimilar": true
   },
   {
    "id": "FDA:baxfendy",
@@ -2631,7 +2601,8 @@
     "version": "161",
     "detected": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fdfe5d72-6b80-435a-afa4-c5d74dd852ce"
-   }
+   },
+   "biosimilar": true
   },
   {
    "id": "FDA:veppanu",
@@ -2737,7 +2708,8 @@
     "sha256": "df52c542038c45e7e1fbc517a480de731e9b456e07db54d767b72355d938c4bb",
     "indications": "1 INDICATIONS AND USAGE LANGLARA is indicated to improve glycemic control in adult and pediatric patients with diabetes mellitus. LANGLARA is a long-acting human insulin analog indicated to improve glycemic control in adult and pediatric patients with diabetes mellitus. ( 1 ) Limitations of Use Not recommended for the treatment of diabetic ketoacidosis. ( 1 ) Limitations of Use LANGLARA is not recommended for the treatment of diabetic ketoacidosis.",
     "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
-   }
+   },
+   "biosimilar": true
   },
   {
    "id": "EMA:EMEA/H/C/006627",
