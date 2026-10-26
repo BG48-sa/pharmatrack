@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-26",
- "checkedAt": "2026-10-26T10:37:46Z",
+ "checkedAt": "2026-10-26T10:48:47Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,83 +12,104 @@
  },
  "summary": {
   "total": 111,
-  "unresolved": 44,
+  "unresolved": 43,
   "byStatus": {
-   "AWAITING_USPI": 19,
+   "AWAITING_USPI": 15,
    "AWAITING_EC_DECISION": 18,
    "AWAITING_SMPC": 6,
-   "LABEL_AVAILABLE": 1,
-   "LABEL_VERIFIED": 67
+   "LABEL_AVAILABLE": 4,
+   "LABEL_VERIFIED": 68
   },
-  "alerts": 15,
+  "alerts": 22,
   "transitions": [
    {
-    "id": "FDA:yulzety",
-    "drug": "Yulzety",
+    "id": "FDA:lamlique",
+    "drug": "Lamlique",
     "from": "AWAITING_USPI",
     "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 481b7802-5093-43e7-bbd9-1532197eb6e6, label version 2 of 2026-09-04"
+    "note": "USPI verified: set ID a4d89cd9-c5d8-490f-996d-fc15b47c7b21, label version 17 of 2026-10-14"
    },
    {
-    "id": "FDA:juvmo",
-    "drug": "Juvmo",
+    "id": "FDA:degevma",
+    "drug": "Degevma",
     "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 1ae6df6e-6ca0-420f-bec9-effa7acdd085, label version 2 of 2026-09-25"
+    "to": "LABEL_AVAILABLE",
+    "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
    },
    {
-    "id": "FDA:atebrioz",
-    "drug": "Atebrioz",
+    "id": "FDA:immgolis",
+    "drug": "Immgolis",
     "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID f542e4b0-072a-42c6-80c9-5977054971e0, label version 1 of 2026-09-09"
+    "to": "LABEL_AVAILABLE",
+    "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
    },
    {
-    "id": "FDA:onswik",
-    "drug": "Onswik",
+    "id": "FDA:ennumo",
+    "drug": "Ennumo",
     "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 6e02229e-262c-4e25-9240-9e9de4eb7c1d, label version 2 of 2026-09-23"
-   },
-   {
-    "id": "FDA:pixclara",
-    "drug": "Pixclara",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID dc78b128-3768-4448-b019-61574db05714, label version 4 of 2026-10-07"
-   },
-   {
-    "id": "FDA:isembyld",
-    "drug": "Isembyld",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID b1cd8ab8-8a10-48ed-9806-75a44f22b963, label version 3 of 2026-09-14"
-   },
-   {
-    "id": "FDA:zanvastro",
-    "drug": "Zanvastro",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID af6ca330-46d3-4ed6-b2af-bd6db3133fd1, label version 3 of 2026-09-14"
-   },
-   {
-    "id": "FDA:genglycos",
-    "drug": "Genglycos",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8, label version 4 of 2026-08-28"
-   },
-   {
-    "id": "FDA:utebzi",
-    "drug": "Utebzi",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID f0511453-5f6f-4e3a-b7d0-a5cfde985656, label version 1 of 2026-06-17"
+    "to": "LABEL_AVAILABLE",
+    "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
    }
   ],
   "closed": []
  },
  "alerts": [
+  {
+   "id": "FDA:yulzety",
+   "drug": "Yulzety",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:juvmo",
+   "drug": "Juvmo",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:atebrioz",
+   "drug": "Atebrioz",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:onswik",
+   "drug": "Onswik",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:pixclara",
+   "drug": "Pixclara",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:isembyld",
+   "drug": "Isembyld",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:zanvastro",
+   "drug": "Zanvastro",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:genglycos",
+   "drug": "Genglycos",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
   {
    "id": "FDA:tauklarify",
    "drug": "Tauklarify",
@@ -125,6 +146,13 @@
    "message": "no US prescribing information at openFDA or DailyMed 94 days after approval"
   },
   {
+   "id": "FDA:utebzi",
+   "drug": "Utebzi",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
    "id": "FDA:ranluspec",
    "drug": "Ranluspec",
    "jurisdiction": "FDA",
@@ -137,20 +165,6 @@
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
    "message": "no US prescribing information at openFDA or DailyMed 150 days after approval"
-  },
-  {
-   "id": "FDA:immgolis",
-   "drug": "Immgolis",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA or DailyMed 164 days after approval"
-  },
-  {
-   "id": "FDA:ennumo",
-   "drug": "Ennumo",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA or DailyMed 172 days after approval"
   },
   {
    "id": "EMA:EMEA/H/C/006516",
@@ -320,7 +334,8 @@
     "sha256": "ef70b79d5060fdefd1282617f45c62147aa0f4e97981f93ae48bc569f2f0a6e9",
     "indications": "1 INDICATIONS AND USAGE Rivaroxaban tablets are a factor Xa inhibitor indicated: to reduce the risk of major cardiovascular events in patients with coronary artery disease (CAD) ( 1.7 ) to reduce the risk of major thrombotic vascular events in patients with peripheral artery disease (PAD), including patients after recent lower extremity revascularization due to symptomatic PAD ( 1.8 ) 1.7 Reduction of Risk of Major Cardiovascular Events in Patients with Coronary Artery Disease (CAD) Rivaroxaban tablets, in combination with aspirin, is indicated to reduce the risk of major cardiovascular events (cardiovascular death, myocardial infarction, and stroke) in adult patients with coronary artery disease. 1.8 Reduction of Risk of Major Thrombotic Vascular Events in Patients with Peripheral Artery Disease (PAD), Including Patients after Lower Extremity Revascularization due to Symptomatic PAD Rivaroxaban tablets, in combination with aspirin, is indicated to reduce the risk of major thrombotic vascular events (myocardial infarction, ischemic stroke, acute limb ischemia, and major amputation of a vascular etiology) in adult patients with PAD, including patients who have recently undergone a lower extremity revascularization procedure due to symptomatic PAD.",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:evoxac",
@@ -413,17 +428,46 @@
    ],
    "summary": null,
    "sponsor": "Azurity",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID a4d89cd9-c5d8-490f-996d-fc15b47c7b21, label version 17 of 2026-10-14"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "a4d89cd9-c5d8-490f-996d-fc15b47c7b21",
+    "splId": "dbc6b0a5-18e9-4de8-86db-65d09f7ba3de",
+    "effective": "2026-10-14",
+    "version": "17",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a4d89cd9-c5d8-490f-996d-fc15b47c7b21",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Lamotrigine",
+    "usGeneric": "Lamotrigine",
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "8231d9739a91fec3f5cbe72b9aa8ee351d30383da4905023f398923c6c929fd5",
+    "indications": "1 INDICATIONS AND USAGE Lamotrigine is indicated for: Epilepsy — adjunctive therapy in patients aged 2 years and older: partial-onset seizures. primary generalized tonic-clonic (PGTC) seizures. generalized seizures of Lennox-Gastaut syndrome. ( 1.1 ) Epilepsy—monotherapy in patients aged 16 years and older Conversion to monotherapy in patients with partial-onset seizures who are receiving treatment with carbamazepine, phenytoin, phenobarbital, primidone, or valproate as the single antiepileptic drug. ( 1.1 ) Bipolar disorder Maintenance treatment of bipolar I disorder to delay the time to occurrence of mood episodes in patients treated for acute mood episodes with standard therapy. ( 1.2 ) Limitations of Use Treatment of acute manic or mixed episodes is not recommended. Effectiveness of lamotrigine in the acute treatment of mood episodes has not been established. 1.1 Epilepsy Adjunctive Therapy Lamotrigine is indicated as adjunctive therapy for the following seizure types in patients aged 2 years and older: partial-onset seizures. primary generalized tonic-clonic (PGTC) seizures. generalized seizures of Lennox-Gastaut syndrome. Monotherapy Lamotrigine is indicated for conversion to monotherapy in adults (aged 16 years and older) with partial-onset seizures who are receiving treatment with carbamazepine, phenytoin, phenobarbital, primidone, or valproate as the single antiepileptic drug (AED). Safety and effectiveness of lamotrigine have not been established (1) as initial monotherapy; (2) for conversion to monotherapy from AEDs other than carbamazepine, phenytoin, phenobarbital, primidone, or valproate; or (3) for simultaneous conversion to monotherapy from 2 or more concomitant AEDs. 1.2 Bipolar Disorder Lamotrigine is indicated for the maintenance treatment of bipolar I disorder to delay the time to occurrence of mood episodes (depression, mania, hypomania, mixed episodes) in patients treated for acute mood episodes with standard therapy [see Clinical Studies ( 14.2 )] . Limitations of Use Treatment of acute manic or mixed episodes is not recommended. Effectiveness of lamotrigine in the acute treatment of mood episodes has not been established.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:juvmo",
@@ -477,7 +521,8 @@
     "sha256": "ae231a55cdb52a4deb8752f0e6bca7fcc8fed9f649ba5cd913d26deb9c3f4134",
     "indications": "1 INDICATIONS AND USAGE JUVMO is indicated for the treatment of Parkinson’s disease (PD) in adults. JUVMO is a non-ergot dopamine agonist indicated for the treatment of Parkinson’s disease in adults. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:degevma",
@@ -491,17 +536,36 @@
    ],
    "summary": null,
    "sponsor": "Teva Pharmaceuticals, Inc.",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "b1f0590e-f5bb-44ac-99a0-4aa4596c7e54",
+    "effective": "2026-08-18",
+    "version": "3",
+    "detected": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b1f0590e-f5bb-44ac-99a0-4aa4596c7e54"
+   }
   },
   {
    "id": "FDA:atebrioz",
@@ -555,7 +619,8 @@
     "sha256": "2790c298bc0e0a68502c4a9f317d83cacaa8830b5bdb9b464cd4bdba5be02280",
     "indications": "1. INDICATIONS AND USAGE ATEBRIOZ is indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ATEBRIOZ is an activin receptor-like kinase-2 (ALK2) inhibitor indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:onswik",
@@ -609,7 +674,8 @@
     "sha256": "38f30b64fc1a18879e801354f6f075c7ada1020915fe09928a4a89e20bd640b6",
     "indications": "1 INDICATIONS AND USAGE ONSWIK™ is indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ONSWIK™ is a long-acting insulin analog indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ( 1 ) Limitations of Use: Not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia ( 1 ) Limitations of Use ONSWIK is not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia. [see Warnings and Precautions ( 5.2 )] .",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:lyrfigtu",
@@ -712,7 +778,8 @@
     "sha256": "59138bbe40cba556ea81c3c357c660bbc52dac69737d58ebdc4567b5f682e0e3",
     "indications": "1 INDICATIONS AND USAGE PIXCLARA is indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. PIXCLARA is a radioactive diagnostic drug indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:isembyld",
@@ -766,7 +833,8 @@
     "sha256": "a6d8fdd5473b492b5612e69fa75b377a8e5156a5d0c95556cd61c3fe85e052f9",
     "indications": "1 INDICATIONS AND USAGE ISEMBYLD is indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ISEMBYLD is a recombinant monoclonal antibody targeting proforms of myostatin, indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:etcamah",
@@ -873,7 +941,8 @@
     "sha256": "f21143aa3e2ca5c05fc8ecd63121ecf183de9573ee598ea9270cff92b369474f",
     "indications": "1 INDICATIONS AND USAGE ZANVASTRO is indicated for the treatment of Alexander disease in pediatric and adult patients. ZANVASTRO is a glial fibrillary acidic protein (GFAP)-directed antisense oligonucleotide indicated for the treatment of Alexander disease in pediatric and adult patients. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:mimrylo",
@@ -1233,7 +1302,8 @@
     "sha256": "09156c61c0ee272fe949207cd65e23dad857a80109a91d97437269b9ddf64e3b",
     "indications": "1. INDICATIONS AND USAGE GENGLYCOS is indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake [see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). GENGLYCOS is an adeno-associated virus (AAV) vector-based gene therapy indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake. Continued approval for this indication may be contingent upon verification of clinical benefit in confirmatory trial(s). ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:zenbexus",
@@ -2049,7 +2119,8 @@
     "sha256": "dbecc809a00a758fefb474c07863cfdbcb2a5a8196229cad78603fb5e59acd1f",
     "indications": "1 INDICATIONS AND USAGE UTEBZI is a penem antibacterial indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. ( 1.1 ) Usage to Reduce Development of Drug‑Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infection (cUTI), Including Pyelonephritis UTEBZI is indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli , Klebsiella pneumoniae , Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:ambelvist",
@@ -2380,18 +2451,36 @@
    ],
    "summary": null,
    "sponsor": "Accord Biopharma Inc.",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA or DailyMed 164 days after approval"
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "f86cb4a7-c358-4136-ae57-b32bda9bba00",
+    "effective": "2026-09-17",
+    "version": "43",
+    "detected": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f86cb4a7-c358-4136-ae57-b32bda9bba00"
+   }
   },
   {
    "id": "FDA:baxfendy",
@@ -2513,18 +2602,36 @@
    ],
    "summary": null,
    "sponsor": "Accord Biopharma Inc.",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA or DailyMed 172 days after approval"
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "fdfe5d72-6b80-435a-afa4-c5d74dd852ce",
+    "effective": "2026-08-05",
+    "version": "161",
+    "detected": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fdfe5d72-6b80-435a-afa4-c5d74dd852ce"
+   }
   },
   {
    "id": "FDA:veppanu",
