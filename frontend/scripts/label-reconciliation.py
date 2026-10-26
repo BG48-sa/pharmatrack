@@ -273,12 +273,43 @@ class Queue:
 
 
 # --------------------------------------------------------------------------- US side
+BIOSIMILAR_REFERENCE_YEARS = 3   # the reference product must be this much older than the copy
+
+
+def is_biosimilar(inn, submissions, approval, ema_by_inn, brand=None):
+    """A 351(k) biosimilar: Drugs@FDA's BIOSIMILAR class code, or a four-letter
+    suffix (rituximab-cdxx) on an INN whose reference product has been authorised
+    in the EU for years. The suffix alone proves nothing — since 2017 FDA gives one
+    to every new biologic (insulin efsitora alfa-gobe, apitegromab-mstn), and
+    Drugs@FDA files real copies as UNKNOWN / TYPE 2 / TYPE 5, so neither signal
+    works on its own. A TYPE 1 (new molecular entity), TYPE 3 (new dosage form:
+    Sarclisa Escena) or TYPE 4 (new combination; Lytenava is "TYPE 1/4") submission
+    is never one, nor is a brand that carries the reference brand's own name.
+    Biosimilars' SPLs usually appear on DailyMed at commercial launch, often
+    months after approval (patent settlements): a missing label is expected."""
+    classes = {(x.get('submission_class_code') or '').upper() for x in submissions or []}
+    if 'BIOSIMILAR' in classes:
+        return True
+    if any(c.startswith(('TYPE 1', 'TYPE 3', 'TYPE 4')) for c in classes):
+        return False
+    m = re.match(r'^(.+?)-[a-z]{4}$', (inn or '').strip().lower())
+    if not m or not approval:
+        return False
+    root = re.sub(r'\s+', ' ', m.group(1)).strip()
+    ref = (ema_by_inn or {}).get(root) or {}
+    first = iso(ref.get('d'))
+    if brand and ref.get('n') and norm(ref['n']) in norm(brand).split():
+        return False                                            # the originator's own line extension
+    return bool(first and (days_between(first, approval) or 0) >= 365 * BIOSIMILAR_REFERENCE_YEARS)
+
+
 def us_candidates(fe, today, window):
     """({norm brand: candidate}, {merged Drugs@FDA key: roster key}) from the Drugs@FDA
     recent list, CDER's novel roster and the CBER list."""
     since = (dt.date.fromisoformat(today) - dt.timedelta(days=window)).isoformat()
     cands = {}
     us_recent = read_json(os.path.join(fe, 'us-recent.json'), {}) or {}
+    ema_by_inn = (read_json(os.path.join(fe, 'ema-medicines.json'), {}) or {}).get('byInn') or {}
     for it in us_recent.get('items') or []:
         d = iso(it.get('orig'))
         if not d or d < since:
@@ -292,6 +323,8 @@ def us_candidates(fe, today, window):
         c['applicationNumber'] = it.get('application_number')
         c['sources'].append('drugsfda')
         c['sponsor'] = title(it.get('sponsor_name'))
+        if is_biosimilar(inn, it.get('submissions'), d, ema_by_inn, brand):
+            c['biosimilar'] = True
     novel = read_json(os.path.join(fe, 'novel-approvals.json'), {}) or {}
     merged = {}                                                # Drugs@FDA key -> roster key (brand misspelt at FDA)
     for rows in novel.values():
@@ -522,7 +555,7 @@ def reconcile_us(q, fe, today, window, probe, log):
         id_ = f'FDA:{key}'
         e = q.ensure(id_, jurisdiction='FDA', drug=c['drug'], inn=c.get('inn'), applicationNumber=c.get('applicationNumber'),
                      approvalDate=c['approvalDate'], sources=sorted(set(c['sources'])), summary=c.get('summary'),
-                     sponsor=c.get('sponsor'), status=S_AWAITING_USPI)
+                     sponsor=c.get('sponsor'), biosimilar=c.get('biosimilar'), status=S_AWAITING_USPI)
         e.pop('alert', None)
     if not probe:
         return
@@ -786,7 +819,9 @@ def apply_alerts_and_retention(q, today, window, a):
             continue
         if st == S_AWAITING_USPI:
             n = days_between(e.get('approvalDate') or since_date, today) or 0
-            if n > a.us_pending_days:
+            if e.get('biosimilar'):
+                e['note'] = f'biosimilar: no SPL at openFDA or DailyMed {n} days after approval — expected until commercial launch'
+            elif n > a.us_pending_days:
                 e['alert'] = f'no US prescribing information at openFDA or DailyMed {n} days after approval'
         elif st == S_AWAITING_SMPC:
             n = days_between(e.get('decisionDate') or since_date, today) or 0

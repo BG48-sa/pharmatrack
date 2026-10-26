@@ -169,6 +169,40 @@ class HelperTests(unittest.TestCase):
             lr.dailymed_list, lr.dailymed_record = orig_list, orig_rec
         self.assertIn('centanafadine', terms)
 
+    def test_is_biosimilar_needs_an_old_reference_product(self):
+        ema = {'rituximab': {'d': '1998-06-02', 'n': 'MabThera'},
+               'insulin efsitora alfa': {'d': '2026-08-20', 'n': 'Onswik'}}
+        # a copy of a reference product on the EU market for decades
+        self.assertTrue(lr.is_biosimilar('rituximab-cdxx', [{'submission_class_code': 'UNKNOWN'}], '2026-05-01', ema))
+        # Drugs@FDA's own class code
+        self.assertTrue(lr.is_biosimilar('denosumab-adet', [{'submission_class_code': 'BIOSIMILAR'}], '2026-05-01', {}))
+        # a NEW biologic also carries a suffix: its "reference" is itself, authorised weeks earlier
+        self.assertFalse(lr.is_biosimilar('insulin efsitora alfa-gobe', [{'submission_class_code': 'TYPE 1'}], '2026-09-26', ema))
+        self.assertFalse(lr.is_biosimilar('insulin efsitora alfa-gobe', [], '2026-09-26', ema))
+        # the originator's own new dosage form / an originator-style filing (TYPE 3, TYPE 1/4)
+        ema['isatuximab'] = {'d': '2020-05-30', 'n': 'Sarclisa'}
+        self.assertFalse(lr.is_biosimilar('isatuximab-irfc', [{'submission_class_code': 'TYPE 3'}], '2026-09-01', ema, 'Sarclisa Escena'))
+        self.assertFalse(lr.is_biosimilar('isatuximab-irfc', [], '2026-09-01', ema, 'SARCLISA ESCENA'))
+        self.assertFalse(lr.is_biosimilar('bevacizumab-vikg', [{'submission_class_code': 'TYPE 1/4'}], '2026-09-01',
+                                          {'bevacizumab': {'d': '2005-01-12', 'n': 'Avastin'}}, 'Lytenava'))
+        # unknown to EMA altogether
+        self.assertFalse(lr.is_biosimilar('apitegromab-mstn', [], '2026-09-01', ema))
+        self.assertFalse(lr.is_biosimilar('cipepofol', [], '2026-09-01', ema))
+
+    def test_unlaunched_biosimilar_is_a_note_not_an_alert(self):
+        class A: us_pending_days = 45; eu_pending_days = 30; ingest_days = 14; ec_decision_days = 120
+        e_bio = {'id': 'FDA:x', 'jurisdiction': 'FDA', 'drug': 'Immgolis', 'inn': 'golimumab-sldi', 'biosimilar': True,
+                 'status': lr.S_AWAITING_USPI, 'approvalDate': '2026-05-15', 'statusSince': '2026-05-15'}
+        e_new = {'id': 'FDA:y', 'jurisdiction': 'FDA', 'drug': 'Cypsedo', 'inn': 'cipepofol',
+                 'status': lr.S_AWAITING_USPI, 'approvalDate': '2026-06-01', 'statusSince': '2026-06-01'}
+        class Q:
+            by_id = {'FDA:x': e_bio, 'FDA:y': e_new}
+            def drop(self, *a, **k): pass
+        lr.apply_alerts_and_retention(Q(), TODAY, 180, A())
+        self.assertNotIn('alert', e_bio)
+        self.assertIn('biosimilar', e_bio['note'])
+        self.assertIn('no US prescribing information', e_new['alert'])
+
     def test_dailymed_list_keeps_real_list_rows(self):
         # DailyMed's list title never says "HUMAN PRESCRIPTION"; the old filter dropped every row.
         body = json.dumps({'data': [
