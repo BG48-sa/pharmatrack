@@ -411,6 +411,7 @@ def openfda_lookup_brand(brand):
 DAILYMED_API = 'https://dailymed.nlm.nih.gov/dailymed/services/v2/spls'
 HL7 = '{urn:hl7-org:v3}'
 LOINC_INDICATIONS = '34067-9'
+SPL_RX_DOC_TYPES = {'34391-3', '53406-5', '53408-1', '53404-0'}  # HUMAN PRESCRIPTION DRUG LABEL, CELLULAR THERAPY, PLASMA DERIVATIVE, VACCINE LABEL
 
 
 def dailymed_list(term):
@@ -420,7 +421,11 @@ def dailymed_list(term):
     if status != 200 or not body:
         return []
     rows = (json.loads(body).get('data') or [])
-    return [r for r in rows if r.get('setid') and 'HUMAN PRESCRIPTION' in (r.get('title') or '').upper()]
+    # The list's title is "BRAND (INGREDIENT) FORM [LABELER]" — it never names the
+    # document type, so it cannot be filtered here (a title filter on "HUMAN
+    # PRESCRIPTION" silently dropped every row until 26.10.2026: Utebzi, Genglycos).
+    # The SPL's own document code decides, in dailymed_record().
+    return [r for r in rows if r.get('setid')]
 
 
 def dailymed_record(setid):
@@ -437,6 +442,12 @@ def dailymed_record(setid):
     def attr(path, name):
         el = root.find(path)
         return (el.get(name) or '').strip() if el is not None else ''
+    # Document type (LOINC, <document><code code=…/>): keep the regulated label
+    # types the US extractor accepts — human prescription drug, cellular therapy,
+    # plasma derivative, vaccine; reject OTC, cosmetics, medical devices, animal.
+    doc_type = attr(f'{HL7}code', 'code')
+    if doc_type and doc_type not in SPL_RX_DOC_TYPES:
+        return None
     def texts(path):
         return [t for t in ((el.text or '').strip() for el in root.findall('.//' + path)) if t]
     ind = ''
@@ -454,7 +465,7 @@ def dailymed_record(setid):
         'indications_and_usage': [ind] if ind else [],
         'openfda': {'brand_name': list(dict.fromkeys(brands)), 'generic_name': list(dict.fromkeys(generics)),
                     'application_number': list(dict.fromkeys(a for a in apps if re.match(r'^(NDA|BLA)\d+', a)))},
-        'dailymed': True,
+        'dailymed': True, 'doc_type': doc_type or None,
     }
 
 
@@ -758,7 +769,7 @@ def apply_alerts_and_retention(q, today, window, a):
         if st == S_AWAITING_USPI:
             n = days_between(e.get('approvalDate') or since_date, today) or 0
             if n > a.us_pending_days:
-                e['alert'] = f'no US prescribing information at openFDA {n} days after approval'
+                e['alert'] = f'no US prescribing information at openFDA or DailyMed {n} days after approval'
         elif st == S_AWAITING_SMPC:
             n = days_between(e.get('decisionDate') or since_date, today) or 0
             if n > a.eu_pending_days:

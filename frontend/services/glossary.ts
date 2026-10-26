@@ -94,7 +94,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     soWhat:
       'The evidence base is inherently limited by design and will stay that way — it is not a stepping-stone to a fuller dataset.',
     sourceLabel: 'EMA — exceptional circumstances',
-    sourceUrl: 'https://www.ema.europa.eu/en/glossary-terms/authorisation-under-exceptional-circumstances',
+    sourceUrl: 'https://www.ema.europa.eu/en/glossary-terms/exceptional-circumstances',
   },
   {
     id: 'acc',
@@ -127,7 +127,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     soWhat:
       'Generics enter after the reference product’s protection expires and are relied upon as therapeutically equivalent to the original.',
     sourceLabel: 'EMA — generic medicines',
-    sourceUrl: 'https://www.ema.europa.eu/en/human-regulatory-overview/generic-and-hybrid-medicines',
+    sourceUrl: 'https://www.ema.europa.eu/en/human-regulatory-overview/marketing-authorisation/generic-hybrid-medicines',
   },
   {
     id: 'cdx',

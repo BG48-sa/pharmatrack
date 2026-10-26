@@ -146,6 +146,31 @@ class HelperTests(unittest.TestCase):
         finally:
             shutil.rmtree(tmp)
 
+    def test_dailymed_list_keeps_real_list_rows(self):
+        # DailyMed's list title never says "HUMAN PRESCRIPTION"; the old filter dropped every row.
+        body = json.dumps({'data': [
+            {'setid': 'set-utebzi', 'title': 'UTEBZI (TEBIPENEM PIVOXIL) TABLET, FILM COATED [GLAXOSMITHKLINE LLC]',
+             'published_date': 'Oct 01, 2026', 'spl_version': 2},
+            {'title': 'no setid row'},
+        ]}).encode()
+        orig = lr.http
+        lr.http = lambda url, **kw: (200, {}, body)
+        try:
+            rows = lr.dailymed_list('Utebzi')
+        finally:
+            lr.http = orig
+        self.assertEqual([r['setid'] for r in rows], ['set-utebzi'])
+
+    def test_dailymed_record_rejects_an_otc_label_by_document_code(self):
+        xml = ('<document xmlns="urn:hl7-org:v3"><id root="spl-9"/><code code="34390-5" displayName="HUMAN OTC DRUG LABEL"/>'
+               '<setId root="set-9"/><versionNumber value="1"/><effectiveTime value="20261001"/></document>').encode()
+        orig = lr.http
+        lr.http = lambda url, **kw: (200, {}, xml)
+        try:
+            self.assertIsNone(lr.dailymed_record('set-9'))
+        finally:
+            lr.http = orig
+
     def test_dailymed_spl_is_shaped_like_an_openfda_record(self):
         xml = ('<document xmlns="urn:hl7-org:v3"><id root="spl-1"/><setId root="set-1"/><versionNumber value="3"/>'
                '<effectiveTime value="20261001"/><component><structuredBody><component><section>'
