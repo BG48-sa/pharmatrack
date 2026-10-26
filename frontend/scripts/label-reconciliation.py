@@ -326,7 +326,7 @@ def us_candidates(fe, today, window):
     return cands, merged
 
 
-def validate_us_label(rec, app, brand, inn):
+def validate_us_label(rec, app, brand, inn, allow_shared=False):
     """(ok, checks) for one openFDA label record against the queue entry."""
     of = rec.get('openfda') or {}
     apps = [a.upper() for a in of.get('application_number') or []]
@@ -342,8 +342,18 @@ def validate_us_label(rec, app, brand, inn):
         or bool(ni and any(ni == g or ni in g or g in ni for g in generics)) \
         or bool(nb and pde and (pde.startswith(nb) or f' {nb} ' in f' {pde} ')) \
         or bool(ni_first and len(ni_first) > 5 and pde and ni_first in pde)
+    # A co-packaged or starter-pack product carries its own application number but
+    # shares the brand's label (Bixlenvo Sunlenca Starter Pack NDA221443 → the
+    # Bixlenvo label under NDA221104): an exact brand match with a different
+    # application is a shared label, not another product — recorded, not failed.
+    # Only while the entry has no verified label of its own application
+    # (allow_shared): a verified entry never swaps to another application's label.
+    brand_exact = bool(nb and nb in brands)
+    app_match = (app.upper() in apps) if app and apps else None   # None = openFDA has not linked the label to an application yet
+    shared = apps[0] if allow_shared and app_match is False and brand_exact else None
     checks = {
-        'applicationMatch': (app.upper() in apps) if app and apps else None,   # None = openFDA has not linked the label to an application yet
+        'applicationMatch': None if shared else app_match,
+        **({'applicationShared': shared} if shared else {}),
         'nameMatch': name_ok,
         'indicationsPresent': len(text) >= MIN_INDICATION_CHARS,
         'prescription': 'HUMAN PRESCRIPTION DRUG' in (of.get('product_type') or []) if of else None,
@@ -473,7 +483,11 @@ def dailymed_lookup(brand, inn, approval_date, log):
     """Tier 4: labels DailyMed lists for the brand (or the INN), as openFDA-shaped
     records; only SPLs published on/after the approval (−60 d) are fetched."""
     seen, out = set(), []
-    for term in brand_query_terms(brand) + ([inn] if inn and ' ' not in inn.strip() else []):
+    # INN fallback: the salt-free key ('centanafadine hydrochloride' → 'centanafadine');
+    # of a multi-word key the first word when it is distinctive enough.
+    ik = inn_key(inn)
+    inn_term = ik if ik and ' ' not in ik else (ik.split()[0] if ik and len(ik.split()[0]) > 5 else '')
+    for term in brand_query_terms(brand) + ([inn_term] if inn_term else []):
         try:
             rows = dailymed_list(term)
         except Exception as ex:  # noqa: BLE001
@@ -493,7 +507,9 @@ def dailymed_lookup(brand, inn, approval_date, log):
             if rec:
                 out.append(rec)
             time.sleep(0.3)
-        if out:
+        # Stop only once a record actually names this product — a date-window hit
+        # that will fail the name check must not end the search early.
+        if any(validate_us_label(r, None, brand, inn)[1]['nameMatch'] for r in out):
             break
     return out
 
@@ -540,8 +556,10 @@ def reconcile_us(q, fe, today, window, probe, log):
 
 def apply_us_records(q, e, recs, today):
     best = None
+    own_app = (e.get('applicationNumber') or '').upper()
+    own_verified = e['status'] == S_VERIFIED and ((e.get('label') or {}).get('applicationNumber') or '').upper() == own_app
     for rec in recs:
-        ok, checks, text = validate_us_label(rec, e.get('applicationNumber'), e.get('drug'), e.get('inn'))
+        ok, checks, text = validate_us_label(rec, e.get('applicationNumber'), e.get('drug'), e.get('inn'), allow_shared=not own_verified)
         if not checks['nameMatch']:
             continue                      # some other product that shares the search term
         # A label not linked to THIS application must be at least as new as the
@@ -588,8 +606,8 @@ def apply_us_records(q, e, recs, today):
         label['note'] = 'label read from DailyMed; openFDA does not serve this SPL yet'
     elif checks.get('applicationMatch') is None and not of:
         label['note'] = 'label found in the SPL product data; openFDA has not yet linked it to the application number'
-    elif checks.get('applicationMatch') is None and label['applicationNumber'] and e.get('applicationNumber') \
-            and label['applicationNumber'].upper() != e['applicationNumber'].upper():
+    elif checks.get('applicationShared') or (checks.get('applicationMatch') is None and label['applicationNumber'] and e.get('applicationNumber')
+                                              and label['applicationNumber'].upper() != e['applicationNumber'].upper()):
         label['note'] = f'label shared with application {label["applicationNumber"]} (same brand)'
     if e['status'] == S_VERIFIED and prev.get('sha256') and prev.get('sha256') != new_sha:
         e.setdefault('history', []).append({'date': today, 'status': S_VERIFIED, 'note': f'label revised (version {prev.get("version")} → {label["version"]})'})

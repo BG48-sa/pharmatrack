@@ -146,6 +146,29 @@ class HelperTests(unittest.TestCase):
         finally:
             shutil.rmtree(tmp)
 
+    def test_shared_brand_label_under_another_application_passes(self):
+        rec = {'openfda': {'application_number': ['NDA221104'], 'brand_name': ['BIXLENVO'], 'generic_name': ['lenacapavir'],
+                           'product_type': ['HUMAN PRESCRIPTION DRUG']},
+               'indications_and_usage': ['BIXLENVO is indicated for the treatment of adults with test disease who have failed prior therapy.']}
+        ok, checks, _ = lr.validate_us_label(rec, 'NDA221443', 'Bixlenvo', 'lenacapavir', allow_shared=True)
+        self.assertTrue(ok)
+        self.assertIsNone(checks['applicationMatch'])
+        self.assertEqual(checks['applicationShared'], 'NDA221104')
+        ok2, checks2, _ = lr.validate_us_label(rec, 'NDA221443', 'Othername', 'otherdrug', allow_shared=True)
+        self.assertFalse(lr.validate_us_label(rec, 'NDA221443', 'Bixlenvo', 'lenacapavir')[0])  # not allowed for a verified entry
+        self.assertFalse(ok2)
+
+    def test_dailymed_lookup_searches_the_salt_free_inn(self):
+        terms = []
+        orig_list, orig_rec = lr.dailymed_list, lr.dailymed_record
+        lr.dailymed_list = lambda term: terms.append(term) or []
+        lr.dailymed_record = lambda sid: None
+        try:
+            lr.dailymed_lookup('Simtriyo', 'centanafadine hydrochloride', '2026-07-20', lambda m: None)
+        finally:
+            lr.dailymed_list, lr.dailymed_record = orig_list, orig_rec
+        self.assertIn('centanafadine', terms)
+
     def test_dailymed_list_keeps_real_list_rows(self):
         # DailyMed's list title never says "HUMAN PRESCRIPTION"; the old filter dropped every row.
         body = json.dumps({'data': [

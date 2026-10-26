@@ -76,7 +76,12 @@ jobs:
         if: always()
         run: |
           set -euo pipefail
-          python frontend/scripts/label-reconciliation.py --probe --json /tmp/pending-labels.json --previous frontend/pending-labels.json --md /tmp/labels.md
+          # EMA's EPAR document list (as in refresh-data.yml): real PI URLs + dates instead of HEAD probes
+          curl -fsSL -A "Mozilla/5.0" --max-time 300 --retry 2 -o /tmp/epar-documents.json \
+            "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json" \
+            || { echo "WARN: EMA EPAR document list unavailable — HEAD probes instead"; rm -f /tmp/epar-documents.json; }
+          feed=""; [ -f /tmp/epar-documents.json ] && feed="--ema-feed /tmp/epar-documents.json"
+          python frontend/scripts/label-reconciliation.py --probe --json /tmp/pending-labels.json --previous frontend/pending-labels.json --md /tmp/labels.md $feed
           cat /tmp/labels.md >> "$GITHUB_STEP_SUMMARY"
 
       # The same gates the daily job runs — a refreshed label that lost a
