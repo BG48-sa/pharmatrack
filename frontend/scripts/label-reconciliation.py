@@ -185,7 +185,7 @@ def inn_key(inn):
     if not s:
         return ''
     s = re.sub(r'\b(and|hydrochloride|hcl|sodium|potassium|calcium|acetate|sulfate|sulphate|mesylate|maleate|tartrate|citrate|'
-               r'phosphate|succinate|fumarate|besylate|tosylate|bromide|chloride|dihydrate|monohydrate|anhydrous)\b', ' ', s)
+               r'phosphate|succinate|fumarate|besylate|tosylate|bromide|hydrobromide|chloride|dihydrate|monohydrate|anhydrous)\b', ' ', s)
     return ' '.join(s.split())
 
 

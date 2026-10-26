@@ -128,6 +128,18 @@ jobs:
           cat /tmp/post-auth.md >> "$GITHUB_STEP_SUMMARY"
           cp /tmp/post-auth.json frontend/post-auth.json
 
+      # Two sources, one medicine, two values: Drugs@FDA vs CDER roster vs CBER
+      # list vs FDA announcements vs the stored US label, EMA's table vs the
+      # Union Register, the queue vs its sources. Report only — says WHICH
+      # sources disagree, never which is right; nothing is changed or quarantined.
+      - name: Cross-source conflict report
+        if: always()
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python frontend/scripts/source-conflicts.py --json /tmp/source-conflicts.json --md /tmp/source-conflicts.md
+          cat /tmp/source-conflicts.md >> "$GITHUB_STEP_SUMMARY"
+
       - name: Archive logs, validation report and change list
         if: always()
         uses: actions/upload-artifact@v7
@@ -145,6 +157,8 @@ jobs:
             /tmp/pending-labels.json
             /tmp/labels.md
             /tmp/post-auth.json
+            /tmp/source-conflicts.json
+            /tmp/source-conflicts.md
             /tmp/post-auth.md
           if-no-files-found: ignore
           retention-days: 90

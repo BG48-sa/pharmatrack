@@ -329,6 +329,42 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   `labelDiff.ts` (thresholds, PHRASES, SYNONYMS). Tests:
   `scripts/tests/label-diff.test.mjs` (`node --test --experimental-strip-types`, in `npm test`).
 
+## Cross-source conflict report (source-conflicts.py, Mondays, report only)
+- `frontend/scripts/source-conflicts.py` puts two sources side by side for ONE
+  medicine (the gates compare our files with the previous release, the freshness
+  watchdog each source with its own clock, the post-auth audit events with labels —
+  none of them does this). Offline, from the snapshots in `frontend/`: Drugs@FDA
+  original approval vs CDER roster vs CBER list (> 1 day apart), same brand with
+  another active ingredient (salts/"and" ignored via `inn_key`), an FDA announcement
+  dated before the approval, a stored US label dated before its application's
+  approval (note ≤ 30 d — manufacturers date the SPL before the letter — conflict
+  beyond), EMA's `d` vs the Union Register decision date joined on the product number
+  (note at 1 day), CHMP opinion after authorisation for RECENT records only (EMA
+  keeps only the latest opinion per product: Arixtra 2002 with a 2010 opinion is not
+  a conflict), and a queue entry whose source date has since moved. `indT`
+  (EMA table vs SmPC wording) is counted as info only.
+- It says WHICH sources disagree, never which is right; nothing is changed or
+  quarantined (that is the rule in the gates and write guards). Step in
+  `refresh-labels.yml` after the post-auth audit, `continue-on-error`, run summary +
+  artifact; `--fail-on-conflict` exists but is not used in CI. First run 26.10.2026
+  (window 400 d): 1 conflict — Jascayd: Drugs@FDA's recent list holds only the
+  second NDA 220449 (type 9, new indication, 19.12.2025) while the CDER roster has the
+  first approval 07.10.2025 — plus 3 notes (Liraglutide STADA 15./16.7.2026 EMA vs
+  register; Lytenava and Myqorzo labels dated 8 / 3 days before the approval letter).
+  Run locally: `python3 frontend/scripts/source-conflicts.py --md /tmp/conflicts.md`.
+
+## Label queue: biosimilars (label-reconciliation.py, 26.10.2026)
+- `is_biosimilar()`: Drugs@FDA's BIOSIMILAR class code, or a four-letter INN suffix
+  whose root INN has been authorised in the EU ≥ 3 years (`ema-medicines.json →
+  byInn[root].d`). The suffix alone proves nothing (every new biologic since 2017
+  carries one: insulin efsitora alfa-gobe, apitegromab-mstn) and Drugs@FDA files real
+  copies as UNKNOWN / TYPE 2 / TYPE 5; TYPE 1 / 3 / 4 filings and brands carrying the
+  reference brand's name (Sarclisa Escena, Lytenava "TYPE 1/4") are never biosimilars.
+  Queue entries carry `biosimilar: true`; while AWAITING_USPI they get a note
+  ("expected until commercial launch") instead of the 45-day alert — biosimilars'
+  SPLs appear at commercial launch, often months after approval (patent settlements):
+  Zimrixby (rituximab-cdxx), Ranluspec (ranibizumab-hkdz).
+
 ## Web app updates (service worker)
 - Browsers install a new service worker only when `sw.js` changes byte for byte, and
   the app reloads itself only on that event (index.html `controllerchange`). A
