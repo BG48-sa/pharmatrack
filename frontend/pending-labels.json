@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-26",
- "checkedAt": "2026-10-26T05:44:14Z",
+ "checkedAt": "2026-10-26T10:37:46Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,110 +12,145 @@
  },
  "summary": {
   "total": 111,
-  "unresolved": 53,
+  "unresolved": 44,
   "byStatus": {
-   "AWAITING_USPI": 28,
+   "AWAITING_USPI": 19,
    "AWAITING_EC_DECISION": 18,
    "AWAITING_SMPC": 6,
    "LABEL_AVAILABLE": 1,
-   "LABEL_VERIFIED": 58
+   "LABEL_VERIFIED": 67
   },
-  "alerts": 18,
+  "alerts": 15,
   "transitions": [
    {
-    "id": "EMA:EMEA/H/C/006937",
-    "drug": "Cavoley",
-    "from": "LABEL_AVAILABLE",
+    "id": "FDA:yulzety",
+    "drug": "Yulzety",
+    "from": "AWAITING_USPI",
     "to": "LABEL_VERIFIED",
-    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-10-26"
+    "note": "USPI verified: set ID 481b7802-5093-43e7-bbd9-1532197eb6e6, label version 2 of 2026-09-04"
+   },
+   {
+    "id": "FDA:juvmo",
+    "drug": "Juvmo",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 1ae6df6e-6ca0-420f-bec9-effa7acdd085, label version 2 of 2026-09-25"
+   },
+   {
+    "id": "FDA:atebrioz",
+    "drug": "Atebrioz",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID f542e4b0-072a-42c6-80c9-5977054971e0, label version 1 of 2026-09-09"
+   },
+   {
+    "id": "FDA:onswik",
+    "drug": "Onswik",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 6e02229e-262c-4e25-9240-9e9de4eb7c1d, label version 2 of 2026-09-23"
+   },
+   {
+    "id": "FDA:pixclara",
+    "drug": "Pixclara",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID dc78b128-3768-4448-b019-61574db05714, label version 4 of 2026-10-07"
+   },
+   {
+    "id": "FDA:isembyld",
+    "drug": "Isembyld",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID b1cd8ab8-8a10-48ed-9806-75a44f22b963, label version 3 of 2026-09-14"
+   },
+   {
+    "id": "FDA:zanvastro",
+    "drug": "Zanvastro",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID af6ca330-46d3-4ed6-b2af-bd6db3133fd1, label version 3 of 2026-09-14"
+   },
+   {
+    "id": "FDA:genglycos",
+    "drug": "Genglycos",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8, label version 4 of 2026-08-28"
+   },
+   {
+    "id": "FDA:utebzi",
+    "drug": "Utebzi",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID f0511453-5f6f-4e3a-b7d0-a5cfde985656, label version 1 of 2026-06-17"
    }
   ],
   "closed": []
  },
  "alerts": [
   {
-   "id": "FDA:zanvastro",
-   "drug": "Zanvastro",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 53 days after approval"
-  },
-  {
-   "id": "FDA:genglycos",
-   "drug": "Genglycos",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 68 days after approval"
-  },
-  {
    "id": "FDA:tauklarify",
    "drug": "Tauklarify",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 74 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 74 days after approval"
   },
   {
    "id": "FDA:orzeyful",
    "drug": "Orzeyful",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 82 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 82 days after approval"
   },
   {
    "id": "FDA:zimrixby",
    "drug": "Zimrixby",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 87 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 87 days after approval"
   },
   {
    "id": "FDA:glycophos",
    "drug": "Glycophos",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 89 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 89 days after approval"
   },
   {
    "id": "FDA:simtriyo",
    "drug": "Simtriyo",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 94 days after approval"
-  },
-  {
-   "id": "FDA:utebzi",
-   "drug": "Utebzi",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 131 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 94 days after approval"
   },
   {
    "id": "FDA:ranluspec",
    "drug": "Ranluspec",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 146 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 146 days after approval"
   },
   {
    "id": "FDA:cypsedo",
    "drug": "Cypsedo",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 150 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 150 days after approval"
   },
   {
    "id": "FDA:immgolis",
    "drug": "Immgolis",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 164 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 164 days after approval"
   },
   {
    "id": "FDA:ennumo",
    "drug": "Ennumo",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA 172 days after approval"
+   "message": "no US prescribing information at openFDA or DailyMed 172 days after approval"
   },
   {
    "id": "EMA:EMEA/H/C/006516",
@@ -246,17 +281,46 @@
    ],
    "summary": null,
    "sponsor": "Rosemont Pharms",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-23",
-   "statusSince": "2026-10-23",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-23",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 481b7802-5093-43e7-bbd9-1532197eb6e6, label version 2 of 2026-09-04"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "481b7802-5093-43e7-bbd9-1532197eb6e6",
+    "splId": "5aa363d7-60db-4e9f-e063-6294a90a8ee6",
+    "effective": "2026-09-04",
+    "version": "2",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=481b7802-5093-43e7-bbd9-1532197eb6e6",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "RIVAROXABAN",
+    "usGeneric": "RIVAROXABAN",
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "ef70b79d5060fdefd1282617f45c62147aa0f4e97981f93ae48bc569f2f0a6e9",
+    "indications": "1 INDICATIONS AND USAGE Rivaroxaban tablets are a factor Xa inhibitor indicated: to reduce the risk of major cardiovascular events in patients with coronary artery disease (CAD) ( 1.7 ) to reduce the risk of major thrombotic vascular events in patients with peripheral artery disease (PAD), including patients after recent lower extremity revascularization due to symptomatic PAD ( 1.8 ) 1.7 Reduction of Risk of Major Cardiovascular Events in Patients with Coronary Artery Disease (CAD) Rivaroxaban tablets, in combination with aspirin, is indicated to reduce the risk of major cardiovascular events (cardiovascular death, myocardial infarction, and stroke) in adult patients with coronary artery disease. 1.8 Reduction of Risk of Major Thrombotic Vascular Events in Patients with Peripheral Artery Disease (PAD), Including Patients after Lower Extremity Revascularization due to Symptomatic PAD Rivaroxaban tablets, in combination with aspirin, is indicated to reduce the risk of major thrombotic vascular events (myocardial infarction, ischemic stroke, acute limb ischemia, and major amputation of a vascular etiology) in adult patients with PAD, including patients who have recently undergone a lower extremity revascularization procedure due to symptomatic PAD.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:evoxac",
@@ -374,17 +438,46 @@
    ],
    "summary": "To treat Parkinson’s disease in adults",
    "sponsor": "Abbvie",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 1ae6df6e-6ca0-420f-bec9-effa7acdd085, label version 2 of 2026-09-25"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "1ae6df6e-6ca0-420f-bec9-effa7acdd085",
+    "splId": "b8de6e40-0be5-495c-8f8b-f171dbf39650",
+    "effective": "2026-09-25",
+    "version": "2",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1ae6df6e-6ca0-420f-bec9-effa7acdd085",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "JUVMO",
+    "usGeneric": "Tavapadon",
+    "applicationNumber": "NDA220415",
+    "harmonised": false,
+    "sha256": "ae231a55cdb52a4deb8752f0e6bca7fcc8fed9f649ba5cd913d26deb9c3f4134",
+    "indications": "1 INDICATIONS AND USAGE JUVMO is indicated for the treatment of Parkinson’s disease (PD) in adults. JUVMO is a non-ergot dopamine agonist indicated for the treatment of Parkinson’s disease in adults. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:degevma",
@@ -423,17 +516,46 @@
    ],
    "summary": "To reduce the volume of total new heterotopic ossification in adults and pediatric patients 12 years and older with fibrodysplasia ossificans progressiva",
    "sponsor": "Mirum",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID f542e4b0-072a-42c6-80c9-5977054971e0, label version 1 of 2026-09-09"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "f542e4b0-072a-42c6-80c9-5977054971e0",
+    "splId": "f542e4b0-072a-42c6-80c9-5977054971e0",
+    "effective": "2026-09-09",
+    "version": "1",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f542e4b0-072a-42c6-80c9-5977054971e0",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ATEBRIOZ",
+    "usGeneric": "zilurgisertib",
+    "applicationNumber": "NDA221198",
+    "harmonised": false,
+    "sha256": "2790c298bc0e0a68502c4a9f317d83cacaa8830b5bdb9b464cd4bdba5be02280",
+    "indications": "1. INDICATIONS AND USAGE ATEBRIOZ is indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ATEBRIOZ is an activin receptor-like kinase-2 (ALK2) inhibitor indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:onswik",
@@ -448,17 +570,46 @@
    ],
    "summary": "To improve glycemic control in adults with type 2 diabetes mellitus, as an adjunct to diet and exercise",
    "sponsor": "Eli Lilly And Co",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 6e02229e-262c-4e25-9240-9e9de4eb7c1d, label version 2 of 2026-09-23"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "6e02229e-262c-4e25-9240-9e9de4eb7c1d",
+    "splId": "da30dc98-a2dc-4a7c-91e1-180ca496daa4",
+    "effective": "2026-09-23",
+    "version": "2",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e02229e-262c-4e25-9240-9e9de4eb7c1d",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ONSWIK",
+    "usGeneric": "insulin efsitora alfa-gobe",
+    "applicationNumber": "BLA761408",
+    "harmonised": false,
+    "sha256": "38f30b64fc1a18879e801354f6f075c7ada1020915fe09928a4a89e20bd640b6",
+    "indications": "1 INDICATIONS AND USAGE ONSWIK™ is indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ONSWIK™ is a long-acting insulin analog indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ( 1 ) Limitations of Use: Not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia ( 1 ) Limitations of Use ONSWIK is not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia. [see Warnings and Precautions ( 5.2 )] .",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:lyrfigtu",
@@ -522,17 +673,46 @@
    ],
    "summary": "To use with positron emission tomography to differentiate recurrent or progressive glioma from treatment-related change in conjunction with other diagnostic evaluations",
    "sponsor": "Telix",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID dc78b128-3768-4448-b019-61574db05714, label version 4 of 2026-10-07"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "dc78b128-3768-4448-b019-61574db05714",
+    "splId": "090d1c29-29d4-4fc0-98d0-0442841e1a7b",
+    "effective": "2026-10-07",
+    "version": "4",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dc78b128-3768-4448-b019-61574db05714",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "PIXCLARA",
+    "usGeneric": "Floretyrosine F18",
+    "applicationNumber": "NDA218592",
+    "harmonised": false,
+    "sha256": "59138bbe40cba556ea81c3c357c660bbc52dac69737d58ebdc4567b5f682e0e3",
+    "indications": "1 INDICATIONS AND USAGE PIXCLARA is indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. PIXCLARA is a radioactive diagnostic drug indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:isembyld",
@@ -547,17 +727,46 @@
    ],
    "summary": "To treat spinal muscular atrophy in adults and pediatric patients 2 years of age and older who are currently receiving an SMN2-targeted treatment",
    "sponsor": "Scholar Rock Inc",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID b1cd8ab8-8a10-48ed-9806-75a44f22b963, label version 3 of 2026-09-14"
     }
    ],
-   "lastChecked": "2026-10-26"
+   "lastChecked": "2026-10-26",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "b1cd8ab8-8a10-48ed-9806-75a44f22b963",
+    "splId": "5554cf70-b144-11f1-ab3b-0800200c9a66",
+    "effective": "2026-09-14",
+    "version": "3",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b1cd8ab8-8a10-48ed-9806-75a44f22b963",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ISEMBYLD",
+    "usGeneric": "apitegromab-mstn",
+    "applicationNumber": "BLA761463",
+    "harmonised": false,
+    "sha256": "a6d8fdd5473b492b5612e69fa75b377a8e5156a5d0c95556cd61c3fe85e052f9",
+    "indications": "1 INDICATIONS AND USAGE ISEMBYLD is indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ISEMBYLD is a recombinant monoclonal antibody targeting proforms of myostatin, indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:etcamah",
@@ -625,18 +834,46 @@
    ],
    "summary": "To treat Alexander disease in pediatric and adult patients",
    "sponsor": "Ionis Pharms Inc",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID af6ca330-46d3-4ed6-b2af-bd6db3133fd1, label version 3 of 2026-09-14"
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 53 days after approval"
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "af6ca330-46d3-4ed6-b2af-bd6db3133fd1",
+    "splId": "5b752db5-061f-8804-e063-6394a90aa4af",
+    "effective": "2026-09-14",
+    "version": "3",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=af6ca330-46d3-4ed6-b2af-bd6db3133fd1",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ZANVASTRO",
+    "usGeneric": "zilganersen",
+    "applicationNumber": "NDA220210",
+    "harmonised": false,
+    "sha256": "f21143aa3e2ca5c05fc8ecd63121ecf183de9573ee598ea9270cff92b369474f",
+    "indications": "1 INDICATIONS AND USAGE ZANVASTRO is indicated for the treatment of Alexander disease in pediatric and adult patients. ZANVASTRO is a glial fibrillary acidic protein (GFAP)-directed antisense oligonucleotide indicated for the treatment of Alexander disease in pediatric and adult patients. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:mimrylo",
@@ -957,18 +1194,46 @@
    ],
    "summary": "Reduction of daily cornstarch intake in glycogen storage disease type Ia, patients 8 years and older (accelerated approval).",
    "sponsor": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8, label version 4 of 2026-08-28"
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 68 days after approval"
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8",
+    "splId": "84175036-1036-40bf-8134-df5deffa21ec",
+    "effective": "2026-08-28",
+    "version": "4",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "GENGLYCOS",
+    "usGeneric": "pariglasgene brecaparvovec-opnr",
+    "applicationNumber": "BLA125858",
+    "harmonised": false,
+    "sha256": "09156c61c0ee272fe949207cd65e23dad857a80109a91d97437269b9ddf64e3b",
+    "indications": "1. INDICATIONS AND USAGE GENGLYCOS is indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake [see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). GENGLYCOS is an adeno-associated virus (AAV) vector-based gene therapy indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake. Continued approval for this indication may be contingent upon verification of clinical benefit in confirmatory trial(s). ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:zenbexus",
@@ -1047,7 +1312,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 74 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 74 days after approval"
   },
   {
    "id": "FDA:tudriqev",
@@ -1126,7 +1391,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 82 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 82 days after approval"
   },
   {
    "id": "FDA:zimrixby",
@@ -1151,7 +1416,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 87 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 87 days after approval"
   },
   {
    "id": "FDA:glycophos",
@@ -1176,7 +1441,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 89 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 89 days after approval"
   },
   {
    "id": "FDA:simtriyo",
@@ -1202,7 +1467,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 94 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 94 days after approval"
   },
   {
    "id": "FDA:lytenava",
@@ -1745,18 +2010,46 @@
    ],
    "summary": "To treat complicated urinary tract infections, including pyelonephritis, caused by several susceptible microorganisms in adults who have limited or no alternative oral treatment options",
    "sponsor": "Glaxosmithkline",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-10-26",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID f0511453-5f6f-4e3a-b7d0-a5cfde985656, label version 1 of 2026-06-17"
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 131 days after approval"
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "f0511453-5f6f-4e3a-b7d0-a5cfde985656",
+    "splId": "f0511453-5f6f-4e3a-b7d0-a5cfde985656",
+    "effective": "2026-06-17",
+    "version": "1",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f0511453-5f6f-4e3a-b7d0-a5cfde985656",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Utebzi",
+    "usGeneric": "Tebipenem Pivoxil",
+    "applicationNumber": "NDA215960",
+    "harmonised": false,
+    "sha256": "dbecc809a00a758fefb474c07863cfdbcb2a5a8196229cad78603fb5e59acd1f",
+    "indications": "1 INDICATIONS AND USAGE UTEBZI is a penem antibacterial indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. ( 1.1 ) Usage to Reduce Development of Drug‑Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infection (cUTI), Including Pyelonephritis UTEBZI is indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli , Klebsiella pneumoniae , Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:ambelvist",
@@ -1834,7 +2127,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 146 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 146 days after approval"
   },
   {
    "id": "FDA:zaynich",
@@ -1967,7 +2260,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 150 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 150 days after approval"
   },
   {
    "id": "FDA:decnupaz",
@@ -2098,7 +2391,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 164 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 164 days after approval"
   },
   {
    "id": "FDA:baxfendy",
@@ -2231,7 +2524,7 @@
     }
    ],
    "lastChecked": "2026-10-26",
-   "alert": "no US prescribing information at openFDA 172 days after approval"
+   "alert": "no US prescribing information at openFDA or DailyMed 172 days after approval"
   },
   {
    "id": "FDA:veppanu",
@@ -4109,10 +4402,5 @@
     "emaNumber": "EMEA/H/C/006158"
    }
   }
- ],
- "warnings": [
-  "DailyMed lookup failed for Yulzety: HTTP Error 500: Internal Server Error",
-  "openFDA brand lookup failed for Zanvastro: HTTP Error 500: Internal Server Error",
-  "openFDA brand lookup failed for Bixlenvo Sunlenca Starter Pack (copackaged): HTTP Error 500: Internal Server Error"
  ]
 }
