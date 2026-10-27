@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-27",
- "checkedAt": "2026-10-27T09:20:56Z",
+ "checkedAt": "2026-10-27T14:56:27Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -20,43 +20,28 @@
    "LABEL_AVAILABLE": 4,
    "LABEL_VERIFIED": 70
   },
-  "alerts": 20,
-  "transitions": [
-   {
-    "id": "FDA:hibsago",
-    "drug": "Hibsago",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 2cca7226-d8f9-4917-8d10-83e216acf393, label version 1 of 2026-10-20"
-   },
-   {
-    "id": "FDA:emcitate",
-    "drug": "Emcitate",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 48d9faab-9c60-4abd-b4b9-97ffa778c944, label version 1 of 2026-10-01"
-   },
-   {
-    "id": "FDA:simtriyo",
-    "drug": "Simtriyo",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID ecfa41cc-c8c8-419b-8da3-ee5b819398c2, label version 1 of 2026-07-31"
-   }
-  ],
-  "closed": [
-   {
-    "id": "FDA:langlara",
-    "drug": "Langlara",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   }
-  ]
+  "alerts": 23,
+  "transitions": [],
+  "closed": []
  },
  "alerts": [
   {
+   "id": "FDA:hibsago",
+   "drug": "Hibsago",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
    "id": "FDA:yulzety",
    "drug": "Yulzety",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:emcitate",
+   "drug": "Emcitate",
    "jurisdiction": "FDA",
    "status": "LABEL_VERIFIED",
    "message": "openFDA no longer returns the verified label — check DailyMed"
@@ -137,6 +122,13 @@
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
    "message": "no US prescribing information at openFDA or DailyMed 90 days after approval"
+  },
+  {
+   "id": "FDA:simtriyo",
+   "drug": "Simtriyo",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:utebzi",
@@ -248,7 +240,8 @@
     "sha256": "db66211a36702fd7587258c32082f5845ce79c082b240d60d016ba581c8d5154",
     "indications": "1 INDICATIONS AND USAGE HIBSAGO is indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic hepatitis B virus (HBV) infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test [see Dosage and Administration ( 2.2 )] . HIBSAGO is a hepatitis B virus (HBV) mRNA-directed antisense oligonucleotide (ASO) indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic HBV infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test. ( 2.2 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:cienby",
@@ -458,7 +451,8 @@
     "sha256": "5f02959cf6883c17dcdef9823f246ef1d2c74a281c8739b99cefcb156fd46019",
     "indications": "1 INDICATIONS AND USAGE EMCITATE is indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). EMCITATE is a thyroid hormone receptor agonist indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism. Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism.",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:lamlique",
@@ -1612,7 +1606,8 @@
     "sha256": "0730b85f9035d47ce346f965ab71a115cce0a3316dd3a1cdae316524824789fd",
     "indications": "1 INDICATIONS AND USAGE SIMTRIYO is indicated for the treatment of attention-deficit/hyperactivity disorder (ADHD) in adults and pediatric patients 6 years of age and older weighing at least 20 kg. Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older [see Use in Specific Populations (8.4) ] . Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss [see Use in Specific Populations (8.4) ] . SIMTRIYO is a norepinephrine-dopamine-serotonin reuptake inhibitor and central nervous system stimulant indicated for the treatment of ADHD in adults and pediatric patients 6 years of age and older weighing at least 20 kg. ( 1 ) Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older. ( 8.4 ) Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss. ( 8.4 ).",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:lytenava",
