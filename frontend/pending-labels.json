@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-27",
- "checkedAt": "2026-10-27T14:56:27Z",
+ "checkedAt": "2026-10-27T18:58:30Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -15,13 +15,28 @@
   "unresolved": 40,
   "byStatus": {
    "AWAITING_USPI": 12,
-   "AWAITING_EC_DECISION": 18,
+   "AWAITING_EC_DECISION": 17,
    "AWAITING_SMPC": 6,
-   "LABEL_AVAILABLE": 4,
+   "LABEL_AVAILABLE": 5,
    "LABEL_VERIFIED": 70
   },
   "alerts": 23,
-  "transitions": [],
+  "transitions": [
+   {
+    "id": "EMA:EMEA/H/C/006241",
+    "drug": "Lynavoy",
+    "from": "AWAITING_EC_DECISION",
+    "to": "AWAITING_SMPC",
+    "note": "authorised 2026-10-22 (EMA medicines table)"
+   },
+   {
+    "id": "EMA:EMEA/H/C/006241",
+    "drug": "Lynavoy",
+    "from": "AWAITING_SMPC",
+    "to": "LABEL_AVAILABLE",
+    "note": "product information listed by EMA (updated 2026-10-27) — awaiting the weekly label refresh"
+   }
+  ],
   "closed": []
  },
  "alerts": [
@@ -2762,6 +2777,48 @@
    }
   },
   {
+   "id": "EMA:EMEA/H/C/006241",
+   "jurisdiction": "EMA",
+   "drug": "Lynavoy",
+   "inn": "Linerixibat",
+   "emaNumber": "EMEA/H/C/006241",
+   "slug": "lynavoy",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/lynavoy",
+   "opinionDate": "2026-07-23",
+   "summary": "Treatment of cholestatic pruritus in adult patients with primary biliary cholangitis.",
+   "holder": "GlaxoSmithKline Trading Services Limited",
+   "status": "LABEL_AVAILABLE",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-27",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-27",
+     "status": "AWAITING_SMPC",
+     "note": "authorised 2026-10-22 (EMA medicines table)"
+    },
+    {
+     "date": "2026-10-27",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information listed by EMA (updated 2026-10-27) — awaiting the weekly label refresh"
+    }
+   ],
+   "lastChecked": "2026-10-27",
+   "decisionDate": "2026-10-22",
+   "decisionSource": "EMA medicines table",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/lynavoy-epar-product-information_en.pdf",
+    "detected": "2026-10-27",
+    "emaUpdated": "2026-10-27",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006241"
+   }
+  },
+  {
    "id": "EMA:EMEA/H/C/006627",
    "jurisdiction": "EMA",
    "drug": "Yuviwel",
@@ -3823,29 +3880,6 @@
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006653"
    }
-  },
-  {
-   "id": "EMA:EMEA/H/C/006241",
-   "jurisdiction": "EMA",
-   "drug": "Lynavoy",
-   "inn": "Linerixibat",
-   "emaNumber": "EMEA/H/C/006241",
-   "slug": "lynavoy",
-   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/lynavoy",
-   "opinionDate": "2026-07-23",
-   "summary": "Treatment of cholestatic pruritus in adult patients with primary biliary cholangitis.",
-   "holder": "GlaxoSmithKline Trading Services Limited",
-   "status": "AWAITING_EC_DECISION",
-   "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
-   "history": [
-    {
-     "date": "2026-10-18",
-     "status": "AWAITING_EC_DECISION",
-     "note": "entered the queue"
-    }
-   ],
-   "lastChecked": "2026-10-27"
   },
   {
    "id": "EMA:EMEA/H/C/006494",
