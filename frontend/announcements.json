@@ -1,6 +1,45 @@
 {
-  "generated": "2026-10-21",
+  "generated": "2026-10-27",
   "items": [
+    {
+      "title": "Pfizer’s Talzenna Plus Xtandi FDA-Approved for an Earlier Metastatic Prostate Cancer Treatment Setting",
+      "url": "https://www.drugs.com/newdrugs/pfizer-s-talzenna-plus-xtandi-fda-approved-earlier-metastatic-prostate-cancer-setting-6925.html",
+      "date": "2026-10-26",
+      "source": "Drugs.com",
+      "names": []
+    },
+    {
+      "title": "Novo’s Awiqli Receives FDA Approval as the First and Only Once-Weekly Insulin for Children 10 Years of Age and Older with Type 2 Diabetes",
+      "url": "https://www.drugs.com/newdrugs/novo-s-awiqli-receives-fda-approval-first-only-once-weekly-insulin-children-10-years-age-older-type-6924.html",
+      "date": "2026-10-23",
+      "source": "Drugs.com",
+      "names": []
+    },
+    {
+      "title": "FDA Approves Subcutaneous Induction Regimen for AbbVie's Skyrizi (risankizumab-rzaa) for Adults With Moderately to Severely Active Crohn's Disease",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-subcutaneous-induction-regimen-abbvie-s-skyrizi-risankizumab-rzaa-adults-moderately-6922.html",
+      "date": "2026-10-23",
+      "source": "Drugs.com",
+      "names": [
+        "risankizumab",
+        "risankizumab-rzaa",
+        "skyrizi"
+      ]
+    },
+    {
+      "title": "BioCryst Announces U.S. FDA Approval of Orladeyo 150 mg Oral Pellets for Adults and Adolescents with HAE",
+      "url": "https://www.drugs.com/newdrugs/biocryst-announces-u-s-fda-approval-orladeyo-150-mg-oral-pellets-adults-adolescents-hae-6921.html",
+      "date": "2026-10-21",
+      "source": "Drugs.com",
+      "names": []
+    },
+    {
+      "title": "Ultomiris Received Accelerated Approval in the US as First and Only C5 Complement Inhibitor to Reduce Proteinuria in Adults with Primary Immunoglobulin A Nephropathy",
+      "url": "https://www.drugs.com/newdrugs/ultomiris-received-accelerated-approval-us-first-only-c5-complement-inhibitor-reduce-proteinuria-6923.html",
+      "date": "2026-10-21",
+      "source": "Drugs.com",
+      "names": []
+    },
     {
       "title": "FDA Approves Hibsago (bepirovirsen) for the Treatment of Chronic Hepatitis B",
       "url": "https://www.drugs.com/newdrugs/fda-approves-hibsago-bepirovirsen-chronic-hepatitis-b-6920.html",
@@ -188,56 +227,6 @@
       "date": "2026-09-28",
       "source": "Drugs.com",
       "names": []
-    },
-    {
-      "title": "FDA Approves Gazyva for Idiopathic Nephrotic Syndrome in Patients Aged 2 and Older",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-gazyva-idiopathic-nephrotic-syndrome-patients-aged-2-older-6901.html",
-      "date": "2026-09-25",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "FDA Approves Lilly's Olumiant (baricitinib) for Pediatric Patients 12 Years of Age and Older with Severe Alopecia Areata",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-lilly-s-olumiant-baricitinib-pediatric-patients-12-years-age-older-severe-alopecia-6899.html",
-      "date": "2026-09-25",
-      "source": "Drugs.com",
-      "names": [
-        "baricitinib",
-        "olumiant"
-      ]
-    },
-    {
-      "title": "U.S. FDA Approves Welireg (belzutifan) Plus Lenvima (lenvatinib) for Certain Previously Treated Adult Patients With Advanced Renal Cell Carcinoma With a Clear Cell Component (ccRCC)",
-      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-welireg-belzutifan-plus-lenvima-lenvatinib-certain-previously-treated-adult-6898.html",
-      "date": "2026-09-25",
-      "source": "Drugs.com",
-      "names": [
-        "belzutifan",
-        "ccrcc",
-        "component",
-        "lenvatinib",
-        "lenvima",
-        "welireg"
-      ]
-    },
-    {
-      "title": "FDA Approves Atebrioz (zilurgisertib) for Adult and Pediatric Patients with Fibrodysplasia Ossificans Progressiva",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-atebrioz-zilurgisertib-adult-pediatric-patients-fibrodysplasia-ossificans-progressiva-6897.html",
-      "date": "2026-09-25",
-      "source": "Drugs.com",
-      "names": [
-        "atebrioz",
-        "zilurgisertib"
-      ]
-    },
-    {
-      "title": "FDA Approves Onswik (insulin efsitora alfa-gobe) Once-Weekly Basal Insulin for Adults with Type 2 Diabetes",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-onswik-insulin-efsitora-alfa-gobe-once-weekly-basal-insulin-adults-type-2-diabetes-6896.html",
-      "date": "2026-09-24",
-      "source": "Drugs.com",
-      "names": [
-        "onswik"
-      ]
     }
   ]
 }

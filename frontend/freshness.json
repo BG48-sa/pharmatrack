@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-10-26T19:34:00Z",
+ "checkedAt": "2026-10-27T09:20:56Z",
  "status": "OK",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-10-26",
+  "euCatalogue": "2026-10-27",
   "euLabels": "2026-10-26",
-  "usApprovals": "2026-10-23",
-  "usApprovalsAnnounced": "2026-10-20",
+  "usApprovals": "2026-10-26",
+  "usApprovalsAnnounced": "2026-10-26",
   "usLabels": "2026-10-26",
-  "pipelineRun": "2026-10-26T19:34:00Z"
+  "pipelineRun": "2026-10-27T09:20:56Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,14 +17,14 @@
    "status": "OK",
    "count": 1571,
    "pending": 18,
-   "sha256": "dfe618e357ca33a008ab3dc7c6874f4d45ad2cc53b4b30fef4aead36388dc795",
+   "sha256": "80e6aa23ed073669da1407b382355eacf792662cd7ab0b969db2316afe9117b4",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-10-26",
-   "sourceAgeDays": 0.82,
-   "fetchedAt": "2026-10-26T19:32:33+00:00",
+   "sourceUpdatedAt": "2026-10-27",
+   "sourceAgeDays": 0.39,
+   "fetchedAt": "2026-10-27T09:19:25+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-10-26T17:24:03Z",
+    "value": "2026-10-27T05:00:07Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -34,9 +34,9 @@
    "cadence": "daily download, no own watermark",
    "status": "OK",
    "count": 39,
-   "sha256": "42d95fac9e5bcfaa67cc537ab4d8fbebd488d8cefc7e3eee80e05581d8493952",
+   "sha256": "6584943a67669f5645623c5193df682b7226872f8a99e8329f9e1b785b63a734",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-10-26T19:32:34+00:00",
+   "fetchedAt": "2026-10-27T09:19:26+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -48,10 +48,10 @@
    "url": "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json",
    "incomplete": null,
    "sourceUpdatedAt": "2026-10-26T05:50:10Z",
-   "sourceAgeDays": 0.57,
+   "sourceAgeDays": 1.15,
    "fetchedAt": "2026-10-26",
    "probe": {
-    "value": "2026-10-26T17:06:10Z",
+    "value": "2026-10-27T04:45:08Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -63,18 +63,24 @@
    "count": 3480,
    "approvals": 100,
    "newestOriginalApproval": "2026-10-20",
-   "sha256": "81e855fd2e6bfe63b4787f9bda72e371fd8320affae5c2600b21d69c12a397b4",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251026+TO+20261102]",
-   "sourceUpdatedAt": "2026-10-23",
-   "sourceAgeDays": 3.82,
-   "fetchedAt": "2026-10-26T19:32:41+00:00",
+   "sha256": "01d3f27c4be13e8588cf4eec7e02ef8b7f9b1caebca89561c6e81ff35d83ee5c",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251027+TO+20261103]",
+   "sourceUpdatedAt": "2026-10-26",
+   "sourceAgeDays": 1.39,
+   "fetchedAt": "2026-10-27T09:19:32+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-10-23",
+    "value": "2026-10-26",
     "kind": "meta.last_updated"
    },
-   "lag": null,
-   "notes": []
+   "lag": {
+    "behindDays": 6,
+    "reference": "2026-10-26",
+    "referenceSource": "CDER novel roster / FDA press releases"
+   },
+   "notes": [
+    "openFDA lagging: FDA announced approvals through 2026-10-26, Drugs@FDA newest original approval 2026-10-20 (6 d) — served by the Recent-Approvals overlay"
+   ]
   },
   "openfda_drug_label": {
    "name": "openFDA drug label (US labels)",
@@ -84,9 +90,9 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-10-26",
    "fetchedAt": "2026-10-26",
-   "sourceAgeDays": 0.82,
+   "sourceAgeDays": 1.39,
    "probe": {
-    "value": "2026-10-23",
+    "value": "2026-10-26",
     "kind": "meta.last_updated"
    },
    "notes": []
@@ -98,7 +104,7 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 6.82,
+   "sourceAgeDays": 7.39,
    "missing": null,
    "notes": []
   },
@@ -107,10 +113,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-10-26",
-   "fetchedAgeDays": 0.82,
-   "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 6.82,
+   "fetchedAt": "2026-10-27",
+   "fetchedAgeDays": 0.39,
+   "sourceUpdatedAt": "2026-10-26",
+   "sourceAgeDays": 1.39,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -120,7 +126,7 @@
    "count": 54,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-09-17",
-   "sourceAgeDays": 39.82,
+   "sourceAgeDays": 40.39,
    "notes": []
   },
   "fda_cdx_list": {
@@ -130,7 +136,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 28.82,
+   "sourceAgeDays": 29.39,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -147,7 +153,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 280.82,
+   "sourceAgeDays": 281.39,
    "notes": []
   },
   "biomarkers_table": {
@@ -156,7 +162,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 105.82,
+   "sourceAgeDays": 106.39,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -172,5 +178,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-10-26T10:37:46Z"
+ "previousCheckedAt": "2026-10-26T19:34:00Z"
 }
