@@ -1,6 +1,6 @@
 {
  "generated": "2026-10-28",
- "checkedAt": "2026-10-28T10:01:34Z",
+ "checkedAt": "2026-10-28T22:51:18Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -356,7 +356,7 @@
     "drugsfda"
    ],
    "summary": null,
-   "sponsor": "Cosette Pharms Nc",
+   "sponsor": "Cosette",
    "status": "AWAITING_USPI",
    "firstSeen": "2026-10-21",
    "statusSince": "2026-10-21",
@@ -373,7 +373,7 @@
    "id": "FDA:hovilpri",
    "jurisdiction": "FDA",
    "drug": "Hovilpri",
-   "inn": "pritelivir",
+   "inn": "pritelivir mesylate",
    "applicationNumber": "NDA221154",
    "approvalDate": "2026-10-09",
    "sources": [
@@ -381,7 +381,7 @@
     "novel"
    ],
    "summary": "To treat adults with weakened immune systems who have mucocutaneous lesions caused by herpes simplex virus infection and have not responded to other therapies",
-   "sponsor": "Aicuris Anti-infective Cures Ag",
+   "sponsor": "Aicuris Anti-infect",
    "status": "AWAITING_USPI",
    "firstSeen": "2026-10-18",
    "statusSince": "2026-10-21",
