@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-10-30T18:51:11Z",
+ "checkedAt": "2026-10-30T22:39:39Z",
  "status": "OK",
  "probed": true,
  "currentThrough": {
   "euCatalogue": "2026-10-30",
   "euLabels": "2026-10-26",
-  "usApprovals": "2026-10-29",
+  "usApprovals": "2026-10-30",
   "usApprovalsAnnounced": "2026-10-26",
   "usLabels": "2026-10-26",
-  "pipelineRun": "2026-10-30T18:51:11Z"
+  "pipelineRun": "2026-10-30T22:39:39Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -20,8 +20,8 @@
    "sha256": "4463a00f5d37f0850d4d3ee07613daceb22bb28b37cefcfe9743f9484428d852",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 0.79,
-   "fetchedAt": "2026-10-30T18:49:42+00:00",
+   "sourceAgeDays": 0.94,
+   "fetchedAt": "2026-10-30T22:38:23+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-10-30T17:00:31Z",
@@ -36,7 +36,7 @@
    "count": 39,
    "sha256": "1726179bfb97c6961b9eb8423b1c2272ec0ba6da5757628d47d8cc4f23c268cd",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-10-30T18:49:43+00:00",
+   "fetchedAt": "2026-10-30T22:38:25+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -48,7 +48,7 @@
    "url": "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json",
    "incomplete": null,
    "sourceUpdatedAt": "2026-10-26T05:50:10Z",
-   "sourceAgeDays": 4.54,
+   "sourceAgeDays": 4.7,
    "fetchedAt": "2026-10-26",
    "probe": {
     "value": "2026-10-30T16:45:08Z",
@@ -60,17 +60,17 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3465,
+   "count": 3475,
    "approvals": 99,
    "newestOriginalApproval": "2026-10-20",
-   "sha256": "dad14a969eeaa04fad712e321f83a16d7567da996916944f5ce5c4a8857567d2",
+   "sha256": "4390372e9f621904fca1727c312b2490a1f13053b0f7f991b0254222019c4473",
    "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251030+TO+20261106]",
-   "sourceUpdatedAt": "2026-10-29",
-   "sourceAgeDays": 1.79,
-   "fetchedAt": "2026-10-30T18:49:49+00:00",
+   "sourceUpdatedAt": "2026-10-30",
+   "sourceAgeDays": 0.94,
+   "fetchedAt": "2026-10-30T22:38:30+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-10-29",
+    "value": "2026-10-30",
     "kind": "meta.last_updated"
    },
    "lag": {
@@ -90,7 +90,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-10-26",
    "fetchedAt": "2026-10-26",
-   "sourceAgeDays": 4.79,
+   "sourceAgeDays": 4.94,
    "probe": {
     "value": "2026-10-30",
     "kind": "meta.last_updated"
@@ -104,7 +104,7 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 10.79,
+   "sourceAgeDays": 10.94,
    "missing": null,
    "notes": []
   },
@@ -114,9 +114,9 @@
    "status": "OK",
    "count": 25,
    "fetchedAt": "2026-10-30",
-   "fetchedAgeDays": 0.79,
+   "fetchedAgeDays": 0.94,
    "sourceUpdatedAt": "2026-10-26",
-   "sourceAgeDays": 4.79,
+   "sourceAgeDays": 4.94,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -126,7 +126,7 @@
    "count": 54,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-09-17",
-   "sourceAgeDays": 43.79,
+   "sourceAgeDays": 43.94,
    "notes": []
   },
   "fda_cdx_list": {
@@ -136,7 +136,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 32.79,
+   "sourceAgeDays": 32.94,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -153,7 +153,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 284.79,
+   "sourceAgeDays": 284.94,
    "notes": []
   },
   "biomarkers_table": {
@@ -162,7 +162,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 109.79,
+   "sourceAgeDays": 109.94,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -178,5 +178,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-10-30T10:27:42Z"
+ "previousCheckedAt": "2026-10-30T18:51:11Z"
 }
