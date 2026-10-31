@@ -1,0 +1,4501 @@
+{
+ "generated": "2026-10-31",
+ "checkedAt": "2026-10-31T09:57:34Z",
+ "version": 1,
+ "probe": true,
+ "windowDays": 180,
+ "thresholds": {
+  "usPendingDays": 45,
+  "euPendingDays": 30,
+  "ingestDays": 14,
+  "ecDecisionDays": 120
+ },
+ "summary": {
+  "total": 109,
+  "unresolved": 40,
+  "byStatus": {
+   "AWAITING_USPI": 12,
+   "AWAITING_EC_DECISION": 17,
+   "AWAITING_SMPC": 6,
+   "LABEL_AVAILABLE": 5,
+   "LABEL_VERIFIED": 69
+  },
+  "alerts": 23,
+  "transitions": [],
+  "closed": []
+ },
+ "alerts": [
+  {
+   "id": "FDA:hibsago",
+   "drug": "Hibsago",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:yulzety",
+   "drug": "Yulzety",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:emcitate",
+   "drug": "Emcitate",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:lamlique",
+   "drug": "Lamlique",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:juvmo",
+   "drug": "Juvmo",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:atebrioz",
+   "drug": "Atebrioz",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:onswik",
+   "drug": "Onswik",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:pixclara",
+   "drug": "Pixclara",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:isembyld",
+   "drug": "Isembyld",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:zanvastro",
+   "drug": "Zanvastro",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:genglycos",
+   "drug": "Genglycos",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:tauklarify",
+   "drug": "Tauklarify",
+   "jurisdiction": "FDA",
+   "status": "AWAITING_USPI",
+   "message": "no US prescribing information at openFDA or DailyMed 79 days after approval"
+  },
+  {
+   "id": "FDA:orzeyful",
+   "drug": "Orzeyful",
+   "jurisdiction": "FDA",
+   "status": "AWAITING_USPI",
+   "message": "no US prescribing information at openFDA or DailyMed 87 days after approval"
+  },
+  {
+   "id": "FDA:glycophos",
+   "drug": "Glycophos",
+   "jurisdiction": "FDA",
+   "status": "AWAITING_USPI",
+   "message": "no US prescribing information at openFDA or DailyMed 94 days after approval"
+  },
+  {
+   "id": "FDA:simtriyo",
+   "drug": "Simtriyo",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:utebzi",
+   "drug": "Utebzi",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:cypsedo",
+   "drug": "Cypsedo",
+   "jurisdiction": "FDA",
+   "status": "AWAITING_USPI",
+   "message": "no US prescribing information at openFDA or DailyMed 155 days after approval"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006516",
+   "drug": "Ubeslo",
+   "jurisdiction": "EMA",
+   "status": "AWAITING_SMPC",
+   "message": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006838",
+   "drug": "Riociguat Accord",
+   "jurisdiction": "EMA",
+   "status": "AWAITING_SMPC",
+   "message": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006694",
+   "drug": "Lyrokaul",
+   "jurisdiction": "EMA",
+   "status": "AWAITING_SMPC",
+   "message": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006517",
+   "drug": "Evlarco",
+   "jurisdiction": "EMA",
+   "status": "AWAITING_SMPC",
+   "message": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006388",
+   "drug": "Onswik",
+   "jurisdiction": "EMA",
+   "status": "AWAITING_SMPC",
+   "message": "no SmPC extract 72 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006085",
+   "drug": "Nylaspeg",
+   "jurisdiction": "EMA",
+   "status": "AWAITING_SMPC",
+   "message": "no SmPC extract 72 days after the EU authorisation"
+  }
+ ],
+ "entries": [
+  {
+   "id": "FDA:hibsago",
+   "jurisdiction": "FDA",
+   "drug": "Hibsago",
+   "inn": "bepirovirsen",
+   "applicationNumber": "NDA221276",
+   "approvalDate": "2026-10-20",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat chronic hepatitis B virus infection in certain adults without cirrhosis, in combination with existing antiviral therapy",
+   "sponsor": "Glaxosmithkline Llc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-21",
+   "statusSince": "2026-10-27",
+   "history": [
+    {
+     "date": "2026-10-21",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-27",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 2cca7226-d8f9-4917-8d10-83e216acf393, label version 1 of 2026-10-20"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "2cca7226-d8f9-4917-8d10-83e216acf393",
+    "splId": "2cca7226-d8f9-4917-8d10-83e216acf393",
+    "effective": "2026-10-20",
+    "version": "1",
+    "detected": "2026-10-27",
+    "retrieved": "2026-10-27",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2cca7226-d8f9-4917-8d10-83e216acf393",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Hibsago",
+    "usGeneric": "Bepirovirsen",
+    "applicationNumber": "NDA221276",
+    "harmonised": false,
+    "sha256": "db66211a36702fd7587258c32082f5845ce79c082b240d60d016ba581c8d5154",
+    "indications": "1 INDICATIONS AND USAGE HIBSAGO is indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic hepatitis B virus (HBV) infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test [see Dosage and Administration ( 2.2 )] . HIBSAGO is a hepatitis B virus (HBV) mRNA-directed antisense oligonucleotide (ASO) indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic HBV infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test. ( 2.2 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:cienby",
+   "jurisdiction": "FDA",
+   "drug": "Cienby",
+   "inn": "sodium ctirate",
+   "applicationNumber": "NDA219455",
+   "approvalDate": "2026-10-19",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Fresenius Medcl Care",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-23",
+   "statusSince": "2026-10-23",
+   "history": [
+    {
+     "date": "2026-10-23",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "FDA:calrezdy",
+   "jurisdiction": "FDA",
+   "drug": "Calrezdy",
+   "inn": "calcuim chloride",
+   "applicationNumber": "NDA219456",
+   "approvalDate": "2026-10-19",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Fresenius Medcl Care",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-23",
+   "statusSince": "2026-10-23",
+   "history": [
+    {
+     "date": "2026-10-23",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "FDA:yulzety",
+   "jurisdiction": "FDA",
+   "drug": "Yulzety",
+   "inn": "rivaroxaban",
+   "applicationNumber": "NDA221033",
+   "approvalDate": "2026-10-16",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Rosemont Pharms",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-23",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-23",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 481b7802-5093-43e7-bbd9-1532197eb6e6, label version 2 of 2026-09-04"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "481b7802-5093-43e7-bbd9-1532197eb6e6",
+    "splId": "5aa363d7-60db-4e9f-e063-6294a90a8ee6",
+    "effective": "2026-09-04",
+    "version": "2",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=481b7802-5093-43e7-bbd9-1532197eb6e6",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "RIVAROXABAN",
+    "usGeneric": "RIVAROXABAN",
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "ef70b79d5060fdefd1282617f45c62147aa0f4e97981f93ae48bc569f2f0a6e9",
+    "indications": "1 INDICATIONS AND USAGE Rivaroxaban tablets are a factor Xa inhibitor indicated: to reduce the risk of major cardiovascular events in patients with coronary artery disease (CAD) ( 1.7 ) to reduce the risk of major thrombotic vascular events in patients with peripheral artery disease (PAD), including patients after recent lower extremity revascularization due to symptomatic PAD ( 1.8 ) 1.7 Reduction of Risk of Major Cardiovascular Events in Patients with Coronary Artery Disease (CAD) Rivaroxaban tablets, in combination with aspirin, is indicated to reduce the risk of major cardiovascular events (cardiovascular death, myocardial infarction, and stroke) in adult patients with coronary artery disease. 1.8 Reduction of Risk of Major Thrombotic Vascular Events in Patients with Peripheral Artery Disease (PAD), Including Patients after Lower Extremity Revascularization due to Symptomatic PAD Rivaroxaban tablets, in combination with aspirin, is indicated to reduce the risk of major thrombotic vascular events (myocardial infarction, ischemic stroke, acute limb ischemia, and major amputation of a vascular etiology) in adult patients with PAD, including patients who have recently undergone a lower extremity revascularization procedure due to symptomatic PAD.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:evoxac",
+   "jurisdiction": "FDA",
+   "drug": "Evoxac",
+   "inn": "cevimeline hydrochloride",
+   "applicationNumber": "NDA221183",
+   "approvalDate": "2026-10-15",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Cosette",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-21",
+   "statusSince": "2026-10-21",
+   "history": [
+    {
+     "date": "2026-10-21",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "FDA:hovilpri",
+   "jurisdiction": "FDA",
+   "drug": "Hovilpri",
+   "inn": "pritelivir mesylate",
+   "applicationNumber": "NDA221154",
+   "approvalDate": "2026-10-09",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat adults with weakened immune systems who have mucocutaneous lesions caused by herpes simplex virus infection and have not responded to other therapies",
+   "sponsor": "Aicuris Anti-infect",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-21",
+   "history": [
+    {
+     "date": "2026-10-21",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-24",
+     "status": "AWAITING_USPI",
+     "note": "merged FDA:hovilpr into FDA:hovilpri: same medicine as Hovilpri (INN + approval date) — brand misspelt at Drugs@FDA"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "FDA:emcitate",
+   "jurisdiction": "FDA",
+   "drug": "Emcitate",
+   "inn": "tiratricol",
+   "applicationNumber": "NDA220963",
+   "approvalDate": "2026-09-28",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat peripheral thyrotoxicosis in patients with MCT8 deficiency",
+   "sponsor": "Rare Thyroid",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-27",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-27",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 48d9faab-9c60-4abd-b4b9-97ffa778c944, label version 1 of 2026-10-01"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "48d9faab-9c60-4abd-b4b9-97ffa778c944",
+    "splId": "53a695c9-d49c-4fe9-bcf6-0fd702667480",
+    "effective": "2026-10-01",
+    "version": "1",
+    "detected": "2026-10-27",
+    "retrieved": "2026-10-27",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=48d9faab-9c60-4abd-b4b9-97ffa778c944",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "EMCITATE",
+    "usGeneric": "tiratricol",
+    "applicationNumber": "NDA220963",
+    "harmonised": false,
+    "sha256": "5f02959cf6883c17dcdef9823f246ef1d2c74a281c8739b99cefcb156fd46019",
+    "indications": "1 INDICATIONS AND USAGE EMCITATE is indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). EMCITATE is a thyroid hormone receptor agonist indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism. Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:lamlique",
+   "jurisdiction": "FDA",
+   "drug": "Lamlique",
+   "inn": "lamotrigine hemifumarate",
+   "applicationNumber": "NDA221109",
+   "approvalDate": "2026-09-25",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Azurity",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID a4d89cd9-c5d8-490f-996d-fc15b47c7b21, label version 17 of 2026-10-14"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "a4d89cd9-c5d8-490f-996d-fc15b47c7b21",
+    "splId": "dbc6b0a5-18e9-4de8-86db-65d09f7ba3de",
+    "effective": "2026-10-14",
+    "version": "17",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a4d89cd9-c5d8-490f-996d-fc15b47c7b21",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Lamotrigine",
+    "usGeneric": "Lamotrigine",
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "8231d9739a91fec3f5cbe72b9aa8ee351d30383da4905023f398923c6c929fd5",
+    "indications": "1 INDICATIONS AND USAGE Lamotrigine is indicated for: Epilepsy — adjunctive therapy in patients aged 2 years and older: partial-onset seizures. primary generalized tonic-clonic (PGTC) seizures. generalized seizures of Lennox-Gastaut syndrome. ( 1.1 ) Epilepsy—monotherapy in patients aged 16 years and older Conversion to monotherapy in patients with partial-onset seizures who are receiving treatment with carbamazepine, phenytoin, phenobarbital, primidone, or valproate as the single antiepileptic drug. ( 1.1 ) Bipolar disorder Maintenance treatment of bipolar I disorder to delay the time to occurrence of mood episodes in patients treated for acute mood episodes with standard therapy. ( 1.2 ) Limitations of Use Treatment of acute manic or mixed episodes is not recommended. Effectiveness of lamotrigine in the acute treatment of mood episodes has not been established. 1.1 Epilepsy Adjunctive Therapy Lamotrigine is indicated as adjunctive therapy for the following seizure types in patients aged 2 years and older: partial-onset seizures. primary generalized tonic-clonic (PGTC) seizures. generalized seizures of Lennox-Gastaut syndrome. Monotherapy Lamotrigine is indicated for conversion to monotherapy in adults (aged 16 years and older) with partial-onset seizures who are receiving treatment with carbamazepine, phenytoin, phenobarbital, primidone, or valproate as the single antiepileptic drug (AED). Safety and effectiveness of lamotrigine have not been established (1) as initial monotherapy; (2) for conversion to monotherapy from AEDs other than carbamazepine, phenytoin, phenobarbital, primidone, or valproate; or (3) for simultaneous conversion to monotherapy from 2 or more concomitant AEDs. 1.2 Bipolar Disorder Lamotrigine is indicated for the maintenance treatment of bipolar I disorder to delay the time to occurrence of mood episodes (depression, mania, hypomania, mixed episodes) in patients treated for acute mood episodes with standard therapy [see Clinical Studies ( 14.2 )] . Limitations of Use Treatment of acute manic or mixed episodes is not recommended. Effectiveness of lamotrigine in the acute treatment of mood episodes has not been established.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:juvmo",
+   "jurisdiction": "FDA",
+   "drug": "Juvmo",
+   "inn": "tavapadon",
+   "applicationNumber": "NDA220415",
+   "approvalDate": "2026-09-25",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat Parkinson’s disease in adults",
+   "sponsor": "Abbvie",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 1ae6df6e-6ca0-420f-bec9-effa7acdd085, label version 2 of 2026-09-25"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "1ae6df6e-6ca0-420f-bec9-effa7acdd085",
+    "splId": "b8de6e40-0be5-495c-8f8b-f171dbf39650",
+    "effective": "2026-09-25",
+    "version": "2",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1ae6df6e-6ca0-420f-bec9-effa7acdd085",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "JUVMO",
+    "usGeneric": "Tavapadon",
+    "applicationNumber": "NDA220415",
+    "harmonised": false,
+    "sha256": "ae231a55cdb52a4deb8752f0e6bca7fcc8fed9f649ba5cd913d26deb9c3f4134",
+    "indications": "1 INDICATIONS AND USAGE JUVMO is indicated for the treatment of Parkinson’s disease (PD) in adults. JUVMO is a non-ergot dopamine agonist indicated for the treatment of Parkinson’s disease in adults. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:degevma",
+   "jurisdiction": "FDA",
+   "drug": "Degevma",
+   "inn": "denosumab-adet",
+   "applicationNumber": "BLA761481",
+   "approvalDate": "2026-09-25",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Teva Pharmaceuticals, Inc.",
+   "status": "LABEL_AVAILABLE",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "4bf239bb-c467-4add-b7cf-ea666e4fc693",
+    "effective": "2026-10-23",
+    "version": "7",
+    "detected": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bf239bb-c467-4add-b7cf-ea666e4fc693"
+   },
+   "biosimilar": true
+  },
+  {
+   "id": "FDA:atebrioz",
+   "jurisdiction": "FDA",
+   "drug": "Atebrioz",
+   "inn": "zilurgisertib fumarate",
+   "applicationNumber": "NDA221198",
+   "approvalDate": "2026-09-25",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To reduce the volume of total new heterotopic ossification in adults and pediatric patients 12 years and older with fibrodysplasia ossificans progressiva",
+   "sponsor": "Mirum",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID f542e4b0-072a-42c6-80c9-5977054971e0, label version 1 of 2026-09-09"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "f542e4b0-072a-42c6-80c9-5977054971e0",
+    "splId": "f542e4b0-072a-42c6-80c9-5977054971e0",
+    "effective": "2026-09-09",
+    "version": "1",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f542e4b0-072a-42c6-80c9-5977054971e0",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ATEBRIOZ",
+    "usGeneric": "zilurgisertib",
+    "applicationNumber": "NDA221198",
+    "harmonised": false,
+    "sha256": "2790c298bc0e0a68502c4a9f317d83cacaa8830b5bdb9b464cd4bdba5be02280",
+    "indications": "1. INDICATIONS AND USAGE ATEBRIOZ is indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ATEBRIOZ is an activin receptor-like kinase-2 (ALK2) inhibitor indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:onswik",
+   "jurisdiction": "FDA",
+   "drug": "Onswik",
+   "inn": "insulin efsitora alfa-gobe",
+   "applicationNumber": "BLA761408",
+   "approvalDate": "2026-09-23",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To improve glycemic control in adults with type 2 diabetes mellitus, as an adjunct to diet and exercise",
+   "sponsor": "Eli Lilly And Co",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 6e02229e-262c-4e25-9240-9e9de4eb7c1d, label version 2 of 2026-09-23"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "6e02229e-262c-4e25-9240-9e9de4eb7c1d",
+    "splId": "da30dc98-a2dc-4a7c-91e1-180ca496daa4",
+    "effective": "2026-09-23",
+    "version": "2",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e02229e-262c-4e25-9240-9e9de4eb7c1d",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ONSWIK",
+    "usGeneric": "insulin efsitora alfa-gobe",
+    "applicationNumber": "BLA761408",
+    "harmonised": false,
+    "sha256": "38f30b64fc1a18879e801354f6f075c7ada1020915fe09928a4a89e20bd640b6",
+    "indications": "1 INDICATIONS AND USAGE ONSWIK™ is indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ONSWIK™ is a long-acting insulin analog indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ( 1 ) Limitations of Use: Not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia ( 1 ) Limitations of Use ONSWIK is not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia. [see Warnings and Precautions ( 5.2 )] .",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:lyrfigtu",
+   "jurisdiction": "FDA",
+   "drug": "Lyrfigtu",
+   "inn": "lirafugratinib hydrochloride",
+   "applicationNumber": "NDA220425",
+   "approvalDate": "2026-09-23",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To adults with previously treated unresectable, locally advanced or metastatic cholangiocarcinoma harboring a fibroblast growth factor receptor 2 gene fusion or other rearrangement",
+   "sponsor": "Elevar",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "FDA:fayuvi",
+   "jurisdiction": "FDA",
+   "drug": "Fayuvi",
+   "inn": "rebisufligene etisparvovec-hopf",
+   "applicationNumber": "BLA125845",
+   "approvalDate": "2026-09-17",
+   "sources": [
+    "cber"
+   ],
+   "summary": "Neurologic manifestations of mucopolysaccharidosis type IIIA (Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function.",
+   "sponsor": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "FDA:pixclara",
+   "jurisdiction": "FDA",
+   "drug": "Pixclara",
+   "inn": "floretyrosine f-18",
+   "applicationNumber": "NDA218592",
+   "approvalDate": "2026-09-11",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To use with positron emission tomography to differentiate recurrent or progressive glioma from treatment-related change in conjunction with other diagnostic evaluations",
+   "sponsor": "Telix",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID dc78b128-3768-4448-b019-61574db05714, label version 4 of 2026-10-07"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "dc78b128-3768-4448-b019-61574db05714",
+    "splId": "090d1c29-29d4-4fc0-98d0-0442841e1a7b",
+    "effective": "2026-10-07",
+    "version": "4",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dc78b128-3768-4448-b019-61574db05714",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "PIXCLARA",
+    "usGeneric": "Floretyrosine F18",
+    "applicationNumber": "NDA218592",
+    "harmonised": false,
+    "sha256": "59138bbe40cba556ea81c3c357c660bbc52dac69737d58ebdc4567b5f682e0e3",
+    "indications": "1 INDICATIONS AND USAGE PIXCLARA is indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. PIXCLARA is a radioactive diagnostic drug indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:isembyld",
+   "jurisdiction": "FDA",
+   "drug": "Isembyld",
+   "inn": "apitegromab-mstn",
+   "applicationNumber": "BLA761463",
+   "approvalDate": "2026-09-11",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat spinal muscular atrophy in adults and pediatric patients 2 years of age and older who are currently receiving an SMN2-targeted treatment",
+   "sponsor": "Scholar Rock Inc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID b1cd8ab8-8a10-48ed-9806-75a44f22b963, label version 3 of 2026-09-14"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "b1cd8ab8-8a10-48ed-9806-75a44f22b963",
+    "splId": "5554cf70-b144-11f1-ab3b-0800200c9a66",
+    "effective": "2026-09-14",
+    "version": "3",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b1cd8ab8-8a10-48ed-9806-75a44f22b963",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ISEMBYLD",
+    "usGeneric": "apitegromab-mstn",
+    "applicationNumber": "BLA761463",
+    "harmonised": false,
+    "sha256": "a6d8fdd5473b492b5612e69fa75b377a8e5156a5d0c95556cd61c3fe85e052f9",
+    "indications": "1 INDICATIONS AND USAGE ISEMBYLD is indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ISEMBYLD is a recombinant monoclonal antibody targeting proforms of myostatin, indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:etcamah",
+   "jurisdiction": "FDA",
+   "drug": "Etcamah",
+   "inn": "camizestrant",
+   "applicationNumber": "NDA220359",
+   "approvalDate": "2026-09-04",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat hormone receptor-positive, human epidermal growth factor receptor 2-negative, locally advanced or metastatic breast cancer upon detection of ESR1 mutation during aromatase inhibitor and CDK4/6 inhibitor therapy",
+   "sponsor": "Astrazeneca",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID c54223d3-f3c7-4186-afa0-429d84805826, label version 1 of 2026-09-04"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "c54223d3-f3c7-4186-afa0-429d84805826",
+    "splId": "c54223d3-f3c7-4186-afa0-429d84805826",
+    "effective": "2026-09-04",
+    "version": "1",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c54223d3-f3c7-4186-afa0-429d84805826",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "ETCAMAH",
+    "usGeneric": "CAMIZESTRANT",
+    "applicationNumber": "NDA220359",
+    "harmonised": true,
+    "sha256": "64d370a6876c10941200ef164002513448f679419281fc998ca0892eb518817a",
+    "indications": "1 INDICATIONS AND USAGE ETCAMAH in combination with a CDK4/6 inhibitor (abemaciclib, palbociclib, or ribociclib) is indicated for the treatment of adult patients with hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative, locally advanced or metastatic breast cancer upon detection of ESR1 mutation during aromatase inhibitor and CDK4/6 inhibitor therapy, based on an FDA-authorized test [see Dosage and Administration ( 2.1 )] . This indication is approved under accelerated approval based on progression-free survival as measured from detection of ESR1 mutation [see Clinical Studies ( 14 )] . Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial(s). ETCAMAH is an estrogen receptor antagonist indicated: • in combination with a CDK4/6 inhibitor (abemaciclib, palbociclib, or ribociclib) for the treatment of adult patients with hormone receptor (HR) positive, human epidermal growth factor receptor 2 (HER2) negative, locally advanced or metastatic breast cancer upon detection of ESR1 mutation during aromatase inhibitor and CDK4/6 inhibitor therapy, based on an FDA authorized test. ( 1 , 2.1 ) This indication is approved under accelerated approval based on progression-free survival as measured from detection of ESR1 mutation. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial(s). ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:zanvastro",
+   "jurisdiction": "FDA",
+   "drug": "Zanvastro",
+   "inn": "zilganersen sodium",
+   "applicationNumber": "NDA220210",
+   "approvalDate": "2026-09-03",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat Alexander disease in pediatric and adult patients",
+   "sponsor": "Ionis Pharms Inc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID af6ca330-46d3-4ed6-b2af-bd6db3133fd1, label version 3 of 2026-09-14"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "af6ca330-46d3-4ed6-b2af-bd6db3133fd1",
+    "splId": "5b752db5-061f-8804-e063-6394a90aa4af",
+    "effective": "2026-09-14",
+    "version": "3",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=af6ca330-46d3-4ed6-b2af-bd6db3133fd1",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "ZANVASTRO",
+    "usGeneric": "zilganersen",
+    "applicationNumber": "NDA220210",
+    "harmonised": false,
+    "sha256": "f21143aa3e2ca5c05fc8ecd63121ecf183de9573ee598ea9270cff92b369474f",
+    "indications": "1 INDICATIONS AND USAGE ZANVASTRO is indicated for the treatment of Alexander disease in pediatric and adult patients. ZANVASTRO is a glial fibrillary acidic protein (GFAP)-directed antisense oligonucleotide indicated for the treatment of Alexander disease in pediatric and adult patients. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:mimrylo",
+   "jurisdiction": "FDA",
+   "drug": "Mimrylo",
+   "inn": "rusfertide acetate",
+   "applicationNumber": "NDA220605",
+   "approvalDate": "2026-08-28",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat erythrocytosis in adults with polycythemia vera",
+   "sponsor": "Takeda Pharms Am",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 101aff01-31ed-4841-a8b6-0a5a8503189b, label version 2 of 2026-08-28"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "101aff01-31ed-4841-a8b6-0a5a8503189b",
+    "splId": "2fc41c37-8a81-4171-a52c-e9317c0c34cf",
+    "effective": "2026-08-28",
+    "version": "2",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=101aff01-31ed-4841-a8b6-0a5a8503189b",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "MIMRYLO",
+    "usGeneric": "RUSFERTIDE",
+    "applicationNumber": "NDA220605",
+    "harmonised": true,
+    "sha256": "39d8aa4c428a2851319ad66da8c3ffc2c30162286e39679c439ccbc336c517ff",
+    "indications": "1 INDICATIONS AND USAGE MIMRYLO is indicated for the treatment of erythrocytosis in adults with polycythemia vera (PV). MIMRYLO is a hepcidin mimetic indicated for the treatment of erythrocytosis in adults with polycythemia vera (PV). ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:lisraya",
+   "jurisdiction": "FDA",
+   "drug": "Lisraya",
+   "inn": "brepocitinib tosylate",
+   "applicationNumber": "NDA220106",
+   "approvalDate": "2026-08-27",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat dermatomyositis in adults",
+   "sponsor": "Priovant Therap",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 5023a17b-e96a-67d4-e063-6394a90a14a7, label version 3 of 2026-08-28"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "5023a17b-e96a-67d4-e063-6394a90a14a7",
+    "splId": "4ea28f02-7a6c-4e71-86ba-8c516f6d9323",
+    "effective": "2026-08-28",
+    "version": "3",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5023a17b-e96a-67d4-e063-6394a90a14a7",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "LISRAYA",
+    "usGeneric": "BREPOCITINIB",
+    "applicationNumber": "NDA220106",
+    "harmonised": true,
+    "sha256": "96d223ec6dd151dd9daf2bed2900dbc1e3c727db579696c618ebe2f263ad5ff2",
+    "indications": "1 INDICATIONS AND USAGE LISRAYA is indicated for the treatment of dermatomyositis in adult patients. LISRAYA is a Janus kinase (JAK) and tyrosine kinase 2 (TYK2) inhibitor indicated for the treatment of dermatomyositis in adult patients. ( 1 ) Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs. Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs."
+   }
+  },
+  {
+   "id": "FDA:bixlenvo sunlenca starter pack copackaged",
+   "jurisdiction": "FDA",
+   "drug": "Bixlenvo Sunlenca Starter Pack (copackaged)",
+   "inn": "bictegravir sodium, lenacapavir sodium, lenacapavir sodium",
+   "applicationNumber": "NDA221443",
+   "approvalDate": "2026-08-27",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Gilead Sciences Inc",
+   "status": "LABEL_AVAILABLE",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-24",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-24",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "072a3c7e-33fb-4a87-ba21-3d8dad3f5c48",
+    "effective": "2026-08-27",
+    "version": "1",
+    "detected": "2026-10-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=072a3c7e-33fb-4a87-ba21-3d8dad3f5c48"
+   }
+  },
+  {
+   "id": "FDA:bixlenvo",
+   "jurisdiction": "FDA",
+   "drug": "Bixlenvo",
+   "inn": "bictegravir sodium, lenacapavir sodium",
+   "applicationNumber": "NDA221104",
+   "approvalDate": "2026-08-27",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Gilead Sciences Inc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 072a3c7e-33fb-4a87-ba21-3d8dad3f5c48, label version 1 of 2026-08-27"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "072a3c7e-33fb-4a87-ba21-3d8dad3f5c48",
+    "splId": "1da44bad-4470-4f3d-b7b2-bc3730f496d1",
+    "effective": "2026-08-27",
+    "version": "1",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=072a3c7e-33fb-4a87-ba21-3d8dad3f5c48",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "BIXLENVO",
+    "usGeneric": "BICTEGRAVIR/LENACAPAVIR",
+    "applicationNumber": "NDA221104",
+    "harmonised": true,
+    "sha256": "39d46f0c0afbdc606ae0d36a1755b7678f833ba2f6b3891ade83d082b4f763f8",
+    "indications": "1 INDICATIONS AND USAGE BIXLENVO is indicated as a complete regimen for the treatment of human immunodeficiency virus type 1 (HIV-1) infection in adults to replace the current antiretroviral regimen in those who are virologically suppressed (HIV-1 RNA less than 50 copies per mL) on a stable antiretroviral regimen with no known or suspected resistance to the individual components of BIXLENVO [see Clinical Studies (14) ] . BIXLENVO, a two-drug combination of bictegravir (BIC), a human immunodeficiency virus type 1 (HIV-1) integrase strand transfer inhibitor (INSTI), and lenacapavir (LEN), an HIV-1 capsid inhibitor, is indicated as a complete regimen for the treatment of HIV-1 in adults to replace the current antiretroviral regimen in those who are virologically suppressed (HIV-1 RNA less than 50 copies per mL) on a stable antiretroviral regimen with no known or suspected resistance to the individual components of BIXLENVO."
+   }
+  },
+  {
+   "id": "FDA:rasonque",
+   "jurisdiction": "FDA",
+   "drug": "Rasonque",
+   "inn": "daraxonrasib",
+   "applicationNumber": "NDA220910",
+   "approvalDate": "2026-08-26",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat metastatic pancreatic cancer",
+   "sponsor": "Revolution Medicines",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 13a65923-d072-4dac-8620-8eabbf8c3641, label version 1 of 2026-08-27"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "13a65923-d072-4dac-8620-8eabbf8c3641",
+    "splId": "107d4cd9-2e5e-419d-9449-7ef84f5fbcc9",
+    "effective": "2026-08-27",
+    "version": "1",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13a65923-d072-4dac-8620-8eabbf8c3641",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "RASONQUE",
+    "usGeneric": "DARAXONRASIB",
+    "applicationNumber": "NDA220910",
+    "harmonised": true,
+    "sha256": "cc99d4dd981555e438781c1011cf2e2012cf367018884b6fcf7f0d31b24fbaf2",
+    "indications": "1 INDICATIONS AND USAGE RASONQUE is indicated for the treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy or who are not candidates for multiagent systemic therapy. RASONQUE is an inhibitor of the RAS GTPase family, indicated for the treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy or who are not candidates for multiagent systemic therapy. ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:pasatru",
+   "jurisdiction": "FDA",
+   "drug": "Pasatru",
+   "inn": "garetosmab-grts",
+   "applicationNumber": "BLA761508",
+   "approvalDate": "2026-08-19",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To reduce new heterotopic ossification and clinician-assessed disease flare-ups in adults with fibrodysplasia ossificans progressiva",
+   "sponsor": "Regeneron Pharmaceuticals, Inc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 0d5cec96-b02b-4f1d-bc66-51e62ce04e3c, label version 1 of 2026-08-14"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "0d5cec96-b02b-4f1d-bc66-51e62ce04e3c",
+    "splId": "aa61176b-8199-47b9-ae53-66c4041f5ff5",
+    "effective": "2026-08-14",
+    "version": "1",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0d5cec96-b02b-4f1d-bc66-51e62ce04e3c",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Pasatru",
+    "usGeneric": "GARETOSMAB-GRTS",
+    "applicationNumber": "BLA761508",
+    "harmonised": true,
+    "sha256": "878813e5a976995f97347b26411078650107de78bbc1cdf69406e539426b0a47",
+    "indications": "1 INDICATIONS AND USAGE PASATRU is indicated to reduce formation of new heterotopic ossification (HO) lesions and clinician-assessed flare-ups in adults with fibrodysplasia ossificans progressiva (FOP). PASATRU is an activin signaling inhibitor indicated to reduce formation of new heterotopic ossification (HO) lesions and clinician-assessed flare-ups in adults with fibrodysplasia ossificans progressiva (FOP). ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:genglycos",
+   "jurisdiction": "FDA",
+   "drug": "Genglycos",
+   "inn": "pariglasgene brecaparvovec-opnr",
+   "applicationNumber": "BLA125858",
+   "approvalDate": "2026-08-19",
+   "sources": [
+    "cber"
+   ],
+   "summary": "Reduction of daily cornstarch intake in glycogen storage disease type Ia, patients 8 years and older (accelerated approval).",
+   "sponsor": null,
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8, label version 4 of 2026-08-28"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8",
+    "splId": "84175036-1036-40bf-8134-df5deffa21ec",
+    "effective": "2026-08-28",
+    "version": "4",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "GENGLYCOS",
+    "usGeneric": "pariglasgene brecaparvovec-opnr",
+    "applicationNumber": "BLA125858",
+    "harmonised": false,
+    "sha256": "09156c61c0ee272fe949207cd65e23dad857a80109a91d97437269b9ddf64e3b",
+    "indications": "1. INDICATIONS AND USAGE GENGLYCOS is indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake [see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). GENGLYCOS is an adeno-associated virus (AAV) vector-based gene therapy indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake. Continued approval for this indication may be contingent upon verification of clinical benefit in confirmatory trial(s). ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:zenbexus",
+   "jurisdiction": "FDA",
+   "drug": "Zenbexus",
+   "inn": "iberdomide hydrochloride",
+   "applicationNumber": "NDA221075",
+   "approvalDate": "2026-08-13",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To be used in combination with daratumumab and hyaluronidase-fihj and dexamethasone for adults with multiple myeloma who have received at least one prior line of therapy, including a proteasome inhibitor and an immunomodulatory agent",
+   "sponsor": "Bristol Myers Squibb",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 3663d9cb-3f66-48ae-bf0a-6958bc0888de, label version 2 of 2026-08-13"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "3663d9cb-3f66-48ae-bf0a-6958bc0888de",
+    "splId": "05b6e27f-40ba-4939-a0c3-8e8ae1feae98",
+    "effective": "2026-08-13",
+    "version": "2",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3663d9cb-3f66-48ae-bf0a-6958bc0888de",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "ZENBEXUS",
+    "usGeneric": "IBERDOMIDE",
+    "applicationNumber": "NDA221075",
+    "harmonised": true,
+    "sha256": "7a19ab342663a731922f28ebba663b0d8fd3d0e976fc9405818204ff77462585",
+    "indications": "1 INDICATIONS AND USAGE ZENBEXUS is indicated, in combination with daratumumab and hyaluronidase-fihj and dexamethasone, for the treatment of adult patients with multiple myeloma who have received at least 1 prior line of therapy including a proteasome inhibitor and an immunomodulatory agent. This indication is approved under accelerated approval based on minimal residual disease (MRD)-negative complete response (CR) at any time [see Clinical Studies (14) ] . Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial(s). ZENBEXUS is a cereblon-modulating protein degrader indicated in combination with daratumumab and hyaluronidase-fihj and dexamethasone for the treatment of adult patients with multiple myeloma who have received at least 1 prior line of therapy including a proteasome inhibitor and an immunomodulatory agent. (1) This indication is approved under accelerated approval based on minimal residual disease (MRD)-negative complete response (CR) at any time. Continued approval for this indication may be contingent upon verification and description of clinical benefit in confirmatory trial(s)."
+   }
+  },
+  {
+   "id": "FDA:tauklarify",
+   "jurisdiction": "FDA",
+   "drug": "Tauklarify",
+   "inn": "florquinitau f-18",
+   "applicationNumber": "NDA220496",
+   "approvalDate": "2026-08-13",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To be used for positron emission tomography of the brain in adults with cognitive impairment who are being evaluated for Alzheimer disease to identify patients with tau neurofibrillary tangle pathology",
+   "sponsor": "Cerveau Lantheus",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "alert": "no US prescribing information at openFDA or DailyMed 79 days after approval"
+  },
+  {
+   "id": "FDA:tudriqev",
+   "jurisdiction": "FDA",
+   "drug": "Tudriqev",
+   "inn": "vusolimogene oderparepvec-wtpg",
+   "applicationNumber": "BLA125827",
+   "approvalDate": "2026-08-06",
+   "sources": [
+    "cber"
+   ],
+   "summary": "With nivolumab for unresectable advanced cutaneous melanoma after progression on a PD-1 antibody regimen (accelerated approval).",
+   "sponsor": null,
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 26627b8d-91ac-4f76-a213-7e25efd024d1, label version 3 of 2026-09-01"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "26627b8d-91ac-4f76-a213-7e25efd024d1",
+    "splId": "5a6cd8e9-9d15-d428-e063-6294a90a4dfb",
+    "effective": "2026-09-01",
+    "version": "3",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=26627b8d-91ac-4f76-a213-7e25efd024d1",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "d3b1d8424b56dc4e5e84160baa969163a61c7044830e54818c2d43e2904ece84",
+    "indications": "1 INDICATIONS AND USAGE TUDRIQEV™ is indicated in combination with nivolumab for the treatment of adult patients with unresectable advanced cutaneous melanoma who experienced disease progression with a programmed death receptor-1 (PD-1)-blocking antibody-based regimen. This indication is approved under accelerated approval based on objective response rate (ORR) and duration of response [ see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). TUDRIQEV is a genetically modified oncolytic viral therapy indicated in combination with nivolumab for the treatment of adult patients with unresectable advanced cutaneous melanoma who experienced disease progression with a programmed death receptor-1 (PD-1)-blocking antibody-based regimen. This indication is approved under accelerated approval based on objective response rate (ORR) and duration of response. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). ( 1 )",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
+  },
+  {
+   "id": "FDA:orzeyful",
+   "jurisdiction": "FDA",
+   "drug": "Orzeyful",
+   "inn": "oveporexton",
+   "applicationNumber": "NDA220860",
+   "approvalDate": "2026-08-05",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat narcolepsy type 1",
+   "sponsor": "Takeda Pharms Usa",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "alert": "no US prescribing information at openFDA or DailyMed 87 days after approval"
+  },
+  {
+   "id": "FDA:zimrixby",
+   "jurisdiction": "FDA",
+   "drug": "Zimrixby",
+   "inn": "rituximab-cdxx",
+   "applicationNumber": "BLA761376",
+   "approvalDate": "2026-07-31",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Dr Reddys Labs Sa",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "biosimilar": true,
+   "note": "biosimilar: no SPL at openFDA or DailyMed 92 days after approval — expected until commercial launch"
+  },
+  {
+   "id": "FDA:glycophos",
+   "jurisdiction": "FDA",
+   "drug": "Glycophos",
+   "inn": "sodium glycerophosphate",
+   "applicationNumber": "NDA220381",
+   "approvalDate": "2026-07-29",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Fresenius Kabi Usa",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "alert": "no US prescribing information at openFDA or DailyMed 94 days after approval"
+  },
+  {
+   "id": "FDA:simtriyo",
+   "jurisdiction": "FDA",
+   "drug": "Simtriyo",
+   "inn": "centanafadine hydrochloride",
+   "applicationNumber": "NDA218145",
+   "approvalDate": "2026-07-24",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat attention-deficit hyperactivity disorder",
+   "sponsor": "Otsuka Pharmaceutical Co Ltd",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-27",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-27",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID ecfa41cc-c8c8-419b-8da3-ee5b819398c2, label version 1 of 2026-07-31"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "ecfa41cc-c8c8-419b-8da3-ee5b819398c2",
+    "splId": "cd3c5560-ab25-4e15-9432-f2c8110f82e9",
+    "effective": "2026-07-31",
+    "version": "1",
+    "detected": "2026-10-27",
+    "retrieved": "2026-10-27",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ecfa41cc-c8c8-419b-8da3-ee5b819398c2",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "SIMTRIYO",
+    "usGeneric": "centanafadine hydrochloride",
+    "applicationNumber": "NDA218145",
+    "harmonised": false,
+    "sha256": "0730b85f9035d47ce346f965ab71a115cce0a3316dd3a1cdae316524824789fd",
+    "indications": "1 INDICATIONS AND USAGE SIMTRIYO is indicated for the treatment of attention-deficit/hyperactivity disorder (ADHD) in adults and pediatric patients 6 years of age and older weighing at least 20 kg. Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older [see Use in Specific Populations (8.4) ] . Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss [see Use in Specific Populations (8.4) ] . SIMTRIYO is a norepinephrine-dopamine-serotonin reuptake inhibitor and central nervous system stimulant indicated for the treatment of ADHD in adults and pediatric patients 6 years of age and older weighing at least 20 kg. ( 1 ) Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older. ( 8.4 ) Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss. ( 8.4 ).",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:lytenava",
+   "jurisdiction": "FDA",
+   "drug": "Lytenava",
+   "inn": "bevacizumab-vikg",
+   "applicationNumber": "BLA761320",
+   "approvalDate": "2026-07-24",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat patients with neovascular (wet) age-related macular degeneration",
+   "sponsor": "Outlook Therapeutics, Inc.",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 7f9a3014-b3d4-4943-a83a-92a77d8f947c, label version 1 of 2026-07-16"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "7f9a3014-b3d4-4943-a83a-92a77d8f947c",
+    "splId": "0761284e-e683-4933-a420-bbe7498e2f61",
+    "effective": "2026-07-16",
+    "version": "1",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7f9a3014-b3d4-4943-a83a-92a77d8f947c",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "35bb693f974085db0805fe1365a3dae2fe1abd075c65b1a148204a67a11b6cb0",
+    "indications": "1 INDICATIONS AND USAGE LYTENAVA is indicated for the treatment of patients with neovascular (wet) age-related macular degeneration (nAMD). LYTENAVA is a vascular endothelial growth factor (VEGF) inhibitor indicated for the treatment of patients with neovascular (wet) age-related macular degeneration (nAMD) ( 1 ).",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
+  },
+  {
+   "id": "FDA:garzulys",
+   "jurisdiction": "FDA",
+   "drug": "Garzulys",
+   "inn": "insulin aspart-fsan",
+   "applicationNumber": "BLA761497",
+   "approvalDate": "2026-07-24",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Emerge Bioscience Pte. Ltd.",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 30c64769-d2f7-4604-ac9e-2a6bc09506c9, label version 9 of 2026-07-31"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "30c64769-d2f7-4604-ac9e-2a6bc09506c9",
+    "splId": "dbc6ea33-ff54-44b2-9ac7-cd76b4cb9c43",
+    "effective": "2026-07-31",
+    "version": "9",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=30c64769-d2f7-4604-ac9e-2a6bc09506c9",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Garzulys",
+    "usGeneric": "INSULIN ASPART-FSAN",
+    "applicationNumber": "BLA761497",
+    "harmonised": true,
+    "sha256": "0c394173ad5ffad4af07ad28757a5554744c1004eb74ea1836cbdfee367ceae4",
+    "indications": "1 INDICATIONS AND USAGE Garzulys™ is indicated to improve glycemic control in adults and pediatric patients with diabetes mellitus. Garzulys is rapid acting human insulin analog indicated to improve glycemic control in adults and pediatric patients with diabetes mellitus ( 1 )."
+   },
+   "biosimilar": true
+  },
+  {
+   "id": "FDA:jideytro",
+   "jurisdiction": "FDA",
+   "drug": "Jideytro",
+   "inn": "zidesamtinib",
+   "applicationNumber": "NDA220185",
+   "approvalDate": "2026-07-22",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat adults with locally advanced or metastatic ROS1-positive non-small cell lung cancer after receiving a ROS1 kinase inhibitor",
+   "sponsor": "Nuvalent",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 3760e421-b523-4d9b-e063-6394a90ab94b, label version 5 of 2026-07-22"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "3760e421-b523-4d9b-e063-6394a90ab94b",
+    "splId": "6c672099-2978-474e-b783-973fe94efcfb",
+    "effective": "2026-07-22",
+    "version": "5",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3760e421-b523-4d9b-e063-6394a90ab94b",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "JIDEYTRO",
+    "usGeneric": "ZIDESAMTINIB",
+    "applicationNumber": "NDA220185",
+    "harmonised": true,
+    "sha256": "1f23abdb3f610bb84192c5c292e24e932f0d7eb7a3ce0cdf2373009780e2558a",
+    "indications": "1 INDICATIONS AND USAGE JIDEYTRO is indicated for the treatment of adult patients with locally advanced or metastatic ROS1 -positive non-small cell lung cancer (NSCLC) who received a prior ROS1 kinase inhibitor [see Dosage and Administration ( 2.1 ), Clinical Studies ( 14.1 )] . JIDEYTRO is a kinase inhibitor indicated for the treatment of adult patients with locally advanced or metastatic ROS1 -positive non-small cell lung cancer (NSCLC) who received a prior ROS1 kinase inhibitor.( 1 )"
+   }
+  },
+  {
+   "id": "FDA:lipfendra",
+   "jurisdiction": "FDA",
+   "drug": "Lipfendra",
+   "inn": "enlicitide decanoate",
+   "applicationNumber": "NDA220848",
+   "approvalDate": "2026-07-15",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To reduce low-density lipoprotein cholesterol",
+   "sponsor": "Msd",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 100ec543-fbd0-44fc-b740-db9cdff39145, label version 2 of 2026-07-15"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "100ec543-fbd0-44fc-b740-db9cdff39145",
+    "splId": "24e1a57f-2be3-42ee-ad2d-981f813f2cf4",
+    "effective": "2026-07-15",
+    "version": "2",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=100ec543-fbd0-44fc-b740-db9cdff39145",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "aeba9b2d4ea28a49754efed6d970fc4a883ad8f6f430771706111478e7729e0f",
+    "indications": "1 INDICATIONS AND USAGE LIPFENDRA ® is indicated as an adjunct to diet and exercise to reduce low-density lipoprotein cholesterol (LDL-C) in adults with hypercholesterolemia, including heterozygous familial hypercholesterolemia (HeFH). Cardiovascular outcomes trials have demonstrated that reducing LDL-C lowers the risk for major adverse cardiovascular events (MACE) in adults at increased risk when treated with statins or monoclonal antibody proprotein convertase subtilisin kexin type 9 (PCSK9) inhibitors as an add-on to statin therapy. LIPFENDRA is a proprotein convertase subtilisin kexin type 9 (PCSK9) inhibitor indicated as an adjunct to diet and exercise to reduce low-density lipoprotein cholesterol (LDL-C) in adults with hypercholesterolemia, including heterozygous familial hypercholesterolemia (HeFH). Cardiovascular outcomes trials have demonstrated that reducing LDL-C lowers the risk for major adverse cardiovascular events (MACE) in adults at increased risk when treated with statins or monoclonal antibody PCSK9 inhibitors as an add-on to statin therapy. ( 1 )",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
+  },
+  {
+   "id": "FDA:revtorpyk",
+   "jurisdiction": "FDA",
+   "drug": "Revtorpyk",
+   "inn": "gedatolisib",
+   "applicationNumber": "NDA219908",
+   "approvalDate": "2026-07-14",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "In combination with fulvestran, to treat hormone receptor-positive, human epidermal growth factor receptor 2-negative, locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting",
+   "sponsor": "Celcuity",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 959d73ef-831f-4005-956c-210702270bda, label version 1 of 2026-07-14"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "959d73ef-831f-4005-956c-210702270bda",
+    "splId": "2102ca90-3d7d-4983-8606-6fe67b92aaef",
+    "effective": "2026-07-14",
+    "version": "1",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=959d73ef-831f-4005-956c-210702270bda",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "9d7eecb17979d3a36dc7da82d9c1c796f074a8e1def448d9cd8171d017dce12b",
+    "indications": "1 INDICATIONS AND USAGE REVTORPYK is indicated in combination with fulvestrant, with or without palbociclib, for the treatment of adult patients with hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting [see Dosage and Administration (2.1) and Clinical Studies (14) ] . REVTORPYK is a kinase inhibitor indicated in combination with fulvestrant, with or without palbociclib, for the treatment of adult patients with hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting. (1)",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
+  },
+  {
+   "id": "FDA:zyogreen",
+   "jurisdiction": "FDA",
+   "drug": "Zyogreen",
+   "inn": "indocyanine green",
+   "applicationNumber": "NDA218579",
+   "approvalDate": "2026-07-10",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Provepharm Sas",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID b2de0c9a-0065-4f2c-9983-add39525f3a3, label version 2 of 2026-07-16"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "b2de0c9a-0065-4f2c-9983-add39525f3a3",
+    "splId": "1aa18dd8-8838-4698-b358-6956f8b94929",
+    "effective": "2026-07-16",
+    "version": "2",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b2de0c9a-0065-4f2c-9983-add39525f3a3",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Zyogreen",
+    "usGeneric": "INDOCYANINE GREEN",
+    "applicationNumber": "NDA218579",
+    "harmonised": true,
+    "sha256": "30e04a08d9cbb1239c911b66e0ad0fb98d0ee3ce648a3bd219c7afb4abf8cffa",
+    "indications": "1 INDICATIONS AND USAGE ZYOGREEN is an optical imaging agent indicated for: Fluorescence imaging of vessels (micro- and macro-vasculature), blood flow and tissue perfusion before, during and after vascular, gastrointestinal, organ transplant, plastic, micro- and reconstructive surgeries, including general minimally invasive surgical procedures, in adults and pediatric patients ( 1.1 ) Fluorescence imaging of extrahepatic biliary ducts in adults and pediatric patients from birth to less than 1 year of age and 6 years of age and older ( 1.2 ) Fluorescence imaging of lymph nodes and lymphatic vessels during lymphatic mapping in adults with cervical and uterine cancer ( 1.3 ) Ophthalmic angiography in adults and pediatric patients ( 1.4 ) 1.1 Visualization of Vessels, Blood Flow and Tissue Perfusion ZYOGREEN is indicated for fluorescence imaging of vessels (micro- and macro-vasculature), blood flow and tissue perfusion before, during and after vascular, gastrointestinal, organ transplant, plastic, micro- and reconstructive surgeries, including general minimally invasive surgical procedures in adults and pediatric patients. 1.2 Visualization of Extrahepatic Biliary Ducts ZYOGREEN is indicated for fluorescence imaging of extrahepatic biliary ducts in adults and pediatric patients from birth to less than 1 year of age and 6 years of age and older. 1.3 Lymphatic Mapping of Cervical and Uterine Cancer ZYOGREEN is indicated for fluorescence imaging of lymph nodes and delineation of lymphatic vessels during lymphatic mapping in adults with cervical and uterine cancer for which this procedure is a component of intraoperative management. 1.4 Ophthalmic Angiography ZYOGREEN is indicated for use in ophthalmic angiography in adults and pediatric patients."
+   }
+  },
+  {
+   "id": "FDA:sarclisa escena",
+   "jurisdiction": "FDA",
+   "drug": "Sarclisa Escena",
+   "inn": "isatuximab-irfc",
+   "applicationNumber": "BLA761445",
+   "approvalDate": "2026-07-09",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Sanofi-aventis U.s. Llc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 07730e8c-1340-4d30-8d71-e20f850db8da, label version 3 of 2026-07-10"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "07730e8c-1340-4d30-8d71-e20f850db8da",
+    "splId": "564889eb-80a7-336a-e063-6294a90a30c8",
+    "effective": "2026-07-10",
+    "version": "3",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=07730e8c-1340-4d30-8d71-e20f850db8da",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Sarclisa Escena",
+    "usGeneric": "ISATUXIMAB-IRFC",
+    "applicationNumber": "BLA761445",
+    "harmonised": true,
+    "sha256": "fae3ba1141e426f56c03c69cc123f1f4bb1b6341b336dc26ebcffbcf088cd8de",
+    "indications": "1 INDICATIONS AND USAGE SARCLISA ESCENA is indicated: in combination with pomalidomide and dexamethasone, for the treatment of adult patients with multiple myeloma who have received at least 1 prior line of therapy including lenalidomide and a proteasome inhibitor. in combination with carfilzomib and dexamethasone, for the treatment of adult patients with relapsed or refractory multiple myeloma who have received 1 to 3 prior lines of therapy. in combination with bortezomib, lenalidomide, and dexamethasone, for the treatment of adult patients with newly diagnosed multiple myeloma who are not eligible for autologous stem cell transplant (ASCT). SARCLISA ESCENA is a CD38-directed cytolytic antibody indicated: in combination with pomalidomide and dexamethasone, for the treatment of adult patients with multiple myeloma who have received at least 1 prior line of therapy including lenalidomide and a proteasome inhibitor. in combination with carfilzomib and dexamethasone, for the treatment of adult patients with relapsed or refractory multiple myeloma who have received 1 to 3 prior lines of therapy. in combination with bortezomib, lenalidomide and dexamethasone, for the treatment of adult patients with newly diagnosed multiple myeloma who are not eligible for autologous stem cell transplant (ASCT). ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:trutakna",
+   "jurisdiction": "FDA",
+   "drug": "Trutakna",
+   "inn": "atacicept-vymj",
+   "applicationNumber": "BLA761486",
+   "approvalDate": "2026-07-07",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To reduce proteinuria in adults with primary immunoglobulin A nephropathy at risk for disease progression",
+   "sponsor": "Vera Therapeutics Inc.",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 24aa29f6-ccff-45d3-89af-4d26e525cef8, label version 3 of 2026-08-05"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "24aa29f6-ccff-45d3-89af-4d26e525cef8",
+    "splId": "83f672ee-5ed8-4226-aae7-16bb625f7088",
+    "effective": "2026-08-05",
+    "version": "3",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=24aa29f6-ccff-45d3-89af-4d26e525cef8",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Trutakna",
+    "usGeneric": "ATACICEPT",
+    "applicationNumber": "BLA761486",
+    "harmonised": true,
+    "sha256": "f1ca69550f27dcc851a6c797f62d310f20ad60d67a1eae78d8fd1e5d362e922a",
+    "indications": "1 INDICATIONS AND USAGE TRUTAKNA is indicated to reduce proteinuria in adults with primary immunoglobulin A nephropathy (IgAN) at risk for disease progression. This indication is approved under accelerated approval based on reduction of proteinuria. It has not been established whether TRUTAKNA slows kidney function decline over the long-term in patients with IgAN. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory clinical trial. TRUTAKNA is a B-lymphocyte stimulator (BLyS)-specific inhibitor and A Proliferation Inducing Ligand (APRIL) blocker indicated to reduce proteinuria in adults with primary immunoglobulin A nephropathy (IgAN) at risk for disease progression. ( 1 ). This indication is approved under accelerated approval based on a reduction of proteinuria. It has not been established whether TRUTAKNA slows kidney function decline over the long-term in patients with IgAN. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory clinical trial."
+   }
+  },
+  {
+   "id": "FDA:tregzi",
+   "jurisdiction": "FDA",
+   "drug": "Tregzi",
+   "inn": "allogeneic regulatory T cell immunotherapy with HSPC and T cells-vldq",
+   "applicationNumber": "BLA125868",
+   "approvalDate": "2026-06-30",
+   "sources": [
+    "cber"
+   ],
+   "summary": "Adults with hematologic malignancies undergoing allogeneic hematopoietic stem cell transplant, to reduce graft-versus-host disease (Orca-T).",
+   "sponsor": null,
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 2157e11b-87c3-4d54-a225-81b341e4e21a, label version 4 of 2026-06-30"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "2157e11b-87c3-4d54-a225-81b341e4e21a",
+    "splId": "ffffa405-7551-4adc-9a7c-98750b100095",
+    "effective": "2026-06-30",
+    "version": "4",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2157e11b-87c3-4d54-a225-81b341e4e21a",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "TREGZI",
+    "usGeneric": "ALLOGENEIC REGULATORY T CELL IMMUNOTHERAPY WITH HSPC AND T CELLS-VLDQ",
+    "applicationNumber": "BLA125868",
+    "harmonised": true,
+    "sha256": "29f1a9faeadb7d9bc92b87e0a81f0dbb4c8ca6ba71183051b3ba0f41dd5a9233",
+    "indications": "1 INDICATIONS AND USAGE TREGZI is indicated for use in matched donor hematopoietic stem cell transplantation with myeloablative preparative regimen, for hematopoietic and immunologic reconstitution and to improve chronic graft-versus-host disease-free survival, in the treatment of adults with hematological malignancies. TREGZI™ is an allogeneic regulatory T cell-based immunotherapy with hematopoietic stem and progenitor cells and T cells indicated for use in matched donor hematopoietic stem cell transplantation with myeloablative preparative regimen, for hematopoietic and immunologic reconstitution and to improve chronic graft-versus-host disease (cGVHD)-free survival, in the treatment of adults with hematological malignancies. ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:lumvoa",
+   "jurisdiction": "FDA",
+   "drug": "Lumvoa",
+   "inn": "veligrotug-vvze",
+   "applicationNumber": "BLA761530",
+   "approvalDate": "2026-06-26",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat thyroid eye disease",
+   "sponsor": "Viridian Therapeutics Inc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 11bc286a-5411-45af-af3f-69ad38efb610, label version 7 of 2026-06-29"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "11bc286a-5411-45af-af3f-69ad38efb610",
+    "splId": "b2e929f4-7a8c-4289-98aa-4f042e645c3a",
+    "effective": "2026-06-29",
+    "version": "7",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=11bc286a-5411-45af-af3f-69ad38efb610",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Lumvoa",
+    "usGeneric": "VELIGROTUG",
+    "applicationNumber": "BLA761530",
+    "harmonised": true,
+    "sha256": "242eab03bd7a2c44c8a86500d837e4592817528ed100d5a164eb610a06826a1e",
+    "indications": "1 INDICATIONS AND USAGE LUMVOA is indicated for the treatment of thyroid eye disease regardless of thyroid eye disease activity or duration. LUMVOA is an insulin-like growth factor-1 receptor inhibitor indicated for the treatment of thyroid eye disease regardless of thyroid eye disease activity or duration. ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:utebzi",
+   "jurisdiction": "FDA",
+   "drug": "Utebzi",
+   "inn": "tebipenem pivoxil hydrobromide",
+   "applicationNumber": "NDA215960",
+   "approvalDate": "2026-06-17",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat complicated urinary tract infections, including pyelonephritis, caused by several susceptible microorganisms in adults who have limited or no alternative oral treatment options",
+   "sponsor": "Glaxosmithkline",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID f0511453-5f6f-4e3a-b7d0-a5cfde985656, label version 1 of 2026-06-17"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "f0511453-5f6f-4e3a-b7d0-a5cfde985656",
+    "splId": "f0511453-5f6f-4e3a-b7d0-a5cfde985656",
+    "effective": "2026-06-17",
+    "version": "1",
+    "detected": "2026-10-26",
+    "retrieved": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f0511453-5f6f-4e3a-b7d0-a5cfde985656",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Utebzi",
+    "usGeneric": "Tebipenem Pivoxil",
+    "applicationNumber": "NDA215960",
+    "harmonised": false,
+    "sha256": "dbecc809a00a758fefb474c07863cfdbcb2a5a8196229cad78603fb5e59acd1f",
+    "indications": "1 INDICATIONS AND USAGE UTEBZI is a penem antibacterial indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. ( 1.1 ) Usage to Reduce Development of Drug‑Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infection (cUTI), Including Pyelonephritis UTEBZI is indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli , Klebsiella pneumoniae , Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:ambelvist",
+   "jurisdiction": "FDA",
+   "drug": "Ambelvist",
+   "inn": "gadoquatrane",
+   "applicationNumber": "NDA219627",
+   "approvalDate": "2026-06-12",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To detect and visualize lesions with abnormal vascularity, in conjunction with MRI",
+   "sponsor": "Bayer Healthcare",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID fac80f5d-8d37-4237-bb52-0faef0dd46aa, label version 5 of 2025-06-12"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "fac80f5d-8d37-4237-bb52-0faef0dd46aa",
+    "splId": "7c4d8f12-64e0-465f-9b4b-99700e141feb",
+    "effective": "2025-06-12",
+    "version": "5",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fac80f5d-8d37-4237-bb52-0faef0dd46aa",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Ambelvist",
+    "usGeneric": "GADOQUATRANE",
+    "applicationNumber": "NDA219627",
+    "harmonised": true,
+    "sha256": "2b370ad04f2dfe12232a398472a65731baaa7b25d824a3bd9649e2e308a25299",
+    "indications": "1 INDICATIONS AND USAGE AMBELVIST is indicated in adult and pediatric patients, including term neonates, for use with magnetic resonance imaging (MRI) to detect and visualize lesions with abnormal vascularity in: the central nervous system (brain, spine, and associated tissues) the body (head and neck, thorax, abdomen, pelvis, and musculoskeletal system) AMBELVIST is a gadolinium-based contrast agent indicated in adult and pediatric patients, including term neonates, for use with magnetic resonance imaging (MRI) to detect and visualize lesions with abnormal vascularity in: the central nervous system (brain, spine, and associated tissues) the body (head and neck, thorax, abdomen, pelvis, and musculoskeletal system) ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:ranluspec",
+   "jurisdiction": "FDA",
+   "drug": "Ranluspec",
+   "inn": "ranibizumab-hkdz",
+   "applicationNumber": "BLA761480",
+   "approvalDate": "2026-06-02",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Lupin Limited",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "biosimilar": true,
+   "note": "biosimilar: no SPL at openFDA or DailyMed 151 days after approval — expected until commercial launch"
+  },
+  {
+   "id": "FDA:zaynich",
+   "jurisdiction": "FDA",
+   "drug": "Zaynich",
+   "inn": "cefepime hydrochloride, zidebactam",
+   "applicationNumber": "NDA220787",
+   "approvalDate": "2026-05-29",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat complicated urinary tract infections, including pyelonephritis, caused by designated susceptible microorganisms",
+   "sponsor": "Wockhardt Bio Ag",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID c84e652e-5e76-4568-8812-bd5fa34803b6, label version 2 of 2026-06-05"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "c84e652e-5e76-4568-8812-bd5fa34803b6",
+    "splId": "5381b2e7-e719-2af8-e063-6294a90a2732",
+    "effective": "2026-06-05",
+    "version": "2",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c84e652e-5e76-4568-8812-bd5fa34803b6",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "83574b8fe808dd9ff32c542a2762092e67ab0e9d5c62e6ec8038e104a343e98f",
+    "indications": "1 INDICATIONS AND USAGE ZAYNICH is a combination of cefepime, a cephalosporin antibacterial, and zidebactam, a beta-lactamase inhibitor and non-beta-lactam antibacterial indicated for the treatment of adult patients with complicated urinary tract infections (cUTI) including pyelonephritis caused by designated susceptible microorganisms. ( 1.1 ) Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug-resistant bacteria and maintain the effectiveness of ZAYNICH and other antibacterial drugs, ZAYNICH should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infections, including Pyelonephritis ZAYNICH is indicated for the treatment of adult patients with complicated urinary tract infections (cUTI) including pyelonephritis caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Proteus mirabilis, Enterobacter cloacae complex, and Pseudomonas aeruginosa . 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug-resistant bacteria and maintain the effectiveness of ZAYNICH and other antibacterial drugs, ZAYNICH should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
+  },
+  {
+   "id": "FDA:xocova",
+   "jurisdiction": "FDA",
+   "drug": "Xocova",
+   "inn": "ensitrelvir",
+   "applicationNumber": "NDA220442",
+   "approvalDate": "2026-05-29",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To use as post-exposure prophylaxis of coronavirus disease 2019 (COVID-19) following contact with an individual who has COVID-19",
+   "sponsor": "Shionogi",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 526acf60-abc3-2cc2-e063-6294a90affa6, label version 2 of 2026-06-03"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "526acf60-abc3-2cc2-e063-6294a90affa6",
+    "splId": "96185ce1-2b27-43a1-9b24-e76cbc91a235",
+    "effective": "2026-06-03",
+    "version": "2",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=526acf60-abc3-2cc2-e063-6294a90affa6",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "XOCOVA",
+    "usGeneric": "ENSITRELVIR",
+    "applicationNumber": "NDA220442",
+    "harmonised": true,
+    "sha256": "6b1626f65f6433167ae47b47fdd6f175f6f1c443bcd35417389e51a66f544989",
+    "indications": "1 INDICATIONS AND USAGE XOCOVA is indicated for post-exposure prophylaxis of coronavirus disease 2019 (COVID-19) in adults and adolescents 12 years of age and older following contact with an individual who has COVID-19. XOCOVA, a severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) main protease (M pro : also referred to as 3CL pro or nsp5 protease) inhibitor, is indicated for post-exposure prophylaxis of coronavirus disease 2019 (COVID‑19) in adults and adolescents 12 years of age and older following contact with an individual who has COVID-19. ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:cypsedo",
+   "jurisdiction": "FDA",
+   "drug": "Cypsedo",
+   "inn": "cipepofol",
+   "applicationNumber": "NDA220482",
+   "approvalDate": "2026-05-29",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To induce general anesthesia in adults undergoing surgery",
+   "sponsor": "Haisco",
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "alert": "no US prescribing information at openFDA or DailyMed 155 days after approval"
+  },
+  {
+   "id": "FDA:decnupaz",
+   "jurisdiction": "FDA",
+   "drug": "Decnupaz",
+   "inn": "pivekimab sunirine-pvzy",
+   "applicationNumber": "BLA761460",
+   "approvalDate": "2026-05-27",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat adults with blastic plasmacytoid dendritic cell neoplasm",
+   "sponsor": "Abbvie Inc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 508b6ff8-601d-4901-a7a5-816141134054, label version 2 of 2026-05-27"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "508b6ff8-601d-4901-a7a5-816141134054",
+    "splId": "a7f31acd-4120-420a-ab5d-10415866e41a",
+    "effective": "2026-05-27",
+    "version": "2",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=508b6ff8-601d-4901-a7a5-816141134054",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "DECNUPAZ",
+    "usGeneric": "PIVEKIMAB SUNIRINE-PVZY",
+    "applicationNumber": "BLA761460",
+    "harmonised": true,
+    "sha256": "b72f104a7e1bba11cf3c98d0e1be466b7d44b71db0234b0c1501eb4831229166",
+    "indications": "1. INDICATIONS AND USAGE DECNUPAZ is indicated for the treatment of adult patients with blastic plasmacytoid dendritic cell neoplasm (BPDCN). DECNUPAZ is a CD123-directed antibody and alkylating agent conjugate indicated for the treatment of adult patients with blastic plasmacytoid dendritic cell neoplasm (BPDCN). ( 1 )"
+   }
+  },
+  {
+   "id": "FDA:hepcludex",
+   "jurisdiction": "FDA",
+   "drug": "Hepcludex",
+   "inn": "bulevirtide-gmod",
+   "applicationNumber": "BLA761468",
+   "approvalDate": "2026-05-22",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat chronic hepatitis delta virus infection in adults without cirrhosis or with compensated cirrhosis",
+   "sponsor": "Gilead Sciences Inc",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 12391cc2-38c2-4cf5-86d3-2be9370127fc, label version 1 of 2026-05-22"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "12391cc2-38c2-4cf5-86d3-2be9370127fc",
+    "splId": "11157b93-ad66-4935-8d4a-b0829c809187",
+    "effective": "2026-05-22",
+    "version": "1",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=12391cc2-38c2-4cf5-86d3-2be9370127fc",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "HEPCLUDEX",
+    "usGeneric": "BULEVIRTIDE",
+    "applicationNumber": "BLA761468",
+    "harmonised": true,
+    "sha256": "80dbd3969107f523dd47b6f994bc940698e4e4e77a40b7c437568f98f2f4cef8",
+    "indications": "1 INDICATIONS AND USAGE HEPCLUDEX is indicated for the treatment of chronic hepatitis delta virus (HDV) infection in adults without cirrhosis or with compensated cirrhosis. This indication is approved under accelerated approval based on a decrease in HDV RNA and alanine aminotransferase (ALT) normalization [see Clinical Studies (14) ] . An improvement in disease-related clinical outcomes has not been established. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial(s). HEPCLUDEX is a sodium taurocholate co-transporting polypeptide (NTCP)-directed HDV attachment inhibitor indicated for the treatment of chronic HDV infection in adults without cirrhosis or with compensated cirrhosis. This indication is approved under accelerated approval based on participants who achieved a decrease in HDV RNA and alanine aminotransferase (ALT) normalization. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial(s). ( 1 , 14 )"
+   }
+  },
+  {
+   "id": "FDA:immgolis",
+   "jurisdiction": "FDA",
+   "drug": "Immgolis",
+   "inn": "golimumab-sldi",
+   "applicationNumber": "BLA761452",
+   "approvalDate": "2026-05-15",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Accord Biopharma Inc.",
+   "status": "LABEL_AVAILABLE",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "f86cb4a7-c358-4136-ae57-b32bda9bba00",
+    "effective": "2026-09-17",
+    "version": "43",
+    "detected": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f86cb4a7-c358-4136-ae57-b32bda9bba00"
+   },
+   "biosimilar": true
+  },
+  {
+   "id": "FDA:baxfendy",
+   "jurisdiction": "FDA",
+   "drug": "Baxfendy",
+   "inn": "baxdrostat",
+   "applicationNumber": "NDA219878",
+   "approvalDate": "2026-05-15",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat hypertension in combination with other antihypertensive drugs",
+   "sponsor": "Astrazeneca Ab",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID b1fc1ee7-facc-4099-b3db-a4c1daeaa4be, label version 3 of 2026-08-07"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "b1fc1ee7-facc-4099-b3db-a4c1daeaa4be",
+    "splId": "c8742107-c883-4051-bb64-4e4ff813d697",
+    "effective": "2026-08-07",
+    "version": "3",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b1fc1ee7-facc-4099-b3db-a4c1daeaa4be",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "53b168f4feac19a7942ec65f696669e63b426ce5928d67cf0d2100bca62333ee",
+    "indications": "1 INDICATIONS AND USAGE BAXFENDY, in combination with other antihypertensive drugs, is indicated for the treatment of hypertension, to lower blood pressure in adults who are not adequately controlled on other agents. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. These benefits have been seen in controlled trials of antihypertensive drugs from a wide variety of pharmacologic classes. There are no controlled trials demonstrating risk reduction of these events with BAXFENDY. Control of high blood pressure should be part of comprehensive cardiovascular risk management, including, as appropriate, lipid control, diabetes management, antithrombotic therapy, smoking cessation, exercise, and limited sodium intake. Many patients will require more than one drug to achieve blood pressure goals. For specific advice on goals and management, see published guidelines, such as those of the American College of Cardiology/American Heart Association (ACC/AHA). Numerous antihypertensive drugs, from a variety of pharmacologic classes and with different mechanisms of action, have been shown in randomized controlled trials to reduce cardiovascular morbidity and mortality, and it can be concluded that it is blood pressure reduction, and not some other pharmacologic property of the drugs, that is largely responsible for those benefits. The largest and most consistent cardiovascular outcome benefit has been a reduction in the risk of stroke, but reductions in myocardial infarction and cardiovascular mortality also have been seen regularly. Elevated systolic or diastolic pressure causes increased cardiovascular risk, and the absolute risk increase per mmHg is greater at higher blood pressures, so that even modest reductions of severe hypertension can provide substantial benefit. Relative risk reduction from blood pressure reduction is similar across populations with varying absolute risk, so the absolute benefit is greater in patients who are at higher risk independent of their hypertension (for example, patients with diabetes or hyperlipidemia), and such patients would be expected to benefit from more aggressive treatment to a lower blood pressure goal. BAXFENDY is an aldosterone synthase inhibitor indicated for the treatment of hypertension in combination with other antihypertensive drugs, to lower blood pressure in adults who are not adequately controlled on other agents. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. (1)",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
+  },
+  {
+   "id": "FDA:beqalzi",
+   "jurisdiction": "FDA",
+   "drug": "Beqalzi",
+   "inn": "sonrotoclax",
+   "applicationNumber": "NDA220711",
+   "approvalDate": "2026-05-13",
+   "sources": [
+    "drugsfda",
+    "novel"
+   ],
+   "summary": "To treat adults with relapsed or refractory mantle cell lymphoma after at least two lines of systemic therapy, including a Bruton’s tyrosine kinase inhibitor",
+   "sponsor": "Beone Medicines Usa",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID ff684558-e9cb-46de-a8bf-f4d79093df7a, label version 3 of 2026-07-27"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "ff684558-e9cb-46de-a8bf-f4d79093df7a",
+    "splId": "6c13a497-8849-4b37-a84d-692910963567",
+    "effective": "2026-07-27",
+    "version": "3",
+    "detected": "2026-10-18",
+    "retrieved": "2026-10-18",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ff684558-e9cb-46de-a8bf-f4d79093df7a",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "523d08a965fed1ec1d4141ebbf17d5b837ba3fc86800de9c1395b61cbef0e01f",
+    "indications": "1 INDICATIONS AND USAGE BEQALZI is indicated for the treatment of adult patients with relapsed or refractory mantle cell lymphoma (MCL) after at least two lines of systemic therapy, including a Bruton's tyrosine kinase (BTK) inhibitor. This indication is approved under accelerated approval based on response rate and durability of response. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial(s) [see Clinical Studies (14.1) ] . BEQALZI is a BCL-2 inhibitor indicated for the treatment of adult patients with relapsed or refractory mantle cell lymphoma (MCL) after at least two lines of systemic therapy, including a Bruton's tyrosine kinase (BTK) inhibitor. ( 1 ) This indication is approved under accelerated approval based on response rate and durability of response. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial(s).",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
+  },
+  {
+   "id": "FDA:ennumo",
+   "jurisdiction": "FDA",
+   "drug": "Ennumo",
+   "inn": "pegfilgrastim-pccg",
+   "applicationNumber": "BLA761147",
+   "approvalDate": "2026-05-07",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Accord Biopharma Inc.",
+   "status": "LABEL_AVAILABLE",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_AVAILABLE",
+     "note": "label record found at openFDA but failed validation: applicationMatch, prescription"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "checks": {
+    "applicationMatch": false,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "fdfe5d72-6b80-435a-afa4-c5d74dd852ce",
+    "effective": "2026-08-05",
+    "version": "161",
+    "detected": "2026-10-26",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fdfe5d72-6b80-435a-afa4-c5d74dd852ce"
+   },
+   "biosimilar": true
+  },
+  {
+   "id": "EMA:EMEA/H/C/006241",
+   "jurisdiction": "EMA",
+   "drug": "Lynavoy",
+   "inn": "Linerixibat",
+   "emaNumber": "EMEA/H/C/006241",
+   "slug": "lynavoy",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/lynavoy",
+   "opinionDate": "2026-07-23",
+   "summary": "Treatment of cholestatic pruritus in adult patients with primary biliary cholangitis.",
+   "holder": "GlaxoSmithKline Trading Services Limited",
+   "status": "LABEL_AVAILABLE",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-27",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-27",
+     "status": "AWAITING_SMPC",
+     "note": "authorised 2026-10-22 (EMA medicines table)"
+    },
+    {
+     "date": "2026-10-27",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information listed by EMA (updated 2026-10-27) — awaiting the weekly label refresh"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "decisionDate": "2026-10-22",
+   "decisionSource": "EMA medicines table",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/lynavoy-epar-product-information_en.pdf",
+    "detected": "2026-10-27",
+    "emaUpdated": "2026-10-27",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006241"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006627",
+   "jurisdiction": "EMA",
+   "drug": "Yuviwel",
+   "inn": "Navepegritide",
+   "emaNumber": "EMEA/H/C/006627",
+   "slug": "yuviwel",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/yuviwel",
+   "opinionDate": "2026-10-15",
+   "summary": "Treatment of achondroplasia in children",
+   "holder": "Ascendis Pharma Growth Disorders A/S",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/007122",
+   "jurisdiction": "EMA",
+   "drug": "Rasonque",
+   "inn": "Daraxonrasib",
+   "emaNumber": "EMEA/H/C/007122",
+   "slug": "rasonque",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/rasonque",
+   "opinionDate": "2026-10-15",
+   "summary": "Treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy.",
+   "holder": "Revolution Medicines Netherlands B.V.",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/007009",
+   "jurisdiction": "EMA",
+   "drug": "Neuzafy",
+   "inn": "filgrastim",
+   "emaNumber": "EMEA/H/C/007009",
+   "slug": "neuzafy",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/neuzafy",
+   "opinionDate": "2026-10-15",
+   "summary": "Treatment of neutropenia in adults and children",
+   "holder": "CuraTeQ Biologics (Malta) Limited",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006892",
+   "jurisdiction": "EMA",
+   "drug": "Kizfizo",
+   "inn": "temozolomide",
+   "emaNumber": "EMEA/H/C/006892",
+   "slug": "kizfizo-0",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/kizfizo-0",
+   "opinionDate": "2026-10-15",
+   "summary": "Treatment of adults with glioblastoma multiforme and children with malignant glioma",
+   "holder": "ORPHELIA Pharma",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006940",
+   "jurisdiction": "EMA",
+   "drug": "Fovlussea",
+   "inn": "ranibizumab",
+   "emaNumber": "EMEA/H/C/006940",
+   "slug": "fovlussea",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/fovlussea",
+   "opinionDate": "2026-10-15",
+   "summary": "Treatment of neovascular (wet) age-related macular degeneration (AMD), and other visual impairments in adults",
+   "holder": "Accord Healthcare S.L.U.",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006632",
+   "jurisdiction": "EMA",
+   "drug": "Foundayo",
+   "inn": "Orforglipron",
+   "emaNumber": "EMEA/H/C/006632",
+   "slug": "foundayo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/foundayo",
+   "opinionDate": "2026-10-15",
+   "summary": "Treatment of obesity and type 2 diabetes mellitus in adults",
+   "holder": "Eli Lilly Nederland B.V.",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006937",
+   "jurisdiction": "EMA",
+   "drug": "Cavoley",
+   "inn": "pegfilgrastim",
+   "emaNumber": "EMEA/H/C/006937",
+   "slug": "cavoley",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/cavoley",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-25",
+   "holder": "CuraTeQ Biologics s.r.o",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-26",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-21",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information published by EMA — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-10-26"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Reduction of neutropenia in adults",
+   "note": "weekly label refresh could not download the product information last run",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/cavoley-epar-product-information_en.pdf",
+    "retrieved": "2026-10-26",
+    "detected": "2026-10-21",
+    "sha256": "c1ad64ef42d755364443b716b1c77ac3ee4a78638fae58a18724b125ce95059b",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006937"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006693",
+   "jurisdiction": "EMA",
+   "drug": "Nezglyal",
+   "inn": "leriglitazone",
+   "emaNumber": "EMEA/H/C/006693",
+   "slug": "nezglyal",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/nezglyal",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-21",
+   "holder": "Minoryx Therapeutics S.L.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Nezglyal is indicated for the treatment of Cerebral Adrenoleukodystrophy (cALD) in males with Adrenoleukodystrophy (ALD) aged 2 to 12 years with non-Gadolinium (Gd) enhancing lesions (i.e. Gd negative) in brain Magnetic Resonance Imaging (MRI), with a Neurological Functional Score (NFS) of 0 or 1.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/nezglyal-epar-product-information_en.pdf",
+    "retrieved": "2026-09-28",
+    "detected": "2026-09-28",
+    "sha256": "fb7558ab38b9d9a9e2e372b40873c92bbfa8ffa92aeda69a2b16352e92810c33",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006693"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006063",
+   "jurisdiction": "EMA",
+   "drug": "Zokovea",
+   "inn": "ensitrelvir",
+   "emaNumber": "EMEA/H/C/006063",
+   "slug": "zokovea",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/zokovea",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "Shionogi B.V.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Zokovea is indicated for the post-exposure prophylaxis of COVID-19 in adults and adolescents aged 12 years and older. Zokovea should be used in accordance with official recommendations.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/zokovea-epar-product-information_en.pdf",
+    "retrieved": "2026-09-23",
+    "detected": "2026-09-23",
+    "sha256": "dbd778a342e411ba10174dc6a20dd6048f15df7db332f52266b30ba5f393c574",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006063"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006516",
+   "jurisdiction": "EMA",
+   "drug": "Ubeslo",
+   "inn": "obicetrapib",
+   "emaNumber": "EMEA/H/C/006516",
+   "slug": "ubeslo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/ubeslo",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "A. Menarini International Licensing S.A.",
+   "decisionSource": "EU Union Register",
+   "status": "AWAITING_SMPC",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Treatment of primary hypercholesterolaemia or mixed dyslipidaemia.",
+   "note": "weekly label refresh could not download the product information last run",
+   "alert": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006711",
+   "jurisdiction": "EMA",
+   "drug": "Tafamidis Accord",
+   "inn": "tafamidis",
+   "emaNumber": "EMEA/H/C/006711",
+   "slug": "tafamidis-accord",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/tafamidis-accord",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "Accord Healthcare S.L.U.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-10-01"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Tafamidis Accord is indicated for the treatment of hereditary transthyretin amyloidosis in adult patients with cardiomyopathy (ATTRh-CM).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/tafamidis-accord-epar-product-information_en.pdf",
+    "retrieved": "2026-10-01",
+    "detected": "2026-10-01",
+    "sha256": "cd387cd1c032cf8b3a8aebadbdbd309a195b1d8e513892a633b3e25d42d49929",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006711"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006527",
+   "jurisdiction": "EMA",
+   "drug": "Susvimo",
+   "inn": "ranibizumab",
+   "emaNumber": "EMEA/H/C/006527",
+   "slug": "susvimo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/susvimo",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "Roche Registration GmbH",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Susvimo is indicated in adult patients for the treatment of neovascular (wet) age-related macular degeneration (nAMD) who have achieved stable disease after previously responding to intravitreal treatment with a vascular endothelial growth factor (VEGF) inhibitor medicinal product (see section 4.2).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/susvimo-epar-product-information_en.pdf",
+    "retrieved": "2026-09-28",
+    "detected": "2026-09-28",
+    "sha256": "3e751d3072b71b2ac12ba486e2da43b37df4e600d5ec7dd7b4031adc46c67a7a",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006527"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006618",
+   "jurisdiction": "EMA",
+   "drug": "Ruxolitinib Viatris",
+   "inn": "ruxolitinib hemifumarate",
+   "emaNumber": "EMEA/H/C/006618",
+   "slug": "ruxolitinib-viatris",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/ruxolitinib-viatris",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "Viatris Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Myelofibrosis (MF) Ruxolitinib Viatris is indicated for the treatment of disease-related splenomegaly or symptoms in adult patients with primary myelofibrosis (also known as chronic idiopathic myelofibrosis), post polycythaemia vera myelofibrosis or post essential thrombocythaemia myelofibrosis. Polycythaemia vera (PV) Ruxolitinib Viatris is indicated for the treatment of adult patients with polycythaemia vera who are resistant to or intolerant of hydroxyurea. Graft versus host disease (GvHD) Acute GvHD Ruxolitinib Viatris is indicated for the treatment of adults and paediatric patients aged 28 days and older with acute graft versus host disease who have inadequate response to corticosteroids or other systemic therapies (see section 5.1). Chronic GvHD Ruxolitinib Viatris is indicated for the treatment of adults and paediatric patients aged 6 months and older with chronic graft versus host disease who have inadequate response to corticosteroids or other systemic therapies (see section 5.1).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/ruxolitinib-viatris-epar-product-information_en.pdf",
+    "retrieved": "2026-09-28",
+    "detected": "2026-09-28",
+    "sha256": "a097a5c4e1dbff2e9a328e2f51965e9231f49d271d19d67fec5cd8077fba7c70",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006618"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006838",
+   "jurisdiction": "EMA",
+   "drug": "Riociguat Accord",
+   "inn": "riociguat",
+   "emaNumber": "EMEA/H/C/006838",
+   "slug": "riociguat-accord",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/riociguat-accord",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "Accord Healthcare S.L.U.",
+   "decisionSource": "EU Union Register",
+   "status": "AWAITING_SMPC",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Treatment of Chronic thromboembolic pulmonary hypertension (CTEPH) in adults and treatment of Pulmonary arterial hypertension (PAH) in adults and children from 6 years of age.",
+   "note": "weekly label refresh could not download the product information last run",
+   "alert": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006339",
+   "jurisdiction": "EMA",
+   "drug": "Pavblu",
+   "inn": "aflibercept",
+   "emaNumber": "EMEA/H/C/006339",
+   "slug": "pavblu",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/pavblu",
+   "opinionDate": "2025-01-30",
+   "decisionDate": "2026-09-18",
+   "holder": "Amgen Technology (Ireland) UC",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-20",
+   "statusSince": "2026-10-20",
+   "history": [
+    {
+     "date": "2026-10-20",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-20",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
+    },
+    {
+     "date": "2026-10-26",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract revised (retrieved 2026-10-26)"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "PAVBLU is indicated for adults for the treatment of • neovascular (wet) age-related macular degeneration (AMD) (see section 5.1), • visual impairment due to macular oedema secondary to retinal vein occlusion (branch RVO or central RVO) (see section 5.1), • visual impairment due to diabetic macular oedema (DME) (see section 5.1), • visual impairment due to myopic choroidal neovascularisation (myopic CNV) (see section 5.1).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/pavblu-epar-product-information_en.pdf",
+    "retrieved": "2026-10-26",
+    "detected": "2026-07-12",
+    "sha256": "b0131f58d38917bd96fcf94404bde401fc3304d616944cbf22ce2623e4d1cab9",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006339"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006694",
+   "jurisdiction": "EMA",
+   "drug": "Lyrokaul",
+   "inn": "lerodalcibep",
+   "emaNumber": "EMEA/H/C/006694",
+   "slug": "lyrokaul",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/lyrokaul",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "LIB Therapeutics B.V.",
+   "decisionSource": "EU Union Register",
+   "status": "AWAITING_SMPC",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "It is indicated in adults with primary hypercholesterolaemia (heterozygous familial (HeFH) and non-familial) or mixed dyslipidaemia as an adjunct to diet.",
+   "note": "weekly label refresh could not download the product information last run",
+   "alert": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006730",
+   "jurisdiction": "EMA",
+   "drug": "Icotyde",
+   "inn": "icotrokinra hydrochloride",
+   "emaNumber": "EMEA/H/C/006730",
+   "slug": "icotyde",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/icotyde",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "Janssen-Cilag International",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "ICOTYDE is indicated for the treatment of moderate to severe plaque psoriasis in adults, and adolescents 12 years of age and older and weighing at least 40 kg, who are candidates for systemic therapy.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/icotyde-epar-product-information_en.pdf",
+    "retrieved": "2026-09-23",
+    "detected": "2026-09-23",
+    "sha256": "eb4516b14876c12edb55b313450c9e006078a966485b7852e48646e2e1c3dfb0",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006730"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006517",
+   "jurisdiction": "EMA",
+   "drug": "Evlarco",
+   "inn": "obicetrapib;ezetimibe",
+   "emaNumber": "EMEA/H/C/006517",
+   "slug": "evlarco",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/evlarco",
+   "opinionDate": "2026-07-23",
+   "decisionDate": "2026-09-18",
+   "holder": "A. Menarini International Licensing S.A.",
+   "decisionSource": "EU Union Register",
+   "status": "AWAITING_SMPC",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Treatment of primary hypercholesterolaemia or mixed dyslipidaemia.",
+   "note": "weekly label refresh could not download the product information last run",
+   "alert": "no SmPC extract 43 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/005855",
+   "jurisdiction": "EMA",
+   "drug": "Zeydovio",
+   "inn": "glepaglutide",
+   "emaNumber": "EMEA/H/C/005855",
+   "slug": "zeydovio",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/zeydovio",
+   "opinionDate": "2026-09-17",
+   "summary": "Treatment of adults with Short Bowel Syndrome",
+   "holder": "Zealand Pharma A/S",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006602",
+   "jurisdiction": "EMA",
+   "drug": "VaxRabeo",
+   "inn": "rabies vaccine (inactivated) for human",
+   "emaNumber": "EMEA/H/C/006602",
+   "slug": "vaxrabeo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/vaxrabeo",
+   "opinionDate": "2026-09-17",
+   "summary": "Pre-exposure and post-exposure prophylaxis against rabies in all age groups",
+   "holder": "Sanofi Winthrop Industrie",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006708",
+   "jurisdiction": "EMA",
+   "drug": "Sepalna",
+   "inn": "senaparib",
+   "emaNumber": "EMEA/H/C/006708",
+   "slug": "sepalna",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/sepalna",
+   "opinionDate": "2026-09-17",
+   "summary": "Maintenance treatment of advanced epithelial high-grade ovarian, fallopian tube or primary peritoneal cancer",
+   "holder": "",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006791",
+   "jurisdiction": "EMA",
+   "drug": "Ruxolitinib Zentiva",
+   "inn": "ruxolitinib",
+   "emaNumber": "EMEA/H/C/006791",
+   "slug": "ruxolitinib-zentiva",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/ruxolitinib-zentiva",
+   "opinionDate": "2026-09-17",
+   "summary": "Treatment of myelofibrosis (MF) in adults, treatment of polycythaemia vera (PV) in adults and treatment of Graft versus host disease (GvHD) in adults and children",
+   "holder": "Zentiva k.s.",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006727",
+   "jurisdiction": "EMA",
+   "drug": "Povofortay",
+   "inn": "povorcitinib",
+   "emaNumber": "EMEA/H/C/006727",
+   "slug": "povofortay",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/povofortay",
+   "opinionDate": "2026-09-17",
+   "summary": "Treatment of active moderate to severe hidradenitis suppurativa (acne inversa) in adults",
+   "holder": "Incyte Biosciences Distribution B.V.",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006731",
+   "jurisdiction": "EMA",
+   "drug": "Lifyorli",
+   "inn": "relacorilant",
+   "emaNumber": "EMEA/H/C/006731",
+   "slug": "lifyorli",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/lifyorli",
+   "opinionDate": "2026-09-17",
+   "summary": "Treatment of adult patients with platinum-resistant epithelial ovarian, fallopian tube, or primary peritoneal cancer",
+   "holder": "Corcept Therapeutics Netherlands B.V.",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006558",
+   "jurisdiction": "EMA",
+   "drug": "Klygefa",
+   "inn": "gefurulimab",
+   "emaNumber": "EMEA/H/C/006558",
+   "slug": "klygefa",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/klygefa",
+   "opinionDate": "2026-09-17",
+   "summary": "Treatment of adult patients with generalised myasthemia gravis (gMG)",
+   "holder": "Alexion Europe",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006698",
+   "jurisdiction": "EMA",
+   "drug": "Inijaq",
+   "inn": "tofacitinib",
+   "emaNumber": "EMEA/H/C/006698",
+   "slug": "inijaq",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/inijaq",
+   "opinionDate": "2026-09-17",
+   "summary": "Treatment of rheumatoid arthritis, psoriatic arthritis, ankylosing spondylitis, and ulcerative colitis in adults, and juvenile idiopathic arthritis (JIA) in children from 2 years old",
+   "holder": "Gedeon Richter Plc.",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006757",
+   "jurisdiction": "EMA",
+   "drug": "Gevalka",
+   "inn": "ensartinib",
+   "emaNumber": "EMEA/H/C/006757",
+   "slug": "gevalka",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/gevalka",
+   "opinionDate": "2026-09-17",
+   "summary": "The treatment of adult patients with anaplastic lymphoma kinase (ALK)-positive advanced non-small cell lung cancer (NSCLC)",
+   "holder": "SFL Pharmaceuticals Deutschland GmbH",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006344",
+   "jurisdiction": "EMA",
+   "drug": "Frehemgo",
+   "inn": "denecimig",
+   "emaNumber": "EMEA/H/C/006344",
+   "slug": "frehemgo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/frehemgo",
+   "opinionDate": "2026-09-17",
+   "summary": "Prophylaxis of bleeding episodes in patients with haemophilia A",
+   "holder": "Novo Nordisk A/S",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006756",
+   "jurisdiction": "EMA",
+   "drug": "Adcomfo",
+   "inn": "omalizumab",
+   "emaNumber": "EMEA/H/C/006756",
+   "slug": "adcomfo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/adcomfo",
+   "opinionDate": "2026-09-17",
+   "summary": "Treatment of asthma, chronic rhinosinusitis with nasal polyps (CRSwNP) and chronic spontaneous urticaria (CSU)",
+   "holder": "Advanz Pharma Limited",
+   "status": "AWAITING_EC_DECISION",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006626",
+   "jurisdiction": "EMA",
+   "drug": "Denosumab Ascend",
+   "inn": "denosumab",
+   "emaNumber": "EMEA/H/C/006626",
+   "slug": "denosumab-ascend",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/denosumab-ascend",
+   "opinionDate": "2026-06-25",
+   "decisionDate": "2026-08-28",
+   "holder": "Ascend GmbH",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Prevention of skeletal related events (pathological fracture, radiation to bone, spinal cord compression or surgery to bone) in adults with advanced malignancies involving bone (see section 5.1). Treatment of adults and skeletally mature adolescents with giant cell tumour of bone that is unresectable or where surgical resection is likely to result in severe morbidity.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/denosumab-ascend-epar-product-information_en.pdf",
+    "retrieved": "2026-09-23",
+    "detected": "2026-09-23",
+    "sha256": "16f3b65c77076dcdf6b63a2855ada84f68068747a024a717fc6c00a33b7a94d2",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006626"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006388",
+   "jurisdiction": "EMA",
+   "drug": "Onswik",
+   "inn": "Insulin efsitora alfa",
+   "emaNumber": "EMEA/H/C/006388",
+   "slug": "onswik",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/onswik",
+   "opinionDate": "2026-06-25",
+   "decisionDate": "2026-08-20",
+   "holder": "Eli Lilly Nederland B.V.",
+   "decisionSource": "EU Union Register",
+   "status": "AWAITING_SMPC",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Treatment of type 2 diabetes mellitus",
+   "note": "weekly label refresh could not download the product information last run",
+   "alert": "no SmPC extract 72 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006085",
+   "jurisdiction": "EMA",
+   "drug": "Nylaspeg",
+   "inn": "pegfilgrastim",
+   "emaNumber": "EMEA/H/C/006085",
+   "slug": "nylaspeg",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/nylaspeg",
+   "opinionDate": "2026-06-25",
+   "decisionDate": "2026-08-20",
+   "holder": "Qilu Pharma Spain S.L.",
+   "decisionSource": "EU Union Register",
+   "status": "AWAITING_SMPC",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Reduction of neutropoenia in adults",
+   "note": "weekly label refresh could not download the product information last run",
+   "alert": "no SmPC extract 72 days after the EU authorisation"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006629",
+   "jurisdiction": "EMA",
+   "drug": "Hopledo",
+   "inn": "levodopa;carbidopa",
+   "emaNumber": "EMEA/H/C/006629",
+   "slug": "hopledo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/hopledo",
+   "opinionDate": "2026-06-25",
+   "decisionDate": "2026-08-20",
+   "holder": "Zambon SpA",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Hopledo is indicated for the treatment of adult patients with Parkinson’s disease and moderate to severe motor fluctuations who have not been sufficiently stabilised with oral levodopa/dopa decarboxylase (DDC) inhibitor-based treatment regimens.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/hopledo-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "d51002569a4150554844340f41b2e81e5497793f97244b8464418b0dfce86019",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006629"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006482",
+   "jurisdiction": "EMA",
+   "drug": "Daybu",
+   "inn": "trofinetide",
+   "emaNumber": "EMEA/H/C/006482",
+   "slug": "daybu",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/daybu",
+   "opinionDate": "2026-06-25",
+   "decisionDate": "2026-08-20",
+   "holder": "Acadia Pharmaceuticals B.V.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    },
+    {
+     "date": "2026-10-19",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract revised (retrieved 2026-10-19)"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Daybu is indicated for the treatment of neurobehavioural symptoms of Rett syndrome in adults and paediatric patients aged 5 years and older.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/daybu-epar-product-information_en.pdf",
+    "retrieved": "2026-10-19",
+    "detected": "2026-09-06",
+    "sha256": "3ae8671c61291740e3b0e909790dc011c99ef1405bbcb04b91452958b10820f3",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006482"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006692",
+   "jurisdiction": "EMA",
+   "drug": "Aujemflu",
+   "inn": "Influenza vaccine (surface antigen, inactivated, adjuvanted, prepared in cell culture)",
+   "emaNumber": "EMEA/H/C/006692",
+   "slug": "aujemflu",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/aujemflu",
+   "opinionDate": "2026-06-25",
+   "decisionDate": "2026-08-20",
+   "holder": "Seqirus Netherlands B.V.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Prophylaxis of influenza in adults 50 years of age and older. Aujemflu should be used in accordance with official recommendations.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/aujemflu-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "1ea2b31444e03c2e7a1a31c82e6ea79876583e99f05db572c92e90377ccc068d",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006692"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006653",
+   "jurisdiction": "EMA",
+   "drug": "Colchicine Agepha Pharma",
+   "inn": "colchicine",
+   "emaNumber": "EMEA/H/C/006653",
+   "slug": "colchicine-agepha-pharma",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/colchicine-agepha-pharma",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-24",
+   "holder": "Agepha Pharma s.r.o.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Colchicine AGEPHA Pharma is indicated for secondary prevention of atherothrombotic events in adult patients with coronary disease stable for at least 6 months.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/colchicine-agepha-pharma-epar-product-information_en.pdf",
+    "retrieved": "2026-09-23",
+    "detected": "2026-09-23",
+    "sha256": "ec5bb0586a8e8dfdaac20f084c9a92643e468c3c41539f80adcb7dc7d45eff0c",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006653"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006494",
+   "jurisdiction": "EMA",
+   "drug": "Etcamah",
+   "inn": "camizestrant",
+   "emaNumber": "EMEA/H/C/006494",
+   "slug": "etcamah",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/etcamah",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-20",
+   "holder": "AstraZeneca AB",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Etcamah in combination with a CDK4/6 inhibitor (palbociclib, ribociclib, or abemaciclib) is indicated for the treatment of adult patients with ER-positive, HER2-negative, locally advanced or metastatic breast cancer upon detection of ESR1-mutation and without disease progression during first-line endocrine therapy in combination with a CDK4/6 inhibitor (for biomarker based patient-selection, see section 4.2 and 5.1). In pre- or peri-menopausal women and in men, Etcamah plus a CDK4/6 inhibitor should be combined with a luteinizing hormone releasing hormone (LHRH) agonist or antagonist.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/etcamah-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "bfdbff8f716fd9b84575f75776dcbde43997401415430b82c9c08ce7243ced36",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006494"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006926",
+   "jurisdiction": "EMA",
+   "drug": "Vislyfa",
+   "inn": "ranibizumab",
+   "emaNumber": "EMEA/H/C/006926",
+   "slug": "vislyfa",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/vislyfa",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-15",
+   "holder": "Lupin Europe GmbH",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Vislyfa is indicated in adults for: • The treatment of neovascular (wet) age-related macular degeneration (AMD) • The treatment of visual impairment due to diabetic macular oedema (DME) • The treatment of proliferative diabetic retinopathy (PDR) • The treatment of visual impairment due to macular oedema secondary to retinal vein occlusion (branch RVO or central RVO) • The treatment of visual impairment due to choroidal neovascularisation (CNV)",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/vislyfa-epar-product-information_en.pdf",
+    "retrieved": "2026-09-23",
+    "detected": "2026-09-23",
+    "sha256": "aeac1ad040dcd3b43a1b479536dc92cd44c052b6825139e6bd7a2f208e003c4c",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006926"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006539",
+   "jurisdiction": "EMA",
+   "drug": "Vijoice",
+   "inn": "alpelisib",
+   "emaNumber": "EMEA/H/C/006539",
+   "slug": "vijoice",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/vijoice",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-15",
+   "holder": "Novartis Europharm Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Vijoice is indicated for the treatment of adult and paediatric patients aged 2 years and older with severe or life-threatening manifestations of PIK3CA-related overgrowth spectrum (PROS) who require systemic therapy.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/vijoice-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "ee00f71f3a058b7f5477745b5b659e0fcd96b1c69332276dc6b7cb5f7b9b2217",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006539"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006615",
+   "jurisdiction": "EMA",
+   "drug": "Liraglutide STADA",
+   "inn": "liraglutide",
+   "emaNumber": "EMEA/H/C/006615",
+   "slug": "liraglutide-stada",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/liraglutide-stada",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-15",
+   "holder": "STADA Arzneimittel AG",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Liraglutide STADA is indicated for the treatment of adults, adolescents and children aged 10 years and above with insufficiently controlled type 2 diabetes mellitus as an adjunct to diet and exercise • as monotherapy when metformin is considered inappropriate due to intolerance or contraindications • in addition to other medicinal products for the treatment of diabetes For study results with respect to combinations, effects on glycaemic control and cardiovascular events, and the populations studied, see sections 4.4, 4.5 and 5.1.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/liraglutide-stada-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "5580826b5e8bc62e46ceab26d6b635b6f45642537330a58e934569c6efb81224",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006615"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006405",
+   "jurisdiction": "EMA",
+   "drug": "Jascayd",
+   "inn": "nerandomilast",
+   "emaNumber": "EMEA/H/C/006405",
+   "slug": "jascayd",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/jascayd",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-15",
+   "holder": "Boehringer Ingelheim International GmbH",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Jascayd is indicated for the treatment of adult patients with Idiopathic Pulmonary Fibrosis (IPF). Jascayd is indicated for the treatment of adult patients with Progressive Pulmonary Fibrosis (PPF).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/jascayd-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "84b80dd70da8e5534ae9c2798673a87d5c0159fece15c8435e4e3c3873f2ebe7",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006405"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006420",
+   "jurisdiction": "EMA",
+   "drug": "Boey",
+   "inn": "trenibotulinumtoxinE",
+   "emaNumber": "EMEA/H/C/006420",
+   "slug": "boey",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/boey",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-15",
+   "holder": "AbbVie Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Boey is indicated for the temporary improvement in the appearance of moderate to severe lines between the eyebrows seen at maximum frown (glabellar lines), when these have an important psychological impact in adult patients (see section 5.1).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/boey-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "c0a7a1555fbe9d7772d267ab98c8466a03004d4a4588c1a182051b9cd3a7220c",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006420"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006620",
+   "jurisdiction": "EMA",
+   "drug": "Ablymico",
+   "inn": "liraglutide",
+   "emaNumber": "EMEA/H/C/006620",
+   "slug": "ablymico",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/ablymico",
+   "opinionDate": "2026-05-21",
+   "decisionDate": "2026-07-15",
+   "holder": "STADA Arzneimittel AG",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Adults Ablymico is indicated as an adjunct to a reduced-calorie diet and increased physical activity for weight management in adult patients with an initial Body Mass Index (BMI) of: • ≥ 30 kg/m2 (obesity), or • ≥ 27 kg/m2 to < 30 kg/m2 (overweight) in the presence of at least one weight-related comorbidity such as dysglycaemia (prediabetes or type 2 diabetes mellitus), hypertension, dyslipidaemia or obstructive sleep apnoea. Treatment with Ablymico should be discontinued after 12 weeks on the 3.0 mg/day dose if patients have not lost at least 5 % of their initial body weight. Adolescents (≥ 12 years) Ablymico can be used as an adjunct to a healthy nutrition and increased physical activity for weight management in adolescent patients from the age of 12 years and above with: • obesity (BMI corresponding to ≥ 30 kg/m2 for adults by international cut-off points)* and • body weight above 60 kg. Treatment with Ablymico should be discontinued and re-evaluated if patients have not lost at least 4 % of their BMI or BMI z score after 12 weeks on the 3.0 mg/day or maximum tolerated dose. *IOTF BMI cut-off points for obesity by sex between 12-18 years (see table 1), in accordance with study design of the Trial 4180, see section 5.1. Table 1 IOTF BMI cut-off points for obesity by sex between 12-18 years BMI corresponding to 30 kg/m2 for adults by international cut-off Age (years) points. Males Females 12 26.02 26.67 12.5 26.43 27.24 13 26.84 27.76 BMI corresponding to 30 kg/m2 for adults by international cut-off Age (years) points. Males Females 13.5 27.25 28.20 14 27.63 28.57 14.5 27.98 28.87 15 28.30 29.11 15.5 28.60 29.29 16 28.88 29.43 16.5 29.14 29.56 17 29.41 29.69 17.5 29.70 29.84 18 30.00 30.00 Children (6 to < 12 years) Ablymico is indicated as an adjunct to healthy nutrition and increased physical activity for weight management in children from the age of 6 to < 12 years with • obesity (BMI ≥ 95th percentile)* and • body weight ≥ 45 kg Treatment with Ablymico should be discontinued and re-evaluated if patients have not lost at least 4 % of their BMI or BMI z score after 12 weeks on the 3.0 mg/day or maximum tolerated dose. *CDC BMI cut-off points for obesity (≥ 95th percentile) by sex between 6 to < 12 years (see table 2), in accordance with study design of the Trial 4392, see section 5.1. Table 2 Cut-off points for BMI (Weight in kg/Height in m2) for obesity (≥ 95th percentile) by sex for children from 6 and < 12 years of age Obesity Age (years) BMI ≥ 95th percentile Males Females 6 18.41 18.84 6.5 18.76 19.23 7 19.15 19.68 7.5 19.59 20.17 8 20.07 20.70 8.5 20.57 21.25 9 21.09 21.82 9.5 21.62 22.40 10 22.15 22.98 10.5 22.69 23.57 11 23.21 24.14 11.5 23.73 24.71",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/ablymico-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "f4c86085c576363f49ab75c24a892423a06d740812dab52ebd5f87ff14d83576",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006620"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006498",
+   "jurisdiction": "EMA",
+   "drug": "Itvisma",
+   "inn": "onasemnogene abeparvovec",
+   "emaNumber": "EMEA/H/C/006498",
+   "slug": "itvisma",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/itvisma",
+   "opinionDate": "2026-04-23",
+   "decisionDate": "2026-06-30",
+   "holder": "Novartis Europharm Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-06"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Itvisma is indicated for the treatment of 5q spinal muscular atrophy (SMA) with a bi-allelic mutation in the SMN1 gene in patients 2 years of age and older.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/itvisma-epar-product-information_en.pdf",
+    "retrieved": "2026-09-06",
+    "detected": "2026-09-06",
+    "sha256": "4f60d9dfad7f1075bb311209aff7c28b5811f2f7d1b79c4706d04005f58af9e2",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006498"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006634",
+   "jurisdiction": "EMA",
+   "drug": "Rexatilux",
+   "inn": "ranibizumab",
+   "emaNumber": "EMEA/H/C/006634",
+   "slug": "rexatilux",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/rexatilux",
+   "opinionDate": "2026-04-23",
+   "decisionDate": "2026-06-19",
+   "holder": "Intas Third Party Sales 2005 S.L.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Rexatilux is indicated in adults for: • The treatment of neovascular (wet) age-related macular degeneration (AMD) • The treatment of visual impairment due to diabetic macular oedema (DME) • The treatment of proliferative diabetic retinopathy (PDR) • The treatment of visual impairment due to macular oedema secondary to retinal vein occlusion (branch RVO or central RVO) • The treatment of visual impairment due to choroidal neovascularisation (CNV)",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/rexatilux-epar-product-information_en.pdf",
+    "retrieved": "2026-07-12",
+    "detected": "2026-07-12",
+    "sha256": "cd8f6e2952afa42967bd9581c9af368f3d2d9cab172c3ba40a864132d9f61267",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006634"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006579",
+   "jurisdiction": "EMA",
+   "drug": "Redemplo",
+   "inn": "plozasiran",
+   "emaNumber": "EMEA/H/C/006579",
+   "slug": "redemplo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/redemplo",
+   "opinionDate": "2026-04-23",
+   "decisionDate": "2026-06-19",
+   "holder": "Arrowhead Pharmaceuticals Ireland Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Redemplo is indicated as an adjunct to diet to reduce triglyceride levels in adult patients with familial chylomicronaemia syndrome (FCS) (see section 4.2 for patient selection criteria).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/redemplo-epar-product-information_en.pdf",
+    "retrieved": "2026-07-12",
+    "detected": "2026-07-12",
+    "sha256": "3ca53ace3f953e99f6276d9103db49759be7258ed64237bed8ead76bb3e9f936",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006579"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006624",
+   "jurisdiction": "EMA",
+   "drug": "Palbociclib Viatris",
+   "inn": "palbociclib",
+   "emaNumber": "EMEA/H/C/006624",
+   "slug": "palbociclib-viatris",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/palbociclib-viatris",
+   "opinionDate": "2026-04-23",
+   "decisionDate": "2026-06-19",
+   "holder": "Viatris Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Palbociclib Viatris is indicated for the treatment of hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer. - in combination with an aromatase inhibitor; - in combination with fulvestrant in women who have received prior endocrine therapy (see section 5.1). In pre- or perimenopausal women, the endocrine therapy should be combined with a luteinizing hormone-releasing hormone (LHRH) agonist.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/palbociclib-viatris-epar-product-information_en.pdf",
+    "retrieved": "2026-07-03",
+    "detected": "2026-07-03",
+    "sha256": "99bcc443aa9c9838298799b22e1ce103417c4eb8260610b43111be4fe3dee8a0",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006624"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006386",
+   "jurisdiction": "EMA",
+   "drug": "Cenrifki",
+   "inn": "tolebrutinib",
+   "emaNumber": "EMEA/H/C/006386",
+   "slug": "cenrifki",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/cenrifki",
+   "opinionDate": "2026-04-23",
+   "decisionDate": "2026-06-19",
+   "holder": "Sanofi Winthrop Industrie",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-23"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Cenrifki is indicated for the treatment of adult patients with secondary progressive multiple sclerosis (SPMS) without relapses in the last 2 years (see section 5.1).",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/cenrifki-epar-product-information_en.pdf",
+    "retrieved": "2026-09-23",
+    "detected": "2026-09-23",
+    "sha256": "f3d9d5be7f682e4ba2df2237ea63ecb6224cc552532085b62ceb297a7d1cb4d9",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006386"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006673",
+   "jurisdiction": "EMA",
+   "drug": "Zepzelca",
+   "inn": "lurbinectedin",
+   "emaNumber": "EMEA/H/C/006673",
+   "slug": "zepzelca",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/zepzelca",
+   "opinionDate": "2026-03-26",
+   "decisionDate": "2026-05-29",
+   "holder": "Pharma Mar S.A.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "ZEPZELCA, in combination with atezolizumab, is indicated for the maintenance treatment of adult patients with extensive-stage small cell lung cancer (ES-SCLC) whose disease has not progressed after first-line induction therapy with atezolizumab, carboplatin and etoposide.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/zepzelca-epar-product-information_en.pdf",
+    "retrieved": "2026-07-03",
+    "detected": "2026-07-03",
+    "sha256": "f27f2d447f5a1a66e5efeb7ba3ae003e3a34d1730c4194ce39f786fc28d0198b",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006673"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006451",
+   "jurisdiction": "EMA",
+   "drug": "Imdylltra",
+   "inn": "tarlatamab",
+   "emaNumber": "EMEA/H/C/006451",
+   "slug": "imdylltra",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/imdylltra",
+   "opinionDate": "2026-03-26",
+   "decisionDate": "2026-05-29",
+   "holder": "Amgen Europe B.V.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "IMDYLLTRA is indicated as monotherapy for the treatment of adult patients with extensive-stage small cell lung cancer (ES-SCLC), who require systemic therapy following disease progression on or after first-line treatment with platinum-based chemotherapy.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/imdylltra-epar-product-information_en.pdf",
+    "retrieved": "2026-07-03",
+    "detected": "2026-07-03",
+    "sha256": "33cb1291ffcb6de4b64857b553213d6fef9fe2e708e7b0446d61a7b9bee0c4d9",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006451"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006617",
+   "jurisdiction": "EMA",
+   "drug": "Bopediat",
+   "inn": "furosemide",
+   "emaNumber": "EMEA/H/C/006617",
+   "slug": "bopediat",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/bopediat",
+   "opinionDate": "2026-03-26",
+   "decisionDate": "2026-05-29",
+   "holder": "Proveca Pharma Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-12"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Bopediat is indicated in children from birth to less than 18 years of age for the treatment of oedema of cardiac or renal origin, oedema of hepatic origin, and hypertension in patients with chronic kidney disease.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/bopediat-epar-product-information_en.pdf",
+    "retrieved": "2026-07-12",
+    "detected": "2026-07-12",
+    "sha256": "95315073f34042eceb143c9e2aaac6e2c06f38fc43189b160a38a249654beba5",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006617"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/005856",
+   "jurisdiction": "EMA",
+   "drug": "Adstiladrin",
+   "inn": "nadofaragene firadenovec",
+   "emaNumber": "EMEA/H/C/005856",
+   "slug": "adstiladrin",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/adstiladrin",
+   "opinionDate": "2026-03-26",
+   "decisionDate": "2026-05-28",
+   "holder": "Ferring Pharmaceuticals A/S",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "ADSTILADRIN is indicated as monotherapy for the treatment of adult patients with Bacillus Calmette-Guérin (BCG)-unresponsive non-muscle invasive bladder cancer (NMIBC) with carcinoma in situ (CIS) with or without papillary tumours.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/adstiladrin-epar-product-information_en.pdf",
+    "retrieved": "2026-07-03",
+    "detected": "2026-07-03",
+    "sha256": "1d4cd62812ac57c8facbee38e4f76563b258d34925b71a707ef74f2469bdf11d",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/005856"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/005927",
+   "jurisdiction": "EMA",
+   "drug": "Joenja",
+   "inn": "leniolisib",
+   "emaNumber": "EMEA/H/C/005927",
+   "slug": "joenja",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/joenja",
+   "opinionDate": "2026-03-26",
+   "decisionDate": "2026-05-21",
+   "holder": "Pharming Technologies B.V.",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "Joenja is indicated for the treatment of activated phosphoinositide 3-kinase delta syndrome (APDS) in adults and adolescents 12 years of age and older and weighing 45 kg or more.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/joenja-epar-product-information_en.pdf",
+    "retrieved": "2026-09-28",
+    "detected": "2026-09-28",
+    "sha256": "a26d344963aaffbca9474e97adee26ca8694baa98b17e3e21881ce395a423295",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/005927"
+   }
+  },
+  {
+   "id": "EMA:EMEA/H/C/006158",
+   "jurisdiction": "EMA",
+   "drug": "Bysumlog",
+   "inn": "insulin lispro",
+   "emaNumber": "EMEA/H/C/006158",
+   "slug": "bysumlog",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/bysumlog",
+   "opinionDate": "2026-02-26",
+   "decisionDate": "2026-05-06",
+   "holder": "Sandoz GmbH",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-10-18",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-10-18",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-10-05"
+    }
+   ],
+   "lastChecked": "2026-10-31",
+   "summary": "For the treatment of adults and children with diabetes mellitus who require insulin for the maintenance of normal glucose homeostasis. Bysumlog is also indicated for the initial stabilisation of diabetes mellitus.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/bysumlog-epar-product-information_en.pdf",
+    "retrieved": "2026-10-05",
+    "detected": "2026-10-05",
+    "sha256": "72894798011af9dbb05ea5237e11b37c900378d4f987f1092ecf436b8f8443c0",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006158"
+   }
+  }
+ ]
+}
