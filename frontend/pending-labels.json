@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-02",
- "checkedAt": "2026-11-02T07:06:43Z",
+ "checkedAt": "2026-11-02T13:47:11Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,10 +11,10 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 109,
-  "unresolved": 39,
+  "total": 110,
+  "unresolved": 40,
   "byStatus": {
-   "AWAITING_USPI": 12,
+   "AWAITING_USPI": 13,
    "AWAITING_EC_DECISION": 17,
    "AWAITING_SMPC": 6,
    "LABEL_AVAILABLE": 4,
@@ -23,11 +23,11 @@
   "alerts": 24,
   "transitions": [
    {
-    "id": "EMA:EMEA/H/C/006241",
-    "drug": "Lynavoy",
-    "from": "LABEL_AVAILABLE",
-    "to": "LABEL_VERIFIED",
-    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-02"
+    "id": "FDA:voceryq",
+    "drug": "Voceryq",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
    }
   ],
   "closed": []
@@ -203,6 +203,31 @@
   }
  ],
  "entries": [
+  {
+   "id": "FDA:voceryq",
+   "jurisdiction": "FDA",
+   "drug": "Voceryq",
+   "inn": "doruxapapogene ralaplasmid and lalikinogene sifuplasmid-gxfd",
+   "applicationNumber": "BLA125825",
+   "approvalDate": "2026-10-30",
+   "sources": [
+    "cber"
+   ],
+   "summary": "Reduction of the frequency of surgical papilloma excisions in adults with recurrent respiratory papillomatosis (RRP).",
+   "sponsor": null,
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-02",
+   "statusSince": "2026-11-02",
+   "history": [
+    {
+     "date": "2026-11-02",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-02"
+  },
   {
    "id": "FDA:hibsago",
    "jurisdiction": "FDA",
