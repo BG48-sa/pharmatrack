@@ -386,3 +386,32 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   force-pushed and run artifacts expire after 90 days, so this is the permanent record.
   `release.json` → `sourcesFda.drugsfda` holds the openFDA download ledger.
 
+
+## Golden parser tests (2.11.2026, from ChatGPT's weekly review + Grok's "parsed badge" point)
+- The release gates (G5/G7) compare a release with the PREVIOUS one, so a parser fault
+  that lands in the same week as a source update passes, and a fault already live becomes
+  the baseline. `npm test` now also runs hand-verified reference cases that do not depend
+  on the live corpus: `scripts/tests/indication-parser.test.mjs` (23 real 4.1 / Indications
+  passages → expected "At a glance" badges, written from the clinical meaning),
+  `smpc-extract.test.mjs` (fixtures/smpc/*.txt = shortened real EMA dumps + reviewed
+  `.expected.json`; `parseSections()` is exported, the extractors run `run()` only when
+  invoked as a script) and `uspi-extract.test.mjs` (`parse()` on openFDA-shaped records).
+  First run found four real faults in indicationParser.ts, all fixed: a negated LIST
+  ("no EGFR mutations or ALK rearrangements", "no EGFR, ALK or ROS1 aberrations") leaked
+  the later genes as badges (`LIST` in NEGATION_BEFORE, look-back 60 chars); "combined
+  positive score (CPS) ≥ 10" / "(TPS) < 1%" lost their threshold (closing bracket);
+  "TNBC" was not Triple-negative; "exon 14 (METex14) skipping" was not MET exon 14.
+  Regenerate a golden after a DELIBERATE parser change only, after re-checking the
+  explicit assertions (the .expected.json is not the truth, the assertions are).
+- labelDiff.ts `NUMBERS` (matching only): thousands separators ("1 000" / "1,000"),
+  "1.5 x ULN" = "1.5 × ULN" = "1.5 times the upper limit of normal", µ = mc (mcg/mcL),
+  US imperial duplicates "(150 lb)" / "(100.4 °F)" dropped. A real unit change (mg/dL vs
+  mmol/L) is still shown. `BOILERPLATE` = the standard EU 4.3 hypersensitivity sentence:
+  unit kind `boilerplate`, shown grey, never counted as "only in EU" (Gemini 2.11.).
+- UI (Grok 2.11.): IndicationFacets shows a visible amber "Parsed from the label text —
+  verify" chip (was grey microcopy); ComparePanel row "At a glance (parsed — verify)";
+  AccessStatus HTA buttons sit under "Search HTA sources" with a note that they open web
+  searches and the app holds no HTA verdict; tour no longer calls Devices "new" and says
+  US-only; DeviceList says "US devices only". `services/appReview.ts` asks for a rating via
+  `@capacitor-community/in-app-review` 8.0.0 after the 3rd rendered two-label comparison,
+  at most every 120 days, native only (iOS decides whether the dialog appears).

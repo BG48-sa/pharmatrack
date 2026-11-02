@@ -169,7 +169,7 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, labelCount = 
                 />
                 <CompareRow label="Flags" items={items} template={template} render={(d) => flagLabels(d)} />
                 <CompareRow
-                  label="At a glance"
+                  label="At a glance (parsed — verify)"
                   items={items}
                   template={template}
                   render={(d) => {

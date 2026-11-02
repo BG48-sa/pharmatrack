@@ -31,7 +31,7 @@
 //   PLAN_ONLY=1 CHANGED_ONLY=1 ...                print which EU medicines would get a fresh US lookup this week; no network, nothing written
 //   RETRY_SAMPLE=40 ...                           extract-less EU medicines re-tried per changed-only run (rotation)
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, unlinkSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -71,7 +71,7 @@ const FIELDS = {
 const CAP = 40000;
 
 // Strip the leading "6 ADVERSE REACTIONS" style section heading and tidy spacing.
-const cleanText = (arr) => {
+export const cleanText = (arr) => {
   let t = arr.join('\n\n')
     .replace(/^\s*\d+(\.\d+)?\s+[A-Z][A-Z0-9 /,&()'-]{2,60}\s{2,}/, '') // leading numbered ALLCAPS heading
     .replace(/[ \t]{2,}/g, ' ')
@@ -89,7 +89,7 @@ const decodeEntities = (s) =>
     .replace(/&([a-z]+);/gi, (m, n) => NAMED[n.toLowerCase()] ?? m);
 
 // Reduce FDA SPL table HTML to safe, minimal, attribute-free structural markup.
-const sanitizeTable = (html) =>
+export const sanitizeTable = (html) =>
   decodeEntities(
     html
       .replace(/<\/?(?:script|style|col|colgroup|a|span|sup|sub|br|footnote)[^>]*>/gi, ' ')
@@ -105,7 +105,7 @@ const sanitizeTable = (html) =>
     .replace(/\s{2,}/g, ' ')
     .trim();
 
-function parse(r) {
+export function parse(r) {
   const sections = {};
   let any = false;
   for (const [key, spec] of Object.entries(FIELDS)) {
@@ -514,4 +514,5 @@ async function run() {
   if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
   console.log(`Manifest: ${index.count} drugs → uspi-index.json ; per-drug JSON → uspi-data/`);
 }
-run();
+// Run only as a script — the test suite imports parse() without side effects.
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) run();

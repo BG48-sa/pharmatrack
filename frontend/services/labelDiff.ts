@@ -23,7 +23,7 @@
  * carries the ORIGINAL text, so the rendering never shows normalised tokens.
  */
 
-export type UnitKind = 'same' | 'unique' | 'changed' | 'heading';
+export type UnitKind = 'boilerplate' | 'same' | 'unique' | 'changed' | 'heading';
 export type WordKind = 'same' | 'diff' | 'num';
 
 export interface DiffWord { t: string; k: WordKind }
@@ -93,11 +93,31 @@ const SYNONYMS: Record<string, string> = {
   dmmr: 'mismatch repair deficient', tmb: 'tumor mutational burden', gastro: 'gastro', oesophagogastric: 'esophagogastric',
 };
 
+// Numbers and units: the two labels write the same quantity differently. Thousands
+// separators ("1 000", "1,000" vs "1000"), the upper limit of normal ("1.5 x ULN",
+// "1.5 × ULN", "1.5 times the upper limit of normal"), the micro sign, and the
+// US-only imperial duplicate of a metric value ("68 kg (150 lb)", "104 °F") must not
+// read as a different clinical threshold. A genuine unit change (mg/dL vs mmol/L)
+// is still shown — it cannot be folded without a conversion the label never states.
+const NUMBERS: [RegExp, string][] = [
+  [/(\d)[ ,](\d{3})(?!\d)/g, '$1$2'], [/(\d)[ ,](\d{3})(?!\d)/g, '$1$2'],        // 1 000 000 → 1000000 (two passes)
+  [/\b(\d+(?:[.,]\d+)?)\s*(?:x|×|times)\s*(?:the\s+)?(?:upper limit of normal|uln)\b/g, '$1 uln'],
+  [/\bupper limit of (?:the )?normal\b/g, 'uln'],
+  [/\(\s*\d+(?:\.\d+)?\s*(?:lb|lbs|pounds)\s*\)/g, ' '], [/\b\d+(?:\.\d+)?\s*(?:lb|lbs|pounds)\b/g, ' '],
+  [/\(\s*\d+(?:\.\d+)?\s*°?\s*f\s*\)/g, ' '],
+  [/[µμ]/g, 'u'], [/\bmc(g|l)\b/g, 'u$1'],                                    // µg = mcg, µL = mcL
+];
 const fold = (s: string): string => {
   let t = s.toLowerCase();
+  for (const [re, rep] of NUMBERS) t = t.replace(re, rep);
   for (const [re, rep] of PHRASES) t = t.replace(re, rep);
   return t;
 };
+
+/** Standard EU SmPC wording of section 4.3 that the US label states differently or not at
+ *  all ("Hypersensitivity to the active substance or to any of the excipients …"): shown,
+ *  but never counted as a difference. */
+export const BOILERPLATE = /^hypersensitivity to the active substances?(?: \([^)]*\))? or to any of the excipients\b/i;
 
 // A line with ≥2 runs of multiple spaces is an aligned table row (pdftotext, EU side).
 const isTabularLine = (l: string): boolean => (l.match(/ {2,}/g) || []).length >= 2;
@@ -308,7 +328,7 @@ export const diffSections = (textA: string, textB: string, threshold = MATCH_THR
     units.map((u, i) => {
       if (heads[i]) return { ...u, k: 'heading' };
       const m = match.get(i);
-      if (!m) return { ...u, k: mine[i].some((t) => !isNumeric(t)) ? 'unique' : 'same' };
+      if (!m) return { ...u, k: BOILERPLATE.test(u.text) ? 'boilerplate' : mine[i].some((t) => !isNumeric(t)) ? 'unique' : 'same' };
       const unshared = unsharedTokens(mine[i], theirs[m.j]);
       // A number the counterpart states in its neighbouring sentence is not a
       // difference: the US Highlights split one EU sentence into two lines

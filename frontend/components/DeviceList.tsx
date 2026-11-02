@@ -204,9 +204,10 @@ const DeviceList: React.FC<Props> = ({ query }) => {
       </div>
 
       <p className="text-[11px] text-slate-400 leading-relaxed mb-3">
-        US (FDA) data, live from openFDA. The EU has no queryable device-approval
-        register yet — EUDAMED registration became mandatory in May 2026 and an EU
-        feed will be added once public coverage matures. Drug–device combination
+        <span className="font-semibold text-slate-600">US devices only</span> — live FDA data
+        from openFDA. The EU has no queryable device-approval register yet (EUDAMED
+        registration became mandatory in May 2026; an EU feed will be added once public
+        coverage matures), and national device authorities are not covered. Drug–device combination
         medicines (implants, inhalers, pens) already appear on the Europe tab with
         a <span className="font-semibold text-cyan-700">Drug+Device</span> badge.
       </p>

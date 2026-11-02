@@ -1,0 +1,30 @@
+{
+ "4.1": {
+  "title": "Therapeutic indications",
+  "text": "Kymriah is indicated for the treatment of:\n•    Paediatric and young adult patients up to and including 25 years of age with B-cell acute lymphoblastic leukaemia (ALL) that is refractory, in relapse post-transplant or in second or later relapse.\n•    Adult patients with relapsed or refractory diffuse large B-cell lymphoma (DLBCL) after two or more lines of systemic therapy.\n•    Adult patients with relapsed or refractory follicular lymphoma (FL) after two or more lines of systemic therapy."
+ },
+ "4.2": {
+  "title": "Posology and method of administration",
+  "text": "Kymriah must be administered in a qualified treatment centre. Therapy should be initiated under the direction of and supervised by a healthcare professional experienced in the treatment of haematological malignancies and trained for administration and management of patients treated with the medicinal product.\n\nIn the event of cytokine release syndrome (CRS), at least one dose of tocilizumab and emergency"
+ },
+ "4.3": {
+  "title": "Contraindications",
+  "text": "Hypersensitivity to the active substance or to any of the excipients listed in section 6.1 (see section 4.4).\n\nContraindications of the lymphodepleting chemotherapy must be considered."
+ },
+ "4.4": {
+  "title": "Special warnings and precautions for use",
+  "text": "Traceability\n\nThe traceability requirements of cell-based advanced therapy medicinal products must apply. To ensure traceability the name of the medicinal product, the batch number and the name of the treated patient must be kept for a period of 30 years after expiry date of the medicinal product."
+ },
+ "4.8": {
+  "title": "Undesirable effects",
+  "text": "Summary of the safety profile\n\nSafety assessment was based on a total of 424 patients (with paediatric and young adult B-cell ALL, DLBCL and FL) who received Kymriah in three multicentre pivotal clinical studies.\n\nB-cell ALL The adverse reactions described in this section were characterised in 212 patients infused with Kymriah in the pivotal clinical study CCTL019B2202 and in the supportive studies CCTL019B2205J"
+ },
+ "5.1": {
+  "title": "Pharmacodynamic properties",
+  "text": "Pharmacotherapeutic group: Antineoplastic agents, other antineoplastic agents, ATC code: L01XL04.\n\nMechanism of action\n\nTisagenlecleucel is an autologous, immunocellular cancer therapy which involves reprogramming a patient’s own T cells with a transgene encoding a chimeric antigen receptor (CAR) to identify and eliminate CD19 expressing cells. The CAR is comprised of a murine single chain antibody fragment"
+ },
+ "5.2": {
+  "title": "Pharmacokinetic properties",
+  "text": "Following infusion of Kymriah into paediatric and young adult r/r B-cell ALL, r/r DLBCL and r/r FL patients, tisagenlecleucel typically exhibited an initial rapid expansion followed by a slower bi- exponential decline. High inter-subject variability was associated with the in vivo exposure metrics (AUC0-28d and Cmax) across all indications.\n\nCellular kinetics in paediatric and young adult B-cell ALL patients"
+ }
+}

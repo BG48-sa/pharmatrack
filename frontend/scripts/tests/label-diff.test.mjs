@@ -2,7 +2,7 @@
 // Run: node --test --experimental-strip-types frontend/scripts/tests/ (npm test does).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { diffSections, splitUnits, tokens, similarity, isHeading } from '../../services/labelDiff.ts';
+import { diffSections, splitUnits, tokens, similarity, isHeading, BOILERPLATE } from '../../services/labelDiff.ts';
 
 test('units: sentences per line, cross-reference markers stay with their claim, table blocks are one unit', () => {
   const us = '1 INDICATIONS AND USAGE X is indicated: Melanoma for the treatment of patients with metastatic melanoma. ( 1.1 ) for the adjuvant treatment of adults. ( 1.1 ) Lung Cancer in combination with chemotherapy. ( 1.2 )';
@@ -38,9 +38,9 @@ test('a claim on one side only is unique; a matching claim with another number i
   assert.equal(d.a[0].k, 'changed');
   assert.deepEqual(d.a[0].words.filter((w) => w.k !== 'same').map((w) => [w.t, w.k]), [['12', 'num']]);
   assert.deepEqual(d.b[0].words.filter((w) => w.k !== 'same').map((w) => [w.t, w.k]), [['18', 'num']]);
-  assert.equal(d.a[1].k, 'unique');
+  assert.equal(d.a[1].k, 'boilerplate');   // the standard EU 4.3 sentence is shown but never counted
   assert.equal(d.b[1].k, 'unique');
-  assert.deepEqual(d.stats, { uniqueA: 1, uniqueB: 1, changed: 1, unitsA: 2, unitsB: 2 });
+  assert.deepEqual(d.stats, { uniqueA: 0, uniqueB: 1, changed: 1, unitsA: 2, unitsB: 2 });
 });
 
 test('identical sentences are same; rephrased sentences are not word-marked, only numbers', () => {
@@ -105,4 +105,40 @@ test('a number the other side states in the neighbouring sentence is not marked'
 test('empty or missing text is not compared', () => {
   assert.equal(diffSections('', 'x'), null);
   assert.equal(diffSections('Hypersensitivity.', '   '), null);
+});
+
+test('numbers: thousands separators, ULN notation, micro sign and imperial duplicates fold; decimal commas already did', () => {
+  assert.deepEqual(tokens('1 000 mg'), tokens('1,000 mg'));
+  assert.deepEqual(tokens('1,000 mg'), tokens('1000 mg'));
+  assert.deepEqual(tokens('1,5 mg'), tokens('1.5 mg'));
+  assert.deepEqual(tokens('bilirubin > 1.5 x ULN'), tokens('bilirubin > 1.5 × ULN'));
+  assert.deepEqual(tokens('bilirubin > 1.5 times the upper limit of normal'), tokens('bilirubin > 1.5 x ULN'));
+  assert.deepEqual(tokens('5 µg/kg'), tokens('5 μg/kg'));
+  assert.deepEqual(tokens('patients weighing at least 68 kg (150 lb)'), tokens('patients weighing at least 68 kg'));
+  assert.deepEqual(tokens('fever above 38 °C (100.4 °F)'), tokens('fever above 38 °C'));
+  // a real unit change is NOT folded away
+  assert.notDeepEqual(tokens('creatinine 1.5 mg/dL'), tokens('creatinine 133 µmol/L'));
+});
+
+test('an identical threshold written with different separators is "same", not a number difference', () => {
+  const eu = 'Treatment should be interrupted if the platelet count falls below 50 000/µL or bilirubin exceeds 1.5 × ULN.';
+  const us = 'Interrupt treatment if the platelet count is below 50,000/mcL or bilirubin exceeds 1.5 times the upper limit of normal.';
+  const d = diffSections(eu, us);
+  assert.ok(d);
+  // the wording differs (so the pair is "changed"), but no NUMBER is painted as a difference
+  assert.ok(d.a[0].k === 'same' || (d.a[0].k === 'changed' && !d.a[0].words.some((w) => w.k === 'num')), JSON.stringify(d.a[0]));
+  assert.deepEqual(tokens('50,000/mcL'), tokens('50 000/µL'));
+});
+
+test('the standard EU hypersensitivity sentence of 4.3 is boilerplate: shown, not a difference', () => {
+  assert.ok(BOILERPLATE.test('Hypersensitivity to the active substance or to any of the excipients listed in section 6.1.'));
+  assert.ok(BOILERPLATE.test('Hypersensitivity to the active substances or to any of the excipients listed in section 6.1 (see section 4.4).'));
+  assert.ok(!BOILERPLATE.test('Hypersensitivity to penicillins.'));
+  const eu = 'Hypersensitivity to the active substance or to any of the excipients listed in section 6.1.\nSevere hepatic impairment.';
+  const us = 'None.';
+  const d = diffSections(eu, us);
+  assert.ok(d);
+  assert.equal(d.a[0].k, 'boilerplate');
+  assert.equal(d.a[1].k, 'unique');
+  assert.equal(d.stats.uniqueA, 1);
 });

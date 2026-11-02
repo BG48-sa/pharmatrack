@@ -43,8 +43,13 @@ const IndicationFacets: React.FC<{ indication?: string }> = ({ indication }) => 
 
   return (
     <div className="mb-4 bg-slate-50 rounded-2xl p-3.5 border border-slate-100">
-      <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-2">
+      <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
         At a glance{multi ? ` — ${groups.length} indication passages` : ''}
+      </p>
+      {/* Visible, not microcopy: every badge is machine-read from the label text. */}
+      <p className="inline-flex items-center gap-1 mb-2.5 px-2 py-1 rounded-md border border-amber-200 bg-amber-50 text-[11px] font-semibold text-amber-800 leading-snug">
+        <AlertTriangle size={12} className="shrink-0" aria-hidden="true" />
+        Parsed from the label text — verify against the SmPC / FDA label
       </p>
       <div className="space-y-2.5">
         {shown.map((g, i) => (

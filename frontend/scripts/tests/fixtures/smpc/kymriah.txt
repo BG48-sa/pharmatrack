@@ -1,0 +1,301 @@
+             ANNEX I
+
+SUMMARY OF PRODUCT CHARACTERISTICS
+
+
+
+
+                1
+   This medicinal product is subject to additional monitoring. This will allow quick identification of
+new safety information. Healthcare professionals are asked to report any suspected adverse reactions.
+See section 4.8 for how to report adverse reactions.
+
+
+1.     NAME OF THE MEDICINAL PRODUCT
+
+Kymriah 1.2 × 106 – 6 × 108 cells dispersion for infusion
+
+
+2.     QUALITATIVE AND QUANTITATIVE COMPOSITION
+
+2.1    General description
+
+Kymriah (tisagenlecleucel) is a genetically modified autologous cell-based product containing T cells
+transduced ex vivo using a lentiviral vector expressing an anti-CD19 chimeric antigen receptor (CAR)
+comprising a murine anti-CD19 single chain variable fragment (scFv) linked via a human CD8 hinge
+and transmembrane region to an intracellular signalling chain of human 4-1BB (CD137) co-
+2.2    Qualitative and quantitative composition
+
+Each patient-specific infusion bag of Kymriah contains tisagenlecleucel at a batch-dependent
+concentration of autologous T cells genetically modified to express an anti-CD19 chimeric antigen
+receptor (CAR-positive viable T cells). The medicinal product is packaged in one or more infusion
+bags overall containing a cell dispersion of 1.2 × 106 to 6 × 108 CAR-positive viable T cells in a
+3.     PHARMACEUTICAL FORM
+
+Dispersion for infusion
+
+A colourless to slightly yellow dispersion
+
+
+
+
+                                                    2
+4.    CLINICAL PARTICULARS
+
+4.1   Therapeutic indications
+
+Kymriah is indicated for the treatment of:
+•    Paediatric and young adult patients up to and including 25 years of age with B-cell acute
+     lymphoblastic leukaemia (ALL) that is refractory, in relapse post-transplant or in second or later
+     relapse.
+•    Adult patients with relapsed or refractory diffuse large B-cell lymphoma (DLBCL) after two or
+     more lines of systemic therapy.
+•    Adult patients with relapsed or refractory follicular lymphoma (FL) after two or more lines of
+     systemic therapy.
+
+4.2   Posology and method of administration
+
+Kymriah must be administered in a qualified treatment centre. Therapy should be initiated under the
+direction of and supervised by a healthcare professional experienced in the treatment of
+haematological malignancies and trained for administration and management of patients treated with
+the medicinal product.
+
+In the event of cytokine release syndrome (CRS), at least one dose of tocilizumab and emergency
+4.3   Contraindications
+
+Hypersensitivity to the active substance or to any of the excipients listed in section 6.1 (see
+section 4.4).
+
+Contraindications of the lymphodepleting chemotherapy must be considered.
+
+4.4   Special warnings and precautions for use
+
+Traceability
+
+The traceability requirements of cell-based advanced therapy medicinal products must apply. To
+ensure traceability the name of the medicinal product, the batch number and the name of the treated
+patient must be kept for a period of 30 years after expiry date of the medicinal product.
+
+                                                    5
+4.5   Interaction with other medicinal products and other forms of interaction
+
+No pharmacokinetic or pharmacodynamic drug interaction studies with tisagenlecleucel have been
+performed in either the paediatric or adult population. The co-administration of agents known to
+inhibit T-cell function has not been formally studied. Administration of low-dose steroids as per the
+cytokine release syndrome treatment algorithm does not impact the expansion and persistence of
+4.6   Fertility, pregnancy and lactation
+
+Women of childbearing potential/Contraception in males and females
+
+Pregnancy status for females of childbearing age should be verified prior to starting treatment with
+Kymriah.
+
+See the prescribing information for lymphodepleting chemotherapy for information on the need for
+effective contraception in patients who receive the lymphodepleting chemotherapy.
+4.7    Effects on ability to drive and use machines
+
+Kymriah has major influence on the ability to drive and use machines.
+
+Due to the potential for neurological events, including altered mental status or seizures, patients
+receiving Kymriah are at risk for altered or decreased consciousness or coordination and must refrain
+from driving or operating heavy or potentially dangerous machines for 8 weeks following Kymriah
+4.8    Undesirable effects
+
+Summary of the safety profile
+
+Safety assessment was based on a total of 424 patients (with paediatric and young adult B-cell ALL,
+DLBCL and FL) who received Kymriah in three multicentre pivotal clinical studies.
+
+B-cell ALL
+The adverse reactions described in this section were characterised in 212 patients infused with
+Kymriah in the pivotal clinical study CCTL019B2202 and in the supportive studies CCTL019B2205J
+4.9   Overdose
+
+Overdose has not been reported.
+In case of overdose, the potential risk is an increased probability of developing CRS including severe
+CRS. For close monitoring, see section 4.2; for symptoms and management of CRS, see section 4.4.
+
+
+5.    PHARMACOLOGICAL PROPERTIES
+
+5.1   Pharmacodynamic properties
+
+Pharmacotherapeutic group: Antineoplastic agents, other antineoplastic agents, ATC code: L01XL04.
+
+Mechanism of action
+
+Tisagenlecleucel is an autologous, immunocellular cancer therapy which involves reprogramming a
+patient’s own T cells with a transgene encoding a chimeric antigen receptor (CAR) to identify and
+eliminate CD19 expressing cells. The CAR is comprised of a murine single chain antibody fragment
+5.2   Pharmacokinetic properties
+
+Following infusion of Kymriah into paediatric and young adult r/r B-cell ALL, r/r DLBCL and r/r FL
+patients, tisagenlecleucel typically exhibited an initial rapid expansion followed by a slower bi-
+exponential decline. High inter-subject variability was associated with the in vivo exposure metrics
+(AUC0-28d and Cmax) across all indications.
+
+Cellular kinetics in paediatric and young adult B-cell ALL patients
+5.3   Preclinical safety data
+
+Non-clinical safety assessment of Kymriah addressed the safety concerns of potential uncontrolled cell
+growth of transduced T cells in vitro and in vivo as well as dose-related toxicity, biodistribution and
+persistence. No such risks were identified based on these studies.
+
+Carcinogenicity and mutagenicity
+
+Genotoxicity assays and carcinogenicity studies in rodents are not appropriate to assess the risk of
+6.    PHARMACEUTICAL PARTICULARS
+
+6.1   List of excipients
+
+Glucose
+Sodium chloride
+Human albumin solution
+Dextran 40 for injection
+Dimethyl sulfoxide
+Sodium gluconate
+Sodium acetate
+Potassium chloride
+Magnesium chloride
+Sodium-N-acetyltryptophanate
+Sodium caprylate
+Aluminium
+Water for injections
+
+6.2   Incompatibilities
+
+In the absence of compatibility studies, this medicinal product must not be mixed with other medicinal
+products.
+
+
+                                                  29
+6.3   Shelf life
+
+9 months.
+
+The medicinal product should be administered immediately after thawing. After thawing, the product
+should be kept at room temperature (20°C-25°C) and infused within 30 minutes to maintain maximum
+product viability, including any interruption during the infusion.
+
+6.4   Special precautions for storage
+
+Kymriah must be stored and transported ≤ -120°C, e.g. in a container for cryogenic storage in the
+vapour phase of liquid nitrogen, and must remain frozen until the patient is ready for treatment to
+ensure viable cells are available for patient administration. Do not re-freeze after thawing.
+
+For storage conditions after thawing of the medicinal product, see section 6.3.
+6.5   Nature and contents of container and special equipment for use, administration or
+      implantation
+
+Ethylene vinyl acetate (EVA) infusion bag with polyvinyl chloride (PVC) tubing and a luer spike
+interconnector closed by a luer-lock cap containing either 10–30 mL (50 mL bags) or 30–50 mL
+(250 mL bags) cell dispersion.
+
+Each infusion bag is placed into a protective layer.
+
+One individual treatment dose comprises 1 or more infusion bags.
+6.6   Special precautions for disposal and other handling
+
+Precautions to be taken before handling or administering the medicinal product
+
+Kymriah should be transported within the facility in closed, break-proof, leak-proof containers.
+
+This medicinal product contains human blood cells. Healthcare professionals handling Kymriah must
+take appropriate precautions (wearing gloves and eye protection) to avoid potential transmission of
+7.    MARKETING AUTHORISATION HOLDER
+
+Novartis Europharm Limited
+Vista Building
+Elm Park, Merrion Road
+Dublin 4
+Ireland
+
+                                                   31
+8.    MARKETING AUTHORISATION NUMBER(S)
+
+EU/1/18/1297/001
+
+
+9.    DATE OF FIRST AUTHORISATION/RENEWAL OF THE AUTHORISATION
+
+Date of first authorisation: 23 August 2018
+Date of latest renewal: 26 April 2023
+
+
+10.   DATE OF REVISION OF THE TEXT
+
+
+Detailed information on this medicinal product is available on the website of the European Medicines
+Agency https://www.ema.europa.eu
+
+
+
+
+                                                 32
+                      
+ANNEX II
+
+A.   MANUFACTURERS OF THE BIOLOGICAL ACTIVE
+     SUBSTANCE AND MANUFACTURERS RESPONSIBLE
+     FOR BATCH RELEASE
+
+B.   CONDITIONS OR RESTRICTIONS REGARDING SUPPLY
+     AND USE
+
+C.   OTHER CONDITIONS AND REQUIREMENTS OF THE
+     MARKETING AUTHORISATION
+
+D.   CONDITIONS OR RESTRICTIONS WITH REGARD TO
+     THE SAFE AND EFFECTIVE USE OF THE MEDICINAL
+     PRODUCT
+
+
+
+
+                         33
+A.    MANUFACTURERS OF THE BIOLOGICAL ACTIVE SUBSTANCE AND
+      MANUFACTURERS RESPONSIBLE FOR BATCH RELEASE
+
+Name and address of the manufacturers of the biological active substance
+
+Novartis Pharmaceutical Corporation
+220 East Hanover Avenue
+Morris Plains
+New Jersey
+NJ07950
+United States
+
+Novartis Pharma Stein AG
+Novartis Technical Operations Schweiz
+Stein Cell and Gene Therapy,
+Schaffhauserstrasse
+4332 Stein
+Switzerland
+
+CELLFORCURE
+ZA de Courtabœuf
+11 avenue des Tropiques
+91940 Les Ulis
+France
+
+Name and address of the manufacturers responsible for batch release
+
+Novartis Pharma GmbH
+Sophie-Germain-Strasse 10
+90443 Nuremberg
+Germany
+
+The printed package leaflet of the medicinal product must state the name and address of the
+manufacturer responsible for the release of the concerned batch.
+
+
+B.    CONDITIONS OR RESTRICTIONS REGARDING SUPPLY AND USE
+
+Medicinal product subject to restricted medical prescription (see Annex I: Summary of Product
+Characteristics, section 4.2).
+
+
+C.    OTHER CONDITIONS AND REQUIREMENTS OF THE MARKETING
+      AUTHORISATION
+
+•     Periodic safety update

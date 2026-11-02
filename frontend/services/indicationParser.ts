@@ -54,10 +54,13 @@ type Negated = (index: number) => boolean;
 
 // Negating context immediately before a match: "non-metastatic", "not
 // previously treated", "no prior …", "without …", "excluding …", "other than …".
-const NEGATION_BEFORE = /(?:\bnon[\s-]?|\bnot\s+(?:\w+[\s-]+){0,3}|\bno\s+(?:\w+\s+){0,2}|\bwithout\s+(?:\w+\s+){0,2}|\bexcluding\s+|\bother\s+than\s+|\babsence\s+of\s+|\bnegative\s+for\s+|\bfree\s+(?:of|from)\s+|\bineligible\s+for\s+)$/;
+// A negating word may govern a short list: "no EGFR, ALK or ROS1 aberrations",
+// "no sensitising EGFR mutations or ALK positive mutations" — every item is negated.
+const LIST = String.raw`(?:[\w-]+,?\s+(?:(?:or|and)\s+)?){0,4}`;
+const NEGATION_BEFORE = new RegExp(String.raw`(?:\bnon[\s-]?|\bnot\s+(?:\w+[\s-]+){0,3}|\bno\s+${LIST}|\bwithout\s+${LIST}|\bexcluding\s+|\bother\s+than\s+|\babsence\s+of\s+|\bnegative\s+for\s+${LIST}|\bfree\s+(?:of|from)\s+|\bineligible\s+for\s+)$`);
 
 const isNegatedBefore = (t: string, index: number): boolean =>
-  NEGATION_BEFORE.test(t.slice(Math.max(0, index - 40), index));
+  NEGATION_BEFORE.test(t.slice(Math.max(0, index - 60), index));
 
 // An exclusion clause negates everything it governs: up to the end of the
 // sentence, a semicolon, a closing bracket, or a comma that resumes the main
@@ -334,7 +337,7 @@ const parseClause = (text: string): Facet[] => {
   boundAlteration(/exon 19 deletion/, 'exon 19 del', 'EGFR');
   boundAlteration(/\bt790m\b/, 'T790M', 'EGFR');
   boundAlteration(/\bl858r\b/, 'L858R', 'EGFR');
-  boundAlteration(/exon[\s-]?14 skipping/, 'exon 14 skipping', 'MET');
+  boundAlteration(/exon[\s-]?14(?:\s*\(metex14\))? skipping|\bmetex14\b/, 'exon 14 skipping', 'MET');
   if (has(/egfr[\s-]?wild[\s-]?type|wild[\s-]?type egfr/)) add('Biomarker', 'EGFR wild-type');
   else if (has(/\begfr\b/) && !out.some((f) => f.group === 'Biomarker' && f.label.startsWith('EGFR'))) add('Biomarker', 'EGFR');
 
@@ -361,7 +364,7 @@ const parseClause = (text: string): Facet[] => {
   // A threshold inside an exclusion ("excluding … TPS ≥ 50%") is not a
   // selection criterion and yields no badge.
   {
-    const re = /pd-?l1[^.]{0,40}?\b(cps|tps)\b\s*(?:score\s*)?(?:of\s*)?(≥|>=|≤|<=|<|>|=|greater than or equal to|at least|less than|below|above|more than)?\s*(\d{1,3})\s*%?\s*(or more|or higher|or greater|and above|or less|or lower|and below)?/g;
+    const re = /pd-?l1[^.]{0,40}?\b(cps|tps)\b\)?\s*(?:score\s*)?(?:of\s*)?(≥|>=|≤|<=|<|>|=|greater than or equal to|at least|less than|below|above|more than)?\s*(\d{1,3})\s*%?\s*(or more|or higher|or greater|and above|or less|or lower|and below)?/g;
     let pdl1: RegExpExecArray | null = null;
     let anyThreshold = false;
     let m: RegExpExecArray | null;
@@ -397,7 +400,7 @@ const parseClause = (text: string): Facet[] => {
   if (has(/\bcd19\b/)) add('Biomarker', 'CD19');
   if (has(/\bcd20\b/)) add('Biomarker', 'CD20');
   if (has(/philadelphia|bcr-?abl|\bph\+/)) add('Biomarker', 'Ph+ / BCR-ABL');
-  if (has(/triple[\s-]?negative/)) add('Biomarker', 'Triple-negative');
+  if (has(/triple[\s-]?negative|\btnbc\b/)) add('Biomarker', 'Triple-negative');
   if (near('hormone receptor', 'negative') || has(/\bhr[\s-]?negative/) || near('estrogen receptor', 'negative') || near('oestrogen receptor', 'negative'))
     add('Biomarker', 'HR-negative');
   else if (near('hormone receptor', 'positive') || has(/\bhr[\s-]?positive/) || near('estrogen receptor', 'positive') || near('oestrogen receptor', 'positive'))

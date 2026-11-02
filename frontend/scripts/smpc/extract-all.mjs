@@ -33,7 +33,7 @@
 //        plan it was on) plus a breakdown in index.incomplete, so that
 //        drift-report.mjs can tell a refused cross-check from a real gap.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync, statSync, unlinkSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -104,7 +104,7 @@ const stripNoise = (raw) =>
 // Re-flow hard-wrapped narrative into paragraphs while preserving table rows
 // (2+ column gaps) and bullet lines verbatim, so the app can wrap prose cleanly
 // yet keep frequency tables aligned.
-function reflow(text) {
+export function reflow(text) {
   const isTable = (l) => (l.match(/ {2,}/g) || []).length >= 2;
   const isBullet = (l) => /^\s*[••–\-*]\s+/.test(l);
   const out = [];
@@ -121,7 +121,7 @@ function reflow(text) {
   return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
-function parseSections(txt) {
+export function parseSections(txt) {
   let text = stripNoise(txt);
   const annexII = text.search(/^\s*ANNEX II\b/m);
   if (annexII > 0) text = text.slice(0, annexII);
@@ -453,4 +453,5 @@ async function run() {
   if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
   console.log(`Manifest: ${index.count} drugs → smpc-index.json ; per-drug JSON → smpc-data/`);
 }
-run();
+// Run only as a script — the test suite imports parseSections() without side effects.
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) run();

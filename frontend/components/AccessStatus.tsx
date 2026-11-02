@@ -103,9 +103,17 @@ const AccessStatus: React.FC<{ data: DrugDetailData }> = ({ data }) => {
         </div>
       </div>
 
-      {/* HTA / reimbursement deep-links: the EU joint clinical assessment first,
-          then the national bodies (Italy, Germany, France, Spain, UK). */}
-      <div className="grid grid-cols-2 gap-2 mt-2">
+      {/* HTA / reimbursement SEARCHES (not statuses): each button opens a web search at
+          the EU joint clinical assessment or a national body (Italy, Germany, France,
+          Spain, UK) for this medicine. The app holds no HTA verdict of its own. */}
+      <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mt-3 mb-1 flex items-center">
+        <ExternalLink size={12} className="mr-1" /> Search HTA sources
+      </p>
+      <p className="text-[11px] text-slate-500 leading-snug mb-2">
+        Each button opens a web search at that body for this medicine. DrugRadar holds no HTA
+        verdict or reimbursement status — what you find is what the body has published.
+      </p>
+      <div className="grid grid-cols-2 gap-2">
         {LINKS.map((l) => (
           <a
             key={l.label}

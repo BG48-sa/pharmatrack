@@ -1,0 +1,30 @@
+{
+ "4.1": {
+  "title": "Therapeutic indications",
+  "text": "LUMYKRAS as monotherapy is indicated for the treatment of adults with advanced non-small cell lung cancer (NSCLC) with KRAS G12C-mutation and who have progressed after at least one prior line of systemic therapy."
+ },
+ "4.2": {
+  "title": "Posology and method of administration",
+  "text": "Treatment with LUMYKRAS must be initiated by a physician experienced in the use of anticancer medicinal products.\n\nThe presence of a KRAS G12C-mutation must be confirmed using a validated test prior to initiation of LUMYKRAS therapy.\n\nPosology\n\nThe recommended dose is 960 mg sotorasib (eight 120 mg tablets or four 240 mg tablets) once daily,"
+ },
+ "4.3": {
+  "title": "Contraindications",
+  "text": "Hypersensitivity to the active substance or to any of the excipients listed in section 6.1."
+ },
+ "4.4": {
+  "title": "Special warnings and precautions for use",
+  "text": "Hepatotoxicity\n\nSotorasib can cause hepatotoxicity, which may lead to drug-induced liver injury (DILI) and hepatitis. Sotorasib has been associated with transient elevations of serum transaminases (ALT and AST), alkaline phosphatase and total bilirubin in 960 mg monotherapy clinical trials. In a total of 740 patients with KRAS G12C-mutated solid tumours who received LUMYKRAS 960 mg"
+ },
+ "4.8": {
+  "title": "Undesirable effects",
+  "text": "Summary of the safety profile\n\nAdverse drug reactions (ADRs) described in table 3 reflect exposure to sotorasib 960 mg once daily as monotherapy in 740 patients with KRAS G12C-mutated solid tumours across multiple clinical studies, including CodeBreaK 200, CodeBreaK 100 phase 2 part A, and CodeBreaK 100 phase 2 part B (dose comparison sub-study) and three phase 1 studies."
+ },
+ "5.1": {
+  "title": "Pharmacodynamic properties",
+  "text": "Pharmacotherapeutic group: Antineoplastic agents, ATC code: L01XX73\n\nMechanism of action\n\nSotorasib is a selective KRASG12C (Kirsten rat sarcoma viral oncogene homologue) inhibitor, which covalently and irreversibly binds to the unique cysteine of KRASG12C. Inactivation of KRASG12C by sotorasib blocks tumour cell signalling and survival, inhibits cell growth, and promotes apoptosis"
+ },
+ "5.2": {
+  "title": "Pharmacokinetic properties",
+  "text": "Absorption\n\nBioavailability of sotorasib has not been investigated in humans. Following an oral, single dose administration, sotorasib was absorbed with median time to achieve peak concentration of 1-2 hours.\n\nIn a dose comparison sub-study (CodeBreaK 100 phase 2 part B) in patients receiving sotorasib 240 mg or 960 mg once daily, after 8 daily doses, Cmax and AUC0-24 hour for 240 mg were both 22%"
+ }
+}

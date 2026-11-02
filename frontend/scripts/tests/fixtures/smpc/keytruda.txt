@@ -1,0 +1,833 @@
+             ANNEX I
+
+SUMMARY OF PRODUCT CHARACTERISTICS
+
+
+
+
+                1
+1.     NAME OF THE MEDICINAL PRODUCT
+
+KEYTRUDA 25 mg/mL concentrate for solution for infusion
+
+
+2.     QUALITATIVE AND QUANTITATIVE COMPOSITION
+
+One vial of 4 mL of concentrate contains 100 mg of pembrolizumab.
+Each mL of concentrate contains 25 mg of pembrolizumab.
+
+Pembrolizumab is a humanised monoclonal anti-programmed cell death-1 (PD-1) antibody
+(IgG4/kappa isotype with a stabilising sequence alteration in the Fc region) produced in Chinese
+hamster ovary cells by recombinant DNA technology.
+
+Excipient with known effect
+
+This medicinal product contains 0.2 mg of polysorbate 80 in each mL of concentrate.
+3.     PHARMACEUTICAL FORM
+
+Concentrate for solution for infusion.
+
+Clear to slightly opalescent, colourless to slightly yellow solution, pH 5.2 – 5.8.
+
+
+4.     CLINICAL PARTICULARS
+
+4.1    Therapeutic indications
+
+Melanoma
+
+KEYTRUDA as monotherapy is indicated for the treatment of adults and adolescents aged 12 years
+and older with advanced (unresectable or metastatic) melanoma.
+
+KEYTRUDA as monotherapy is indicated for the adjuvant treatment of adults and adolescents aged
+12 years and older with Stage IIB, IIC or III melanoma and who have undergone complete resection
+(see section 5.1).
+
+Non-small cell lung carcinoma (NSCLC)
+
+KEYTRUDA, in combination with platinum-containing chemotherapy as neoadjuvant treatment, and
+then continued as monotherapy as adjuvant treatment, is indicated for the treatment of resectable
+non-small cell lung carcinoma at high risk of recurrence in adults (for selection criteria, see
+section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the adjuvant treatment of adults with non-small cell
+lung carcinoma who are at high risk of recurrence following complete resection and platinum-based
+chemotherapy (for selection criteria, see section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the first-line treatment of metastatic non-small cell lung
+carcinoma in adults whose tumours express PD-L1 with a ≥ 50% tumour proportion score (TPS) with
+no EGFR or ALK positive tumour mutations.
+
+
+
+                                                    2
+KEYTRUDA, in combination with pemetrexed and platinum chemotherapy, is indicated for the first-
+line treatment of metastatic non-squamous non-small cell lung carcinoma in adults whose tumours
+have no EGFR or ALK positive mutations.
+
+KEYTRUDA, in combination with carboplatin and either paclitaxel or nab-paclitaxel, is indicated for
+the first-line treatment of metastatic squamous non-small cell lung carcinoma in adults.
+
+KEYTRUDA as monotherapy is indicated for the treatment of locally advanced or metastatic
+non-small cell lung carcinoma in adults whose tumours express PD-L1 with a ≥ 1% TPS and who
+have received at least one prior chemotherapy regimen. Patients with EGFR or ALK positive tumour
+mutations should also have received targeted therapy before receiving KEYTRUDA.
+
+Malignant pleural mesothelioma (MPM)
+
+KEYTRUDA, in combination with pemetrexed and platinum chemotherapy, is indicated for the
+first-line treatment of adults with unresectable non-epithelioid malignant pleural mesothelioma.
+
+Classical Hodgkin lymphoma (cHL)
+
+KEYTRUDA as monotherapy is indicated for the treatment of adult and paediatric patients aged
+3 years and older with relapsed or refractory classical Hodgkin lymphoma who have failed autologous
+stem cell transplant (ASCT) or following at least two prior therapies when ASCT is not a treatment
+option.
+
+Urothelial carcinoma
+
+KEYTRUDA, in combination with enfortumab vedotin, as neoadjuvant treatment and then continued
+after radical cystectomy as adjuvant treatment, is indicated for the treatment of adults with resectable
+muscle invasive bladder cancer (MIBC) who are ineligible for cisplatin-containing chemotherapy.
+
+KEYTRUDA, in combination with enfortumab vedotin, is indicated for the first-line treatment of
+unresectable or metastatic urothelial carcinoma in adults.
+
+KEYTRUDA as monotherapy is indicated for the treatment of locally advanced or metastatic
+urothelial carcinoma in adults who have received prior platinum-containing chemotherapy (see
+section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the treatment of locally advanced or metastatic
+urothelial carcinoma in adults who are not eligible for cisplatin-containing chemotherapy and whose
+tumours express PD-L1 with a combined positive score (CPS) ≥ 10 (see section 5.1).
+
+Head and neck squamous cell carcinoma (HNSCC)
+
+KEYTRUDA as monotherapy is indicated for the treatment of resectable locally advanced head and
+neck squamous cell carcinoma as neoadjuvant treatment, continued as adjuvant treatment in
+combination with radiation therapy with or without concomitant cisplatin and then as monotherapy in
+adults whose tumours express PD-L1 with a CPS ≥ 1.
+
+KEYTRUDA, as monotherapy or in combination with platinum and 5-fluorouracil (5-FU)
+chemotherapy, is indicated for the first-line treatment of metastatic or unresectable recurrent head and
+neck squamous cell carcinoma in adults whose tumours express PD-L1 with a CPS ≥ 1 (see
+section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the treatment of recurrent or metastatic head and neck
+squamous cell carcinoma in adults whose tumours express PD-L1 with a ≥ 50% TPS and progressing
+on or after platinum-containing chemotherapy (see section 5.1).
+
+
+                                                   3
+Renal cell carcinoma (RCC)
+
+KEYTRUDA, in combination with axitinib, is indicated for the first-line treatment of advanced renal
+cell carcinoma in adults (see section 5.1).
+
+KEYTRUDA, in combination with lenvatinib, is indicated for the first-line treatment of advanced
+renal cell carcinoma in adults (see section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the adjuvant treatment of adults with renal cell
+carcinoma at increased risk of recurrence following nephrectomy, or following nephrectomy and
+resection of metastatic lesions (for selection criteria, see section 5.1).
+
+Microsatellite instability high (MSI-H) or mismatch repair deficient (dMMR) cancers
+
+Colorectal cancer (CRC)
+KEYTRUDA as monotherapy is indicated for adults with MSI-H or dMMR colorectal cancer in the
+following settings:
+    - first-line treatment of metastatic colorectal cancer;
+    - treatment of unresectable or metastatic colorectal cancer after previous
+        fluoropyrimidine-based combination therapy.
+
+Non-colorectal cancers
+KEYTRUDA as monotherapy is indicated for the treatment of the following MSI-H or dMMR
+tumours in adults with:
+   - advanced or recurrent endometrial carcinoma, who have disease progression on or following
+       prior treatment with a platinum-containing therapy in any setting and who are not candidates
+       for curative surgery or radiation;
+   - unresectable or metastatic gastric, small intestine, or biliary cancer, who have disease
+       progression on or following at least one prior therapy.
+
+Oesophageal carcinoma
+
+KEYTRUDA, in combination with platinum and fluoropyrimidine-based chemotherapy, is indicated
+for the first-line treatment of locally advanced unresectable or metastatic carcinoma of the oesophagus
+in adults whose tumours express PD-L1 with a CPS ≥ 10 (see section 5.1).
+
+Triple-negative breast cancer (TNBC)
+
+KEYTRUDA, in combination with chemotherapy as neoadjuvant treatment, and then continued as
+monotherapy as adjuvant treatment after surgery, is indicated for the treatment of adults with locally
+advanced, or early-stage triple-negative breast cancer at high risk of recurrence (see section 5.1).
+
+KEYTRUDA, in combination with chemotherapy, is indicated for the treatment of locally recurrent
+unresectable or metastatic triple-negative breast cancer in adults whose tumours express PD-L1 with a
+CPS ≥ 10 and who have not received prior chemotherapy for metastatic disease (see section 5.1).
+
+Endometrial carcinoma (EC)
+
+KEYTRUDA, in combination with carboplatin and paclitaxel, is indicated for the first-line treatment
+of primary advanced or recurrent endometrial carcinoma in adults who are candidates for systemic
+therapy.
+
+KEYTRUDA, in combination with lenvatinib, is indicated for the treatment of advanced or recurrent
+endometrial carcinoma in adults who have disease progression on or following prior treatment with a
+platinum-containing therapy in any setting and who are not candidates for curative surgery or
+radiation.
+
+
+                                                   4
+Cervical cancer
+
+KEYTRUDA, in combination with chemoradiotherapy (external beam radiation therapy followed by
+brachytherapy), is indicated for the treatment of FIGO 2014 Stage III - IVA locally advanced cervical
+cancer in adults who have not received prior definitive therapy.
+
+KEYTRUDA, in combination with chemotherapy with or without bevacizumab, is indicated for the
+treatment of persistent, recurrent, or metastatic cervical cancer in adults whose tumours express PD-L1
+with a CPS ≥ 1.
+
+Gastric or gastro-oesophageal junction (GEJ) adenocarcinoma
+
+KEYTRUDA, in combination with trastuzumab, fluoropyrimidine and platinum-containing
+chemotherapy, is indicated for the first-line treatment of locally advanced unresectable or metastatic
+HER2-positive gastric or gastro-oesophageal junction adenocarcinoma in adults whose tumours
+express PD-L1 with a CPS ≥ 1.
+
+KEYTRUDA, in combination with fluoropyrimidine and platinum-containing chemotherapy, is
+indicated for the first-line treatment of locally advanced unresectable or metastatic HER2-negative
+gastric or gastro-oesophageal junction adenocarcinoma in adults whose tumours express PD-L1 with a
+CPS ≥ 1 (see section 5.1).
+
+Biliary tract carcinoma (BTC)
+
+KEYTRUDA, in combination with gemcitabine and cisplatin, is indicated for the first-line treatment
+of locally advanced unresectable or metastatic biliary tract carcinoma in adults.
+
+Ovarian Cancer
+
+KEYTRUDA, in combination with paclitaxel, with or without bevacizumab, is indicated for the
+treatment of platinum-resistant epithelial ovarian, fallopian tube, or primary peritoneal carcinoma in
+adults whose tumours express PD-L1 with a CPS ≥ 1 and who have received one or two prior systemic
+treatment regimens.
+
+4.2   Posology and method of administration
+
+Therapy must be initiated and supervised by specialist physicians experienced in the treatment of
+cancer.
+
+Patients receiving subcutaneous pembrolizumab can switch to intravenous pembrolizumab at their
+next scheduled dose. Patients receiving intravenous pembrolizumab can switch to subcutaneous
+pembrolizumab at their next scheduled dose.
+
+PD-L1 testing
+4.3   Contraindications
+
+Hypersensitivity to the active substance or to any of the excipients listed in section 6.1.
+
+4.4   Special warnings and precautions for use
+
+Traceability
+In order to improve the traceability of biological medicinal products, the name and the batch number
+of the administered product should be clearly recorded.
+
+Assessment of PD-L1 status
+When assessing the PD-L1 status of the tumour, it is important that a well-validated and robust
+methodology is chosen to minimise false negative or false positive determinations.
+4.5   Interaction with other medicinal products and other forms of interaction
+
+No formal pharmacokinetic drug interaction studies have been conducted with pembrolizumab. Since
+pembrolizumab is cleared from the circulation through catabolism, no metabolic drug-drug
+interactions are expected.
+
+The use of systemic corticosteroids or immunosuppressants before starting pembrolizumab should be
+avoided because of their potential interference with the pharmacodynamic activity and efficacy of
+4.6   Fertility, pregnancy and lactation
+
+Women of childbearing potential
+Women of childbearing potential should use effective contraception during treatment with
+pembrolizumab and for at least 4 months after the last dose of pembrolizumab.
+
+Pregnancy
+There are no data on the use of pembrolizumab in pregnant women. Animal reproduction studies have
+not been conducted with pembrolizumab; however, in murine models of pregnancy blockade of PD-L1
+4.7   Effects on ability to drive and use machines
+
+Pembrolizumab has a minor influence on the ability to drive and use machines. In some patients,
+dizziness and fatigue have been reported following administration of pembrolizumab (see section 4.8).
+
+4.8   Undesirable effects
+
+Summary of the safety profile
+Pembrolizumab is most commonly associated with immune-mediated adverse reactions. Most of
+these, including severe reactions, resolved following initiation of appropriate medical therapy or
+withdrawal of pembrolizumab (see “Description of selected adverse reactions” below). The
+frequencies included below and in Table 2 are based on all reported adverse drug reactions, regardless
+4.9   Overdose
+
+There is no information on overdose with pembrolizumab.
+
+In case of overdose, patients must be closely monitored for signs or symptoms of adverse reactions,
+and appropriate symptomatic treatment instituted.
+
+
+5.    PHARMACOLOGICAL PROPERTIES
+
+5.1   Pharmacodynamic properties
+
+Pharmacotherapeutic group: Antineoplastic agents, PD-1/PDL-1 (Programmed cell death protein
+1/death ligand 1) inhibitors. ATC code: L01FF02
+
+
+                                                  25
+Mechanism of action
+KEYTRUDA is a humanised monoclonal antibody which binds to the programmed cell death-1
+(PD-1) receptor and blocks its interaction with ligands PD-L1 and PD-L2. The PD-1 receptor is a
+5.2   Pharmacokinetic properties
+
+The pharmacokinetics of pembrolizumab was studied in 2 993 patients with metastatic or unresectable
+melanoma, NSCLC, or carcinoma who received doses in the range: of 1 to 10 mg/kg bw every
+2 weeks, 2 to 10 mg/kg bw every 3 weeks, or 200 mg every 3 weeks.
+
+Absorption
+Pembrolizumab is administered via the intravenous route and therefore is immediately and completely
+5.3   Preclinical safety data
+
+The safety of pembrolizumab was evaluated in a 1-month and a 6-month repeat-dose toxicity study in
+Cynomolgus monkeys administered intravenous doses of 6, 40 or 200 mg/kg bw once a week in the
+1-month study and once every two weeks in the 6-month study, followed by a 4-month treatment-free
+period. No findings of toxicological significance were observed and the no observed adverse effect
+6.    PHARMACEUTICAL PARTICULARS
+
+6.1   List of excipients
+
+L-histidine
+L-histidine hydrochloride monohydrate
+Sucrose
+Polysorbate 80 (E433)
+Water for injections
+
+
+
+
+                                                 158
+6.2   Incompatibilities
+
+In the absence of compatibility studies, this medicinal product must not be mixed with other medicinal
+products except those mentioned in section 6.6.
+
+6.3   Shelf life
+
+Unopened vial
+2 years
+
+After preparation of infusion
+Chemical and physical in-use stability has been demonstrated for up to 42 days at 2 °C to 8 °C or at
+23 °C to 27 °C.
+From a microbiological point of view, the product, once diluted, should be used immediately. The
+diluted solution must not be frozen. If not used immediately, in-use storage times and conditions prior
+6.4   Special precautions for storage
+
+Store in a refrigerator (2 °C – 8 °C).
+Do not freeze.
+Store in the original carton in order to protect from light.
+
+For storage conditions after dilution of the medicinal product, see section 6.3.
+
+6.5   Nature and contents of container
+
+4 mL of concentrate in a 10 mL Type I clear glass vial, with a coated grey chlorobutyl or bromobutyl
+stopper and an aluminium seal with a dark blue coloured flip-off cap, containing 100 mg
+pembrolizumab.
+
+Pack sizes: one or two vials per carton.
+
+Not all pack sizes may be marketed.
+
+6.6   Special precautions for disposal and other handling
+
+Preparation and administration of the infusion
+•     Do not shake the vial.
+•     Equilibrate the vial to room temperature (at or below 25 °C).
+•     Prior to dilution, the vial of liquid can be out of refrigeration (temperatures at or below 25 °C)
+      for up to 24 hours.
+•     Parenteral medicinal products should be inspected visually for particulate matter and
+7.    MARKETING AUTHORISATION HOLDER
+
+Merck Sharp & Dohme B.V.
+Waarderweg 39
+2031 BN Haarlem
+The Netherlands
+
+
+8.    MARKETING AUTHORISATION NUMBER(S)
+
+EU/1/15/1024/002
+EU/1/15/1024/003
+
+
+9.    DATE OF FIRST AUTHORISATION/RENEWAL OF THE AUTHORISATION
+
+Date of first authorisation: 17 July 2015
+Date of latest renewal: 24 March 2020
+
+
+10.   DATE OF REVISION OF THE TEXT
+
+Detailed information on this medicinal product is available on the website of the European Medicines
+Agency https://www.ema.europa.eu.
+
+
+
+
+                                                160
+1.     NAME OF THE MEDICINAL PRODUCT
+
+KEYTRUDA 395 mg solution for injection
+KEYTRUDA 790 mg solution for injection
+
+
+2.     QUALITATIVE AND QUANTITATIVE COMPOSITION
+
+KEYTRUDA 395 mg solution for injection
+
+One vial of 2.4 mL solution for injection contains 395 mg of pembrolizumab.
+
+KEYTRUDA 790 mg solution for injection
+
+One vial of 4.8 mL solution for injection contains 790 mg of pembrolizumab.
+
+Each mL of solution for injection contains 165 mg of pembrolizumab.
+
+Pembrolizumab is a humanised monoclonal anti-programmed cell death-1 (PD-1) antibody
+(IgG4/kappa isotype with a stabilising sequence alteration in the Fc region) produced in Chinese
+3.     PHARMACEUTICAL FORM
+
+Solution for injection.
+
+Clear to slightly opalescent, colourless to slightly yellow solution, pH 5.3 – 5.9.
+
+
+4.     CLINICAL PARTICULARS
+
+4.1    Therapeutic indications
+
+Melanoma
+
+KEYTRUDA as monotherapy is indicated for the treatment of adults and adolescents aged 12 years
+and older with advanced (unresectable or metastatic) melanoma.
+
+KEYTRUDA as monotherapy is indicated for the adjuvant treatment of adults and adolescents aged
+12 years and older with Stage IIB, IIC or III melanoma and who have undergone complete resection
+(see section 5.1).
+
+Non-small cell lung carcinoma (NSCLC)
+
+KEYTRUDA, in combination with platinum-containing chemotherapy as neoadjuvant treatment, and
+then continued as monotherapy as adjuvant treatment, is indicated for the treatment of resectable
+non-small cell lung carcinoma at high risk of recurrence in adults (for selection criteria, see
+section 5.1).
+
+
+
+                                                    161
+KEYTRUDA as monotherapy is indicated for the adjuvant treatment of adults with non-small cell
+lung carcinoma who are at high risk of recurrence following complete resection and platinum-based
+chemotherapy (for selection criteria, see section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the first-line treatment of metastatic non-small cell lung
+carcinoma in adults whose tumours express PD-L1 with a ≥ 50% tumour proportion score (TPS) with
+no EGFR or ALK positive tumour mutations.
+
+KEYTRUDA, in combination with pemetrexed and platinum chemotherapy, is indicated for the first-
+line treatment of metastatic non-squamous non-small cell lung carcinoma in adults whose tumours
+have no EGFR or ALK positive mutations.
+
+KEYTRUDA, in combination with carboplatin and either paclitaxel or nab-paclitaxel, is indicated for
+the first-line treatment of metastatic squamous non-small cell lung carcinoma in adults.
+
+KEYTRUDA as monotherapy is indicated for the treatment of locally advanced or metastatic
+non-small cell lung carcinoma in adults whose tumours express PD-L1 with a ≥ 1% TPS and who
+have received at least one prior chemotherapy regimen. Patients with EGFR or ALK positive tumour
+mutations should also have received targeted therapy before receiving KEYTRUDA.
+
+Malignant pleural mesothelioma (MPM)
+
+KEYTRUDA, in combination with pemetrexed and platinum chemotherapy, is indicated for the
+first-line treatment of adults with unresectable non-epithelioid malignant pleural mesothelioma.
+
+Classical Hodgkin lymphoma (cHL)
+
+KEYTRUDA as monotherapy is indicated for the treatment of adults and adolescents aged 12 years
+and older with relapsed or refractory classical Hodgkin lymphoma who have failed autologous stem
+cell transplant (ASCT) or following at least two prior therapies when ASCT is not a treatment option.
+
+Urothelial carcinoma
+
+KEYTRUDA, in combination with enfortumab vedotin, as neoadjuvant treatment and then continued
+after radical cystectomy as adjuvant treatment, is indicated for the treatment of adults with resectable
+muscle invasive bladder cancer (MIBC) who are ineligible for cisplatin-containing chemotherapy.
+
+KEYTRUDA, in combination with enfortumab vedotin, is indicated for the first-line treatment of
+unresectable or metastatic urothelial carcinoma in adults.
+
+KEYTRUDA as monotherapy is indicated for the treatment of locally advanced or metastatic
+urothelial carcinoma in adults who have received prior platinum-containing chemotherapy (see
+section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the treatment of locally advanced or metastatic
+urothelial carcinoma in adults who are not eligible for cisplatin-containing chemotherapy and whose
+tumours express PD-L1 with a combined positive score (CPS) ≥ 10 (see section 5.1).
+
+Head and neck squamous cell carcinoma (HNSCC)
+
+KEYTRUDA as monotherapy is indicated for the treatment of resectable locally advanced head and
+neck squamous cell carcinoma as neoadjuvant treatment, continued as adjuvant treatment in
+combination with radiation therapy with or without concomitant cisplatin and then as monotherapy in
+adults whose tumours express PD-L1 with a CPS ≥ 1.
+
+KEYTRUDA, as monotherapy or in combination with platinum and 5-fluorouracil (5-FU)
+chemotherapy, is indicated for the first-line treatment of metastatic or unresectable recurrent head and
+
+                                                  162
+neck squamous cell carcinoma in adults whose tumours express PD-L1 with a CPS ≥ 1 (see
+section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the treatment of recurrent or metastatic head and neck
+squamous cell carcinoma in adults whose tumours express PD-L1 with a ≥ 50% TPS and progressing
+on or after platinum-containing chemotherapy (see section 5.1).
+
+Renal cell carcinoma (RCC)
+
+KEYTRUDA, in combination with axitinib, is indicated for the first-line treatment of advanced renal
+cell carcinoma in adults (see section 5.1).
+
+KEYTRUDA, in combination with lenvatinib, is indicated for the first-line treatment of advanced
+renal cell carcinoma in adults (see section 5.1).
+
+KEYTRUDA as monotherapy is indicated for the adjuvant treatment of adults with renal cell
+carcinoma at increased risk of recurrence following nephrectomy, or following nephrectomy and
+resection of metastatic lesions (for selection criteria, see section 5.1).
+
+Microsatellite instability high (MSI-H) or mismatch repair deficient (dMMR) cancers
+
+Colorectal cancer (CRC)
+KEYTRUDA as monotherapy is indicated for adults with MSI-H or dMMR colorectal cancer in the
+following settings:
+    - first-line treatment of metastatic colorectal cancer;
+    - treatment of unresectable or metastatic colorectal cancer after previous
+        fluoropyrimidine-based combination therapy.
+
+Non-colorectal cancers
+KEYTRUDA as monotherapy is indicated for the treatment of the following MSI-H or dMMR
+tumours in adults with:
+   - advanced or recurrent endometrial carcinoma, who have disease progression on or following
+       prior treatment with a platinum-containing therapy in any setting and who are not candidates
+       for curative surgery or radiation;
+   - unresectable or metastatic gastric, small intestine, or biliary cancer, who have disease
+       progression on or following at least one prior therapy.
+
+Oesophageal carcinoma
+
+KEYTRUDA, in combination with platinum and fluoropyrimidine-based chemotherapy, is indicated
+for the first-line treatment of locally advanced unresectable or metastatic carcinoma of the oesophagus
+in adults whose tumours express PD-L1 with a CPS ≥ 10 (see section 5.1).
+
+Triple-negative breast cancer (TNBC)
+
+KEYTRUDA, in combination with chemotherapy as neoadjuvant treatment, and then continued as
+monotherapy as adjuvant treatment after surgery, is indicated for the treatment of adults with locally
+advanced, or early-stage triple-negative breast cancer at high risk of recurrence (see section 5.1).
+
+KEYTRUDA, in combination with chemotherapy, is indicated for the treatment of locally recurrent
+unresectable or metastatic triple-negative breast cancer in adults whose tumours express PD-L1 with a
+CPS ≥ 10 and who have not received prior chemotherapy for metastatic disease (see section 5.1).
+
+
+
+
+                                                  163
+Endometrial carcinoma (EC)
+
+KEYTRUDA, in combination with carboplatin and paclitaxel, is indicated for the first-line treatment
+of primary advanced or recurrent endometrial carcinoma in adults who are candidates for systemic
+therapy.
+
+KEYTRUDA, in combination with lenvatinib, is indicated for the treatment of advanced or recurrent
+endometrial carcinoma in adults who have disease progression on or following prior treatment with a
+platinum-containing therapy in any setting and who are not candidates for curative surgery or
+radiation.
+
+Cervical cancer
+
+KEYTRUDA, in combination with chemoradiotherapy (external beam radiation therapy followed by
+brachytherapy), is indicated for the treatment of FIGO 2014 Stage III - IVA locally advanced cervical
+cancer in adults who have not received prior definitive therapy.
+
+KEYTRUDA, in combination with chemotherapy with or without bevacizumab, is indicated for the
+treatment of persistent, recurrent, or metastatic cervical cancer in adults whose tumours express PD-L1
+with a CPS ≥ 1.
+
+Gastric or gastro-oesophageal junction (GEJ) adenocarcinoma
+
+KEYTRUDA, in combination with trastuzumab, fluoropyrimidine and platinum-containing
+chemotherapy, is indicated for the first-line treatment of locally advanced unresectable or metastatic
+HER2-positive gastric or gastro-oesophageal junction adenocarcinoma in adults whose tumours
+express PD-L1 with a CPS ≥ 1.
+
+KEYTRUDA, in combination with fluoropyrimidine and platinum-containing chemotherapy, is
+indicated for the first-line treatment of locally advanced unresectable or metastatic HER2-negative
+gastric or gastro-oesophageal junction adenocarcinoma in adults whose tumours express PD-L1 with a
+CPS ≥ 1 (see section 5.1).
+
+Biliary tract carcinoma (BTC)
+
+KEYTRUDA, in combination with gemcitabine and cisplatin, is indicated for the first-line treatment
+of locally advanced unresectable or metastatic biliary tract carcinoma in adults.
+
+Ovarian Cancer
+
+KEYTRUDA, in combination with paclitaxel, with or without bevacizumab, is indicated for the
+treatment of platinum-resistant epithelial ovarian, fallopian tube, or primary peritoneal carcinoma in
+adults whose tumours express PD-L1 with a CPS ≥ 1 and who have received one or two prior systemic
+treatment regimens.
+
+4.2   Posology and method of administration
+
+Therapy must be initiated and supervised by specialist physicians experienced in the treatment of
+cancer.
+Patients receiving intravenous pembrolizumab can switch to subcutaneous pembrolizumab at their
+next scheduled dose. Patients receiving subcutaneous pembrolizumab can switch to intravenous
+pembrolizumab at their next scheduled dose.
+
+
+
+
+                                                  164
+4.3   Contraindications
+
+Hypersensitivity to the active substance or to any of the excipients listed in section 6.1.
+
+4.4   Special warnings and precautions for use
+
+Traceability
+In order to improve the traceability of biological medicinal products, the name and the batch number
+of the administered product should be clearly recorded.
+
+Assessment of PD-L1 status
+When assessing the PD-L1 status of the tumour, it is important that a well-validated and robust
+methodology is chosen to minimise false negative or false positive determinations.
+4.5   Interaction with other medicinal products and other forms of interaction
+
+No formal pharmacokinetic drug interaction studies have been conducted with pembrolizumab. Since
+pembrolizumab is cleared from the circulation through catabolism, no metabolic drug-drug
+interactions are expected.
+
+The use of systemic corticosteroids or immunosuppressants before starting pembrolizumab should be
+avoided because of their potential interference with the pharmacodynamic activity and efficacy of
+4.6   Fertility, pregnancy and lactation
+
+Women of childbearing potential
+Women of childbearing potential should use effective contraception during treatment with
+pembrolizumab and for at least 4 months after the last dose of pembrolizumab.
+
+Pregnancy
+There are no data on the use of pembrolizumab in pregnant women. Animal reproduction studies have
+not been conducted with pembrolizumab; however, in murine models of pregnancy blockade of PD-L1
+4.7   Effects on ability to drive and use machines
+
+Pembrolizumab has a minor influence on the ability to drive and use machines. In some patients,
+dizziness and fatigue have been reported following administration of pembrolizumab (see section 4.8).
+
+4.8   Undesirable effects
+
+Summary of the safety profile
+Pembrolizumab is most commonly associated with immune-mediated adverse reactions. Most of
+these, including severe reactions, resolved following initiation of appropriate medical therapy or
+withdrawal of pembrolizumab (see “Description of selected adverse reactions” below). The
+frequencies included below and in Table 2 are based on all reported adverse drug reactions, regardless
+4.9   Overdose
+
+There is no information on overdose with pembrolizumab.
+
+In case of overdose, patients must be closely monitored for signs or symptoms of adverse reactions,
+and appropriate symptomatic treatment instituted.
+
+
+5.    PHARMACOLOGICAL PROPERTIES
+
+5.1   Pharmacodynamic properties
+
+Pharmacotherapeutic group: Antineoplastic agents, PD-1/PDL-1 (Programmed cell death protein
+1/death ligand 1) inhibitors. ATC code: L01FF02
+
+KEYTRUDA solution for injection contains the active substance pembrolizumab which provides the
+therapeutic effect of this medicinal product and recombinant berahyaluronidase alfa (variant of human
+hyaluronidase PH20), an enzyme that temporarily and locally breaks down hyaluronan. Hyaluronan is
+5.2   Pharmacokinetic properties
+
+The pharmacokinetics of pembrolizumab was studied in patients with various tumour types who
+received subcutaneous pembrolizumab (395 mg every 3 weeks or 790 mg every 6 weeks) or
+intravenous pembrolizumab (400 mg every 6 weeks) as monotherapy or in combination therapy. There
+are no clinically meaningful differences in pharmacokinetics of pembrolizumab across indications and
+5.3   Preclinical safety data
+
+Intravenous formulation
+The safety of pembrolizumab was evaluated in a 1-month and a 6-month repeat-dose toxicity study in
+Cynomolgus monkeys administered intravenous doses of 6, 40 or 200 mg/kg bw once a week in the
+1-month study and once every two weeks in the 6-month study, followed by a 4-month treatment-free
+period. No findings of toxicological significance were observed and the no observed adverse effect
+6.    PHARMACEUTICAL PARTICULARS
+
+6.1   List of excipients
+
+Recombinant berahyaluronidase alfa
+L-histidine
+L-histidine hydrochloride monohydrate
+L-methionine
+Sucrose
+Polysorbate 80 (E433)
+Water for injections
+
+6.2   Incompatibilities
+
+In the absence of compatibility studies, this medicinal product must not be mixed with other medicinal
+products.
+
+6.3   Shelf life
+
+Unopened vial
+3 years
+
+Prepared syringe
+Once transferred from the vial into the syringe, chemical and physical in-use stability has been
+demonstrated for KEYTRUDA solution for injection for up to 30 days at 2 °C to 8 °C (protected from
+light) and for up to 24 hours at room temperature (under ambient room light).
+From a microbiological point of view, the solution, should be used immediately once transferred from
+6.4   Special precautions for storage
+
+Store in a refrigerator (2 °C – 8 °C).
+Do not freeze.
+Store in the original carton in order to protect from light.
+
+For storage conditions after preparation of the syringe, see section 6.3.
+
+6.5   Nature and contents of container
+
+KEYTRUDA 395 mg solution for injection
+2.4 mL of solution in a Type I glass vial, with a grey chlorobutyl stopper and an aluminium seal with a
+yellow coloured flip-off cap, containing 395 mg pembrolizumab.
+
+KEYTRUDA 790 mg solution for injection
+4.8 mL of solution in a Type I glass vial, with a grey chlorobutyl stopper and an aluminium seal with a
+6.6   Special precautions for disposal and other handling
+
+Preparation and administration
+KEYTRUDA solution for injection should be administered by a healthcare professional only.
+KEYTRUDA solution for injection is ready to use. Do not dilute KEYTRUDA solution for injection.
+Do not shake the vial.
+
+Preparation of the syringe
+•     Equilibrate the vial of KEYTRUDA solution for injection to room temperature for at least
+7.    MARKETING AUTHORISATION HOLDER
+
+Merck Sharp & Dohme B.V.
+Waarderweg 39
+2031 BN Haarlem
+The Netherlands
+
+
+8.    MARKETING AUTHORISATION NUMBER(S)
+
+EU/1/15/1024/004
+EU/1/15/1024/005
+
+
+9.    DATE OF FIRST AUTHORISATION/RENEWAL OF THE AUTHORISATION
+
+Date of first authorisation: 17 July 2015
+Date of latest renewal: 24 March 2020
+
+
+10.   DATE OF REVISION OF THE TEXT
+
+Detailed information on this medicinal product is available on the website of the European Medicines
+Agency https://www.ema.europa.eu.
+
+
+
+
+                                                321
+                      
+ANNEX II
+
+A.   MANUFACTURERS OF THE BIOLOGICAL ACTIVE
+     SUBSTANCE AND MANUFACTURERS RESPONSIBLE
+     FOR BATCH RELEASE
+
+B.   CONDITIONS OR RESTRICTIONS REGARDING SUPPLY
+     AND USE
+
+C.   OTHER CONDITIONS AND REQUIREMENTS OF THE
+     MARKETING AUTHORISATION
+
+D.   CONDITIONS OR RESTRICTIONS WITH REGARD TO
+     THE SAFE AND EFFECTIVE USE OF THE MEDICINAL
+     PRODUCT
+
+
+
+
+                         322
+A.    MANUFACTURERS OF THE BIOLOGICAL ACTIVE SUBSTANCE AND
+      MANUFACTURERS RESPONSIBLE FOR BATCH RELEASE
+
+Name and address of the manufacturers of the biological active substance
+
+AstraZeneca Pharmaceuticals LP
+Frederick Manufacturing Center (FMC)
+633 Research Court
+Frederick, Maryland 21703
+U.S.
+
+Boehringer Ingelheim (BIB)
+Pharma GmbH & Co. KG
+Birkendorfer Straße 65
+88397 Biberach an der Riss
+Germany
+
+MSD Biotech B.V.
+Vollenhovermeer 2
+5347 JV Oss
+The Netherlands
+
+Boehringer Ingelheim Fremont, Inc. (BIF)
+6701 Kaiser Drive
+Fremont, California 94555
+U.S.
+
+MSD International GmbH (DUB)
+Drynam Road
+Swords, Dublin K67 P263
+Ireland
+
+Samsung Biologics Co., Ltd (SBL)
+300 Songdo bio-daero, Yeonsu-gu
+Incheon, South Korea 21987
+
+Name and address of the manufacturers responsible for batch release
+
+Organon Heist bv
+Industriepark 30
+2220 Heist-op-den-Berg
+Belgium
+
+Merck Sharp & Dohme B.V.
+Waarderweg 39
+2031 BN Haarlem
+The Netherlands
+
+The printed package leaflet of the medicinal product must state the name and address of the
+manufacturer responsible for the release of the concerned batch.

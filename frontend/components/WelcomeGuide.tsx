@@ -164,13 +164,15 @@ const WelcomeGuide: React.FC<Props> = ({ onClose, onOpenAlerts, onOpenGlossary }
             tint="bg-cyan-50 text-cyan-600"
             title="Medical devices"
           >
-            The new <strong>Devices</strong> tab tracks US device market entries live from
+            The <strong>Devices</strong> tab tracks <strong>US</strong> device market entries live from
             openFDA: original <strong>PMA approvals</strong> (high-risk devices — the device
             equivalent of a new-drug approval), <strong>510(k) clearances &amp; De Novo
             grants</strong>, and recent <strong>recalls</strong>. EU medicines with an integral
             device — implants, inhalers, pre-filled pens — carry a{' '}
-            <strong>Drug+Device</strong> badge on the Europe tab. An EU device feed follows
-            once EUDAMED&rsquo;s public data matures.
+            <strong>Drug+Device</strong> badge on the Europe tab. Devices are <strong>US only</strong> for
+            now: the EU has no public device register to query yet (EUDAMED), and medicines
+            authorised only nationally (AIFA, BfArM &hellip;) are not in the EMA catalogue on the
+            Europe tab either.
           </Section>
 
           <Section

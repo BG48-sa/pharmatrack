@@ -1,0 +1,292 @@
+             ANNEX I
+
+SUMMARY OF PRODUCT CHARACTERISTICS
+
+
+
+
+                1
+   This medicinal product is subject to additional monitoring. This will allow quick identification of
+new safety information. Healthcare professionals are asked to report any suspected adverse reactions.
+See section 4.8 for how to report adverse reactions.
+
+
+1.     NAME OF THE MEDICINAL PRODUCT
+
+Casgevy 4 - 13 × 106 cells/mL dispersion for infusion
+
+
+2.     QUALITATIVE AND QUANTITATIVE COMPOSITION
+
+2.1    General description
+
+Casgevy (exagamglogene autotemcel) is a genetically modified autologous CD34+ cell enriched
+population that contains haematopoietic stem and progenitor cells (HSPCs) edited ex vivo by
+CRISPR/Cas9 at the erythroid-specific enhancer region of the BCL11A gene.
+
+2.2    Qualitative and quantitative composition
+
+Each patient-specific vial of Casgevy contains exagamglogene autotemcel at a batch-dependent
+concentration of genetically modified autologous CD34+ cells enriched population. The medicinal
+product is packaged in one or more vials overall containing a dispersion for infusion of
+4-13 × 106 cells/mL of viable CD34+ cells enriched population suspended in a cryopreservation
+3.     PHARMACEUTICAL FORM
+
+Dispersion for infusion.
+
+A translucent cell dispersion for infusion, free from foreign particles.
+
+
+
+
+                                                    2
+4.    CLINICAL PARTICULARS
+
+4.1   Therapeutic indications
+
+β-thalassemia
+
+Casgevy is indicated for the treatment of transfusion-dependent β-thalassemia (TDT) in patients
+12 years of age and older for whom haematopoietic stem cell (HSC) transplantation is appropriate and
+a human leukocyte antigen (HLA)-matched related HSC donor is not available.
+
+Sickle cell disease
+
+Casgevy is indicated for the treatment of severe sickle cell disease (SCD) in patients 12 years of age
+and older with recurrent vaso-occlusive crises (VOCs) for whom haematopoietic stem cell (HSC)
+transplantation is appropriate and a human leukocyte antigen (HLA)-matched related HSC donor is
+not available.
+
+4.2   Posology and method of administration
+
+Casgevy must be administered in an authorised treatment centre by a physician with experience in
+HSC transplantation and in the treatment of patients with β-haemoglobinopathies and trained for
+administration and management of patients treated with the medicinal product.
+
+Before mobilisation, apheresis and myeloablative conditioning are initiated, confirm that
+4.3   Contraindications
+
+Hypersensitivity to the active substance or to any of the excipients listed in section 6.1.
+
+Contraindications to mobilisation and myeloablative conditioning medicinal products must be
+considered.
+
+4.4   Special warnings and precautions for use
+
+Warnings and precautions of mobilisation and myeloablative conditioning medicinal products must be
+considered.
+
+Traceability
+
+The traceability requirements of cell-based advanced therapy medicinal products must apply. To
+ensure traceability the name of the product, the batch number and the name of the treated patient must
+be kept for a period of 30 years after expiry date of the medicinal product.
+4.5   Interaction with other medicinal products and other forms of interaction
+
+The drug-drug interaction of mobilisation and myeloablative conditioning medicinal products must be
+considered.
+
+No formal drug interaction studies have been performed. Casgevy is not expected to interact with the
+hepatic cytochrome P-450 family of enzymes or drug transporters.
+
+Use of hydroxyurea/hydroxycarbamide must be discontinued at least 8 weeks prior to start of
+4.6    Fertility, pregnancy and lactation
+
+Women of childbearing potential/Contraception in males and females
+
+A negative serum pregnancy test must be confirmed prior to the start of each mobilisation cycle and
+re-confirmed prior to myeloablative conditioning. There are insufficient exposure data to provide a
+precise recommendation on duration of contraception following treatment with Casgevy. Women of
+4.7    Effects on ability to drive and use machines
+
+Casgevy has no influence on the ability to drive or use machines.
+
+The effect of mobilisation and myeloablative conditioning medicinal products on the ability to drive or
+use machines must be considered.
+
+
+
+
+                                                   9
+4.8   Undesirable effects
+
+Summary of the safety profile
+
+The safety of Casgevy was evaluated in two open-label, single-arm studies (study 111 and study 121)
+and one long-term follow-up study (study 131), in which 97 adolescent and adult patients with TDT or
+SCD were treated with Casgevy.
+
+Treatment with Casgevy was preceded by peripheral blood mobilisation with granulocyte
+4.9   Overdose
+
+Not applicable.
+
+
+5.    PHARMACOLOGICAL PROPERTIES
+
+5.1   Pharmacodynamic properties
+
+Pharmacotherapeutic group: Other haematological agents, other haematological agents, ATC
+code: B06AX05
+
+Mechanism of action
+
+Casgevy is a cell therapy consisting of autologous CD34+ HSPCs ex vivo edited by
+CRISPR/Cas9-technology. The highly specific guide RNA enables CRISPR/Cas9 to make a precise
+DNA double-strand break at the critical transcription factor binding site (GATA1) in the erythroid-
+5.2   Pharmacokinetic properties
+
+Casgevy is an autologous cellular therapy medicinal product consisting of CD34+ cells that have been
+edited ex vivo by CRISPR/Cas9. The nature of Casgevy is such that conventional studies on
+pharmacokinetics, absorption, distribution, metabolism, and elimination are not applicable.
+
+5.3   Preclinical safety data
+
+Casgevy is a CD34+ cell product edited with CRISPR/Cas9 technology; therefore, conventional
+mutagenicity, carcinogenicity and fertility, reproductive and developmental toxicity studies have not
+been conducted.
+
+Toxicological characteristics were assessed in sub-lethally irradiated, immunodeficient NSG mice
+treated with a dose of 3.33 × 107 edited CD34+ cells/kg of body weight. There was no evidence of
+6.    PHARMACEUTICAL PARTICULARS
+
+6.1   List of excipients
+
+CryoStor CS5 (contains dimethyl sulfoxide and dextran 40)
+
+6.2   Incompatibilities
+
+In the absence of compatibility studies, this medicinal product must not be mixed with other medicinal
+products.
+
+6.3   Shelf life
+
+2 years at ≤ -135 °C.
+
+Once thawed
+
+20 minutes at room temperature (20 °C – 25 °C).
+
+6.4   Special precautions for storage
+
+Casgevy must be stored and transported in the vapour phase of liquid nitrogen at ≤ -135 °C and must
+remain frozen until the patient is ready for treatment to ensure viable cells are available for patient
+administration.
+
+Thawed medicinal product must not be refrozen.
+
+For storage conditions after thawing of the medicinal product, see section 6.3.
+6.5     Nature and contents of container
+
+Casgevy is supplied in cryopreservation vials made of cyclic olefin copolymer. Each vial contains
+1.5 mL to 20 mL of Casgevy.
+
+Vials are packed in a paperboard carton box. Each carton may contain up to 9 vials. The final outer
+carton contains a variable number of vials according to the patient specific dose required.
+
+Casgevy is shipped from the manufacturing facility to the treatment centre storage facility in a
+6.6     Special precautions for disposal and other handling
+
+Precautions to be taken before handling or administering the medicinal product
+
+Do not sample, alter, or irradiate the medicinal product. Irradiation could lead to inactivation of the
+product.
+
+This medicinal product contains human blood cells. Healthcare professionals handling Casgevy must
+take appropriate precautions (wearing gloves, protective clothing, and eye protection) to avoid
+7.      MARKETING AUTHORISATION HOLDER
+
+Vertex Pharmaceuticals (Ireland) Limited
+Unit 49, Block 5, Northwood Court, Northwood Crescent,
+Dublin 9, D09 T665,
+Ireland
+
+
+8.      MARKETING AUTHORISATION NUMBER(S)
+
+EU/1/23/1787/001
+
+
+9.      DATE OF FIRST AUTHORISATION/RENEWAL OF THE AUTHORISATION
+
+Date of first authorisation: 09 February 2024
+Date of latest renewal: 12 February 2025
+
+
+10.     DATE OF REVISION OF THE TEXT
+
+
+Detailed information on this medicinal product is available on the website of the European Medicines
+Agency https://www.ema.europa.eu.
+
+
+
+
+                                                    26
+                      
+ANNEX II
+
+A.   MANUFACTURER(S) OF THE BIOLOGICAL ACTIVE
+     SUBSTANCE(S) AND MANUFACTURER(S) RESPONSIBLE
+     FOR BATCH RELEASE
+
+B.   CONDITIONS OR RESTRICTIONS REGARDING SUPPLY
+     AND USE
+
+C.   OTHER CONDITIONS AND REQUIREMENTS OF THE
+     MARKETING AUTHORISATION
+
+D.   CONDITIONS OR RESTRICTIONS WITH REGARD TO
+     THE SAFE AND EFFECTIVE USE OF THE MEDICINAL
+     PRODUCT
+
+E.   SPECIFIC OBLIGATION TO COMPLETE POST-
+     AUTHORISATION MEASURES FOR THE CONDITIONAL
+     MARKETING AUTHORISATION
+
+
+
+
+                         27
+A.    MANUFACTURER(S) OF THE BIOLOGICAL ACTIVE SUBSTANCE(S) AND
+      MANUFACTURER(S) RESPONSIBLE FOR BATCH RELEASE
+
+Name and address of the manufacturer(s) of the biological active substance(s)
+
+Roslin Cell Therapies Limited
+BioCube 2
+Edinburgh BioQuarter
+11 Little France Road
+Edinburgh EH16 4UX
+United Kingdom
+
+Charles River Laboratories Inc.
+4600 East Shelby Drive, Suite 108
+Memphis, TN 38118-7427
+United States
+
+Lonza Netherlands B.V.
+Urmonderbaan 20 B
+6167 RD Geleen
+Netherlands
+
+Name and address of the manufacturer(s) responsible for batch release
+
+Vertex Pharmaceuticals (Europe) Limited
+Unit 49, Block 5, Northwood Court, Northwood Crescent,
+Dublin 9, D09 T665,
+Ireland
+
+Lonza Netherlands B.V.
+Urmonderbaan 20 B
+6167 RD Geleen
+Netherlands
+
+
+B.    CONDITIONS OR RESTRICTIONS REGARDING SUPPLY AND USE
+
+Medicinal product subject to restricted medical prescription (see Annex I: Summary of Product
+Characteristics, section 4.2).
+
+
+C.    OTHER CONDITIONS AND REQ

@@ -1,0 +1,30 @@
+{
+ "4.1": {
+  "title": "Therapeutic indications",
+  "text": "β-thalassemia\n\nCasgevy is indicated for the treatment of transfusion-dependent β-thalassemia (TDT) in patients 12 years of age and older for whom haematopoietic stem cell (HSC) transplantation is appropriate and a human leukocyte antigen (HLA)-matched related HSC donor is not available.\n\nSickle cell disease\n\nCasgevy is indicated for the treatment of severe sickle cell disease (SCD) in patients 12 years of age and older with recurrent vaso-occlusive crises (VOCs) for whom haematopoietic stem cell (HSC) transplantation is appropriate and a human leukocyte antigen (HLA)-matched related HSC donor is not available."
+ },
+ "4.2": {
+  "title": "Posology and method of administration",
+  "text": "Casgevy must be administered in an authorised treatment centre by a physician with experience in HSC transplantation and in the treatment of patients with β-haemoglobinopathies and trained for administration and management of patients treated with the medicinal product.\n\nBefore mobilisation, apheresis and myeloablative conditioning are initiated, confirm that"
+ },
+ "4.3": {
+  "title": "Contraindications",
+  "text": "Hypersensitivity to the active substance or to any of the excipients listed in section 6.1.\n\nContraindications to mobilisation and myeloablative conditioning medicinal products must be considered."
+ },
+ "4.4": {
+  "title": "Special warnings and precautions for use",
+  "text": "Warnings and precautions of mobilisation and myeloablative conditioning medicinal products must be considered.\n\nTraceability\n\nThe traceability requirements of cell-based advanced therapy medicinal products must apply. To ensure traceability the name of the product, the batch number and the name of the treated patient must be kept for a period of 30 years after expiry date of the medicinal product."
+ },
+ "4.8": {
+  "title": "Undesirable effects",
+  "text": "Summary of the safety profile\n\nThe safety of Casgevy was evaluated in two open-label, single-arm studies (study 111 and study 121) and one long-term follow-up study (study 131), in which 97 adolescent and adult patients with TDT or SCD were treated with Casgevy.\n\nTreatment with Casgevy was preceded by peripheral blood mobilisation with granulocyte"
+ },
+ "5.1": {
+  "title": "Pharmacodynamic properties",
+  "text": "Pharmacotherapeutic group: Other haematological agents, other haematological agents, ATC code: B06AX05\n\nMechanism of action\n\nCasgevy is a cell therapy consisting of autologous CD34+ HSPCs ex vivo edited by CRISPR/Cas9-technology. The highly specific guide RNA enables CRISPR/Cas9 to make a precise DNA double-strand break at the critical transcription factor binding site (GATA1) in the erythroid-"
+ },
+ "5.2": {
+  "title": "Pharmacokinetic properties",
+  "text": "Casgevy is an autologous cellular therapy medicinal product consisting of CD34+ cells that have been edited ex vivo by CRISPR/Cas9. The nature of Casgevy is such that conventional studies on pharmacokinetics, absorption, distribution, metabolism, and elimination are not applicable."
+ }
+}

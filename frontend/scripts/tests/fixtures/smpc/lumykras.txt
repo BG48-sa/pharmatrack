@@ -1,0 +1,288 @@
+             ANNEX I
+
+SUMMARY OF PRODUCT CHARACTERISTICS
+
+
+
+
+                1
+   This medicinal product is subject to additional monitoring. This will allow quick identification of
+new safety information. Healthcare professionals are asked to report any suspected adverse reactions.
+See section 4.8 for how to report adverse reactions.
+
+
+1.     NAME OF THE MEDICINAL PRODUCT
+
+LUMYKRAS 120 mg film-coated tablets
+LUMYKRAS 240 mg film-coated tablets
+
+
+2.     QUALITATIVE AND QUANTITATIVE COMPOSITION
+
+LUMYKRAS 120 mg film-coated tablets
+Each film-coated tablet contains 120 mg of sotorasib.
+
+Excipient with known effect
+Each film-coated tablet contains 114 mg of lactose (as monohydrate).
+
+LUMYKRAS 240 mg film-coated tablets
+Each film-coated tablet contains 240 mg of sotorasib.
+
+Excipient with known effect
+Each film-coated tablet contains 53 mg of lactose (as monohydrate).
+
+For the full list of excipients, see section 6.1.
+3.     PHARMACEUTICAL FORM
+
+Film-coated tablet (tablet).
+
+LUMYKRAS 120 mg film-coated tablets
+
+Yellow film-coated tablet, oblong-shaped (7 mm × 16 mm), debossed with “AMG” on one side and
+“120” on the opposite side.
+
+LUMYKRAS 240 mg film-coated tablets
+
+Yellow film-coated tablet, oval-shaped (8 mm × 18 mm), debossed with “AMG” on one side and
+“240” on the opposite side.
+
+
+4.     CLINICAL PARTICULARS
+
+4.1    Therapeutic indications
+
+LUMYKRAS as monotherapy is indicated for the treatment of adults with advanced non-small cell
+lung cancer (NSCLC) with KRAS G12C-mutation and who have progressed after at least one prior line
+of systemic therapy.
+
+4.2    Posology and method of administration
+
+Treatment with LUMYKRAS must be initiated by a physician experienced in the use of anticancer
+medicinal products.
+
+
+
+                                                    2
+The presence of a KRAS G12C-mutation must be confirmed using a validated test prior to initiation of
+LUMYKRAS therapy.
+
+Posology
+
+The recommended dose is 960 mg sotorasib (eight 120 mg tablets or four 240 mg tablets) once daily,
+4.3   Contraindications
+
+Hypersensitivity to the active substance or to any of the excipients listed in section 6.1.
+
+4.4   Special warnings and precautions for use
+
+Hepatotoxicity
+
+Sotorasib can cause hepatotoxicity, which may lead to drug-induced liver injury (DILI) and hepatitis.
+Sotorasib has been associated with transient elevations of serum transaminases (ALT and AST),
+alkaline phosphatase and total bilirubin in 960 mg monotherapy clinical trials. In a total of
+740 patients with KRAS G12C-mutated solid tumours who received LUMYKRAS 960 mg
+4.5   Interaction with other medicinal products and other forms of interaction
+
+In vitro studies indicate that sotorasib is metabolised by cytochrome P450 (CYP) 2C8, CYP3A4, and
+CYP3A5, and is a substrate of P-glycoprotein (P-gp). Sotorasib was an inducer of CYP3A4, CYP2B6,
+CYP2C8, CYP2C9, and CYP2C19 in vitro. Sotorasib is an in vitro inhibitor of CYP2C8, CYP2D6,
+and CYP3A. In vitro studies indicate that sotorasib is an inhibitor of human organic anion transporter
+4.6    Fertility, pregnancy and lactation
+
+Women of childbearing potential/Contraception
+
+Women of childbearing potential must be advised to avoid pregnancy while on LUMYKRAS. Female
+patients of childbearing potential receiving LUMYKRAS must use highly effective contraceptive
+methods during treatment and for at least 7 days following the last dose of LUMYKRAS.
+LUMYKRAS may reduce the effectiveness of hormonal contraceptives, and therefore women using
+4.7    Effects on ability to drive and use machines
+
+LUMYKRAS has no or negligible influence on the ability to drive and use machines.
+
+4.8    Undesirable effects
+
+Summary of the safety profile
+
+Adverse drug reactions (ADRs) described in table 3 reflect exposure to sotorasib 960 mg once daily as
+monotherapy in 740 patients with KRAS G12C-mutated solid tumours across multiple clinical studies,
+including CodeBreaK 200, CodeBreaK 100 phase 2 part A, and CodeBreaK 100 phase 2 part B (dose
+comparison sub-study) and three phase 1 studies.
+4.9   Overdose
+
+In the event of an overdose, the patient should be treated symptomatically, and supportive measures
+instituted as required. There is no specific antidote for overdose with LUMYKRAS.
+
+
+5.    PHARMACOLOGICAL PROPERTIES
+
+5.1   Pharmacodynamic properties
+
+Pharmacotherapeutic group: Antineoplastic agents, ATC code: L01XX73
+
+Mechanism of action
+
+Sotorasib is a selective KRASG12C (Kirsten rat sarcoma viral oncogene homologue) inhibitor, which
+covalently and irreversibly binds to the unique cysteine of KRASG12C. Inactivation of KRASG12C by
+sotorasib blocks tumour cell signalling and survival, inhibits cell growth, and promotes apoptosis
+5.2   Pharmacokinetic properties
+
+Absorption
+
+Bioavailability of sotorasib has not been investigated in humans. Following an oral, single dose
+administration, sotorasib was absorbed with median time to achieve peak concentration of 1-2 hours.
+
+In a dose comparison sub-study (CodeBreaK 100 phase 2 part B) in patients receiving sotorasib
+240 mg or 960 mg once daily, after 8 daily doses, Cmax and AUC0-24 hour for 240 mg were both 22%
+5.3   Preclinical safety data
+
+Mutagenicity
+
+Sotorasib was not mutagenic in a bacterial mutagenicity (Ames) assay. Sotorasib was not genotoxic in
+the in vivo rat micronucleus and comet assays.
+
+Carcinogenicity
+
+Carcinogenicity studies have not been performed with sotorasib.
+
+Reproductive toxicity
+
+In rat and rabbit embryo-foetal development studies, oral sotorasib was not teratogenic.
+6.    PHARMACEUTICAL PARTICULARS
+
+6.1   List of excipients
+
+Tablet core
+
+Cellulose, microcrystalline (E460(i))
+Lactose monohydrate
+Croscarmellose sodium (E468)
+Magnesium stearate (E470b)
+
+Film-coating
+
+Poly(vinyl alcohol) (E1203)
+Titanium dioxide (E171)
+Macrogol 4000 (E1521)
+Talc (E553b)
+Iron oxide yellow (E172)
+
+6.2   Incompatibilities
+
+In the absence of compatibility studies, this medicinal product must not be dispersed with other liquids
+than that mentioned in section 4.2. Acidic beverages (e.g. fruit juices) should also be excluded.
+
+6.3   Shelf life
+
+3 years.
+
+6.4   Special precautions for storage
+
+This medicinal product does not require any special storage conditions.
+
+6.5   Nature and contents of container
+
+LUMYKRAS 120 mg film-coated tablets
+
+PVC/PE/PVDC blisters with aluminium foil backing containing 8 film-coated tablets. Pack sizes of
+240 film-coated tablets (1 carton with 30 blisters) and multipack with 720 (3 × 240) film-coated
+tablets.
+
+HDPE bottle with a child-resistant polypropylene cap and aluminium foil induction seal liner
+containing 120 film-coated tablets. Pack size of 240 film-coated tablets (1 carton with 2 bottles).
+6.6   Special precautions for disposal
+
+This medicinal product may pose a risk to the environment (see section 5.3). Any unused medicinal
+product or waste material should be disposed of in accordance with local requirements.
+
+
+7.    MARKETING AUTHORISATION HOLDER
+
+Amgen Europe B.V.,
+Minervum 7061,
+4817 ZK Breda,
+The Netherlands
+
+
+8.    MARKETING AUTHORISATION NUMBER(S)
+
+EU/1/21/1603/001
+EU/1/21/1603/002
+EU/1/21/1603/003
+EU/1/21/1603/004
+
+
+9.    DATE OF FIRST AUTHORISATION/RENEWAL OF THE AUTHORISATION
+
+Date of first authorisation: 06 January 2022
+Date of latest renewal: 20 November 2023
+
+
+10.   DATE OF REVISION OF THE TEXT
+
+
+
+Detailed information on this medicinal product is available on the website of the European Medicines
+Agency https://www.ema.europa.eu.
+
+
+
+
+                                                 15
+                       
+ANNEX II
+
+A.   MANUFACTURERS RESPONSIBLE FOR BATCH RELEASE
+
+B.   CONDITIONS OR RESTRICTIONS REGARDING SUPPLY
+     AND USE
+
+C.   OTHER CONDITIONS AND REQUIREMENTS OF THE
+     MARKETING AUTHORISATION
+
+D.   CONDITIONS OR RESTRICTIONS WITH REGARD TO
+     THE SAFE AND EFFECTIVE USE OF THE MEDICINAL
+     PRODUCT
+
+E.   SPECIFIC OBLIGATION TO COMPLETE
+     POST-AUTHORISATION MEASURES FOR THE
+     CONDITIONAL MARKETING AUTHORISATION
+
+
+
+
+                          16
+A.    MANUFACTURERS RESPONSIBLE FOR BATCH RELEASE
+
+Name and address of the manufacturers responsible for batch release
+
+Amgen Europe B.V.,
+Minervum 7061,
+4817 ZK Breda,
+The Netherlands
+
+Amgen NV,
+Telecomlaan 5-7,
+1831 Diegem,
+Belgium
+
+The printed package leaflet of the medicinal product must state the name and address of the
+manufacturer responsible for the release of the concerned batch.
+
+
+B.    CONDITIONS OR RESTRICTIONS REGARDING SUPPLY AND USE
+
+Medicinal product subject to restricted medical prescription (see Annex I: Summary of Product
+Characteristics, section 4.2).
+
+
+C.    OTHER CONDITIONS AND REQUIREMENTS OF THE MARKETING
+      AUTHORISATION
+
+•     Periodic safety update reports (PSURs)
+
+The requirements for submission of PSURs for this medicinal product are set out in Article 9 of
+Regulation (EC) No 507/2006 and, accordingly, the marketing authorisation holder (MAH)
+shall submit PSURs every 6 months.
+
+The requirements for submission of PSURs for this medicinal product are set out in the list of
+Union reference date

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { X, FileText, ExternalLink, ChevronDown, Loader2, Highlighter } from 'lucide-react';
 import { loadLabelFile } from '../services/labelFiles';
 import { diffSections, DiffUnit, SectionDiff } from '../services/labelDiff';
+import { noteLabelCompare } from '../services/appReview';
 
 /**
  * Jurisdiction-aware full-text label comparison. Each column is a medicine's
@@ -110,6 +111,7 @@ const WORD_NUM = 'text-red-700 font-bold underline decoration-wavy decoration-re
 
 const renderUnit = (u: DiffUnit, side: number, i: number): React.ReactNode => {
   if (u.k === 'heading') return <span key={i} className="font-semibold text-slate-800">{u.text}</span>;
+  if (u.k === 'boilerplate') return <span key={i} className="text-slate-400 italic" title="Standard EU SmPC wording — not counted as a difference">{u.text}</span>;
   if (u.k === 'unique') return <span key={i} className={SIDE_UNIQUE[side]}>{u.text}</span>;
   if (u.k === 'changed') {
     return (
@@ -261,6 +263,11 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
     // rows derives from cols; docs change with cols.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canDiff, highlight, docs, cols]);
+  // A rendered two-label comparison is the moment to (rarely) ask for a rating.
+  useEffect(() => {
+    if (canDiff && docs && Object.values(diffs).some(Boolean)) void noteLabelCompare();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canDiff, docs]);
   const colName = (i: number): string => {
     const d = docs?.[i];
     const brand = cols[i].source === 'us' ? d?.usBrand || d?.brand : d?.brand;
