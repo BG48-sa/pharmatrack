@@ -92,6 +92,7 @@ PRODUCTS = [
     ("BLA125827", "2026-08-06", "Oncolytic HSV-1 gene therapy (melanoma)", "Tudriqev", "vusolimogene oderparepvec-wtpg", "Replimune", "With nivolumab for unresectable advanced cutaneous melanoma after progression on a PD-1 antibody regimen (accelerated approval)."),
     ("BLA125858", "2026-08-19", "AAV8 gene therapy (G6PC, GSDIa)", "Genglycos", "pariglasgene brecaparvovec-opnr", "Ultragenyx Pharmaceutical", "Reduction of daily cornstarch intake in glycogen storage disease type Ia, patients 8 years and older (accelerated approval)."),
     ("BLA125845", "2026-09-17", "AAV9 gene therapy (SGSH, MPS IIIA)", "Fayuvi", "rebisufligene etisparvovec-hopf", "Ultragenyx Pharmaceutical", "Neurologic manifestations of mucopolysaccharidosis type IIIA (Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function."),
+    ("BLA125825", "2026-10-30", "Plasmid DNA immunotherapy (HPV 6/11 E6/E7 + IL-12, intramuscular with electroporation)", "Voceryq", "doruxapapogene ralaplasmid and lalikinogene sifuplasmid-gxfd", "Alliance Medical Products (Siegfried)", "Reduction of the frequency of surgical papilloma excisions in adults with recurrent respiratory papillomatosis (RRP)."),
 ]
 
 data = {
