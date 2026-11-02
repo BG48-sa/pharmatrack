@@ -197,6 +197,14 @@ test('one passage that really holds two indications is flagged uncertain', () =>
   assert.deepEqual(parseIndication(t), []);
 });
 
+test('Keytruda (EU) — the threshold written before the score word: "≥ 50% tumour proportion score (TPS)"', () => {
+  const { all } = labels('KEYTRUDA as monotherapy is indicated for the first-line treatment of metastatic non-small cell lung carcinoma (NSCLC) in adults whose tumours express PD-L1 with a ≥ 50% tumour proportion score (TPS) with no EGFR or ALK positive tumour mutations.');
+  assert.ok(all.has('PD-L1 TPS ≥50%'), [...all].join(', '));
+  assert.ok(!all.has('EGFR') && !all.has('ALK'), [...all].join(', '));
+  const k2 = labels('KEYTRUDA as monotherapy is indicated for the treatment of locally advanced or metastatic NSCLC in adults whose tumours express PD-L1 with a ≥ 1% TPS and who have received at least one prior chemotherapy regimen.');
+  assert.ok(k2.all.has('PD-L1 TPS ≥1%') && k2.all.has('Previously treated'), [...k2.all].join(', '));
+});
+
 test('the PD-L1 operator is kept as written: "<1%" never becomes "≥1"', () => {
   const { all } = labels('for the treatment of adult patients with metastatic NSCLC whose tumours express PD-L1 with a tumour proportion score (TPS) < 1%.');
   assert.ok(all.has('PD-L1 TPS <1%'), [...all].join(', '));

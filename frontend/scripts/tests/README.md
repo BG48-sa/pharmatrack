@@ -53,3 +53,8 @@ touched.
   and the advisory concerns `uuid.v3/v5/v6` with a caller-supplied buffer,
   which `xcode` does not use. `npm audit` offers only a downgrade of the CLI
   as a "fix"; re-check when `xcode` releases a version on `uuid` ≥ 11.1.1.
+- `npm audit` on 2.11.2026: 6 moderate, all one chain inside the dev-only
+  `@capacitor/cli` (rimraf → glob → minimatch; xcode → uuid) — the same accepted
+  finding as above, with new advisories on the same old packages. Nothing in the
+  shipped app uses them; a fix needs a `@capacitor/cli` major that is not out yet.
+  `@capacitor-community/in-app-review` 8.0.0 (added 2.11.) brought no finding.

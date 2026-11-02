@@ -280,7 +280,11 @@ const HISTORY_BEFORE = /(?:prior|previous|previously|completing|completed|after|
 
 const parseClause = (text: string): Facet[] => {
   // "eGFR" is kidney function, not the EGFR gene — keep it from the gene rules.
-  const t = text.replace(/\beGFR\b/g, 'kidney-filtration').toLowerCase();
+  // "≥ 50% tumour proportion score (TPS)" / "a ≥ 1% TPS" put the threshold BEFORE the
+  // score word; rewrite to "tps ≥ 50%" so one PD-L1 rule reads both orders.
+  const t = text.replace(/\beGFR\b/g, 'kidney-filtration').toLowerCase()
+    .replace(/(≥|>=|≤|<=|<|>)\s*(\d{1,3})\s*%\s*(?:tumou?r\s+)?proportion score\s*\((tps)\)/g, '$3 $1 $2%')
+    .replace(/(≥|>=|≤|<=|<|>)\s*(\d{1,3})\s*%\s*(tps|cps)\b/g, '$3 $1 $2%');
   const spans = exclusionSpans(t);
   const negated: Negated = (i) => isNegatedBefore(t, i) || spans.some(([s, e]) => i > s && i < e);
   const out: Facet[] = [];
