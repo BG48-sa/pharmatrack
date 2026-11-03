@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-03",
- "checkedAt": "2026-11-03T11:19:58Z",
+ "checkedAt": "2026-11-03T16:34:41Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -20,16 +20,8 @@
    "LABEL_AVAILABLE": 4,
    "LABEL_VERIFIED": 70
   },
-  "alerts": 23,
-  "transitions": [
-   {
-    "id": "FDA:fayuvi",
-    "drug": "Fayuvi",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 996fc33a-26d3-4fae-bd0c-a2edd7764539, label version 1 of 2026-10-01"
-   }
-  ],
+  "alerts": 24,
+  "transitions": [],
   "closed": []
  },
  "alerts": [
@@ -78,6 +70,13 @@
   {
    "id": "FDA:onswik",
    "drug": "Onswik",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:fayuvi",
+   "drug": "Fayuvi",
    "jurisdiction": "FDA",
    "status": "LABEL_VERIFIED",
    "message": "openFDA no longer returns the verified label — check DailyMed"
@@ -826,7 +825,8 @@
     "sha256": "1160a42e3b78e9a1d2360e5108d4de69720c6877ebca5c6ddbc2a045048333a6",
     "indications": "1 INDICATIONS AND USAGE FAYUVI is indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function. FAYUVI is an adeno-associated virus (AAV) vector-based gene therapy indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function.",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:pixclara",
