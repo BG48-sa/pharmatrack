@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-03",
- "checkedAt": "2026-11-03T16:34:41Z",
+ "checkedAt": "2026-11-03T23:40:43Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,17 +11,25 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 109,
-  "unresolved": 39,
+  "total": 110,
+  "unresolved": 40,
   "byStatus": {
-   "AWAITING_USPI": 12,
+   "AWAITING_USPI": 13,
    "AWAITING_EC_DECISION": 17,
    "AWAITING_SMPC": 6,
    "LABEL_AVAILABLE": 4,
    "LABEL_VERIFIED": 70
   },
   "alerts": 24,
-  "transitions": [],
+  "transitions": [
+   {
+    "id": "FDA:ranibizumab",
+    "drug": "Ranibizumab",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
+   }
+  ],
   "closed": []
  },
  "alerts": [
@@ -214,6 +222,31 @@
    "history": [
     {
      "date": "2026-11-02",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-03"
+  },
+  {
+   "id": "FDA:ranibizumab",
+   "jurisdiction": "FDA",
+   "drug": "Ranibizumab",
+   "inn": "ranibizumab",
+   "applicationNumber": "BLA761187",
+   "approvalDate": "2026-10-27",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Xbrane Biopharma Ab",
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-03",
+   "statusSince": "2026-11-03",
+   "history": [
+    {
+     "date": "2026-11-03",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
     }
