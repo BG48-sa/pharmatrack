@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-03",
- "checkedAt": "2026-11-03T01:15:10Z",
+ "checkedAt": "2026-11-03T11:19:58Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,24 +12,25 @@
  },
  "summary": {
   "total": 109,
-  "unresolved": 40,
+  "unresolved": 39,
   "byStatus": {
-   "AWAITING_USPI": 13,
+   "AWAITING_USPI": 12,
    "AWAITING_EC_DECISION": 17,
    "AWAITING_SMPC": 6,
    "LABEL_AVAILABLE": 4,
-   "LABEL_VERIFIED": 69
+   "LABEL_VERIFIED": 70
   },
-  "alerts": 24,
-  "transitions": [],
-  "closed": [
+  "alerts": 23,
+  "transitions": [
    {
-    "id": "EMA:EMEA/H/C/006158",
-    "drug": "Bysumlog",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
+    "id": "FDA:fayuvi",
+    "drug": "Fayuvi",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 996fc33a-26d3-4fae-bd0c-a2edd7764539, label version 1 of 2026-10-01"
    }
-  ]
+  ],
+  "closed": []
  },
  "alerts": [
   {
@@ -80,13 +81,6 @@
    "jurisdiction": "FDA",
    "status": "LABEL_VERIFIED",
    "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:fayuvi",
-   "drug": "Fayuvi",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA or DailyMed 47 days after approval"
   },
   {
    "id": "FDA:pixclara",
@@ -793,18 +787,46 @@
    ],
    "summary": "Neurologic manifestations of mucopolysaccharidosis type IIIA (Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function.",
    "sponsor": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-11-03",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-03",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 996fc33a-26d3-4fae-bd0c-a2edd7764539, label version 1 of 2026-10-01"
     }
    ],
    "lastChecked": "2026-11-03",
-   "alert": "no US prescribing information at openFDA or DailyMed 47 days after approval"
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "996fc33a-26d3-4fae-bd0c-a2edd7764539",
+    "splId": "453f2a2e-d064-41ba-a715-11285409d478",
+    "effective": "2026-10-01",
+    "version": "1",
+    "detected": "2026-11-03",
+    "retrieved": "2026-11-03",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=996fc33a-26d3-4fae-bd0c-a2edd7764539",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "FAYUVI",
+    "usGeneric": "rebisufligene etisparvovec-hopf",
+    "applicationNumber": "BLA125845",
+    "harmonised": false,
+    "sha256": "1160a42e3b78e9a1d2360e5108d4de69720c6877ebca5c6ddbc2a045048333a6",
+    "indications": "1 INDICATIONS AND USAGE FAYUVI is indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function. FAYUVI is an adeno-associated virus (AAV) vector-based gene therapy indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function.",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:pixclara",
