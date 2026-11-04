@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-04",
- "checkedAt": "2026-11-04T11:32:36Z",
+ "checkedAt": "2026-11-04T20:33:56Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,18 +11,25 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 110,
-  "unresolved": 40,
+  "total": 109,
+  "unresolved": 39,
   "byStatus": {
    "AWAITING_USPI": 13,
    "AWAITING_EC_DECISION": 17,
-   "AWAITING_SMPC": 6,
+   "AWAITING_SMPC": 5,
    "LABEL_AVAILABLE": 4,
    "LABEL_VERIFIED": 70
   },
-  "alerts": 24,
+  "alerts": 23,
   "transitions": [],
-  "closed": []
+  "closed": [
+   {
+    "id": "EMA:EMEA/H/C/006085",
+    "drug": "Nylaspeg",
+    "status": "AWAITING_SMPC",
+    "why": "left the EMA catalogue"
+   }
+  ]
  },
  "alerts": [
   {
@@ -182,13 +189,6 @@
   {
    "id": "EMA:EMEA/H/C/006388",
    "drug": "Onswik",
-   "jurisdiction": "EMA",
-   "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 76 days after the EU authorisation"
-  },
-  {
-   "id": "EMA:EMEA/H/C/006085",
-   "drug": "Nylaspeg",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
    "message": "no SmPC extract 76 days after the EU authorisation"
@@ -3730,33 +3730,6 @@
    ],
    "lastChecked": "2026-11-04",
    "summary": "Treatment of type 2 diabetes mellitus",
-   "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 76 days after the EU authorisation"
-  },
-  {
-   "id": "EMA:EMEA/H/C/006085",
-   "jurisdiction": "EMA",
-   "drug": "Nylaspeg",
-   "inn": "pegfilgrastim",
-   "emaNumber": "EMEA/H/C/006085",
-   "slug": "nylaspeg",
-   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/nylaspeg",
-   "opinionDate": "2026-06-25",
-   "decisionDate": "2026-08-20",
-   "holder": "Qilu Pharma Spain S.L.",
-   "decisionSource": "EU Union Register",
-   "status": "AWAITING_SMPC",
-   "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
-   "history": [
-    {
-     "date": "2026-10-18",
-     "status": "AWAITING_SMPC",
-     "note": "entered the queue"
-    }
-   ],
-   "lastChecked": "2026-11-04",
-   "summary": "Reduction of neutropoenia in adults",
    "note": "weekly label refresh could not download the product information last run",
    "alert": "no SmPC extract 76 days after the EU authorisation"
   },
