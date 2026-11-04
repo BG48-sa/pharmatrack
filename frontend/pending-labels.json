@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-04",
- "checkedAt": "2026-11-04T20:33:56Z",
+ "checkedAt": "2026-11-04T23:56:24Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -22,14 +22,7 @@
   },
   "alerts": 23,
   "transitions": [],
-  "closed": [
-   {
-    "id": "EMA:EMEA/H/C/006085",
-    "drug": "Nylaspeg",
-    "status": "AWAITING_SMPC",
-    "why": "left the EMA catalogue"
-   }
-  ]
+  "closed": []
  },
  "alerts": [
   {
@@ -1155,11 +1148,11 @@
    ],
    "lastChecked": "2026-11-04",
    "checks": {
-    "applicationMatch": true,
+    "applicationMatch": null,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": true,
-    "harmonised": true
+    "prescription": null,
+    "harmonised": false
    },
    "label": {
     "setId": "5023a17b-e96a-67d4-e063-6394a90a14a7",
@@ -1170,12 +1163,13 @@
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5023a17b-e96a-67d4-e063-6394a90a14a7",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": "LISRAYA",
-    "usGeneric": "BREPOCITINIB",
-    "applicationNumber": "NDA220106",
-    "harmonised": true,
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
     "sha256": "96d223ec6dd151dd9daf2bed2900dbc1e3c727db579696c618ebe2f263ad5ff2",
-    "indications": "1 INDICATIONS AND USAGE LISRAYA is indicated for the treatment of dermatomyositis in adult patients. LISRAYA is a Janus kinase (JAK) and tyrosine kinase 2 (TYK2) inhibitor indicated for the treatment of dermatomyositis in adult patients. ( 1 ) Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs. Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs."
+    "indications": "1 INDICATIONS AND USAGE LISRAYA is indicated for the treatment of dermatomyositis in adult patients. LISRAYA is a Janus kinase (JAK) and tyrosine kinase 2 (TYK2) inhibitor indicated for the treatment of dermatomyositis in adult patients. ( 1 ) Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs. Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs.",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
    }
   },
   {
