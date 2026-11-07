@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-11-06T23:31:04Z",
+ "checkedAt": "2026-11-07T10:40:56Z",
  "status": "OK",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-11-06",
+  "euCatalogue": "2026-11-07",
   "euLabels": "2026-11-02",
   "usApprovals": "2026-11-06",
   "usApprovalsAnnounced": "2026-10-30",
   "usLabels": "2026-11-02",
-  "pipelineRun": "2026-11-06T23:31:04Z"
+  "pipelineRun": "2026-11-07T10:40:56Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,14 +17,14 @@
    "status": "OK",
    "count": 1568,
    "pending": 17,
-   "sha256": "35770da9b8aee1d0604dc402755a7b1a4d07fe798761b4e8b0e7672844f11801",
+   "sha256": "a5a064ee81b981095c2d888842d8fc809f599772a488412c64ade93222b0fec4",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-11-06",
-   "sourceAgeDays": 0.98,
-   "fetchedAt": "2026-11-06T23:29:38+00:00",
+   "sourceUpdatedAt": "2026-11-07",
+   "sourceAgeDays": 0.45,
+   "fetchedAt": "2026-11-07T10:39:25+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-06T17:00:08Z",
+    "value": "2026-11-07T05:00:08Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -36,7 +36,7 @@
    "count": 39,
    "sha256": "981bbdce4df40ccab7b7d89928a7ea283c8d6dd653b2861c0192e60befe92cdd",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-06T23:29:39+00:00",
+   "fetchedAt": "2026-11-07T10:39:26+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -48,10 +48,10 @@
    "url": "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json",
    "incomplete": null,
    "sourceUpdatedAt": "2026-11-02T05:51:50Z",
-   "sourceAgeDays": 4.74,
+   "sourceAgeDays": 5.2,
    "fetchedAt": "2026-11-02",
    "probe": {
-    "value": "2026-11-06T16:45:09Z",
+    "value": "2026-11-07T04:45:25Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -60,14 +60,14 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3466,
+   "count": 3445,
    "approvals": 99,
    "newestOriginalApproval": "2026-10-27",
-   "sha256": "0e2b376950820e0b2cd5b3307874f2f85a6aca26a9c47e441fa9c655b414e6ed",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251106+TO+20261113]",
+   "sha256": "a658b180a7570a44f69900a1f21094ff3ded51d120442c690c98d4c5593ed2f5",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251107+TO+20261114]",
    "sourceUpdatedAt": "2026-11-06",
-   "sourceAgeDays": 0.98,
-   "fetchedAt": "2026-11-06T23:29:45+00:00",
+   "sourceAgeDays": 1.45,
+   "fetchedAt": "2026-11-07T10:39:32+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-06",
@@ -90,7 +90,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-02",
    "fetchedAt": "2026-11-02",
-   "sourceAgeDays": 4.98,
+   "sourceAgeDays": 5.45,
    "probe": {
     "value": "2026-11-06",
     "kind": "meta.last_updated"
@@ -104,7 +104,7 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 17.98,
+   "sourceAgeDays": 18.45,
    "missing": null,
    "notes": []
   },
@@ -113,10 +113,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-11-06",
-   "fetchedAgeDays": 0.98,
+   "fetchedAt": "2026-11-07",
+   "fetchedAgeDays": 0.45,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 7.98,
+   "sourceAgeDays": 8.45,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -126,7 +126,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 7.98,
+   "sourceAgeDays": 8.45,
    "notes": []
   },
   "fda_cdx_list": {
@@ -136,7 +136,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 39.98,
+   "sourceAgeDays": 40.45,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -153,7 +153,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 291.98,
+   "sourceAgeDays": 292.45,
    "notes": []
   },
   "biomarkers_table": {
@@ -162,7 +162,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 116.98,
+   "sourceAgeDays": 117.45,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -178,5 +178,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-06T11:28:19Z"
+ "previousCheckedAt": "2026-11-06T23:31:04Z"
 }
