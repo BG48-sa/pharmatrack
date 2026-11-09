@@ -105,6 +105,15 @@ export const sanitizeTable = (html) =>
     .replace(/\s{2,}/g, ' ')
     .trim();
 
+// Fingerprint of the LABEL a record carries: everything openFDA serves except its
+// own `openfda` harmonisation block (brand / NDC / RxCUI / pharm-class lists),
+// which openFDA rewrites without the label changing — on 9.11.2026 14 of 90
+// sampled records differed from their September copy in that block alone, same
+// SPL version. validate-release.py (G7) reads "same fingerprint, different
+// sections" as parser drift, so the fingerprint must move only with the label.
+// Extracts written before 9.11.2026 hashed the whole record (no `shaScope`).
+export const labelSha = (r) => { const { openfda: _harmonisation, ...label } = r || {}; return createHash('sha256').update(JSON.stringify(label)).digest('hex'); };
+
 export function parse(r) {
   const sections = {};
   let any = false;
@@ -476,7 +485,7 @@ async function run() {
       effective: chosen.effective_time ? `${chosen.effective_time.slice(0, 4)}-${chosen.effective_time.slice(4, 6)}-${chosen.effective_time.slice(6, 8)}` : null, // label version date (openFDA effective_time)
       retrieved: (() => { try { return new Date(statSync(cacheFile(slug)).mtimeMs).toISOString().slice(0, 10); } catch { return null; } })(),
       url: `https://labels.fda.gov/`, splSetId: chosen.set_id || null, splId: chosen.id || null, // set_id = the label across versions, id = this exact SPL version
-      sourceSha: createHash('sha256').update(JSON.stringify(chosen)).digest('hex'), // fingerprint of the openFDA record this extract was parsed from
+      sourceSha: labelSha(chosen), shaScope: 'label', // fingerprint of the openFDA label record this extract was parsed from (see labelSha)
       dailymed: chosen.set_id ? `https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=${chosen.set_id}` : 'https://www.accessdata.fda.gov/scripts/cder/daf/',
       source: 'openFDA drug label (US Prescribing Information)', sections,
     };

@@ -13,6 +13,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { readLedger, readCorpus, coverage } from './label-fingerprints.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -71,6 +72,18 @@ const generated = new Date().toISOString();
 const releaseId = generated.slice(0, 19).replace(/[-:T]/g, '');
 const smpc = publishLabels('smpc-data', 'smpc', 'smpc-index.json', releaseId);
 const uspi = publishLabels('uspi-data', 'uspi', 'uspi-index.json', releaseId);
+// Source fingerprints (scripts/label-fingerprints.mjs): the ledger is published next
+// to the corpora — validate-release.py compares the next candidate with what is live —
+// and release.json says how many labels the parser-drift gate (G7) can actually judge.
+if (existsSync(join(root, 'label-fingerprints.json'))) copyFileSync(join(root, 'label-fingerprints.json'), join(outDir, 'label-fingerprints.json'));
+{
+  const ledger = readLedger();
+  for (const [key, stats] of [['smpc', smpc], ['uspi', uspi]]) {
+    if (!stats) continue;
+    const c = coverage(key, readCorpus(key), ledger[key]);
+    stats.fingerprints = { own: c.own, ledger: c.ledger, without: c.none.length };
+  }
+}
 
 // Release manifest: the runtime snapshots (FILES) are only ever applied TOGETHER
 // (services/liveData.ts checks every file's hash against this list), so a half-

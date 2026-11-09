@@ -69,6 +69,18 @@ jobs:
           cd frontend
           CHANGED_ONLY=1 node scripts/uspi/extract-all.mjs 2>&1 | tee /tmp/uspi.log | tail -20
 
+      # Source fingerprints (gate G7 compares them to tell a regulatory change from a
+      # parser fault): every extract written above carries its own; the verified
+      # ledger covers the older ones. Drop the ledger entries of labels this run
+      # replaced. Offline, changes no label; the gate below fails if any label is
+      # left without a fingerprint.
+      - name: Source-fingerprint ledger — drop entries of replaced labels
+        run: |
+          set -euo pipefail
+          cd frontend
+          node scripts/label-fingerprints.mjs --prune | tee /tmp/fingerprints.log
+          { echo '### Source fingerprints'; echo; sed 's/^/- /' /tmp/fingerprints.log; echo; } >> "$GITHUB_STEP_SUMMARY"
+
       # Weekly approval → label report: which newly approved medicines still
       # wait for their official label after this refresh. Report only — the
       # daily job this run dispatches recomputes and commits the queue.
@@ -148,6 +160,7 @@ jobs:
           path: |
             /tmp/smpc.log
             /tmp/uspi.log
+            /tmp/fingerprints.log
             /tmp/validation.json
             /tmp/changes.md
             /tmp/smpc-drift.json
@@ -166,7 +179,7 @@ jobs:
       - name: Commit refreshed labels
         run: |
           set -euo pipefail
-          git add frontend/smpc-data frontend/uspi-data frontend/smpc-index.json frontend/uspi-index.json
+          git add frontend/smpc-data frontend/uspi-data frontend/smpc-index.json frontend/uspi-index.json frontend/label-fingerprints.json
           # The post-authorisation audit's state (first-seen section hashes) is
           # kept in the repo so next week's --previous can see sections move.
           [ -f frontend/post-auth.json ] && git add frontend/post-auth.json

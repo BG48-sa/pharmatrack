@@ -273,6 +273,7 @@ async function run() {
   let consecutiveFail = 0, cooldowns = 0, aborted = false;
   let unchanged = 0, headFailed = 0;
   const refreshed = [];
+  const staleCache = [];                         // cached text older than the stored extract and not its source: not re-parsed
   // Keep the extract already on disk listed in the manifest (nothing about it changes).
   const keepExisting = (slug, m) => { if (existsSync(join(OUT_DIR, `${slug}.json`))) { if (!index.drugs[slug]) ok++; index.drugs[slug] = { brand: m.n, inn: m.inn }; return true; } return false; }; // counted once, even when a retried label is kept twice
   // EMA's copy counts as newer when its Last-Modified differs from the one we
@@ -339,6 +340,16 @@ async function run() {
         }
       }
       if (!t || t === '404') { if (t === '404') notfound++; else fail++; markFailed(slug, t === '404' ? '404' : 'fetch'); keepExisting(slug, m); if (!cached) await sleep(200); continue; }
+      // A cached text is this medicine's source only while it is the text the stored
+      // extract was parsed from. The weekly CI refresh replaces extracts without
+      // touching this machine's cache (9.11.2026: 643 of 1,563 were newer than their
+      // cached text) — re-parsing an older cached text would put a superseded label
+      // back. Such a label is kept as it is; FORCE=1 downloads it again.
+      if (cached && process.env.FORCE !== '1') {
+        const prev = readDoc(slug);
+        const cachedDay = (() => { try { return new Date(statSync(join(CACHE, `${slug}.txt`)).mtimeMs).toISOString().slice(0, 10); } catch { return ''; } })();
+        if (prev?.sourceSha && prev.retrieved && cachedDay < prev.retrieved && createHash('sha256').update(t).digest('hex') !== prev.sourceSha) { staleCache.push(slug); keepExisting(slug, m); continue; }
+      }
       const sections = parseSections(t);
       if (!Object.values(sections).some((s) => !s.missing && s.text)) { fail++; markFailed(slug, 'parse'); keepExisting(slug, m); continue; }
       const doc = {
@@ -451,6 +462,7 @@ async function run() {
     if (refreshed.length) console.log(`  refreshed: ${refreshed.join('; ')}`);
   }
   if (guarded.length) console.log(`  guarded: ${guarded.join('; ')}`);
+  if (staleCache.length) console.log(`  kept, NOT re-parsed: ${staleCache.length} label(s) whose cached text is older than the stored extract (refreshed elsewhere since) — FORCE=1 downloads them again`);
   console.log(`Manifest: ${index.count} drugs → smpc-index.json ; per-drug JSON → smpc-data/`);
 }
 // Run only as a script — the test suite imports parseSections() without side effects.

@@ -415,3 +415,35 @@ indication wording from the SmPC extract (`indSrc: "smpc"`, `indRet` = retrieval
   US-only; DeviceList says "US devices only". `services/appReview.ts` asks for a rating via
   `@capacitor-community/in-app-review` 8.0.0 after the 3rd rendered two-label comparison,
   at most every 120 days, native only (iOS decides whether the dialog appears).
+
+## Source fingerprints for every label (label-fingerprints.json, 9.11.2026, from ChatGPT's weekly review)
+- Gate G7 tells a regulatory change from a parser fault by the fingerprint of the SOURCE an
+  extract was parsed from (same fingerprint + different sections = parser drift → FAIL). The
+  extractors only record `sourceSha` since autumn 2026: on 9.11.2026 920 of 1,563 EU and 1,139
+  of 1,252 US extracts had none, so "0 labels with parser drift" covered a fraction of the corpus.
+- `frontend/scripts/label-fingerprints.mjs` goes back to the source, extracts it again with the
+  CURRENT parser and records the fingerprint only when every section is identical to the stored
+  extract: EU = this Mac's cached PDF text (`scripts/smpc/.cache/<slug>.txt`, file date = the
+  extract's `retrieved` day), US = openFDA's record of the stored set ID + version date. First
+  run 9.11.2026: all 920 EU and all 1,252 US extracts reproduced exactly — 100 % coverage.
+- The fingerprints live in the ledger `frontend/label-fingerprints.json` (one line per label,
+  published as `data/label-fingerprints.json`), NOT in the label files: every label file is
+  hash-bound to the data release, and rewriting 2,000 files would have turned every label bundled
+  with the App Store build into "from a different data release" for offline users. An entry
+  applies only while the extract still has that `retrieved` day (EU) / set ID + version (US);
+  an extract written by an extractor carries its own fingerprint, which wins. The Monday job
+  runs `--prune` (drops entries of replaced labels) and commits the ledger.
+- US fingerprint = `labelSha()` (uspi/extract-all.mjs): the openFDA record WITHOUT its `openfda`
+  harmonisation block, marked `shaScope: "label"`. The old whole-record hash moved when openFDA
+  re-harmonised a record without the label changing (14 of 90 sampled records in two months) and
+  is superseded by the ledger.
+- G7 additions (`fingerprint()` in validate-release.py mirrors `fingerprintOf()`): the drift line
+  says how many labels were compared by source; a second gate fails when a new or changed label
+  has no fingerprint or when the number of labels without one rises. `release.json →
+  labels.<corpus>.fingerprints` = { own, ledger, without }. Drill 9.11.2026: one EU and one US
+  indication altered in place → both FAIL as parser drift (before: passed unseen).
+- If the gate ever reports a label without a fingerprint: `node scripts/label-fingerprints.mjs`
+  (from frontend/, on this Mac for EU labels) verifies and records it; `--coverage` prints the state.
+- smpc/extract-all.mjs no longer re-parses a cached text that is OLDER than the stored extract
+  and not its source (the weekly CI refresh replaces extracts without touching the Mac's cache —
+  a local REPARSE would have put 643 superseded labels back); FORCE=1 downloads again.

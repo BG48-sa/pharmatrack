@@ -44,6 +44,12 @@ GATES (each is recorded in the report; any FAIL exits 1)
      upstream or parser accident, not the weekly trickle of label updates). A
      source that changed while no section text moved is only listed — the
      extractor may have missed an update, a person should look.
+     The source fingerprint is the extract's own `sourceSha` or, for extracts
+     made before the extractors recorded one, the verified entry in
+     label-fingerprints.json (scripts/label-fingerprints.mjs). Coverage is
+     part of the gate: a label that is new or whose text changed must carry a
+     fingerprint, and the number of labels without one never rises — "0 labels
+     with parser drift" must mean every label was actually compared.
 
 OUTPUT
   A JSON report (--report) listing every gate with its numbers, so a failure
@@ -113,6 +119,42 @@ def section_sha(v):
     return hashlib.sha256(txt.encode('utf-8')).hexdigest()[:16] if txt else ''
 
 
+def load_ledger(directory):
+    """label-fingerprints.json of a candidate / published data folder ({} when absent)."""
+    try:
+        j = load(os.path.join(directory, 'label-fingerprints.json'))
+        return {'smpc': j.get('smpc') or {}, 'uspi': j.get('uspi') or {}}
+    except Exception:  # noqa: BLE001
+        return {'smpc': {}, 'uspi': {}}
+
+
+def ledger_sha(corpus, doc, entry):
+    """The ledger's fingerprint, only while the extract is still the one that was verified."""
+    if not isinstance(entry, dict) or not entry.get('sha'):
+        return None
+    if corpus == 'smpc':
+        return entry['sha'] if entry.get('retrieved') and entry.get('retrieved') == doc.get('retrieved') else None
+    return entry['sha'] if entry.get('setId') and entry.get('setId') == doc.get('splSetId') and entry.get('effective') == doc.get('effective') else None
+
+
+def fingerprint(corpus, doc, *entries):
+    """Source fingerprint of an extract (mirrors fingerprintOf in scripts/label-fingerprints.mjs).
+
+    EU: the extract's own sourceSha, else the ledger's. US: an own fingerprint
+    counts as such only when it covers the label alone (shaScope 'label');
+    extracts written before 9.11.2026 hashed openFDA's harmonisation block too,
+    which changes without the label changing — a ledger entry supersedes those,
+    and without one they are marked 'full:' (comparable only with each other).
+    """
+    own = doc.get('sourceSha')
+    led = next((s for s in (ledger_sha(corpus, doc, e) for e in entries) if s), None)
+    if corpus == 'smpc':
+        return own or led
+    if own and doc.get('shaScope') == 'label':
+        return own
+    return led or (f'full:{own}' if own else None)
+
+
 def label_name(doc, fallback):
     return doc.get('brand') or doc.get('slug') or fallback
 
@@ -171,6 +213,12 @@ def write_changes_md(path, changes, status, r, a):
         if d is None:
             continue
         out += [f'## {title}', '', f'added {len(d["added"])} · removed {len(d["removed"])} · updated {len(d["updated"])}', '']
+        fp = d.get('fingerprints')
+        if fp:
+            n_without = len(fp['without'])
+            out += [f'Source fingerprints: {fp["total"] - n_without} of {fp["total"]} labels (own {fp["own"]}, verified ledger {fp["ledger"]})'
+                    + (f' — WITHOUT: {", ".join(fp["without"][:30])}' if n_without else '')
+                    + f'; parser-drift check compared {fp["comparedBySource"]} labels by source, {fp["notComparable"]} not comparable', '']
         out += [f'- added: {x}' for x in d['added'][:50]]
         out += [f'- removed: {x}' for x in d['removed'][:50]]
         for u in d['updated'][:200]:
@@ -404,6 +452,7 @@ def main():
 
     # ---- G7: extracted meaning, section by section -------------------------------
     changes = {'labels': {}, 'ema': {}, 'snapshots': []}
+    cand_ledger, pub_ledger = load_ledger(cand), load_ledger(pub)
     for corpus, cdir, required in (('smpc', 'smpc-data', SMPC_REQUIRED), ('uspi', 'uspi-data', USPI_REQUIRED)):
         cpath, ppath = os.path.join(cand, cdir), os.path.join(pub, corpus)
         if not (os.path.isdir(ppath) and os.path.isdir(cpath)):
@@ -413,6 +462,8 @@ def main():
         pfiles = {f for f in os.listdir(ppath) if f.endswith('.json')}
         added, removed, updated = sorted(cfiles - pfiles), sorted(pfiles - cfiles), []
         drift, backwards, relabelled, source_moved_text_same, no_fingerprint = [], [], [], [], 0
+        cled, pled = cand_ledger[corpus], pub_ledger[corpus]
+        unprotected = []   # new or changed labels without a source fingerprint
         for f in sorted(pfiles & cfiles):
             try:
                 pd_, cd_ = load(os.path.join(ppath, f)), load(os.path.join(cpath, f))
@@ -420,8 +471,14 @@ def main():
                 continue  # G5 already reports unreadable files
             ps, cs = pd_.get('sections') or {}, cd_.get('sections') or {}
             moved = [k for k in required if section_sha(ps.get(k)) != section_sha(cs.get(k))]
-            psha, csha = pd_.get('sourceSha'), cd_.get('sourceSha')
+            # the published extract may be covered by the ledger published with it or by the
+            # candidate's (an entry is bound to the extract's retrieval day / set ID + version)
+            psha, csha = fingerprint(corpus, pd_, pled.get(f[:-5]), cled.get(f[:-5])), fingerprint(corpus, cd_, cled.get(f[:-5]))
+            if psha and csha and psha.startswith('full:') != csha.startswith('full:'):
+                psha = None   # fingerprints of different kinds say nothing about each other
             name = label_name(cd_, f)
+            if moved and not csha:
+                unprotected.append(name)
             if moved:
                 updated.append({'file': f, 'name': name, 'sections': moved, 'effective': [pd_.get('effective') or pd_.get('retrieved'), cd_.get('effective') or cd_.get('retrieved')]})
             if psha and csha:
@@ -444,7 +501,35 @@ def main():
         both = len(pfiles & cfiles)
         share = len(updated) / both if both else 0.0
         r.add('G7', f'{corpus} no parser drift (same source, different sections)', len(drift) <= a.max_parser_drift,
-              f'{len(drift)} labels (max {a.max_parser_drift}); {no_fingerprint} without a source fingerprint yet: {"; ".join(drift[:8])}')
+              f'{len(drift)} labels (max {a.max_parser_drift}); {both - no_fingerprint} of {both} compared by source fingerprint, {no_fingerprint} could not be: {"; ".join(drift[:8])}')
+        # Coverage: the drift check above only sees labels that have a fingerprint on both sides.
+        own = led = 0
+        without = []
+        for f in sorted(cfiles):
+            try:
+                d_ = load(os.path.join(cpath, f))
+            except Exception:  # noqa: BLE001
+                continue
+            if not fingerprint(corpus, d_, cled.get(f[:-5])):
+                without.append(label_name(d_, f))
+                if f in added:
+                    unprotected.append(label_name(d_, f))
+            elif d_.get('sourceSha') and (corpus == 'smpc' or d_.get('shaScope') == 'label' or not ledger_sha(corpus, d_, cled.get(f[:-5]))):
+                own += 1
+            else:
+                led += 1
+        pub_without = 0
+        for f in pfiles:
+            try:
+                pub_without += 0 if fingerprint(corpus, load(os.path.join(ppath, f)), pled.get(f[:-5])) else 1
+            except Exception:  # noqa: BLE001
+                pass
+        r.add('G7', f'{corpus} source fingerprints: none missing on a new or changed label, coverage not falling',
+              not unprotected and len(without) <= pub_without,
+              f'{len(cfiles) - len(without)} of {len(cfiles)} labels fingerprinted (own {own}, verified ledger {led}); without {len(without)} (published release: {pub_without})'
+              + (f'; new/changed without: {", ".join(unprotected[:8])}' if unprotected else '')
+              + (f'; without: {", ".join(without[:8])}' if without else ''))
+        fingerprints = {'total': len(cfiles), 'own': own, 'ledger': led, 'without': without[:200], 'comparedBySource': both - no_fingerprint, 'notComparable': no_fingerprint}
         if corpus == 'uspi':
             r.add('G7', 'US label version never goes backwards', not backwards, f'{len(backwards)}: {"; ".join(backwards[:8])}')
         r.add('G7', f'{corpus} corpus-wide change stays below {int(a.max_changed_share * 100)}%', share <= a.max_changed_share,
@@ -453,7 +538,7 @@ def main():
             print(f'[note] {corpus}: {len(relabelled)} labels moved to another label of the same product with an older version date (reprint → manufacturer): {"; ".join(relabelled[:8])}')
         if source_moved_text_same:
             print(f'[note] {corpus}: {len(source_moved_text_same)} source documents changed without any required section moving — check the extractor: {", ".join(source_moved_text_same[:8])}')
-        changes['labels'][corpus] = {'added': added, 'removed': removed, 'updated': updated, 'sourceChangedTextSame': source_moved_text_same, 'parserDrift': drift, 'versionBackwards': backwards, 'relabelled': relabelled}
+        changes['labels'][corpus] = {'added': added, 'removed': removed, 'updated': updated, 'sourceChangedTextSame': source_moved_text_same, 'parserDrift': drift, 'versionBackwards': backwards, 'relabelled': relabelled, 'fingerprints': fingerprints}
 
     # EMA catalogue: which medicines came, went or moved between lists
     ce_, pe_ = cand_json.get('ema-medicines.json'), pub_json.get('ema-medicines.json')
