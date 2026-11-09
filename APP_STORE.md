@@ -652,3 +652,25 @@ Xcode on the Mac and recorded in `App.xcodeproj` on main afterwards.
 **Before the next build on the Mac:** `git pull` first. If it refuses because of local
 changes to `project.pbxproj`, run `git checkout -- frontend/ios/App/App.xcodeproj/project.pbxproj`
 and pull again. If the pull works, ignore this. Unrelated to Apple's review.
+
+## 14. Version 2.0.8 (build 38) — 9 Nov 2026
+
+Archived headlessly and uploaded from the Mac on 9 Nov 2026 21:33 (build_store/App38.xcarchive,
+"Upload succeeded"); MARKETING_VERSION 2.0.8 / CURRENT_PROJECT_VERSION 38 are on main.
+From Grok's store review of 9 Nov: the eight iPad screenshots were still from July (no Devices
+tab, old "auto-parsed" microcopy), the German and Italian stores had no subtitle, the rating
+prompt was too rare, Biomarkers said "unlocks".
+
+- Code: Biomarkers intro reworded; rating prompt counts real use (appReview.ts); the selected tab
+  scrolls into view on a phone; openFDA device names show ™ / – instead of empty boxes;
+  privacy.html lists the outbound links.
+- Screenshots + all store texts (What's New EN/DE/IT, German and Italian subtitle, keywords,
+  promotional text, description — length-checked) are in `~/Desktop/DrugRadar-2.0.8-store/`
+  (`iPad/` 7 × 2064×2752 from the iPad Pro 13-inch simulator, `iPhone/` 7 × 1290×2796,
+  `store-texts-2.0.8.md`).
+- In App Store Connect (Bernd signed in): create version 2.0.8, attach build 38, replace the iPad
+  screenshot set, add iPhone 07 and replace 03 / 06, paste What's New, add the German and Italian
+  localisations, set promotional text; Bernd clicks Add for Review / Submit himself.
+- Simulator notes: taps via `touch_path` (two points, 150 ms) are reliable; typed text arrives a
+  few seconds late — wait before pressing return; `xcrun simctl io <udid> screenshot` gives the
+  full-size PNG; `simctl status_bar override --time 9:41`.
