@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { noteUse } from './services/appReview';
 import { fetchRecentDrugApprovals, searchDrugDatabase } from './services/fdaService';
 import { findDiseaseMatches, buildDiseaseComparison, DiseaseEntity, DiseaseMatch } from './services/diseaseEntities';
 import DiseaseClassCard from './components/DiseaseClassCard';
@@ -79,6 +80,13 @@ export default function App() {
 
   // --- Drug detail sheet (opened from any Novel/Approvals card) ---
   const [detail, setDetail] = useState<DrugDetailData | null>(null);
+  // A detail sheet read and closed is one real use (services/appReview.ts) — the
+  // moment after closing is a natural pause, unlike the moment of opening.
+  const detailWasOpen = useRef(false);
+  useEffect(() => {
+    if (detailWasOpen.current && !detail) void noteUse('detail');
+    detailWasOpen.current = !!detail;
+  }, [detail]);
 
   // --- Decision alerts: watched indications drive on-device reminders ---
   const [alertsOpen, setAlertsOpen] = useState<boolean>(false);

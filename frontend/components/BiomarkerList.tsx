@@ -280,7 +280,7 @@ const BiomarkerCard: React.FC<{ m: Biomarker; onCompare: () => void }> = ({ m, o
           {/* US framing: the named devices the FDA has authorised for this biomarker. */}
           <UsCdxBox m={m} />
 
-          {/* Drugs the biomarker result unlocks (EU brand names) — each links to its EMA EPAR. */}
+          {/* Medicines whose indication depends on the biomarker result (EU brand names) — each links to its EMA EPAR. */}
           <div className="mt-2.5">
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
               {m.type === 'hla' || m.type === 'enzyme' ? `Screen before prescribing (${m.drugs.length})` : `Indication depends on this result (${m.drugs.length})`} · tap for EU label
@@ -359,7 +359,7 @@ const BiomarkerList: React.FC<Props> = ({ query, onCompare }) => {
       <div className="mb-3">
         <h2 className="text-xl font-bold text-slate-800">Biomarkers &amp; Companion Diagnostics</h2>
         <p className="text-[11px] text-slate-500 leading-relaxed mt-1">
-          Actionable biomarkers and the EU-authorised medicines their result unlocks. In the EU, companion
+          Biomarkers and the EU-authorised medicines whose approved indication depends on the test result (per SmPC). In the EU, companion
           diagnostics are governed by the <strong>IVD Regulation</strong> (in force since May 2022): the SmPC
           requires a <strong>validated test</strong> for the biomarker — the assays shown are common CE-IVD
           examples, not the sole requirement. {allBiomarkers().length} biomarkers · EU brand names.

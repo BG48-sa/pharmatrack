@@ -12,6 +12,7 @@ import {
 import { describeUsApproval } from '../services/usApproval';
 import { targetsOf } from '../services/targetAgents';
 import { preloadPdfLibrary, saveDrugPdf } from '../services/drugPdf';
+import { noteUse } from '../services/appReview';
 
 interface DrugDetailProps {
   data: DrugDetailData;
@@ -115,6 +116,7 @@ export const DrugDetailContent: React.FC<{
     if (pdfState === 'working') return;
     setPdfState('working');
     const ok = await saveDrugPdf(data);
+    if (ok) void noteUse('pdf');
     setPdfState(ok ? 'idle' : 'failed');
   };
 
