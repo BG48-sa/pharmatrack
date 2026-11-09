@@ -63,7 +63,10 @@ jobs:
       - name: Refresh EMA + CGT data
         run: |
           set -euo pipefail
-          curl -fsSL -A "Mozilla/5.0" -o /tmp/ema.xlsx \
+          # EMA answers 429 (too many requests) when several runs start close together —
+          # on 9.11.2026 two push-triggered runs failed on this download within minutes.
+          # curl retries 429 / 5xx by itself: 4 more tries, 60 s apart.
+          curl -fsSL -A "Mozilla/5.0" --retry 4 --retry-delay 60 -o /tmp/ema.xlsx \
             "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx"
           test -s /tmp/ema.xlsx
           # EU Union Register (Commission decisions of the last six months): lets a
