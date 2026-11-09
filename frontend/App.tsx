@@ -51,6 +51,18 @@ const GUIDE_VERSION = '2026-07-28';
 
 export default function App() {
   const [view, setView] = useState<View>('europe');
+  // On a phone the seven tabs do not fit: the strip scrolls sideways, and a tab chosen
+  // at its edge (Devices, Critical) stayed half outside the screen — the active view had
+  // no visible name. Bring the selected tab fully into the strip (the page itself is not moved).
+  const tabStripRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const strip = tabStripRef.current;
+    const tab = strip?.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+    if (!strip || !tab) return;
+    const left = tab.offsetLeft - strip.offsetLeft, right = left + tab.offsetWidth, pad = 28;
+    if (left - pad < strip.scrollLeft) strip.scrollTo({ left: Math.max(0, left - pad), behavior: 'smooth' });
+    else if (right + pad > strip.scrollLeft + strip.clientWidth) strip.scrollTo({ left: right + pad - strip.clientWidth, behavior: 'smooth' });
+  }, [view]);
 
   // --- Europe (EMA) state (client-side filter over the bundled EMA snapshot) ---
   const [europeQuery, setEuropeQuery] = useState<string>('');
@@ -748,7 +760,7 @@ export default function App() {
 
         {/* Segmented control: Europe | Novel | Approvals | Pipeline */}
         <div className="px-4 pt-1">
-          <div role="tablist" aria-label="Data views" className="flex gap-0.5 bg-slate-100 rounded-xl p-1 overflow-x-auto hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
+          <div ref={tabStripRef} role="tablist" aria-label="Data views" className="flex gap-0.5 bg-slate-100 rounded-xl p-1 overflow-x-auto hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
             <button role="tab" title="EU medicines: centrally authorised, expected and withdrawn (EMA)" aria-selected={view === 'europe'} className={tabClass(view === 'europe')} onClick={() => { setDetail(null); setView('europe'); }}>
               <Globe2 size={14} aria-hidden="true" /> Europe
             </button>

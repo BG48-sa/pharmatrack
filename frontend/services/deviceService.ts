@@ -67,12 +67,19 @@ const todayISO = (): string => new Date().toISOString().slice(0, 10);
 // openFDA free-text term: quote it so multi-word queries stay one phrase.
 const quoted = (q: string): string => `"${q.replace(/["+]/g, ' ').trim()}"`;
 
+// openFDA's device files carry Windows-1252 bytes as raw code points: "Liverty\u0099
+// TIPS Stent Graft" (™), "14 \u0096 22 F" (–). U+0080–U+009F are invisible control
+// characters in Unicode, so the cards showed empty boxes. Map them to what was meant.
+const CP1252 = '€\u0081‚ƒ„…†‡ˆ‰Š‹Œ\u008dŽ\u008f\u0090‘’“”•–—˜™š›œ\u009džŸ';
+export const fixCp1252 = (s: string): string =>
+  s.replace(/[\u0080-\u009f]/g, (c) => { const m = CP1252[c.charCodeAt(0) - 0x80]; return m >= '\u0080' && m <= '\u009f' ? '' : m; });
+
 const request = async (api: string, search: string, sort: string, limit: number): Promise<any[]> => {
   const params = new URLSearchParams({ search, sort, limit: String(limit) });
   const res = await fetch(`${api}?${params.toString()}`);
   if (res.status === 404) return []; // openFDA's "no matches" is a 404
   if (!res.ok) throw new Error(`openFDA device request failed (${res.status}).`);
-  const json = await res.json();
+  const json = JSON.parse(await res.text(), (_key, v) => (typeof v === 'string' ? fixCp1252(v) : v));
   return json.results || [];
 };
 

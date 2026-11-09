@@ -38,3 +38,13 @@ test('state stored by 2.0.7 carries over: comparisons count, the last ask is res
   assert.equal(use(asked, ['compare', 'compare'], T0 + DAY).asks, 0);
   assert.deepEqual(migrate('garbage', T0), { points: 0, askedAt: 0, firstDay: '2026-11-10' });
 });
+
+// services/deviceService.ts — openFDA device text with Windows-1252 bytes as code points
+import { fixCp1252 } from '../../services/deviceService.ts';
+test('fixCp1252: trademark, dashes and quotes from openFDA device records become real characters', () => {
+  assert.equal(fixCp1252('Liverty\u0099 TIPS Stent Graft'), 'Liverty™ TIPS Stent Graft');
+  assert.equal(fixCp1252('14 \u0096 22 F sheaths'), '14 – 22 F sheaths');
+  assert.equal(fixCp1252('\u0093quoted\u0094 \u0092 \u0085'), '“quoted” ’ …');
+  assert.equal(fixCp1252('undefined byte \u0081 goes'), 'undefined byte  goes');
+  assert.equal(fixCp1252('PerQseal® Elite — ≥ 5 µm'), 'PerQseal® Elite — ≥ 5 µm');   // real Unicode untouched
+});
