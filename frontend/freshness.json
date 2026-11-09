@@ -1,5 +1,5 @@
 {
- "checkedAt": "2026-11-09T07:31:37Z",
+ "checkedAt": "2026-11-09T19:09:16Z",
  "status": "OK",
  "probed": true,
  "currentThrough": {
@@ -8,23 +8,23 @@
   "usApprovals": "2026-11-06",
   "usApprovalsAnnounced": "2026-10-30",
   "usLabels": "2026-11-09",
-  "pipelineRun": "2026-11-09T07:31:37Z"
+  "pipelineRun": "2026-11-09T19:09:16Z"
  },
  "sources": {
   "ema_medicines_report": {
    "name": "EMA medicines report (EU catalogue)",
    "cadence": "about weekly",
    "status": "OK",
-   "count": 1568,
+   "count": 1567,
    "pending": 17,
-   "sha256": "bba29615b82e0691c1ef9535a54860fa365ba59fb0be836e0f2f84e216b03448",
+   "sha256": "423f41bcceee41408054c2a297ddc17380d9349fa37ac6a157b4d1e590277348",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-11-09",
-   "sourceAgeDays": 0.31,
-   "fetchedAt": "2026-11-09T07:30:06+00:00",
+   "sourceAgeDays": 0.8,
+   "fetchedAt": "2026-11-09T19:07:47+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-09T05:00:07Z",
+    "value": "2026-11-09T17:00:08Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -36,7 +36,7 @@
    "count": 39,
    "sha256": "981bbdce4df40ccab7b7d89928a7ea283c8d6dd653b2861c0192e60befe92cdd",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-09T07:30:07+00:00",
+   "fetchedAt": "2026-11-09T19:07:48+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -48,10 +48,10 @@
    "url": "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json",
    "incomplete": null,
    "sourceUpdatedAt": "2026-11-09T05:48:54Z",
-   "sourceAgeDays": 0.07,
+   "sourceAgeDays": 0.56,
    "fetchedAt": "2026-11-09",
    "probe": {
-    "value": "2026-11-09T04:45:07Z",
+    "value": "2026-11-09T16:45:09Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -66,8 +66,8 @@
    "sha256": "a8dc66c95ef9d8e06ff3e435bec9f5146446e320fd856565917f5eddef89541a",
    "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251109+TO+20261116]",
    "sourceUpdatedAt": "2026-11-06",
-   "sourceAgeDays": 3.31,
-   "fetchedAt": "2026-11-09T07:30:14+00:00",
+   "sourceAgeDays": 3.8,
+   "fetchedAt": "2026-11-09T19:07:55+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-06",
@@ -90,7 +90,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-09",
    "fetchedAt": "2026-11-09",
-   "sourceAgeDays": 0.31,
+   "sourceAgeDays": 0.8,
    "probe": {
     "value": "2026-11-06",
     "kind": "meta.last_updated"
@@ -104,7 +104,7 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 20.31,
+   "sourceAgeDays": 20.8,
    "missing": null,
    "notes": []
   },
@@ -114,9 +114,9 @@
    "status": "OK",
    "count": 25,
    "fetchedAt": "2026-11-09",
-   "fetchedAgeDays": 0.31,
+   "fetchedAgeDays": 0.8,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 10.31,
+   "sourceAgeDays": 10.8,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -126,7 +126,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 10.31,
+   "sourceAgeDays": 10.8,
    "notes": []
   },
   "fda_cdx_list": {
@@ -136,7 +136,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 42.31,
+   "sourceAgeDays": 42.8,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -153,7 +153,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 294.31,
+   "sourceAgeDays": 294.8,
    "notes": []
   },
   "biomarkers_table": {
@@ -162,7 +162,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 119.31,
+   "sourceAgeDays": 119.8,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -178,5 +178,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-08T10:46:20Z"
+ "previousCheckedAt": "2026-11-09T07:31:37Z"
 }
