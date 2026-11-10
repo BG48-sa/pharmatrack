@@ -1,6 +1,17 @@
 {
-  "generated": "2026-10-31",
+  "generated": "2026-11-10",
   "items": [
+    {
+      "title": "Johnson & Johnson Announces U.S. FDA Approval of Rybrevant Faspro (amivantamab and hyaluronidase-lpuj) as First and Only Dual-Targeted Therapy for Advanced Head and Neck Cancer",
+      "url": "https://www.drugs.com/newdrugs/johnson-johnson-announces-u-s-fda-approval-rybrevant-faspro-amivantamab-hyaluronidase-lpuj-first-6929.html",
+      "date": "2026-11-05",
+      "source": "Drugs.com",
+      "names": [
+        "amivantamab",
+        "faspro",
+        "hyaluronidase-lpuj"
+      ]
+    },
     {
       "title": "FDA Grants Accelerated Approval to Voceryq (doruxapapogene ralaplasmid and lalikinogene sifuplasmid-gxfd) for Recurrent Respiratory Papillomatosis",
       "url": "https://www.drugs.com/newdrugs/fda-grants-accelerated-approval-voceryq-doruxapapogene-ralaplasmid-lalikinogene-sifuplasmid-gxfd-6928.html",
@@ -221,16 +232,6 @@
       "names": [
         "lamlique",
         "lamotrigine"
-      ]
-    },
-    {
-      "title": "FDA Approves Emcitate (tiratricol) for the Treatment of Patients with MCT8 Deficiency",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-emcitate-tiratricol-patients-mct8-deficiency-6903.html",
-      "date": "2026-09-28",
-      "source": "Drugs.com",
-      "names": [
-        "emcitate",
-        "tiratricol"
       ]
     }
   ]
