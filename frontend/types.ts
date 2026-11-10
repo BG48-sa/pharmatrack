@@ -206,7 +206,8 @@ export interface Trial {
   conditions: string[];
   sponsor: string;
   startDate?: string;
-  completionDate?: string;
+  completionDate?: string; // primary completion date
+  completionActual?: boolean; // true = the registry marks that date as actual, not estimated
   url: string;
 }
 

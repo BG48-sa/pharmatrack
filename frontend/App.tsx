@@ -445,6 +445,10 @@ export default function App() {
   const [trialSearched, setTrialSearched] = useState<boolean>(false);
   const [trialAllPhases, setTrialAllPhases] = useState<boolean>(false);
   const [trialRegion, setTrialRegion] = useState<TrialRegion>('US');
+  // true = the list shows completed/terminated studies instead of running ones.
+  const [trialFinished, setTrialFinished] = useState<boolean>(false);
+  // true = we switched to finished studies ourselves because none are running.
+  const [trialFallback, setTrialFallback] = useState<boolean>(false);
   // When we jump into the Trials tab from a drug's detail sheet, remember that
   // drug so we can offer a one-tap way back instead of stranding the user.
   const [trialOrigin, setTrialOrigin] = useState<DrugDetailData | null>(null);
@@ -569,7 +573,15 @@ export default function App() {
     }
   };
 
-  const handleTrialSearch = async (query: string, allPhases = false, region: TrialRegion = trialRegion) => {
+  // `finished` undefined = running studies first; if there are none, fall back
+  // to finished ones (a just-approved medicine has no running trial left).
+  // `finished` true = the user asked for finished studies explicitly.
+  const handleTrialSearch = async (
+    query: string,
+    allPhases = false,
+    region: TrialRegion = trialRegion,
+    finished?: boolean,
+  ) => {
     setTrialLoading(true);
     setTrialSearched(true);
     setTrialQuery(query);
@@ -578,9 +590,17 @@ export default function App() {
     setTrialError(null);
     const id = ++trialReq.current;
     try {
-      const res = await searchTrials(query, allPhases, region);
+      let res = await searchTrials(query, allPhases, region, finished === true);
       if (id !== trialReq.current) return;
+      let fellBack = false;
+      if (finished === undefined && res.length === 0) {
+        res = await searchTrials(query, allPhases, region, true);
+        if (id !== trialReq.current) return;
+        fellBack = res.length > 0;
+      }
       setTrials(res);
+      setTrialFinished(finished === true || fellBack);
+      setTrialFallback(fellBack);
     } catch (err: any) {
       if (id !== trialReq.current) return;
       setTrialError(err.message || 'Search failed.');
@@ -642,6 +662,8 @@ export default function App() {
       setTrialQuery('');
       setTrialError(null);
       setTrialAllPhases(false);
+      setTrialFinished(false);
+      setTrialFallback(false);
     } else {
       setIsSearchMode(false);
       setSearchData(null);
@@ -897,6 +919,15 @@ export default function App() {
               </button>
             )}
             <RegionToggle region={trialRegion} onChange={handleRegionChange} />
+            {trialSearched && !trialError && (
+              <StatusToggle
+                finished={trialFinished}
+                onChange={(fin) => {
+                  if (trialLoading || (fin === trialFinished && !trialFallback)) return;
+                  handleTrialSearch(trialQuery, trialAllPhases, trialRegion, fin ? true : undefined);
+                }}
+              />
+            )}
             {trialLoading ? (
             <div className="mt-20">
               <Loader message={`Searching ${trialRegion === 'US' ? 'U.S.' : 'European'} late-stage trials for "${trialQuery}"...`} />
@@ -910,28 +941,48 @@ export default function App() {
               </div>
               <h3 className="text-lg font-semibold text-slate-700 mb-1">Drug pipeline</h3>
               <p className="text-slate-500 text-sm leading-relaxed">
-                Search a drug or disease to see active <span className="font-semibold">Phase 3</span> trials from ClinicalTrials.gov — a signal of what's progressing toward approval.
+                Search a drug or disease to see active <span className="font-semibold">Phase 3</span> trials from ClinicalTrials.gov — a signal of what's progressing toward approval. If none are running, the finished studies are shown instead.
               </p>
             </div>
           ) : trials.length === 0 ? (
             <TrialEmpty
               query={trialQuery}
               allPhases={trialAllPhases}
+              finished={trialFinished}
               onShowAllPhases={() => handleTrialSearch(trialQuery, true)}
             />
           ) : (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="px-4 mb-4">
                 <h2 className="text-xl font-bold text-slate-800">
-                  Pipeline — {trialAllPhases ? 'All phases' : 'Phase 3'}
+                  {trialFinished ? 'Finished studies' : 'Pipeline'} — {trialAllPhases ? 'All phases' : 'Phase 3'}
                 </h2>
                 <p className="text-slate-500 text-xs mt-1 leading-relaxed">
                   {(() => { const total = lastTrialTotal(); return total && total > trials.length
                     ? `Showing the first ${trials.length} of ${total} matching studies`
                     : `Found ${trials.length} matching stud${trials.length === 1 ? 'y' : 'ies'}`; })()}
-                  {' '}— {trialAllPhases ? 'all phases' : 'Phase 3 only'}, recruiting / active / enrolling by invitation, {trialRegion === 'US' ? 'USA' : 'Europe'}, for "{trialQuery}".
-                  Completed, withdrawn and unregistered studies are not included: a selection, not the full development landscape. Source: ClinicalTrials.gov.
+                  {' '}— {trialAllPhases ? 'all phases' : 'Phase 3 only'}, {trialFinished ? 'completed / terminated' : 'recruiting / active / enrolling by invitation'}, {trialRegion === 'US' ? 'USA' : 'Europe'}, for "{trialQuery}".
+                  {trialFinished
+                    ? ' Running, suspended, withdrawn and unregistered studies are not included: a selection, not the full development landscape.'
+                    : ' Completed, withdrawn and unregistered studies are not included (see "Finished" above): a selection, not the full development landscape.'}
+                  {' '}Source: ClinicalTrials.gov.
                 </p>
+                {trialFallback && (
+                  <p role="status" className="mt-2 text-xs leading-relaxed text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                    No running {trialAllPhases ? '' : 'Phase 3 '}trials match "{trialQuery}" in {trialRegion === 'US' ? 'the USA' : 'Europe'} — showing the finished studies instead.
+                    {!trialAllPhases && (
+                      <>
+                        {' '}
+                        <button
+                          onClick={() => handleTrialSearch(trialQuery, true)}
+                          className="font-semibold underline underline-offset-2"
+                        >
+                          Search running trials in all phases
+                        </button>
+                      </>
+                    )}
+                  </p>
+                )}
               </div>
               <TrialList trials={trials} />
             </div>
@@ -1173,14 +1224,40 @@ const RegionToggle: React.FC<{
   );
 };
 
+// Running vs finished studies. "Running" falls back to finished on its own when
+// nothing is running; "Finished" is the explicit way to see completed and
+// terminated studies of a medicine that also has running ones.
+const StatusToggle: React.FC<{
+  finished: boolean;
+  onChange: (finished: boolean) => void;
+}> = ({ finished, onChange }) => {
+  const opt = (active: boolean) =>
+    `flex-1 flex items-center justify-center gap-1.5 py-1.5 text-sm font-semibold rounded-lg transition-colors ${
+      active ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500'
+    }`;
+  return (
+    <div className="px-4 pb-3 -mt-1">
+      <div className="flex bg-slate-100 rounded-xl p-1" role="group" aria-label="Study status">
+        <button className={opt(!finished)} aria-pressed={!finished} onClick={() => onChange(false)}>
+          Running
+        </button>
+        <button className={opt(finished)} aria-pressed={finished} onClick={() => onChange(true)}>
+          Finished
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // An empty Phase-3 result is a signal, not a dead-end: many diseases/drugs have
 // only earlier-phase active trials. Offer to broaden the search to all phases,
 // plus a direct ClinicalTrials.gov link — mirroring the Europe tab's SmartEmpty.
 const TrialEmpty: React.FC<{
   query: string;
   allPhases: boolean;
+  finished: boolean; // true = the user asked for finished studies only
   onShowAllPhases: () => void;
-}> = ({ query, allPhases, onShowAllPhases }) => {
+}> = ({ query, allPhases, finished, onShowAllPhases }) => {
   const q = query.trim();
   const btn =
     'w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors';
@@ -1190,14 +1267,12 @@ const TrialEmpty: React.FC<{
         <FlaskConical className="text-slate-400 w-7 h-7" />
       </div>
       <p className="text-slate-700 text-sm font-semibold">
-        {allPhases
-          ? `No active trials match "${q}".`
-          : `No active Phase 3 trials match "${q}".`}
+        {`No ${finished ? 'finished' : 'running or finished'} ${allPhases ? '' : 'Phase 3 '}trials match "${q}".`}
       </p>
       <p className="text-slate-500 text-xs mt-1.5 leading-relaxed max-w-xs mx-auto">
         {allPhases
-          ? 'This searches recruiting and active studies on ClinicalTrials.gov across all phases.'
-          : 'There may be earlier-phase studies that haven’t reached Phase 3 yet.'}
+          ? `This searched ${finished ? 'completed and terminated' : 'running, completed and terminated'} studies on ClinicalTrials.gov across all phases, with a site in the selected region.`
+          : 'There may be earlier-phase studies, or studies without a site in the selected region.'}
       </p>
       <div className="mt-5 space-y-2 max-w-xs mx-auto">
         {!allPhases && (

@@ -10,6 +10,7 @@ const statusColor = (status: string): string => {
   const s = status.toLowerCase();
   if (s.includes('recruiting') && !s.includes('not')) return 'text-emerald-700 bg-emerald-50 border-emerald-200';
   if (s.includes('active')) return 'text-blue-700 bg-blue-50 border-blue-200';
+  if (s.includes('terminated')) return 'text-amber-700 bg-amber-50 border-amber-200';
   return 'text-slate-600 bg-slate-50 border-slate-200';
 };
 
@@ -64,7 +65,9 @@ const TrialList: React.FC<TrialListProps> = ({ trials }) => {
           </div>
           <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 bg-white">
             <span>
-              {t.completionDate ? `Est. completion ${t.completionDate}` : t.nctId}
+              {t.completionDate
+                ? `${t.completionActual ? 'Primary completion' : 'Est. completion'} ${t.completionDate}`
+                : t.nctId}
             </span>
             <span className="inline-flex items-center font-semibold text-indigo-600">
               {t.nctId} <ExternalLink size={12} className="ml-1" />

@@ -52,10 +52,18 @@ const locationFilter = (region: TrialRegion): string =>
 let lastTotal: number | null = null;
 export const lastTrialTotal = (): number | null => lastTotal;
 
+// `finished` swaps the status filter from running studies to completed and
+// terminated ones. A medicine that has just been approved usually has NO
+// running trial left (asundexian, Nov 2026: OCEANIC-STROKE completed,
+// OCEANIC-AF terminated), so "running only" hid exactly the pivotal studies.
+const RUNNING = 'RECRUITING,ACTIVE_NOT_RECRUITING,ENROLLING_BY_INVITATION';
+const FINISHED = 'COMPLETED,TERMINATED';
+
 export const searchTrials = async (
   query: string,
   allPhases = false,
   region: TrialRegion = 'US',
+  finished = false,
 ): Promise<Trial[]> => {
   const q = query.trim();
   if (!q) return [];
@@ -68,7 +76,7 @@ export const searchTrials = async (
   const params = new URLSearchParams({
     'query.term': q,
     'filter.advanced': advanced.join(' AND '),
-    'filter.overallStatus': 'RECRUITING,ACTIVE_NOT_RECRUITING,ENROLLING_BY_INVITATION',
+    'filter.overallStatus': finished ? FINISHED : RUNNING,
     'sort': '@relevance', // keep the term filter strict; re-sort by date below
     'pageSize': '25',
     'countTotal': 'true', // so the UI can say how many matching studies were NOT shown
@@ -98,6 +106,7 @@ export const searchTrials = async (
       sponsor: sponsor.leadSponsor?.name || '—',
       startDate: status.startDateStruct?.date,
       completionDate: status.primaryCompletionDateStruct?.date,
+      completionActual: status.primaryCompletionDateStruct?.type === 'ACTUAL',
       url: nctId ? `https://clinicaltrials.gov/study/${nctId}` : 'https://clinicaltrials.gov',
     };
   });
