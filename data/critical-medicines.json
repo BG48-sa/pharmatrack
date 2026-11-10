@@ -1,0 +1,2417 @@
+{
+"version": "2.1 (revision 1)",
+"ref": "EMA/4040/2026",
+"generated": "2026-01-19",
+"source": "European Medicines Agency — Union list of critical medicines",
+"count": 301,
+"medicines": [
+{
+"atc5": "A02BC05",
+"n": "Esomeprazole",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A02B - Drugs for peptic ulcer and gastro-oesophageal reflux disease (GORD)"
+},
+{
+"atc5": "A03BA01",
+"n": "Atropine",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A03B - Belladonna and derivatives, plain"
+},
+{
+"atc5": "A03FA01",
+"n": "Metoclopramide",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A03F - Propulsives"
+},
+{
+"atc5": "A07AA12",
+"n": "Fidaxomicin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A07A - Intestinal antiinfectives"
+},
+{
+"atc5": "A07BA01",
+"n": "Medicinal Charcoal",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A07B - Intestinal adsorbents"
+},
+{
+"atc5": "A10AB01",
+"n": "Insulin Human (Fast-Acting)",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A10A - Insulins and analogues"
+},
+{
+"atc5": "A10AB05",
+"n": "Insulin Aspart",
+"route": "intravenous use, subcutaneous use",
+"d": "2025-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A10A - Insulins and analogues"
+},
+{
+"atc5": "A10AC01",
+"n": "Insulin Human (Intermediate-Acting)",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A10A - Insulins and analogues"
+},
+{
+"atc5": "A10AD01",
+"n": "Insulin Human (Intermediate - Or Long-Acting Combined With Fast-Acting)",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A10A - Insulins and analogues"
+},
+{
+"atc5": "A10AE06",
+"n": "Insulin Degludec",
+"route": "subcutaneous use",
+"d": "2025-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A10A - Insulins and analogues"
+},
+{
+"atc5": "A12CC02",
+"n": "Magnesium Sulfate",
+"route": "intravenous use, intramuscular use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A12C - Other mineral supplements"
+},
+{
+"atc5": "A16AB02",
+"n": "Imiglucerase",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "A - Alimentary tract and metabolism",
+"grp": "A16A - Other alimentary tract and metabolism products"
+},
+{
+"atc5": "B01AA03",
+"n": "Warfarin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B01AB01",
+"n": "Heparin",
+"route": "haemodialysis use, intraarterial use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B01AB02",
+"n": "Antithrombin Iii",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B01AC04",
+"n": "Clopidogrel",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B01AC16",
+"n": "Eptifibatide",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B01AD02",
+"n": "Alteplase",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B01AD11",
+"n": "Tenecteplase",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B01AE07",
+"n": "Dabigatran",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B01A - Antithrombotic agents"
+},
+{
+"atc5": "B02AA02",
+"n": "Tranexamic Acid",
+"route": "oral use, intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02A - Antifibrinolytics"
+},
+{
+"atc5": "B02BA01",
+"n": "Phytomenadione",
+"route": "intramuscular use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BB01",
+"n": "Human Fibrinogen",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BD01",
+"n": "Human Prothrombin Complex",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BD02",
+"n": "Human Coagulation Factor Viii",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BD03",
+"n": "Factor Viii Inhibitor Bypassing Activity",
+"route": "intravenous use",
+"d": "2025-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BD04",
+"n": "Human Coagulation Factor Ix",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BD05",
+"n": "Human Coagulation Factor Vii",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BD07",
+"n": "Human Coagulation Factor Xiii",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B02BD08",
+"n": "Eptacog Alfa",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "B - Blood and blood forming organs",
+"grp": "B02B - Vitamin K and other hemostatics"
+},
+{
+"atc5": "B03BA03",
+"n": "Hydroxocobalamin",
+"route": "intravenous use, intramuscular use, subcutaneous use, oral use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B03B - Vitamin B12 and folic acid"
+},
+{
+"atc5": "B05AA01",
+"n": "Albumin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B05A - Blood and related products"
+},
+{
+"atc5": "B05AA02",
+"n": "Plasma Protein Fraction",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B05A - Blood and related products"
+},
+{
+"atc5": "B05BB01",
+"n": "Potassium Chloride",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B05B - IV solutions"
+},
+{
+"atc5": "B05BC01",
+"n": "Mannitol",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B05B - IV solutions"
+},
+{
+"atc5": "B05XA01",
+"n": "Potassium Chloride",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B05X - IV solution additives"
+},
+{
+"atc5": "B05XA05",
+"n": "Magnesium Sulfate",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B05X - IV solution additives"
+},
+{
+"atc5": "B06AB01",
+"n": "Human Hemin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B06A - Other hematological agents"
+},
+{
+"atc5": "B06AC01",
+"n": "Complement C1 Esterase Inhibitor",
+"route": "intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "B - Blood and blood forming organs",
+"grp": "B06A - Other hematological agents"
+},
+{
+"atc5": "C01AA05",
+"n": "Digoxin",
+"route": "oral use, intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01A - Cardiac glycosides"
+},
+{
+"atc5": "C01BB01",
+"n": "Lidocaine",
+"route": "parenteral use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01B - Antiarrhythmics, class I and III"
+},
+{
+"atc5": "C01BB02",
+"n": "Mexiletine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01B - Antiarrhythmics, class I and III"
+},
+{
+"atc5": "C01BC04",
+"n": "Flecainide",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01B - Antiarrhythmics, class I and III"
+},
+{
+"atc5": "C01BD01",
+"n": "Amiodarone",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01B - Antiarrhythmics, class I and III"
+},
+{
+"atc5": "C01CA02",
+"n": "Isoprenaline",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01C - Cardiac stimulants excl cardiac glycosides"
+},
+{
+"atc5": "C01CA03",
+"n": "Norepinephrine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01C - Cardiac stimulants excl cardiac glycosides"
+},
+{
+"atc5": "C01CA04",
+"n": "Dopamine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01C - Cardiac stimulants excl cardiac glycosides"
+},
+{
+"atc5": "C01CA07",
+"n": "Dobutamine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01C - Cardiac stimulants excl cardiac glycosides"
+},
+{
+"atc5": "C01CA24",
+"n": "Epinephrine",
+"route": "endotracheopulmonary use, intracardiac use, intraosseous use, intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01C - Cardiac stimulants excl cardiac glycosides"
+},
+{
+"atc5": "C01CA26",
+"n": "Ephedrine",
+"route": "intravenous use, intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01C - Cardiac stimulants excl cardiac glycosides"
+},
+{
+"atc5": "C01CE02",
+"n": "Milrinone",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01C - Cardiac stimulants excl cardiac glycosides"
+},
+{
+"atc5": "C01DA02",
+"n": "Glyceryl Trinitrate",
+"route": "intravenous use, sublingual use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01D - Vasodilators used in cardiac diseases"
+},
+{
+"atc5": "C01EB10",
+"n": "Adenosine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C01E - Other cardiac preparations"
+},
+{
+"atc5": "C02AB01",
+"n": "Methyldopa (Levorotatory)",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C02A - Antiadrenergic agents, centrally acting"
+},
+{
+"atc5": "C02AB02",
+"n": "Methyldopa (Racemic)",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C02A - Antiadrenergic agents, centrally acting"
+},
+{
+"atc5": "C02AC01",
+"n": "Clonidine",
+"route": "intramuscular use, intravenous use, subcutaneous use, oral use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C02A - Antiadrenergic agents, centrally acting"
+},
+{
+"atc5": "C02DD01",
+"n": "Sodium Nitroprusside",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C02D - Arteriolar smooth muscle, agents acting on"
+},
+{
+"atc5": "C03CA01",
+"n": "Furosemide",
+"route": "intravenous use, intramuscular use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C03C - High-ceiling diuretics"
+},
+{
+"atc5": "C07AA05",
+"n": "Propranolol",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C07A - Beta blocking agents"
+},
+{
+"atc5": "C07AG01",
+"n": "Labetalol",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C07A - Beta blocking agents"
+},
+{
+"atc5": "C08CA06",
+"n": "Nimodipine",
+"route": "intravenous use, intracisternal use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C08C - Selective calcium channel blockers with mainly vascular effects"
+},
+{
+"atc5": "C08DA01",
+"n": "Verapamil",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "C - Cardiovascular system",
+"grp": "C08D - Selective calcium channel blockers with direct cardiac effects"
+},
+{
+"atc5": "G02AB01",
+"n": "Methylergometrine",
+"route": "intramuscular use, intrauterine use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "G - Genito urinary system and sex hormones",
+"grp": "G02A - Uterotonics"
+},
+{
+"atc5": "G03XB01",
+"n": "Mifepristone",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "G - Genito urinary system and sex hormones",
+"grp": "G03X - Other sex hormones and modulators of the genital system"
+},
+{
+"atc5": "H01BA01",
+"n": "Argipressin",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2025-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H01B - Posterior pituitary lobe hormones"
+},
+{
+"atc5": "H01BA02",
+"n": "Desmopressin",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H01B - Posterior pituitary lobe hormones"
+},
+{
+"atc5": "H01BB02",
+"n": "Oxytocin",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H01B - Posterior pituitary lobe hormones"
+},
+{
+"atc5": "H01BB03",
+"n": "Carbetocin",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H01B - Posterior pituitary lobe hormones"
+},
+{
+"atc5": "H02AA02",
+"n": "Fludrocortisone",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H02A - Corticosteroids for systemic use, plain"
+},
+{
+"atc5": "H02AB04",
+"n": "Methylprednisolone",
+"route": "intraarticular use, intrabursal use, intradermal use, intralesional use, intramuscular use, intravenous use, periarticular use, rectal use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H02A - Corticosteroids for systemic use, plain"
+},
+{
+"atc5": "H02AB06",
+"n": "Prednisolone",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H02A - Corticosteroids for systemic use, plain"
+},
+{
+"atc5": "H02AB09",
+"n": "Hydrocortisone",
+"route": "intraarticular use, intramuscular use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H02A - Corticosteroids for systemic use, plain"
+},
+{
+"atc5": "H03BA02",
+"n": "Propylthiouracil",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H03B - Antithyroid preparations"
+},
+{
+"atc5": "H03BB01",
+"n": "Carbimazole",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H03B - Antithyroid preparations"
+},
+{
+"atc5": "H03BB02",
+"n": "Thiamazole",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H03B - Antithyroid preparations"
+},
+{
+"atc5": "H04AA01",
+"n": "Glucagon",
+"route": "intramuscular use, intravenous use, nasal use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "H - Systemic hormonal preparations, excl sex hormones and insulins",
+"grp": "H04A - Glycogenolytic hormones"
+},
+{
+"atc5": "J01AA02",
+"n": "Doxycycline",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01A - Tetracyclines"
+},
+{
+"atc5": "J01CA01",
+"n": "Ampicillin",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CA04",
+"n": "Amoxicillin",
+"route": "oral use, intravenous use, intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CE01",
+"n": "Benzylpenicillin",
+"route": "intraarticular use, intramuscular use, intrapleural use, intrathecal use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CE02",
+"n": "Phenoxymethylpenicillin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CE08",
+"n": "Benzathine Benzylpenicillin",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CF02",
+"n": "Cloxacillin",
+"route": "intravenous use, intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CF05",
+"n": "Flucloxacillin",
+"route": "inhalation use, intraarticular use, intramuscular use, intrapleural use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CR02",
+"n": "Amoxicillin, Clavulanic Acid",
+"route": "oral use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01CR05",
+"n": "Piperacillin, Tazobactam",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01C - Beta-lactam antibacterials, penicillins"
+},
+{
+"atc5": "J01DC02",
+"n": "Cefuroxime",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DD01",
+"n": "Cefotaxime",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DD02",
+"n": "Ceftazidime",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DD04",
+"n": "Ceftriaxone",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DD08",
+"n": "Cefixime",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DD52",
+"n": "Ceftazidime, Avibactam",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DF01",
+"n": "Aztreonam",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DH56",
+"n": "Cilastatin Sodium, Imipenem, Relebactam",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01DI54",
+"n": "Tazobactam, Ceftolozane",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01D - Other beta-lactam antibacterials"
+},
+{
+"atc5": "J01EA01",
+"n": "Trimethoprim",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01E - Sulfonamides and trimethoprim"
+},
+{
+"atc5": "J01EE01",
+"n": "Co-Trimoxazole",
+"route": "oral use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01E - Sulfonamides and trimethoprim"
+},
+{
+"atc5": "J01FA01",
+"n": "Erythromycin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01F - Macrolides, lincosamides and streptogramins"
+},
+{
+"atc5": "J01FA09",
+"n": "Clarithromycin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01F - Macrolides, lincosamides and streptogramins"
+},
+{
+"atc5": "J01FA10",
+"n": "Azithromycin",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01F - Macrolides, lincosamides and streptogramins"
+},
+{
+"atc5": "J01FF01",
+"n": "Clindamycin",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01F - Macrolides, lincosamides and streptogramins"
+},
+{
+"atc5": "J01GB01",
+"n": "Tobramycin",
+"route": "inhalation use, intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01G - Aminoglycoside antibacterials"
+},
+{
+"atc5": "J01GB03",
+"n": "Gentamicin",
+"route": "intramuscular use, intravenous use, subconjunctival use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01G - Aminoglycoside antibacterials"
+},
+{
+"atc5": "J01GB06",
+"n": "Amikacin",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01G - Aminoglycoside antibacterials"
+},
+{
+"atc5": "J01MA02",
+"n": "Ciprofloxacin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01M - Quinolone antibacterials"
+},
+{
+"atc5": "J01MA12",
+"n": "Levofloxacin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01M - Quinolone antibacterials"
+},
+{
+"atc5": "J01XA01",
+"n": "Vancomycin",
+"route": "intraperitoneal use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01X - Other antibacterials"
+},
+{
+"atc5": "J01XA02",
+"n": "Teicoplanin",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01X - Other antibacterials"
+},
+{
+"atc5": "J01XB01",
+"n": "Colistin",
+"route": "inhalation use, intrathecal use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01X - Other antibacterials"
+},
+{
+"atc5": "J01XD01",
+"n": "Metronidazole",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01X - Other antibacterials"
+},
+{
+"atc5": "J01XX01",
+"n": "Fosfomycin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J01X - Other antibacterials"
+},
+{
+"atc5": "J02AA01",
+"n": "Amphotericin B",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J02A - Antimycotics for systemic use"
+},
+{
+"atc5": "J02AC01",
+"n": "Fluconazole",
+"route": "intravenous use",
+"d": "2025-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J02A - Antimycotics for systemic use"
+},
+{
+"atc5": "J02AC04",
+"n": "Posaconazole",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J02A - Antimycotics for systemic use"
+},
+{
+"atc5": "J02AC05",
+"n": "Isavuconazole",
+"route": "intravenous use, oral use",
+"d": "2024-12-16",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J02A - Antimycotics for systemic use"
+},
+{
+"atc5": "J04AB02",
+"n": "Rifampicin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04A - Drugs for treatment of tuberculosis"
+},
+{
+"atc5": "J04AB04",
+"n": "Rifabutin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04A - Drugs for treatment of tuberculosis"
+},
+{
+"atc5": "J04AC01",
+"n": "Isoniazid",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04A - Drugs for treatment of tuberculosis"
+},
+{
+"atc5": "J04AK01",
+"n": "Pyrazinamide",
+"route": "oral use",
+"d": "2025-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04A - Drugs for treatment of tuberculosis"
+},
+{
+"atc5": "J04AK02",
+"n": "Ethambutol",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04A - Drugs for treatment of tuberculosis"
+},
+{
+"atc5": "J04AK05",
+"n": "Bedaquiline",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04A - Drugs for treatment of tuberculosis"
+},
+{
+"atc5": "J04AM02",
+"n": "Isoniazid, Rifampicin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04A - Drugs for treatment of tuberculosis"
+},
+{
+"atc5": "J04BA02",
+"n": "Dapsone",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J04B - Drugs for treatment of lepra"
+},
+{
+"atc5": "J05AB01",
+"n": "Aciclovir",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AB06",
+"n": "Ganciclovir",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AB14",
+"n": "Valganciclovir",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AD01",
+"n": "Foscarnet",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AF01",
+"n": "Zidovudine",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AF05",
+"n": "Lamivudine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AF06",
+"n": "Abacavir",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AF09",
+"n": "Emtricitabine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AG01",
+"n": "Nevirapine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J05AR02",
+"n": "Abacavir, Lamivudine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J05A - Direct acting antivirals"
+},
+{
+"atc5": "J06BA01",
+"n": "Human Normal Immunoglobulin",
+"route": "intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J06B - Immunoglobulins"
+},
+{
+"atc5": "J06BA02",
+"n": "Human Normal Immunoglobulin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J06B - Immunoglobulins"
+},
+{
+"atc5": "J06BB01",
+"n": "Human Anti-D Immunoglobulin",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J06B - Immunoglobulins"
+},
+{
+"atc5": "J06BB02",
+"n": "Human Tetanus Immunoglobulin",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J06B - Immunoglobulins"
+},
+{
+"atc5": "J06BB04",
+"n": "Human Hepatitis B Immunoglobulin",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2024-12-16",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J06B - Immunoglobulins"
+},
+{
+"atc5": "J06BB05",
+"n": "Human Rabies Immunoglobulin",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J06B - Immunoglobulins"
+},
+{
+"atc5": "J07AE01",
+"n": "Cholera Vaccine (Inactivated)",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07A - Bacterial vaccines"
+},
+{
+"atc5": "J07AH07",
+"n": "Meningococcal Group C Vaccine",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07A - Bacterial vaccines"
+},
+{
+"atc5": "J07AH09",
+"n": "Meningococcal Group B Vaccine",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07A - Bacterial vaccines"
+},
+{
+"atc5": "J07AJ51",
+"n": "Diphtheria, Tetanus, Pertussis Vaccine (Inactivated, Whole Cell)",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07A - Bacterial vaccines"
+},
+{
+"atc5": "J07AJ52",
+"n": "Diphtheria, Tetanus, Pertussis Vaccine (Purified Antigen)",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07A - Bacterial vaccines"
+},
+{
+"atc5": "J07AM51",
+"n": "Diphtheria, Tetanus Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07A - Bacterial vaccines"
+},
+{
+"atc5": "J07AP03",
+"n": "Typhoid Vaccine (Polysaccharide)",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07A - Bacterial vaccines"
+},
+{
+"atc5": "J07BA02",
+"n": "Encephalitis (Japanese, Whole Virus, Inactivated)",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BB01",
+"n": "Influenza Vaccine (Various Forms, Strains)",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BB02",
+"n": "Influenza Vaccine (Various Forms, Strains)",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BC01",
+"n": "Hepatitis B Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BC02",
+"n": "Hepatitis A Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BC20",
+"n": "Hepatitis A And B Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2024-12-16",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BD52",
+"n": "Measles, Mumps, Rubella Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BD54",
+"n": "Measles, Mumps, Rubella, Varicella Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BF03",
+"n": "Poliomyelitis Vaccine (Trivalent)",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BG01",
+"n": "Rabies Vaccine",
+"route": "intradermal use, intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BH02",
+"n": "Rotavirus Pentavalent Vaccine",
+"route": "oral use",
+"d": "2024-12-16",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BK01",
+"n": "Varicella Vaccine (Live)",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BL01",
+"n": "Yellow Fever Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BM01",
+"n": "Papillomavirus Vaccine",
+"route": "intramuscular use",
+"d": "2024-12-16",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BM02",
+"n": "Papillomavirus Vaccine",
+"route": "intramuscular use",
+"d": "2024-12-16",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07BM03",
+"n": "Human Papillomavirus Vaccine (9-Valent)",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07B - Viral vaccines"
+},
+{
+"atc5": "J07CA01",
+"n": "Diphtheria, Tetanus, Poliomyelitis Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07C - Bacterial and viral vaccines, combined"
+},
+{
+"atc5": "J07CA02",
+"n": "Diphtheria, Tetanus, Pertussis, Poliomyelitis Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07C - Bacterial and viral vaccines, combined"
+},
+{
+"atc5": "J07CA06",
+"n": "Diphtheria, Tetanus, Pertussis Vaccine",
+"route": "intramuscular use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07C - Bacterial and viral vaccines, combined"
+},
+{
+"atc5": "J07CA12",
+"n": "Diphtheria, Tetanus, Pertussis, Poliomyelitis, Hepatitis B Vaccine",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "J - Antiinfectives for systemic use",
+"grp": "J07C - Bacterial and viral vaccines, combined"
+},
+{
+"atc5": "L01AA01",
+"n": "Cyclophosphamide",
+"route": "intramuscular use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01AA02",
+"n": "Chlorambucil",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01AA03",
+"n": "Melphalan",
+"route": "intraarterial use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01AA06",
+"n": "Ifosfamide",
+"route": "intraarterial use, intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01AB01",
+"n": "Busulfan",
+"route": "intravenous use, oral use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01AB02",
+"n": "Treosulfan",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01AC01",
+"n": "Thiotepa",
+"route": "intramuscular use, intrapericardial use, intraperitoneal use, intrapleural use, intravascular use, intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01AX04",
+"n": "Dacarbazine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01A - Antineoplastic agents"
+},
+{
+"atc5": "L01BA01",
+"n": "Methotrexate",
+"route": "epidural use, intraarterial use, intraarticular use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intrathecal use, intravenous use, oral use, periarticular use, perineural use, rectal use, retrobulbar use, subconjunctival use, subcutaneous use, transdermal use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01B - Antimetabolites"
+},
+{
+"atc5": "L01BB02",
+"n": "Mercaptopurine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01B - Antimetabolites"
+},
+{
+"atc5": "L01BB03",
+"n": "Tioguanine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01B - Antimetabolites"
+},
+{
+"atc5": "L01BB05",
+"n": "Fludarabine",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, oral use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01B - Antimetabolites"
+},
+{
+"atc5": "L01BC01",
+"n": "Cytarabine",
+"route": "intramuscular use, intrathecal use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01B - Antimetabolites"
+},
+{
+"atc5": "L01BC02",
+"n": "Fluorouracil",
+"route": "intraarterial use, intraarticular use, intramuscular use, intraperitoneal use, intrapleural use, intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01B - Antimetabolites"
+},
+{
+"atc5": "L01BC05",
+"n": "Gemcitabine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01B - Antimetabolites"
+},
+{
+"atc5": "L01CA01",
+"n": "Vinblastine",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01C - Plant alkaloids and other natural products"
+},
+{
+"atc5": "L01CA02",
+"n": "Vincristine",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01C - Plant alkaloids and other natural products"
+},
+{
+"atc5": "L01CB01",
+"n": "Etoposide",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, oral use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01C - Plant alkaloids and other natural products"
+},
+{
+"atc5": "L01CD01",
+"n": "Paclitaxel",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01C - Plant alkaloids and other natural products"
+},
+{
+"atc5": "L01CE01",
+"n": "Topotecan",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01C - Plant alkaloids and other natural products"
+},
+{
+"atc5": "L01DB01",
+"n": "Doxorubicin",
+"route": "intravenous use, intravesical use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01D - Cytotoxic antibiotics and related substances"
+},
+{
+"atc5": "L01DB02",
+"n": "Daunorubicin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01D - Cytotoxic antibiotics and related substances"
+},
+{
+"atc5": "L01DB03",
+"n": "Epirubicin",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, intravesical use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01D - Cytotoxic antibiotics and related substances"
+},
+{
+"atc5": "L01DB06",
+"n": "Idarubicin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01D - Cytotoxic antibiotics and related substances"
+},
+{
+"atc5": "L01DB07",
+"n": "Mitoxantrone",
+"route": "intrapleural use, intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01D - Cytotoxic antibiotics and related substances"
+},
+{
+"atc5": "L01DC01",
+"n": "Bleomycin",
+"route": "intraarterial use, intramuscular use, intraperitoneal use, intrapleural use, intratumoral use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01D - Cytotoxic antibiotics and related substances"
+},
+{
+"atc5": "L01DC03",
+"n": "Mitomycin",
+"route": "intravenous use, intravesical use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01D - Cytotoxic antibiotics and related substances"
+},
+{
+"atc5": "L01EA03",
+"n": "Nilotinib",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01E - Protein kinase inhibitors"
+},
+{
+"atc5": "L01EC02",
+"n": "Dabrafenib",
+"route": "oral use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01E - Protein kinase inhibitors"
+},
+{
+"atc5": "L01EC03",
+"n": "Encorafenib",
+"route": "oral use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01E - Protein kinase inhibitors"
+},
+{
+"atc5": "L01EE01",
+"n": "Trametinib",
+"route": "oral use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01E - Protein kinase inhibitors"
+},
+{
+"atc5": "L01EL01",
+"n": "Ibrutinib",
+"route": "oral use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01E - Protein kinase inhibitors"
+},
+{
+"atc5": "L01FA03",
+"n": "Obinutuzumab",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FB01",
+"n": "Inotuzumab Ozogamicin",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FC01",
+"n": "Daratumumab",
+"route": "intravenous use, subcutaneous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FF01",
+"n": "Nivolumab",
+"route": "intravenous use, subcutaneous use",
+"d": "2025-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FF02",
+"n": "Pembrolizumab",
+"route": "intravenous use",
+"d": "2025-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FF03",
+"n": "Durvalumab",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FX02",
+"n": "Gemtuzumab Ozogamicin",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FX05",
+"n": "Brentuximab Vedotin",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01FX17",
+"n": "Sacituzumab Govitecan",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01F - Monoclonal antibodies and antibody drug conjugates"
+},
+{
+"atc5": "L01XA01",
+"n": "Cisplatin",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XA02",
+"n": "Carboplatin",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XA03",
+"n": "Oxaliplatin",
+"route": "epidural use, intrabursal use, intracoronary use, intradiscal use, intramuscular use, intravenous use, perineural use, retrobulbar use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XB01",
+"n": "Procarbazine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XF01",
+"n": "Tretinoin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XJ01",
+"n": "Vismodegib",
+"route": "oral use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XX05",
+"n": "Hydroxycarbamide",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XX23",
+"n": "Mitotane",
+"route": "oral use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L01XX24",
+"n": "Pegaspargase",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L01X - Other neoplastic agents"
+},
+{
+"atc5": "L02BA01",
+"n": "Tamoxifen",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L02B - Hormone antagonists and related agents"
+},
+{
+"atc5": "L03AB11",
+"n": "Peginterferon Alfa-2A",
+"route": "subcutaneous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L03A - Immunostimulants"
+},
+{
+"atc5": "L03AX03",
+"n": "Bcg Vaccine (Various Forms)",
+"route": "intravesical use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L03A - Immunostimulants"
+},
+{
+"atc5": "L03AX13",
+"n": "Glatiramer",
+"route": "intraarticular use, intravenous use, periarticular use, subcutaneous use, transdermal use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L03A - Immunostimulants"
+},
+{
+"atc5": "L03AX16",
+"n": "Plerixafor",
+"route": "subcutaneous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L03A - Immunostimulants"
+},
+{
+"atc5": "L04AA03",
+"n": "Antilymphocyte Immunoglobulin (Horse)",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AA04",
+"n": "Antithymocyte Immunoglobulin (Rabbit)",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AC02",
+"n": "Basiliximab",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AC03",
+"n": "Anakinra",
+"route": "subcutaneous use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AD01",
+"n": "Ciclosporin",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AD02",
+"n": "Tacrolimus",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AH01",
+"n": "Sirolimus",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AX02",
+"n": "Thalidomide",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "L04AX03",
+"n": "Methotrexate",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "L - Antineoplastic and immunomodulating agents",
+"grp": "L04A - Immunosuppressants"
+},
+{
+"atc5": "M01CC01",
+"n": "Penicillamine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "M - Musculo-skeletal system",
+"grp": "M01C - Specific antirheumatic agents"
+},
+{
+"atc5": "M03AB01",
+"n": "Suxamethonium",
+"route": "intramuscular use, intraosseous use, intravenous use",
+"d": "2023-12-01",
+"cat": "M - Musculo-skeletal system",
+"grp": "M03A - Muscle relaxants, peripherally acting agents"
+},
+{
+"atc5": "M03AC04",
+"n": "Atracurium",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "M - Musculo-skeletal system",
+"grp": "M03A - Muscle relaxants, peripherally acting agents"
+},
+{
+"atc5": "M03AC09",
+"n": "Rocuronium",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "M - Musculo-skeletal system",
+"grp": "M03A - Muscle relaxants, peripherally acting agents"
+},
+{
+"atc5": "M03AC11",
+"n": "Cisatracurium",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "M - Musculo-skeletal system",
+"grp": "M03A - Muscle relaxants, peripherally acting agents"
+},
+{
+"atc5": "M03CA01",
+"n": "Dantrolene",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "M - Musculo-skeletal system",
+"grp": "M03C - Muscle relaxants, directly acting agents"
+},
+{
+"atc5": "N01AH01",
+"n": "Fentanyl",
+"route": "epidural use, intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N01A - Anesthetics, general"
+},
+{
+"atc5": "N01AH03",
+"n": "Sufentanil",
+"route": "epidural use, intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N01A - Anesthetics, general"
+},
+{
+"atc5": "N01AH06",
+"n": "Remifentanil",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N01A - Anesthetics, general"
+},
+{
+"atc5": "N01AX03",
+"n": "Ketamine",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N01A - Anesthetics, general"
+},
+{
+"atc5": "N01AX10",
+"n": "Propofol",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N01A - Anesthetics, general"
+},
+{
+"atc5": "N01AX14",
+"n": "Esketamine",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N01A - Anesthetics, general"
+},
+{
+"atc5": "N02AA01",
+"n": "Morphine",
+"route": "epidural use, intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N02A - Opioids"
+},
+{
+"atc5": "N02BE01",
+"n": "Paracetamol",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N02B - Other analgesics and antipyretics"
+},
+{
+"atc5": "N03AA02",
+"n": "Phenobarbital",
+"route": "intramuscular use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N03A - Antiepileptics"
+},
+{
+"atc5": "N03AB02",
+"n": "Phenytoin",
+"route": "intramuscular use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N03A - Antiepileptics"
+},
+{
+"atc5": "N03AD01",
+"n": "Ethosuximide",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N03A - Antiepileptics"
+},
+{
+"atc5": "N03AE01",
+"n": "Clonazepam",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N03A - Antiepileptics"
+},
+{
+"atc5": "N03AF01",
+"n": "Carbamazepine",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N03A - Antiepileptics"
+},
+{
+"atc5": "N03AG01",
+"n": "Valproic Acid",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N03A - Antiepileptics"
+},
+{
+"atc5": "N03AG04",
+"n": "Vigabatrin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N03A - Antiepileptics"
+},
+{
+"atc5": "N04AA02",
+"n": "Biperiden",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N04A - Anticholinergic agents"
+},
+{
+"atc5": "N05AD01",
+"n": "Haloperidol",
+"route": "intraarticular use, intramuscular use, intravascular use, intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N05A - Antipsychotics"
+},
+{
+"atc5": "N05AH03",
+"n": "Olanzapine",
+"route": "intramuscular use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N05A - Antipsychotics"
+},
+{
+"atc5": "N05AN01",
+"n": "Lithium",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N05A - Antipsychotics"
+},
+{
+"atc5": "N05BA01",
+"n": "Diazepam",
+"route": "intramuscular use, intravenous use, rectal use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N05B - Anxiolytics"
+},
+{
+"atc5": "N05BA06",
+"n": "Lorazepam",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N05B - Anxiolytics"
+},
+{
+"atc5": "N05CD08",
+"n": "Midazolam",
+"route": "intramuscular use, intravenous use, subcutaneous use, rectal use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N05C - Hypnotics and sedatives"
+},
+{
+"atc5": "N05CM18",
+"n": "Dexmedetomidine",
+"route": "intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N05C - Hypnotics and sedatives"
+},
+{
+"atc5": "N06AX27",
+"n": "Esketamine",
+"route": "nasal use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N06A - Antidepressants"
+},
+{
+"atc5": "N06BC01",
+"n": "Caffeine",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N06B - Psychostimulants, agents used for ADHD and nootropics"
+},
+{
+"atc5": "N07AA01",
+"n": "Neostigmine",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N07A - Parasympathomimetics"
+},
+{
+"atc5": "N07XX02",
+"n": "Riluzole",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "N - Nervous system",
+"grp": "N07X - Other nervous system drugs"
+},
+{
+"atc5": "P01AB01",
+"n": "Metronidazole",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "P - Antiparasitic products, insecticides and repellents",
+"grp": "P01A - Agents against amoebiasis and other protozoal diseases"
+},
+{
+"atc5": "P01CX01",
+"n": "Pentamidine",
+"route": "inhalation use, intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "P - Antiparasitic products, insecticides and repellents",
+"grp": "P01C - Agents against leishmaniasis and trypanosomiasis"
+},
+{
+"atc5": "P02CA03",
+"n": "Albendazole",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "P - Antiparasitic products, insecticides and repellents",
+"grp": "P02C - Antinematodal agents"
+},
+{
+"atc5": "R03AC02",
+"n": "Salbutamol",
+"route": "inhalation use, nasal use, oral use",
+"d": "2023-12-01",
+"cat": "R - Respiratory system",
+"grp": "R03A - Adrenergics, inhalants"
+},
+{
+"atc5": "R03BB01",
+"n": "Ipratropium",
+"route": "inhalation use, oral use",
+"d": "2023-12-01",
+"cat": "R - Respiratory system",
+"grp": "R03B - Other drugs for obstructive airway diseases, inhalants"
+},
+{
+"atc5": "R03CA02",
+"n": "Ephedrine",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "R - Respiratory system",
+"grp": "R03C - Adrenergics for systemic use"
+},
+{
+"atc5": "R03CC02",
+"n": "Salbutamol",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "R - Respiratory system",
+"grp": "R03C - Adrenergics for systemic use"
+},
+{
+"atc5": "R05CB01",
+"n": "Acetylcysteine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "R - Respiratory system",
+"grp": "R05C - Expectorants, excl combinations with cough suppressants"
+},
+{
+"atc5": "R05CB13",
+"n": "Dornase Alfa (Desoxyribonuclease)",
+"route": "inhalation use",
+"d": "2025-12-01",
+"cat": "R - Respiratory system",
+"grp": "R05C - Expectorants, excl combinations with cough suppressants"
+},
+{
+"atc5": "S01EB01",
+"n": "Pilocarpine",
+"route": "ocular use",
+"d": "2023-12-01",
+"cat": "S - Sensory organs",
+"grp": "S01E - Antiglaucoma preparations and miotics"
+},
+{
+"atc5": "S01EB09",
+"n": "Acetylcholine",
+"route": "intraocular use",
+"d": "2023-12-01",
+"cat": "S - Sensory organs",
+"grp": "S01E - Antiglaucoma preparations and miotics"
+},
+{
+"atc5": "S01EC01",
+"n": "Acetazolamide",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "S - Sensory organs",
+"grp": "S01E - Antiglaucoma preparations and miotics"
+},
+{
+"atc5": "S01FA04",
+"n": "Cyclopentolate",
+"route": "ocular use",
+"d": "2023-12-01",
+"cat": "S - Sensory organs",
+"grp": "S01F - Mydriatics and cycloplegics"
+},
+{
+"atc5": "S01LA01",
+"n": "Verteporfin",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "S - Sensory organs",
+"grp": "S01L - Ocular vascular disorder agents"
+},
+{
+"atc5": "S02AA15",
+"n": "Ciprofloxacin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "S - Sensory organs",
+"grp": "S02A - Antiinfectives"
+},
+{
+"atc5": "S03AA07",
+"n": "Ciprofloxacin",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "S - Sensory organs",
+"grp": "S03A - Antiinfectives"
+},
+{
+"atc5": "V03AB06",
+"n": "Sodium Thiosulfate",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB14",
+"n": "Protamine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB15",
+"n": "Naloxone",
+"route": "intramuscular use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB17",
+"n": "Methylthioninium",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB23",
+"n": "Acetylcysteine",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB25",
+"n": "Flumazenil",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB33",
+"n": "Hydroxocobalamin",
+"route": "intramuscular use, intravenous use, oral use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB34",
+"n": "Fomepizole",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB35",
+"n": "Sugammadex",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AB37",
+"n": "Idarucizumab",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AC01",
+"n": "Deferoxamine",
+"route": "intramuscular use, intraperitoneal use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AE01",
+"n": "Polystyrene Sulfonic Acid",
+"route": "oral use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AF01",
+"n": "Mesna",
+"route": "intravenous use, oral use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AF02",
+"n": "Dexrazoxane",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AF03",
+"n": "Folinic Acid",
+"route": "intramuscular use, intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V03AF07",
+"n": "Rasburicase",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V03A - All other therapeutic products"
+},
+{
+"atc5": "V04CF01",
+"n": "Tuberculin",
+"route": "intradermal use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V04C - Other diagnostic agents"
+},
+{
+"atc5": "V09GA04",
+"n": "Albumin (Technetium, 99Mtc)",
+"route": "intravenous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V09G - Cardiovascular system"
+},
+{
+"atc5": "V09GB02",
+"n": "Albumin (Iodine, 125I)",
+"route": "intradermal use, intratumoral use, intravenous use, subcutaneous use",
+"d": "2023-12-01",
+"cat": "V - Various",
+"grp": "V09G - Cardiovascular system"
+},
+{
+"atc5": "V10XX03",
+"n": "Radium (223Ra) Dichloride",
+"route": "intravenous use",
+"d": "2024-12-16",
+"cat": "V - Various",
+"grp": "V10X - Other therapeutic radiopharmaceuticals"
+},
+{
+"atc5": "See websites for contact details",
+"n": "",
+"route": "",
+"d": null,
+"cat": "V - Various",
+"grp": "V10X - Other therapeutic radiopharmaceuticals"
+},
+{
+"atc5": "Heads of Medicines Agencies www.hma.eu\nEuropean Medicines Agency www.ema.europa.eu\nEuropean Commission www.commission.europa.eu",
+"n": "",
+"route": "",
+"d": null,
+"cat": "V - Various",
+"grp": "V10X - Other therapeutic radiopharmaceuticals"
+}
+]
+}
