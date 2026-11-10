@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-11-10T01:46:51Z",
+ "checkedAt": "2026-11-10T08:35:50Z",
  "status": "OK",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-11-09",
+  "euCatalogue": "2026-11-10",
   "euLabels": "2026-11-09",
-  "usApprovals": "2026-11-06",
-  "usApprovalsAnnounced": "2026-11-05",
+  "usApprovals": "2026-11-09",
+  "usApprovalsAnnounced": "2026-11-09",
   "usLabels": "2026-11-09",
-  "pipelineRun": "2026-11-10T01:46:51Z"
+  "pipelineRun": "2026-11-10T08:35:50Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,17 +17,18 @@
    "status": "OK",
    "count": 1567,
    "pending": 17,
-   "sha256": "423f41bcceee41408054c2a297ddc17380d9349fa37ac6a157b4d1e590277348",
+   "sha256": "ce602423f4ecabb313a280245af931d79d86670ba15f9769e6d84a14d53242e3",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-11-09",
-   "sourceAgeDays": 1.07,
-   "fetchedAt": "2026-11-10T01:45:22+00:00",
+   "sourceUpdatedAt": "2026-11-10",
+   "sourceAgeDays": 0.36,
+   "fetchedAt": "2026-11-10T08:34:55+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-09T17:00:08Z",
-    "kind": "Last-Modified"
+    "error": "HTTPError: HTTP Error 429: Too Many Requests"
    },
-   "notes": []
+   "notes": [
+    "live probe failed: HTTPError: HTTP Error 429: Too Many Requests (not counted)"
+   ]
   },
   "eu_union_register": {
    "name": "EU Union Register (Commission decisions)",
@@ -36,7 +37,7 @@
    "count": 39,
    "sha256": "981bbdce4df40ccab7b7d89928a7ea283c8d6dd653b2861c0192e60befe92cdd",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-10T01:45:23+00:00",
+   "fetchedAt": "2026-11-10T08:34:56+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -48,10 +49,10 @@
    "url": "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json",
    "incomplete": null,
    "sourceUpdatedAt": "2026-11-09T05:48:54Z",
-   "sourceAgeDays": 0.83,
+   "sourceAgeDays": 1.12,
    "fetchedAt": "2026-11-09",
    "probe": {
-    "value": "2026-11-09T16:45:09Z",
+    "value": "2026-11-10T04:45:07Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -60,26 +61,26 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3443,
+   "count": 3445,
    "approvals": 99,
    "newestOriginalApproval": "2026-10-27",
-   "sha256": "a8dc66c95ef9d8e06ff3e435bec9f5146446e320fd856565917f5eddef89541a",
+   "sha256": "9dda3a6444d817ceef772b073ec17b3336c3fdbe817397683b4edf3f9b2b46c2",
    "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251110+TO+20261117]",
-   "sourceUpdatedAt": "2026-11-06",
-   "sourceAgeDays": 4.07,
-   "fetchedAt": "2026-11-10T01:45:30+00:00",
+   "sourceUpdatedAt": "2026-11-09",
+   "sourceAgeDays": 1.36,
+   "fetchedAt": "2026-11-10T08:35:02+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-06",
+    "value": "2026-11-09",
     "kind": "meta.last_updated"
    },
    "lag": {
-    "behindDays": 9,
-    "reference": "2026-11-05",
+    "behindDays": 13,
+    "reference": "2026-11-09",
     "referenceSource": "CDER novel roster / FDA press releases"
    },
    "notes": [
-    "openFDA lagging: FDA announced approvals through 2026-11-05, Drugs@FDA newest original approval 2026-10-27 (9 d) — served by the Recent-Approvals overlay"
+    "openFDA lagging: FDA announced approvals through 2026-11-09, Drugs@FDA newest original approval 2026-10-27 (13 d) — served by the Recent-Approvals overlay"
    ]
   },
   "openfda_drug_label": {
@@ -90,9 +91,9 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-09",
    "fetchedAt": "2026-11-09",
-   "sourceAgeDays": 1.07,
+   "sourceAgeDays": 1.36,
    "probe": {
-    "value": "2026-11-06",
+    "value": "2026-11-09",
     "kind": "meta.last_updated"
    },
    "notes": []
@@ -104,9 +105,17 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 21.07,
-   "missing": null,
-   "notes": []
+   "sourceAgeDays": 21.36,
+   "missing": [
+    {
+     "name": "Sunharbo",
+     "date": "2026-11-09",
+     "via": "FDA press release"
+    }
+   ],
+   "notes": [
+    "1 recent FDA approval(s) not yet in the roster (within 7 d grace): Sunharbo (2026-11-09, FDA press release)"
+   ]
   },
   "fda_announcements": {
    "name": "FDA press releases (announcements feed)",
@@ -114,9 +123,9 @@
    "status": "OK",
    "count": 25,
    "fetchedAt": "2026-11-10",
-   "fetchedAgeDays": 0.07,
-   "sourceUpdatedAt": "2026-11-05",
-   "sourceAgeDays": 5.07,
+   "fetchedAgeDays": 0.36,
+   "sourceUpdatedAt": "2026-11-09",
+   "sourceAgeDays": 1.36,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -126,7 +135,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 11.07,
+   "sourceAgeDays": 11.36,
    "notes": []
   },
   "fda_cdx_list": {
@@ -136,7 +145,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 43.07,
+   "sourceAgeDays": 43.36,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -153,7 +162,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 295.07,
+   "sourceAgeDays": 295.36,
    "notes": []
   },
   "biomarkers_table": {
@@ -162,7 +171,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 120.07,
+   "sourceAgeDays": 120.36,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -178,5 +187,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-09T19:09:16Z"
+ "previousCheckedAt": "2026-11-10T01:46:51Z"
 }

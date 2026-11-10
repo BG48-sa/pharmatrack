@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-10",
- "checkedAt": "2026-11-10T01:46:51Z",
+ "checkedAt": "2026-11-10T08:35:50Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,43 +12,44 @@
  },
  "summary": {
   "total": 108,
-  "unresolved": 39,
+  "unresolved": 36,
   "byStatus": {
-   "AWAITING_USPI": 13,
+   "AWAITING_USPI": 11,
    "AWAITING_EC_DECISION": 17,
    "AWAITING_SMPC": 5,
-   "LABEL_AVAILABLE": 4,
-   "LABEL_VERIFIED": 69
+   "LABEL_AVAILABLE": 3,
+   "LABEL_VERIFIED": 72
   },
-  "alerts": 28,
-  "transitions": [],
-  "closed": [
+  "alerts": 14,
+  "transitions": [
    {
-    "id": "FDA:beqalzi",
-    "drug": "Beqalzi",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
+    "id": "FDA:ranibizumab",
+    "drug": "Ranibizumab",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 05ed75bc-ae21-480b-9be4-cbc51689dd8a, label version 2 of 2026-10-09"
+   },
+   {
+    "id": "FDA:bixlenvo sunlenca starter pack copackaged",
+    "drug": "Bixlenvo Sunlenca Starter Pack (copackaged)",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID b2a3ef0e-3ded-45d7-9ba6-f33c4d372dc1, label version 2 of 2026-09-29"
+   },
+   {
+    "id": "FDA:glycophos",
+    "drug": "Glycophos",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID e887e473-f1a7-40f1-bd6e-c99e7db7420d, label version 1 of 2026-10-08"
    }
-  ]
+  ],
+  "closed": []
  },
  "alerts": [
   {
-   "id": "FDA:hibsago",
-   "drug": "Hibsago",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
    "id": "FDA:yulzety",
    "drug": "Yulzety",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:emcitate",
-   "drug": "Emcitate",
    "jurisdiction": "FDA",
    "status": "LABEL_VERIFIED",
    "message": "openFDA no longer returns the verified label — check DailyMed"
@@ -61,13 +62,6 @@
    "message": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
-   "id": "FDA:juvmo",
-   "drug": "Juvmo",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
    "id": "FDA:degevma",
    "drug": "Degevma",
    "jurisdiction": "FDA",
@@ -75,67 +69,11 @@
    "message": "official document detected 15 days ago but not ingested/validated"
   },
   {
-   "id": "FDA:atebrioz",
-   "drug": "Atebrioz",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:onswik",
-   "drug": "Onswik",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
    "id": "FDA:lyrfigtu",
    "drug": "Lyrfigtu",
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
    "message": "no US prescribing information at openFDA or DailyMed 48 days after approval"
-  },
-  {
-   "id": "FDA:fayuvi",
-   "drug": "Fayuvi",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:pixclara",
-   "drug": "Pixclara",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:isembyld",
-   "drug": "Isembyld",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:zanvastro",
-   "drug": "Zanvastro",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:bixlenvo sunlenca starter pack copackaged",
-   "drug": "Bixlenvo Sunlenca Starter Pack (copackaged)",
-   "jurisdiction": "FDA",
-   "status": "LABEL_AVAILABLE",
-   "message": "official document detected 17 days ago but not ingested/validated"
-  },
-  {
-   "id": "FDA:genglycos",
-   "drug": "Genglycos",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:tauklarify",
@@ -150,27 +88,6 @@
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
    "message": "no US prescribing information at openFDA or DailyMed 97 days after approval"
-  },
-  {
-   "id": "FDA:glycophos",
-   "drug": "Glycophos",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA or DailyMed 104 days after approval"
-  },
-  {
-   "id": "FDA:simtriyo",
-   "drug": "Simtriyo",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:utebzi",
-   "drug": "Utebzi",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:cypsedo",
@@ -268,17 +185,46 @@
    "summary": null,
    "sponsor": "Xbrane Biopharma Ab",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-03",
-   "statusSince": "2026-11-03",
+   "statusSince": "2026-11-10",
    "history": [
     {
      "date": "2026-11-03",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-10",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 05ed75bc-ae21-480b-9be4-cbc51689dd8a, label version 2 of 2026-10-09"
     }
    ],
-   "lastChecked": "2026-11-10"
+   "lastChecked": "2026-11-10",
+   "checks": {
+    "applicationMatch": null,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": null,
+    "harmonised": false
+   },
+   "label": {
+    "setId": "05ed75bc-ae21-480b-9be4-cbc51689dd8a",
+    "splId": "0165619b-c985-47a1-8204-2e88bc96ed49",
+    "effective": "2026-10-09",
+    "version": "2",
+    "detected": "2026-11-10",
+    "retrieved": "2026-11-10",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=05ed75bc-ae21-480b-9be4-cbc51689dd8a",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
+    "sha256": "fbf9aff0341d7e0459816d86fc8c6fb5e6b274af80246a4dab4cab8073acae03",
+    "indications": "1 INDICATIONS AND USAGE NUFYMCO is indicated for the treatment of patients with: NUFYMCO, a vascular endothelial growth factor (VEGF) inhibitor, is indicated for the treatment of patients with: Neovascular (Wet) Age-Related Macular Degeneration (AMD) ( 1.1 ) Macular Edema Following Retinal Vein Occlusion (RVO) ( 1.2 ) Diabetic Macular Edema (DME) ( 1.3 ) Diabetic Retinopathy (DR) ( 1.4 ) Myopic Choroidal Neovascularization (mCNV) ( 1.5 ) 1.1 Neovascular (Wet) Age-Related Macular Degeneration (AMD) 1.2 Macular Edema Following Retinal Vein Occlusion (RVO) 1.3 Diabetic Macular Edema (DME) 1.4 Diabetic Retinopathy (DR) 1.5 Myopic Choroidal Neovascularization (mCNV)",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+   }
   },
   {
    "id": "FDA:hibsago",
@@ -313,7 +259,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -324,16 +270,14 @@
     "detected": "2026-10-27",
     "retrieved": "2026-10-27",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2cca7226-d8f9-4917-8d10-83e216acf393",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "Hibsago",
-    "usGeneric": "Bepirovirsen",
+    "usGeneric": "BEPIROVIRSEN",
     "applicationNumber": "NDA221276",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "db66211a36702fd7587258c32082f5845ce79c082b240d60d016ba581c8d5154",
-    "indications": "1 INDICATIONS AND USAGE HIBSAGO is indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic hepatitis B virus (HBV) infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test [see Dosage and Administration ( 2.2 )] . HIBSAGO is a hepatitis B virus (HBV) mRNA-directed antisense oligonucleotide (ASO) indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic HBV infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test. ( 2.2 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE HIBSAGO is indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic hepatitis B virus (HBV) infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test [see Dosage and Administration ( 2.2 )] . HIBSAGO is a hepatitis B virus (HBV) mRNA-directed antisense oligonucleotide (ASO) indicated in combination with nucleos(t)ide analog reverse transcriptase inhibitor (NrtI) therapy for treatment of chronic HBV infection in adult patients without cirrhosis: • who have been on NrtI therapy for at least 6 months and have suppressed HBV deoxyribonucleic acid (DNA), and • who have HBV surface antigen (HBsAg) levels less than or equal to 3,000 IU/mL as determined by an FDA-authorized test. ( 2.2 )"
+   }
   },
   {
    "id": "FDA:cienby",
@@ -524,7 +468,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -535,16 +479,14 @@
     "detected": "2026-10-27",
     "retrieved": "2026-10-27",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=48d9faab-9c60-4abd-b4b9-97ffa778c944",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "EMCITATE",
-    "usGeneric": "tiratricol",
+    "usGeneric": "TIRATRICOL",
     "applicationNumber": "NDA220963",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "5f02959cf6883c17dcdef9823f246ef1d2c74a281c8739b99cefcb156fd46019",
-    "indications": "1 INDICATIONS AND USAGE EMCITATE is indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). EMCITATE is a thyroid hormone receptor agonist indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism. Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism.",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE EMCITATE is indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). EMCITATE is a thyroid hormone receptor agonist indicated for the treatment of peripheral thyrotoxicosis in adults and pediatric patients with monocarboxylate transporter 8 (MCT8) deficiency (Allan-Herndon-Dudley syndrome). Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism. Limitation of Use EMCITATE is not recommended for the treatment of primary hypothyroidism."
+   }
   },
   {
    "id": "FDA:lamlique",
@@ -633,27 +575,25 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
     "setId": "1ae6df6e-6ca0-420f-bec9-effa7acdd085",
-    "splId": "b8de6e40-0be5-495c-8f8b-f171dbf39650",
-    "effective": "2026-09-25",
-    "version": "2",
+    "splId": "1cbfaa3b-d541-4ac3-bf4e-9ab82d8d1b6c",
+    "effective": "2026-10-08",
+    "version": "3",
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1ae6df6e-6ca0-420f-bec9-effa7acdd085",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "JUVMO",
-    "usGeneric": "Tavapadon",
+    "usGeneric": "TAVAPADON",
     "applicationNumber": "NDA220415",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "ae231a55cdb52a4deb8752f0e6bca7fcc8fed9f649ba5cd913d26deb9c3f4134",
-    "indications": "1 INDICATIONS AND USAGE JUVMO is indicated for the treatment of Parkinson’s disease (PD) in adults. JUVMO is a non-ergot dopamine agonist indicated for the treatment of Parkinson’s disease in adults. ( 1 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE JUVMO is indicated for the treatment of Parkinson’s disease (PD) in adults. JUVMO is a non-ergot dopamine agonist indicated for the treatment of Parkinson’s disease in adults. ( 1 )"
+   }
   },
   {
    "id": "FDA:degevma",
@@ -733,7 +673,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -744,16 +684,14 @@
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f542e4b0-072a-42c6-80c9-5977054971e0",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "ATEBRIOZ",
-    "usGeneric": "zilurgisertib",
+    "usGeneric": "ZILURGISERTIB",
     "applicationNumber": "NDA221198",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "2790c298bc0e0a68502c4a9f317d83cacaa8830b5bdb9b464cd4bdba5be02280",
-    "indications": "1. INDICATIONS AND USAGE ATEBRIOZ is indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ATEBRIOZ is an activin receptor-like kinase-2 (ALK2) inhibitor indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ( 1 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1. INDICATIONS AND USAGE ATEBRIOZ is indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ATEBRIOZ is an activin receptor-like kinase-2 (ALK2) inhibitor indicated to reduce the volume of total new heterotopic ossification (HO) in adults and pediatric patients aged 12 years and older with fibrodysplasia ossificans progressiva (FOP). ( 1 )"
+   }
   },
   {
    "id": "FDA:onswik",
@@ -788,7 +726,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -799,16 +737,14 @@
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e02229e-262c-4e25-9240-9e9de4eb7c1d",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
-    "usBrand": "ONSWIK",
-    "usGeneric": "insulin efsitora alfa-gobe",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "ONSWIK KwikPen",
+    "usGeneric": "INSULIN EFSITORA ALFA-GOBE",
     "applicationNumber": "BLA761408",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "38f30b64fc1a18879e801354f6f075c7ada1020915fe09928a4a89e20bd640b6",
-    "indications": "1 INDICATIONS AND USAGE ONSWIK™ is indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ONSWIK™ is a long-acting insulin analog indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ( 1 ) Limitations of Use: Not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia ( 1 ) Limitations of Use ONSWIK is not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia. [see Warnings and Precautions ( 5.2 )] .",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE ONSWIK™ is indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ONSWIK™ is a long-acting insulin analog indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ( 1 ) Limitations of Use: Not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia ( 1 ) Limitations of Use ONSWIK is not recommended for use in patients with type 1 diabetes mellitus due to increased risk of severe hypoglycemia. [see Warnings and Precautions ( 5.2 )] ."
+   }
   },
   {
    "id": "FDA:lyrfigtu",
@@ -868,7 +804,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -879,16 +815,14 @@
     "detected": "2026-11-03",
     "retrieved": "2026-11-03",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=996fc33a-26d3-4fae-bd0c-a2edd7764539",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "FAYUVI",
-    "usGeneric": "rebisufligene etisparvovec-hopf",
+    "usGeneric": "REBISUFLIGENE ETISPARVOVEC-HOPF",
     "applicationNumber": "BLA125845",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "1160a42e3b78e9a1d2360e5108d4de69720c6877ebca5c6ddbc2a045048333a6",
-    "indications": "1 INDICATIONS AND USAGE FAYUVI is indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function. FAYUVI is an adeno-associated virus (AAV) vector-based gene therapy indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function.",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE FAYUVI is indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function. FAYUVI is an adeno-associated virus (AAV) vector-based gene therapy indicated for the treatment of neurologic manifestations of mucopolysaccharidosis type IIIA (MPS IIIA, Sanfilippo syndrome type A) in pediatric patients with preserved neurodevelopmental function."
+   }
   },
   {
    "id": "FDA:pixclara",
@@ -923,7 +857,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -934,16 +868,14 @@
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dc78b128-3768-4448-b019-61574db05714",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "PIXCLARA",
-    "usGeneric": "Floretyrosine F18",
+    "usGeneric": "FLORETYROSINE F18",
     "applicationNumber": "NDA218592",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "59138bbe40cba556ea81c3c357c660bbc52dac69737d58ebdc4567b5f682e0e3",
-    "indications": "1 INDICATIONS AND USAGE PIXCLARA is indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. PIXCLARA is a radioactive diagnostic drug indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. ( 1 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE PIXCLARA is indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. PIXCLARA is a radioactive diagnostic drug indicated for use with positron emission tomography (PET) to differentiate recurrent or progressive glioma from treatment-related change, in conjunction with other diagnostic evaluations, in adults and pediatric patients 1 month of age and older. ( 1 )"
+   }
   },
   {
    "id": "FDA:isembyld",
@@ -978,7 +910,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -989,16 +921,14 @@
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b1cd8ab8-8a10-48ed-9806-75a44f22b963",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "ISEMBYLD",
-    "usGeneric": "apitegromab-mstn",
+    "usGeneric": "APITEGROMAB-MSTN",
     "applicationNumber": "BLA761463",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "a6d8fdd5473b492b5612e69fa75b377a8e5156a5d0c95556cd61c3fe85e052f9",
-    "indications": "1 INDICATIONS AND USAGE ISEMBYLD is indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ISEMBYLD is a recombinant monoclonal antibody targeting proforms of myostatin, indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ( 1 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE ISEMBYLD is indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ISEMBYLD is a recombinant monoclonal antibody targeting proforms of myostatin, indicated for the treatment of spinal muscular atrophy (SMA) in adults and pediatric patients 2 years of age and older who are currently receiving a survival motor neuron 2 (SMN2)-targeted treatment. ( 1 )"
+   }
   },
   {
    "id": "FDA:etcamah",
@@ -1086,7 +1016,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -1097,16 +1027,14 @@
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=af6ca330-46d3-4ed6-b2af-bd6db3133fd1",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "ZANVASTRO",
-    "usGeneric": "zilganersen",
+    "usGeneric": "ZILGANERSEN",
     "applicationNumber": "NDA220210",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "f21143aa3e2ca5c05fc8ecd63121ecf183de9573ee598ea9270cff92b369474f",
-    "indications": "1 INDICATIONS AND USAGE ZANVASTRO is indicated for the treatment of Alexander disease in pediatric and adult patients. ZANVASTRO is a glial fibrillary acidic protein (GFAP)-directed antisense oligonucleotide indicated for the treatment of Alexander disease in pediatric and adult patients. ( 1 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE ZANVASTRO is indicated for the treatment of Alexander disease in pediatric and adult patients. ZANVASTRO is a glial fibrillary acidic protein (GFAP)-directed antisense oligonucleotide indicated for the treatment of Alexander disease in pediatric and adult patients. ( 1 )"
+   }
   },
   {
    "id": "FDA:mimrylo",
@@ -1138,28 +1066,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "101aff01-31ed-4841-a8b6-0a5a8503189b",
-    "splId": "2fc41c37-8a81-4171-a52c-e9317c0c34cf",
-    "effective": "2026-08-28",
-    "version": "2",
+    "splId": "4bc6cb00-04f1-43b8-9542-db0693a1c6d5",
+    "effective": "2026-11-02",
+    "version": "4",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=101aff01-31ed-4841-a8b6-0a5a8503189b",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "MIMRYLO",
+    "usGeneric": "RUSFERTIDE",
+    "applicationNumber": "NDA220605",
+    "harmonised": true,
     "sha256": "39d8aa4c428a2851319ad66da8c3ffc2c30162286e39679c439ccbc336c517ff",
-    "indications": "1 INDICATIONS AND USAGE MIMRYLO is indicated for the treatment of erythrocytosis in adults with polycythemia vera (PV). MIMRYLO is a hepcidin mimetic indicated for the treatment of erythrocytosis in adults with polycythemia vera (PV). ( 1 )",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE MIMRYLO is indicated for the treatment of erythrocytosis in adults with polycythemia vera (PV). MIMRYLO is a hepcidin mimetic indicated for the treatment of erythrocytosis in adults with polycythemia vera (PV). ( 1 )"
    }
   },
   {
@@ -1192,28 +1119,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "5023a17b-e96a-67d4-e063-6394a90a14a7",
-    "splId": "4ea28f02-7a6c-4e71-86ba-8c516f6d9323",
-    "effective": "2026-08-28",
-    "version": "3",
+    "splId": "b7cd7ed2-1181-4e4c-91be-4300e12ef62a",
+    "effective": "2026-11-05",
+    "version": "4",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5023a17b-e96a-67d4-e063-6394a90a14a7",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "LISRAYA",
+    "usGeneric": "BREPOCITINIB",
+    "applicationNumber": "NDA220106",
+    "harmonised": true,
     "sha256": "96d223ec6dd151dd9daf2bed2900dbc1e3c727db579696c618ebe2f263ad5ff2",
-    "indications": "1 INDICATIONS AND USAGE LISRAYA is indicated for the treatment of dermatomyositis in adult patients. LISRAYA is a Janus kinase (JAK) and tyrosine kinase 2 (TYK2) inhibitor indicated for the treatment of dermatomyositis in adult patients. ( 1 ) Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs. Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs.",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE LISRAYA is indicated for the treatment of dermatomyositis in adult patients. LISRAYA is a Janus kinase (JAK) and tyrosine kinase 2 (TYK2) inhibitor indicated for the treatment of dermatomyositis in adult patients. ( 1 ) Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs. Limitations of Use LISRAYA is not recommended for use in combination with other JAK inhibitors, other TYK2 inhibitors, or biologic DMARDs."
    }
   },
   {
@@ -1228,9 +1154,9 @@
    ],
    "summary": null,
    "sponsor": "Gilead Sciences Inc",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-24",
+   "statusSince": "2026-11-10",
    "history": [
     {
      "date": "2026-10-18",
@@ -1241,24 +1167,37 @@
      "date": "2026-10-24",
      "status": "LABEL_AVAILABLE",
      "note": "label record found at openFDA but failed validation: applicationMatch"
+    },
+    {
+     "date": "2026-11-10",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID b2a3ef0e-3ded-45d7-9ba6-f33c4d372dc1, label version 2 of 2026-09-29"
     }
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": false,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
     "prescription": true,
     "harmonised": true
    },
    "label": {
-    "setId": "072a3c7e-33fb-4a87-ba21-3d8dad3f5c48",
-    "effective": "2026-08-27",
-    "version": "1",
+    "setId": "b2a3ef0e-3ded-45d7-9ba6-f33c4d372dc1",
+    "splId": "20c2a9c1-f2ca-4977-be9d-5131d31df3df",
+    "effective": "2026-09-29",
+    "version": "2",
     "detected": "2026-10-24",
-    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=072a3c7e-33fb-4a87-ba21-3d8dad3f5c48"
-   },
-   "alert": "official document detected 17 days ago but not ingested/validated"
+    "retrieved": "2026-11-10",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b2a3ef0e-3ded-45d7-9ba6-f33c4d372dc1",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "Bixlenvo Sunlenca Starter Pack",
+    "usGeneric": "BICTEGRAVIR/LENACAPAVIR, LENACAPAVIR SODIUM",
+    "applicationNumber": "NDA221443",
+    "harmonised": true,
+    "sha256": "e85ab474e3d3d08fea80ee1d551325413dbb10cfc15e38221ef6a6ef731824b4",
+    "indications": "1 INDICATIONS AND USAGE BIXLENVO SUNLENCA STARTER PACK is a co-packaged product containing BIXLENVO and SUNLENCA tablets and is indicated for the initiation of BIXLENVO, a complete regimen for the treatment of human immunodeficiency virus type 1 (HIV-1) infection in adults to replace the current antiretroviral regimen in those who are virologically suppressed (HIV-1 RNA less than 50 copies per mL) on a stable antiretroviral regimen with no known or suspected resistance to the individual components of BIXLENVO [see Dosage and Administration (2.1) and Clinical Studies (14) ] . BIXLENVO SUNLENCA STARTER PACK is a co-packaged product containing BIXLENVO, a two-drug combination of bictegravir (BIC), a human immunodeficiency virus type 1 (HIV-1) integrase strand transfer inhibitor (INSTI) and lenacapavir (LEN), an HIV-1 capsid inhibitor; and SUNLENCA (lenacapavir) tablets, and is indicated for the initiation of BIXLENVO, a complete regimen for the treatment of HIV-1 infection in adults to replace the current antiretroviral regimen in those who are virologically suppressed (HIV-1 RNA less than 50 copies per mL) on a stable antiretroviral regimen with no known or suspected resistance to the individual components of BIXLENVO."
+   }
   },
   {
    "id": "FDA:bixlenvo",
@@ -1450,7 +1389,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -1461,16 +1400,14 @@
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "GENGLYCOS",
-    "usGeneric": "pariglasgene brecaparvovec-opnr",
+    "usGeneric": "PARIGLASGENE BRECAPARVOVEC-OPNR",
     "applicationNumber": "BLA125858",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "09156c61c0ee272fe949207cd65e23dad857a80109a91d97437269b9ddf64e3b",
-    "indications": "1. INDICATIONS AND USAGE GENGLYCOS is indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake [see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). GENGLYCOS is an adeno-associated virus (AAV) vector-based gene therapy indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake. Continued approval for this indication may be contingent upon verification of clinical benefit in confirmatory trial(s). ( 1 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1. INDICATIONS AND USAGE GENGLYCOS is indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake [see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). GENGLYCOS is an adeno-associated virus (AAV) vector-based gene therapy indicated to reduce daily cornstarch intake as an adjunct to nutritional management in adult and pediatric patients 8 years of age and older with glycogen storage disease type Ia (GSDIa). This indication is approved under accelerated approval based on reduction in daily cornstarch intake. Continued approval for this indication may be contingent upon verification of clinical benefit in confirmatory trial(s). ( 1 )"
+   }
   },
   {
    "id": "FDA:zenbexus",
@@ -1580,28 +1517,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "26627b8d-91ac-4f76-a213-7e25efd024d1",
-    "splId": "5a6cd8e9-9d15-d428-e063-6294a90a4dfb",
-    "effective": "2026-09-01",
-    "version": "3",
+    "splId": "1ddc4551-7fe8-4d58-952c-1d0dd1f6af67",
+    "effective": "2026-08-17",
+    "version": "4",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=26627b8d-91ac-4f76-a213-7e25efd024d1",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "Tudriqev",
+    "usGeneric": "VUSOLIMOGENE ODERPAREPVEC-WTPG",
+    "applicationNumber": "BLA125827",
+    "harmonised": true,
     "sha256": "d3b1d8424b56dc4e5e84160baa969163a61c7044830e54818c2d43e2904ece84",
-    "indications": "1 INDICATIONS AND USAGE TUDRIQEV™ is indicated in combination with nivolumab for the treatment of adult patients with unresectable advanced cutaneous melanoma who experienced disease progression with a programmed death receptor-1 (PD-1)-blocking antibody-based regimen. This indication is approved under accelerated approval based on objective response rate (ORR) and duration of response [ see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). TUDRIQEV is a genetically modified oncolytic viral therapy indicated in combination with nivolumab for the treatment of adult patients with unresectable advanced cutaneous melanoma who experienced disease progression with a programmed death receptor-1 (PD-1)-blocking antibody-based regimen. This indication is approved under accelerated approval based on objective response rate (ORR) and duration of response. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). ( 1 )",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE TUDRIQEV™ is indicated in combination with nivolumab for the treatment of adult patients with unresectable advanced cutaneous melanoma who experienced disease progression with a programmed death receptor-1 (PD-1)-blocking antibody-based regimen. This indication is approved under accelerated approval based on objective response rate (ORR) and duration of response [ see Clinical Studies (14) ]. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). TUDRIQEV is a genetically modified oncolytic viral therapy indicated in combination with nivolumab for the treatment of adult patients with unresectable advanced cutaneous melanoma who experienced disease progression with a programmed death receptor-1 (PD-1)-blocking antibody-based regimen. This indication is approved under accelerated approval based on objective response rate (ORR) and duration of response. Continued approval for this indication may be contingent upon verification of clinical benefit in a confirmatory trial(s). ( 1 )"
    }
   },
   {
@@ -1668,18 +1604,45 @@
    ],
    "summary": null,
    "sponsor": "Fresenius Kabi Usa",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-11-10",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-10",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID e887e473-f1a7-40f1-bd6e-c99e7db7420d, label version 1 of 2026-10-08"
     }
    ],
    "lastChecked": "2026-11-10",
-   "alert": "no US prescribing information at openFDA or DailyMed 104 days after approval"
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "indicationsPresent": true,
+    "prescription": true,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "e887e473-f1a7-40f1-bd6e-c99e7db7420d",
+    "splId": "05761514-5960-44b8-8e1d-7f0a1ceeee2a",
+    "effective": "2026-10-08",
+    "version": "1",
+    "detected": "2026-11-10",
+    "retrieved": "2026-11-10",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e887e473-f1a7-40f1-bd6e-c99e7db7420d",
+    "source": "openFDA drug label (US Prescribing Information)",
+    "usBrand": "GLYCOPHOS",
+    "usGeneric": "SODIUM GLYCEROPHOSPHATE",
+    "applicationNumber": "NDA220381",
+    "harmonised": true,
+    "sha256": "50d51450902c6308ae78367acf1d42a70c58ac64540a4f758d37ae7563d90e36",
+    "indications": "1 INDICATIONS AND USAGE Glycophos is indicated as a source of phosphorus in adults and pediatric patients 12 years and older as part of parenteral nutrition (PN) when oral or enteral nutrition is not possible, insufficient, or contraindicated. Glycophos is a phosphorus replacement product indicated as a source of phosphorus in adults and pediatric patients 12 years and older as part of parenteral nutrition (PN) when oral or enteral nutrition is not possible, insufficient, or contraindicated. ( 1 )"
+   }
   },
   {
    "id": "FDA:simtriyo",
@@ -1714,7 +1677,7 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
@@ -1725,16 +1688,14 @@
     "detected": "2026-10-27",
     "retrieved": "2026-10-27",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ecfa41cc-c8c8-419b-8da3-ee5b819398c2",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "SIMTRIYO",
-    "usGeneric": "centanafadine hydrochloride",
+    "usGeneric": "CENTANAFADINE HYDROCHLORIDE",
     "applicationNumber": "NDA218145",
-    "harmonised": false,
+    "harmonised": true,
     "sha256": "0730b85f9035d47ce346f965ab71a115cce0a3316dd3a1cdae316524824789fd",
-    "indications": "1 INDICATIONS AND USAGE SIMTRIYO is indicated for the treatment of attention-deficit/hyperactivity disorder (ADHD) in adults and pediatric patients 6 years of age and older weighing at least 20 kg. Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older [see Use in Specific Populations (8.4) ] . Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss [see Use in Specific Populations (8.4) ] . SIMTRIYO is a norepinephrine-dopamine-serotonin reuptake inhibitor and central nervous system stimulant indicated for the treatment of ADHD in adults and pediatric patients 6 years of age and older weighing at least 20 kg. ( 1 ) Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older. ( 8.4 ) Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss. ( 8.4 ).",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "indications": "1 INDICATIONS AND USAGE SIMTRIYO is indicated for the treatment of attention-deficit/hyperactivity disorder (ADHD) in adults and pediatric patients 6 years of age and older weighing at least 20 kg. Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older [see Use in Specific Populations (8.4) ] . Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss [see Use in Specific Populations (8.4) ] . SIMTRIYO is a norepinephrine-dopamine-serotonin reuptake inhibitor and central nervous system stimulant indicated for the treatment of ADHD in adults and pediatric patients 6 years of age and older weighing at least 20 kg. ( 1 ) Limitations of Use The use of SIMTRIYO is not recommended in pediatric patients: Younger than 6 years of age because this pediatric subpopulation had a higher incidence of weight loss than pediatric patients 6 years of age and older. ( 8.4 ) Weighing less than 20 kg because of a lack of data for this subpopulation and the risk of weight loss. ( 8.4 )."
+   }
   },
   {
    "id": "FDA:lytenava",
@@ -1766,28 +1727,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "7f9a3014-b3d4-4943-a83a-92a77d8f947c",
-    "splId": "0761284e-e683-4933-a420-bbe7498e2f61",
-    "effective": "2026-07-16",
-    "version": "1",
+    "splId": "c397a7ca-1508-46af-ae5b-48956181d281",
+    "effective": "2026-10-29",
+    "version": "3",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7f9a3014-b3d4-4943-a83a-92a77d8f947c",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "LYTENAVA",
+    "usGeneric": "BEVACIZUMAB-VIKG",
+    "applicationNumber": "BLA761320",
+    "harmonised": true,
     "sha256": "35bb693f974085db0805fe1365a3dae2fe1abd075c65b1a148204a67a11b6cb0",
-    "indications": "1 INDICATIONS AND USAGE LYTENAVA is indicated for the treatment of patients with neovascular (wet) age-related macular degeneration (nAMD). LYTENAVA is a vascular endothelial growth factor (VEGF) inhibitor indicated for the treatment of patients with neovascular (wet) age-related macular degeneration (nAMD) ( 1 ).",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE LYTENAVA is indicated for the treatment of patients with neovascular (wet) age-related macular degeneration (nAMD). LYTENAVA is a vascular endothelial growth factor (VEGF) inhibitor indicated for the treatment of patients with neovascular (wet) age-related macular degeneration (nAMD) ( 1 )."
    }
   },
   {
@@ -1926,28 +1886,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "100ec543-fbd0-44fc-b740-db9cdff39145",
-    "splId": "24e1a57f-2be3-42ee-ad2d-981f813f2cf4",
+    "splId": "41aba002-4531-4290-af27-e4dab4fe4fa5",
     "effective": "2026-07-15",
-    "version": "2",
+    "version": "4",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=100ec543-fbd0-44fc-b740-db9cdff39145",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "LIPFENDRA",
+    "usGeneric": "LIPFENDRA",
+    "applicationNumber": "NDA220848",
+    "harmonised": true,
     "sha256": "aeba9b2d4ea28a49754efed6d970fc4a883ad8f6f430771706111478e7729e0f",
-    "indications": "1 INDICATIONS AND USAGE LIPFENDRA ® is indicated as an adjunct to diet and exercise to reduce low-density lipoprotein cholesterol (LDL-C) in adults with hypercholesterolemia, including heterozygous familial hypercholesterolemia (HeFH). Cardiovascular outcomes trials have demonstrated that reducing LDL-C lowers the risk for major adverse cardiovascular events (MACE) in adults at increased risk when treated with statins or monoclonal antibody proprotein convertase subtilisin kexin type 9 (PCSK9) inhibitors as an add-on to statin therapy. LIPFENDRA is a proprotein convertase subtilisin kexin type 9 (PCSK9) inhibitor indicated as an adjunct to diet and exercise to reduce low-density lipoprotein cholesterol (LDL-C) in adults with hypercholesterolemia, including heterozygous familial hypercholesterolemia (HeFH). Cardiovascular outcomes trials have demonstrated that reducing LDL-C lowers the risk for major adverse cardiovascular events (MACE) in adults at increased risk when treated with statins or monoclonal antibody PCSK9 inhibitors as an add-on to statin therapy. ( 1 )",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE LIPFENDRA ® is indicated as an adjunct to diet and exercise to reduce low-density lipoprotein cholesterol (LDL-C) in adults with hypercholesterolemia, including heterozygous familial hypercholesterolemia (HeFH). Cardiovascular outcomes trials have demonstrated that reducing LDL-C lowers the risk for major adverse cardiovascular events (MACE) in adults at increased risk when treated with statins or monoclonal antibody proprotein convertase subtilisin kexin type 9 (PCSK9) inhibitors as an add-on to statin therapy. LIPFENDRA is a proprotein convertase subtilisin kexin type 9 (PCSK9) inhibitor indicated as an adjunct to diet and exercise to reduce low-density lipoprotein cholesterol (LDL-C) in adults with hypercholesterolemia, including heterozygous familial hypercholesterolemia (HeFH). Cardiovascular outcomes trials have demonstrated that reducing LDL-C lowers the risk for major adverse cardiovascular events (MACE) in adults at increased risk when treated with statins or monoclonal antibody PCSK9 inhibitors as an add-on to statin therapy. ( 1 )"
    }
   },
   {
@@ -1980,28 +1939,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "959d73ef-831f-4005-956c-210702270bda",
-    "splId": "2102ca90-3d7d-4983-8606-6fe67b92aaef",
-    "effective": "2026-07-14",
-    "version": "1",
+    "splId": "b90444d8-e46f-4d81-a2cc-4aeed02c1964",
+    "effective": "2026-08-19",
+    "version": "2",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=959d73ef-831f-4005-956c-210702270bda",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "REVTORPYK",
+    "usGeneric": "GEDATOLISIB",
+    "applicationNumber": "NDA219908",
+    "harmonised": true,
     "sha256": "9d7eecb17979d3a36dc7da82d9c1c796f074a8e1def448d9cd8171d017dce12b",
-    "indications": "1 INDICATIONS AND USAGE REVTORPYK is indicated in combination with fulvestrant, with or without palbociclib, for the treatment of adult patients with hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting [see Dosage and Administration (2.1) and Clinical Studies (14) ] . REVTORPYK is a kinase inhibitor indicated in combination with fulvestrant, with or without palbociclib, for the treatment of adult patients with hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting. (1)",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE REVTORPYK is indicated in combination with fulvestrant, with or without palbociclib, for the treatment of adult patients with hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting [see Dosage and Administration (2.1) and Clinical Studies (14) ] . REVTORPYK is a kinase inhibitor indicated in combination with fulvestrant, with or without palbociclib, for the treatment of adult patients with hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer without a PIK3CA mutation detected following progression on or after treatment with at least one line of endocrine therapy in the metastatic setting. (1)"
    }
   },
   {
@@ -2292,6 +2250,11 @@
      "date": "2026-10-26",
      "status": "LABEL_VERIFIED",
      "note": "USPI verified: set ID f0511453-5f6f-4e3a-b7d0-a5cfde985656, label version 1 of 2026-06-17"
+    },
+    {
+     "date": "2026-11-10",
+     "status": "LABEL_VERIFIED",
+     "note": "label revised (version 1 → 2)"
     }
    ],
    "lastChecked": "2026-11-10",
@@ -2299,27 +2262,25 @@
     "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": false,
+    "prescription": true,
     "harmonised": true
    },
    "label": {
     "setId": "f0511453-5f6f-4e3a-b7d0-a5cfde985656",
-    "splId": "f0511453-5f6f-4e3a-b7d0-a5cfde985656",
+    "splId": "4eb3de6b-ff99-49b0-8e7b-76d60dc62240",
     "effective": "2026-06-17",
-    "version": "1",
+    "version": "2",
     "detected": "2026-10-26",
-    "retrieved": "2026-10-26",
+    "retrieved": "2026-11-10",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f0511453-5f6f-4e3a-b7d0-a5cfde985656",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "source": "openFDA drug label (US Prescribing Information)",
     "usBrand": "Utebzi",
-    "usGeneric": "Tebipenem Pivoxil",
+    "usGeneric": "TEBIPENEM PIVOXIL",
     "applicationNumber": "NDA215960",
-    "harmonised": false,
-    "sha256": "dbecc809a00a758fefb474c07863cfdbcb2a5a8196229cad78603fb5e59acd1f",
-    "indications": "1 INDICATIONS AND USAGE UTEBZI is a penem antibacterial indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. ( 1.1 ) Usage to Reduce Development of Drug‑Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infection (cUTI), Including Pyelonephritis UTEBZI is indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli , Klebsiella pneumoniae , Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
+    "harmonised": true,
+    "sha256": "c528bd4b959acf5dbf2e8a5d8487a49961145698abc6952c4489d31c9ffba855",
+    "indications": "1 INDICATIONS AND USAGE UTEBZI is a penem antibacterial indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. ( 1.1 ) Usage to Reduce Development of Drug ‑ Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infection (cUTI), Including Pyelonephritis UTEBZI is indicated for the treatment of complicated urinary tract infections (cUTI), including pyelonephritis, caused by the following susceptible microorganisms: Escherichia coli , Klebsiella pneumoniae , Enterobacter cloacae species complex, Klebsiella oxytoca , and Enterococcus faecalis in adult patients who have limited or no alternative oral treatment options. 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug‑resistant bacteria and maintain the effectiveness of UTEBZI and other antibacterial drugs, UTEBZI should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy."
+   }
   },
   {
    "id": "FDA:ambelvist",
@@ -2430,28 +2391,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "c84e652e-5e76-4568-8812-bd5fa34803b6",
-    "splId": "5381b2e7-e719-2af8-e063-6294a90a2732",
-    "effective": "2026-06-05",
-    "version": "2",
+    "splId": "5df025ab-0ada-aab5-e063-6394a90ae1d9",
+    "effective": "2026-10-16",
+    "version": "3",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c84e652e-5e76-4568-8812-bd5fa34803b6",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "ZAYNICH",
+    "usGeneric": "ZIDEBACTAM DIHYDRATE AND CEFEPIME HYDROCHLORIDE",
+    "applicationNumber": "NDA220787",
+    "harmonised": true,
     "sha256": "83574b8fe808dd9ff32c542a2762092e67ab0e9d5c62e6ec8038e104a343e98f",
-    "indications": "1 INDICATIONS AND USAGE ZAYNICH is a combination of cefepime, a cephalosporin antibacterial, and zidebactam, a beta-lactamase inhibitor and non-beta-lactam antibacterial indicated for the treatment of adult patients with complicated urinary tract infections (cUTI) including pyelonephritis caused by designated susceptible microorganisms. ( 1.1 ) Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug-resistant bacteria and maintain the effectiveness of ZAYNICH and other antibacterial drugs, ZAYNICH should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infections, including Pyelonephritis ZAYNICH is indicated for the treatment of adult patients with complicated urinary tract infections (cUTI) including pyelonephritis caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Proteus mirabilis, Enterobacter cloacae complex, and Pseudomonas aeruginosa . 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug-resistant bacteria and maintain the effectiveness of ZAYNICH and other antibacterial drugs, ZAYNICH should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE ZAYNICH is a combination of cefepime, a cephalosporin antibacterial, and zidebactam, a beta-lactamase inhibitor and non-beta-lactam antibacterial indicated for the treatment of adult patients with complicated urinary tract infections (cUTI) including pyelonephritis caused by designated susceptible microorganisms. ( 1.1 ) Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug-resistant bacteria and maintain the effectiveness of ZAYNICH and other antibacterial drugs, ZAYNICH should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1.2 ) 1.1 Complicated Urinary Tract Infections, including Pyelonephritis ZAYNICH is indicated for the treatment of adult patients with complicated urinary tract infections (cUTI) including pyelonephritis caused by the following susceptible microorganisms: Escherichia coli, Klebsiella pneumoniae, Proteus mirabilis, Enterobacter cloacae complex, and Pseudomonas aeruginosa . 1.2 Usage to Reduce Development of Drug-Resistant Bacteria To reduce the development of drug-resistant bacteria and maintain the effectiveness of ZAYNICH and other antibacterial drugs, ZAYNICH should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy."
    }
   },
   {
@@ -2714,28 +2674,27 @@
    ],
    "lastChecked": "2026-11-10",
    "checks": {
-    "applicationMatch": null,
+    "applicationMatch": true,
     "nameMatch": true,
     "indicationsPresent": true,
-    "prescription": null,
-    "harmonised": false
+    "prescription": true,
+    "harmonised": true
    },
    "label": {
     "setId": "b1fc1ee7-facc-4099-b3db-a4c1daeaa4be",
-    "splId": "c8742107-c883-4051-bb64-4e4ff813d697",
+    "splId": "f8f777d9-fcdf-4589-a8af-50104c3fc09c",
     "effective": "2026-08-07",
-    "version": "3",
+    "version": "4",
     "detected": "2026-10-18",
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b1fc1ee7-facc-4099-b3db-a4c1daeaa4be",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": null,
-    "usGeneric": null,
-    "applicationNumber": null,
-    "harmonised": false,
+    "usBrand": "BAXFENDY",
+    "usGeneric": "BAXDROSTAT",
+    "applicationNumber": "NDA219878",
+    "harmonised": true,
     "sha256": "53b168f4feac19a7942ec65f696669e63b426ce5928d67cf0d2100bca62333ee",
-    "indications": "1 INDICATIONS AND USAGE BAXFENDY, in combination with other antihypertensive drugs, is indicated for the treatment of hypertension, to lower blood pressure in adults who are not adequately controlled on other agents. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. These benefits have been seen in controlled trials of antihypertensive drugs from a wide variety of pharmacologic classes. There are no controlled trials demonstrating risk reduction of these events with BAXFENDY. Control of high blood pressure should be part of comprehensive cardiovascular risk management, including, as appropriate, lipid control, diabetes management, antithrombotic therapy, smoking cessation, exercise, and limited sodium intake. Many patients will require more than one drug to achieve blood pressure goals. For specific advice on goals and management, see published guidelines, such as those of the American College of Cardiology/American Heart Association (ACC/AHA). Numerous antihypertensive drugs, from a variety of pharmacologic classes and with different mechanisms of action, have been shown in randomized controlled trials to reduce cardiovascular morbidity and mortality, and it can be concluded that it is blood pressure reduction, and not some other pharmacologic property of the drugs, that is largely responsible for those benefits. The largest and most consistent cardiovascular outcome benefit has been a reduction in the risk of stroke, but reductions in myocardial infarction and cardiovascular mortality also have been seen regularly. Elevated systolic or diastolic pressure causes increased cardiovascular risk, and the absolute risk increase per mmHg is greater at higher blood pressures, so that even modest reductions of severe hypertension can provide substantial benefit. Relative risk reduction from blood pressure reduction is similar across populations with varying absolute risk, so the absolute benefit is greater in patients who are at higher risk independent of their hypertension (for example, patients with diabetes or hyperlipidemia), and such patients would be expected to benefit from more aggressive treatment to a lower blood pressure goal. BAXFENDY is an aldosterone synthase inhibitor indicated for the treatment of hypertension in combination with other antihypertensive drugs, to lower blood pressure in adults who are not adequately controlled on other agents. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. (1)",
-    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
+    "indications": "1 INDICATIONS AND USAGE BAXFENDY, in combination with other antihypertensive drugs, is indicated for the treatment of hypertension, to lower blood pressure in adults who are not adequately controlled on other agents. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. These benefits have been seen in controlled trials of antihypertensive drugs from a wide variety of pharmacologic classes. There are no controlled trials demonstrating risk reduction of these events with BAXFENDY. Control of high blood pressure should be part of comprehensive cardiovascular risk management, including, as appropriate, lipid control, diabetes management, antithrombotic therapy, smoking cessation, exercise, and limited sodium intake. Many patients will require more than one drug to achieve blood pressure goals. For specific advice on goals and management, see published guidelines, such as those of the American College of Cardiology/American Heart Association (ACC/AHA). Numerous antihypertensive drugs, from a variety of pharmacologic classes and with different mechanisms of action, have been shown in randomized controlled trials to reduce cardiovascular morbidity and mortality, and it can be concluded that it is blood pressure reduction, and not some other pharmacologic property of the drugs, that is largely responsible for those benefits. The largest and most consistent cardiovascular outcome benefit has been a reduction in the risk of stroke, but reductions in myocardial infarction and cardiovascular mortality also have been seen regularly. Elevated systolic or diastolic pressure causes increased cardiovascular risk, and the absolute risk increase per mmHg is greater at higher blood pressures, so that even modest reductions of severe hypertension can provide substantial benefit. Relative risk reduction from blood pressure reduction is similar across populations with varying absolute risk, so the absolute benefit is greater in patients who are at higher risk independent of their hypertension (for example, patients with diabetes or hyperlipidemia), and such patients would be expected to benefit from more aggressive treatment to a lower blood pressure goal. BAXFENDY is an aldosterone synthase inhibitor indicated for the treatment of hypertension in combination with other antihypertensive drugs, to lower blood pressure in adults who are not adequately controlled on other agents. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. (1)"
    }
   },
   {
