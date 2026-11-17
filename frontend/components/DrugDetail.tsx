@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useScrollLock } from '../services/scrollLock';
+import { useMediaQuery } from '../services/useMediaQuery';
 import { DrugDetailData } from '../types';
 import { drugKey } from '../services/notes';
 import EmaBadges from './EmaBadges';
@@ -343,32 +345,18 @@ export const DrugDetailContent: React.FC<{
 
 /** Phone/compact modal wrapper around the shared content. */
 const DrugDetail: React.FC<DrugDetailProps> = ({ data, onClose, onViewTrials, onOpenGlossary, onToggleCompare, inCompare, onCompareEuUs, euUsButtonLabel }) => {
-  // Close on Escape; lock background scroll while open.
+  // Close on Escape.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
-    // Position-fix scroll lock. On iOS (WKWebView) `overflow:hidden` on <body>
-    // does NOT stop the page scrolling behind the sheet — the background drifts
-    // and the page can jump when the sheet closes. Pinning the body at its
-    // current offset and restoring scroll on close eliminates that jank.
-    const body = document.body;
-    const scrollY = window.scrollY;
-    const prev = {
-      position: body.style.position,
-      top: body.style.top,
-      width: body.style.width,
-    };
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}px`;
-    body.style.width = '100%';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      body.style.position = prev.position;
-      body.style.top = prev.top;
-      body.style.width = prev.width;
-      window.scrollTo(0, scrollY);
-    };
+    return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
+  // Lock the page behind the sheet — only where the sheet is shown. From 800px
+  // up (iPad, Mac, desktop browser) this wrapper is hidden (`pad:hidden`) and the
+  // detail sits in the side pane beside the list: pinning the page there froze
+  // the whole result list for as long as a medicine was selected.
+  const sheetShown = !useMediaQuery('(min-width: 800px)');
+  useScrollLock(sheetShown);
 
   return (
     <div role="dialog" aria-modal="true" aria-label="Medicine detail"

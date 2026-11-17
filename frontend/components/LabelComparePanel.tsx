@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useScrollLock } from '../services/scrollLock';
 import { X, FileText, ExternalLink, ChevronDown, Loader2, Highlighter } from 'lucide-react';
 import { loadLabelFile } from '../services/labelFiles';
 import { diffSections, DiffUnit, SectionDiff } from '../services/labelDiff';
@@ -215,10 +216,9 @@ const LabelComparePanel: React.FC<Props> = ({ columns, onClose, available, corpu
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+    return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
+  useScrollLock();
 
   // (Re)load whenever the set of columns changes (initial mount or a toggle).
   useEffect(() => {

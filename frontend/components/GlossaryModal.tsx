@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useScrollLock } from '../services/scrollLock';
 import { GLOSSARY, GlossaryEntry } from '../services/glossary';
 import { X, BookOpen, ExternalLink, ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react';
 
@@ -53,13 +54,9 @@ const GlossaryModal: React.FC<Props> = ({ initialId, onClose }) => {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prev;
-    };
+    return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
+  useScrollLock();
 
   const selected = selectedId ? GLOSSARY.find((e) => e.id === selectedId) : undefined;
   const query = q.trim().toLowerCase();

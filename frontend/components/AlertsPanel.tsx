@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useScrollLock } from '../services/scrollLock';
 import { pipeline, estimatedDecisionDate, pipelineToDetail } from '../services/emaService';
 import { EmaPipelineItem, DrugDetailData } from '../types';
 import {
@@ -54,13 +55,9 @@ const AlertsPanel: React.FC<Props> = ({ watched, onChange, onSelect, onClose }) 
     getPermission().then(setPerm);
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prev;
-    };
+    return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
+  useScrollLock();
 
   const add = (term: string) => {
     const t = term.trim();

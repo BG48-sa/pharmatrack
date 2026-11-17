@@ -34,8 +34,9 @@ GATES (each is recorded in the report; any FAIL exits 1)
   G8 the approval → label reconciliation queue (pending-labels.json): every
      entry carries a known status, a verified entry carries its source hash
      and document reference, no entry the published release had already
-     verified falls back to an open state, and the queue is not older than
-     the published one
+     verified falls back to an open state — except by an audited retraction
+     (the label belonged to another product), at most a few per release —
+     and the queue is not older than the published one
   G7 the MEANING extracted from a label, not just the file: every required
      section is compared text-for-text with the published copy. A section that
      changed although the source document did not (same sourceSha) is parser
@@ -85,6 +86,7 @@ SIZE_BAND = {'ema-medicines.json': 0.15, 'announcements.json': 0.80,
              'pdufa.json': 6.00}
 SIZE_BAND_DEFAULT = 0.35
 # Approval → label reconciliation queue (scripts/label-reconciliation.py): gate G8
+MAX_NEW_RETRACTIONS = 5   # verified labels withdrawn (with audit record) in one release; more = a bug, not housekeeping
 QUEUE_STATUSES = {'AWAITING_USPI', 'AWAITING_EC_DECISION', 'AWAITING_SMPC', 'LABEL_AVAILABLE', 'LABEL_VERIFIED'}
 
 SMPC_REQUIRED = ['4.1', '4.2', '4.3', '4.4', '4.8']
@@ -441,8 +443,21 @@ def main():
         if isinstance(pq, dict):
             pub_verified = {e.get('id') for e in pq.get('entries') or [] if isinstance(e, dict) and e.get('status') == 'LABEL_VERIFIED'}
             cand_status = {e.get('id'): e.get('status') for e in entries}
-            regressed = sorted(i for i in pub_verified if i in cand_status and cand_status[i] != 'LABEL_VERIFIED')
+            # The one exception: an audited retraction (label-reconciliation.py
+            # Queue.retract) — the document the verification rested on belongs to
+            # another product. It must carry date, reason, set ID and hash of the
+            # withdrawn evidence, and only a few may arrive in one release.
+            def audited(e):
+                rt = e.get('retraction')
+                return isinstance(rt, dict) and all(rt.get(k) for k in ('date', 'reason', 'setId', 'sha256')) and ISO.match(str(rt.get('date')))
+            retracted = {e['id'] for e in entries if e.get('status') != 'LABEL_VERIFIED' and audited(e)}
+            pub_retracted = {e.get('id') for e in pq.get('entries') or [] if isinstance(e, dict) and e.get('retraction')}
+            regressed = sorted(i for i in pub_verified if i in cand_status and cand_status[i] != 'LABEL_VERIFIED' and i not in retracted)
             r.add('G8', 'label queue: no verified hand-over regresses', not regressed, f'{len(regressed)}: {", ".join(regressed[:8])}')
+            new_retr = sorted(retracted - pub_retracted)
+            malformed = sorted(e['id'] for e in entries if e.get('retraction') and not audited(e))
+            r.add('G8', 'label queue: retractions audited and few', not malformed and len(new_retr) <= MAX_NEW_RETRACTIONS,
+                  f'{len(new_retr)} new (limit {MAX_NEW_RETRACTIONS}): {", ".join(new_retr[:8])}' + (f'; malformed: {", ".join(malformed[:8])}' if malformed else ''))
             r.add('G8', 'label queue: not older than the published queue', (cq.get('generated') or '') >= (pq.get('generated') or ''),
                   f'{pq.get("generated")} → {cq.get("generated")}')
         else:

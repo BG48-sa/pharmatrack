@@ -435,7 +435,7 @@ class UsLabelValidationTests(unittest.TestCase):
         self.assertEqual(lb['sha256'], lr.sha256('1 INDICATIONS AND USAGE ' + LONG_INDICATION))
         self.assertTrue(lb['harmonised'])
         self.assertEqual(lb['url'], 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=set-1')
-        self.assertEqual(e['checks'], {'applicationMatch': True, 'nameMatch': True, 'indicationsPresent': True,
+        self.assertEqual(e['checks'], {'applicationMatch': True, 'nameMatch': True, 'nameBasis': 'brand', 'indicationsPresent': True,
                                        'prescription': True, 'harmonised': True})
         self.assertIn('set ID set-1', e['history'][-1]['note'])
 
@@ -472,15 +472,227 @@ class UsLabelValidationTests(unittest.TestCase):
         self.assertEqual(self.e['label']['setId'], 'set-1')                # the label of THIS application wins
         # next run openFDA only returns the other application's label: a verified
         # entry never regresses (gate G8) — the observation becomes an alert
+        before = json.loads(json.dumps(self.e['label']))
+        checks = dict(self.e['checks'])
         lr.apply_us_records(self.q, self.e, [other_app], TODAY)
         self.assertEqual(self.e['status'], lr.S_VERIFIED)
         self.assertIn('applicationMatch', self.e['alert'])
+        # … and the verified evidence is untouched: hash, set ID, version, text, checks
+        self.assertEqual(self.e['label'], before)
+        self.assertEqual(self.e['checks'], checks)
+        self.assertEqual(self.e['rejectedCandidate']['setId'], 'set-other')
+        self.assertEqual(self.e['rejectedCandidate']['failed'], ['applicationMatch'])
 
     def test_verified_label_that_vanishes_raises_an_alert_only(self):
         lr.apply_us_records(self.q, self.e, [self.harmonised()], TODAY)
         lr.apply_us_records(self.q, self.e, [], TODAY)
         self.assertEqual(self.e['status'], lr.S_VERIFIED)
         self.assertIn('no longer returns', self.e['alert'])
+
+
+class VerifiedEvidenceTests(unittest.TestCase):
+    """17.11.2026: no data release for six days. Xbrane's ranibizumab (BLA761187,
+    filed at Drugs@FDA under its INN) had been "verified" on 10.11. against an
+    unlinked label that merely contained the word ranibizumab — Zydus's Nufymco.
+    When openFDA linked that label to BLA761473, the failed re-check overwrote the
+    verified label (no hash left) while the status stayed LABEL_VERIFIED, and gate
+    G8 refused every release. Three rules come out of it, one test class:
+      1. a failed candidate never touches verified evidence;
+      2. the substance name alone never identifies a product;
+      3. evidence shown to belong to another product is retracted, on the record."""
+
+    def setUp(self):
+        self.q = lr.Queue({}, TODAY)
+        self.e = self.q.ensure('FDA:ranibizumab', jurisdiction='FDA', drug='Ranibizumab', inn='ranibizumab', applicationNumber='BLA761187',
+                               approvalDate='2026-09-27', status=lr.S_AWAITING_USPI)
+
+    IND = ['1 INDICATIONS AND USAGE NUFYMCO, a vascular endothelial growth factor (VEGF) inhibitor, is indicated for the treatment of '
+           'patients with neovascular (wet) age-related macular degeneration and macular edema following retinal vein occlusion.']
+
+    def nufymco(self, linked):
+        rec = {'set_id': 'set-nufymco', 'id': 'spl-n', 'version': '3' if linked else '2', 'effective_time': '20261005',
+               'indications_and_usage': self.IND,
+               'spl_product_data_elements': ['NUFYMCO ranibizumab-leyk RANIBIZUMAB RANIBIZUMAB HISTIDINE']}
+        if linked:
+            rec['openfda'] = {'application_number': ['BLA761473'], 'brand_name': ['NUFYMCO'], 'generic_name': ['RANIBIZUMAB-LEYK'],
+                              'product_type': ['HUMAN PRESCRIPTION DRUG']}
+        return rec
+
+    def wrongly_verified(self):
+        """The state the queue was in on 10.11.2026 (written by the old rule)."""
+        self.e.update(status=lr.S_VERIFIED, statusSince='2026-10-10',
+                      checks={'applicationMatch': None, 'nameMatch': True, 'indicationsPresent': True, 'prescription': None, 'harmonised': False},
+                      label={'setId': 'set-nufymco', 'version': '2', 'effective': '2026-10-05', 'sha256': 'a' * 64, 'applicationNumber': None,
+                             'url': 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=set-nufymco',
+                             'source': 'openFDA drug label (US Prescribing Information)', 'indications': self.IND[0]})
+
+    # ---- rule 2 -------------------------------------------------------------------
+    def test_inn_placeholder_brand_never_verifies_an_unlinked_label(self):
+        lr.apply_us_records(self.q, self.e, [self.nufymco(linked=False)], TODAY)
+        self.assertEqual(self.e['status'], lr.S_AWAITING_USPI)       # not verified, not even "found"
+        self.assertNotIn('label', self.e)
+        _, checks, _ = lr.validate_us_label(self.nufymco(linked=False), 'BLA761187', 'Ranibizumab', 'ranibizumab')
+        self.assertEqual((checks['nameMatch'], checks['nameBasis'], checks['applicationMatch']), (True, 'inn', None))
+        self.assertFalse(lr.identifies_product(checks))
+
+    def test_generic_label_with_an_anda_number_is_another_product(self):
+        # Yulzety (NDA221033) had taken a generic rivaroxaban label (ANDA208334): the
+        # DailyMed record dropped ANDA numbers, so the label counted as "not linked yet".
+        e = self.q.ensure('FDA:yulzety', jurisdiction='FDA', drug='Yulzety', inn='rivaroxaban', applicationNumber='NDA221033',
+                          approvalDate='2026-09-16', status=lr.S_AWAITING_USPI)
+        generic = {'set_id': 'set-generic', 'version': '2', 'effective_time': '20260904', 'dailymed': True,
+                   'indications_and_usage': ['1 INDICATIONS AND USAGE Rivaroxaban tablets are a factor Xa inhibitor indicated to reduce the '
+                                             'risk of major cardiovascular events in patients with coronary artery disease.'],
+                   'openfda': {'brand_name': ['RIVAROXABAN'], 'generic_name': ['RIVAROXABAN'], 'application_number': ['ANDA208334']}}
+        lr.apply_us_records(self.q, e, [generic], TODAY)
+        self.assertEqual(e['status'], lr.S_AWAITING_USPI)
+        self.assertNotIn('label', e)
+
+    def test_dailymed_record_keeps_anda_numbers(self):
+        xml = ('<document xmlns="urn:hl7-org:v3"><id root="spl-1"/><code code="34391-3"/><setId root="set-generic"/>'
+               '<versionNumber value="2"/><effectiveTime value="20260904"/><component><structuredBody><component><section>'
+               '<subject><manufacturedProduct><manufacturedProduct><name>RIVAROXABAN</name><asEntityWithGeneric><genericMedicine>'
+               '<name>RIVAROXABAN</name></genericMedicine></asEntityWithGeneric></manufacturedProduct>'
+               '<subjectOf><approval><id extension="ANDA208334" root="2.16.840.1.113883.3.150"/></approval></subjectOf>'
+               '</manufacturedProduct></subject></section></component></structuredBody></component></document>')
+        real_http = lr.http
+        lr.http = lambda url, **kw: (200, {}, xml.encode())
+        try:
+            rec = lr.dailymed_record('set-generic')
+        finally:
+            lr.http = real_http
+        self.assertEqual(rec['openfda']['application_number'], ['ANDA208334'])
+        ok, checks, _ = lr.validate_us_label(rec, 'NDA221033', 'Yulzety', 'rivaroxaban', allow_shared=True)
+        self.assertIs(checks['applicationMatch'], False)
+
+    def test_unlinked_label_that_names_the_brand_still_verifies(self):
+        e = self.q.ensure('FDA:lucamzi', jurisdiction='FDA', drug='Lucamzi', inn='ranibizumab-xxxx', applicationNumber='BLA761187',
+                          approvalDate='2026-09-27', status=lr.S_AWAITING_USPI)
+        own = {'set_id': 'set-lucamzi', 'id': 'spl-l', 'version': '1', 'effective_time': '20261015', 'indications_and_usage': self.IND,
+               'spl_product_data_elements': ['LUCAMZI ranibizumab-xxxx RANIBIZUMAB HISTIDINE']}
+        lr.apply_us_records(self.q, e, [self.nufymco(linked=True), own], TODAY)
+        self.assertEqual(e['status'], lr.S_VERIFIED)
+        self.assertEqual(e['label']['setId'], 'set-lucamzi')
+        self.assertEqual(e['checks']['nameBasis'], 'brand')
+
+    # ---- rule 1 -------------------------------------------------------------------
+    def test_failed_revalidation_keeps_hash_set_id_and_text(self):
+        z = self.q.ensure('FDA:zetavex', jurisdiction='FDA', drug='Zetavex', inn='zetamab', applicationNumber='NDA210001',
+                          approvalDate='2026-09-15', status=lr.S_AWAITING_USPI)
+        good = {'set_id': 'set-1', 'id': 'spl-1', 'version': '2', 'effective_time': '20261001',
+                'indications_and_usage': ['1 INDICATIONS AND USAGE ' + LONG_INDICATION],
+                'openfda': {'application_number': ['NDA210001'], 'brand_name': ['ZETAVEX'], 'generic_name': ['ZETAMAB'],
+                            'product_type': ['HUMAN PRESCRIPTION DRUG']}}
+        lr.apply_us_records(self.q, z, [good], TODAY)
+        before = json.loads(json.dumps(z))
+        broken = dict(good, version='3', effective_time='20261015', indications_and_usage=['see label'])   # newer version, empty section
+        lr.apply_us_records(self.q, z, [broken], '2026-10-22')
+        self.assertEqual(z['status'], lr.S_VERIFIED)
+        self.assertEqual(z['label'], before['label'])
+        self.assertEqual(z['checks'], before['checks'])
+        self.assertEqual(z['label']['sha256'], lr.sha256('1 INDICATIONS AND USAGE ' + LONG_INDICATION))
+        self.assertEqual((z['rejectedCandidate']['version'], z['rejectedCandidate']['failed'], z['rejectedCandidate']['firstSeen']),
+                         ('3', ['indicationsPresent'], '2026-10-22'))
+        self.assertIn('verified label kept', z['alert'])
+        self.assertEqual(self.q.retracted, [])
+        # the same broken version seen again keeps its first-seen date …
+        lr.apply_us_records(self.q, z, [broken], '2026-10-25')
+        self.assertEqual((z['rejectedCandidate']['firstSeen'], z['rejectedCandidate']['lastSeen']), ('2026-10-22', '2026-10-25'))
+        # … and a valid newer version replaces the label and clears the rejected candidate
+        fixed = dict(good, version='4', effective_time='20261020', indications_and_usage=['1 INDICATIONS AND USAGE ' + LONG_INDICATION + ' Revised.'])
+        lr.apply_us_records(self.q, z, [fixed], '2026-10-26')
+        self.assertEqual((z['status'], z['label']['version']), (lr.S_VERIFIED, '4'))
+        self.assertNotEqual(z['label']['sha256'], before['label']['sha256'])
+        self.assertNotIn('rejectedCandidate', z)
+        self.assertIn('label revised', z['history'][-1]['note'])
+
+    # ---- rule 3 -------------------------------------------------------------------
+    def test_evidence_linked_to_another_application_is_retracted_with_an_audit_record(self):
+        self.wrongly_verified()
+        lr.apply_us_records(self.q, self.e, [self.nufymco(linked=True)], TODAY)
+        e = self.e
+        self.assertEqual(e['status'], lr.S_AWAITING_USPI)
+        self.assertNotIn('label', e)
+        self.assertNotIn('checks', e)
+        rt = e['retraction']
+        self.assertEqual((rt['date'], rt['setId'], rt['version'], rt['sha256'], rt['verifiedSince']),
+                         (TODAY, 'set-nufymco', '2', 'a' * 64, '2026-10-10'))
+        self.assertIn('BLA761473 / NUFYMCO', rt['reason'])
+        self.assertIn('verification retracted', e['history'][-1]['note'])
+        self.assertEqual([r[0] for r in self.q.retracted], ['FDA:ranibizumab'])
+        # the retracted document is never picked up again, whatever openFDA says about it later
+        lr.apply_us_records(self.q, e, [self.nufymco(linked=False), self.nufymco(linked=True)], '2026-10-22')
+        self.assertEqual(e['status'], lr.S_AWAITING_USPI)
+        self.assertNotIn('label', e)
+
+    def test_substance_only_evidence_is_retracted_even_before_openfda_links_it(self):
+        self.wrongly_verified()
+        lr.apply_us_records(self.q, self.e, [self.nufymco(linked=False)], TODAY)
+        self.assertEqual(self.e['status'], lr.S_AWAITING_USPI)
+        self.assertIn('names only the substance', self.e['retraction']['reason'])
+
+    def test_shared_brand_label_is_not_retracted(self):
+        # Starter pack verified through the brand's label under another application: stays verified.
+        e = self.q.ensure('FDA:bixlenvo', jurisdiction='FDA', drug='Bixlenvo', inn='lenacapavir', applicationNumber='NDA221443',
+                          approvalDate='2026-09-15', status=lr.S_AWAITING_USPI)
+        shared = {'set_id': 'set-bix', 'id': 'spl-b', 'version': '1', 'effective_time': '20260920',
+                  'indications_and_usage': ['1 INDICATIONS AND USAGE ' + LONG_INDICATION],
+                  'openfda': {'application_number': ['NDA221104'], 'brand_name': ['BIXLENVO'], 'generic_name': ['LENACAPAVIR']}}
+        lr.apply_us_records(self.q, e, [shared], TODAY)
+        self.assertEqual(e['status'], lr.S_VERIFIED)
+        lr.apply_us_records(self.q, e, [shared], '2026-10-22')
+        self.assertEqual(e['status'], lr.S_VERIFIED)
+        self.assertNotIn('retraction', e)
+
+    def test_retract_is_the_only_way_out_of_verified(self):
+        self.wrongly_verified()
+        self.q.set_status(self.e, lr.S_AWAITING_USPI, 'try to regress')
+        self.assertEqual(self.e['status'], lr.S_VERIFIED)
+        self.q.retract(self.e, 'label belongs to another product')
+        self.assertEqual(self.e['status'], lr.S_AWAITING_USPI)
+        pending = self.q.ensure('FDA:other', jurisdiction='FDA', drug='Other', status=lr.S_AWAITING_USPI)
+        self.q.retract(pending, 'nothing to retract')
+        self.assertNotIn('retraction', pending)
+
+    def test_found_record_of_another_product_is_forgotten(self):
+        # Immgolis (golimumab biosimilar) sat for weeks as "document detected": the document was Simponi's label.
+        e = self.q.ensure('FDA:immgolis', jurisdiction='FDA', drug='Immgolis', inn='golimumab-sldi', applicationNumber='BLA761452',
+                          approvalDate='2026-05-15', status=lr.S_AWAITING_USPI)
+        e.update(status=lr.S_AVAILABLE, label={'setId': 'set-simponi', 'detected': '2026-10-26'}, checks={'applicationMatch': False})
+        simponi = {'set_id': 'set-simponi', 'version': '44', 'effective_time': '20261102', 'dailymed': True,
+                   'indications_and_usage': ['1 INDICATIONS AND USAGE ' + LONG_INDICATION],
+                   'openfda': {'brand_name': ['Simponi'], 'generic_name': ['golimumab'], 'application_number': ['BLA125289']}}
+        lr.apply_us_records(self.q, e, [simponi], TODAY)
+        self.assertEqual(e['status'], lr.S_AWAITING_USPI)
+        self.assertNotIn('label', e)
+        self.assertNotIn('checks', e)
+
+    def test_brand_entered_at_drugsfda_carries_the_entry_over(self):
+        root = tempfile.mkdtemp(prefix='lr-rename-')
+        self.addCleanup(shutil.rmtree, root, ignore_errors=True)
+        write_json(os.path.join(root, 'us-recent.json'), {'items': [
+            {'orig': '20260927', 'application_number': 'BLA761187', 'sponsor_name': 'XBRANE BIOPHARMA AB',
+             'products': [{'brand_name': 'LUCAMZI', 'active_ingredients': [{'name': 'RANIBIZUMAB'}]}]}]})
+        self.e['history'].append({'date': '2026-10-10', 'status': lr.S_AWAITING_USPI, 'note': 'kept'})
+        lr.reconcile_us(self.q, root, TODAY, 180, False, lambda m: None)
+        self.assertEqual(sorted(self.q.by_id), ['FDA:lucamzi'])            # one medicine, one entry
+        e = self.q.by_id['FDA:lucamzi']
+        self.assertEqual((e['drug'], e['applicationNumber'], e['firstSeen']), ('Lucamzi', 'BLA761187', TODAY))
+        self.assertIn('now listed at Drugs@FDA as Lucamzi', e['history'][-1]['note'])
+        self.assertTrue(any(h.get('note') == 'kept' for h in e['history']))
+
+    def test_report_names_the_retraction(self):
+        self.wrongly_verified()
+        lr.apply_us_records(self.q, self.e, [self.nufymco(linked=True)], TODAY)
+        out = lr.build_output(self.q, TODAY, 180, THRESHOLDS, True)
+        self.assertEqual(out['summary']['retracted'][0]['id'], 'FDA:ranibizumab')
+        md = os.path.join(tempfile.mkdtemp(prefix='lr-md-'), 'labels.md')
+        self.addCleanup(shutil.rmtree, os.path.dirname(md), ignore_errors=True)
+        lr.write_md(md, out, TODAY)
+        with open(md, encoding='utf-8') as f:
+            text = f.read()
+        self.assertIn('Verification retracted', text)
+        self.assertIn('BLA761473 / NUFYMCO', text)
 
 
 class CommandLineTests(unittest.TestCase):

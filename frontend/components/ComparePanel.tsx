@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useScrollLock } from '../services/scrollLock';
 import { DrugDetailData } from '../types';
 import { parseIndication } from '../services/indicationParser';
 import { drugKey } from '../services/notes';
@@ -85,13 +86,9 @@ const ComparePanel: React.FC<Props> = ({ items, onClose, onRemove, labelCount = 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prev;
-    };
+    return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
+  useScrollLock();
 
   return (
     <div role="dialog" aria-modal="true" aria-label="Drug comparison"

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useScrollLock } from '../services/scrollLock';
 import { ShieldAlert, ExternalLink } from 'lucide-react';
 import { storeGet, storeSet } from '../services/storage';
 
@@ -26,12 +27,7 @@ const DisclaimerGate: React.FC = () => {
     storeGet(KEY).then((v) => setAccepted(isFresh(v))).catch(() => setAccepted(false));
   }, []);
 
-  useEffect(() => {
-    if (accepted === true) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
-  }, [accepted]);
+  useScrollLock(accepted !== true);
 
   // Show the gate whenever it is not confirmed-accepted (covers the app during
   // the brief async check so first-run users never reach the app first).

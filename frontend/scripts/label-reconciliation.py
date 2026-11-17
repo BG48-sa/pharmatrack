@@ -206,6 +206,7 @@ class Queue:
         self.by_id = {}
         self.transitions = []     # (id, drug, from, to, note) this run
         self.closed = []          # entries dropped this run (withdrawn / aged out)
+        self.retracted = []       # (id, drug, reason): verifications withdrawn this run
         self.probed = False
         for e in (previous or {}).get('entries') or []:
             if e.get('id'):
@@ -242,6 +243,30 @@ class Queue:
         e['status'] = status
         e['statusSince'] = self.today
         e.setdefault('history', []).append({'date': self.today, 'status': status, **({'note': note} if note else {})})
+        e['history'] = e['history'][-HISTORY_CAP:]
+
+    def retract(self, e, reason):
+        """The ONE way out of LABEL_VERIFIED: the verification itself turned out
+        to be wrong (the document it rested on belongs to another product).
+        The entry goes back to AWAITING_USPI, the disproved evidence moves from
+        `label` into an audit record `retraction` (date, reason, set ID, version,
+        hash, when it had been verified) and the step is written into the
+        history. Gate G8 lets a verified entry fall back only with this record.
+        Nothing else may undo a verification — a newer document that fails a
+        check is an alert, never a regression (set_status)."""
+        if e.get('status') != S_VERIFIED:
+            return
+        prev = e.pop('label', None) or {}
+        e['retraction'] = {'date': self.today, 'reason': reason, 'verifiedSince': e.get('statusSince'),
+                           **{k: prev.get(k) for k in ('setId', 'version', 'effective', 'sha256', 'url', 'source') if prev.get(k)}}
+        for k in ('checks', 'rejectedCandidate', 'alert'):
+            e.pop(k, None)
+        note = f'verification retracted: {reason}'
+        self.transitions.append((e['id'], e.get('drug'), S_VERIFIED, S_AWAITING_USPI, note))
+        self.retracted.append((e['id'], e.get('drug'), reason))
+        e['status'] = S_AWAITING_USPI
+        e['statusSince'] = self.today
+        e.setdefault('history', []).append({'date': self.today, 'status': S_AWAITING_USPI, 'note': note})
         e['history'] = e['history'][-HISTORY_CAP:]
 
     def drop(self, id_, why):
@@ -371,10 +396,15 @@ def validate_us_label(rec, app, brand, inn, allow_shared=False):
     text = '\n\n'.join(t for t in rec.get('indications_and_usage') or [] if t).strip()
     nb, ni = norm(brand), norm(inn)
     ni_first = ni.split(' ')[0] if ni else ''
-    name_ok = bool(nb and any(nb == b or nb in b or b in nb for b in brands)) \
-        or bool(ni and any(ni == g or ni in g or g in ni for g in generics)) \
-        or bool(nb and pde and (pde.startswith(nb) or f' {nb} ' in f' {pde} ')) \
+    # Drugs@FDA files a product under its INN until the brand is entered
+    # ("RANIBIZUMAB" for weeks, then "LUCAMZI"): such a placeholder is no brand
+    # evidence — every product with that substance carries the word.
+    placeholder = bool(nb and ni and (nb == ni or nb == ni_first or nb in ni.split(' ')))
+    brand_ok = not placeholder and (bool(nb and any(nb == b or nb in b or b in nb for b in brands))
+                                    or bool(nb and pde and (pde.startswith(nb) or f' {nb} ' in f' {pde} ')))
+    inn_ok = bool(ni and any(ni == g or ni in g or g in ni for g in generics)) \
         or bool(ni_first and len(ni_first) > 5 and pde and ni_first in pde)
+    name_ok = brand_ok or inn_ok
     # A co-packaged or starter-pack product carries its own application number but
     # shares the brand's label (Bixlenvo Sunlenca Starter Pack NDA221443 → the
     # Bixlenvo label under NDA221104): an exact brand match with a different
@@ -388,12 +418,26 @@ def validate_us_label(rec, app, brand, inn, allow_shared=False):
         'applicationMatch': None if shared else app_match,
         **({'applicationShared': shared} if shared else {}),
         'nameMatch': name_ok,
+        'nameBasis': 'brand' if brand_ok else 'inn' if inn_ok else None,
         'indicationsPresent': len(text) >= MIN_INDICATION_CHARS,
         'prescription': 'HUMAN PRESCRIPTION DRUG' in (of.get('product_type') or []) if of else None,
         'harmonised': bool(of),
     }
-    ok = checks['indicationsPresent'] and checks['nameMatch'] and checks['applicationMatch'] is not False
+    ok = checks['indicationsPresent'] and identifies_product(checks)
     return ok, checks, text
+
+
+def identifies_product(checks):
+    """Is this label the label of THIS product? Either it is linked to the
+    application number, or — while openFDA has not linked it, or the brand
+    shares another application's label — it names the BRAND. The substance
+    name alone never identifies a product: every generic and biosimilar
+    carries it. (Until 17.11.2026 an INN match without an application link
+    verified: Xbrane's ranibizumab BLA761187 took Zydus's Nufymco label,
+    Yulzety and Lamlique the labels of other companies' generic tablets.)"""
+    if not checks.get('nameMatch') or checks.get('applicationMatch') is False:
+        return False
+    return checks.get('applicationMatch') is True or checks.get('nameBasis') == 'brand'
 
 
 def brand_query_term(brand):
@@ -442,6 +486,13 @@ def openfda_lookup_brand(brand):
                 return recs
             time.sleep(0.3)
     return []
+
+
+def openfda_lookup_set(setid):
+    """The current openFDA record of one SPL set ID ([] when openFDA does not serve it)."""
+    q = urllib.parse.urlencode({'search': f'set_id:"{setid}"', 'limit': '1'})
+    status, _, body = http(f'{LABEL_API}?{q}')
+    return json.loads(body).get('results') or [] if status == 200 and body else []
 
 
 # --------------------------------------------------------------------------- DailyMed (tier 4)
@@ -507,7 +558,9 @@ def dailymed_record(setid):
         'version': attr(f'{HL7}versionNumber', 'value'), 'effective_time': attr(f'{HL7}effectiveTime', 'value'),
         'indications_and_usage': [ind] if ind else [],
         'openfda': {'brand_name': list(dict.fromkeys(brands)), 'generic_name': list(dict.fromkeys(generics)),
-                    'application_number': list(dict.fromkeys(a for a in apps if re.match(r'^(NDA|BLA)\d+', a)))},
+                    # ANDA kept on purpose: a generic's label then FAILS the application
+                    # check instead of passing as "not linked to an application yet".
+                    'application_number': list(dict.fromkeys(a for a in apps if re.match(r'^(NDA|BLA|ANDA)\d+', a)))},
         'dailymed': True, 'doc_type': doc_type or None,
     }
 
@@ -547,16 +600,51 @@ def dailymed_lookup(brand, inn, approval_date, log):
     return out
 
 
+def evidence_record(e, recs, log):
+    """The CURRENT record of the document a verified entry rests on, when that
+    link was weak (not tied to the application number at verification time) and
+    this run's lookups did not return it — so apply_us_records can re-check the
+    evidence itself, not only newer candidates."""
+    lb = e.get('label') or {}
+    sid = lb.get('setId')
+    if e.get('status') != S_VERIFIED or not sid or (e.get('checks') or {}).get('applicationMatch') is True \
+            or any(r.get('set_id') == sid for r in recs):
+        return []
+    try:
+        if 'DailyMed' in (lb.get('source') or ''):
+            rec = dailymed_record(sid)
+            return [rec] if rec else []
+        return openfda_lookup_set(sid)
+    except Exception as ex:  # noqa: BLE001
+        log(f'evidence re-check failed for {e.get("drug")} (set ID {sid}): {ex}')
+        return []
+    finally:
+        time.sleep(0.3)
+
+
 def reconcile_us(q, fe, today, window, probe, log):
     cands, merged = us_candidates(fe, today, window)
     for old, new in merged.items():
         q.rename(f'FDA:{old}', f'FDA:{new}', f'same medicine as {cands[new]["drug"]} (INN + approval date) — brand misspelt at Drugs@FDA')
+    # Same application under a new name: Drugs@FDA entered the brand (BLA761187
+    # "RANIBIZUMAB" → "LUCAMZI"). One medicine — carry the entry over instead of
+    # leaving an orphan under the old name beside a new one.
+    by_app = {(e.get('applicationNumber') or '').upper(): id_ for id_, e in q.by_id.items()
+              if e.get('jurisdiction') == 'FDA' and e.get('applicationNumber')}
+    for key, c in cands.items():
+        old_id = by_app.get((c.get('applicationNumber') or '').upper())
+        if old_id and old_id != f'FDA:{key}' and f'FDA:{key}' not in q.by_id and old_id[4:] not in cands:
+            q.rename(old_id, f'FDA:{key}', f'application {c["applicationNumber"]} is now listed at Drugs@FDA as {c["drug"]}')
     for key, c in cands.items():
         id_ = f'FDA:{key}'
         e = q.ensure(id_, jurisdiction='FDA', drug=c['drug'], inn=c.get('inn'), applicationNumber=c.get('applicationNumber'),
                      approvalDate=c['approvalDate'], sources=sorted(set(c['sources'])), summary=c.get('summary'),
                      sponsor=c.get('sponsor'), biosimilar=c.get('biosimilar'), status=S_AWAITING_USPI)
-        e.pop('alert', None)
+    # Alerts are re-derived every run (probe below + apply_alerts_and_retention) —
+    # also for entries that have aged out of the candidate window.
+    for e in q.by_id.values():
+        if e.get('jurisdiction') == 'FDA':
+            e.pop('alert', None)
     if not probe:
         return
     entries = [e for e in q.by_id.values() if e.get('jurisdiction') == 'FDA']
@@ -584,17 +672,37 @@ def reconcile_us(q, fe, today, window, probe, log):
         if not recs and e['status'] != S_VERIFIED:
             # Tier 4: DailyMed itself, for a label openFDA does not serve yet.
             recs = dailymed_lookup(e['drug'], e.get('inn'), e.get('approvalDate'), log)
+        recs = list(recs) + evidence_record(e, recs, log)
         apply_us_records(q, e, recs, today)
 
 
 def apply_us_records(q, e, recs, today):
     best = None
     own_app = (e.get('applicationNumber') or '').upper()
+    # 1. Re-check the evidence itself. A verified entry rests on one document
+    #    (set ID). If that document is now known to belong to another product —
+    #    linked to another application without sharing the brand, or naming only
+    #    the substance — the verification was wrong: retract it, on the record.
+    held = (e.get('label') or {}).get('setId') if e['status'] == S_VERIFIED else None
+    own = next((r for r in recs if held and r.get('set_id') == held), None)
+    if own is not None:
+        _, ch, _ = validate_us_label(own, e.get('applicationNumber'), e.get('drug'), e.get('inn'), allow_shared=True)
+        if ch['nameMatch'] and not identifies_product(ch):
+            of = own.get('openfda') or {}
+            other = ' / '.join(x for x in ((of.get('application_number') or [None])[0], (of.get('brand_name') or [None])[0]) if x)
+            why = f'is the label of another product ({other})' if ch['applicationMatch'] is False and other \
+                else 'names only the substance and is not linked to this application'
+            q.retract(e, f'set ID {held} {why}, not of {own_app or e.get("drug")}')
+    barred = (e.get('retraction') or {}).get('setId')
     own_verified = e['status'] == S_VERIFIED and ((e.get('label') or {}).get('applicationNumber') or '').upper() == own_app
     for rec in recs:
+        if barred and rec.get('set_id') == barred:
+            continue                      # the document a retracted verification rested on
         ok, checks, text = validate_us_label(rec, e.get('applicationNumber'), e.get('drug'), e.get('inn'), allow_shared=not own_verified)
         if not checks['nameMatch']:
             continue                      # some other product that shares the search term
+        if checks['nameBasis'] != 'brand' and checks['applicationMatch'] is not True:
+            continue                      # same substance, no link to this application: a generic / biosimilar / sister product
         # A label not linked to THIS application must be at least as new as the
         # approval (minus slack): an older label of the same name is another product.
         if checks['applicationMatch'] is not True and e.get('approvalDate'):
@@ -609,18 +717,39 @@ def apply_us_records(q, e, recs, today):
         if e['status'] == S_VERIFIED:
             e['alert'] = 'openFDA no longer returns the verified label — check DailyMed'
         elif e['status'] == S_AVAILABLE:
-            q.set_status(e, S_AWAITING_USPI, 'label record no longer returned by openFDA')
+            # The record found earlier is gone — or was another product's label
+            # (Degevma → Jubbonti, Immgolis → Simponi, Ennumo → Neulasta sat here
+            # for weeks as "document detected, not ingested"). Forget it entirely.
+            q.set_status(e, S_AWAITING_USPI, 'no label record of this product at openFDA / DailyMed (the one found earlier is gone or belongs to another product)')
+            e.pop('label', None)
+            e.pop('checks', None)
         return
     (ok, _, _), rec, checks, text = best
     of = rec.get('openfda') or {}
-    e['checks'] = checks
     if not ok:
-        q.set_status(e, S_AVAILABLE, 'label record found at openFDA but failed validation: '
-                     + ', '.join(k for k, v in checks.items() if v is False))
-        e['label'] = {'setId': rec.get('set_id'), 'effective': iso(rec.get('effective_time')), 'version': rec.get('version'),
-                      'detected': (e.get('label') or {}).get('detected') or today,
-                      'url': DAILYMED_URL.format(setid=rec.get('set_id')) if rec.get('set_id') else None}
+        failed = [k for k, v in checks.items() if v is False]
+        note = 'label record found at openFDA but failed validation: ' + ', '.join(failed)
+        found = {'setId': rec.get('set_id'), 'effective': iso(rec.get('effective_time')), 'version': rec.get('version'),
+                 'url': DAILYMED_URL.format(setid=rec.get('set_id')) if rec.get('set_id') else None}
+        if e['status'] == S_VERIFIED:
+            # 2. A failed candidate never touches verified evidence: status, label
+            #    (hash, set ID, version, text) and checks stay exactly as verified.
+            #    The candidate is kept apart, with what failed, and raises an alert.
+            #    (Until 17.11.2026 the label was overwritten here while the status
+            #    stayed LABEL_VERIFIED — a verified entry without its hash, which
+            #    gate G8 refuses: no data release for six days.)
+            was = e.get('rejectedCandidate') or {}
+            same = (was.get('setId'), was.get('version')) == (found['setId'], found['version'])
+            e['rejectedCandidate'] = {**found, 'failed': failed, 'firstSeen': was.get('firstSeen', today) if same else today, 'lastSeen': today}
+            lb = e.get('label') or {}
+            e['alert'] = f'{note} — verified label kept (set ID {lb.get("setId")}, version {lb.get("version")} of {lb.get("effective")})'
+            return
+        e['checks'] = checks
+        q.set_status(e, S_AVAILABLE, note)
+        e['label'] = {**found, 'detected': (e.get('label') or {}).get('detected') or today}
         return
+    e['checks'] = checks
+    e.pop('rejectedCandidate', None)
     new_sha = sha256(text)
     prev = e.get('label') or {}
     label = {
@@ -858,6 +987,7 @@ def build_output(q, today, window, a, probe):
             'total': len(entries), 'unresolved': sum(by_status[s] for s in OPEN), 'byStatus': by_status, 'alerts': len(alerts),
             'transitions': [{'id': i, 'drug': d, 'from': f, 'to': t, 'note': n} for i, d, f, t, n in q.transitions],
             'closed': [{'id': i, 'drug': d, 'status': s, 'why': w} for i, d, s, w in q.closed],
+            'retracted': [{'id': i, 'drug': d, 'reason': r} for i, d, r in q.retracted],
         },
         'alerts': alerts,
         'entries': entries,
@@ -887,6 +1017,12 @@ def write_md(path, out, today):
         L += ['', '### Transitions this run', '']
         for t in s['transitions']:
             L.append(f'- {t["drug"]}: {t["from"] or "—"} → **{t["to"]}**' + (f' — {t["note"]}' if t.get('note') else ''))
+    withdrawn = [e for e in out['entries'] if e.get('retraction') and e['status'] != S_VERIFIED]
+    if withdrawn:
+        L += ['', '### ⚠️ Verification retracted (the label belonged to another product)', '']
+        for e in withdrawn:
+            rt = e['retraction']
+            L.append(f'- **{e["drug"]}** ({e.get("applicationNumber") or e["jurisdiction"]}): retracted {rt.get("date")}, had counted as verified since {rt.get("verifiedSince")} — {rt.get("reason")}')
     if s['closed']:
         L += ['', '### Left the queue', '']
         for c in s['closed']:
@@ -956,6 +1092,8 @@ def main():
           f'{len(q.transitions)} transition(s), {len(q.closed)} closed, {s["alerts"]} alert(s) → {out_path}')
     for t in q.transitions:
         print(f'  {t[1]}: {t[2] or "—"} → {t[3]}' + (f' ({t[4]})' if t[4] else ''))
+    for i, d, r in q.retracted:
+        print(f'::warning::Label verification RETRACTED — {d} ({i}): {r}')
     for al in out['alerts']:
         print(f'::warning::Label hand-over unresolved — {al["drug"]} ({al["jurisdiction"]}, {al["status"]}): {al["message"]}')
     gh = os.environ.get('GITHUB_OUTPUT')
