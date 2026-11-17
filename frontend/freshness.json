@@ -1,99 +1,113 @@
 {
- "checkedAt": "2026-11-10T08:35:50Z",
- "status": "OK",
+ "checkedAt": "2026-11-17T17:43:27Z",
+ "status": "STALE",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-11-10",
-  "euLabels": "2026-11-09",
-  "usApprovals": "2026-11-09",
-  "usApprovalsAnnounced": "2026-11-09",
-  "usLabels": "2026-11-09",
-  "pipelineRun": "2026-11-10T08:35:50Z"
+  "euCatalogue": "2026-11-17",
+  "euLabels": "2026-11-16",
+  "usApprovals": "2026-11-16",
+  "usApprovalsAnnounced": "2026-11-16",
+  "usLabels": "2026-11-16",
+  "pipelineRun": "2026-11-17T17:43:27Z"
  },
  "sources": {
   "ema_medicines_report": {
    "name": "EMA medicines report (EU catalogue)",
    "cadence": "about weekly",
    "status": "OK",
-   "count": 1567,
-   "pending": 17,
-   "sha256": "ce602423f4ecabb313a280245af931d79d86670ba15f9769e6d84a14d53242e3",
+   "count": 1576,
+   "pending": 15,
+   "sha256": "9a96661db72d41b0075993b374b720f5255c77bea0dcbe67cf14054c3f524db3",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-11-10",
-   "sourceAgeDays": 0.36,
-   "fetchedAt": "2026-11-10T08:34:55+00:00",
+   "sourceUpdatedAt": "2026-11-17",
+   "sourceAgeDays": 0.74,
+   "fetchedAt": "2026-11-17T17:42:31+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "error": "HTTPError: HTTP Error 429: Too Many Requests"
+    "value": "2026-11-17T17:00:49Z",
+    "kind": "Last-Modified"
    },
-   "notes": [
-    "live probe failed: HTTPError: HTTP Error 429: Too Many Requests (not counted)"
-   ]
+   "notes": []
   },
   "eu_union_register": {
    "name": "EU Union Register (Commission decisions)",
    "cadence": "daily download, no own watermark",
    "status": "OK",
-   "count": 39,
-   "sha256": "981bbdce4df40ccab7b7d89928a7ea283c8d6dd653b2861c0192e60befe92cdd",
+   "count": 46,
+   "sha256": "169cf505683f986435117054530d5abf1e8e0e44e6e94a1342ea635631df855f",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-10T08:34:56+00:00",
+   "fetchedAt": "2026-11-17T17:42:32+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
   "ema_epar_documents": {
    "name": "EMA EPAR document list (EU labels)",
    "cadence": "EMA 06:00/18:00 Amsterdam; read weekly (Mondays)",
-   "status": "OK",
-   "count": 1563,
+   "status": "STALE",
+   "count": 1562,
    "url": "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json",
-   "incomplete": null,
-   "sourceUpdatedAt": "2026-11-09T05:48:54Z",
-   "sourceAgeDays": 1.12,
-   "fetchedAt": "2026-11-09",
+   "incomplete": {
+    "reason": "EMA kept blocking requests",
+    "unchecked": 99,
+    "changed": 0,
+    "sample": 98,
+    "sampleSize": 100,
+    "carry": 0,
+    "unlisted": 1,
+    "repeat": 0,
+    "codes": {
+     "429": 32,
+     "abort": 67
+    }
+   },
+   "sourceUpdatedAt": "2026-11-16T05:50:23Z",
+   "sourceAgeDays": 1.5,
+   "fetchedAt": "2026-11-16",
    "probe": {
-    "value": "2026-11-10T04:45:07Z",
+    "value": "2026-11-17T16:45:54Z",
     "kind": "Last-Modified"
    },
-   "notes": []
+   "notes": [
+    "last label run incomplete: EMA kept blocking requests, 99 unchecked — run cut short (EMA kept blocking requests); EMA refused 98 of 100 cross-check HEADs"
+   ]
   },
   "openfda_drugsfda": {
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3445,
-   "approvals": 99,
-   "newestOriginalApproval": "2026-10-27",
-   "sha256": "9dda3a6444d817ceef772b073ec17b3336c3fdbe817397683b4edf3f9b2b46c2",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251110+TO+20261117]",
-   "sourceUpdatedAt": "2026-11-09",
-   "sourceAgeDays": 1.36,
-   "fetchedAt": "2026-11-10T08:35:02+00:00",
+   "count": 3437,
+   "approvals": 102,
+   "newestOriginalApproval": "2026-11-13",
+   "sha256": "af7e5226e4b58ebae9bac56c3c52706ab258968a6d82bffabcc037001797e714",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251117+TO+20261124]",
+   "sourceUpdatedAt": "2026-11-16",
+   "sourceAgeDays": 1.74,
+   "fetchedAt": "2026-11-17T17:42:39+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-09",
+    "value": "2026-11-16",
     "kind": "meta.last_updated"
    },
    "lag": {
-    "behindDays": 13,
-    "reference": "2026-11-09",
+    "behindDays": 3,
+    "reference": "2026-11-16",
     "referenceSource": "CDER novel roster / FDA press releases"
    },
    "notes": [
-    "openFDA lagging: FDA announced approvals through 2026-11-09, Drugs@FDA newest original approval 2026-10-27 (13 d) — served by the Recent-Approvals overlay"
+    "openFDA lagging: FDA announced approvals through 2026-11-16, Drugs@FDA newest original approval 2026-11-13 (3 d) — served by the Recent-Approvals overlay"
    ]
   },
   "openfda_drug_label": {
    "name": "openFDA drug label (US labels)",
    "cadence": "openFDA: weekly; read weekly (Mondays)",
    "status": "OK",
-   "count": 1252,
+   "count": 1254,
    "url": "https://api.fda.gov/drug/label.json",
-   "sourceUpdatedAt": "2026-11-09",
-   "fetchedAt": "2026-11-09",
-   "sourceAgeDays": 1.36,
+   "sourceUpdatedAt": "2026-11-16",
+   "fetchedAt": "2026-11-16",
+   "sourceAgeDays": 1.74,
    "probe": {
-    "value": "2026-11-09",
+    "value": "2026-11-17",
     "kind": "meta.last_updated"
    },
    "notes": []
@@ -101,20 +115,36 @@
   "fda_novel_roster": {
    "name": "FDA CDER novel drug approvals (roster)",
    "cadence": "FDA: within days of each approval; manual xlsx export",
-   "status": "OK",
+   "status": "STALE",
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 21.36,
+   "sourceAgeDays": 28.74,
    "missing": [
     {
-     "name": "Sunharbo",
-     "date": "2026-11-09",
+     "name": "Wilserdly",
+     "date": "2026-11-16",
      "via": "FDA press release"
+    },
+    {
+     "name": "Klygefa (gefurulimab)",
+     "date": "2026-11-13",
+     "via": "Drugs@FDA TYPE 1"
+    },
+    {
+     "name": "Pimjetmi (pimicotinib)",
+     "date": "2026-11-10",
+     "via": "Drugs@FDA TYPE 1"
+    },
+    {
+     "name": "Sunharbo (asundexian)",
+     "date": "2026-11-09",
+     "via": "Drugs@FDA TYPE 1"
     }
    ],
    "notes": [
-    "1 recent FDA approval(s) not yet in the roster (within 7 d grace): Sunharbo (2026-11-09, FDA press release)"
+    "4 FDA approval(s) not in the roster, oldest 9 d ago: Wilserdly (2026-11-16, FDA press release), Klygefa (gefurulimab) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
+    "export the current year from fda.gov → scripts/data/novel-<year>.xlsx, run build-novel-approvals.py"
    ]
   },
   "fda_announcements": {
@@ -122,10 +152,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-11-10",
-   "fetchedAgeDays": 0.36,
-   "sourceUpdatedAt": "2026-11-09",
-   "sourceAgeDays": 1.36,
+   "fetchedAt": "2026-11-17",
+   "fetchedAgeDays": 0.74,
+   "sourceUpdatedAt": "2026-11-16",
+   "sourceAgeDays": 1.74,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -135,7 +165,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 11.36,
+   "sourceAgeDays": 18.74,
    "notes": []
   },
   "fda_cdx_list": {
@@ -145,7 +175,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 43.36,
+   "sourceAgeDays": 50.74,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -162,7 +192,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 295.36,
+   "sourceAgeDays": 302.74,
    "notes": []
   },
   "biomarkers_table": {
@@ -171,7 +201,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 120.36,
+   "sourceAgeDays": 127.74,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -179,13 +209,13 @@
    "cadence": "manual; sponsor/analyst-disclosed target dates",
    "status": "OK",
    "count": 38,
-   "upcoming": 35,
-   "nextDate": "2026-11-14",
+   "upcoming": 32,
+   "nextDate": "2026-11-22",
    "lastDate": "2027-06-14",
    "fetchedAt": null,
    "sourceUpdatedAt": null,
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-10T01:46:51Z"
+ "previousCheckedAt": "2026-11-10T08:35:50Z"
 }

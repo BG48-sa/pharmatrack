@@ -1,6 +1,63 @@
 {
-  "generated": "2026-11-10",
+  "generated": "2026-11-17",
   "items": [
+    {
+      "title": "FDA Approves Wilserdly (giredestrant) for ER-Positive, ESR1-Mutated Advanced Breast Cancer",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-wilserdly-giredestrant-er-positive-esr1-mutated-advanced-breast-cancer-6938.html",
+      "date": "2026-11-16",
+      "source": "Drugs.com",
+      "names": [
+        "giredestrant",
+        "wilserdly"
+      ]
+    },
+    {
+      "title": "FDA Approves Pebrilzo (pertuzumab-qcay), a Biosimilar to Perjeta",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-pebrilzo-pertuzumab-qcay-biosimilar-perjeta-6935.html",
+      "date": "2026-11-16",
+      "source": "Drugs.com",
+      "names": [
+        "pebrilzo",
+        "pertuzumab",
+        "pertuzumab-qcay"
+      ]
+    },
+    {
+      "title": "FDA Approves Klygefa (gefurulimab) for the Treatment of Generalised Myasthenia Gravis",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-klygefa-gefurulimab-generalised-myasthenia-gravis-6933.html",
+      "date": "2026-11-16",
+      "source": "Drugs.com",
+      "names": [
+        "gefurulimab",
+        "klygefa"
+      ]
+    },
+    {
+      "title": "Genentech’s Gazyva Becomes the First FDA-Approved Treatment for Primary Membranous Nephropathy",
+      "url": "https://www.drugs.com/newdrugs/genentech-s-gazyva-becomes-first-fda-approved-primary-membranous-nephropathy-6934.html",
+      "date": "2026-11-15",
+      "source": "Drugs.com",
+      "names": []
+    },
+    {
+      "title": "Perioperative Imfinzi Approved in the US in Novel Regimen with Neoadjuvant Enfortumab Vedotin for Patients with Muscle-Invasive Bladder Cancer",
+      "url": "https://www.drugs.com/newdrugs/perioperative-imfinzi-approved-us-novel-regimen-neoadjuvant-enfortumab-vedotin-patients-muscle-6932.html",
+      "date": "2026-11-13",
+      "source": "Drugs.com",
+      "names": [
+        "enfortumab"
+      ]
+    },
+    {
+      "title": "FDA Approves Pimjetmi (pimicotinib) for Patients with Tenosynovial Giant Cell Tumor",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-pimjetmi-pimicotinib-patients-tenosynovial-giant-cell-tumor-6931.html",
+      "date": "2026-11-10",
+      "source": "Drugs.com",
+      "names": [
+        "pimicotinib",
+        "pimjetmi"
+      ]
+    },
     {
       "title": "FDA Approves Sunharbo (asundexian) in Combination with Antiplatelet Therapy for Secondary Stroke Prevention",
       "url": "https://www.drugs.com/newdrugs/fda-approves-sunharbo-asundexian-combination-antiplatelet-therapy-secondary-stroke-prevention-6930.html",
@@ -176,62 +233,6 @@
         "hovilpri",
         "pritelivir",
         "virus"
-      ]
-    },
-    {
-      "title": "FDA Approves Weltruza (olanzapine) Once-Monthly Subcutaneous Injection for the Treatment of Adults with Schizophrenia",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-weltruza-olanzapine-once-monthly-subcutaneous-adults-schizophrenia-6912.html",
-      "date": "2026-10-09",
-      "source": "Drugs.com",
-      "names": [
-        "olanzapine",
-        "weltruza"
-      ]
-    },
-    {
-      "title": "FDA Approves Genentech’s Tecentriq in Combination With a Fluoropyrimidine and Oxaliplatin for The Adjuvant Treatment of a Certain Type of Stage III Colon Cancer",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-genentech-s-tecentriq-combination-fluoropyrimidine-oxaliplatin-adjuvant-certain-type-6911.html",
-      "date": "2026-10-08",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "Novartis Rhapsido (remibrutinib) Receives FDA Approval as First Treatment for Symptomatic Dermographism",
-      "url": "https://www.drugs.com/newdrugs/novartis-rhapsido-remibrutinib-receives-fda-approval-first-symptomatic-dermographism-6908.html",
-      "date": "2026-10-07",
-      "source": "Drugs.com",
-      "names": [
-        "remibrutinib",
-        "rhapsido"
-      ]
-    },
-    {
-      "title": "Pfizer’s Tukysa Regimen Receives FDA Approval as Front-Line Maintenance Treatment for HER2+ Metastatic Breast Cancer",
-      "url": "https://www.drugs.com/newdrugs/pfizer-s-tukysa-regimen-receives-fda-approval-front-line-maintenance-her2-metastatic-breast-cancer-6909.html",
-      "date": "2026-10-07",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "Lilly's Jaypirca (pirtobrutinib), the First-and-Only Approved Non-Covalent BTK Inhibitor, Receives Expanded Indication from U.S. FDA for Certain Patients with Previously Untreated CLL/SLL",
-      "url": "https://www.drugs.com/newdrugs/lilly-s-jaypirca-pirtobrutinib-first-only-approved-non-covalent-btk-inhibitor-receives-expanded-6907.html",
-      "date": "2026-10-02",
-      "source": "Drugs.com",
-      "names": [
-        "jaypirca",
-        "pirtobrutinib"
-      ]
-    },
-    {
-      "title": "U.S. Food and Drug Administration Approves Expanded Indication for Bristol Myers Squibb’s Camzyos (mavacamten) for the Treatment of Symptomatic Obstructive Hypertrophic Cardiomyopathy (oHCM) in Adults and Pediatric Patients*",
-      "url": "https://www.drugs.com/newdrugs/u-s-food-administration-approves-expanded-indication-bristol-myers-squibb-s-camzyos-mavacamten-6906.html",
-      "date": "2026-09-30",
-      "source": "Drugs.com",
-      "names": [
-        "camzyos",
-        "cardiomyopathy",
-        "mavacamten",
-        "ohcm"
       ]
     }
   ]
