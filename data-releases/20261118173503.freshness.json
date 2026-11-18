@@ -1,0 +1,226 @@
+{
+ "checkedAt": "2026-11-18T12:13:42Z",
+ "status": "STALE",
+ "probed": true,
+ "currentThrough": {
+  "euCatalogue": "2026-11-18",
+  "euLabels": "2026-11-16",
+  "usApprovals": "2026-11-17",
+  "usApprovalsAnnounced": "2026-11-17",
+  "usLabels": "2026-11-16",
+  "pipelineRun": "2026-11-18T12:13:42Z"
+ },
+ "sources": {
+  "ema_medicines_report": {
+   "name": "EMA medicines report (EU catalogue)",
+   "cadence": "about weekly",
+   "status": "OK",
+   "count": 1577,
+   "pending": 14,
+   "sha256": "afa943c2de822260b63cb5cdc438b1bf48b3d3b0469665613f2720fdb77e5175",
+   "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
+   "sourceUpdatedAt": "2026-11-18",
+   "sourceAgeDays": 0.51,
+   "fetchedAt": "2026-11-18T12:12:26+00:00",
+   "fetchedAgeDays": 0.0,
+   "probe": {
+    "value": "2026-11-18T05:00:06Z",
+    "kind": "Last-Modified"
+   },
+   "notes": []
+  },
+  "eu_union_register": {
+   "name": "EU Union Register (Commission decisions)",
+   "cadence": "daily download, no own watermark",
+   "status": "OK",
+   "count": 48,
+   "sha256": "2a31eb04183ce1c1f4607eacf0be0a42d79c17a9c93e945571f9234938d7a5ae",
+   "sourceUpdatedAt": null,
+   "fetchedAt": "2026-11-18T12:12:26+00:00",
+   "fetchedAgeDays": 0.0,
+   "notes": []
+  },
+  "ema_epar_documents": {
+   "name": "EMA EPAR document list (EU labels)",
+   "cadence": "EMA 06:00/18:00 Amsterdam; read weekly (Mondays)",
+   "status": "STALE",
+   "count": 1562,
+   "url": "https://www.ema.europa.eu/en/documents/report/documents-output-epar_documents_json-report_en.json",
+   "incomplete": {
+    "reason": "EMA kept blocking requests",
+    "unchecked": 99,
+    "changed": 0,
+    "sample": 98,
+    "sampleSize": 100,
+    "carry": 0,
+    "unlisted": 1,
+    "repeat": 0,
+    "codes": {
+     "429": 32,
+     "abort": 67
+    }
+   },
+   "sourceUpdatedAt": "2026-11-16T05:50:23Z",
+   "sourceAgeDays": 2.27,
+   "fetchedAt": "2026-11-16",
+   "probe": {
+    "value": "2026-11-18T04:45:38Z",
+    "kind": "Last-Modified"
+   },
+   "notes": [
+    "last label run incomplete: EMA kept blocking requests, 99 unchecked — run cut short (EMA kept blocking requests); EMA refused 98 of 100 cross-check HEADs"
+   ]
+  },
+  "openfda_drugsfda": {
+   "name": "openFDA Drugs@FDA (US approvals)",
+   "cadence": "openFDA: weekly dataset refresh",
+   "status": "OK",
+   "count": 3434,
+   "approvals": 102,
+   "newestOriginalApproval": "2026-11-13",
+   "sha256": "f2bb27ceec7123de08276098f277658070bb2a10c3a81987abf2607a2cabd36d",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251118+TO+20261125]",
+   "sourceUpdatedAt": "2026-11-17",
+   "sourceAgeDays": 1.51,
+   "fetchedAt": "2026-11-18T12:12:34+00:00",
+   "fetchedAgeDays": 0.0,
+   "probe": {
+    "value": "2026-11-17",
+    "kind": "meta.last_updated"
+   },
+   "lag": {
+    "behindDays": 4,
+    "reference": "2026-11-17",
+    "referenceSource": "CDER novel roster / FDA press releases"
+   },
+   "notes": [
+    "openFDA lagging: FDA announced approvals through 2026-11-17, Drugs@FDA newest original approval 2026-11-13 (4 d) — served by the Recent-Approvals overlay"
+   ]
+  },
+  "openfda_drug_label": {
+   "name": "openFDA drug label (US labels)",
+   "cadence": "openFDA: weekly; read weekly (Mondays)",
+   "status": "OK",
+   "count": 1254,
+   "url": "https://api.fda.gov/drug/label.json",
+   "sourceUpdatedAt": "2026-11-16",
+   "fetchedAt": "2026-11-16",
+   "sourceAgeDays": 2.51,
+   "probe": {
+    "value": "2026-11-17",
+    "kind": "meta.last_updated"
+   },
+   "notes": []
+  },
+  "fda_novel_roster": {
+   "name": "FDA CDER novel drug approvals (roster)",
+   "cadence": "FDA: within days of each approval; manual xlsx export",
+   "status": "STALE",
+   "count": 93,
+   "fetchedAt": null,
+   "sourceUpdatedAt": "2026-10-20",
+   "sourceAgeDays": 29.51,
+   "missing": [
+    {
+     "name": "Lembaz",
+     "date": "2026-11-17",
+     "via": "FDA press release"
+    },
+    {
+     "name": "Wilserdly",
+     "date": "2026-11-16",
+     "via": "FDA press release"
+    },
+    {
+     "name": "Klygefa (gefurulimab)",
+     "date": "2026-11-13",
+     "via": "Drugs@FDA TYPE 1"
+    },
+    {
+     "name": "Pimjetmi (pimicotinib)",
+     "date": "2026-11-10",
+     "via": "Drugs@FDA TYPE 1"
+    },
+    {
+     "name": "Sunharbo (asundexian)",
+     "date": "2026-11-09",
+     "via": "Drugs@FDA TYPE 1"
+    }
+   ],
+   "notes": [
+    "5 FDA approval(s) not in the roster, oldest 10 d ago: Lembaz (2026-11-17, FDA press release), Wilserdly (2026-11-16, FDA press release), Klygefa (gefurulimab) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
+    "export the current year from fda.gov → scripts/data/novel-<year>.xlsx, run build-novel-approvals.py"
+   ]
+  },
+  "fda_announcements": {
+   "name": "FDA press releases (announcements feed)",
+   "cadence": "daily",
+   "status": "OK",
+   "count": 25,
+   "fetchedAt": "2026-11-18",
+   "fetchedAgeDays": 0.51,
+   "sourceUpdatedAt": "2026-11-17",
+   "sourceAgeDays": 1.51,
+   "notes": []
+  },
+  "fda_cber_cgt": {
+   "name": "FDA CBER cell & gene therapy list",
+   "cadence": "FDA: every few weeks; manual snapshot",
+   "status": "OK",
+   "count": 55,
+   "fetchedAt": null,
+   "sourceUpdatedAt": "2026-10-30",
+   "sourceAgeDays": 19.51,
+   "notes": []
+  },
+  "fda_cdx_list": {
+   "name": "FDA companion diagnostics list",
+   "cadence": "FDA: every few months",
+   "status": "OK",
+   "count": 232,
+   "fetchedAt": "2026-10-21",
+   "sourceUpdatedAt": "2026-09-28",
+   "sourceAgeDays": 51.51,
+   "probe": {
+    "kind": "openFDA device/pma companion-diagnostic decisions after list date",
+    "count": 0,
+    "lastUpdated": null
+   },
+   "missing": null,
+   "notes": []
+  },
+  "eu_critical_medicines": {
+   "name": "EU Union list of critical medicines (curated snapshot)",
+   "cadence": "EMA/EC: about yearly (December)",
+   "status": "OK",
+   "count": 301,
+   "version": "2.1 (revision 1)",
+   "url": "EMA/4040/2026",
+   "sourceUpdatedAt": "2026-01-19",
+   "sourceAgeDays": 303.51,
+   "notes": []
+  },
+  "biomarkers_table": {
+   "name": "Biomarker / companion-test table (curated snapshot)",
+   "cadence": "manual; review quarterly",
+   "status": "OK",
+   "count": 26,
+   "sourceUpdatedAt": "2026-07-13",
+   "sourceAgeDays": 128.51,
+   "notes": []
+  },
+  "pdufa_watchlist": {
+   "name": "PDUFA watchlist (curated, unofficial)",
+   "cadence": "manual; sponsor/analyst-disclosed target dates",
+   "status": "OK",
+   "count": 38,
+   "upcoming": 32,
+   "nextDate": "2026-11-22",
+   "lastDate": "2027-06-14",
+   "fetchedAt": null,
+   "sourceUpdatedAt": null,
+   "notes": []
+  }
+ },
+ "previousCheckedAt": "2026-11-18T01:20:04Z"
+}
