@@ -2,6 +2,16 @@
   "generated": "2026-11-18",
   "items": [
     {
+      "title": "FDA Approves Lembaz (adrabetadex) to Improve Survival in Infantile-Onset Niemann-Pick Disease, Type C",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-lembaz-adrabetadex-improve-survival-infantile-onset-niemann-pick-type-c-6941.html",
+      "date": "2026-11-17",
+      "source": "Drugs.com",
+      "names": [
+        "adrabetadex",
+        "lembaz"
+      ]
+    },
+    {
       "title": "FDA Grants Accelerated Approval to Nelkarmi (neladalkib) for Previously-Treated Advanced ALK-Positive Non-Small Cell Lung Cancer",
       "url": "https://www.drugs.com/newdrugs/fda-grants-accelerated-approval-nelkarmi-neladalkib-previously-treated-advanced-alk-positive-non-6940.html",
       "date": "2026-11-17",
@@ -10,6 +20,13 @@
         "neladalkib",
         "nelkarmi"
       ]
+    },
+    {
+      "title": "Novartis Cosentyx Becomes First and Only FDA-Approved Anti-IL-17 Biologic for People with Polymyalgia Rheumatica",
+      "url": "https://www.drugs.com/newdrugs/novartis-cosentyx-becomes-first-only-fda-approved-anti-il-17-biologic-polymyalgia-rheumatica-6939.html",
+      "date": "2026-11-17",
+      "source": "Drugs.com",
+      "names": []
     },
     {
       "title": "FDA Approves Wilserdly (giredestrant) for ER-Positive, ESR1-Mutated Advanced Breast Cancer",
@@ -216,23 +233,6 @@
         "zilbrysq",
         "zilucoplan"
       ]
-    },
-    {
-      "title": "FDA Approves Brytly (apraclonidine) Ophthalmic Solution for Relief of Eye Redness",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-brytly-apraclonidine-ophthalmic-solution-relief-eye-redness-6914.html",
-      "date": "2026-10-16",
-      "source": "Drugs.com",
-      "names": [
-        "apraclonidine",
-        "brytly"
-      ]
-    },
-    {
-      "title": "Viatris Receives U.S. FDA Approval for Ryzumvi for the Treatment of Presbyopia",
-      "url": "https://www.drugs.com/newdrugs/viatris-receives-u-s-fda-approval-ryzumvi-presbyopia-6917.html",
-      "date": "2026-10-16",
-      "source": "Drugs.com",
-      "names": []
     }
   ]
 }
