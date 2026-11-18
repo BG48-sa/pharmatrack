@@ -1,5 +1,5 @@
 {
- "checkedAt": "2026-11-17T21:55:01Z",
+ "checkedAt": "2026-11-18T01:20:04Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
@@ -8,7 +8,7 @@
   "usApprovals": "2026-11-16",
   "usApprovalsAnnounced": "2026-11-17",
   "usLabels": "2026-11-16",
-  "pipelineRun": "2026-11-17T21:55:01Z"
+  "pipelineRun": "2026-11-18T01:20:04Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -20,8 +20,8 @@
    "sha256": "9a96661db72d41b0075993b374b720f5255c77bea0dcbe67cf14054c3f524db3",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-11-17",
-   "sourceAgeDays": 0.91,
-   "fetchedAt": "2026-11-17T21:53:36+00:00",
+   "sourceAgeDays": 1.06,
+   "fetchedAt": "2026-11-18T01:17:42+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-17T17:00:49Z",
@@ -36,7 +36,7 @@
    "count": 46,
    "sha256": "169cf505683f986435117054530d5abf1e8e0e44e6e94a1342ea635631df855f",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-17T21:53:36+00:00",
+   "fetchedAt": "2026-11-18T01:17:43+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -61,7 +61,7 @@
     }
    },
    "sourceUpdatedAt": "2026-11-16T05:50:23Z",
-   "sourceAgeDays": 1.67,
+   "sourceAgeDays": 1.81,
    "fetchedAt": "2026-11-16",
    "probe": {
     "value": "2026-11-17T16:45:54Z",
@@ -75,14 +75,14 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3437,
+   "count": 3428,
    "approvals": 102,
    "newestOriginalApproval": "2026-11-13",
-   "sha256": "af7e5226e4b58ebae9bac56c3c52706ab258968a6d82bffabcc037001797e714",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251117+TO+20261124]",
+   "sha256": "dd902a505ed37dd0b1c0bb0d7f8b144fe072724d97ac838b52dcc3414afd08aa",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251118+TO+20261125]",
    "sourceUpdatedAt": "2026-11-16",
-   "sourceAgeDays": 1.91,
-   "fetchedAt": "2026-11-17T21:53:44+00:00",
+   "sourceAgeDays": 2.06,
+   "fetchedAt": "2026-11-18T01:17:48+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-16",
@@ -105,7 +105,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-16",
    "fetchedAt": "2026-11-16",
-   "sourceAgeDays": 1.91,
+   "sourceAgeDays": 2.06,
    "probe": {
     "value": "2026-11-17",
     "kind": "meta.last_updated"
@@ -119,7 +119,7 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 28.91,
+   "sourceAgeDays": 29.06,
    "missing": [
     {
      "name": "Wilserdly",
@@ -152,10 +152,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-11-17",
-   "fetchedAgeDays": 0.91,
+   "fetchedAt": "2026-11-18",
+   "fetchedAgeDays": 0.06,
    "sourceUpdatedAt": "2026-11-17",
-   "sourceAgeDays": 0.91,
+   "sourceAgeDays": 1.06,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -165,7 +165,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 18.91,
+   "sourceAgeDays": 19.06,
    "notes": []
   },
   "fda_cdx_list": {
@@ -175,7 +175,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 50.91,
+   "sourceAgeDays": 51.06,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -192,7 +192,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 302.91,
+   "sourceAgeDays": 303.06,
    "notes": []
   },
   "biomarkers_table": {
@@ -201,7 +201,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 127.91,
+   "sourceAgeDays": 128.06,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -217,5 +217,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-17T17:43:27Z"
+ "previousCheckedAt": "2026-11-17T21:55:01Z"
 }

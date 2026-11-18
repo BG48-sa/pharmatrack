@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-17",
+  "generated": "2026-11-18",
   "items": [
     {
       "title": "FDA Grants Accelerated Approval to Nelkarmi (neladalkib) for Previously-Treated Advanced ALK-Positive Non-Small Cell Lung Cancer",
@@ -20,6 +20,13 @@
         "giredestrant",
         "wilserdly"
       ]
+    },
+    {
+      "title": "U.S. FDA Approves Igalmi as First At-Home Acute Treatment for Agitation Associated with Schizophrenia, Schizoaffective Disorder, or Bipolar I or II Disorder in Adults",
+      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-igalmi-first-home-acute-agitation-associated-schizophrenia-schizoaffective-6936.html",
+      "date": "2026-11-16",
+      "source": "Drugs.com",
+      "names": []
     },
     {
       "title": "FDA Approves Pebrilzo (pertuzumab-qcay), a Biosimilar to Perjeta",
@@ -224,13 +231,6 @@
       "title": "Viatris Receives U.S. FDA Approval for Ryzumvi for the Treatment of Presbyopia",
       "url": "https://www.drugs.com/newdrugs/viatris-receives-u-s-fda-approval-ryzumvi-presbyopia-6917.html",
       "date": "2026-10-16",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "FDA Expands Anktiva Approval for BCG-Unresponsive Non-Muscle-Invasive Bladder Cancer to Cover Both Papillary and CIS Disease",
-      "url": "https://www.drugs.com/newdrugs/fda-expands-anktiva-approval-bcg-unresponsive-non-muscle-invasive-bladder-cancer-cover-both-6913.html",
-      "date": "2026-10-14",
       "source": "Drugs.com",
       "names": []
     }
