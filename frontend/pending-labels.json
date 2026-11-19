@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-19",
- "checkedAt": "2026-11-19T00:44:51Z",
+ "checkedAt": "2026-11-19T12:08:01Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,25 +11,54 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 117,
-  "unresolved": 49,
+  "total": 118,
+  "unresolved": 47,
   "byStatus": {
-   "AWAITING_USPI": 20,
-   "AWAITING_EC_DECISION": 14,
-   "AWAITING_SMPC": 11,
+   "AWAITING_USPI": 18,
+   "AWAITING_EC_DECISION": 13,
+   "AWAITING_SMPC": 12,
    "LABEL_AVAILABLE": 4,
-   "LABEL_VERIFIED": 68
+   "LABEL_VERIFIED": 71
   },
-  "alerts": 10,
-  "transitions": [],
-  "closed": [
+  "alerts": 9,
+  "transitions": [
    {
-    "id": "FDA:hepcludex",
-    "drug": "Hepcludex",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
+    "id": "FDA:wilserdly",
+    "drug": "Wilserdly",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
+   },
+   {
+    "id": "FDA:pimjetmi",
+    "drug": "Pimjetmi",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 17b6ec50-69c8-4849-802d-cf0a6e425373, label version 3 of 2026-11-13"
+   },
+   {
+    "id": "FDA:lucamzi",
+    "drug": "Lucamzi",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 68e44187-997a-4642-96b3-d082ac7cd38d, label version 1 of 2026-11-11"
+   },
+   {
+    "id": "FDA:orzeyful",
+    "drug": "Orzeyful",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 136fdf62-c925-4b1f-b625-efb71b4bff16, label version 2 of 2026-11-10"
+   },
+   {
+    "id": "EMA:EMEA/H/C/006757",
+    "drug": "Gevalka",
+    "from": "AWAITING_EC_DECISION",
+    "to": "AWAITING_SMPC",
+    "note": "authorised 2026-11-16 (EU Union Register)"
    }
   ],
+  "closed": [],
   "retracted": []
  },
  "alerts": [
@@ -53,13 +82,6 @@
    "jurisdiction": "FDA",
    "status": "AWAITING_USPI",
    "message": "no US prescribing information at openFDA or DailyMed 98 days after approval"
-  },
-  {
-   "id": "FDA:orzeyful",
-   "drug": "Orzeyful",
-   "jurisdiction": "FDA",
-   "status": "AWAITING_USPI",
-   "message": "no US prescribing information at openFDA or DailyMed 106 days after approval"
   },
   {
    "id": "FDA:cypsedo",
@@ -105,6 +127,31 @@
   }
  ],
  "entries": [
+  {
+   "id": "FDA:wilserdly",
+   "jurisdiction": "FDA",
+   "drug": "Wilserdly",
+   "inn": "giredestran",
+   "applicationNumber": "NDA220791",
+   "approvalDate": "2026-11-16",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Genentech Inc",
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-19",
+   "statusSince": "2026-11-19",
+   "history": [
+    {
+     "date": "2026-11-19",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-19"
+  },
   {
    "id": "FDA:klygefa",
    "jurisdiction": "FDA",
@@ -168,17 +215,47 @@
    "summary": null,
    "sponsor": "Emd Serono",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-17",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-19",
    "history": [
     {
      "date": "2026-11-17",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-19",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 17b6ec50-69c8-4849-802d-cf0a6e425373, label version 3 of 2026-11-13"
     }
    ],
-   "lastChecked": "2026-11-19"
+   "lastChecked": "2026-11-19",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "17b6ec50-69c8-4849-802d-cf0a6e425373",
+    "splId": "928a5d62-a971-4fce-a27b-a81a5a790354",
+    "effective": "2026-11-13",
+    "version": "3",
+    "detected": "2026-11-19",
+    "retrieved": "2026-11-19",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=17b6ec50-69c8-4849-802d-cf0a6e425373",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "PIMJETMI",
+    "usGeneric": "pimicotinib",
+    "applicationNumber": "NDA220414",
+    "harmonised": false,
+    "sha256": "7ede1ca402aa81c1e1ade61fd53dfd5783c6e61c28b8a14f84e7ee60ea78d529",
+    "indications": "1 INDICATIONS AND USAGE PIMJETMI is indicated for the treatment of adult patients with symptomatic tenosynovial giant cell tumor (TGCT) for which surgical resection may cause worsening functional limitations or severe morbidity. PIMJETMI is a kinase inhibitor indicated for the treatment of adult patients with symptomatic tenosynovial giant cell tumor (TGCT) for which surgical resection may cause worsening functional limitation or severe morbidity. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:sunharbo",
@@ -297,9 +374,9 @@
    "summary": null,
    "sponsor": "Xbrane Biopharma Ab",
    "biosimilar": true,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-03",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-19",
    "history": [
     {
      "date": "2026-11-03",
@@ -320,6 +397,11 @@
      "date": "2026-11-17",
      "status": "AWAITING_USPI",
      "note": "verification retracted: set ID 05ed75bc-ae21-480b-9be4-cbc51689dd8a is the label of another product (BLA761473 / NUFYMCO), not of BLA761187"
+    },
+    {
+     "date": "2026-11-19",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 68e44187-997a-4642-96b3-d082ac7cd38d, label version 1 of 2026-11-11"
     }
    ],
    "lastChecked": "2026-11-19",
@@ -334,7 +416,32 @@
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=05ed75bc-ae21-480b-9be4-cbc51689dd8a",
     "source": "openFDA drug label (US Prescribing Information)"
    },
-   "note": "biosimilar: no SPL at openFDA or DailyMed 23 days after approval — expected until commercial launch"
+   "note": "biosimilar: no SPL at openFDA or DailyMed 23 days after approval — expected until commercial launch",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "68e44187-997a-4642-96b3-d082ac7cd38d",
+    "splId": "d8337b8e-4cb3-49a8-a95f-723dc3d37ebb",
+    "effective": "2026-11-11",
+    "version": "1",
+    "detected": "2026-11-19",
+    "retrieved": "2026-11-19",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=68e44187-997a-4642-96b3-d082ac7cd38d",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Lucamzi",
+    "usGeneric": "ranibizumab",
+    "applicationNumber": "BLA761187",
+    "harmonised": false,
+    "sha256": "167ee383d241e905c189c74b3566ef9907adb1b217aaf1421f221b79b70077a4",
+    "indications": "1 INDICATIONS AND USAGE LUCAMZI ® is indicated for the treatment of patients with: LUCAMZI ® , a vascular endothelial growth factor (VEGF) inhibitor, is indicated for the treatment of patients with: Neovascular (Wet) Age-Related Macular Degeneration (AMD) ( 1.1 ) Macular Edema Following Retinal Vein Occlusion (RVO) ( 1.2 ) Myopic Choroidal Neovascularization (mCNV) ( 1.3 ) 1.1 Neovascular (Wet) Age-Related Macular Degeneration (AMD) 1.2 Macular Edema Following Retinal Vein Occlusion (RVO) 1.3 Myopic Choroidal Neovascularization (mCNV)",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:hibsago",
@@ -1685,18 +1792,47 @@
    ],
    "summary": "To treat narcolepsy type 1",
    "sponsor": "Takeda Pharms Usa",
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-11-19",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-19",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 136fdf62-c925-4b1f-b625-efb71b4bff16, label version 2 of 2026-11-10"
     }
    ],
    "lastChecked": "2026-11-19",
-   "alert": "no US prescribing information at openFDA or DailyMed 106 days after approval"
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "136fdf62-c925-4b1f-b625-efb71b4bff16",
+    "splId": "200a2a63-eeca-450c-995a-c7c2fa0c0536",
+    "effective": "2026-11-10",
+    "version": "2",
+    "detected": "2026-11-19",
+    "retrieved": "2026-11-19",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=136fdf62-c925-4b1f-b625-efb71b4bff16",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Orzeyful",
+    "usGeneric": "oveporexton",
+    "applicationNumber": "NDA220860",
+    "harmonised": false,
+    "sha256": "c16c0bb5cffab82e9d5cfca2f266eb236f92f23818049a28b4aaeda3a023a6e5",
+    "indications": "1 INDICATIONS AND USAGE ORZEYFUL TM is indicated for the treatment of narcolepsy type 1 (narcolepsy with cataplexy) in adult patients. ORZEYFUL is an orexin receptor 2 (OX2R) agonist indicated for the treatment of narcolepsy type 1 (narcolepsy with cataplexy) in adult patients. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:zimrixby",
@@ -2790,6 +2926,36 @@
     },
     {
      "date": "2026-11-17",
+     "status": "AWAITING_SMPC",
+     "note": "authorised 2026-11-16 (EU Union Register)"
+    }
+   ],
+   "lastChecked": "2026-11-19",
+   "decisionDate": "2026-11-16",
+   "decisionSource": "EU Union Register"
+  },
+  {
+   "id": "EMA:EMEA/H/C/006757",
+   "jurisdiction": "EMA",
+   "drug": "Gevalka",
+   "inn": "ensartinib",
+   "emaNumber": "EMEA/H/C/006757",
+   "slug": "gevalka",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/gevalka",
+   "opinionDate": "2026-09-17",
+   "summary": "The treatment of adult patients with anaplastic lymphoma kinase (ALK)-positive advanced non-small cell lung cancer (NSCLC)",
+   "holder": "SFL Pharmaceuticals Deutschland GmbH",
+   "status": "AWAITING_SMPC",
+   "firstSeen": "2026-10-18",
+   "statusSince": "2026-11-19",
+   "history": [
+    {
+     "date": "2026-10-18",
+     "status": "AWAITING_EC_DECISION",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-19",
      "status": "AWAITING_SMPC",
      "note": "authorised 2026-11-16 (EU Union Register)"
     }
@@ -3897,29 +4063,6 @@
    "lastChecked": "2026-11-19"
   },
   {
-   "id": "EMA:EMEA/H/C/006757",
-   "jurisdiction": "EMA",
-   "drug": "Gevalka",
-   "inn": "ensartinib",
-   "emaNumber": "EMEA/H/C/006757",
-   "slug": "gevalka",
-   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/gevalka",
-   "opinionDate": "2026-09-17",
-   "summary": "The treatment of adult patients with anaplastic lymphoma kinase (ALK)-positive advanced non-small cell lung cancer (NSCLC)",
-   "holder": "SFL Pharmaceuticals Deutschland GmbH",
-   "status": "AWAITING_EC_DECISION",
-   "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
-   "history": [
-    {
-     "date": "2026-10-18",
-     "status": "AWAITING_EC_DECISION",
-     "note": "entered the queue"
-    }
-   ],
-   "lastChecked": "2026-11-19"
-  },
-  {
    "id": "EMA:EMEA/H/C/006626",
    "jurisdiction": "EMA",
    "drug": "Denosumab Ascend",
@@ -4789,5 +4932,21 @@
     "emaNumber": "EMEA/H/C/005856"
    }
   }
+ ],
+ "warnings": [
+  "EMA HEAD failed for inijaq: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for zeydovio: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for povofortay: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for ruxolitinib-zentiva: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for adcomfo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for frehemgo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for sepalna: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for klygefa: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for vaxrabeo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for evlarco: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for lyrokaul: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for ubeslo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for riociguat-accord: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for onswik: HTTP Error 429: Too Many Requests"
  ]
 }
