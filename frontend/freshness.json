@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-11-19T12:08:02Z",
+ "checkedAt": "2026-11-19T17:40:35Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
   "euCatalogue": "2026-11-19",
   "euLabels": "2026-11-16",
   "usApprovals": "2026-11-18",
-  "usApprovalsAnnounced": "2026-11-17",
+  "usApprovalsAnnounced": "2026-11-18",
   "usLabels": "2026-11-16",
-  "pipelineRun": "2026-11-19T12:08:02Z"
+  "pipelineRun": "2026-11-19T17:40:35Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,14 +17,14 @@
    "status": "OK",
    "count": 1578,
    "pending": 13,
-   "sha256": "01becea33a96c6aa6b6f3b6a15a8f549816439e8f3f61c3bf188979c2623fd52",
+   "sha256": "83c372788fff9ae1766d6845b0153f08a273382bec159d36d86633a6202fa355",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-11-19",
-   "sourceAgeDays": 0.51,
-   "fetchedAt": "2026-11-19T12:06:16+00:00",
+   "sourceAgeDays": 0.74,
+   "fetchedAt": "2026-11-19T17:38:36+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-19T05:00:07Z",
+    "value": "2026-11-19T17:00:10Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -34,9 +34,9 @@
    "cadence": "daily download, no own watermark",
    "status": "OK",
    "count": 49,
-   "sha256": "53440a40f66f987330f26caaf4ce068c41134adb292f6350be2e6afafa914abf",
+   "sha256": "08e330d868166dd328e9134c33eb9ddb6c84d95639704e761ba98b1cbb76285c",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-19T12:06:17+00:00",
+   "fetchedAt": "2026-11-19T17:38:37+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -61,14 +61,14 @@
     }
    },
    "sourceUpdatedAt": "2026-11-16T05:50:23Z",
-   "sourceAgeDays": 3.26,
+   "sourceAgeDays": 3.49,
    "fetchedAt": "2026-11-16",
    "probe": {
-    "value": "2026-11-19T04:45:07Z",
-    "kind": "Last-Modified"
+    "error": "HTTPError: HTTP Error 429: Too Many Requests"
    },
    "notes": [
-    "last label run incomplete: EMA kept blocking requests, 99 unchecked — run cut short (EMA kept blocking requests); EMA refused 98 of 100 cross-check HEADs"
+    "last label run incomplete: EMA kept blocking requests, 99 unchecked — run cut short (EMA kept blocking requests); EMA refused 98 of 100 cross-check HEADs",
+    "live probe failed: HTTPError: HTTP Error 429: Too Many Requests (not counted)"
    ]
   },
   "openfda_drugsfda": {
@@ -81,20 +81,20 @@
    "sha256": "8ff2a69d2b7b35615e5af486cd68a129e8ebceec0b491e8842d49064e589bd2d",
    "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251119+TO+20261126]",
    "sourceUpdatedAt": "2026-11-18",
-   "sourceAgeDays": 1.51,
-   "fetchedAt": "2026-11-19T12:06:23+00:00",
+   "sourceAgeDays": 1.74,
+   "fetchedAt": "2026-11-19T17:38:44+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-18",
     "kind": "meta.last_updated"
    },
    "lag": {
-    "behindDays": 1,
-    "reference": "2026-11-17",
+    "behindDays": 2,
+    "reference": "2026-11-18",
     "referenceSource": "CDER novel roster / FDA press releases"
    },
    "notes": [
-    "openFDA lagging: FDA announced approvals through 2026-11-17, Drugs@FDA newest original approval 2026-11-16 (1 d) — served by the Recent-Approvals overlay"
+    "openFDA lagging: FDA announced approvals through 2026-11-18, Drugs@FDA newest original approval 2026-11-16 (2 d) — served by the Recent-Approvals overlay"
    ]
   },
   "openfda_drug_label": {
@@ -105,7 +105,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-16",
    "fetchedAt": "2026-11-16",
-   "sourceAgeDays": 3.51,
+   "sourceAgeDays": 3.74,
    "probe": {
     "value": "2026-11-19",
     "kind": "meta.last_updated"
@@ -119,8 +119,18 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 30.51,
+   "sourceAgeDays": 30.74,
    "missing": [
+    {
+     "name": "Infilbray",
+     "date": "2026-11-18",
+     "via": "FDA press release"
+    },
+    {
+     "name": "Livsayis",
+     "date": "2026-11-18",
+     "via": "FDA press release"
+    },
     {
      "name": "Lembaz",
      "date": "2026-11-17",
@@ -148,22 +158,20 @@
     }
    ],
    "notes": [
-    "5 FDA approval(s) not in the roster, oldest 11 d ago: Lembaz (2026-11-17, FDA press release), Wilserdly (giredestran) (2026-11-16, Drugs@FDA TYPE 1), Klygefa (gefurulimab) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
+    "7 FDA approval(s) not in the roster, oldest 11 d ago: Infilbray (2026-11-18, FDA press release), Livsayis (2026-11-18, FDA press release), Lembaz (2026-11-17, FDA press release), Wilserdly (giredestran) (2026-11-16, Drugs@FDA TYPE 1), Klygefa (gefurulimab) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
     "export the current year from fda.gov → scripts/data/novel-<year>.xlsx, run build-novel-approvals.py"
    ]
   },
   "fda_announcements": {
    "name": "FDA press releases (announcements feed)",
    "cadence": "daily",
-   "status": "STALE",
+   "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-11-18",
-   "fetchedAgeDays": 1.51,
-   "sourceUpdatedAt": "2026-11-17",
-   "sourceAgeDays": 2.51,
-   "notes": [
-    "our copy is 2 d old (expected within 1.5 d)"
-   ]
+   "fetchedAt": "2026-11-19",
+   "fetchedAgeDays": 0.74,
+   "sourceUpdatedAt": "2026-11-18",
+   "sourceAgeDays": 1.74,
+   "notes": []
   },
   "fda_cber_cgt": {
    "name": "FDA CBER cell & gene therapy list",
@@ -172,7 +180,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 20.51,
+   "sourceAgeDays": 20.74,
    "notes": []
   },
   "fda_cdx_list": {
@@ -182,7 +190,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 52.51,
+   "sourceAgeDays": 52.74,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -199,7 +207,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 304.51,
+   "sourceAgeDays": 304.74,
    "notes": []
   },
   "biomarkers_table": {
@@ -208,7 +216,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 129.51,
+   "sourceAgeDays": 129.74,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -224,5 +232,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-19T00:44:51Z"
+ "previousCheckedAt": "2026-11-19T12:08:02Z"
 }

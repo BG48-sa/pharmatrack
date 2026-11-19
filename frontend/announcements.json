@@ -1,6 +1,26 @@
 {
-  "generated": "2026-11-18",
+  "generated": "2026-11-19",
   "items": [
+    {
+      "title": "FDA Approves Infilbray (venglustat) to Treat Neurological Manifestations of Type 3 Gaucher Disease",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-infilbray-venglustat-neurological-manifestations-type-3-gaucher-6942.html",
+      "date": "2026-11-18",
+      "source": "Drugs.com",
+      "names": [
+        "infilbray",
+        "venglustat"
+      ]
+    },
+    {
+      "title": "FDA Approves Livsayis (cemdisiran) for the Treatment of Generalized Myasthenia Gravis",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-livsayis-cemdisiran-generalized-myasthenia-gravis-6943.html",
+      "date": "2026-11-18",
+      "source": "Drugs.com",
+      "names": [
+        "cemdisiran",
+        "livsayis"
+      ]
+    },
     {
       "title": "FDA Approves Lembaz (adrabetadex) to Improve Survival in Infantile-Onset Niemann-Pick Disease, Type C",
       "url": "https://www.drugs.com/newdrugs/fda-approves-lembaz-adrabetadex-improve-survival-infantile-onset-niemann-pick-type-c-6941.html",
@@ -213,25 +233,6 @@
         "dostarlimab",
         "dostarlimab-gxly",
         "jemperli"
-      ]
-    },
-    {
-      "title": "FDA Approves Genentech’s Enspryng, a First-in-Class IL-6R Inhibitor, as the First and Only At-Home Subcutaneous Treatment Option for Thyroid Eye Disease (TED)",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-genentech-s-enspryng-first-class-il-6r-inhibitor-first-only-home-subcutaneous-option-6915.html",
-      "date": "2026-10-18",
-      "source": "Drugs.com",
-      "names": [
-        "disease"
-      ]
-    },
-    {
-      "title": "UCB Announces U.S. FDA Approval for Zilbrysq (zilucoplan) Autoinjector Self-administration for Adults Living with Generalized Myasthenia Gravis",
-      "url": "https://www.drugs.com/newdrugs/ucb-announces-u-s-fda-approval-zilbrysq-zilucoplan-autoinjector-self-administration-adults-living-6916.html",
-      "date": "2026-10-16",
-      "source": "Drugs.com",
-      "names": [
-        "zilbrysq",
-        "zilucoplan"
       ]
     }
   ]
