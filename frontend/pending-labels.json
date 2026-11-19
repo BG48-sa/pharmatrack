@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-19",
- "checkedAt": "2026-11-19T17:40:35Z",
+ "checkedAt": "2026-11-19T21:48:37Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -16,12 +16,20 @@
   "byStatus": {
    "AWAITING_USPI": 18,
    "AWAITING_EC_DECISION": 13,
-   "AWAITING_SMPC": 12,
-   "LABEL_AVAILABLE": 4,
+   "AWAITING_SMPC": 11,
+   "LABEL_AVAILABLE": 5,
    "LABEL_VERIFIED": 71
   },
   "alerts": 12,
-  "transitions": [],
+  "transitions": [
+   {
+    "id": "EMA:EMEA/H/C/006708",
+    "drug": "Sepalna",
+    "from": "AWAITING_SMPC",
+    "to": "LABEL_AVAILABLE",
+    "note": "product information listed by EMA (updated 2026-11-19) — awaiting the weekly label refresh"
+   }
+  ],
   "closed": [],
   "retracted": []
  },
@@ -3058,9 +3066,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Maintenance treatment of advanced epithelial high-grade ovarian, fallopian tube or primary peritoneal cancer",
    "holder": "",
-   "status": "AWAITING_SMPC",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-19",
    "history": [
     {
      "date": "2026-10-18",
@@ -3071,11 +3079,23 @@
      "date": "2026-11-17",
      "status": "AWAITING_SMPC",
      "note": "authorised 2026-11-12 (EU Union Register)"
+    },
+    {
+     "date": "2026-11-19",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information listed by EMA (updated 2026-11-19) — awaiting the weekly label refresh"
     }
    ],
    "lastChecked": "2026-11-19",
    "decisionDate": "2026-11-12",
-   "decisionSource": "EMA medicines table"
+   "decisionSource": "EMA medicines table",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/sepalna-epar-product-information_en.pdf",
+    "detected": "2026-11-19",
+    "emaUpdated": "2026-11-19",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006708"
+   }
   },
   {
    "id": "EMA:EMEA/H/C/006791",
@@ -3179,7 +3199,7 @@
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/povofortay-epar-product-information_en.pdf",
     "detected": "2026-11-17",
-    "lastModified": "Mon, 16 Nov 2026 08:29:54 GMT",
+    "emaUpdated": "2026-11-16",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006727"
    }
@@ -4920,22 +4940,5 @@
     "emaNumber": "EMEA/H/C/005856"
    }
   }
- ],
- "warnings": [
-  "EMA HEAD failed for rasonque: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for gevalka: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for sepalna: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for inijaq: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for zeydovio: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for ruxolitinib-zentiva: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for adcomfo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for frehemgo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for klygefa: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for vaxrabeo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for evlarco: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for lyrokaul: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for ubeslo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for riociguat-accord: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for onswik: HTTP Error 429: Too Many Requests"
  ]
 }
