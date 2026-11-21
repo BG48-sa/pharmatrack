@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-21",
- "checkedAt": "2026-11-21T00:13:06Z",
+ "checkedAt": "2026-11-21T11:45:48Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,17 +11,32 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 120,
-  "unresolved": 49,
+  "total": 122,
+  "unresolved": 51,
   "byStatus": {
-   "AWAITING_USPI": 20,
+   "AWAITING_USPI": 22,
    "AWAITING_EC_DECISION": 13,
    "AWAITING_SMPC": 11,
    "LABEL_AVAILABLE": 5,
    "LABEL_VERIFIED": 71
   },
   "alerts": 9,
-  "transitions": [],
+  "transitions": [
+   {
+    "id": "FDA:livsayis",
+    "drug": "Livsayis",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
+   },
+   {
+    "id": "FDA:infilbray",
+    "drug": "Infilbray",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
+   }
+  ],
   "closed": [],
   "retracted": []
  },
@@ -91,6 +106,56 @@
   }
  ],
  "entries": [
+  {
+   "id": "FDA:livsayis",
+   "jurisdiction": "FDA",
+   "drug": "Livsayis",
+   "inn": "cemdisiran",
+   "applicationNumber": "NDA221251",
+   "approvalDate": "2026-11-18",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Regeneron Pharmaceuticals",
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-21",
+   "statusSince": "2026-11-21",
+   "history": [
+    {
+     "date": "2026-11-21",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-21"
+  },
+  {
+   "id": "FDA:infilbray",
+   "jurisdiction": "FDA",
+   "drug": "Infilbray",
+   "inn": "venglustat",
+   "applicationNumber": "NDA221144",
+   "approvalDate": "2026-11-18",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Genzyme Corp A Sanofi Co",
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-21",
+   "statusSince": "2026-11-21",
+   "history": [
+    {
+     "date": "2026-11-21",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-21"
+  },
   {
    "id": "FDA:nelkarmi",
    "jurisdiction": "FDA",
