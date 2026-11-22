@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-11-21T11:45:48Z",
+ "checkedAt": "2026-11-22T11:58:46Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
-  "euCatalogue": "2026-11-21",
+  "euCatalogue": "2026-11-22",
   "euLabels": "2026-11-16",
   "usApprovals": "2026-11-20",
   "usApprovalsAnnounced": "2026-11-18",
   "usLabels": "2026-11-16",
-  "pipelineRun": "2026-11-21T11:45:48Z"
+  "pipelineRun": "2026-11-22T11:58:46Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,14 +17,14 @@
    "status": "OK",
    "count": 1578,
    "pending": 13,
-   "sha256": "78a521be1f4d004c55009189870fcc485be725812c84b328ba6c4b4f2870325f",
+   "sha256": "4255d0370dd040d4a6c47d5483d579f2ac6d5486a3bab83cee1bea76f8cad690",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
-   "sourceUpdatedAt": "2026-11-21",
-   "sourceAgeDays": 0.49,
-   "fetchedAt": "2026-11-21T11:43:44+00:00",
+   "sourceUpdatedAt": "2026-11-22",
+   "sourceAgeDays": 0.5,
+   "fetchedAt": "2026-11-22T11:57:11+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-21T05:00:08Z",
+    "value": "2026-11-22T05:00:07Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -36,7 +36,7 @@
    "count": 49,
    "sha256": "08e330d868166dd328e9134c33eb9ddb6c84d95639704e761ba98b1cbb76285c",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-21T11:43:46+00:00",
+   "fetchedAt": "2026-11-22T11:57:12+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -61,10 +61,10 @@
     }
    },
    "sourceUpdatedAt": "2026-11-16T05:50:23Z",
-   "sourceAgeDays": 5.25,
+   "sourceAgeDays": 6.26,
    "fetchedAt": "2026-11-16",
    "probe": {
-    "value": "2026-11-21T04:45:09Z",
+    "value": "2026-11-22T04:45:07Z",
     "kind": "Last-Modified"
    },
    "notes": [
@@ -75,14 +75,14 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3458,
+   "count": 3445,
    "approvals": 105,
    "newestOriginalApproval": "2026-11-18",
-   "sha256": "1b41fab5008ec69c19f1ba2ddc887f574bf5e1906d08f913bb0331d48f1fa103",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251121+TO+20261128]",
+   "sha256": "6b7129e2b42c97ce945565c1f72c4382783aaf6a43c34ab277efc7160d93ea9e",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251122+TO+20261129]",
    "sourceUpdatedAt": "2026-11-20",
-   "sourceAgeDays": 1.49,
-   "fetchedAt": "2026-11-21T11:43:58+00:00",
+   "sourceAgeDays": 2.5,
+   "fetchedAt": "2026-11-22T11:57:18+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-20",
@@ -99,7 +99,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-16",
    "fetchedAt": "2026-11-16",
-   "sourceAgeDays": 5.49,
+   "sourceAgeDays": 6.5,
    "probe": {
     "value": "2026-11-20",
     "kind": "meta.last_updated"
@@ -113,7 +113,7 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 32.49,
+   "sourceAgeDays": 33.5,
    "missing": [
     {
      "name": "Livsayis (cemdisiran)",
@@ -157,7 +157,7 @@
     }
    ],
    "notes": [
-    "8 FDA approval(s) not in the roster, oldest 12 d ago: Livsayis (cemdisiran) (2026-11-18, Drugs@FDA TYPE 1), Infilbray (venglustat) (2026-11-18, Drugs@FDA TYPE 1), Lembaz (adrabetadex) (2026-11-17, Drugs@FDA TYPE 1), Nelkarmi (neladalkib) (2026-11-17, Drugs@FDA TYPE 1), Wilserdly (giredestran) (2026-11-16, Drugs@FDA TYPE 1), Klygefa (gefurulimab-gaks) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
+    "8 FDA approval(s) not in the roster, oldest 14 d ago: Livsayis (cemdisiran) (2026-11-18, Drugs@FDA TYPE 1), Infilbray (venglustat) (2026-11-18, Drugs@FDA TYPE 1), Lembaz (adrabetadex) (2026-11-17, Drugs@FDA TYPE 1), Nelkarmi (neladalkib) (2026-11-17, Drugs@FDA TYPE 1), Wilserdly (giredestran) (2026-11-16, Drugs@FDA TYPE 1), Klygefa (gefurulimab-gaks) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
     "export the current year from fda.gov → scripts/data/novel-<year>.xlsx, run build-novel-approvals.py"
    ]
   },
@@ -166,10 +166,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-11-21",
-   "fetchedAgeDays": 0.49,
+   "fetchedAt": "2026-11-22",
+   "fetchedAgeDays": 0.5,
    "sourceUpdatedAt": "2026-11-18",
-   "sourceAgeDays": 3.49,
+   "sourceAgeDays": 4.5,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -179,7 +179,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 22.49,
+   "sourceAgeDays": 23.5,
    "notes": []
   },
   "fda_cdx_list": {
@@ -189,7 +189,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 54.49,
+   "sourceAgeDays": 55.5,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -206,7 +206,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 306.49,
+   "sourceAgeDays": 307.5,
    "notes": []
   },
   "biomarkers_table": {
@@ -215,7 +215,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 131.49,
+   "sourceAgeDays": 132.5,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -231,5 +231,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-21T00:13:06Z"
+ "previousCheckedAt": "2026-11-21T11:45:48Z"
 }
