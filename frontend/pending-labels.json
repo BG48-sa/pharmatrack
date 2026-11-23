@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-23",
- "checkedAt": "2026-11-23T08:48:06Z",
+ "checkedAt": "2026-11-23T20:28:40Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -3733,7 +3733,7 @@
    "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/nezglyal",
    "opinionDate": "2026-07-23",
    "decisionDate": "2026-09-21",
-   "holder": "Minoryx Therapeutics S.L.",
+   "holder": "Neuraxpharm Pharmaceuticals S.L.",
    "decisionSource": "EMA medicines table",
    "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
