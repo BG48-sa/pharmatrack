@@ -3,7 +3,7 @@
  "windowDays": 240,
  "sources": {
   "eu": {
-   "listTimestamp": "2026-11-23T06:05:10Z",
+   "listTimestamp": "2026-11-23T18:16:32Z",
    "eparList": true
   },
   "us": {
@@ -109,9 +109,9 @@
    "daysSinceOpinion": 11,
    "listUpdated": "0001-01-01",
    "slug": "welireg",
-   "ourLabelDate": "2026-10-14",
-   "ourDownload": "2026-10-19",
-   "emaProductInfoDate": "2026-10-14",
+   "ourLabelDate": "2026-11-23",
+   "ourDownload": "2026-11-23",
+   "emaProductInfoDate": "2026-11-23",
    "baselineHashes": {
     "4.1": "14a327c6dc35c9bc",
     "4.2": "be985b0ed9123eb1",
@@ -439,34 +439,6 @@
   {
    "agency": "EMA",
    "kind": "extension of indication (positive CHMP opinion)",
-   "product": "Pepaxti",
-   "productId": "EMEA/H/C/005681",
-   "opinionDate": "2026-09-17",
-   "daysSinceOpinion": 67,
-   "listUpdated": "0001-01-01",
-   "slug": "pepaxti",
-   "ourLabelDate": null,
-   "ourDownload": "2026-07-03",
-   "emaProductInfoDate": "2025-01-13",
-   "baselineHashes": {
-    "4.1": "a8bded7ee3aced29",
-    "4.2": "41568f90577238fd",
-    "4.3": "063cc243908523dc",
-    "4.4": "384357c9dd165d44"
-   },
-   "currentHashes": {
-    "4.1": "a8bded7ee3aced29",
-    "4.2": "41568f90577238fd",
-    "4.3": "063cc243908523dc",
-    "4.4": "384357c9dd165d44"
-   },
-   "text41Changed": false,
-   "status": "PENDING_EC",
-   "key": "EMA:EMEA/H/C/005681:2026-09-17"
-  },
-  {
-   "agency": "EMA",
-   "kind": "extension of indication (positive CHMP opinion)",
    "product": "Enhertu",
    "productId": "EMEA/H/C/005124",
    "opinionDate": "2026-09-17",
@@ -697,8 +669,8 @@
    "daysSinceOpinion": 186,
    "listUpdated": "0001-01-01",
    "slug": "padcev",
-   "ourLabelDate": "2026-10-16",
-   "ourDownload": "2026-10-19",
+   "ourLabelDate": "2026-11-16",
+   "ourDownload": "2026-11-23",
    "emaProductInfoDate": "2026-11-16",
    "baselineHashes": {
     "4.1": "71f27ca55cb3af7b",
@@ -708,13 +680,12 @@
    },
    "currentHashes": {
     "4.1": "71f27ca55cb3af7b",
-    "4.2": "84d4cb3baec4f9ae",
+    "4.2": "e87a31955fb40148",
     "4.3": "8cc0fe29768569a5",
-    "4.4": "ef70233800e02f0f"
+    "4.4": "88b5dfbba806c5b8"
    },
    "text41Changed": false,
-   "note": "EMA product information dated 2026-11-16, ours 2026-10-16",
-   "status": "PENDING_INGEST",
+   "status": "VERIFIED",
    "key": "EMA:EMEA/H/C/005392:2026-05-21"
   },
   {
@@ -6940,6 +6911,34 @@
    "textIndicationsChanged": false,
    "status": "VERIFIED",
    "key": "FDA:NDA215830:LABELING"
+  },
+  {
+   "agency": "FDA",
+   "kind": "efficacy supplement approved",
+   "product": "TEVIMBRA",
+   "productId": "BLA761232",
+   "supplementNumber": "18",
+   "supplementDate": "2026-08-25",
+   "supplements": 1,
+   "daysSinceApproval": 90,
+   "slug": "tevimbra",
+   "splSetId": "08ef1e3e-496f-4b0b-94ee-fbba3cc1985a",
+   "ourLabelEffective": "2026-09-01",
+   "baselineHashes": {
+    "indications": "cd52ff72fc1ca2c5",
+    "dosage": "62fdd51143c2bb08",
+    "contraindications": "a090fc478364b716",
+    "warnings": "36e190785d2b43b5"
+   },
+   "currentHashes": {
+    "indications": "cd52ff72fc1ca2c5",
+    "dosage": "62fdd51143c2bb08",
+    "contraindications": "a090fc478364b716",
+    "warnings": "36e190785d2b43b5"
+   },
+   "textIndicationsChanged": false,
+   "status": "VERIFIED",
+   "key": "FDA:BLA761232:EFFICACY"
   },
   {
    "agency": "FDA",
