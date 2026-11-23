@@ -37,12 +37,13 @@
 // Writes `problems=<n>` to $GITHUB_OUTPUT when set; always exits 0 (the
 // workflow decides what a problem means for the run).
 import { readFileSync, writeFileSync, readdirSync, existsSync, appendFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadFeed, feedNewer, daysSince, day, slugOf } from './ema-feed.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, '..', '..');
+const root = process.env.SMPC_ROOT ? resolve(process.env.SMPC_ROOT) : join(here, '..', '..');   // tests: a temporary copy (as in extract-all.mjs)
+const CACHE = process.env.SMPC_ROOT ? join(root, '.smpc-cache') : join(here, '.cache');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const MAX_DAYS = parseInt(arg('--max-days', '14'), 10);
 const LISTED_GRACE_DAYS = parseInt(arg('--listed-grace-days', '7'), 10); // one weekly run after EMA lists the PI
@@ -58,7 +59,7 @@ const failedWhy = index.failedWhy || {};
 const uncheckedWhy = index.uncheckedWhy || {};
 const downloadFailed = index.downloadFailed || [];
 const files = new Set(readdirSync(join(root, 'smpc-data')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)));
-const feed = loadFeed(join(here, '.cache'), [...meds.values()]);
+const feed = loadFeed(CACHE, [...meds.values()]);
 
 const behind = [], missing = [], stale = [], notListed = [];
 for (const [slug, m] of meds) {
@@ -122,7 +123,7 @@ md.push('');
 const incompleteCell = !inc ? 'yes'
   : `no — ${inc.reason}: ${inc.unchecked} unchecked`
     + (legacy ? '' : ` (changed at EMA: ${inc.changed}, cross-check sample: ${inc.sample} of ${inc.sampleSize}, carried over: ${inc.carry}, unlisted: ${inc.unlisted}, repeat: ${inc.repeat}${codes ? `; ${codes}` : ''})`)
-    + (incompleteProblem ? ` ⚠ ${incompleteWhy.join('; ')}` : " — EMA's list says these labels are unchanged: no gap, checked first next run");
+    + (incompleteProblem ? ` ⚠ ${incompleteWhy.join('; ')}` : " — EMA's list says these labels are unchanged: no gap, carried into the next run");
 md.push(`| check | count |\n|---|---|\n| labels behind EMA | ${behind.length} (over ${MAX_DAYS} days: ${behind.filter((x) => x.problem).length}) |\n| authorised medicines without a label | ${missing.length} (ingest failures: ${missing.filter((x) => x.known).length}, past tolerance: ${missing.filter((x) => x.problem).length}) |\n| labels of medicines no longer authorised | ${stale.length} |\n| labels not in EMA's list (not measurable) | ${notListed.length} |\n| downloads failed, old extract kept | ${downloadFailed.length ? downloadFailed.join(', ') : 0} |\n| last refresh complete | ${incompleteCell} |`);
 if (behind.length) {
   md.push('', '| behind | ours | EMA | days | last run |', '|---|---|---|---|---|');

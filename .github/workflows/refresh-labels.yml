@@ -13,6 +13,13 @@ name: Refresh label texts (weekly, changed-only)
 # the daily job is dispatched with force_deploy (a push made with the Action's
 # own token triggers no workflow), so it validates the labels once more
 # against the live release (G5/G7 gates) and deploys — one deploy path.
+#
+# EMA's PDF server rate-limits (HTTP 429). The extractor therefore fetches the
+# labels EMA marked as changed FIRST, backs off when refused and suspends the
+# optional cross-checks instead of asking on (scripts/smpc/throttle.mjs). When
+# the Monday run still ends incomplete, a catch-up run on Thursday fetches what
+# is left — changed labels and the backlog only, no new cross-check sample. It
+# is skipped (job `plan`) when Monday's run was complete.
 
 on:
   schedule:
@@ -21,11 +28,15 @@ on:
                                # earlier slot lands the run in the early morning, before the
                                # daily refresh (the concurrency group makes that one wait
                                # if this job is still going)
+    - cron: '41 0 * * 4'       # Thursdays: catch-up, only when Monday's run was incomplete
   workflow_dispatch:
     inputs:
       limit:
         description: 'max labels to download per run (EU)'
         default: '200'
+      head_sample:
+        description: 'direct cross-checks from the rotation (0 = changed labels and backlog only)'
+        default: '100'
 
 concurrency:
   group: refresh-data          # never overlap with the daily job
@@ -36,7 +47,50 @@ env:
   BOT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
 
 jobs:
+  # Monday / manual: always run. Thursday: only when the last label run left
+  # something undone (incomplete, a failed download) or did not happen at all.
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      run: ${{ steps.plan.outputs.run }}
+      head_sample: ${{ steps.plan.outputs.head_sample }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: plan
+        env:
+          CRON: ${{ github.event.schedule }}
+          HEAD_SAMPLE_INPUT: ${{ github.event.inputs.head_sample }}
+        run: |
+          set -euo pipefail
+          if [ "$CRON" != '41 0 * * 4' ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "head_sample=${HEAD_SAMPLE_INPUT:-100}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          pending=$(node -e "
+            const i = JSON.parse(require('fs').readFileSync('frontend/smpc-index.json', 'utf8'));
+            const age = (Date.now() - Date.parse(i.generated)) / 864e5;
+            console.log([
+              i.incomplete && 'last run incomplete (' + i.incomplete.reason + ', ' + i.incomplete.unchecked + ' unchecked, changed at EMA: ' + i.incomplete.changed + ')',
+              (i.downloadFailed || []).length && (i.downloadFailed.length + ' download(s) failed'),
+              !(age < 5) && 'no label run since ' + i.generated,
+            ].filter(Boolean).join('; '));
+          ")
+          if [ -n "$pending" ]; then
+            echo "Catch-up run: $pending" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Monday's label run was complete — no catch-up needed." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "head_sample=0" >> "$GITHUB_OUTPUT"
+
   labels:
+    needs: plan
+    if: needs.plan.outputs.run == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 300       # ~1,600 HEAD requests paced for EMA's rate limit + downloads
     permissions:
@@ -59,9 +113,10 @@ jobs:
         run: |
           set -euo pipefail
           cd frontend
-          # 150-minute budget: whatever is not checked by then waits for next week;
+          # 150-minute budget: whatever is not checked by then waits for the next run;
           # the job (5 h limit) always gets to validate and commit what it has.
-          TIME_BUDGET_MIN=150 CHANGED_ONLY=1 node scripts/smpc/extract-all.mjs "${{ github.event.inputs.limit || '200' }}" 2>&1 | tee /tmp/smpc.log | tail -20
+          # HEAD_SAMPLE: 100 on Mondays, 0 on the Thursday catch-up (job `plan`).
+          TIME_BUDGET_MIN=150 CHANGED_ONLY=1 HEAD_SAMPLE="${{ needs.plan.outputs.head_sample }}" node scripts/smpc/extract-all.mjs "${{ github.event.inputs.limit || '200' }}" 2>&1 | tee /tmp/smpc.log | tail -40
 
       - name: US labels — refresh what changed at openFDA
         run: |

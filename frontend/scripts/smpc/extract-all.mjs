@@ -24,33 +24,57 @@
 //        Without the list every label gets that HEAD check (the old sweep).
 //        Every other label is kept exactly as it is — a label never disappears
 //        because it was not checked; a run that stops early records the labels
-//        it did not reach (index.unchecked, checked first next time) and marks
+//        it did not reach (index.unchecked, carried into the next run) and marks
 //        itself incomplete. Each refreshed extract records sourceModified and
 //        emaUpdated. Extracts of medicines no longer authorised are removed.
-//        HEAD checks EMA refuses are retried once after HEAD_RETRY_PAUSE_MS
-//        (60 s); what stays unchecked is recorded with its cause
-//        (index.uncheckedWhy: HTTP status / timeout / budget / abort, and the
-//        plan it was on) plus a breakdown in index.incomplete, so that
-//        drift-report.mjs can tell a refused cross-check from a real gap.
+//
+//        ORDER OF WORK (EMA's request allowance is the scarce resource): first
+//        the labels EMA's list marks as changed, then medicines without an
+//        extract, then direct checks carried over from earlier runs, last the
+//        rotating sample. While carried-over checks are waiting the rotation
+//        adds no new ones (HEAD_SAMPLE is the weekly total), so a backlog
+//        shrinks instead of growing. HEAD_SAMPLE=0 = changed labels and
+//        backlog only (the mid-week catch-up run).
+//
+//        RATE LIMITING (throttle.mjs): when EMA refuses a request its
+//        Retry-After is respected, otherwise the wait doubles with every
+//        refusal in a row (with jitter). A changed label whose download fails
+//        gets a second try after the other changed labels. After
+//        HEAD_REFUSAL_LIMIT (6) refused direct checks in a row the optional
+//        checks are SUSPENDED for this run — recorded as unchecked with code
+//        `suspended`, not asked again and again (16. and 23.11.2026: 32 and 47
+//        refused HEADs used up the allowance, on 23.11. before any of the 39
+//        changed labels had been fetched). Refused direct checks are otherwise
+//        retried once after HEAD_RETRY_PAUSE_MS (60 s). What stays unchecked
+//        is recorded with its cause (index.uncheckedWhy: HTTP status / timeout
+//        / budget / suspended / abort, and the plan it was on) plus a
+//        breakdown in index.incomplete, so that drift-report.mjs can tell a
+//        refused cross-check from a real gap.
+//
+//   Tests only: SMPC_ROOT=<dir> works on a copy of the data folder (its own
+//   cache in <dir>/.smpc-cache), SLEEP_SCALE=0 skips the waiting.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { loadFeed, feedNewer, day } from './ema-feed.mjs';
+import { parseRetryAfter, waitMs, createPacer, isBlock } from './throttle.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, '..', '..');                    // frontend/
+const root = process.env.SMPC_ROOT ? resolve(process.env.SMPC_ROOT) : join(here, '..', '..'); // frontend/ (tests: a temporary copy)
 const OUT_DIR = join(root, 'smpc-data');                // committed per-drug JSON
 const INDEX = join(root, 'smpc-index.json');            // committed manifest
-const CACHE = join(here, '.cache');                     // gitignored raw-text cache
+const CACHE = process.env.SMPC_ROOT ? join(root, '.smpc-cache') : join(here, '.cache'); // gitignored raw-text cache
 
 const PI = (slug) =>
   `https://www.ema.europa.eu/en/documents/product-information/${slug}-epar-product-information_en.pdf`;
 // Renamed products carry a "-previously-<oldname>" tail in the EPAR slug that the
 // product-information URL does not use — strip it.
 const slugOf = (m) => ((m.url || '').split('/EPAR/')[1]?.trim() || '').replace(/-previously-.*$/, '');
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const SLEEP_SCALE = Number.isFinite(parseFloat(process.env.SLEEP_SCALE)) ? Math.max(0, parseFloat(process.env.SLEEP_SCALE)) : 1; // tests: 0 = do not wait
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms * SLEEP_SCALE));
+const pacer = createPacer();                            // gap between requests to EMA's PDF server: widens after a refusal
 // slug -> product-information URL named by EMA's document list (when it differs
 // from the PI() pattern); filled by run() in changed-only mode.
 const feedUrl = new Map();
@@ -172,18 +196,19 @@ async function headPdf(slug) {
   const code = codes[codes.length - 1] || (curlExit === 28 ? 'timeout' : `curl${curlExit}`);
   if (code === '200') return { ok: true, lastModified: parseLastModified(out), code };
   if (code === '404') return { ok: true, notFound: true, code };
-  return { ok: false, code };
+  return { ok: false, code, retryAfter: parseRetryAfter(out) };
 }
+const fetchCode = new Map();    // slug -> why its last download failed (HTTP status / timeout / curl error)
 async function rawText(slug, pdfTmp, force = false) {
   const cacheFile = join(CACHE, `${slug}.txt`);
   if (!force && process.env.FORCE !== '1' && existsSync(cacheFile)) return readFileSync(cacheFile, 'utf8');
-  for (let attempt = 0; attempt < 3; attempt++) {
-    let code = '000';
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    let code = '000', hdr = '';
     const hdrTmp = pdfTmp + '.hdr';
     try {
       code = execFileSync('curl', ['-sL', '-A', 'Mozilla/5.0', '--max-time', '60', '-D', hdrTmp, '-o', pdfTmp, '-w', '%{http_code}', urlOf(slug)], { encoding: 'utf8' }).trim();
-    } catch { code = '000'; }
-    try { lastModified.set(slug, parseLastModified(readFileSync(hdrTmp, 'utf8'))); rmSync(hdrTmp); } catch { /* no headers */ }
+    } catch (e) { code = e?.status === 28 ? 'timeout' : `curl${e?.status ?? ''}`; }
+    try { hdr = readFileSync(hdrTmp, 'utf8'); rmSync(hdrTmp); lastModified.set(slug, parseLastModified(hdr)); } catch { /* no headers */ }
     if (code === '200' && existsSync(pdfTmp)) {
       const txtTmp = pdfTmp + '.txt';
       try {
@@ -191,12 +216,16 @@ async function rawText(slug, pdfTmp, force = false) {
         const t = readFileSync(txtTmp, 'utf8');
         writeFileSync(cacheFile, t);
         rmSync(txtTmp);
+        fetchCode.delete(slug); pacer.ok();
         return t;
-      } catch { return null; }
+      } catch { fetchCode.set(slug, 'pdftotext'); return null; }
     }
     if (code === '404') return '404';
-    // EMA rate-limits aggressively (429); cool down for a long, growing window.
-    await sleep(15000 * (attempt + 1) + Math.floor(Math.random() * 5000)); // 15s,30s,45s,60s,75s,90s
+    // EMA refused (429 …) or the transfer failed: wait as long as EMA asks
+    // (Retry-After), else 20 s, then 40 s (± jitter), and try again.
+    fetchCode.set(slug, code);
+    if (isBlock(code)) pacer.blocked();
+    if (attempt < 3) await sleep(waitMs(parseRetryAfter(hdr), attempt, { base: 20000, cap: 5 * 60000 }));
   }
   return null;
 }
@@ -245,23 +274,36 @@ async function run() {
     if (feed) for (const m of drugs) { const h = feed.lookup(m); if (h) { feedUpdated.set(slugOf(m), h.updated); if (h.url !== PI(slugOf(m))) feedUrl.set(slugOf(m), h.url); } }
     const stored = drugs.map(slugOf).filter((s) => existsSync(join(OUT_DIR, `${s}.json`))).sort();
     const sampleN = feed ? Math.max(0, parseInt(process.env.HEAD_SAMPLE ?? '100', 10) || 0) : Infinity;
+    const changed = new Set(stored.filter((s) => { const u = feedUpdated.get(s); return u && feedNewer(u, readDoc(s)); }));
+    // Direct checks carried over from earlier runs come out of this run's
+    // sample allowance: while a backlog is waiting the rotation pauses (and
+    // resumes where it stopped) instead of adding 100 more every week.
+    const carried = stored.filter((s) => firstUp.has(s) && !changed.has(s) && feedUpdated.get(s)).length;
+    const freshN = feed ? Math.max(0, sampleN - carried) : Infinity;
     const start = feed && stored.length ? (prevIndex.headOffset || 0) % stored.length : 0;
-    const sample = new Set(sampleN >= stored.length ? stored : [...stored, ...stored].slice(start, start + sampleN));
-    headOffset = feed && stored.length ? (start + Math.min(sampleN, stored.length)) % stored.length : 0;
+    const sample = new Set(freshN >= stored.length ? stored : [...stored, ...stored].slice(start, start + freshN));
+    headOffset = feed && stored.length ? (start + Math.min(freshN, stored.length)) % stored.length : 0;
     sampleSize = sample.size;
     for (const s of stored) {
       const u = feedUpdated.get(s);
-      plan.set(s, u && feedNewer(u, readDoc(s)) ? 'feed' : (!u || sample.has(s) || firstUp.has(s)) ? 'head' : 'keep');
+      plan.set(s, changed.has(s) ? 'feed' : (!u || sample.has(s) || firstUp.has(s)) ? 'head' : 'keep');
       if (plan.get(s) === 'head') headKind.set(s, !u ? 'unlisted' : firstUp.has(s) ? 'carry' : 'sample');
     }
     const n = (k) => [...plan.values()].filter((v) => v === k).length;
     console.log(feed
-      ? `EMA document list ${feed.timestamp || ''}: ${feed.found}/${drugs.length} medicines found; ${n('feed')} labels changed at EMA, ${n('head')} cross-checked directly (rotation from #${start}), ${n('keep')} unchanged`
+      ? `EMA document list ${feed.timestamp || ''}: ${feed.found}/${drugs.length} medicines found; ${n('feed')} labels changed at EMA, ${n('head')} cross-checked directly (${carried} carried over, ${sampleSize} new from rotation #${start}), ${n('keep')} unchanged`
       : `No EMA document list — checking all ${stored.length} stored labels directly`);
   }
-  // Labels a previous run did not reach go first, then the ones EMA changed.
-  const rank = (m) => (firstUp.has(slugOf(m)) ? 0 : plan.get(slugOf(m)) === 'feed' ? 1 : 2);
-  const queue = [...drugs].sort((a, b) => rank(a) - rank(b));
+  // Order of work — EMA's request allowance goes to what matters most first:
+  // 0 unchanged per EMA's list (no request at all), 1 labels EMA's list marks
+  // as changed, 2 medicines without an extract, 3 direct checks carried over,
+  // 4 labels EMA's list does not name, 5 the rotating sample. Within a group,
+  // what an earlier run did not reach comes first. (Until 23.11.2026 everything
+  // carried over came first — 99 optional checks used up the allowance before
+  // the 39 changed labels were tried.)
+  const HEAD_RANK = { carry: 3, unlisted: 4, sample: 5 };
+  const rank = (m) => { const s = slugOf(m), p = plan.get(s); return p === 'keep' ? 0 : p === 'feed' ? 1 : !p ? 2 : HEAD_RANK[headKind.get(s)] ?? 5; };
+  const queue = [...drugs].sort((a, b) => rank(a) - rank(b) || Number(firstUp.has(slugOf(b))) - Number(firstUp.has(slugOf(a))));
   const unchecked = [];                          // stored labels this run could not check
   const uncheckedWhy = {};                       // slug -> { code, plan }: HTTP status / timeout / budget / limit / abort, and the plan it was on
   const noteUnchecked = (slug, code, kind) => { if (!unchecked.includes(slug)) unchecked.push(slug); uncheckedWhy[slug] = { code: String(code), plan: kind || plan.get(slug) || 'head' }; };
@@ -271,6 +313,10 @@ async function run() {
   let recovered = 0;
 
   let consecutiveFail = 0, cooldowns = 0, aborted = false;
+  const DL_FAIL_LIMIT = 3;                       // downloads failed in a row (3 tries each) before a long pause
+  const HEAD_REFUSAL_LIMIT = parseInt(process.env.HEAD_REFUSAL_LIMIT || '6', 10); // refused direct checks in a row before they are suspended for this run
+  let headRefusals = 0, headSuspended = false;
+  const dlRetried = new Set();                   // changed labels whose download failed once: second try after the other changed labels
   let unchanged = 0, headFailed = 0;
   const refreshed = [];
   const staleCache = [];                         // cached text older than the stored extract and not its source: not re-parsed
@@ -297,23 +343,29 @@ async function run() {
           if (!budgetSpent && Date.now() - startedAt > budgetMs) { budgetSpent = true; console.log(`\n⏱ time budget spent after ${done - 1} labels — the rest is kept unchecked until next week`); }
           if (fetched >= limit || budgetSpent) { keepExisting(slug, m); noteUnchecked(slug, fetched >= limit ? 'limit' : 'budget', step === 'head' ? headKind.get(slug) : step); continue; } // budget spent: not even checked this week
           if (step === 'feed') {
-            refreshed.push(`${slug} (${day(prev.emaUpdated || prev.sourceModified || prev.retrieved)} → ${day(feedUpdated.get(slug))}, EMA list)`);
+            if (!dlRetried.has(slug)) refreshed.push(`${slug} (${day(prev.emaUpdated || prev.sourceModified || prev.retrieved)} → ${day(feedUpdated.get(slug))}, EMA list)`);
             force = true; cached = false;
           } else {
+          // Optional direct check. Once EMA has refused HEAD_REFUSAL_LIMIT of them
+          // in a row they are suspended: asking on only uses up the allowance.
+          if (headSuspended) { keepExisting(slug, m); noteUnchecked(slug, 'suspended', headKind.get(slug)); continue; }
           const h = await headPdf(slug);
-          await sleep(700 + Math.floor(Math.random() * 400));
-          if (!h.ok) {                                                       // the label stays as it is; ride out a block like a failed download
-            consecutiveFail++; keepExisting(slug, m); noteUnchecked(slug, h.code, headKind.get(slug));
+          await sleep(pacer.next());
+          if (!h.ok) {                                                       // the label stays as it is
+            keepExisting(slug, m); noteUnchecked(slug, h.code, headKind.get(slug));
             if (!retried.has(slug)) { headFailed++; headRetry.push(m); }   // first refusal: one more try at the end of the run
-            if (consecutiveFail >= 6) {
-              if (++cooldowns > 5) { aborted = true; console.log(`\n⚠ EMA still blocking after ${cooldowns} cooldowns — stopping. Unchecked labels are kept as they are.`); return; }
-              console.log(`\n⏸ ${consecutiveFail} consecutive HEAD failures — EMA rate-limit active. Cooling down 5 min (cooldown ${cooldowns}/5)…`);
-              await sleep(5 * 60 * 1000);
-              consecutiveFail = 0;
+            pacer.blocked();
+            if (++headRefusals >= HEAD_REFUSAL_LIMIT) {
+              headSuspended = true;
+              console.log(`\n⚠ EMA refused ${headRefusals} direct checks in a row (last: ${h.code}) — direct checks suspended for this run; the labels are kept as they are and carried into the next run.`);
+              continue;
             }
+            const w = waitMs(h.retryAfter, headRefusals, { base: 30000, cap: 10 * 60000 });
+            console.log(`⏸ EMA refused a direct check (${slug}: ${h.code}${h.retryAfter != null ? `, Retry-After ${Math.round(h.retryAfter / 1000)} s` : ''}) — waiting ${Math.round(w / 1000)} s (refusal ${headRefusals} of ${HEAD_REFUSAL_LIMIT} in a row)`);
+            await sleep(w);
             continue;
           }
-          consecutiveFail = 0;
+          headRefusals = 0; pacer.ok();
           if (retried.has(slug)) recovered++;
           if (h.notFound || !isNewer(h.lastModified, prev)) { unchanged++; keepExisting(slug, m); continue; }
           refreshed.push(`${slug} (${String(prev.sourceModified || prev.retrieved).slice(0, 10)} → ${h.lastModified.slice(0, 10)}, PDF date)`);
@@ -328,16 +380,29 @@ async function run() {
       if (!cached && !reparse && fetched >= limit) { keepExisting(slug, m); continue; } // download budget hit; parse only cached
       let t = reparse && !cached ? null : await rawText(slug, pdf, force);
       if (!cached && t && t !== '404') { fetched++; consecutiveFail = 0; }
-      if (!t) { // genuine fetch failure (not 404): ride out EMA's block with a long cooldown, then retry this drug once
+      if (!t) { // genuine fetch failure (not 404), after 3 tries
         consecutiveFail++;
-        if (consecutiveFail >= 6) {
-          if (++cooldowns > 5) { aborted = true; queue.unshift(m); console.log(`\n⚠ EMA still blocking after ${cooldowns} cooldowns — stopping. Re-run later to resume (cache persists, ${ok} done).`); return; }
-          console.log(`\n⏸ ${consecutiveFail} consecutive failures — EMA rate-limit active. Cooling down 20 min (cooldown ${cooldowns}/5)…`);
-          await sleep(20 * 60 * 1000);
+        const code = fetchCode.get(slug) || '?';
+        if (consecutiveFail >= DL_FAIL_LIMIT) { // several labels in a row: EMA is blocking — pause 5, 10, 20, 20, 20 min (± jitter), then this label again
+          if (++cooldowns > 5) { aborted = true; queue.unshift(m); console.log(`\n⚠ EMA still blocking after ${cooldowns - 1} pauses (last: ${code}) — stopping. Re-run later to resume (cache persists, ${ok} done).`); return; }
+          const w = waitMs(null, cooldowns, { base: 5 * 60000, cap: 20 * 60000 });
+          console.log(`\n⏸ ${consecutiveFail} downloads failed in a row (last: ${slug}, ${code}) — EMA rate limit active. Pausing ${Math.round(w / 60000)} min (pause ${cooldowns}/5)…`);
+          await sleep(w);
           consecutiveFail = 0;
-          queue.unshift(m); // retry this drug after the cooldown
+          queue.unshift(m); // retry this drug after the pause
           continue;
         }
+        // A label EMA marked as changed is not given up after one failed
+        // download: it goes back in line behind the other changed and missing
+        // labels — ahead of every optional direct check.
+        if (changedOnly && plan.get(slug) === 'feed' && !dlRetried.has(slug)) {
+          dlRetried.add(slug);
+          const at = queue.findIndex((x) => rank(x) > 2);
+          queue.splice(at < 0 ? queue.length : at, 0, m);
+          console.log(`↻ ${slug}: download failed (${code}) — second try after the other changed labels`);
+          continue;
+        }
+        console.log(`✗ ${slug}: download failed (${code})${existsSync(join(OUT_DIR, `${slug}.json`)) ? ' — old extract kept' : ''}`);
       }
       if (!t || t === '404') { if (t === '404') notfound++; else fail++; markFailed(slug, t === '404' ? '404' : 'fetch'); keepExisting(slug, m); if (!cached) await sleep(200); continue; }
       // A cached text is this medicine's source only while it is the text the stored
@@ -366,7 +431,7 @@ async function run() {
       index.drugs[slug] = { brand: m.n, inn: m.inn };
       ok++;
       if (done % 25 === 0) process.stdout.write(`  …${done}/${drugs.length}  ok:${ok} fetched:${fetched} 404:${notfound} fail:${fail}\n`);
-      if (!cached) await sleep(1500 + Math.floor(Math.random() * 1000)); // ~1 request / 2s to stay under EMA's burst limit
+      if (!cached) await sleep(pacer.next(2)); // ~1 request / 2 s to stay under EMA's burst limit, slower after a refusal
     }
     if (existsSync(pdf)) rmSync(pdf);
   }
@@ -397,11 +462,11 @@ async function run() {
   // pause: most refusals are a burst limit, and on 5., 12. and 19.10.2026 such
   // refusals alone turned the weekly run red. Not when EMA blocked the run
   // outright or the time budget is gone.
-  if (changedOnly && headRetry.length && !aborted && !budgetSpent) {
+  if (changedOnly && headRetry.length && !aborted && !budgetSpent && !headSuspended) {
     console.log(`\n↻ retrying ${headRetry.length} refused HEAD check(s) once after ${Math.round(HEAD_RETRY_PAUSE_MS / 1000)} s…`);
     await sleep(HEAD_RETRY_PAUSE_MS);
     for (const m of headRetry) { const s = slugOf(m); retried.add(s); forgetUnchecked(s); queue.push(m); }
-    consecutiveFail = 0;
+    consecutiveFail = 0; headRefusals = 0;
     await worker(0);
     console.log(`  retry: ${recovered} of ${headRetry.length} recovered`);
   }
@@ -421,11 +486,11 @@ async function run() {
     // is kept (they are "behind" in the drift report) — named, not hidden in `failed`.
     const downloadFailed = index.failed.filter((s) => index.failedWhy[s] === 'fetch' && existsSync(join(OUT_DIR, `${s}.json`)));
     if (downloadFailed.length) index.downloadFailed = downloadFailed;
-    if (aborted || budgetSpent || u.length) {
+    if (aborted || budgetSpent || headSuspended || u.length) {
       const kind = (k) => u.filter((s) => (uncheckedWhy[s]?.plan || '') === k).length;
       const codes = {}; for (const s of u) { const c = uncheckedWhy[s]?.code || '?'; codes[c] = (codes[c] || 0) + 1; }
       index.incomplete = {
-        reason: aborted ? 'EMA kept blocking requests' : budgetSpent ? 'time budget spent' : fetched >= limit ? 'download limit reached' : 'some checks failed',
+        reason: aborted ? 'EMA kept blocking requests' : budgetSpent ? 'time budget spent' : fetched >= limit ? 'download limit reached' : headSuspended ? 'EMA kept blocking direct checks, cross-check suspended' : 'some checks failed',
         unchecked: u.length,
         changed: kind('feed'),                 // EMA's list says these changed and they were NOT fetched — a real gap
         sample: kind('sample'), sampleSize,    // rotating cross-check HEADs refused — EMA's list says these are unchanged
@@ -455,7 +520,7 @@ async function run() {
   if (guarded.length) index.guarded = guarded; else delete index.guarded;
   writeFileSync(INDEX, JSON.stringify(index));
   console.log(`\nDONE. parsed:${ok} newDownloads:${fetched} 404:${notfound} failed:${fail} guarded(kept previous file):${guarded.length} removed(no longer authorised):${removed.length}${removed.length ? ` [${removed.join(', ')}]` : ''}`);
-  if (index.incomplete) { const i = index.incomplete; console.log(`  ⚠ INCOMPLETE (${i.reason}): ${i.unchecked} labels not checked — changed at EMA: ${i.changed}, cross-check sample: ${i.sample} of ${i.sampleSize}, carried over: ${i.carry}, unlisted: ${i.unlisted}, repeat: ${i.repeat}; codes: ${Object.entries(i.codes).map(([c, n]) => `${c}×${n}`).join(' ') || '—'} — first in line next run`); }
+  if (index.incomplete) { const i = index.incomplete; console.log(`  ⚠ INCOMPLETE (${i.reason}): ${i.unchecked} labels not checked — changed at EMA: ${i.changed}, cross-check sample: ${i.sample} of ${i.sampleSize}, carried over: ${i.carry}, unlisted: ${i.unlisted}, repeat: ${i.repeat}; codes: ${Object.entries(i.codes).map(([c, n]) => `${c}×${n}`).join(' ') || '—'} — carried into the next run (changed labels first)`); }
   if (index.downloadFailed) console.log(`  ⚠ download failed, old extract kept: ${index.downloadFailed.join(', ')}`);
   if (changedOnly) {
     console.log(`  changed-only: unchanged:${unchanged} refreshed:${refreshed.length} headFailed:${headFailed} (recovered on retry: ${recovered}) minutes:${Math.round((Date.now() - startedAt) / 60000)}${budgetSpent ? ' (time budget spent)' : ''}`);
