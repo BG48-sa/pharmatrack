@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-23",
- "checkedAt": "2026-11-23T20:28:40Z",
+ "checkedAt": "2026-11-23T22:34:39Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,16 +12,52 @@
  },
  "summary": {
   "total": 122,
-  "unresolved": 51,
+  "unresolved": 46,
   "byStatus": {
    "AWAITING_USPI": 22,
    "AWAITING_EC_DECISION": 13,
    "AWAITING_SMPC": 11,
-   "LABEL_AVAILABLE": 5,
-   "LABEL_VERIFIED": 71
+   "LABEL_AVAILABLE": 0,
+   "LABEL_VERIFIED": 76
   },
   "alerts": 9,
-  "transitions": [],
+  "transitions": [
+   {
+    "id": "EMA:EMEA/H/C/005855",
+    "drug": "Zeydovio",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
+   },
+   {
+    "id": "EMA:EMEA/H/C/006708",
+    "drug": "Sepalna",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
+   },
+   {
+    "id": "EMA:EMEA/H/C/006698",
+    "drug": "Inijaq",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
+   },
+   {
+    "id": "EMA:EMEA/H/C/006727",
+    "drug": "Povofortay",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
+   },
+   {
+    "id": "EMA:EMEA/H/C/006791",
+    "drug": "Ruxolitinib Zentiva",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
+   }
+  ],
   "closed": [],
   "retracted": []
  },
@@ -2993,7 +3029,8 @@
    ],
    "lastChecked": "2026-11-23",
    "decisionDate": "2026-11-16",
-   "decisionSource": "EU Union Register"
+   "decisionSource": "EU Union Register",
+   "note": "weekly label refresh could not download the product information last run"
   },
   {
    "id": "EMA:EMEA/H/C/006757",
@@ -3023,7 +3060,8 @@
    ],
    "lastChecked": "2026-11-23",
    "decisionDate": "2026-11-16",
-   "decisionSource": "EU Union Register"
+   "decisionSource": "EU Union Register",
+   "note": "weekly label refresh could not download the product information last run"
   },
   {
    "id": "EMA:EMEA/H/C/006743",
@@ -3059,9 +3097,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Treatment of adults with Short Bowel Syndrome",
    "holder": "Zealand Pharma A/S",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-23",
    "history": [
     {
      "date": "2026-10-18",
@@ -3077,6 +3115,11 @@
      "date": "2026-11-17",
      "status": "LABEL_AVAILABLE",
      "note": "product information listed by EMA (updated 2026-11-17) — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-11-23",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
     }
    ],
    "lastChecked": "2026-11-23",
@@ -3084,8 +3127,9 @@
    "decisionSource": "EMA medicines table",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/zeydovio-epar-product-information_en.pdf",
+    "retrieved": "2026-11-23",
     "detected": "2026-11-17",
-    "emaUpdated": "2026-11-17",
+    "sha256": "f3a4da3023a1b4171bcd0e10bbcdb88ee350f9a78fd994ac7a4106e8bcfe448a",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/005855"
    }
@@ -3118,7 +3162,8 @@
    ],
    "lastChecked": "2026-11-23",
    "decisionDate": "2026-11-12",
-   "decisionSource": "EU Union Register"
+   "decisionSource": "EU Union Register",
+   "note": "weekly label refresh could not download the product information last run"
   },
   {
    "id": "EMA:EMEA/H/C/006708",
@@ -3131,9 +3176,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Maintenance treatment of advanced epithelial high-grade ovarian, fallopian tube or primary peritoneal cancer",
    "holder": "",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-19",
+   "statusSince": "2026-11-23",
    "history": [
     {
      "date": "2026-10-18",
@@ -3149,6 +3194,11 @@
      "date": "2026-11-19",
      "status": "LABEL_AVAILABLE",
      "note": "product information listed by EMA (updated 2026-11-19) — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-11-23",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
     }
    ],
    "lastChecked": "2026-11-23",
@@ -3156,8 +3206,9 @@
    "decisionSource": "EMA medicines table",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/sepalna-epar-product-information_en.pdf",
+    "retrieved": "2026-11-23",
     "detected": "2026-11-19",
-    "emaUpdated": "2026-11-19",
+    "sha256": "ad275f8a3ae0ad49bd74f3f4efc435e06efd8c5075edae688b26f2405c9408b3",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006708"
    }
@@ -3173,9 +3224,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Treatment of myelofibrosis (MF) in adults, treatment of polycythaemia vera (PV) in adults and treatment of Graft versus host disease (GvHD) in adults and children",
    "holder": "Zentiva k.s.",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-23",
    "history": [
     {
      "date": "2026-10-18",
@@ -3191,6 +3242,11 @@
      "date": "2026-11-17",
      "status": "LABEL_AVAILABLE",
      "note": "product information listed by EMA (updated 2026-11-13) — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-11-23",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
     }
    ],
    "lastChecked": "2026-11-23",
@@ -3198,8 +3254,9 @@
    "decisionSource": "EMA medicines table",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/ruxolitinib-zentiva-epar-product-information_en.pdf",
+    "retrieved": "2026-11-23",
     "detected": "2026-11-17",
-    "emaUpdated": "2026-11-13",
+    "sha256": "2cb7815b3b76001701e988e1dc0492801b5fe23395c6a59732bad8cd40e7a879",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006791"
    }
@@ -3238,9 +3295,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Treatment of active moderate to severe hidradenitis suppurativa (acne inversa) in adults",
    "holder": "Incyte Biosciences Distribution B.V.",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-23",
    "history": [
     {
      "date": "2026-10-18",
@@ -3256,6 +3313,11 @@
      "date": "2026-11-17",
      "status": "LABEL_AVAILABLE",
      "note": "product information listed by EMA (updated 2026-11-16) — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-11-23",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
     }
    ],
    "lastChecked": "2026-11-23",
@@ -3263,8 +3325,9 @@
    "decisionSource": "EMA medicines table",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/povofortay-epar-product-information_en.pdf",
+    "retrieved": "2026-11-23",
     "detected": "2026-11-17",
-    "emaUpdated": "2026-11-16",
+    "sha256": "6c0801f5dc7cf13803286e27262a24e95f0892d2f1c62c0c71c9b089b9e11c4b",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006727"
    }
@@ -3297,7 +3360,8 @@
    ],
    "lastChecked": "2026-11-23",
    "decisionDate": "2026-11-12",
-   "decisionSource": "EU Union Register"
+   "decisionSource": "EU Union Register",
+   "note": "weekly label refresh could not download the product information last run"
   },
   {
    "id": "EMA:EMEA/H/C/006698",
@@ -3310,9 +3374,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Treatment of rheumatoid arthritis, psoriatic arthritis, ankylosing spondylitis, and ulcerative colitis in adults, and juvenile idiopathic arthritis (JIA) in children from 2 years old",
    "holder": "Gedeon Richter Plc.",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-23",
    "history": [
     {
      "date": "2026-10-18",
@@ -3328,6 +3392,11 @@
      "date": "2026-11-17",
      "status": "LABEL_AVAILABLE",
      "note": "product information listed by EMA (updated 2026-11-17) — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-11-23",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-23"
     }
    ],
    "lastChecked": "2026-11-23",
@@ -3335,8 +3404,9 @@
    "decisionSource": "EMA medicines table",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/inijaq-epar-product-information_en.pdf",
+    "retrieved": "2026-11-23",
     "detected": "2026-11-17",
-    "emaUpdated": "2026-11-17",
+    "sha256": "17b545c9d2158eaa41f85cbf22c9460a1f2badb36c84ed882c66c2b7d65ffedd",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006698"
    }
@@ -3392,7 +3462,8 @@
    ],
    "lastChecked": "2026-11-23",
    "decisionDate": "2026-11-12",
-   "decisionSource": "EU Union Register"
+   "decisionSource": "EU Union Register",
+   "note": "weekly label refresh could not download the product information last run"
   },
   {
    "id": "EMA:EMEA/H/C/006824",
@@ -3514,7 +3585,8 @@
    ],
    "lastChecked": "2026-11-23",
    "decisionDate": "2026-11-12",
-   "decisionSource": "EU Union Register"
+   "decisionSource": "EU Union Register",
+   "note": "weekly label refresh could not download the product information last run"
   },
   {
    "id": "EMA:EMEA/H/C/006241",
@@ -3748,15 +3820,20 @@
      "date": "2026-10-18",
      "status": "LABEL_VERIFIED",
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-09-28"
+    },
+    {
+     "date": "2026-11-23",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract revised (retrieved 2026-11-23)"
     }
    ],
    "lastChecked": "2026-11-23",
    "summary": "Nezglyal is indicated for the treatment of Cerebral Adrenoleukodystrophy (cALD) in males with Adrenoleukodystrophy (ALD) aged 2 to 12 years with non-Gadolinium (Gd) enhancing lesions (i.e. Gd negative) in brain Magnetic Resonance Imaging (MRI), with a Neurological Functional Score (NFS) of 0 or 1.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/nezglyal-epar-product-information_en.pdf",
-    "retrieved": "2026-09-28",
+    "retrieved": "2026-11-23",
     "detected": "2026-09-28",
-    "sha256": "fb7558ab38b9d9a9e2e372b40873c92bbfa8ffa92aeda69a2b16352e92810c33",
+    "sha256": "8c90c839701fc750630c8fec62045bac5a08c88b929af38347680c734cb40614",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006693"
    }
@@ -3823,6 +3900,7 @@
    ],
    "lastChecked": "2026-11-23",
    "summary": "Treatment of primary hypercholesterolaemia or mixed dyslipidaemia.",
+   "note": "weekly label refresh could not download the product information last run",
    "alert": "no SmPC extract 66 days after the EU authorisation"
   },
   {
@@ -3968,6 +4046,7 @@
    ],
    "lastChecked": "2026-11-23",
    "summary": "Treatment of Chronic thromboembolic pulmonary hypertension (CTEPH) in adults and treatment of Pulmonary arterial hypertension (PAH) in adults and children from 6 years of age.",
+   "note": "weekly label refresh could not download the product information last run",
    "alert": "no SmPC extract 66 days after the EU authorisation"
   },
   {
@@ -4037,6 +4116,7 @@
    ],
    "lastChecked": "2026-11-23",
    "summary": "It is indicated in adults with primary hypercholesterolaemia (heterozygous familial (HeFH) and non-familial) or mixed dyslipidaemia as an adjunct to diet.",
+   "note": "weekly label refresh could not download the product information last run",
    "alert": "no SmPC extract 66 days after the EU authorisation"
   },
   {
@@ -4106,6 +4186,7 @@
    ],
    "lastChecked": "2026-11-23",
    "summary": "Treatment of primary hypercholesterolaemia or mixed dyslipidaemia.",
+   "note": "weekly label refresh could not download the product information last run",
    "alert": "no SmPC extract 66 days after the EU authorisation"
   },
   {
@@ -4193,6 +4274,7 @@
    ],
    "lastChecked": "2026-11-23",
    "summary": "Treatment of type 2 diabetes mellitus",
+   "note": "weekly label refresh could not download the product information last run",
    "alert": "no SmPC extract 95 days after the EU authorisation"
   },
   {
@@ -4792,15 +4874,20 @@
      "date": "2026-10-18",
      "status": "LABEL_VERIFIED",
      "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-07-03"
+    },
+    {
+     "date": "2026-11-23",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract revised (retrieved 2026-11-23)"
     }
    ],
    "lastChecked": "2026-11-23",
    "summary": "Palbociclib Viatris is indicated for the treatment of hormone receptor (HR)-positive, human epidermal growth factor receptor 2 (HER2)-negative locally advanced or metastatic breast cancer. - in combination with an aromatase inhibitor; - in combination with fulvestrant in women who have received prior endocrine therapy (see section 5.1). In pre- or perimenopausal women, the endocrine therapy should be combined with a luteinizing hormone-releasing hormone (LHRH) agonist.",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/palbociclib-viatris-epar-product-information_en.pdf",
-    "retrieved": "2026-07-03",
+    "retrieved": "2026-11-23",
     "detected": "2026-07-03",
-    "sha256": "99bcc443aa9c9838298799b22e1ce103417c4eb8260610b43111be4fe3dee8a0",
+    "sha256": "5ac2cbb2b76b6d623d6f45c2200ff2ee829587a63e50dac2d6be02d819568103",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006624"
    }
