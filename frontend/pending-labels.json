@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-24",
- "checkedAt": "2026-11-24T01:13:37Z",
+ "checkedAt": "2026-11-24T14:16:07Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,24 +12,60 @@
  },
  "summary": {
   "total": 121,
-  "unresolved": 46,
+  "unresolved": 40,
   "byStatus": {
-   "AWAITING_USPI": 22,
+   "AWAITING_USPI": 16,
    "AWAITING_EC_DECISION": 13,
    "AWAITING_SMPC": 11,
    "LABEL_AVAILABLE": 0,
-   "LABEL_VERIFIED": 75
+   "LABEL_VERIFIED": 81
   },
   "alerts": 10,
-  "transitions": [],
-  "closed": [
+  "transitions": [
    {
-    "id": "FDA:decnupaz",
-    "drug": "Decnupaz",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
+    "id": "FDA:livsayis",
+    "drug": "Livsayis",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 122beaf9-5add-45ae-9a2e-457af1a7dddf, label version 1 of 2026-11-18"
+   },
+   {
+    "id": "FDA:infilbray",
+    "drug": "Infilbray",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 46d0c64b-2eb5-4f3c-b7c2-aaff221b5e8e, label version 7 of 2026-11-18"
+   },
+   {
+    "id": "FDA:nelkarmi",
+    "drug": "Nelkarmi",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID cbfdd79a-13c5-42f4-b8a2-4586f5b32c7b, label version 4 of 2026-11-17"
+   },
+   {
+    "id": "FDA:lembaz",
+    "drug": "Lembaz",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID ff86030c-1e66-41b7-8b1f-d1397e94d81c, label version 2 of 2026-11-18"
+   },
+   {
+    "id": "FDA:wilserdly",
+    "drug": "Wilserdly",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 2ff7bdd3-dd8b-43e5-b249-15b5483e4658, label version 1 of 2026-11-19"
+   },
+   {
+    "id": "FDA:klygefa",
+    "drug": "Klygefa",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 97c5f200-b851-4d03-ad33-1ecd15089f0f, label version 3 of 2026-11-18"
    }
   ],
+  "closed": [],
   "retracted": []
  },
  "alerts": [
@@ -118,17 +154,47 @@
    "summary": null,
    "sponsor": "Regeneron Pharmaceuticals",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-21",
-   "statusSince": "2026-11-21",
+   "statusSince": "2026-11-24",
    "history": [
     {
      "date": "2026-11-21",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 122beaf9-5add-45ae-9a2e-457af1a7dddf, label version 1 of 2026-11-18"
     }
    ],
-   "lastChecked": "2026-11-24"
+   "lastChecked": "2026-11-24",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "122beaf9-5add-45ae-9a2e-457af1a7dddf",
+    "splId": "f16f7ed7-8f43-483b-9eca-f0a6356d24b1",
+    "effective": "2026-11-18",
+    "version": "1",
+    "detected": "2026-11-24",
+    "retrieved": "2026-11-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=122beaf9-5add-45ae-9a2e-457af1a7dddf",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "LIVSAYIS",
+    "usGeneric": "CEMDISIRAN",
+    "applicationNumber": "NDA221251",
+    "harmonised": false,
+    "sha256": "5945e100c13c235a2109d01f4279d72c93b5459c0dd126bad6461eac9b7bf5af",
+    "indications": "1 INDICATIONS AND USAGE LIVSAYIS is indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody-positive. LIVSAYIS is a complement C5-directed small interfering RNA indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody positive. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:infilbray",
@@ -143,17 +209,47 @@
    "summary": null,
    "sponsor": "Genzyme Corp A Sanofi Co",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-21",
-   "statusSince": "2026-11-21",
+   "statusSince": "2026-11-24",
    "history": [
     {
      "date": "2026-11-21",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 46d0c64b-2eb5-4f3c-b7c2-aaff221b5e8e, label version 7 of 2026-11-18"
     }
    ],
-   "lastChecked": "2026-11-24"
+   "lastChecked": "2026-11-24",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "46d0c64b-2eb5-4f3c-b7c2-aaff221b5e8e",
+    "splId": "76653450-85e8-4159-8cdf-f56c03a564d5",
+    "effective": "2026-11-18",
+    "version": "7",
+    "detected": "2026-11-24",
+    "retrieved": "2026-11-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=46d0c64b-2eb5-4f3c-b7c2-aaff221b5e8e",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "INFILBRAY",
+    "usGeneric": "venglustat",
+    "applicationNumber": "NDA221144",
+    "harmonised": false,
+    "sha256": "8bda132926b4ff63eaa05ffccefec6fd4d35a6eb8031762ca911bcaf9a677a8f",
+    "indications": "1 INDICATIONS AND USAGE INFILBRAY is indicated for the treatment of neurological manifestations of Type 3 Gaucher disease (GD3) in adults and pediatric patients weighing at least 15 kg. INFILBRAY is a glucosylceramide synthase inhibitor indicated for the treatment of neurological manifestations of Type 3 Gaucher disease (GD3) in adults and pediatric patients weighing at least 15 kg. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:nelkarmi",
@@ -168,17 +264,47 @@
    "summary": null,
    "sponsor": "Nuvalent",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-20",
-   "statusSince": "2026-11-20",
+   "statusSince": "2026-11-24",
    "history": [
     {
      "date": "2026-11-20",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID cbfdd79a-13c5-42f4-b8a2-4586f5b32c7b, label version 4 of 2026-11-17"
     }
    ],
-   "lastChecked": "2026-11-24"
+   "lastChecked": "2026-11-24",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "cbfdd79a-13c5-42f4-b8a2-4586f5b32c7b",
+    "splId": "c111170c-4687-4a54-bc86-481b4d6f0bcb",
+    "effective": "2026-11-17",
+    "version": "4",
+    "detected": "2026-11-24",
+    "retrieved": "2026-11-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cbfdd79a-13c5-42f4-b8a2-4586f5b32c7b",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "NELKARMI",
+    "usGeneric": "neladalkib",
+    "applicationNumber": "NDA220936",
+    "harmonised": false,
+    "sha256": "ba879ee4e877426a03c93e6b0ee7b08edae23d804e0a467a6075c4fdcff41d69",
+    "indications": "1 INDICATIONS AND USAGE NELKARMI ™ (neladalkib) is indicated for the treatment of adult patients with locally advanced or metastatic ALK-positive non-small cell lung cancer (NSCLC) who have previously received the following therapy in the unresectable locally advanced or metastatic setting: 1 prior ALK TKI consisting of alectinib; or 2 or more prior ALK TKIs and platinum-based chemotherapy This indication is approved under accelerated approval based on tumor response rate and duration of response [see Clinical Studies ( 14.1 )] . Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial. NELKARMI is a kinase inhibitor indicated for the treatment of adult patients with locally advanced or metastatic ALK-positive non-small cell lung cancer (NSCLC) who have previously received the following therapy in the unresectable locally advanced or metastatic setting: 1 prior ALK TKI consisting of alectinib; or 2 or more prior ALK TKIs and platinum-based chemotherapy This indication is approved under accelerated approval based on tumor response rate and duration of response. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:lembaz",
@@ -193,17 +319,47 @@
    "summary": null,
    "sponsor": "Mandos Llc",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-20",
-   "statusSince": "2026-11-20",
+   "statusSince": "2026-11-24",
    "history": [
     {
      "date": "2026-11-20",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID ff86030c-1e66-41b7-8b1f-d1397e94d81c, label version 2 of 2026-11-18"
     }
    ],
-   "lastChecked": "2026-11-24"
+   "lastChecked": "2026-11-24",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "ff86030c-1e66-41b7-8b1f-d1397e94d81c",
+    "splId": "41f5a50c-b29c-49c7-b7b3-d6552f42a235",
+    "effective": "2026-11-18",
+    "version": "2",
+    "detected": "2026-11-24",
+    "retrieved": "2026-11-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ff86030c-1e66-41b7-8b1f-d1397e94d81c",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "LEMBAZ",
+    "usGeneric": "adrabetadex",
+    "applicationNumber": "NDA220996",
+    "harmonised": false,
+    "sha256": "fc43dbe26573055ac072999de615792ab533bdb5f33a3343ba866887ad2b1e39",
+    "indications": "1 INDICATIONS AND USAGE LEMBAZ™ is indicated to reduce the risk of mortality in adult and pediatric patients, who weigh 7 kg or greater, with Niemann-Pick disease type C (NPC) with neurological manifestations that started at less than 6 years of age. LEMBAZ is indicated to reduce the risk of mortality in adult and pediatric patients, who weigh 7 kg or greater, with Niemann-Pick disease type C (NPC) with neurological manifestations that started at less than 6 years of age. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:wilserdly",
@@ -218,17 +374,47 @@
    "summary": null,
    "sponsor": "Genentech Inc",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-19",
-   "statusSince": "2026-11-19",
+   "statusSince": "2026-11-24",
    "history": [
     {
      "date": "2026-11-19",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 2ff7bdd3-dd8b-43e5-b249-15b5483e4658, label version 1 of 2026-11-19"
     }
    ],
-   "lastChecked": "2026-11-24"
+   "lastChecked": "2026-11-24",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "2ff7bdd3-dd8b-43e5-b249-15b5483e4658",
+    "splId": "41e3f213-3cf0-4111-9610-97d19049277e",
+    "effective": "2026-11-19",
+    "version": "1",
+    "detected": "2026-11-24",
+    "retrieved": "2026-11-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2ff7bdd3-dd8b-43e5-b249-15b5483e4658",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Wilserdly",
+    "usGeneric": "Giredestrant",
+    "applicationNumber": "NDA220791",
+    "harmonised": false,
+    "sha256": "0f78f5c459a1ce80e153aa522545e5568f663d94800ac59175f2d2b0298c4abc",
+    "indications": "1 INDICATIONS AND USAGE WILSERDLY, in combination with everolimus, is indicated for the treatment of adults with estrogen receptor-positive (ER+), human epidermal growth factor receptor 2-negative (HER2-), ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. WILSERDLY is an estrogen receptor antagonist indicated in combination with everolimus for the treatment of adults with ER-positive, HER2-negative, ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. ( 1 , 14 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:klygefa",
@@ -243,17 +429,47 @@
    "summary": null,
    "sponsor": "Alexion Pharm",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-17",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-24",
    "history": [
     {
      "date": "2026-11-17",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 97c5f200-b851-4d03-ad33-1ecd15089f0f, label version 3 of 2026-11-18"
     }
    ],
-   "lastChecked": "2026-11-24"
+   "lastChecked": "2026-11-24",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "97c5f200-b851-4d03-ad33-1ecd15089f0f",
+    "splId": "c3fc158b-e33f-431e-8a76-e0ff5fa35499",
+    "effective": "2026-11-18",
+    "version": "3",
+    "detected": "2026-11-24",
+    "retrieved": "2026-11-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=97c5f200-b851-4d03-ad33-1ecd15089f0f",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Klygefa",
+    "usGeneric": "Gefurulimab",
+    "applicationNumber": "BLA761488",
+    "harmonised": false,
+    "sha256": "6e21d4d67d07d5a4b99ae3b1254f0f5dc730efc357bb5d2bb25facf956bbc6bd",
+    "indications": "1 INDICATIONS AND USAGE KLYGEFA is indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody positive. KLYGEFA is a complement inhibitor indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody positive. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:pebrilzo",
@@ -5012,16 +5228,5 @@
     "emaNumber": "EMEA/H/C/005856"
    }
   }
- ],
- "warnings": [
-  "EMA HEAD failed for adcomfo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for frehemgo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for klygefa: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for vaxrabeo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for evlarco: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for lyrokaul: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for ubeslo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for riociguat-accord: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for onswik: HTTP Error 429: Too Many Requests"
  ]
 }
