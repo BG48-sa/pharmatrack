@@ -1,6 +1,36 @@
 {
-  "generated": "2026-11-22",
+  "generated": "2026-11-24",
   "items": [
+    {
+      "title": "FDA Approves Welgemda (ribitol) for Individuals Living with Limb-Girdle Muscular Dystrophy Type 2I/R9",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-welgemda-ribitol-individuals-living-limb-girdle-muscular-dystrophy-type-2i-r9-6947.html",
+      "date": "2026-11-23",
+      "source": "Drugs.com",
+      "names": [
+        "ribitol",
+        "welgemda"
+      ]
+    },
+    {
+      "title": "AbbVie's Rinvoq (upadacitinib) Approved as the First Systemic Therapy in the U.S. to Treat Adult and Pediatric Patients With Nonsegmental Vitiligo",
+      "url": "https://www.drugs.com/newdrugs/abbvie-s-rinvoq-upadacitinib-approved-first-systemic-therapy-u-s-adult-pediatric-patients-6946.html",
+      "date": "2026-11-23",
+      "source": "Drugs.com",
+      "names": [
+        "rinvoq",
+        "upadacitinib"
+      ]
+    },
+    {
+      "title": "FDA Approves Genentech’s Wilserdly (giredestrant) for Early-Stage ER-Positive Breast Cancer, Making it the First New Endocrine Therapy in This Setting in Over 20 Years",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-genentech-s-wilserdly-giredestrant-early-stage-er-positive-breast-cancer-making-first-6945.html",
+      "date": "2026-11-23",
+      "source": "Drugs.com",
+      "names": [
+        "giredestrant",
+        "wilserdly"
+      ]
+    },
     {
       "title": "Novo’s Sogroya Receives FDA Approval as the First and Only Once-Weekly, Long-Acting Growth Hormone for Children with Turner Syndrome (TS)",
       "url": "https://www.drugs.com/newdrugs/novo-s-sogroya-receives-fda-approval-first-only-once-weekly-long-acting-growth-hormone-children-6944.html",
@@ -206,32 +236,6 @@
       "date": "2026-10-21",
       "source": "Drugs.com",
       "names": []
-    },
-    {
-      "title": "Ultomiris Received Accelerated Approval in the US as First and Only C5 Complement Inhibitor to Reduce Proteinuria in Adults with Primary Immunoglobulin A Nephropathy",
-      "url": "https://www.drugs.com/newdrugs/ultomiris-received-accelerated-approval-us-first-only-c5-complement-inhibitor-reduce-proteinuria-6923.html",
-      "date": "2026-10-21",
-      "source": "Drugs.com",
-      "names": []
-    },
-    {
-      "title": "FDA Approves Hibsago (bepirovirsen) for the Treatment of Chronic Hepatitis B",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-hibsago-bepirovirsen-chronic-hepatitis-b-6920.html",
-      "date": "2026-10-20",
-      "source": "Drugs.com",
-      "names": [
-        "bepirovirsen",
-        "hibsago"
-      ]
-    },
-    {
-      "title": "Cosette Pharmaceuticals Announces FDA Approval of Evoxac (cevimeline HCl) Oral Solution",
-      "url": "https://www.drugs.com/newdrugs/cosette-pharmaceuticals-announces-fda-approval-evoxac-cevimeline-hcl-oral-solution-6919.html",
-      "date": "2026-10-20",
-      "source": "Drugs.com",
-      "names": [
-        "evoxac"
-      ]
     }
   ]
 }
