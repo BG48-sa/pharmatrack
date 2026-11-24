@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-24",
- "checkedAt": "2026-11-24T14:16:07Z",
+ "checkedAt": "2026-11-24T19:43:49Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -16,59 +16,66 @@
   "byStatus": {
    "AWAITING_USPI": 16,
    "AWAITING_EC_DECISION": 13,
-   "AWAITING_SMPC": 11,
-   "LABEL_AVAILABLE": 0,
+   "AWAITING_SMPC": 10,
+   "LABEL_AVAILABLE": 1,
    "LABEL_VERIFIED": 81
   },
-  "alerts": 10,
+  "alerts": 16,
   "transitions": [
    {
-    "id": "FDA:livsayis",
-    "drug": "Livsayis",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 122beaf9-5add-45ae-9a2e-457af1a7dddf, label version 1 of 2026-11-18"
-   },
-   {
-    "id": "FDA:infilbray",
-    "drug": "Infilbray",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 46d0c64b-2eb5-4f3c-b7c2-aaff221b5e8e, label version 7 of 2026-11-18"
-   },
-   {
-    "id": "FDA:nelkarmi",
-    "drug": "Nelkarmi",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID cbfdd79a-13c5-42f4-b8a2-4586f5b32c7b, label version 4 of 2026-11-17"
-   },
-   {
-    "id": "FDA:lembaz",
-    "drug": "Lembaz",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID ff86030c-1e66-41b7-8b1f-d1397e94d81c, label version 2 of 2026-11-18"
-   },
-   {
-    "id": "FDA:wilserdly",
-    "drug": "Wilserdly",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 2ff7bdd3-dd8b-43e5-b249-15b5483e4658, label version 1 of 2026-11-19"
-   },
-   {
-    "id": "FDA:klygefa",
-    "drug": "Klygefa",
-    "from": "AWAITING_USPI",
-    "to": "LABEL_VERIFIED",
-    "note": "USPI verified: set ID 97c5f200-b851-4d03-ad33-1ecd15089f0f, label version 3 of 2026-11-18"
+    "id": "EMA:EMEA/H/C/006602",
+    "drug": "VaxRabeo",
+    "from": "AWAITING_SMPC",
+    "to": "LABEL_AVAILABLE",
+    "note": "product information listed by EMA (updated 2026-11-24) — awaiting the weekly label refresh"
    }
   ],
   "closed": [],
   "retracted": []
  },
  "alerts": [
+  {
+   "id": "FDA:livsayis",
+   "drug": "Livsayis",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:infilbray",
+   "drug": "Infilbray",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:nelkarmi",
+   "drug": "Nelkarmi",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:lembaz",
+   "drug": "Lembaz",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:wilserdly",
+   "drug": "Wilserdly",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:klygefa",
+   "drug": "Klygefa",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
   {
    "id": "FDA:hovilpri",
    "drug": "Hovilpri",
@@ -194,7 +201,8 @@
     "sha256": "5945e100c13c235a2109d01f4279d72c93b5459c0dd126bad6461eac9b7bf5af",
     "indications": "1 INDICATIONS AND USAGE LIVSAYIS is indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody-positive. LIVSAYIS is a complement C5-directed small interfering RNA indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody positive. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:infilbray",
@@ -249,7 +257,8 @@
     "sha256": "8bda132926b4ff63eaa05ffccefec6fd4d35a6eb8031762ca911bcaf9a677a8f",
     "indications": "1 INDICATIONS AND USAGE INFILBRAY is indicated for the treatment of neurological manifestations of Type 3 Gaucher disease (GD3) in adults and pediatric patients weighing at least 15 kg. INFILBRAY is a glucosylceramide synthase inhibitor indicated for the treatment of neurological manifestations of Type 3 Gaucher disease (GD3) in adults and pediatric patients weighing at least 15 kg. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:nelkarmi",
@@ -304,7 +313,8 @@
     "sha256": "ba879ee4e877426a03c93e6b0ee7b08edae23d804e0a467a6075c4fdcff41d69",
     "indications": "1 INDICATIONS AND USAGE NELKARMI ™ (neladalkib) is indicated for the treatment of adult patients with locally advanced or metastatic ALK-positive non-small cell lung cancer (NSCLC) who have previously received the following therapy in the unresectable locally advanced or metastatic setting: 1 prior ALK TKI consisting of alectinib; or 2 or more prior ALK TKIs and platinum-based chemotherapy This indication is approved under accelerated approval based on tumor response rate and duration of response [see Clinical Studies ( 14.1 )] . Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial. NELKARMI is a kinase inhibitor indicated for the treatment of adult patients with locally advanced or metastatic ALK-positive non-small cell lung cancer (NSCLC) who have previously received the following therapy in the unresectable locally advanced or metastatic setting: 1 prior ALK TKI consisting of alectinib; or 2 or more prior ALK TKIs and platinum-based chemotherapy This indication is approved under accelerated approval based on tumor response rate and duration of response. Continued approval for this indication may be contingent upon verification and description of clinical benefit in a confirmatory trial. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:lembaz",
@@ -359,7 +369,8 @@
     "sha256": "fc43dbe26573055ac072999de615792ab533bdb5f33a3343ba866887ad2b1e39",
     "indications": "1 INDICATIONS AND USAGE LEMBAZ™ is indicated to reduce the risk of mortality in adult and pediatric patients, who weigh 7 kg or greater, with Niemann-Pick disease type C (NPC) with neurological manifestations that started at less than 6 years of age. LEMBAZ is indicated to reduce the risk of mortality in adult and pediatric patients, who weigh 7 kg or greater, with Niemann-Pick disease type C (NPC) with neurological manifestations that started at less than 6 years of age. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:wilserdly",
@@ -414,7 +425,8 @@
     "sha256": "0f78f5c459a1ce80e153aa522545e5568f663d94800ac59175f2d2b0298c4abc",
     "indications": "1 INDICATIONS AND USAGE WILSERDLY, in combination with everolimus, is indicated for the treatment of adults with estrogen receptor-positive (ER+), human epidermal growth factor receptor 2-negative (HER2-), ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. WILSERDLY is an estrogen receptor antagonist indicated in combination with everolimus for the treatment of adults with ER-positive, HER2-negative, ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. ( 1 , 14 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:klygefa",
@@ -469,7 +481,8 @@
     "sha256": "6e21d4d67d07d5a4b99ae3b1254f0f5dc730efc357bb5d2bb25facf956bbc6bd",
     "indications": "1 INDICATIONS AND USAGE KLYGEFA is indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody positive. KLYGEFA is a complement inhibitor indicated for the treatment of generalized myasthenia gravis (gMG) in adult patients who are anti-acetylcholine receptor (AChR) antibody positive. ( 1 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   }
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
   },
   {
    "id": "FDA:pebrilzo",
@@ -3286,9 +3299,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Pre-exposure and post-exposure prophylaxis against rabies in all age groups",
    "holder": "Sanofi Winthrop Industrie",
-   "status": "AWAITING_SMPC",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-24",
    "history": [
     {
      "date": "2026-10-18",
@@ -3299,12 +3312,24 @@
      "date": "2026-11-17",
      "status": "AWAITING_SMPC",
      "note": "authorised 2026-11-12 (EU Union Register)"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information listed by EMA (updated 2026-11-24) — awaiting the weekly label refresh"
     }
    ],
    "lastChecked": "2026-11-24",
    "decisionDate": "2026-11-12",
-   "decisionSource": "EU Union Register",
-   "note": "weekly label refresh could not download the product information last run"
+   "decisionSource": "EMA medicines table",
+   "note": "weekly label refresh could not download the product information last run",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/vaxrabeo-epar-product-information_en.pdf",
+    "detected": "2026-11-24",
+    "emaUpdated": "2026-11-24",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006602"
+   }
   },
   {
    "id": "EMA:EMEA/H/C/006708",

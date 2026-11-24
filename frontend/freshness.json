@@ -1,5 +1,5 @@
 {
- "checkedAt": "2026-11-24T14:16:07Z",
+ "checkedAt": "2026-11-24T19:43:49Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
@@ -8,23 +8,23 @@
   "usApprovals": "2026-11-20",
   "usApprovalsAnnounced": "2026-11-23",
   "usLabels": "2026-11-23",
-  "pipelineRun": "2026-11-24T14:16:07Z"
+  "pipelineRun": "2026-11-24T19:43:49Z"
  },
  "sources": {
   "ema_medicines_report": {
    "name": "EMA medicines report (EU catalogue)",
    "cadence": "about weekly",
    "status": "OK",
-   "count": 1578,
+   "count": 1577,
    "pending": 13,
-   "sha256": "943d605bc138b74fe254f8c32dc55948f7616e8f9e8fc5f7ab8fbbe02318c2d1",
+   "sha256": "a8834e4f3107184dabfe4b910094b7a95c2669135ce660b0f23018b4f3c79d95",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-11-24",
-   "sourceAgeDays": 0.59,
-   "fetchedAt": "2026-11-24T14:14:22+00:00",
+   "sourceAgeDays": 0.82,
+   "fetchedAt": "2026-11-24T19:42:12+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-24T05:00:12Z",
+    "value": "2026-11-24T17:00:07Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -36,7 +36,7 @@
    "count": 48,
    "sha256": "d7cc45b4a1fbd9c9b96ca6871b184f4d0d51e940dc2eb603f4231de2d7caa340",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-24T14:14:24+00:00",
+   "fetchedAt": "2026-11-24T19:42:13+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -61,10 +61,10 @@
     }
    },
    "sourceUpdatedAt": "2026-11-23T17:56:03Z",
-   "sourceAgeDays": 0.85,
+   "sourceAgeDays": 1.07,
    "fetchedAt": "2026-11-23",
    "probe": {
-    "value": "2026-11-24T04:45:35Z",
+    "value": "2026-11-24T16:45:07Z",
     "kind": "Last-Modified"
    },
    "notes": [
@@ -81,8 +81,8 @@
    "sha256": "6b7129e2b42c97ce945565c1f72c4382783aaf6a43c34ab277efc7160d93ea9e",
    "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251124+TO+20261201]",
    "sourceUpdatedAt": "2026-11-20",
-   "sourceAgeDays": 4.59,
-   "fetchedAt": "2026-11-24T14:14:29+00:00",
+   "sourceAgeDays": 4.82,
+   "fetchedAt": "2026-11-24T19:42:17+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-20",
@@ -105,7 +105,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-23",
    "fetchedAt": "2026-11-23",
-   "sourceAgeDays": 1.59,
+   "sourceAgeDays": 1.82,
    "probe": {
     "value": "2026-11-20",
     "kind": "meta.last_updated"
@@ -119,7 +119,7 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 35.59,
+   "sourceAgeDays": 35.82,
    "missing": [
     {
      "name": "Welgemda",
@@ -178,9 +178,9 @@
    "status": "OK",
    "count": 25,
    "fetchedAt": "2026-11-24",
-   "fetchedAgeDays": 0.59,
+   "fetchedAgeDays": 0.82,
    "sourceUpdatedAt": "2026-11-23",
-   "sourceAgeDays": 1.59,
+   "sourceAgeDays": 1.82,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -190,7 +190,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 25.59,
+   "sourceAgeDays": 25.82,
    "notes": []
   },
   "fda_cdx_list": {
@@ -200,7 +200,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 57.59,
+   "sourceAgeDays": 57.82,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -217,7 +217,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 309.59,
+   "sourceAgeDays": 309.82,
    "notes": []
   },
   "biomarkers_table": {
@@ -226,7 +226,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 134.59,
+   "sourceAgeDays": 134.82,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -242,5 +242,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-24T04:06:11Z"
+ "previousCheckedAt": "2026-11-24T14:16:07Z"
 }
