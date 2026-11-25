@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-25",
- "checkedAt": "2026-11-25T02:47:00Z",
+ "checkedAt": "2026-11-25T13:29:16Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -22,14 +22,7 @@
   },
   "alerts": 16,
   "transitions": [],
-  "closed": [
-   {
-    "id": "EMA:EMEA/H/C/005856",
-    "drug": "Adstiladrin",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   }
-  ],
+  "closed": [],
   "retracted": []
  },
  "alerts": [
@@ -538,12 +531,12 @@
    ],
    "lastChecked": "2026-11-25",
    "checks": {
-    "applicationMatch": true,
+    "applicationMatch": null,
     "nameMatch": true,
     "nameBasis": "brand",
     "indicationsPresent": true,
-    "prescription": true,
-    "harmonised": true
+    "prescription": null,
+    "harmonised": false
    },
    "label": {
     "setId": "17b6ec50-69c8-4849-802d-cf0a6e425373",
@@ -554,12 +547,13 @@
     "retrieved": "2026-11-19",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=17b6ec50-69c8-4849-802d-cf0a6e425373",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": "PIMJETMI",
-    "usGeneric": "PIMICOTINIB",
-    "applicationNumber": "NDA220414",
-    "harmonised": true,
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
     "sha256": "7ede1ca402aa81c1e1ade61fd53dfd5783c6e61c28b8a14f84e7ee60ea78d529",
-    "indications": "1 INDICATIONS AND USAGE PIMJETMI is indicated for the treatment of adult patients with symptomatic tenosynovial giant cell tumor (TGCT) for which surgical resection may cause worsening functional limitations or severe morbidity. PIMJETMI is a kinase inhibitor indicated for the treatment of adult patients with symptomatic tenosynovial giant cell tumor (TGCT) for which surgical resection may cause worsening functional limitation or severe morbidity. ( 1 )"
+    "indications": "1 INDICATIONS AND USAGE PIMJETMI is indicated for the treatment of adult patients with symptomatic tenosynovial giant cell tumor (TGCT) for which surgical resection may cause worsening functional limitations or severe morbidity. PIMJETMI is a kinase inhibitor indicated for the treatment of adult patients with symptomatic tenosynovial giant cell tumor (TGCT) for which surgical resection may cause worsening functional limitation or severe morbidity. ( 1 )",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
    }
   },
   {
@@ -1820,12 +1814,12 @@
    ],
    "lastChecked": "2026-11-25",
    "checks": {
-    "applicationMatch": true,
+    "applicationMatch": null,
     "nameMatch": true,
     "nameBasis": "brand",
     "indicationsPresent": true,
-    "prescription": true,
-    "harmonised": true
+    "prescription": null,
+    "harmonised": false
    },
    "label": {
     "setId": "13a65923-d072-4dac-8620-8eabbf8c3641",
@@ -1836,12 +1830,13 @@
     "retrieved": "2026-10-18",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13a65923-d072-4dac-8620-8eabbf8c3641",
     "source": "openFDA drug label (US Prescribing Information)",
-    "usBrand": "RASONQUE",
-    "usGeneric": "DARAXONRASIB",
-    "applicationNumber": "NDA220910",
-    "harmonised": true,
+    "usBrand": null,
+    "usGeneric": null,
+    "applicationNumber": null,
+    "harmonised": false,
     "sha256": "cc99d4dd981555e438781c1011cf2e2012cf367018884b6fcf7f0d31b24fbaf2",
-    "indications": "1 INDICATIONS AND USAGE RASONQUE is indicated for the treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy or who are not candidates for multiagent systemic therapy. RASONQUE is an inhibitor of the RAS GTPase family, indicated for the treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy or who are not candidates for multiagent systemic therapy. ( 1 )"
+    "indications": "1 INDICATIONS AND USAGE RASONQUE is indicated for the treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy or who are not candidates for multiagent systemic therapy. RASONQUE is an inhibitor of the RAS GTPase family, indicated for the treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy or who are not candidates for multiagent systemic therapy. ( 1 )",
+    "note": "label found in the SPL product data; openFDA has not yet linked it to the application number"
    }
   },
   {
