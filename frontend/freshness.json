@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-11-24T19:43:49Z",
+ "checkedAt": "2026-11-25T02:47:00Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
   "euCatalogue": "2026-11-24",
   "euLabels": "2026-11-23",
   "usApprovals": "2026-11-20",
-  "usApprovalsAnnounced": "2026-11-23",
+  "usApprovalsAnnounced": "2026-11-24",
   "usLabels": "2026-11-23",
-  "pipelineRun": "2026-11-24T19:43:49Z"
+  "pipelineRun": "2026-11-25T02:47:00Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -20,8 +20,8 @@
    "sha256": "a8834e4f3107184dabfe4b910094b7a95c2669135ce660b0f23018b4f3c79d95",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-11-24",
-   "sourceAgeDays": 0.82,
-   "fetchedAt": "2026-11-24T19:42:12+00:00",
+   "sourceAgeDays": 1.12,
+   "fetchedAt": "2026-11-25T02:45:29+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-24T17:00:07Z",
@@ -36,7 +36,7 @@
    "count": 48,
    "sha256": "d7cc45b4a1fbd9c9b96ca6871b184f4d0d51e940dc2eb603f4231de2d7caa340",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-24T19:42:13+00:00",
+   "fetchedAt": "2026-11-25T02:45:30+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -61,7 +61,7 @@
     }
    },
    "sourceUpdatedAt": "2026-11-23T17:56:03Z",
-   "sourceAgeDays": 1.07,
+   "sourceAgeDays": 1.37,
    "fetchedAt": "2026-11-23",
    "probe": {
     "value": "2026-11-24T16:45:07Z",
@@ -75,26 +75,26 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3445,
+   "count": 3435,
    "approvals": 105,
    "newestOriginalApproval": "2026-11-18",
-   "sha256": "6b7129e2b42c97ce945565c1f72c4382783aaf6a43c34ab277efc7160d93ea9e",
-   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251124+TO+20261201]",
+   "sha256": "7603fcadeb802959b8233a6de10f35bdd41ab3f9f2448710ac891505ec4541b3",
+   "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251125+TO+20261202]",
    "sourceUpdatedAt": "2026-11-20",
-   "sourceAgeDays": 4.82,
-   "fetchedAt": "2026-11-24T19:42:17+00:00",
+   "sourceAgeDays": 5.12,
+   "fetchedAt": "2026-11-25T02:45:36+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
     "value": "2026-11-20",
     "kind": "meta.last_updated"
    },
    "lag": {
-    "behindDays": 5,
-    "reference": "2026-11-23",
+    "behindDays": 6,
+    "reference": "2026-11-24",
     "referenceSource": "CDER novel roster / FDA press releases"
    },
    "notes": [
-    "openFDA lagging: FDA announced approvals through 2026-11-23, Drugs@FDA newest original approval 2026-11-18 (5 d) — served by the Recent-Approvals overlay"
+    "openFDA lagging: FDA announced approvals through 2026-11-24, Drugs@FDA newest original approval 2026-11-18 (6 d) — served by the Recent-Approvals overlay"
    ]
   },
   "openfda_drug_label": {
@@ -105,7 +105,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-23",
    "fetchedAt": "2026-11-23",
-   "sourceAgeDays": 1.82,
+   "sourceAgeDays": 2.12,
    "probe": {
     "value": "2026-11-20",
     "kind": "meta.last_updated"
@@ -119,8 +119,13 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 35.82,
+   "sourceAgeDays": 36.12,
    "missing": [
+    {
+     "name": "Ekitna",
+     "date": "2026-11-24",
+     "via": "FDA press release"
+    },
     {
      "name": "Welgemda",
      "date": "2026-11-23",
@@ -168,7 +173,7 @@
     }
    ],
    "notes": [
-    "9 FDA approval(s) not in the roster, oldest 16 d ago: Welgemda (2026-11-23, FDA press release), Livsayis (cemdisiran) (2026-11-18, Drugs@FDA TYPE 1), Infilbray (venglustat) (2026-11-18, Drugs@FDA TYPE 1), Lembaz (adrabetadex) (2026-11-17, Drugs@FDA TYPE 1), Nelkarmi (neladalkib) (2026-11-17, Drugs@FDA TYPE 1), Wilserdly (giredestran) (2026-11-16, Drugs@FDA TYPE 1), Klygefa (gefurulimab-gaks) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
+    "10 FDA approval(s) not in the roster, oldest 16 d ago: Ekitna (2026-11-24, FDA press release), Welgemda (2026-11-23, FDA press release), Livsayis (cemdisiran) (2026-11-18, Drugs@FDA TYPE 1), Infilbray (venglustat) (2026-11-18, Drugs@FDA TYPE 1), Lembaz (adrabetadex) (2026-11-17, Drugs@FDA TYPE 1), Nelkarmi (neladalkib) (2026-11-17, Drugs@FDA TYPE 1), Wilserdly (giredestran) (2026-11-16, Drugs@FDA TYPE 1), Klygefa (gefurulimab-gaks) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
     "export the current year from fda.gov → scripts/data/novel-<year>.xlsx, run build-novel-approvals.py"
    ]
   },
@@ -177,10 +182,10 @@
    "cadence": "daily",
    "status": "OK",
    "count": 25,
-   "fetchedAt": "2026-11-24",
-   "fetchedAgeDays": 0.82,
-   "sourceUpdatedAt": "2026-11-23",
-   "sourceAgeDays": 1.82,
+   "fetchedAt": "2026-11-25",
+   "fetchedAgeDays": 0.12,
+   "sourceUpdatedAt": "2026-11-24",
+   "sourceAgeDays": 1.12,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -190,7 +195,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 25.82,
+   "sourceAgeDays": 26.12,
    "notes": []
   },
   "fda_cdx_list": {
@@ -200,7 +205,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 57.82,
+   "sourceAgeDays": 58.12,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -217,7 +222,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 309.82,
+   "sourceAgeDays": 310.12,
    "notes": []
   },
   "biomarkers_table": {
@@ -226,7 +231,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 134.82,
+   "sourceAgeDays": 135.12,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -242,5 +247,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-24T14:16:07Z"
+ "previousCheckedAt": "2026-11-24T19:43:49Z"
 }

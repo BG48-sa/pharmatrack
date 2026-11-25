@@ -1,6 +1,16 @@
 {
-  "generated": "2026-11-24",
+  "generated": "2026-11-25",
   "items": [
+    {
+      "title": "FDA Approves Ekitna (bezuclastinib) for Previously Treated Gastrointestinal Stromal Tumors",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-ekitna-bezuclastinib-previously-treated-gastrointestinal-stromal-tumors-6948.html",
+      "date": "2026-11-24",
+      "source": "Drugs.com",
+      "names": [
+        "bezuclastinib",
+        "ekitna"
+      ]
+    },
     {
       "title": "FDA Approves Welgemda (ribitol) for Individuals Living with Limb-Girdle Muscular Dystrophy Type 2I/R9",
       "url": "https://www.drugs.com/newdrugs/fda-approves-welgemda-ribitol-individuals-living-limb-girdle-muscular-dystrophy-type-2i-r9-6947.html",
@@ -229,13 +239,6 @@
         "risankizumab-rzaa",
         "skyrizi"
       ]
-    },
-    {
-      "title": "BioCryst Announces U.S. FDA Approval of Orladeyo 150 mg Oral Pellets for Adults and Adolescents with HAE",
-      "url": "https://www.drugs.com/newdrugs/biocryst-announces-u-s-fda-approval-orladeyo-150-mg-oral-pellets-adults-adolescents-hae-6921.html",
-      "date": "2026-10-21",
-      "source": "Drugs.com",
-      "names": []
     }
   ]
 }
