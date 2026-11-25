@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-25",
- "checkedAt": "2026-11-25T13:29:16Z",
+ "checkedAt": "2026-11-25T18:51:30Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -16,12 +16,27 @@
   "byStatus": {
    "AWAITING_USPI": 16,
    "AWAITING_EC_DECISION": 13,
-   "AWAITING_SMPC": 10,
-   "LABEL_AVAILABLE": 1,
+   "AWAITING_SMPC": 8,
+   "LABEL_AVAILABLE": 3,
    "LABEL_VERIFIED": 80
   },
-  "alerts": 16,
-  "transitions": [],
+  "alerts": 15,
+  "transitions": [
+   {
+    "id": "EMA:EMEA/H/C/007122",
+    "drug": "Rasonque",
+    "from": "AWAITING_SMPC",
+    "to": "LABEL_AVAILABLE",
+    "note": "product information listed by EMA (updated 2026-11-25) — awaiting the weekly label refresh"
+   },
+   {
+    "id": "EMA:EMEA/H/C/006694",
+    "drug": "Lyrokaul",
+    "from": "AWAITING_SMPC",
+    "to": "LABEL_AVAILABLE",
+    "note": "product information listed by EMA (updated 2026-11-25) — awaiting the weekly label refresh"
+   }
+  ],
   "closed": [],
   "retracted": []
  },
@@ -113,13 +128,6 @@
   {
    "id": "EMA:EMEA/H/C/006838",
    "drug": "Riociguat Accord",
-   "jurisdiction": "EMA",
-   "status": "AWAITING_SMPC",
-   "message": "no SmPC extract 68 days after the EU authorisation"
-  },
-  {
-   "id": "EMA:EMEA/H/C/006694",
-   "drug": "Lyrokaul",
    "jurisdiction": "EMA",
    "status": "AWAITING_SMPC",
    "message": "no SmPC extract 68 days after the EU authorisation"
@@ -3160,9 +3168,9 @@
    "opinionDate": "2026-10-15",
    "summary": "Treatment of adult patients with metastatic pancreatic adenocarcinoma who have received at least one prior systemic therapy.",
    "holder": "Revolution Medicines Netherlands B.V.",
-   "status": "AWAITING_SMPC",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-17",
+   "statusSince": "2026-11-25",
    "history": [
     {
      "date": "2026-10-18",
@@ -3173,12 +3181,24 @@
      "date": "2026-11-17",
      "status": "AWAITING_SMPC",
      "note": "authorised 2026-11-16 (EU Union Register)"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information listed by EMA (updated 2026-11-25) — awaiting the weekly label refresh"
     }
    ],
    "lastChecked": "2026-11-25",
    "decisionDate": "2026-11-16",
-   "decisionSource": "EU Union Register",
-   "note": "weekly label refresh could not download the product information last run"
+   "decisionSource": "EMA medicines table",
+   "note": "weekly label refresh could not download the product information last run",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/rasonque-epar-product-information_en.pdf",
+    "detected": "2026-11-25",
+    "emaUpdated": "2026-11-25",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/007122"
+   }
   },
   {
    "id": "EMA:EMEA/H/C/006757",
@@ -4263,21 +4283,32 @@
    "opinionDate": "2026-07-23",
    "decisionDate": "2026-09-18",
    "holder": "LIB Therapeutics B.V.",
-   "decisionSource": "EU Union Register",
-   "status": "AWAITING_SMPC",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_AVAILABLE",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-10-18",
+   "statusSince": "2026-11-25",
    "history": [
     {
      "date": "2026-10-18",
      "status": "AWAITING_SMPC",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-25",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information listed by EMA (updated 2026-11-25) — awaiting the weekly label refresh"
     }
    ],
    "lastChecked": "2026-11-25",
    "summary": "It is indicated in adults with primary hypercholesterolaemia (heterozygous familial (HeFH) and non-familial) or mixed dyslipidaemia as an adjunct to diet.",
    "note": "weekly label refresh could not download the product information last run",
-   "alert": "no SmPC extract 68 days after the EU authorisation"
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/lyrokaul-epar-product-information_en.pdf",
+    "detected": "2026-11-25",
+    "emaUpdated": "2026-11-25",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006694"
+   }
   },
   {
    "id": "EMA:EMEA/H/C/006730",
