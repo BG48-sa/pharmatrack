@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-26",
- "checkedAt": "2026-11-26T01:57:43Z",
+ "checkedAt": "2026-11-26T09:26:45Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,48 +12,32 @@
  },
  "summary": {
   "total": 115,
-  "unresolved": 40,
+  "unresolved": 38,
   "byStatus": {
    "AWAITING_USPI": 16,
    "AWAITING_EC_DECISION": 13,
    "AWAITING_SMPC": 8,
-   "LABEL_AVAILABLE": 3,
-   "LABEL_VERIFIED": 75
+   "LABEL_AVAILABLE": 1,
+   "LABEL_VERIFIED": 77
   },
   "alerts": 15,
-  "transitions": [],
-  "closed": [
+  "transitions": [
    {
-    "id": "FDA:zaynich",
-    "drug": "Zaynich",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
+    "id": "EMA:EMEA/H/C/006602",
+    "drug": "VaxRabeo",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-26"
    },
    {
-    "id": "FDA:xocova",
-    "drug": "Xocova",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   },
-   {
-    "id": "EMA:EMEA/H/C/006673",
-    "drug": "Zepzelca",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   },
-   {
-    "id": "EMA:EMEA/H/C/006451",
-    "drug": "Imdylltra",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
-   },
-   {
-    "id": "EMA:EMEA/H/C/006617",
-    "drug": "Bopediat",
-    "status": "LABEL_VERIFIED",
-    "why": "verified; approval older than 180 days — covered by the regular label corpus"
+    "id": "EMA:EMEA/H/C/006694",
+    "drug": "Lyrokaul",
+    "from": "LABEL_AVAILABLE",
+    "to": "LABEL_VERIFIED",
+    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-26"
    }
   ],
+  "closed": [],
   "retracted": []
  },
  "alerts": [
@@ -3221,9 +3205,9 @@
    "opinionDate": "2026-09-17",
    "summary": "Pre-exposure and post-exposure prophylaxis against rabies in all age groups",
    "holder": "Sanofi Winthrop Industrie",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-24",
+   "statusSince": "2026-11-26",
    "history": [
     {
      "date": "2026-10-18",
@@ -3239,6 +3223,11 @@
      "date": "2026-11-24",
      "status": "LABEL_AVAILABLE",
      "note": "product information listed by EMA (updated 2026-11-24) — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-11-26",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-26"
     }
    ],
    "lastChecked": "2026-11-26",
@@ -3247,8 +3236,9 @@
    "note": "weekly label refresh could not download the product information last run",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/vaxrabeo-epar-product-information_en.pdf",
+    "retrieved": "2026-11-26",
     "detected": "2026-11-24",
-    "emaUpdated": "2026-11-24",
+    "sha256": "41cbb1c625dcfee880a516436ac814e240ebf63d1407a9fbb2161ca36828b968",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006602"
    }
@@ -4192,9 +4182,9 @@
    "decisionDate": "2026-09-18",
    "holder": "LIB Therapeutics B.V.",
    "decisionSource": "EMA medicines table",
-   "status": "LABEL_AVAILABLE",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-10-18",
-   "statusSince": "2026-11-25",
+   "statusSince": "2026-11-26",
    "history": [
     {
      "date": "2026-10-18",
@@ -4205,6 +4195,11 @@
      "date": "2026-11-25",
      "status": "LABEL_AVAILABLE",
      "note": "product information listed by EMA (updated 2026-11-25) — awaiting the weekly label refresh"
+    },
+    {
+     "date": "2026-11-26",
+     "status": "LABEL_VERIFIED",
+     "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-26"
     }
    ],
    "lastChecked": "2026-11-26",
@@ -4212,8 +4207,9 @@
    "note": "weekly label refresh could not download the product information last run",
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/lyrokaul-epar-product-information_en.pdf",
+    "retrieved": "2026-11-26",
     "detected": "2026-11-25",
-    "emaUpdated": "2026-11-25",
+    "sha256": "599c098cc0f7703b9340a6fc781fe05b25ca5befb4d850981d767afee9269482",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006694"
    }
@@ -5029,5 +5025,16 @@
     "emaNumber": "EMEA/H/C/006386"
    }
   }
+ ],
+ "warnings": [
+  "EMA HEAD failed for rasonque: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for gevalka: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for adcomfo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for frehemgo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for klygefa: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for evlarco: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for ubeslo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for riociguat-accord: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for onswik: HTTP Error 429: Too Many Requests"
  ]
 }

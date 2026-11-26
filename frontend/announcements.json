@@ -1,6 +1,15 @@
 {
-  "generated": "2026-11-25",
+  "generated": "2026-11-26",
   "items": [
+    {
+      "title": "FDA Approves Bacfenssi (doxycycline hyclate) Extended-Release Paste to Reduce the Occurrence of Surgical Site Infections in Patients Undergoing Colorectal Surgery",
+      "url": "https://www.drugs.com/newdrugs/fda-approves-bacfenssi-doxycycline-hyclate-extended-release-paste-reduce-occurrence-surgical-site-6949.html",
+      "date": "2026-11-24",
+      "source": "Drugs.com",
+      "names": [
+        "bacfenssi"
+      ]
+    },
     {
       "title": "FDA Approves Ekitna (bezuclastinib) for Previously Treated Gastrointestinal Stromal Tumors",
       "url": "https://www.drugs.com/newdrugs/fda-approves-ekitna-bezuclastinib-previously-treated-gastrointestinal-stromal-tumors-6948.html",
@@ -228,17 +237,6 @@
       "date": "2026-10-23",
       "source": "Drugs.com",
       "names": []
-    },
-    {
-      "title": "FDA Approves Subcutaneous Induction Regimen for AbbVie's Skyrizi (risankizumab-rzaa) for Adults With Moderately to Severely Active Crohn's Disease",
-      "url": "https://www.drugs.com/newdrugs/fda-approves-subcutaneous-induction-regimen-abbvie-s-skyrizi-risankizumab-rzaa-adults-moderately-6922.html",
-      "date": "2026-10-23",
-      "source": "Drugs.com",
-      "names": [
-        "risankizumab",
-        "risankizumab-rzaa",
-        "skyrizi"
-      ]
     }
   ]
 }
