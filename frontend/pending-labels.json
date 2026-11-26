@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-26",
- "checkedAt": "2026-11-26T09:26:45Z",
+ "checkedAt": "2026-11-26T18:39:56Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,30 +11,30 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 115,
-  "unresolved": 38,
+  "total": 116,
+  "unresolved": 39,
   "byStatus": {
    "AWAITING_USPI": 16,
    "AWAITING_EC_DECISION": 13,
    "AWAITING_SMPC": 8,
-   "LABEL_AVAILABLE": 1,
+   "LABEL_AVAILABLE": 2,
    "LABEL_VERIFIED": 77
   },
   "alerts": 15,
   "transitions": [
    {
-    "id": "EMA:EMEA/H/C/006602",
-    "drug": "VaxRabeo",
-    "from": "LABEL_AVAILABLE",
-    "to": "LABEL_VERIFIED",
-    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-26"
+    "id": "EMA:EMEA/H/C/006844",
+    "drug": "Pebrilzo",
+    "from": null,
+    "to": "AWAITING_SMPC",
+    "note": "new"
    },
    {
-    "id": "EMA:EMEA/H/C/006694",
-    "drug": "Lyrokaul",
-    "from": "LABEL_AVAILABLE",
-    "to": "LABEL_VERIFIED",
-    "note": "SmPC extract verified (4.1 + 4.2), retrieved 2026-11-26"
+    "id": "EMA:EMEA/H/C/006844",
+    "drug": "Pebrilzo",
+    "from": "AWAITING_SMPC",
+    "to": "LABEL_AVAILABLE",
+    "note": "product information listed by EMA (updated 2026-11-26) — awaiting the weekly label refresh"
    }
   ],
   "closed": [],
@@ -3124,6 +3124,43 @@
    "note": "weekly label refresh could not download the product information last run"
   },
   {
+   "id": "EMA:EMEA/H/C/006844",
+   "jurisdiction": "EMA",
+   "drug": "Pebrilzo",
+   "inn": "pertuzumab",
+   "emaNumber": "EMEA/H/C/006844",
+   "slug": "pebrilzo",
+   "emaUrl": "https://www.ema.europa.eu/en/medicines/human/EPAR/pebrilzo",
+   "opinionDate": null,
+   "decisionDate": "2026-11-13",
+   "holder": "Biocon Biologics Ireland Limited",
+   "decisionSource": "EMA medicines table",
+   "status": "LABEL_AVAILABLE",
+   "firstSeen": "2026-11-26",
+   "statusSince": "2026-11-26",
+   "history": [
+    {
+     "date": "2026-11-26",
+     "status": "AWAITING_SMPC",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-26",
+     "status": "LABEL_AVAILABLE",
+     "note": "product information listed by EMA (updated 2026-11-26) — awaiting the weekly label refresh"
+    }
+   ],
+   "lastChecked": "2026-11-26",
+   "summary": "Early breast cancerPebrilzo is indicated for use in combination with trastuzumab and chemotherapy in: the neoadjuvant treatment of adult patients with HER2-positive, locally advanced, inflammatory, or early stage breast cancer at high risk of recurrence the adjuvant treatment of adult patients with HER2-positive early breast cancer at high risk of recurrence Metastatic breast cancerPebrilzo is indicated for use in combination with trastuzumab and docetaxel in adult patients with HER2-positive metastatic or locally recurrent unresectable breast cancer, who have not received previous anti-HER2 therapy or chemotherapy for their metastatic disease.",
+   "label": {
+    "url": "https://www.ema.europa.eu/en/documents/product-information/pebrilzo-epar-product-information_en.pdf",
+    "detected": "2026-11-26",
+    "emaUpdated": "2026-11-26",
+    "source": "EMA product information (Annex I, SmPC)",
+    "emaNumber": "EMEA/H/C/006844"
+   }
+  },
+  {
    "id": "EMA:EMEA/H/C/006743",
    "jurisdiction": "EMA",
    "drug": "Zybrivo",
@@ -5025,16 +5062,5 @@
     "emaNumber": "EMEA/H/C/006386"
    }
   }
- ],
- "warnings": [
-  "EMA HEAD failed for rasonque: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for gevalka: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for adcomfo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for frehemgo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for klygefa: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for evlarco: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for ubeslo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for riociguat-accord: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for onswik: HTTP Error 429: Too Many Requests"
  ]
 }
