@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-27",
- "checkedAt": "2026-11-27T01:56:30Z",
+ "checkedAt": "2026-11-27T18:29:05Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -3140,7 +3140,7 @@
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/pebrilzo-epar-product-information_en.pdf",
     "detected": "2026-11-26",
-    "emaUpdated": "2026-11-26",
+    "lastModified": "Thu, 26 Nov 2026 12:30:59 GMT",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006844"
    }
@@ -5047,5 +5047,15 @@
     "emaNumber": "EMEA/H/C/006386"
    }
   }
+ ],
+ "warnings": [
+  "EMA HEAD failed for rasonque: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for gevalka: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for adcomfo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for klygefa: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for evlarco: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for ubeslo: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for riociguat-accord: HTTP Error 429: Too Many Requests",
+  "EMA HEAD failed for onswik: HTTP Error 429: Too Many Requests"
  ]
 }
