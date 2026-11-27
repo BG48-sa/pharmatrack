@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-27",
- "checkedAt": "2026-11-27T18:29:05Z",
+ "checkedAt": "2026-11-27T22:20:58Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -11,21 +11,50 @@
   "ecDecisionDays": 120
  },
  "summary": {
-  "total": 116,
-  "unresolved": 39,
+  "total": 119,
+  "unresolved": 42,
   "byStatus": {
-   "AWAITING_USPI": 16,
+   "AWAITING_USPI": 19,
    "AWAITING_EC_DECISION": 13,
    "AWAITING_SMPC": 8,
    "LABEL_AVAILABLE": 2,
    "LABEL_VERIFIED": 77
   },
   "alerts": 15,
-  "transitions": [],
+  "transitions": [
+   {
+    "id": "FDA:ekitna",
+    "drug": "Ekitna",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
+   },
+   {
+    "id": "FDA:bacfenssi",
+    "drug": "Bacfenssi",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
+   },
+   {
+    "id": "FDA:welgemda",
+    "drug": "Welgemda",
+    "from": null,
+    "to": "AWAITING_USPI",
+    "note": "new"
+   }
+  ],
   "closed": [],
   "retracted": []
  },
  "alerts": [
+  {
+   "id": "FDA:wilserdly",
+   "drug": "Wilserdly",
+   "jurisdiction": "FDA",
+   "status": "LABEL_VERIFIED",
+   "message": "openFDA no longer returns the verified label — check DailyMed"
+  },
   {
    "id": "FDA:livsayis",
    "drug": "Livsayis",
@@ -50,13 +79,6 @@
   {
    "id": "FDA:lembaz",
    "drug": "Lembaz",
-   "jurisdiction": "FDA",
-   "status": "LABEL_VERIFIED",
-   "message": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:wilserdly",
-   "drug": "Wilserdly",
    "jurisdiction": "FDA",
    "status": "LABEL_VERIFIED",
    "message": "openFDA no longer returns the verified label — check DailyMed"
@@ -133,6 +155,137 @@
   }
  ],
  "entries": [
+  {
+   "id": "FDA:ekitna",
+   "jurisdiction": "FDA",
+   "drug": "Ekitna",
+   "inn": "bezuclastinib",
+   "applicationNumber": "NDA221283",
+   "approvalDate": "2026-11-24",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Cogent Biosciences Inc",
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-27",
+   "statusSince": "2026-11-27",
+   "history": [
+    {
+     "date": "2026-11-27",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-27"
+  },
+  {
+   "id": "FDA:bacfenssi",
+   "jurisdiction": "FDA",
+   "drug": "Bacfenssi",
+   "inn": "doxycycline hyclate",
+   "applicationNumber": "NDA220740",
+   "approvalDate": "2026-11-24",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Polypid Ltd",
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-27",
+   "statusSince": "2026-11-27",
+   "history": [
+    {
+     "date": "2026-11-27",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-27"
+  },
+  {
+   "id": "FDA:wilserdly",
+   "jurisdiction": "FDA",
+   "drug": "Wilserdly",
+   "inn": "giredestrant",
+   "applicationNumber": "NDA220791",
+   "approvalDate": "2026-11-23",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Genentech Inc",
+   "biosimilar": null,
+   "status": "LABEL_VERIFIED",
+   "firstSeen": "2026-11-19",
+   "statusSince": "2026-11-24",
+   "history": [
+    {
+     "date": "2026-11-19",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-24",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 2ff7bdd3-dd8b-43e5-b249-15b5483e4658, label version 1 of 2026-11-19"
+    }
+   ],
+   "lastChecked": "2026-11-27",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "2ff7bdd3-dd8b-43e5-b249-15b5483e4658",
+    "splId": "41e3f213-3cf0-4111-9610-97d19049277e",
+    "effective": "2026-11-19",
+    "version": "1",
+    "detected": "2026-11-24",
+    "retrieved": "2026-11-24",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2ff7bdd3-dd8b-43e5-b249-15b5483e4658",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "Wilserdly",
+    "usGeneric": "Giredestrant",
+    "applicationNumber": "NDA220791",
+    "harmonised": false,
+    "sha256": "0f78f5c459a1ce80e153aa522545e5568f663d94800ac59175f2d2b0298c4abc",
+    "indications": "1 INDICATIONS AND USAGE WILSERDLY, in combination with everolimus, is indicated for the treatment of adults with estrogen receptor-positive (ER+), human epidermal growth factor receptor 2-negative (HER2-), ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. WILSERDLY is an estrogen receptor antagonist indicated in combination with everolimus for the treatment of adults with ER-positive, HER2-negative, ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. ( 1 , 14 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   },
+   "alert": "openFDA no longer returns the verified label — check DailyMed"
+  },
+  {
+   "id": "FDA:welgemda",
+   "jurisdiction": "FDA",
+   "drug": "Welgemda",
+   "inn": "ribitol",
+   "applicationNumber": "NDA220905",
+   "approvalDate": "2026-11-23",
+   "sources": [
+    "drugsfda"
+   ],
+   "summary": null,
+   "sponsor": "Ml Bio Solutions Inc",
+   "biosimilar": null,
+   "status": "AWAITING_USPI",
+   "firstSeen": "2026-11-27",
+   "statusSince": "2026-11-27",
+   "history": [
+    {
+     "date": "2026-11-27",
+     "status": "AWAITING_USPI",
+     "note": "entered the queue"
+    }
+   ],
+   "lastChecked": "2026-11-27"
+  },
   {
    "id": "FDA:livsayis",
    "jurisdiction": "FDA",
@@ -353,62 +506,6 @@
     "harmonised": false,
     "sha256": "fc43dbe26573055ac072999de615792ab533bdb5f33a3343ba866887ad2b1e39",
     "indications": "1 INDICATIONS AND USAGE LEMBAZ™ is indicated to reduce the risk of mortality in adult and pediatric patients, who weigh 7 kg or greater, with Niemann-Pick disease type C (NPC) with neurological manifestations that started at less than 6 years of age. LEMBAZ is indicated to reduce the risk of mortality in adult and pediatric patients, who weigh 7 kg or greater, with Niemann-Pick disease type C (NPC) with neurological manifestations that started at less than 6 years of age. ( 1 )",
-    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
-   },
-   "alert": "openFDA no longer returns the verified label — check DailyMed"
-  },
-  {
-   "id": "FDA:wilserdly",
-   "jurisdiction": "FDA",
-   "drug": "Wilserdly",
-   "inn": "giredestran",
-   "applicationNumber": "NDA220791",
-   "approvalDate": "2026-11-16",
-   "sources": [
-    "drugsfda"
-   ],
-   "summary": null,
-   "sponsor": "Genentech Inc",
-   "biosimilar": null,
-   "status": "LABEL_VERIFIED",
-   "firstSeen": "2026-11-19",
-   "statusSince": "2026-11-24",
-   "history": [
-    {
-     "date": "2026-11-19",
-     "status": "AWAITING_USPI",
-     "note": "entered the queue"
-    },
-    {
-     "date": "2026-11-24",
-     "status": "LABEL_VERIFIED",
-     "note": "USPI verified: set ID 2ff7bdd3-dd8b-43e5-b249-15b5483e4658, label version 1 of 2026-11-19"
-    }
-   ],
-   "lastChecked": "2026-11-27",
-   "checks": {
-    "applicationMatch": true,
-    "nameMatch": true,
-    "nameBasis": "brand",
-    "indicationsPresent": true,
-    "prescription": false,
-    "harmonised": true
-   },
-   "label": {
-    "setId": "2ff7bdd3-dd8b-43e5-b249-15b5483e4658",
-    "splId": "41e3f213-3cf0-4111-9610-97d19049277e",
-    "effective": "2026-11-19",
-    "version": "1",
-    "detected": "2026-11-24",
-    "retrieved": "2026-11-24",
-    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2ff7bdd3-dd8b-43e5-b249-15b5483e4658",
-    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
-    "usBrand": "Wilserdly",
-    "usGeneric": "Giredestrant",
-    "applicationNumber": "NDA220791",
-    "harmonised": false,
-    "sha256": "0f78f5c459a1ce80e153aa522545e5568f663d94800ac59175f2d2b0298c4abc",
-    "indications": "1 INDICATIONS AND USAGE WILSERDLY, in combination with everolimus, is indicated for the treatment of adults with estrogen receptor-positive (ER+), human epidermal growth factor receptor 2-negative (HER2-), ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. WILSERDLY is an estrogen receptor antagonist indicated in combination with everolimus for the treatment of adults with ER-positive, HER2-negative, ESR1 -mutated locally advanced or metastatic breast cancer, as detected by an FDA-authorized test, whose disease has recurred during or after completion of endocrine-based adjuvant therapy, or has progressed on at least one endocrine-based regimen in the metastatic setting. ( 1 , 14 )",
     "note": "label read from DailyMed; openFDA does not serve this SPL yet"
    },
    "alert": "openFDA no longer returns the verified label — check DailyMed"
@@ -1924,9 +2021,9 @@
    },
    "label": {
     "setId": "ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8",
-    "splId": "84175036-1036-40bf-8134-df5deffa21ec",
-    "effective": "2026-08-28",
-    "version": "4",
+    "splId": "1e853fb8-6add-435d-92ac-6b84c0eca7ac",
+    "effective": "2026-11-24",
+    "version": "5",
     "detected": "2026-10-26",
     "retrieved": "2026-10-26",
     "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ef9144f5-10c3-47d9-a7c6-ab5ff11e9bf8",
@@ -3140,7 +3237,7 @@
    "label": {
     "url": "https://www.ema.europa.eu/en/documents/product-information/pebrilzo-epar-product-information_en.pdf",
     "detected": "2026-11-26",
-    "lastModified": "Thu, 26 Nov 2026 12:30:59 GMT",
+    "emaUpdated": "2026-11-26",
     "source": "EMA product information (Annex I, SmPC)",
     "emaNumber": "EMEA/H/C/006844"
    }
@@ -5047,15 +5144,5 @@
     "emaNumber": "EMEA/H/C/006386"
    }
   }
- ],
- "warnings": [
-  "EMA HEAD failed for rasonque: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for gevalka: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for adcomfo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for klygefa: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for evlarco: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for ubeslo: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for riociguat-accord: HTTP Error 429: Too Many Requests",
-  "EMA HEAD failed for onswik: HTTP Error 429: Too Many Requests"
  ]
 }

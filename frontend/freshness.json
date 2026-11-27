@@ -1,14 +1,14 @@
 {
- "checkedAt": "2026-11-27T13:05:52Z",
+ "checkedAt": "2026-11-27T22:20:58Z",
  "status": "STALE",
  "probed": true,
  "currentThrough": {
   "euCatalogue": "2026-11-27",
   "euLabels": "2026-11-26",
-  "usApprovals": "2026-11-25",
+  "usApprovals": "2026-11-27",
   "usApprovalsAnnounced": "2026-11-24",
   "usLabels": "2026-11-26",
-  "pipelineRun": "2026-11-27T13:05:52Z"
+  "pipelineRun": "2026-11-27T22:20:58Z"
  },
  "sources": {
   "ema_medicines_report": {
@@ -17,14 +17,14 @@
    "status": "OK",
    "count": 1576,
    "pending": 13,
-   "sha256": "e7fc0c1a1807de12b4818cea3107f20ae8b10277082c49295d39960f4cd75216",
+   "sha256": "22aedade6e23c7cbccd1e38daa669fa439a16ba1a43db8c9fbd7a12f9aeac459",
    "url": "https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx",
    "sourceUpdatedAt": "2026-11-27",
-   "sourceAgeDays": 0.55,
-   "fetchedAt": "2026-11-27T13:04:15+00:00",
+   "sourceAgeDays": 0.93,
+   "fetchedAt": "2026-11-27T22:19:10+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-27T05:00:07Z",
+    "value": "2026-11-27T17:00:45Z",
     "kind": "Last-Modified"
    },
    "notes": []
@@ -34,9 +34,9 @@
    "cadence": "daily download, no own watermark",
    "status": "OK",
    "count": 45,
-   "sha256": "2adc4187997206bcfacfa2de0aee5b548adf95949e2bc3e943a81660cfcb025c",
+   "sha256": "516356fe479f8a57cf44901fbb65ca213d04b90e893882ff4b13d8bd7fa68918",
    "sourceUpdatedAt": null,
-   "fetchedAt": "2026-11-27T13:04:16+00:00",
+   "fetchedAt": "2026-11-27T22:19:11+00:00",
    "fetchedAgeDays": 0.0,
    "notes": []
   },
@@ -61,10 +61,10 @@
     }
    },
    "sourceUpdatedAt": "2026-11-26",
-   "sourceAgeDays": 1.55,
+   "sourceAgeDays": 1.93,
    "fetchedAt": "2026-11-26",
    "probe": {
-    "value": "2026-11-27T04:45:07Z",
+    "value": "2026-11-27T16:45:08Z",
     "kind": "Last-Modified"
    },
    "notes": [
@@ -75,27 +75,21 @@
    "name": "openFDA Drugs@FDA (US approvals)",
    "cadence": "openFDA: weekly dataset refresh",
    "status": "OK",
-   "count": 3465,
-   "approvals": 104,
-   "newestOriginalApproval": "2026-11-18",
-   "sha256": "34db479b61bb8202a27b6170643d08534f944d9a277bf5dc7117cc105ae00125",
+   "count": 3486,
+   "approvals": 108,
+   "newestOriginalApproval": "2026-11-24",
+   "sha256": "8eb2cfa9d57cdefdb21a35340f5bd65cd5b9ad40a323e208d47af7d1b20e5b8c",
    "url": "https://api.fda.gov/drug/drugsfda.json?search=submissions.submission_status_date:[20251127+TO+20261204]",
-   "sourceUpdatedAt": "2026-11-25",
-   "sourceAgeDays": 2.55,
-   "fetchedAt": "2026-11-27T13:04:22+00:00",
+   "sourceUpdatedAt": "2026-11-27",
+   "sourceAgeDays": 0.93,
+   "fetchedAt": "2026-11-27T22:19:17+00:00",
    "fetchedAgeDays": 0.0,
    "probe": {
-    "value": "2026-11-25",
+    "value": "2026-11-27",
     "kind": "meta.last_updated"
    },
-   "lag": {
-    "behindDays": 6,
-    "reference": "2026-11-24",
-    "referenceSource": "CDER novel roster / FDA press releases"
-   },
-   "notes": [
-    "openFDA lagging: FDA announced approvals through 2026-11-24, Drugs@FDA newest original approval 2026-11-18 (6 d) — served by the Recent-Approvals overlay"
-   ]
+   "lag": null,
+   "notes": []
   },
   "openfda_drug_label": {
    "name": "openFDA drug label (US labels)",
@@ -105,7 +99,7 @@
    "url": "https://api.fda.gov/drug/label.json",
    "sourceUpdatedAt": "2026-11-26",
    "fetchedAt": "2026-11-26",
-   "sourceAgeDays": 1.55,
+   "sourceAgeDays": 1.93,
    "probe": {
     "value": "2026-11-27",
     "kind": "meta.last_updated"
@@ -119,22 +113,22 @@
    "count": 93,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-20",
-   "sourceAgeDays": 38.55,
+   "sourceAgeDays": 38.93,
    "missing": [
     {
-     "name": "Bacfenssi",
+     "name": "Ekitna (bezuclastinib)",
      "date": "2026-11-24",
-     "via": "FDA press release"
+     "via": "Drugs@FDA TYPE 1"
     },
     {
-     "name": "Ekitna",
-     "date": "2026-11-24",
-     "via": "FDA press release"
-    },
-    {
-     "name": "Welgemda",
+     "name": "Wilserdly (giredestrant)",
      "date": "2026-11-23",
-     "via": "FDA press release"
+     "via": "Drugs@FDA TYPE 1"
+    },
+    {
+     "name": "Welgemda (ribitol)",
+     "date": "2026-11-23",
+     "via": "Drugs@FDA TYPE 1"
     },
     {
      "name": "Livsayis (cemdisiran)",
@@ -157,11 +151,6 @@
      "via": "Drugs@FDA TYPE 1"
     },
     {
-     "name": "Wilserdly (giredestran)",
-     "date": "2026-11-16",
-     "via": "Drugs@FDA TYPE 1"
-    },
-    {
      "name": "Klygefa (gefurulimab-gaks)",
      "date": "2026-11-13",
      "via": "Drugs@FDA TYPE 1"
@@ -178,7 +167,7 @@
     }
    ],
    "notes": [
-    "11 FDA approval(s) not in the roster, oldest 19 d ago: Bacfenssi (2026-11-24, FDA press release), Ekitna (2026-11-24, FDA press release), Welgemda (2026-11-23, FDA press release), Livsayis (cemdisiran) (2026-11-18, Drugs@FDA TYPE 1), Infilbray (venglustat) (2026-11-18, Drugs@FDA TYPE 1), Lembaz (adrabetadex) (2026-11-17, Drugs@FDA TYPE 1), Nelkarmi (neladalkib) (2026-11-17, Drugs@FDA TYPE 1), Wilserdly (giredestran) (2026-11-16, Drugs@FDA TYPE 1), Klygefa (gefurulimab-gaks) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
+    "10 FDA approval(s) not in the roster, oldest 19 d ago: Ekitna (bezuclastinib) (2026-11-24, Drugs@FDA TYPE 1), Wilserdly (giredestrant) (2026-11-23, Drugs@FDA TYPE 1), Welgemda (ribitol) (2026-11-23, Drugs@FDA TYPE 1), Livsayis (cemdisiran) (2026-11-18, Drugs@FDA TYPE 1), Infilbray (venglustat) (2026-11-18, Drugs@FDA TYPE 1), Lembaz (adrabetadex) (2026-11-17, Drugs@FDA TYPE 1), Nelkarmi (neladalkib) (2026-11-17, Drugs@FDA TYPE 1), Klygefa (gefurulimab-gaks) (2026-11-13, Drugs@FDA TYPE 1), Pimjetmi (pimicotinib) (2026-11-10, Drugs@FDA TYPE 1), Sunharbo (asundexian) (2026-11-09, Drugs@FDA TYPE 1)",
     "export the current year from fda.gov → scripts/data/novel-<year>.xlsx, run build-novel-approvals.py"
    ]
   },
@@ -188,9 +177,9 @@
    "status": "OK",
    "count": 25,
    "fetchedAt": "2026-11-27",
-   "fetchedAgeDays": 0.55,
+   "fetchedAgeDays": 0.93,
    "sourceUpdatedAt": "2026-11-24",
-   "sourceAgeDays": 3.55,
+   "sourceAgeDays": 3.93,
    "notes": []
   },
   "fda_cber_cgt": {
@@ -200,7 +189,7 @@
    "count": 55,
    "fetchedAt": null,
    "sourceUpdatedAt": "2026-10-30",
-   "sourceAgeDays": 28.55,
+   "sourceAgeDays": 28.93,
    "notes": []
   },
   "fda_cdx_list": {
@@ -210,7 +199,7 @@
    "count": 232,
    "fetchedAt": "2026-10-21",
    "sourceUpdatedAt": "2026-09-28",
-   "sourceAgeDays": 60.55,
+   "sourceAgeDays": 60.93,
    "probe": {
     "kind": "openFDA device/pma companion-diagnostic decisions after list date",
     "count": 0,
@@ -227,7 +216,7 @@
    "version": "2.1 (revision 1)",
    "url": "EMA/4040/2026",
    "sourceUpdatedAt": "2026-01-19",
-   "sourceAgeDays": 312.55,
+   "sourceAgeDays": 312.93,
    "notes": []
   },
   "biomarkers_table": {
@@ -236,7 +225,7 @@
    "status": "OK",
    "count": 26,
    "sourceUpdatedAt": "2026-07-13",
-   "sourceAgeDays": 137.55,
+   "sourceAgeDays": 137.93,
    "notes": []
   },
   "pdufa_watchlist": {
@@ -252,5 +241,5 @@
    "notes": []
   }
  },
- "previousCheckedAt": "2026-11-27T01:56:30Z"
+ "previousCheckedAt": "2026-11-27T13:05:52Z"
 }
