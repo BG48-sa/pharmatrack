@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-28",
- "checkedAt": "2026-11-28T01:42:02Z",
+ "checkedAt": "2026-11-28T12:20:02Z",
  "version": 1,
  "probe": true,
  "windowDays": 180,
@@ -12,16 +12,24 @@
  },
  "summary": {
   "total": 119,
-  "unresolved": 42,
+  "unresolved": 41,
   "byStatus": {
-   "AWAITING_USPI": 19,
+   "AWAITING_USPI": 18,
    "AWAITING_EC_DECISION": 13,
    "AWAITING_SMPC": 8,
    "LABEL_AVAILABLE": 2,
-   "LABEL_VERIFIED": 77
+   "LABEL_VERIFIED": 78
   },
   "alerts": 15,
-  "transitions": [],
+  "transitions": [
+   {
+    "id": "FDA:welgemda",
+    "drug": "Welgemda",
+    "from": "AWAITING_USPI",
+    "to": "LABEL_VERIFIED",
+    "note": "USPI verified: set ID 50260739-5e9d-4a53-b245-6ca348d49fbf, label version 3 of 2026-11-25"
+   }
+  ],
   "closed": [],
   "retracted": []
  },
@@ -252,17 +260,47 @@
    "summary": null,
    "sponsor": "Ml Bio Solutions Inc",
    "biosimilar": null,
-   "status": "AWAITING_USPI",
+   "status": "LABEL_VERIFIED",
    "firstSeen": "2026-11-27",
-   "statusSince": "2026-11-27",
+   "statusSince": "2026-11-28",
    "history": [
     {
      "date": "2026-11-27",
      "status": "AWAITING_USPI",
      "note": "entered the queue"
+    },
+    {
+     "date": "2026-11-28",
+     "status": "LABEL_VERIFIED",
+     "note": "USPI verified: set ID 50260739-5e9d-4a53-b245-6ca348d49fbf, label version 3 of 2026-11-25"
     }
    ],
-   "lastChecked": "2026-11-28"
+   "lastChecked": "2026-11-28",
+   "checks": {
+    "applicationMatch": true,
+    "nameMatch": true,
+    "nameBasis": "brand",
+    "indicationsPresent": true,
+    "prescription": false,
+    "harmonised": true
+   },
+   "label": {
+    "setId": "50260739-5e9d-4a53-b245-6ca348d49fbf",
+    "splId": "df078a1e-41ef-460e-b677-8c09014cd84e",
+    "effective": "2026-11-25",
+    "version": "3",
+    "detected": "2026-11-28",
+    "retrieved": "2026-11-28",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=50260739-5e9d-4a53-b245-6ca348d49fbf",
+    "source": "DailyMed SPL (US Prescribing Information; not yet served by openFDA)",
+    "usBrand": "WELGEMDA",
+    "usGeneric": "RIBITOL",
+    "applicationNumber": "NDA220905",
+    "harmonised": false,
+    "sha256": "d0fd3e9d4666cd72b9f65556b9d9b8984d260ad07d984f1f792d2fde28378cc9",
+    "indications": "1 INDICATIONS AND USAGE WELGEMDA is indicated for the treatment of limb-girdle muscular dystrophy type 2I/R9 (LGMD2I/R9) in adult and pediatric patients weighing at least 30 kg. WELGEMDA is indicated for the treatment of limb-girdle muscular dystrophy type 2I/R9 (LGMD2I/R9) in adult and pediatric patients weighing at least 30 kg. ( 1 )",
+    "note": "label read from DailyMed; openFDA does not serve this SPL yet"
+   }
   },
   {
    "id": "FDA:livsayis",
